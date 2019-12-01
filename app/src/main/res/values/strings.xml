@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">OpenTracksOSMPlugIn</string>
+    <string name="no_data">No track data received</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+</resources>
