@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_toggle_mypos"
+        android:icon="@drawable/ic_gps_fix_selector"
+        android:title="@string/menu_follow_my_location"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/maps_submenu"
+        android:title="@string/maps">
+        <menu>
+            <group android:id="@+id/maps_group">
+                <item android:id="@+id/osm_mapnik"
+                      android:title="@string/osm_mapnik"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/themes_submenu"
+        android:title="@string/map_themes">
+        <menu>
+            <group android:id="@+id/themes_group">
+                <item android:id="@+id/default_theme"
+                      android:title="@string/default_theme"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/map_info"
+        android:title="@string/map_info_menu"
+        android:icon="@drawable/ic_info_gray_24px"/>
+
+</menu>

@@ -12,15 +12,12 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * Shows a simple list of the track points for debugging only
+ */
 public class ViewTrackActivity extends AppCompatActivity {
 
     private static final String TAG = ViewTrackActivity.class.getSimpleName();
-
-    public static final String _ID = "_id";
-    public static final String TRACKID = "trackid";
-    public static final String LONGITUDE = "longitude";
-    public static final String LATITUDE = "latitude";
-    public static final String TIME = "time";
 
     private TrackCursorAdapter adapter;
 
@@ -32,7 +29,7 @@ public class ViewTrackActivity extends AppCompatActivity {
         // Get the intent that started this activity
         Intent intent = getIntent();
         final Uri data = intent.getData();
-        final long trackid = intent.getExtras().getLong(TRACKID);
+        final long trackid = intent.getExtras().getLong(Constants.TRACKID);
         readData(data, trackid);
 
         getContentResolver().registerContentObserver(data, true, new ContentObserver(new Handler()) {
@@ -49,15 +46,15 @@ public class ViewTrackActivity extends AppCompatActivity {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
-                        _ID,
-                        TRACKID,
-                        LATITUDE,
-                        LONGITUDE,
-                        TIME
+                        Constants._ID,
+                        Constants.TRACKID,
+                        Constants.LATITUDE,
+                        Constants.LONGITUDE,
+                        Constants.TIME
                 };
 
         // Defines a string to contain the selection clause
-        String selectionClause = TRACKID + " = ?";
+        String selectionClause = Constants.TRACKID + " = ?";
 
         // Initializes an array to contain selection arguments
         String[] selectionArgs = {String.valueOf(trackid)};
