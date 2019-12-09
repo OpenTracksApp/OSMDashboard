@@ -38,8 +38,6 @@ import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
-import org.mapsforge.core.model.MapPosition;
-import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
@@ -50,7 +48,6 @@ import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
-import org.mapsforge.map.layer.overlay.Polygon;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.model.IMapViewPosition;
@@ -122,13 +119,13 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         Intent intent = getIntent();
         final Uri data = intent.getData();
         final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readData(data, trackid);
+        readData(data, trackid, false);
 
         getContentResolver().registerContentObserver(data, true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readData(data, trackid);
+                readData(data, trackid, true);
             }
         });
     }
@@ -472,7 +469,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
-    private void readData(Uri data, long trackid) {
+    private void readData(Uri data, long trackid, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
@@ -534,7 +531,12 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         polyline.setPoints(latLongs);
         layers.add(polyline);
 
-        myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
+        if (update) {
+            setMyLocSwitch(false);
+            myPos = latLongs.get(latLongs.size() - 1);
+        } else {
+            myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
+        }
         mapView.setCenter(myPos);
     }
 
