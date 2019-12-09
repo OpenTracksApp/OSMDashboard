@@ -25,9 +25,9 @@ public class MapInfoFragment extends DialogFragment {
         textView.setPadding(50, 50, 50, 50);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(R.string.map_info_text);
-        textView.setLinkTextColor(Color.parseColor("#c71c4d"));
+        textView.setLinkTextColor(getResources().getColor(R.color.colorAccent));
 
-        builder.setIcon(R.mipmap.ic_launcher)
+        builder.setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.map_info_title)
                 .setPositiveButton(R.string.app_info_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

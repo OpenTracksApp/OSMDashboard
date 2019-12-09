@@ -14,8 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_nav_icon"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 </com.google.android.material.appbar.AppBarLayout>
