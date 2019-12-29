@@ -2,7 +2,6 @@ package de.storchp.opentracks.osmplugin;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 public class MapInfoFragment extends DialogFragment {
-
 
     @Override
     @NonNull
@@ -40,6 +38,4 @@ public class MapInfoFragment extends DialogFragment {
         AlertDialog mapInfoDialog = builder.create();
         return mapInfoDialog;
     }
-
-
 }

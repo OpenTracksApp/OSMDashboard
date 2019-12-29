@@ -26,6 +26,19 @@ public class MapsforgeMapView extends MapView {
         return super.onTouchEvent(ev);
     }
 
+    public void setOnMapDragListener(final MapDragListener onDragListener) {
+        this.onDragListener = onDragListener;
+    }
+
+    /**
+     * Notifies the parent class when a MapView has been dragged
+     */
+    public interface MapDragListener {
+
+        void onDrag();
+
+    }
+
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDoubleTap(final MotionEvent e) {
@@ -43,19 +56,6 @@ public class MapsforgeMapView extends MapView {
             }
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
-    }
-
-    public void setOnMapDragListener(final MapDragListener onDragListener) {
-        this.onDragListener = onDragListener;
-    }
-
-    /**
-     * Notifies the parent class when a MapView has been dragged
-     */
-    public interface MapDragListener {
-
-        void onDrag();
-
     }
 
 }

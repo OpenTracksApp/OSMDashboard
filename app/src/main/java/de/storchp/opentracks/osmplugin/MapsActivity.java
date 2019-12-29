@@ -65,7 +65,7 @@ import java.util.List;
 
 import static android.view.Menu.NONE;
 
-public class MapsActivity extends AppCompatActivity implements LocationListener, DirectoryChooserFragment.OnFragmentInteractionListener  {
+public class MapsActivity extends AppCompatActivity implements LocationListener, DirectoryChooserFragment.OnFragmentInteractionListener {
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // meters
@@ -94,6 +94,14 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     private LocationManager locationManager;
     private boolean askedForPermission = false;
     private Polyline polyline;
+
+    static Paint createPaint(int color, int strokeWidth, Style style) {
+        Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint.setColor(color);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStyle(style);
+        return paint;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +256,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
             }
             return new ExternalRenderThemeUsingJarResources(renderThemeFile);
         } catch (FileNotFoundException e) {
-            Log.e( TAG,"Error loading theme " + mapTheme, e);
+            Log.e(TAG, "Error loading theme " + mapTheme, e);
             return InternalRenderTheme.DEFAULT;
         }
     }
@@ -294,16 +302,16 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         myLocSwitch.setChecked(false);
         item.setActionView(myLocSwitch);
         myLocSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-               @Override
-               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                   if (isChecked) {
-                       askedForPermission = false;
-                       registerLocationManager();
-                   } else {
-                       unregisterLocationManager();
-                   }
-               }
-           }
+                                                   @Override
+                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                       if (isChecked) {
+                                                           askedForPermission = false;
+                                                           registerLocationManager();
+                                                       } else {
+                                                           unregisterLocationManager();
+                                                       }
+                                                   }
+                                               }
         );
 
         final String mapFileName = baseApplication.getMapFileName();
@@ -365,9 +373,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                         }
                         if (file.isDirectory()) {
                             File theme = new File(file, file.getName() + ".xml");
-                            if (theme.exists() && theme.canRead()) {
-                                return true;
-                            }
+                            return theme.exists() && theme.canRead();
                         }
                         return false;
                     }
@@ -540,14 +546,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         mapView.setCenter(myPos);
     }
 
-    static Paint createPaint(int color, int strokeWidth, Style style) {
-        Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
-        paint.setColor(color);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setStyle(style);
-        return paint;
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -557,7 +555,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public void onResume() {
         super.onResume();
         if (this.layer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer)this.layer).onResume();
+            ((TileDownloadLayer) this.layer).onResume();
         }
         if (myLocSwitch != null && myLocSwitch.isChecked()) {
             registerLocationManager();
@@ -567,7 +565,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     @Override
     protected void onPause() {
         if (this.layer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer)this.layer).onPause();
+            ((TileDownloadLayer) this.layer).onPause();
         }
         unregisterLocationManager();
         super.onPause();

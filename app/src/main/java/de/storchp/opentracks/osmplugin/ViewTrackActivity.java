@@ -1,7 +1,5 @@
 package de.storchp.opentracks.osmplugin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -10,7 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Shows a simple list of the track points for debugging only
@@ -42,7 +41,7 @@ public class ViewTrackActivity extends AppCompatActivity {
 
     }
 
-    private void readData(Uri data, long trackid) {
+    private void readData(Uri data, long trackId) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
@@ -57,9 +56,9 @@ public class ViewTrackActivity extends AppCompatActivity {
         String selectionClause = Constants.TRACKID + " = ?";
 
         // Initializes an array to contain selection arguments
-        String[] selectionArgs = {String.valueOf(trackid)};
+        String[] selectionArgs = {String.valueOf(trackId)};
 
-        Log.i(TAG, "Loading track for " + trackid);
+        Log.i(TAG, "Loading track for " + trackId);
 
         // Does a query against the table and returns a Cursor object
         final Cursor mCursor = getContentResolver().query(

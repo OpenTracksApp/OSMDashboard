@@ -6,31 +6,27 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
-import java.util.Set;
-
 public class BaseApplication extends Application {
 
-    private static BaseApplication instance;
-
     public static final String PREF_FILE = "APP_PREF_FILE";
-
+    private static BaseApplication instance;
     private SharedPreferences preferences;
 
     public BaseApplication() {
         setInstance(this);
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
+    public static BaseApplication getInstance() {
+        return instance;
     }
 
     private static void setInstance(@NonNull final BaseApplication application) {
         instance = application;
     }
 
-    public static BaseApplication getInstance() {
-        return instance;
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
     }
 
     @Override
