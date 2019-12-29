@@ -117,15 +117,15 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
         // Get the intent that started this activity
         Intent intent = getIntent();
-        final Uri data = intent.getData();
+        final ArrayList<Uri> uris = intent.getParcelableArrayListExtra("data");
         final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readData(data, trackid, false);
+        readData(uris.get(0), trackid, false);
 
-        getContentResolver().registerContentObserver(data, true, new ContentObserver(new Handler()) {
+        getContentResolver().registerContentObserver(uris.get(0), true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readData(data, trackid, true);
+                readData(uris.get(0), trackid, true);
             }
         });
     }
