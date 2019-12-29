@@ -126,14 +126,16 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         // Get the intent that started this activity
         Intent intent = getIntent();
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
+        final Uri tracksUri = Constants.getTracksUri(uris);
+        final Uri trackPointsUri = Constants.getTrackPointsUri(uris);
         final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readTrackpoints(uris.get(1), trackid, false);
+        readTrackpoints(trackPointsUri, trackid, false);
 
-        getContentResolver().registerContentObserver(uris.get(0), true, new ContentObserver(new Handler()) {
+        getContentResolver().registerContentObserver(trackPointsUri, true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readTrackpoints(uris.get(0), trackid, true);
+                readTrackpoints(trackPointsUri, trackid, true);
             }
         });
     }

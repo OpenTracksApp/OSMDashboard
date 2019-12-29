@@ -1,5 +1,9 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.net.Uri;
+
+import java.util.ArrayList;
+
 public class Constants {
 
     // NOTE: Needs to be used in AndroidManifest.xml!
@@ -23,4 +27,13 @@ public class Constants {
     public static boolean isValidLocation(double latitude, double longitude) {
         return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
     }
+
+    public static Uri getTracksUri(ArrayList<Uri> uris) {
+        return uris.get(0);
+    }
+
+    public static Uri getTrackPointsUri(ArrayList<Uri> uris) {
+        return uris.get(1);
+    }
+
 }
