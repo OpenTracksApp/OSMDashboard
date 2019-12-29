@@ -4,4 +4,3 @@ Current state: show the track on the OSM online map. Tracks are updated, when ne
 
 TODO:
 - Track statistics
-- Move viewport to new waypoint
