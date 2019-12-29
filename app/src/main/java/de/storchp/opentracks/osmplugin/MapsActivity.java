@@ -125,15 +125,15 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
         // Get the intent that started this activity
         Intent intent = getIntent();
-        final ArrayList<Uri> uris = intent.getParcelableArrayListExtra("data");
+        final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
         final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readData(uris.get(0), trackid, false);
+        readTrackpoints(uris.get(1), trackid, false);
 
         getContentResolver().registerContentObserver(uris.get(0), true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readData(uris.get(0), trackid, true);
+                readTrackpoints(uris.get(0), trackid, true);
             }
         });
     }
@@ -475,7 +475,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
-    private void readData(Uri data, long trackid, boolean update) {
+    private void readTrackpoints(Uri data, long trackid, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
@@ -518,8 +518,14 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         double maxLon = 0;
 
         while (cursor.moveToNext()) {
-            LatLong latLong = new LatLong(Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LATITUDE))) / 1E6,
-                    Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LONGITUDE))) / 1E6);
+            double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LATITUDE))) / 1E6;
+            double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LONGITUDE))) / 1E6;
+            if (!Constants.isValidLocation(latitude, longitude)) {
+                Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                continue;
+            }
+
+            LatLong latLong = new LatLong(latitude, longitude);
             latLongs.add(latLong);
 
             if (minLat == 0.0) {
@@ -579,17 +585,14 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-
     }
 
     @Override

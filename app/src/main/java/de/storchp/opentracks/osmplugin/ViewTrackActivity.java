@@ -28,17 +28,16 @@ public class ViewTrackActivity extends AppCompatActivity {
         // Get the intent that started this activity
         Intent intent = getIntent();
         final Uri data = intent.getData();
-        final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readData(data, trackid);
+        final long trackId = intent.getExtras().getLong(Constants.TRACKID);
+        readData(data, trackId);
 
         getContentResolver().registerContentObserver(data, true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readData(data, trackid);
+                readData(data, trackId);
             }
         });
-
     }
 
     private void readData(Uri data, long trackId) {
