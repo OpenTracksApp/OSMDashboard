@@ -28,43 +28,35 @@ public class ViewTrackActivity extends AppCompatActivity {
         // Get the intent that started this activity
         Intent intent = getIntent();
         final Uri data = intent.getData();
-        final long trackId = intent.getExtras().getLong(Constants.TRACKID);
-        readData(data, trackId);
+        readData(data);
 
         getContentResolver().registerContentObserver(data, true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readData(data, trackId);
+                readData(data);
             }
         });
     }
 
-    private void readData(Uri data, long trackId) {
+    private void readData(Uri data) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
                         Constants._ID,
-                        Constants.TRACKID,
                         Constants.LATITUDE,
                         Constants.LONGITUDE,
                         Constants.TIME
                 };
 
-        // Defines a string to contain the selection clause
-        String selectionClause = Constants.TRACKID + " = ?";
-
-        // Initializes an array to contain selection arguments
-        String[] selectionArgs = {String.valueOf(trackId)};
-
-        Log.i(TAG, "Loading track for " + trackId);
+        Log.i(TAG, "Loading track from " + data);
 
         // Does a query against the table and returns a Cursor object
         final Cursor mCursor = getContentResolver().query(
                 data,
                 projection,
-                selectionClause,
-                selectionArgs,
+                null,
+                null,
                 null);
 
         if (adapter == null) {
