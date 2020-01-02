@@ -1,0 +1,3 @@
+An OpenStreetMap dashboard for OpenTracks: https://github.com/OpenTracksApp/OpenTracks.
+Simply shows a selected track with start- and endpoints on a map from OpenStreetMap.
+The default is an online map, but offline maps are supported as well. With offline maps, there is no necessity for mobile data.

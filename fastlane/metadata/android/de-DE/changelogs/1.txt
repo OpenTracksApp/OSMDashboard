@@ -1,0 +1,1 @@
+- Ein erstes Release, was Tracks auf einer Karte von OpenStreetMaps anzeigen kann
