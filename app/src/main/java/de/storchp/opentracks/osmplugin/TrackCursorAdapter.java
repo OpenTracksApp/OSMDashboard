@@ -33,8 +33,8 @@ public class TrackCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.coords.setText(cursor.getString(cursor.getColumnIndex(Constants.LATITUDE)) + "," + cursor.getString(cursor.getColumnIndex(Constants.LONGITUDE)));
-        holder.time.setText(new Date(cursor.getLong(cursor.getColumnIndex(Constants.TIME))).toString());
+        holder.coords.setText(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) + "," + cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE)));
+        holder.time.setText(new Date(cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints.TIME))).toString());
     }
 
     static class ViewHolder {

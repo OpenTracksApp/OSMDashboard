@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <de.storchp.opentracks.osmplugin.MapsforgeMapView
-        android:id="@+id/mapView"
+        android:id="@+id/mainView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="match_parent"
+        >
 
-    <TextView
-        android:id="@+id/attribution"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/attribution_margin"
-        android:gravity="center"
-        android:singleLine="true"
-        android:text="@string/copyright_osm"
-        android:textColor="#000"
-        android:textSize="@dimen/attribution_size" />
+        <de.storchp.opentracks.osmplugin.MapsforgeMapView
+            android:id="@+id/mapView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"/>
 
+        <TextView
+            android:id="@+id/attribution"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/mapView"
+            android:layout_marginBottom="@dimen/attribution_margin"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/copyright_osm"
+            android:textColor="#000"
+            android:textSize="@dimen/attribution_size" />
 </RelativeLayout>

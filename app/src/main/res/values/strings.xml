@@ -29,7 +29,8 @@
     </string>
     <string name="map_info_title">About Maps</string>
     <string name="app_info_ok">Ok</string>
-    <string name="grant_location_permission">Without location permission we cannot show your current position</string>
     <string name="grant_external_storage">You need to grant permission to use the external storage</string>
     <string name="app_info">This is not a standalone app. Please use <a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a>.</string>
+
+    <string name="value_unknown" translatable="false">-</string>
 </resources>

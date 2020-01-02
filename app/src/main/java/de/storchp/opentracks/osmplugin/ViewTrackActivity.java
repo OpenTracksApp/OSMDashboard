@@ -43,10 +43,10 @@ public class ViewTrackActivity extends AppCompatActivity {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
-                        Constants._ID,
-                        Constants.LATITUDE,
-                        Constants.LONGITUDE,
-                        Constants.TIME
+                        Constants.Trackpoints._ID,
+                        Constants.Trackpoints.LATITUDE,
+                        Constants.Trackpoints.LONGITUDE,
+                        Constants.Trackpoints.TIME
                 };
 
         Log.i(TAG, "Loading track from " + data);

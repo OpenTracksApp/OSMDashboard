@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.util.Utils;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
@@ -42,6 +44,8 @@ import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
+import org.mapsforge.map.layer.overlay.Circle;
+import org.mapsforge.map.layer.overlay.FixedPixelCircle;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.model.IMapViewPosition;
@@ -77,6 +81,8 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
     private boolean askedForPermission = false;
     private Polyline polyline;
+    private FixedPixelCircle startPoint;
+    private FixedPixelCircle endPoint;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -112,12 +118,14 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         final Uri tracksUri = Constants.getTracksUri(uris);
         final Uri trackPointsUri = Constants.getTrackPointsUri(uris);
         readTrackpoints(trackPointsUri, false);
+        readTrack(tracksUri);
 
         getContentResolver().registerContentObserver(trackPointsUri, true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
                 readTrackpoints(trackPointsUri, true);
+                readTrack(tracksUri);
             }
         });
     }
@@ -427,14 +435,14 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         return true;
     }
 
-    private void readTrackpoints(Uri data, long trackid, boolean update) {
+    private void readTrackpoints(Uri data, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
-                        Constants._ID,
-                        Constants.LATITUDE,
-                        Constants.LONGITUDE,
-                        Constants.TIME
+                        Constants.Trackpoints._ID,
+                        Constants.Trackpoints.LATITUDE,
+                        Constants.Trackpoints.LONGITUDE,
+                        Constants.Trackpoints.TIME
                 };
 
         Log.i(TAG, "Loading track from " + data);
@@ -462,9 +470,12 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         double minLon = 0;
         double maxLon = 0;
 
+        LatLong startPos = null;
+        LatLong endPos = null;
+
         while (cursor.moveToNext()) {
-            double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LATITUDE))) / 1E6;
-            double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.LONGITUDE))) / 1E6;
+            double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
+            double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
             if (!Constants.isValidLocation(latitude, longitude)) {
                 Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
                 continue;
@@ -472,6 +483,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
             LatLong latLong = new LatLong(latitude, longitude);
             latLongs.add(latLong);
+            endPos = latLong;
 
             if (minLat == 0.0) {
                 minLat = latLong.latitude;
@@ -484,17 +496,94 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                 minLon = Math.min(minLon, latLong.longitude);
                 maxLon = Math.max(maxLon, latLong.longitude);
             }
+
+            if (startPos == null) {
+                startPos = latLong;
+            }
         }
         polyline.setPoints(latLongs);
         layers.add(polyline);
 
+        if (startPos != null) {
+            if (startPoint == null) {
+                startPoint = new FixedPixelCircle(startPos, 10, createPaint(
+                        AndroidGraphicFactory.INSTANCE.createColor(Color.GREEN), 0,
+                        Style.FILL), null);
+                layers.add(startPoint);
+            } else {
+                startPoint.setLatLong(startPos);
+            }
+        }
+        if (endPos != null && !endPos.equals(startPos)) {
+            if (endPoint == null) {
+                endPoint = new FixedPixelCircle(endPos, 10, createPaint(
+                        AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
+                        Style.FILL), null);
+                layers.add(endPoint);
+            } else {
+                endPoint.setLatLong(endPos);
+            }
+        }
+
         LatLong myPos;
-        if (update) {
-            myPos = latLongs.get(latLongs.size() - 1);
+        if (update && endPos != null) {
+            myPos = endPos;
         } else {
             myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
         }
         mapView.setCenter(myPos);
+    }
+
+    private void readTrack(Uri data) {
+        // A "projection" defines the columns that will be returned for each row
+        String[] projection =
+                {
+                        Constants.Track.NAME,
+                        Constants.Track.DESCRIPTION,
+                        Constants.Track.CATEGORY,
+                        Constants.Track.STARTTIME,
+                        Constants.Track.STOPTIME,
+                        Constants.Track.TOTALDISTANCE,
+                        Constants.Track.TOTALTIME,
+                        Constants.Track.MOVINGTIME,
+                        Constants.Track.AVGSPEED,
+                        Constants.Track.AVGMOVINGSPEED,
+                        Constants.Track.MAXSPEED,
+                        Constants.Track.MINELEVATION,
+                        Constants.Track.MAXELEVATION,
+                        Constants.Track.ELEVATIONGAIN
+
+                };
+
+        Log.i(TAG, "Loading track from " + data);
+
+        // Does a query against the table and returns a Cursor object
+        final Cursor cursor = getContentResolver().query(
+                data,
+                projection,
+                null,
+                null,
+                null);
+
+        if (cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndex(Constants.Track.NAME));
+            String description = cursor.getString(cursor.getColumnIndex(Constants.Track.DESCRIPTION));
+            String category = cursor.getString(cursor.getColumnIndex(Constants.Track.CATEGORY));
+            int startTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STARTTIME));
+            int stopTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STOPTIME));
+            float totalDistance = cursor.getFloat(cursor.getColumnIndex(Constants.Track.TOTALDISTANCE));
+            int totalTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.TOTALTIME));
+            int movingTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.MOVINGTIME));
+            float avgSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGSPEED));
+            float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGMOVINGSPEED));
+            float maxSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXSPEED));
+            float minElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MINELEVATION));
+            float maxElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXELEVATION));
+            float elevationGain = cursor.getFloat(cursor.getColumnIndex(Constants.Track.ELEVATIONGAIN));
+
+            // TODO: show data on dashboard
+            Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
+        }
     }
 
     @Override
