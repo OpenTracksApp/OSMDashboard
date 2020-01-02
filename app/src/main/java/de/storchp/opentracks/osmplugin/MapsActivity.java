@@ -2,14 +2,10 @@ package de.storchp.opentracks.osmplugin;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +17,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,20 +59,14 @@ import java.util.List;
 
 import static android.view.Menu.NONE;
 
-public class MapsActivity extends AppCompatActivity implements LocationListener, DirectoryChooserFragment.OnFragmentInteractionListener {
-
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // meters
-
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 500;
+public class MapsActivity extends AppCompatActivity implements DirectoryChooserFragment.OnFragmentInteractionListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final String TAG_MAP_DIR = MapsActivity.class.getSimpleName() + ".MapDirChooser";
     private static final String TAG_THEME_DIR = MapsActivity.class.getSimpleName() + ".ThemeDirChooser";
-    private static final int REQUEST_FINE_LOCATION = 1;
-    private static final int REQUEST_MAP_DIRECTORY = 2;
-    private static final int REQUEST_THEME_DIRECTORY = 3;
+
+    private static final int REQUEST_MAP_DIRECTORY = 1;
+    private static final int REQUEST_THEME_DIRECTORY = 2;
 
     private BaseApplication baseApplication;
     private MapsforgeMapView mapView;
@@ -87,11 +75,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     private DirectoryChooserFragment mDirectoryChooser;
 
-    private LatLong myPos = null;
-
-    private CheckBox myLocSwitch = null;
-
-    private LocationManager locationManager;
     private boolean askedForPermission = false;
     private Polyline polyline;
 
@@ -202,19 +185,11 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     protected void createMapViews() {
         mapView = findViewById(getMapViewId());
         mapView.setClickable(true);
-        mapView.setOnMapDragListener(new MapsforgeMapView.MapDragListener() {
-            @Override
-            public void onDrag() {
-                myLocSwitch.setChecked(false);
-            }
-        });
         mapView.getMapScaleBar().setVisible(true);
         mapView.setBuiltInZoomControls(true);
         mapView.getMapZoomControls().setAutoHide(true);
         mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
         mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
-
-        //this.mapView.getModel().displayModel.setFixedTileSize(256);
         mapView.getMapZoomControls().setZoomControlsOrientation(MapZoomControls.Orientation.VERTICAL_IN_OUT);
         mapView.getMapZoomControls().setZoomInResource(R.drawable.zoom_control_in);
         mapView.getMapZoomControls().setZoomOutResource(R.drawable.zoom_control_out);
@@ -296,24 +271,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
-
-        final MenuItem item = menu.findItem(R.id.menu_toggle_mypos);
-        myLocSwitch = new CheckBox(this);
-        myLocSwitch.setButtonDrawable(R.drawable.ic_gps_fix_selector);
-        myLocSwitch.setChecked(false);
-        item.setActionView(myLocSwitch);
-        myLocSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                   @Override
-                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                       if (isChecked) {
-                                                           askedForPermission = false;
-                                                           registerLocationManager();
-                                                       } else {
-                                                           unregisterLocationManager();
-                                                       }
-                                                   }
-                                               }
-        );
 
         final String mapFileName = baseApplication.getMapFileName();
 
@@ -470,12 +427,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         return true;
     }
 
-    public void setMyLocSwitch(boolean checked) {
-        if (myLocSwitch != null) {
-            myLocSwitch.setChecked(checked);
-        }
-    }
-
     private void readTrackpoints(Uri data, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
@@ -537,8 +488,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         polyline.setPoints(latLongs);
         layers.add(polyline);
 
+        LatLong myPos;
         if (update) {
-            setMyLocSwitch(false);
             myPos = latLongs.get(latLongs.size() - 1);
         } else {
             myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
@@ -557,9 +508,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onResume();
         }
-        if (myLocSwitch != null && myLocSwitch.isChecked()) {
-            registerLocationManager();
-        }
     }
 
     @Override
@@ -567,42 +515,12 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onPause();
         }
-        unregisterLocationManager();
         super.onPause();
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-        myPos = new LatLong(location.getLatitude(), location.getLongitude());
-        updatePosition();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_FINE_LOCATION) {
-            Log.i(TAG, "Received response for location permission request.");
-
-            // Check if the required permission has been granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Location permission has been granted
-                registerLocationManager();
-            } else {
-                //Permission not granted
-                Toast.makeText(MapsActivity.this, R.string.grant_location_permission, Toast.LENGTH_LONG).show();
-            }
-        } else if (requestCode == REQUEST_MAP_DIRECTORY) {
+        if (requestCode == REQUEST_MAP_DIRECTORY) {
             Log.i(TAG, "Received response for external file permission request.");
 
             // Check if the required permission has been granted
@@ -624,90 +542,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                 //Permission not granted
                 Toast.makeText(MapsActivity.this, R.string.grant_external_storage, Toast.LENGTH_LONG).show();
             }
-        }
-    }
-
-    public void registerLocationManager() {
-
-        try {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                if (!askedForPermission) {
-                    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
-                    askedForPermission = true;
-                }
-                setMyLocSwitch(false);
-                return;
-            }
-
-            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-
-            // getting GPS status
-            boolean isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            // if GPS Enabled get lat/long using GPS Services
-            if (isGPSEnabled) {
-                locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        MIN_TIME_BW_UPDATES,
-                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                Log.d(TAG, "GPS Enabled");
-                if (locationManager != null) {
-                    Location loc = locationManager
-                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    myPos = new LatLong(loc.getLatitude(), loc.getLongitude());
-                }
-            } else {
-                // getting network status
-                boolean isNetworkEnabled = locationManager
-                        .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-                // First get location from Network Provider
-                if (isNetworkEnabled) {
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                    Log.d(TAG, "Network Location enabled");
-                    if (locationManager != null) {
-                        Location loc = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        myPos = new LatLong(loc.getLatitude(), loc.getLongitude());
-                    }
-                }
-            }
-            setMyLocSwitch(true);
-        } catch (Exception e) {
-            Log.e(TAG, "Error registering LocationManager", e);
-            Bundle b = new Bundle();
-            b.putString("error", "Error registering LocationManager: " + e.toString());
-            locationManager = null;
-            myPos = null;
-            setMyLocSwitch(false);
-            return;
-        }
-        Log.i(TAG, "LocationManager registered");
-        updatePosition();
-    }
-
-    private void unregisterLocationManager() {
-        if (locationManager != null) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // if we don't have location permission we cannot remove updates (should not happen, but the API requires this check
-                // so we just set it to null
-                locationManager = null;
-            } else {
-                locationManager.removeUpdates(this);
-            }
-            locationManager = null;
-        }
-        Log.i(TAG, "LocationManager unregistered");
-    }
-
-    private void updatePosition() {
-        if (myLocSwitch != null && myLocSwitch.isChecked()) {
-            mapView.setCenter(myPos);
-            mapView.repaint();
         }
     }
 
