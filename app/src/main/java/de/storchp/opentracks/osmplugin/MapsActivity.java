@@ -427,7 +427,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         return true;
     }
 
-    private void readTrackpoints(Uri data, boolean update) {
+    private void readTrackpoints(Uri data, long trackid, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
