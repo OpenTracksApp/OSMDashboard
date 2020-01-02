@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mainView"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
         >
 
         <de.storchp.opentracks.osmplugin.MapsforgeMapView
@@ -22,4 +30,62 @@
             android:text="@string/copyright_osm"
             android:textColor="#000"
             android:textSize="@dimen/attribution_size" />
-</RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        style="@style/StatsScrollView">
+
+        <!-- Speed/pace and average -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Speed/pace -->
+            <LinearLayout
+                android:id="@+id/stats_speed"
+                style="@style/StatsSmallItemContainer">
+
+                <TextView
+                    android:id="@+id/stats_speed_label"
+                    style="@style/StatsSmallLabel" />
+
+                <LinearLayout style="@style/StatsSmallValueContainer">
+
+                    <TextView
+                        android:id="@+id/stats_speed_value"
+                        style="@style/StatsSmallValue"
+                        android:value="@string/value_unknown" />
+
+                    <TextView
+                        android:id="@+id/stats_speed_unit"
+                        style="@style/StatsUnit" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Average -->
+            <LinearLayout style="@style/StatsSmallItemContainer">
+
+                <TextView
+                    android:id="@+id/stats_average_speed_label"
+                    style="@style/StatsSmallLabel" />
+
+                <LinearLayout style="@style/StatsSmallValueContainer">
+
+                    <TextView
+                        android:id="@+id/stats_average_speed_value"
+                        style="@style/StatsSmallValue"
+                        android:value="@string/value_unknown" />
+
+                    <TextView
+                        android:id="@+id/stats_average_speed_unit"
+                        style="@style/StatsUnit" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

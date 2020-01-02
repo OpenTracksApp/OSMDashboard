@@ -581,7 +581,16 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             float maxElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXELEVATION));
             float elevationGain = cursor.getFloat(cursor.getColumnIndex(Constants.Track.ELEVATIONGAIN));
 
-            // TODO: show data on dashboard
+            TextView speedValueTv = findViewById(R.id.stats_speed_value);
+            speedValueTv.setText(String.valueOf(maxSpeed));
+            TextView speedUnitTv = findViewById(R.id.stats_speed_unit);
+            speedUnitTv.setText("km/h");
+
+            TextView avgSpeedValueTv = findViewById(R.id.stats_average_speed_value);
+            avgSpeedValueTv.setText(String.valueOf(avgSpeed));
+            TextView avgSpeedUnitTv = findViewById(R.id.stats_average_speed_unit);
+            avgSpeedUnitTv.setText("km/h");
+
             Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
         }
     }
