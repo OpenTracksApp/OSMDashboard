@@ -71,7 +71,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 500; // minute
+    private static final long MIN_TIME_BW_UPDATES = 500;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final String TAG_MAP_DIR = MapsActivity.class.getSimpleName() + ".MapDirChooser";
@@ -126,14 +126,13 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         // Get the intent that started this activity
         Intent intent = getIntent();
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
-        final long trackid = intent.getExtras().getLong(Constants.TRACKID);
-        readTrackpoints(uris.get(1), trackid, false);
+        readTrackpoints(uris.get(1), false);
 
-        getContentResolver().registerContentObserver(uris.get(0), true, new ContentObserver(new Handler()) {
+        getContentResolver().registerContentObserver(uris.get(1), true, new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 super.onChange(selfChange);
-                readTrackpoints(uris.get(0), trackid, true);
+                readTrackpoints(uris.get(1), true);
             }
         });
     }
@@ -475,31 +474,24 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
-    private void readTrackpoints(Uri data, long trackid, boolean update) {
+    private void readTrackpoints(Uri data, boolean update) {
         // A "projection" defines the columns that will be returned for each row
         String[] projection =
                 {
                         Constants._ID,
-                        Constants.TRACKID,
                         Constants.LATITUDE,
                         Constants.LONGITUDE,
                         Constants.TIME
                 };
 
-        // Defines a string to contain the selection clause
-        String selectionClause = Constants.TRACKID + " = ?";
-
-        // Initializes an array to contain selection arguments
-        String[] selectionArgs = {String.valueOf(trackid)};
-
-        Log.i(TAG, "Loading track for " + trackid);
+        Log.i(TAG, "Loading track from " + data);
 
         // Does a query against the table and returns a Cursor object
         final Cursor cursor = getContentResolver().query(
                 data,
                 projection,
-                selectionClause,
-                selectionArgs,
+                null,
+                null,
                 null);
 
         Layers layers = mapView.getLayerManager().getLayers();
