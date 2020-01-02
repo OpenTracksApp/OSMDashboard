@@ -1,4 +1,6 @@
-Proof of concept to add an OSM PlugIn to https://github.com/dennisguse/OpenTracks
+This is a dashboard with an OpenStreetMap for https://github.com/OpenTracksApp/OpenTracks
 
-Current state: receive the trackpoints from OpenTracks including updates while recording.
-It only shows it as a list, no map yet.
+Current state: show the track on the OSM online map. Tracks are updated, when new Waypoints appear.
+
+TODO:
+- Track statistics
