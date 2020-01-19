@@ -1,0 +1,2 @@
+- fix: respect track segments for pauses
+- new: set zoom-level, so that full track is withing view

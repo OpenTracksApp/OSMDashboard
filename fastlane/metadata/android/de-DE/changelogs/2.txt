@@ -1,0 +1,2 @@
+- fix: beachte Track Segmente mit Pausen
+- new: setze Zoom-Level, so dass gesamter Track sichtbar ist
