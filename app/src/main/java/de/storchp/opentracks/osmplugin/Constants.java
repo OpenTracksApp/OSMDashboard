@@ -18,7 +18,6 @@ public class Constants {
         public static final String TIME = "time";
 
         public static final double PAUSE_LATITUDE = 100.0;
-        public static final double RESUME_LATITUDE = 200.0;
 
         public static final String[] PROJECTION = {
                 Constants.Trackpoints._ID,
@@ -71,7 +70,7 @@ public class Constants {
      * @return true if the location is a valid location.
      */
     public static boolean isValidLocation(double latitude, double longitude) {
-        return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
+        return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180 && longitude != Trackpoints.PAUSE_LATITUDE;
     }
 
     public static Uri getTracksUri(ArrayList<Uri> uris) {

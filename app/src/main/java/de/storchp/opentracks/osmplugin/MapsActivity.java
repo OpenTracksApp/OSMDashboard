@@ -424,7 +424,6 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
         LatLong startPos = null;
         LatLong endPos = null;
-        boolean pause = false;
 
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
             Polyline polyline = newPolyline();
@@ -432,55 +431,40 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             while (cursor.moveToNext()) {
                 double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
                 double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
-                if (!Constants.isValidLocation(latitude, longitude)) {
-                    pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
-                    if (pause && polyline.getLatLongs().isEmpty()) {
-                        polylines.add(polyline);
-                        Log.d(TAG, "Pause Trackpoint");
-                    }
+                Log.d(TAG, "Got coordinates: " + latitude + " " + longitude);
 
-                    boolean resume = latitude == Constants.Trackpoints.RESUME_LATITUDE;
-                    if (resume) {
-                        pause = false;
+                if (Constants.isValidLocation(latitude, longitude)) {
+                    if (polyline == null) {
+                        Log.d(TAG, "Continue new segment after pause.");
                         polyline = newPolyline();
-                        Log.d(TAG, "Resume Trackpoint");
+                        polylines.add(polyline);
                     }
 
-                    if (!pause && !resume) {
-                        Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                    LatLong latLong = new LatLong(latitude, longitude);
+                    polyline.addPoint(latLong);
+
+                    if (minLat == 0.0) {
+                        minLat = latLong.latitude;
+                        maxLat = latLong.latitude;
+                        minLon = latLong.longitude;
+                        maxLon = latLong.longitude;
+                    } else {
+                        minLat = Math.min(minLat, latLong.latitude);
+                        maxLat = Math.max(maxLat, latLong.latitude);
+                        minLon = Math.min(minLon, latLong.longitude);
+                        maxLon = Math.max(maxLon, latLong.longitude);
                     }
-                    continue;
-                }
 
-                if (pause) {
-                    Log.d(TAG, "Ignoring trackpoint during pause: " + latitude + " " + longitude);
-                    continue;
-                }
-
-                Log.d(TAG, "Adding trackpoint: " + latitude + " " + longitude);
-                LatLong latLong = new LatLong(latitude, longitude);
-                polyline.addPoint(latLong);
-                endPos = latLong;
-
-                if (minLat == 0.0) {
-                    minLat = latLong.latitude;
-                    maxLat = latLong.latitude;
-                    minLon = latLong.longitude;
-                    maxLon = latLong.longitude;
-                } else {
-                    minLat = Math.min(minLat, latLong.latitude);
-                    maxLat = Math.max(maxLat, latLong.latitude);
-                    minLon = Math.min(minLon, latLong.longitude);
-                    maxLon = Math.max(maxLon, latLong.longitude);
-                }
-
-                if (startPos == null) {
-                    startPos = latLong;
+                    if (startPos == null) {
+                        startPos = latLong;
+                    }
+                    endPos = latLong;
+                } else if (latitude == Constants.Trackpoints.PAUSE_LATITUDE) {
+                    Log.d(TAG, "Got pause trackpoint");
+                    polylines.add(polyline);
+                    polyline = null;
                 }
             }
-
-            // At last line
-            polylines.add(polyline);
         }
 
         for (Polyline polyline : polylines) {
