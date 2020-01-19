@@ -1,0 +1,1 @@
+- fix handling of pause and resume of track segments
