@@ -450,8 +450,8 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
             if (!Constants.isValidLocation(latitude, longitude)) {
                 pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
-                if (pause && !polyline.getLatLongs().isEmpty()) {
-                    layers.add(polyline);;
+                if (pause && polyline.getLatLongs().isEmpty()) {
+                    layers.add(polyline);
                     polylines.add(polyline);
                     Log.d(TAG, "Pause Trackpoint");
                 }
