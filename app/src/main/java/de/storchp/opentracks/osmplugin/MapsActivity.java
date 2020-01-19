@@ -429,8 +429,8 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             Polyline polyline = newPolyline();
 
             while (cursor.moveToNext()) {
-                double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
-                double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
+                double latitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) / 1E6;
+                double longitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE)) / 1E6;
                 Log.d(TAG, "Got coordinates: " + latitude + " " + longitude);
 
                 if (Constants.isValidLocation(latitude, longitude)) {
