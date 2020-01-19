@@ -16,6 +16,9 @@ public class Constants {
         public static final String LONGITUDE = "longitude";
         public static final String LATITUDE = "latitude";
         public static final String TIME = "time";
+
+        public static final double PAUSE_LATITUDE = 100.0;
+        public static final double RESUME_LATITUDE = 200.0;
     }
 
     // Track columns

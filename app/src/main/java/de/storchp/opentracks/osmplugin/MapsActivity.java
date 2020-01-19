@@ -79,8 +79,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
     private DirectoryChooserFragment mDirectoryChooser;
 
-    private boolean askedForPermission = false;
-    private Polyline polyline;
+    private List<Polyline> polylines = new ArrayList<>();
     private FixedPixelCircle startPoint;
     private FixedPixelCircle endPoint;
 
@@ -456,15 +455,13 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                 null);
 
         Layers layers = mapView.getLayerManager().getLayers();
-        if (polyline != null) {
+        for (Polyline polyline : polylines) {
             layers.remove(polyline);
         }
-        polyline = new Polyline(createPaint(
-                AndroidGraphicFactory.INSTANCE.createColor(Color.BLUE),
-                (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
-                Style.STROKE), AndroidGraphicFactory.INSTANCE);
+        polylines.clear();
 
-        List<LatLong> latLongs = new ArrayList<>();
+        Polyline polyline = createNewPolyline();
+
         double minLat = 0;
         double maxLat = 0;
         double minLon = 0;
@@ -472,17 +469,40 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
         LatLong startPos = null;
         LatLong endPos = null;
+        boolean pause = false;
 
         while (cursor.moveToNext()) {
             double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
             double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
             if (!Constants.isValidLocation(latitude, longitude)) {
-                Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
+                if (pause && !polyline.getLatLongs().isEmpty()) {
+                    layers.add(polyline);;
+                    polylines.add(polyline);
+                    Log.d(TAG, "Pause Trackpoint");
+                }
+
+                boolean resume = latitude == Constants.Trackpoints.RESUME_LATITUDE;
+                if (resume) {
+                    pause = false;
+                    polyline = createNewPolyline();
+                    Log.d(TAG, "Resume Trackpoint");
+                }
+
+                if (!pause && !resume) {
+                    Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                }
                 continue;
             }
 
+            if (pause) {
+                Log.d(TAG, "Ignoring trackpoint during pause: " + latitude + " " + longitude);
+                continue;
+            }
+
+            Log.d(TAG, "Adding trackpoint: " + latitude + " " + longitude);
             LatLong latLong = new LatLong(latitude, longitude);
-            latLongs.add(latLong);
+            polyline.addPoint(latLong);
             endPos = latLong;
 
             if (minLat == 0.0) {
@@ -501,8 +521,8 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                 startPos = latLong;
             }
         }
-        polyline.setPoints(latLongs);
         layers.add(polyline);
+        polylines.add(polyline);
 
         if (startPos != null) {
             if (startPoint == null) {
@@ -532,6 +552,13 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
         }
         mapView.setCenter(myPos);
+    }
+
+    private Polyline createNewPolyline() {
+        return new Polyline(createPaint(
+                AndroidGraphicFactory.INSTANCE.createColor(Color.BLUE),
+                (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
+                Style.STROKE), AndroidGraphicFactory.INSTANCE);
     }
 
     private void readTrack(Uri data) {
