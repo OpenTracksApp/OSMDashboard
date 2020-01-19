@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,8 +31,11 @@ import net.rdrei.android.dirchooser.DirectoryChooserFragment;
 import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
+import org.mapsforge.core.model.BoundingBox;
+import org.mapsforge.core.model.Dimension;
 import org.mapsforge.core.model.LatLong;
-import org.mapsforge.core.util.Utils;
+import org.mapsforge.core.model.MapPosition;
+import org.mapsforge.core.util.LatLongUtils;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
@@ -44,11 +46,9 @@ import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
-import org.mapsforge.map.layer.overlay.Circle;
 import org.mapsforge.map.layer.overlay.FixedPixelCircle;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
-import org.mapsforge.map.model.IMapViewPosition;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
@@ -75,13 +75,14 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
     private BaseApplication baseApplication;
     private MapsforgeMapView mapView;
     private Layer layer;
-    private List<TileCache> tileCaches = new ArrayList<TileCache>();
+    private List<TileCache> tileCaches = new ArrayList<>();
 
     private DirectoryChooserFragment mDirectoryChooser;
 
     private List<Polyline> polylines = new ArrayList<>();
     private FixedPixelCircle startPoint;
     private FixedPixelCircle endPoint;
+    private BoundingBox boundingBox;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -109,7 +110,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
 
         createMapViews();
         createTileCaches();
-        checkPermissionsAndCreateLayersAndControls();
+        createLayers();
 
         // Get the intent that started this activity
         Intent intent = getIntent();
@@ -155,35 +156,6 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
      */
     protected float getScreenRatio() {
         return 1.0f;
-    }
-
-    /**
-     * Hook to check for Android Runtime Permissions.
-     */
-    protected void checkPermissionsAndCreateLayersAndControls() {
-        createLayers();
-        createControls();
-    }
-
-    /**
-     * Hook to create controls, such as scale bars.
-     * You can add more controls.
-     */
-    protected void createControls() {
-        initializePosition(mapView.getModel().mapViewPosition);
-    }
-
-    /**
-     * initializes the map view position.
-     *
-     * @param mvp the map view position to be set
-     * @return the mapviewposition set
-     */
-    protected IMapViewPosition initializePosition(IMapViewPosition mvp) {
-        mvp.setZoomLevel(baseApplication.getZoomLevelDefault());
-        mvp.setZoomLevelMax(getZoomLevelMax());
-        mvp.setZoomLevelMin(getZoomLevelMin());
-        return mvp;
     }
 
     /**
@@ -271,7 +243,9 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
             mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
         }
-
+        mapView.setZoomLevel(baseApplication.getZoomLevelDefault());
+        mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
+        mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
     }
 
     @Override
@@ -460,7 +434,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         }
         polylines.clear();
 
-        Polyline polyline = createNewPolyline();
+        Polyline polyline = newPolyline();
 
         double minLat = 0;
         double maxLat = 0;
@@ -485,7 +459,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                 boolean resume = latitude == Constants.Trackpoints.RESUME_LATITUDE;
                 if (resume) {
                     pause = false;
-                    polyline = createNewPolyline();
+                    polyline = newPolyline();
                     Log.d(TAG, "Resume Trackpoint");
                 }
 
@@ -551,10 +525,16 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         } else {
             myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
         }
+
         mapView.setCenter(myPos);
+        if (!update) {
+            boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
+        } else {
+            boundingBox = null;
+        }
     }
 
-    private Polyline createNewPolyline() {
+    private Polyline newPolyline() {
         return new Polyline(createPaint(
                 AndroidGraphicFactory.INSTANCE.createColor(Color.BLUE),
                 (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
@@ -623,6 +603,21 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         super.onResume();
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onResume();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && boundingBox != null) {
+            Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
+            this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
+                    boundingBox.getCenterPoint(),
+                    LatLongUtils.zoomForBounds(
+                            dimension,
+                            boundingBox,
+                            this.mapView.getModel().displayModel.getTileSize())));
+            boundingBox = null; // only set the zoomlevel once
         }
     }
 
