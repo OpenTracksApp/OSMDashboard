@@ -411,14 +411,6 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
     private void readTrackpoints(Uri data, boolean update) {
         Log.i(TAG, "Loading track from " + data);
 
-        // Does a query against the table and returns a Cursor object
-        final Cursor cursor = getContentResolver().query(
-                data,
-                Constants.Trackpoints.PROJECTION,
-                null,
-                null,
-                null);
-
         Layers layers = mapView.getLayerManager().getLayers();
         for (Polyline polyline : polylines) {
             layers.remove(polyline);
@@ -436,54 +428,56 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         LatLong endPos = null;
         boolean pause = false;
 
-        while (cursor.moveToNext()) {
-            double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
-            double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
-            if (!Constants.isValidLocation(latitude, longitude)) {
-                pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
-                if (pause && polyline.getLatLongs().isEmpty()) {
-                    layers.add(polyline);
-                    polylines.add(polyline);
-                    Log.d(TAG, "Pause Trackpoint");
+        try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
+            while (cursor.moveToNext()) {
+                double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
+                double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
+                if (!Constants.isValidLocation(latitude, longitude)) {
+                    pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
+                    if (pause && polyline.getLatLongs().isEmpty()) {
+                        layers.add(polyline);
+                        polylines.add(polyline);
+                        Log.d(TAG, "Pause Trackpoint");
+                    }
+
+                    boolean resume = latitude == Constants.Trackpoints.RESUME_LATITUDE;
+                    if (resume) {
+                        pause = false;
+                        polyline = newPolyline();
+                        Log.d(TAG, "Resume Trackpoint");
+                    }
+
+                    if (!pause && !resume) {
+                        Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                    }
+                    continue;
                 }
 
-                boolean resume = latitude == Constants.Trackpoints.RESUME_LATITUDE;
-                if (resume) {
-                    pause = false;
-                    polyline = newPolyline();
-                    Log.d(TAG, "Resume Trackpoint");
+                if (pause) {
+                    Log.d(TAG, "Ignoring trackpoint during pause: " + latitude + " " + longitude);
+                    continue;
                 }
 
-                if (!pause && !resume) {
-                    Log.d(TAG, "Got invalid coordinates: " + latitude + " " + longitude);
+                Log.d(TAG, "Adding trackpoint: " + latitude + " " + longitude);
+                LatLong latLong = new LatLong(latitude, longitude);
+                polyline.addPoint(latLong);
+                endPos = latLong;
+
+                if (minLat == 0.0) {
+                    minLat = latLong.latitude;
+                    maxLat = latLong.latitude;
+                    minLon = latLong.longitude;
+                    maxLon = latLong.longitude;
+                } else {
+                    minLat = Math.min(minLat, latLong.latitude);
+                    maxLat = Math.max(maxLat, latLong.latitude);
+                    minLon = Math.min(minLon, latLong.longitude);
+                    maxLon = Math.max(maxLon, latLong.longitude);
                 }
-                continue;
-            }
 
-            if (pause) {
-                Log.d(TAG, "Ignoring trackpoint during pause: " + latitude + " " + longitude);
-                continue;
-            }
-
-            Log.d(TAG, "Adding trackpoint: " + latitude + " " + longitude);
-            LatLong latLong = new LatLong(latitude, longitude);
-            polyline.addPoint(latLong);
-            endPos = latLong;
-
-            if (minLat == 0.0) {
-                minLat = latLong.latitude;
-                maxLat = latLong.latitude;
-                minLon = latLong.longitude;
-                maxLon = latLong.longitude;
-            } else {
-                minLat = Math.min(minLat, latLong.latitude);
-                maxLat = Math.max(maxLat, latLong.latitude);
-                minLon = Math.min(minLon, latLong.longitude);
-                maxLon = Math.max(maxLon, latLong.longitude);
-            }
-
-            if (startPos == null) {
-                startPos = latLong;
+                if (startPos == null) {
+                    startPos = latLong;
+                }
             }
         }
         layers.add(polyline);
@@ -535,32 +529,27 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
     private void readTrack(Uri data) {
         Log.i(TAG, "Loading track from " + data);
 
-        // Does a query against the table and returns a Cursor object
-        final Cursor cursor = getContentResolver().query(
-                data,
-                Constants.Track.PROJECTION,
-                null,
-                null,
-                null);
+        // Contains only one row.
+        try (Cursor cursor = getContentResolver().query(data, Constants.Track.PROJECTION, null, null, null)) {
+            if (cursor.moveToFirst()) {
+                String name = cursor.getString(cursor.getColumnIndex(Constants.Track.NAME));
+                String description = cursor.getString(cursor.getColumnIndex(Constants.Track.DESCRIPTION));
+                String category = cursor.getString(cursor.getColumnIndex(Constants.Track.CATEGORY));
+                int startTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STARTTIME));
+                int stopTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STOPTIME));
+                float totalDistance = cursor.getFloat(cursor.getColumnIndex(Constants.Track.TOTALDISTANCE));
+                int totalTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.TOTALTIME));
+                int movingTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.MOVINGTIME));
+                float avgSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGSPEED));
+                float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGMOVINGSPEED));
+                float maxSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXSPEED));
+                float minElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MINELEVATION));
+                float maxElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXELEVATION));
+                float elevationGain = cursor.getFloat(cursor.getColumnIndex(Constants.Track.ELEVATIONGAIN));
 
-        if (cursor.moveToFirst()) {
-            String name = cursor.getString(cursor.getColumnIndex(Constants.Track.NAME));
-            String description = cursor.getString(cursor.getColumnIndex(Constants.Track.DESCRIPTION));
-            String category = cursor.getString(cursor.getColumnIndex(Constants.Track.CATEGORY));
-            int startTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STARTTIME));
-            int stopTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STOPTIME));
-            float totalDistance = cursor.getFloat(cursor.getColumnIndex(Constants.Track.TOTALDISTANCE));
-            int totalTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.TOTALTIME));
-            int movingTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.MOVINGTIME));
-            float avgSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGSPEED));
-            float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGMOVINGSPEED));
-            float maxSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXSPEED));
-            float minElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MINELEVATION));
-            float maxElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXELEVATION));
-            float elevationGain = cursor.getFloat(cursor.getColumnIndex(Constants.Track.ELEVATIONGAIN));
-
-            // TODO: show data on dashboard
-            Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
+                // TODO: show data on dashboard
+                Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
+            }
         }
     }
 
