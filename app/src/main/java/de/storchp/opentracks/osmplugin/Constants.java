@@ -19,6 +19,13 @@ public class Constants {
 
         public static final double PAUSE_LATITUDE = 100.0;
         public static final double RESUME_LATITUDE = 200.0;
+
+        public static final String[] PROJECTION = {
+                Constants.Trackpoints._ID,
+                Constants.Trackpoints.LATITUDE,
+                Constants.Trackpoints.LONGITUDE,
+                Constants.Trackpoints.TIME
+        };
     }
 
     // Track columns
@@ -37,6 +44,23 @@ public class Constants {
         public static final String MINELEVATION = "minelevation"; // minimum elevation
         public static final String MAXELEVATION = "maxelevation"; // maximum elevation
         public static final String ELEVATIONGAIN = "elevationgain"; // elevation gain
+
+        public static final String[] PROJECTION = {
+                Constants.Track.NAME,
+                Constants.Track.DESCRIPTION,
+                Constants.Track.CATEGORY,
+                Constants.Track.STARTTIME,
+                Constants.Track.STOPTIME,
+                Constants.Track.TOTALDISTANCE,
+                Constants.Track.TOTALTIME,
+                Constants.Track.MOVINGTIME,
+                Constants.Track.AVGSPEED,
+                Constants.Track.AVGMOVINGSPEED,
+                Constants.Track.MAXSPEED,
+                Constants.Track.MINELEVATION,
+                Constants.Track.MAXELEVATION,
+                Constants.Track.ELEVATIONGAIN
+        };
     }
 
     /**

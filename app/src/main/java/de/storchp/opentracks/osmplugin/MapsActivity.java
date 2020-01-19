@@ -409,21 +409,12 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
     }
 
     private void readTrackpoints(Uri data, boolean update) {
-        // A "projection" defines the columns that will be returned for each row
-        String[] projection =
-                {
-                        Constants.Trackpoints._ID,
-                        Constants.Trackpoints.LATITUDE,
-                        Constants.Trackpoints.LONGITUDE,
-                        Constants.Trackpoints.TIME
-                };
-
         Log.i(TAG, "Loading track from " + data);
 
         // Does a query against the table and returns a Cursor object
         final Cursor cursor = getContentResolver().query(
                 data,
-                projection,
+                Constants.Trackpoints.PROJECTION,
                 null,
                 null,
                 null);
@@ -542,32 +533,12 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
     }
 
     private void readTrack(Uri data) {
-        // A "projection" defines the columns that will be returned for each row
-        String[] projection =
-                {
-                        Constants.Track.NAME,
-                        Constants.Track.DESCRIPTION,
-                        Constants.Track.CATEGORY,
-                        Constants.Track.STARTTIME,
-                        Constants.Track.STOPTIME,
-                        Constants.Track.TOTALDISTANCE,
-                        Constants.Track.TOTALTIME,
-                        Constants.Track.MOVINGTIME,
-                        Constants.Track.AVGSPEED,
-                        Constants.Track.AVGMOVINGSPEED,
-                        Constants.Track.MAXSPEED,
-                        Constants.Track.MINELEVATION,
-                        Constants.Track.MAXELEVATION,
-                        Constants.Track.ELEVATIONGAIN
-
-                };
-
         Log.i(TAG, "Loading track from " + data);
 
         // Does a query against the table and returns a Cursor object
         final Cursor cursor = getContentResolver().query(
                 data,
-                projection,
+                Constants.Track.PROJECTION,
                 null,
                 null,
                 null);
@@ -591,11 +562,6 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             // TODO: show data on dashboard
             Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -704,7 +670,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             item.setChecked(true);
-            if (item.getItemId() == R.id.default_theme) { // default theme
+            if (item.getItemId() == R.id.default_theme) {
                 baseApplication.setMapTheme(null);
             } else {
                 baseApplication.setMapTheme(new File(mapThemeDirectory, item.getTitle().toString()).getAbsolutePath());
@@ -717,6 +683,4 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             return false;
         }
     }
-
 }
-
