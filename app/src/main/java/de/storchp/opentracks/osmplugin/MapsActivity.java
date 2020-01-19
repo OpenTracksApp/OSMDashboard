@@ -426,7 +426,7 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         LatLong endPos = null;
 
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
-            Polyline polyline = newPolyline();
+            Polyline polyline = null;
 
             while (cursor.moveToNext()) {
                 double latitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) / 1E6;
@@ -461,9 +461,9 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                     endPos = latLong;
                 } else if (latitude == Constants.Trackpoints.PAUSE_LATITUDE) {
                     Log.d(TAG, "Got pause trackpoint");
-                    polylines.add(polyline);
                     polyline = null;
                 }
+                // ingoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
         }
 
