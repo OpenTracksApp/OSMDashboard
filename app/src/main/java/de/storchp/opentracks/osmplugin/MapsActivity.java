@@ -417,8 +417,6 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         }
         polylines.clear();
 
-        Polyline polyline = newPolyline();
-
         double minLat = 0;
         double maxLat = 0;
         double minLon = 0;
@@ -429,13 +427,14 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
         boolean pause = false;
 
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
+            Polyline polyline = newPolyline();
+
             while (cursor.moveToNext()) {
                 double latitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE))) / 1E6;
                 double longitude = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE))) / 1E6;
                 if (!Constants.isValidLocation(latitude, longitude)) {
                     pause = latitude == Constants.Trackpoints.PAUSE_LATITUDE;
                     if (pause && polyline.getLatLongs().isEmpty()) {
-                        layers.add(polyline);
                         polylines.add(polyline);
                         Log.d(TAG, "Pause Trackpoint");
                     }
@@ -479,9 +478,14 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
                     startPos = latLong;
                 }
             }
+
+            // At last line
+            polylines.add(polyline);
         }
-        layers.add(polyline);
-        polylines.add(polyline);
+
+        for (Polyline polyline : polylines) {
+            layers.add(polyline);
+        }
 
         if (startPos != null) {
             if (startPoint == null) {
