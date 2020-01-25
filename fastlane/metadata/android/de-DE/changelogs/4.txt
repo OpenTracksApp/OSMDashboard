@@ -1,0 +1,4 @@
+- fastlane metadaten erweitert und korrigiert
+- Absturz wenn Track keine Trackpunkte enthält
+- Absturz auf Android 6.x Geräten
+- Beschreibung zu Offlinemaps hinzugefügt und besser sichtbar gemacht

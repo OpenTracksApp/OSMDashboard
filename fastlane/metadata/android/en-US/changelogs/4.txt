@@ -1,0 +1,4 @@
+- fastlane metadata extended and corrected
+- fix crash when no trackpoints received from main app
+- fix crash on android 6.x devices
+- add description regarding offline maps and made it more visible
