@@ -6,10 +6,12 @@
 Join the community and help to improve the map, see <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></p>
 
 <p>Please consider downloading an offline map to decrease the server load and save your mobile data plan.<br/>
-Some offline maps can be found here:
+Some offline maps can be found here:</p>
+
 <ul>
 <li><a href="http://download.mapsforge.org/">Mapsforge</a></li>
 <li><a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></li>
 <li><a href="https://www.openandromaps.org/en">OpenAndroMaps</a></li>
 </ul>
-Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.</p>
+
+<p>Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.</p>
