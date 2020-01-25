@@ -25,3 +25,22 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 __Required permissions:__
 * _INTERNET_: required for online maps
 * _READ_EXTERNAL_STORAGE_: required for offline maps
+
+## Maps
+
+The map implementation is based on the [Mapsforge](https://github.com/mapsforge/mapsforge) library. This also defines the types of offline maps which can be used.
+
+The default online map is provided by [OpenStreetMap.org](https://openstreetmap.org).
+Join the community and help to improve the map, see [www.openstreetmap.org/fixthemap](https://www.openstreetmap.org/fixthemap).
+
+Please consider downloading an offline map to decrease the server load and save your mobile data plan.
+
+Some offline maps can be found here:
+
+- [Mapsforge](http://download.mapsforge.org/)
+- [Freizeitkarte Android](https://www.freizeitkarte-osm.de/android/en/)
+- [OpenAndroMaps](https://www.openandromaps.org/en)
+
+Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
+
+To use offline maps, put them on your Android device external storage (e.g. `/storage/emulated/0`, depending on your device) and select the directory in the App menu `Maps` / `Offline Map Directory`.
