@@ -492,18 +492,21 @@ public class MapsActivity extends AppCompatActivity implements DirectoryChooserF
             }
         }
 
-        LatLong myPos;
+        LatLong myPos = null;
         if (update && endPos != null) {
             myPos = endPos;
-        } else {
+        } else if (startPos != null) {
             myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
         }
 
-        mapView.setCenter(myPos);
-        if (!update) {
-            boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
+        boundingBox = null;
+        if (myPos != null) {
+            mapView.setCenter(myPos);
+            if (!update) {
+                boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
+            }
         } else {
-            boundingBox = null;
+            Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
         }
     }
 
