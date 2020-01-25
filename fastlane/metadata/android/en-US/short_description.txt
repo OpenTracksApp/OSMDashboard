@@ -1,1 +1,1 @@
-OpenStreetMap dashboard for OpenTracks: https://github.com/OpenTracksApp/OpenTracks
+OpenStreetMap dashboard for OpenTracks
