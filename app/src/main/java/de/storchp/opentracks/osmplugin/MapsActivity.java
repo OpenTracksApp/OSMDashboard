@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
-import net.rdrei.android.dirchooser.DirectoryChooserFragment;
-
 import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
@@ -32,6 +30,7 @@ import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.util.ExternalRenderThemeUsingJarResources;
 import org.mapsforge.map.datastore.MapDataStore;
+import org.mapsforge.map.layer.GroupLayer;
 import org.mapsforge.map.layer.Layer;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
@@ -57,10 +56,8 @@ public class MapsActivity extends BaseActivity {
     private Layer layer;
     private List<TileCache> tileCaches = new ArrayList<>();
 
-    private List<Polyline> polylines = new ArrayList<>();
-    private FixedPixelCircle startPoint;
-    private FixedPixelCircle endPoint;
     private BoundingBox boundingBox;
+    private GroupLayer groupLayer;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -257,10 +254,11 @@ public class MapsActivity extends BaseActivity {
         Log.i(TAG, "Loading track from " + data);
 
         Layers layers = mapView.getLayerManager().getLayers();
-        for (Polyline polyline : polylines) {
-            layers.remove(polyline);
+        if (groupLayer != null) {
+            layers.remove(groupLayer);
         }
-        polylines.clear();
+        groupLayer = new GroupLayer();
+        StyleColorCreator colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE/2);
 
         double minLat = 0;
         double maxLat = 0;
@@ -269,20 +267,32 @@ public class MapsActivity extends BaseActivity {
 
         LatLong startPos = null;
         LatLong endPos = null;
+        Long trackId = null;
+        int trackColor = colorCreator.nextColor();
 
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
             Polyline polyline = null;
 
             while (cursor.moveToNext()) {
+                Long newTrackId = cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints.TRACKID));
                 double latitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) / 1E6;
                 double longitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE)) / 1E6;
-                Log.d(TAG, "Got coordinates: " + latitude + " " + longitude);
 
                 if (Constants.isValidLocation(latitude, longitude)) {
+                    if (!newTrackId.equals(trackId)) {
+                        trackColor = colorCreator.nextColor();
+                        trackId = newTrackId;
+                        polyline = null; // reset current polyline when trackId changes
+                        if (endPos != null) {
+                            addEndPoint(endPos);
+                        }
+                        startPos = null;
+                    }
+
                     if (polyline == null) {
                         Log.d(TAG, "Continue new segment after pause.");
-                        polyline = newPolyline();
-                        polylines.add(polyline);
+                        polyline = newPolyline(trackColor);
+                        groupLayer.layers.add(polyline);
                     }
 
                     LatLong latLong = new LatLong(latitude, longitude);
@@ -302,6 +312,7 @@ public class MapsActivity extends BaseActivity {
 
                     if (startPos == null) {
                         startPos = latLong;
+                        addStartPoint(startPos);
                     }
                     endPos = latLong;
                 } else if (latitude == Constants.Trackpoints.PAUSE_LATITUDE) {
@@ -312,29 +323,8 @@ public class MapsActivity extends BaseActivity {
             }
         }
 
-        for (Polyline polyline : polylines) {
-            layers.add(polyline);
-        }
-
-        if (startPos != null) {
-            if (startPoint == null) {
-                startPoint = new FixedPixelCircle(startPos, 10, createPaint(
-                        AndroidGraphicFactory.INSTANCE.createColor(Color.GREEN), 0,
-                        Style.FILL), null);
-                layers.add(startPoint);
-            } else {
-                startPoint.setLatLong(startPos);
-            }
-        }
         if (endPos != null && !endPos.equals(startPos)) {
-            if (endPoint == null) {
-                endPoint = new FixedPixelCircle(endPos, 10, createPaint(
-                        AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
-                        Style.FILL), null);
-                layers.add(endPoint);
-            } else {
-                endPoint.setLatLong(endPos);
-            }
+            addEndPoint(endPos);
         }
 
         LatLong myPos = null;
@@ -346,6 +336,7 @@ public class MapsActivity extends BaseActivity {
 
         boundingBox = null;
         if (myPos != null) {
+            layers.add(groupLayer);
             mapView.setCenter(myPos);
             if (!update) {
                 boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
@@ -355,9 +346,22 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
-    private Polyline newPolyline() {
-        return new Polyline(createPaint(
-                AndroidGraphicFactory.INSTANCE.createColor(Color.BLUE),
+    private void addStartPoint(LatLong pos) {
+        addPoint(pos, Color.GREEN);
+    }
+
+    private void addEndPoint(LatLong pos) {
+        addPoint(pos, Color.RED);
+    }
+
+    private void addPoint(LatLong pos, Color color) {
+        groupLayer.layers.add(new FixedPixelCircle(pos, 10, createPaint(
+                AndroidGraphicFactory.INSTANCE.createColor(color), 0,
+                Style.FILL), null));
+    }
+
+    private Polyline newPolyline(int trackColor) {
+        return new Polyline(createPaint(trackColor,
                 (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
                 Style.STROKE), AndroidGraphicFactory.INSTANCE);
     }
@@ -368,6 +372,7 @@ public class MapsActivity extends BaseActivity {
         // Contains only one row.
         try (Cursor cursor = getContentResolver().query(data, Constants.Track.PROJECTION, null, null, null)) {
             if (cursor.moveToFirst()) {
+                long id = cursor.getLong(cursor.getColumnIndex(Constants.Track._ID));
                 String name = cursor.getString(cursor.getColumnIndex(Constants.Track.NAME));
                 String description = cursor.getString(cursor.getColumnIndex(Constants.Track.DESCRIPTION));
                 String category = cursor.getString(cursor.getColumnIndex(Constants.Track.CATEGORY));

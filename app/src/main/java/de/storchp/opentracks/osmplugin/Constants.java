@@ -13,6 +13,7 @@ public class Constants {
 
     public static class Trackpoints {
         public static final String _ID = "_id";
+        public static final String TRACKID = "trackid";
         public static final String LONGITUDE = "longitude";
         public static final String LATITUDE = "latitude";
         public static final String TIME = "time";
@@ -20,15 +21,17 @@ public class Constants {
         public static final double PAUSE_LATITUDE = 100.0;
 
         public static final String[] PROJECTION = {
-                Constants.Trackpoints._ID,
-                Constants.Trackpoints.LATITUDE,
-                Constants.Trackpoints.LONGITUDE,
-                Constants.Trackpoints.TIME
+                _ID,
+                TRACKID,
+                LATITUDE,
+                LONGITUDE,
+                TIME
         };
     }
 
     // Track columns
     public static class Track {
+        public static final String _ID = "_id";
         public static final String NAME = "name"; // track name
         public static final String DESCRIPTION = "description"; // track description
         public static final String CATEGORY = "category"; // track activity type
@@ -45,20 +48,21 @@ public class Constants {
         public static final String ELEVATIONGAIN = "elevationgain"; // elevation gain
 
         public static final String[] PROJECTION = {
-                Constants.Track.NAME,
-                Constants.Track.DESCRIPTION,
-                Constants.Track.CATEGORY,
-                Constants.Track.STARTTIME,
-                Constants.Track.STOPTIME,
-                Constants.Track.TOTALDISTANCE,
-                Constants.Track.TOTALTIME,
-                Constants.Track.MOVINGTIME,
-                Constants.Track.AVGSPEED,
-                Constants.Track.AVGMOVINGSPEED,
-                Constants.Track.MAXSPEED,
-                Constants.Track.MINELEVATION,
-                Constants.Track.MAXELEVATION,
-                Constants.Track.ELEVATIONGAIN
+                _ID,
+                NAME,
+                DESCRIPTION,
+                CATEGORY,
+                STARTTIME,
+                STOPTIME,
+                TOTALDISTANCE,
+                TOTALTIME,
+                MOVINGTIME,
+                AVGSPEED,
+                AVGMOVINGSPEED,
+                MAXSPEED,
+                MINELEVATION,
+                MAXELEVATION,
+                ELEVATIONGAIN
         };
     }
 
