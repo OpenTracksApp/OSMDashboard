@@ -1,17 +1,14 @@
-<p>Ein OpenStreetMap dashboard für OpenTracks: <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.</p>
-<p>Darstellung des Tracks mit Start- und Endpunkt auf einer Karte von <a href="https://openstreetmap.org">OpenStreetMap</a> basierend auf der <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> Bibliothek.</p>
-<p>Als Standard ist eine Onlinekarte eingestellt, aber Offlinekarten im Mapsforge Format können genutzt werden. Damit ist kein Datenvolumen während der Aufzeichnung nötig.</p>
+Ein OpenStreetMap dashboard für OpenTracks: <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Darstellung des Tracks mit Start- und Endpunkt auf einer Karte von <a href="https://openstreetmap.org">OpenStreetMap</a> basierend auf der <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> Bibliothek.
+Als Standard ist eine Onlinekarte eingestellt, aber Offlinekarten im Mapsforge Format können genutzt werden. Damit ist kein Datenvolumen während der Aufzeichnung nötig.
 
-<p>Die Standardkarte wird von <a href="https://openstreetmap.org">OpenStreetMap.org</a> zur Verfügung gestellt.<br/>
-Trete der Gemeinschaft bei und hilf sie zu verbessern, siehe <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></p>
+Die Standardkarte wird von <a href="https://openstreetmap.org">OpenStreetMap.org</a> zur Verfügung gestellt.
+Trete der Gemeinschaft bei und hilf sie zu verbessern, siehe <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
 
-<p>Bitte nutze eine Offlinekarte, um die Serverlast und Dein mobiles Datenvolumen zu schonen.<br/>
-Einige Offlinekarten findest Du hier:</p>
+Bitte nutze eine Offlinekarte, um die Serverlast und Dein mobiles Datenvolumen zu schonen.
+Einige Offlinekarten findest Du hier:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
 
-<ul>
-<li><a href="http://download.mapsforge.org/">Mapsforge</a></li>
-<li><a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></li>
-<li><a href="https://www.openandromaps.org/en">OpenAndroMaps</a></li>
-</ul>
-
-<p>Einge Karte benötigen ein spezielles Kartentheme, um korrekt dargestellt zu werden. Diese müssen ebenfalls heruntergeladen und konfiguriert werden.</p>
+Einge Karte benötigen ein spezielles Kartentheme, um korrekt dargestellt zu werden. Diese müssen ebenfalls heruntergeladen und konfiguriert werden.

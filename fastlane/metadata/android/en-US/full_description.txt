@@ -1,17 +1,14 @@
-<p>An OpenStreetMap dashboard for <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.</p>
-<p>It shows a selected track with start- and endpoints on a map from <a href="https://openstreetmap.org">OpenStreetMap</a> based on the <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> library.</p>
-<p>The default is an online map, but offline maps are supported as well. With offline maps, there is no necessity for a mobile data plan.</p>
+An OpenStreetMap dashboard for <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+It shows a selected track with start- and endpoints on a map from <a href="https://openstreetmap.org">OpenStreetMap</a> based on the <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> library.
+The default is an online map, but offline maps are supported as well. With offline maps, there is no necessity for a mobile data plan.
 
-<p>The default map is provided by <a href="https://openstreetmap.org">OpenStreetMap.org</a>.<br/>
-Join the community and help to improve the map, see <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></p>
+The default map is provided by <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Join the community and help to improve the map, see <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
 
-<p>Please consider downloading an offline map to decrease the server load and save your mobile data plan.<br/>
-Some offline maps can be found here:</p>
+Please consider downloading an offline map to decrease the server load and save your mobile data plan.
+Some offline maps can be found here:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
 
-<ul>
-<li><a href="http://download.mapsforge.org/">Mapsforge</a></li>
-<li><a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></li>
-<li><a href="https://www.openandromaps.org/en">OpenAndroMaps</a></li>
-</ul>
-
-<p>Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.</p>
+Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
