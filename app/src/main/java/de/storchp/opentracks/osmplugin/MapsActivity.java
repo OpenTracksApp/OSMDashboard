@@ -321,6 +321,9 @@ public class MapsActivity extends BaseActivity {
                 }
                 // ingoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Reading trackpoints failed", e);
+            return;
         }
 
         if (endPos != null && !endPos.equals(startPos)) {
@@ -391,6 +394,8 @@ public class MapsActivity extends BaseActivity {
                 // TODO: show data on dashboard
                 Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Reading track failed", e);
         }
     }
 

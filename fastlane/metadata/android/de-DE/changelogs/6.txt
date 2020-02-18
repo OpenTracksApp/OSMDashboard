@@ -1,0 +1,1 @@
+- Absturz beim Verlassen des Dashboards während eine Trackaufzeichnung noch läuft
