@@ -159,7 +159,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     protected byte getZoomLevelMax() {
-        return mapView.getModel().mapViewPosition.getZoomLevelMax();
+        return (byte)Math.min(mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
     }
 
     protected byte getZoomLevelMin() {
@@ -413,11 +413,10 @@ public class MapsActivity extends BaseActivity {
         if (hasFocus && boundingBox != null) {
             Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
             this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
-                    boundingBox.getCenterPoint(),
-                    LatLongUtils.zoomForBounds(
-                            dimension,
-                            boundingBox,
-                            this.mapView.getModel().displayModel.getTileSize())));
+                boundingBox.getCenterPoint(),
+                (byte)Math.min(Math.min(LatLongUtils.zoomForBounds(
+                        dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
+                    getZoomLevelMax()), 16)));
             boundingBox = null; // only set the zoomlevel once
         }
     }

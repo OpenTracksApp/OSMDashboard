@@ -1,1 +1,2 @@
 - Absturz beim Verlassen des Dashboards während eine Trackaufzeichnung noch läuft
+- Maximale Zoomstufe begrenzt, um bessere Übersicht zu erhalten

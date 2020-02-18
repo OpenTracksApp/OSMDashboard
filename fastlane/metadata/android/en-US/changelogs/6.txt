@@ -1,1 +1,2 @@
 - fix crash when leaving dashboard while trackrecording is active
+- limit max zoomlevel for better overview
