@@ -4,6 +4,10 @@ package de.storchp.opentracks.osmplugin;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -48,7 +55,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends BaseActivity {
+public class MapsActivity extends BaseActivity implements SensorEventListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -58,6 +65,18 @@ public class MapsActivity extends BaseActivity {
 
     private BoundingBox boundingBox;
     private GroupLayer groupLayer;
+
+    private SensorManager sensorManager;
+    private final float[] accelerometerReading = new float[3];
+    private final float[] magnetometerReading = new float[3];
+    private boolean lastAccelerometerSet = false;
+    private boolean lastMagnetometerSet = false;
+
+    private final float[] rotationMatrix = new float[9];
+    private final float[] orientationAngles = new float[3];
+    private ImageView compass;
+    private float currentDegree = 0;
+    private long lastCompassUpdate = 0;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -81,6 +100,8 @@ public class MapsActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
+        compass = findViewById(R.id.compass);
+
         createMapViews();
         createTileCaches();
         createLayers();
@@ -101,6 +122,8 @@ public class MapsActivity extends BaseActivity {
                 readTrack(tracksUri);
             }
         });
+
+        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
     }
 
     @Override
@@ -283,9 +306,6 @@ public class MapsActivity extends BaseActivity {
                         trackColor = colorCreator.nextColor();
                         trackId = newTrackId;
                         polyline = null; // reset current polyline when trackId changes
-                        if (endPos != null) {
-                            addEndPoint(endPos);
-                        }
                         startPos = null;
                     }
 
@@ -312,7 +332,6 @@ public class MapsActivity extends BaseActivity {
 
                     if (startPos == null) {
                         startPos = latLong;
-                        addStartPoint(startPos);
                     }
                     endPos = latLong;
                 } else if (latitude == Constants.Trackpoints.PAUSE_LATITUDE) {
@@ -347,10 +366,6 @@ public class MapsActivity extends BaseActivity {
         } else {
             Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void addStartPoint(LatLong pos) {
-        addPoint(pos, Color.GREEN);
     }
 
     private void addEndPoint(LatLong pos) {
@@ -405,6 +420,16 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onResume();
         }
+        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer,
+                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        }
+        Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        if (magneticField != null) {
+            sensorManager.registerListener(this, magneticField,
+                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        }
     }
 
     @Override
@@ -426,7 +451,49 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onPause();
         }
+        sensorManager.unregisterListener(this);
         super.onPause();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            System.arraycopy(event.values, 0, accelerometerReading,
+                    0, accelerometerReading.length);
+            lastAccelerometerSet = true;
+        } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            System.arraycopy(event.values, 0, magnetometerReading,
+                    0, magnetometerReading.length);
+            lastMagnetometerSet = true;
+        }
+
+        if (lastAccelerometerSet && lastMagnetometerSet && compass != null && (System.currentTimeMillis() - lastCompassUpdate > 250)) {
+            lastCompassUpdate = System.currentTimeMillis();
+            SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading);
+            SensorManager.getOrientation(rotationMatrix, orientationAngles);
+            float azimuthInRadians = orientationAngles[0];
+            float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+            RotateAnimation ra = new RotateAnimation(
+                    currentDegree,
+                    -azimuthInDegress,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.5f);
+            // how long the animation will take place
+            ra.setDuration(0);
+
+            // set the animation after the end of the reservation status
+            ra.setFillAfter(true);
+
+            // Start the animation
+            compass.startAnimation(ra);
+            currentDegree = -azimuthInDegress;
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
 }

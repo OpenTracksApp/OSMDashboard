@@ -22,4 +22,15 @@
             android:text="@string/copyright_osm"
             android:textColor="#000"
             android:textSize="@dimen/attribution_size" />
+
+        <ImageView
+            android:id="@+id/compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_compass"
+            android:layout_alignTop="@+id/mapView"
+            android:layout_alignEnd="@+id/mapView"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20dp"
+            />
 </RelativeLayout>
