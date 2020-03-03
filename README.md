@@ -7,6 +7,7 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 <table>
     <tr>
         <th>Free</th>
+        <th>Free</th>
     </tr>
     <tr>
         <td>
@@ -14,6 +15,11 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
                 <img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="60" align="middle">
             </a>
         </td>
+        <td>
+            <a href="https://play.google.com/store/apps/details?id=de.storchp.opentracks.osmplugin">
+                <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" align="middle">
+            </a>
+        </td>        
     </tr>
 </table>
 
