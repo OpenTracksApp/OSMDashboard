@@ -1,1 +1,2 @@
 - read external storage permission replaced by Android Storage Access Framework
+- tracks are just extended during recording, no complete redraw anymore

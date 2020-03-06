@@ -78,6 +78,15 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
     private ImageView compass;
     private float currentDegree = 0;
     private long lastCompassUpdate = 0;
+    private long lastTrackPointId = 0;
+    private Long lastTrackId = null;
+    private int trackColor;
+    private Polyline polyline;
+    private FixedPixelCircle endMarker = null;
+
+    private StyleColorCreator colorCreator = null;
+    private LatLong startPos;
+    private LatLong endPos;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -281,34 +290,41 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
         Log.i(TAG, "Loading track from " + data);
 
         Layers layers = mapView.getLayerManager().getLayers();
-        if (groupLayer != null) {
-            layers.remove(groupLayer);
+        if (!update) { // reset data
+            if (groupLayer != null) {
+                layers.remove(groupLayer);
+            }
+            groupLayer = new GroupLayer();
+            lastTrackId = null;
+            lastTrackPointId = 0;
+            colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE/2);
+            trackColor = colorCreator.nextColor();
+            polyline = null;
+            startPos = null;
+            endPos = null;
+            endMarker = null;
         }
-        groupLayer = new GroupLayer();
-        StyleColorCreator colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE/2);
 
         double minLat = 0;
         double maxLat = 0;
         double minLon = 0;
         double maxLon = 0;
 
-        LatLong startPos = null;
-        LatLong endPos = null;
-        Long trackId = null;
-        int trackColor = colorCreator.nextColor();
-
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
-            Polyline polyline = null;
-
             while (cursor.moveToNext()) {
+                Long trackPointId = cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints._ID));
+                if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
+                    continue;
+                }
+                lastTrackPointId = trackPointId;
                 Long newTrackId = cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints.TRACKID));
                 double latitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) / 1E6;
                 double longitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE)) / 1E6;
 
                 if (Constants.isValidLocation(latitude, longitude)) {
-                    if (!newTrackId.equals(trackId)) {
+                    if (!newTrackId.equals(lastTrackId)) {
                         trackColor = colorCreator.nextColor();
-                        trackId = newTrackId;
+                        lastTrackId = newTrackId;
                         polyline = null; // reset current polyline when trackId changes
                         startPos = null;
                     }
@@ -316,7 +332,6 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
                     if (polyline == null) {
                         Log.d(TAG, "Continue new segment after pause.");
                         polyline = newPolyline(trackColor);
-                        groupLayer.layers.add(polyline);
                     }
 
                     LatLong latLong = new LatLong(latitude, longitude);
@@ -344,13 +359,19 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
                 }
                 // ingoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
+        } catch (SecurityException e) {
+            Log.w(TAG, "No permission to read trackpoints");
         } catch (Exception e) {
             Log.e(TAG, "Reading trackpoints failed", e);
             return;
         }
 
-        if (endPos != null && !endPos.equals(startPos)) {
-            addEndPoint(endPos);
+        if (endPos != null) {
+            if (endMarker == null) {
+                endMarker = addEndPoint(endPos);
+            } else {
+                endMarker.setLatLong(endPos);
+            }
         }
 
         LatLong myPos = null;
@@ -362,30 +383,34 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
 
         boundingBox = null;
         if (myPos != null) {
-            layers.add(groupLayer);
             mapView.setCenter(myPos);
-            if (!update) {
-                boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
+            if (layers.indexOf(groupLayer) == -1 && groupLayer.layers.size() > 0) {
+                layers.add(groupLayer);
             }
-        } else {
+            if (!update) {
+                if (startPos != null) {
+                    boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
+                }
+            }
+        } else if (!update) {
             Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
         }
     }
 
-    private void addEndPoint(LatLong pos) {
-        addPoint(pos, Color.RED);
-    }
-
-    private void addPoint(LatLong pos, Color color) {
-        groupLayer.layers.add(new FixedPixelCircle(pos, 10, createPaint(
-                AndroidGraphicFactory.INSTANCE.createColor(color), 0,
-                Style.FILL), null));
+    private FixedPixelCircle addEndPoint(LatLong pos) {
+        FixedPixelCircle marker = new FixedPixelCircle(pos, 10, createPaint(
+                AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
+                Style.FILL), null);
+        groupLayer.layers.add(marker);
+        return marker;
     }
 
     private Polyline newPolyline(int trackColor) {
-        return new Polyline(createPaint(trackColor,
+        Polyline polyline = new Polyline(createPaint(trackColor,
                 (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
                 Style.STROKE), AndroidGraphicFactory.INSTANCE);
+        groupLayer.layers.add(polyline);
+        return polyline;
     }
 
     private void readTrack(Uri data) {
@@ -413,6 +438,8 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
                 // TODO: show data on dashboard
                 Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
             }
+        } catch (SecurityException e) {
+            Log.w(TAG, "No permission to read track");
         } catch (Exception e) {
             Log.e(TAG, "Reading track failed", e);
         }

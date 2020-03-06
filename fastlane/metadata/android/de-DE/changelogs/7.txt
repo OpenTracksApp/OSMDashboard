@@ -1,1 +1,2 @@
 - Zugriff auf externen Speicher ersetzt durch Android Storage Access Framework
+- Tracks werden während der Aufzeichnung nur erweitert und nicht mehr komplett neu gezeichnet
