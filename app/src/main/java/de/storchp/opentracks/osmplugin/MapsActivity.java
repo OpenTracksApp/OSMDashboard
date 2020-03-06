@@ -102,8 +102,7 @@ public class MapsActivity extends BaseActivity {
         createLayers();
 
         // Get the intent that started this activity
-        Intent intent = getIntent();
-        final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
+        final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
         final Uri tracksUri = Constants.getTracksUri(uris);
         final Uri trackPointsUri = Constants.getTrackPointsUri(uris);
         readTrackpoints(trackPointsUri, false);
@@ -286,12 +285,10 @@ public class MapsActivity extends BaseActivity {
             startPos = null;
             endPos = null;
             endMarker = null;
+            boundingBox = null;
         }
 
-        double minLat = 0;
-        double maxLat = 0;
-        double minLon = 0;
-        double maxLon = 0;
+        List<LatLong> latLongs = new ArrayList<>();
 
         try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
@@ -320,16 +317,8 @@ public class MapsActivity extends BaseActivity {
                     LatLong latLong = new LatLong(latitude, longitude);
                     polyline.addPoint(latLong);
 
-                    if (minLat == 0.0) {
-                        minLat = latLong.latitude;
-                        maxLat = latLong.latitude;
-                        minLon = latLong.longitude;
-                        maxLon = latLong.longitude;
-                    } else {
-                        minLat = Math.min(minLat, latLong.latitude);
-                        maxLat = Math.max(maxLat, latLong.latitude);
-                        minLon = Math.min(minLon, latLong.longitude);
-                        maxLon = Math.max(maxLon, latLong.longitude);
+                    if (!update) {
+                        latLongs.add(latLong);
                     }
 
                     if (startPos == null) {
@@ -360,20 +349,15 @@ public class MapsActivity extends BaseActivity {
         LatLong myPos = null;
         if (update && endPos != null) {
             myPos = endPos;
-        } else if (startPos != null) {
-            myPos = new LatLong((minLat + maxLat) / 2, (minLon + maxLon) / 2);
+        } else if (!latLongs.isEmpty()) {
+            boundingBox = new BoundingBox(latLongs);
+            myPos = boundingBox.getCenterPoint();
         }
 
-        boundingBox = null;
         if (myPos != null) {
             mapView.setCenter(myPos);
             if (layers.indexOf(groupLayer) == -1 && groupLayer.layers.size() > 0) {
                 layers.add(groupLayer);
-            }
-            if (!update) {
-                if (startPos != null) {
-                    boundingBox = new BoundingBox(minLat, minLon, maxLat, maxLon);
-                }
             }
         } else if (!update) {
             Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
