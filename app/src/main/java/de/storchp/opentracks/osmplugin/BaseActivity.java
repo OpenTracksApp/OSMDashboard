@@ -1,43 +1,30 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
 
-import net.rdrei.android.dirchooser.DirectoryChooserConfig;
-import net.rdrei.android.dirchooser.DirectoryChooserFragment;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.lang.ref.WeakReference;
 
 import static android.view.Menu.NONE;
 
-abstract class BaseActivity extends AppCompatActivity implements DirectoryChooserFragment.OnFragmentInteractionListener {
+abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int REQUEST_MAP_DIRECTORY = 1;
     protected static final int REQUEST_THEME_DIRECTORY = 2;
 
     private static final String TAG = BaseActivity.class.getSimpleName();
-    private static final String TAG_MAP_DIR = MapsActivity.class.getSimpleName() + ".MapDirChooser";
-    private static final String TAG_THEME_DIR = MapsActivity.class.getSimpleName() + ".ThemeDirChooser";
 
     protected BaseApplication baseApplication;
-    private DirectoryChooserFragment mDirectoryChooser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,28 +37,24 @@ abstract class BaseActivity extends AppCompatActivity implements DirectoryChoose
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
-        final String mapFileName = baseApplication.getMapFileName();
+        final Uri mapUri = baseApplication.getMapUri();
 
         MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
-        osmMapnick.setChecked(mapFileName == null);
-        osmMapnick.setOnMenuItemClickListener(new MapsActivity.MapMenuListener(this, baseApplication, null));
+        osmMapnick.setChecked(mapUri == null);
+        osmMapnick.setOnMenuItemClickListener(new MapMenuListener(this, baseApplication, null));
 
         SubMenu mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
 
-        final String mapDirectory = baseApplication.getMapDirectory();
+        final Uri mapDirectory = baseApplication.getMapDirectoryUri();
         if (mapDirectory != null) {
-            final File mapDirectoryFile = new File(mapDirectory);
-            if (mapDirectoryFile.canRead() && mapDirectoryFile.isDirectory()) {
-                File[] maps = mapDirectoryFile.listFiles(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.endsWith(".map");
+            DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
+            if (documentsTree != null) {
+                for (DocumentFile file : documentsTree.listFiles()) {
+                    if (file.isFile() && file.getName().endsWith(".map")) {
+                        MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
+                        mapItem.setChecked(file.getUri().equals(mapUri));
+                        mapItem.setOnMenuItemClickListener(new MapMenuListener(this, baseApplication, file.getUri()));
                     }
-                });
-                for (File map : maps) {
-                    MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, map.getName());
-                    mapItem.setChecked(map.getAbsolutePath().equals(mapFileName));
-                    mapItem.setOnMenuItemClickListener(new MapsActivity.MapMenuListener(this, baseApplication, mapDirectoryFile));
                 }
             }
         }
@@ -81,45 +64,37 @@ abstract class BaseActivity extends AppCompatActivity implements DirectoryChoose
         mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(BaseActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_MAP_DIRECTORY);
-                } else {
-                    openMapDirectoryChooser();
-                }
+                openMapDirectoryChooser();
                 return false;
             }
         });
 
-        final String mapTheme = baseApplication.getMapTheme();
-        final String mapThemeDirectory = baseApplication.getMapThemeDirectory();
+        final Uri mapTheme = baseApplication.getMapThemeUri();
+        final Uri mapThemeDirectory = baseApplication.getMapThemeDirectoryUri();
 
         MenuItem defaultTheme = menu.findItem(R.id.default_theme);
         defaultTheme.setChecked(mapTheme == null);
-        defaultTheme.setOnMenuItemClickListener(new MapsActivity.MapThemeMenuListener(this, baseApplication, null));
+        defaultTheme.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, null));
         SubMenu themeSubmenu = menu.findItem(R.id.themes_submenu).getSubMenu();
 
         if (mapThemeDirectory != null) {
-            final File mapThemeDirectoryFile = new File(mapThemeDirectory);
-            if (mapThemeDirectoryFile.canRead() && mapThemeDirectoryFile.isDirectory()) {
-                File[] themes = mapThemeDirectoryFile.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(File file) {
-                        if (file.isFile() && file.getName().endsWith(".xml")) {
-                            return true;
+            DocumentFile documentsTree = getDocumentFileFromTreeUri(mapThemeDirectory);
+            if (documentsTree != null) {
+                for (DocumentFile file : documentsTree.listFiles()) {
+                    if (file.isFile() && file.getName().endsWith(".xml")) {
+                        String themeName = file.getName();
+                        MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
+                        themeItem.setChecked(file.getUri().equals(mapTheme));
+                        themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, file.getUri()));
+                    } else if (file.isDirectory()) {
+                        DocumentFile childFile = file.findFile(file.getName() + ".xml");
+                        if (childFile != null) {
+                            String themeName = file.getName();
+                            MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
+                            themeItem.setChecked(childFile.getUri().equals(mapTheme));
+                            themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, childFile.getUri()));
                         }
-                        if (file.isDirectory()) {
-                            File theme = new File(file, file.getName() + ".xml");
-                            return theme.exists() && theme.canRead();
-                        }
-                        return false;
                     }
-
-                });
-                for (File theme : themes) {
-                    String themeName = theme.getName();
-                    MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
-                    themeItem.setChecked(theme.getAbsolutePath().equals(mapTheme));
-                    themeItem.setOnMenuItemClickListener(new MapsActivity.MapThemeMenuListener(this, baseApplication, mapThemeDirectoryFile));
                 }
             }
         }
@@ -129,11 +104,7 @@ abstract class BaseActivity extends AppCompatActivity implements DirectoryChoose
         themeFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(BaseActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_MAP_DIRECTORY);
-                } else {
-                    openThemeDirectoryChooser();
-                }
+                openThemeDirectoryChooser();
                 return false;
             }
         });
@@ -144,125 +115,106 @@ abstract class BaseActivity extends AppCompatActivity implements DirectoryChoose
         return true;
     }
 
-    private void openDirectoryChooser(String dir, String tag) {
-        if (dir == null) {
-            dir = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private DocumentFile getDocumentFileFromTreeUri(Uri uri) {
+        try {
+            return DocumentFile.fromTreeUri(getApplication(), uri);
+        } catch (Exception e) {
+            Log.w(TAG, "Error getting DocumentFile from Uri: " + uri);
         }
-        final DirectoryChooserConfig config = DirectoryChooserConfig.builder()
-                .newDirectoryName("")
-                .allowNewDirectoryNameModification(true)
-                .allowReadOnlyDirectory(true)
-                .initialDirectory(dir)
-                .build();
-        mDirectoryChooser = DirectoryChooserFragment.newInstance(config);
-
-        mDirectoryChooser.show(getFragmentManager(), tag);
+        return null;
     }
 
-    protected void openMapDirectoryChooser() {
-        openDirectoryChooser(baseApplication.getMapDirectory(), TAG_MAP_DIR);
+    public void openDirectory(int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        startActivityForResult(intent, requestCode);
     }
 
-    protected void openThemeDirectoryChooser() {
-        openDirectoryChooser(baseApplication.getMapThemeDirectory(), TAG_THEME_DIR);
+
+    private void openMapDirectoryChooser() {
+        openDirectory(REQUEST_MAP_DIRECTORY);
     }
 
-    public void onSelectDirectory(@NonNull String path) {
-        if (mDirectoryChooser.getTag().equals(TAG_MAP_DIR)) {
-            baseApplication.setMapDirectory(path);
-        } else if (mDirectoryChooser.getTag().equals(TAG_THEME_DIR)) {
-            baseApplication.setMapThemeDirectory(path);
-        }
-        mDirectoryChooser.dismiss();
-        recreate();
-    }
-
-    public void onCancelChooser() {
-        mDirectoryChooser.dismiss();
+    private void openThemeDirectoryChooser() {
+        openDirectory(REQUEST_THEME_DIRECTORY);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_MAP_DIRECTORY) {
-            Log.i(TAG, "Received response for external file permission request.");
-
-            // Check if the required permission has been granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission has been granted
-                openMapDirectoryChooser();
-            } else {
-                //Permission not granted
-                Toast.makeText(getApplicationContext(), R.string.grant_external_storage, Toast.LENGTH_LONG).show();
-            }
-        } else if (requestCode == REQUEST_THEME_DIRECTORY) {
-            Log.i(TAG, "Received response for external file permission request.");
-
-            // Check if the required permission has been granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission has been granted
-                openThemeDirectoryChooser();
-            } else {
-                //Permission not granted
-                Toast.makeText(getApplicationContext(), R.string.grant_external_storage, Toast.LENGTH_LONG).show();
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        if (resultCode == Activity.RESULT_OK && resultData != null) {
+            Uri uri = resultData.getData();
+            if (uri != null) {
+                getContentResolver().takePersistableUriPermission(
+                        resultData.getData(),
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+                if (requestCode == REQUEST_MAP_DIRECTORY) {
+                    baseApplication.setMapDirectoryUri(resultData.getData());
+                    recreate();
+                } else if (requestCode == REQUEST_THEME_DIRECTORY) {
+                    baseApplication.setMapThemeDirectoryUri(resultData.getData());
+                    recreate();
+                }
             }
         }
     }
 
-    protected static class MapMenuListener implements MenuItem.OnMenuItemClickListener {
+    private static class MapMenuListener implements MenuItem.OnMenuItemClickListener {
 
-        private WeakReference<Activity> activityRef;
+        private WeakReference<BaseActivity> activityRef;
 
         private BaseApplication baseApplication;
 
-        private File mapDirectory;
+        private Uri mapUri;
 
-        private MapMenuListener(final Activity activity, final BaseApplication baseApplication, final File mapDirectory) {
+        private MapMenuListener(final BaseActivity activity, final BaseApplication baseApplication, final Uri mapUri) {
             this.activityRef = new WeakReference<>(activity);
             this.baseApplication = baseApplication;
-            this.mapDirectory = mapDirectory;
+            this.mapUri = mapUri;
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             item.setChecked(true);
             if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
-                baseApplication.setMapFileName(null);
+                baseApplication.setMapUri(null);
             } else {
-                baseApplication.setMapFileName(new File(mapDirectory, item.getTitle().toString()).getAbsolutePath());
+                baseApplication.setMapUri(mapUri);
             }
 
-            final Activity mapsActivity = activityRef.get();
-            if (mapsActivity != null) {
-                mapsActivity.recreate();
+            BaseActivity activity = activityRef.get();
+            if (activity != null) {
+                activity.recreate();
             }
             return false;
         }
     }
 
-    protected static class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
+    private static class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
 
-        private WeakReference<Activity> activityRef;
+        private WeakReference<BaseActivity> activityRef;
 
         private BaseApplication baseApplication;
 
-        private File mapThemeDirectory;
+        private Uri mapThemeUri;
 
-        private MapThemeMenuListener(final Activity activity, final BaseApplication baseApplication, final File mapThemeDirectory) {
+        private MapThemeMenuListener(final BaseActivity activity, final BaseApplication baseApplication, final Uri mapThemeUri) {
             this.activityRef = new WeakReference<>(activity);
             this.baseApplication = baseApplication;
-            this.mapThemeDirectory = mapThemeDirectory;
+            this.mapThemeUri = mapThemeUri;
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             item.setChecked(true);
-            if (item.getItemId() == R.id.default_theme) {
-                baseApplication.setMapTheme(null);
+            if (item.getItemId() == R.id.default_theme) { // default theme
+                baseApplication.setMapThemeUri(null);
             } else {
-                baseApplication.setMapTheme(new File(mapThemeDirectory, item.getTitle().toString()).getAbsolutePath());
+                baseApplication.setMapThemeUri(mapThemeUri);
             }
 
-            final Activity activity = activityRef.get();
+            BaseActivity activity = activityRef.get();
             if (activity != null) {
                 activity.recreate();
             }

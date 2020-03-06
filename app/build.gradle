@@ -7,8 +7,8 @@ android {
         applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 6
-        versionName "1.4.0"
+        versionCode 7
+        versionName "1.5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,10 +33,9 @@ dependencies {
     implementation 'org.mapsforge:mapsforge-map-android:0.13.0'
     implementation 'net.sf.kxml:kxml2:2.3.0'
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'net.rdrei.android.dirchooser:library:3.2@aar'
-    implementation 'com.github.guardian:Option:-SNAPSHOT'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.documentfile:documentfile:1.0.1'
 }

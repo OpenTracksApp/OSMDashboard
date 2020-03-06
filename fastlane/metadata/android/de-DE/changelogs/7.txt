@@ -1,0 +1,1 @@
+- Zugriff auf externen Speicher ersetzt durch Android Storage Access Framework

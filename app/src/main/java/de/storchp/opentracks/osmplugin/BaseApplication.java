@@ -3,9 +3,12 @@ package de.storchp.opentracks.osmplugin;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.util.Log;
 
 public class BaseApplication extends Application {
 
+    private static final String TAG = BaseApplication.class.getSimpleName();
     public static final String PREF_FILE = "APP_PREF_FILE";
 
     private SharedPreferences preferences;
@@ -35,36 +38,50 @@ public class BaseApplication extends Application {
         return (byte) 12;
     }
 
-    public String getMapFileName() {
-        return preferences.getString(getString(R.string.MAP_FILE), null);
+    public Uri getMapUri() {
+        return getUri(getString(R.string.MAP_FILE));
     }
 
-    public void setMapFileName(String mapFileName) {
-        putString(R.string.MAP_FILE, mapFileName);
+    public void setMapUri(Uri map) {
+        putUri(R.string.MAP_FILE, map);
     }
 
-    public String getMapDirectory() {
-        return preferences.getString(getString(R.string.MAP_DIRECTORY), null);
+    private void putUri(int key, Uri uri) {
+        putString(key, uri != null ? uri.toString() : null);
     }
 
-    public void setMapDirectory(String mapDirectory) {
-        putString(R.string.MAP_DIRECTORY, mapDirectory);
+    public Uri getMapDirectoryUri() {
+        return getUri(getString(R.string.MAP_DIRECTORY));
     }
 
-    public String getMapThemeDirectory() {
-        return preferences.getString(getString(R.string.MAP_THEME_DIRECTORY), null);
+    private Uri getUri(String key) {
+        String value = preferences.getString(key, null);
+        try {
+            return Uri.parse(value);
+        } catch (Exception ignored) {
+            Log.e(TAG, "can't read Uri string " + value);
+        }
+        return null;
     }
 
-    public void setMapThemeDirectory(String mapThemeDirectory) {
-        putString(R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
+    public void setMapDirectoryUri(Uri mapDirectory) {
+        putUri(R.string.MAP_DIRECTORY, mapDirectory);
     }
 
-    public String getMapTheme() {
-        return preferences.getString(getString(R.string.MAP_THEME), null);
+    public Uri getMapThemeDirectoryUri() {
+        return getUri(getString(R.string.MAP_THEME_DIRECTORY));
     }
 
-    public void setMapTheme(String mapTheme) {
-        putString(R.string.MAP_THEME, mapTheme);
+    public void setMapThemeDirectoryUri(Uri mapThemeDirectory) {
+        putUri(R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
+    }
+
+    public Uri getMapThemeUri() {
+        return getUri(getString(R.string.MAP_THEME));
+    }
+
+    public void setMapThemeUri(Uri mapTheme) {
+        putUri(R.string.MAP_THEME, mapTheme);
     }
 
 }

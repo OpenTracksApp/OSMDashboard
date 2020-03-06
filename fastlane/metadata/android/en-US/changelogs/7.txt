@@ -1,0 +1,1 @@
+- read external storage permission replaced by Android Storage Access Framework

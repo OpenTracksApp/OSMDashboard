@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.documentfile.provider.DocumentFile;
 
 import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
@@ -35,7 +36,6 @@ import org.mapsforge.core.util.LatLongUtils;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
-import org.mapsforge.map.android.util.ExternalRenderThemeUsingJarResources;
 import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.layer.GroupLayer;
 import org.mapsforge.map.layer.Layer;
@@ -48,9 +48,10 @@ import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
+import org.mapsforge.map.rendertheme.StreamRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -201,28 +202,31 @@ public class MapsActivity extends BaseActivity implements SensorEventListener {
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        String mapTheme = baseApplication.getMapTheme();
+        Uri mapTheme = baseApplication.getMapThemeUri();
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
         try {
-            File renderThemeFile = new File(mapTheme);
-            if (renderThemeFile.isDirectory()) {
-                renderThemeFile = new File(renderThemeFile, renderThemeFile.getName() + ".xml");
-            }
-            return new ExternalRenderThemeUsingJarResources(renderThemeFile);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Error loading theme " + mapTheme, e);
+            DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
+            return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(renderThemeFile.getUri()));
+        } catch (Exception e) {
+            Log.e( TAG,"Error loading theme " + mapTheme, e);
             return InternalRenderTheme.DEFAULT;
         }
     }
 
     protected MapDataStore getMapFile() {
-        if (baseApplication.getMapFileName() == null) {
+        final Uri mapFile = baseApplication.getMapUri();
+        if (mapFile == null || !DocumentFile.isDocumentUri(this, mapFile)) {
             return null;
         }
-        final File mapFile = new File(baseApplication.getMapFileName());
-        return mapFile.canRead() ? new MapFile(mapFile) : null;
+        try {
+            FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapFile);
+            return new MapFile(inputStream, 0, null);
+        } catch (FileNotFoundException ignored) {
+            Log.e(TAG, "Can't open mapFile", ignored);
+        }
+        return null;
     }
 
     protected void createLayers() {
