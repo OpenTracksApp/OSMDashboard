@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.maps;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -54,6 +54,9 @@ import java.util.List;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
+import de.storchp.opentracks.osmplugin.maps.CompassListener;
+import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
+import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 
 public class MapsActivity extends BaseActivity {
 
@@ -75,7 +78,7 @@ public class MapsActivity extends BaseActivity {
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
-    private Compass compass;
+    private CompassListener compassListener;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -99,7 +102,7 @@ public class MapsActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
-        compass = new Compass((SensorManager) getSystemService(SENSOR_SERVICE), (ImageView) findViewById(R.id.compass));
+        compassListener = new CompassListener((SensorManager) getSystemService(SENSOR_SERVICE), (ImageView) findViewById(R.id.compass));
 
         createMapViews();
         createTileCaches();
@@ -422,7 +425,7 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onResume();
         }
-        compass.onResume();
+        compassListener.onResume();
     }
 
     @Override
@@ -444,7 +447,7 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onPause();
         }
-        compass.onPause();
+        compassListener.onPause();
         super.onPause();
     }
 
