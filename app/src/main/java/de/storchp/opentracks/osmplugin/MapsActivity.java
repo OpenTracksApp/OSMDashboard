@@ -51,6 +51,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
+import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
+
 public class MapsActivity extends BaseActivity {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -95,16 +99,16 @@ public class MapsActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
-        compass = new Compass((SensorManager)getSystemService(SENSOR_SERVICE), (ImageView) findViewById(R.id.compass));
+        compass = new Compass((SensorManager) getSystemService(SENSOR_SERVICE), (ImageView) findViewById(R.id.compass));
 
         createMapViews();
         createTileCaches();
         createLayers();
 
         // Get the intent that started this activity
-        final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(Constants.ACTION_DASHBOARD_PAYLOAD);
-        final Uri tracksUri = Constants.getTracksUri(uris);
-        final Uri trackPointsUri = Constants.getTrackPointsUri(uris);
+        final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
+        final Uri tracksUri = APIConstants.getTracksUri(uris);
+        final Uri trackPointsUri = APIConstants.getTrackPointsUri(uris);
         readTrackpoints(trackPointsUri, false);
         readTrack(tracksUri);
 
@@ -174,7 +178,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     protected byte getZoomLevelMax() {
-        return (byte)Math.min(mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
+        return (byte) Math.min(mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
     }
 
     protected byte getZoomLevelMin() {
@@ -201,7 +205,7 @@ public class MapsActivity extends BaseActivity {
             DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
             return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(renderThemeFile.getUri()));
         } catch (Exception e) {
-            Log.e( TAG,"Error loading theme " + mapTheme, e);
+            Log.e(TAG, "Error loading theme " + mapTheme, e);
             return InternalRenderTheme.DEFAULT;
         }
     }
@@ -279,7 +283,7 @@ public class MapsActivity extends BaseActivity {
             groupLayer = new GroupLayer();
             lastTrackId = null;
             lastTrackPointId = 0;
-            colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE/2);
+            colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
             trackColor = colorCreator.nextColor();
             polyline = null;
             startPos = null;
@@ -290,18 +294,18 @@ public class MapsActivity extends BaseActivity {
 
         List<LatLong> latLongs = new ArrayList<>();
 
-        try (Cursor cursor = getContentResolver().query(data, Constants.Trackpoints.PROJECTION, null, null, null)) {
+        try (Cursor cursor = getContentResolver().query(data, TrackpointsColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                Long trackPointId = cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints._ID));
+                Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackpointsColumn._ID));
                 if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
                     continue;
                 }
                 lastTrackPointId = trackPointId;
-                Long newTrackId = cursor.getLong(cursor.getColumnIndex(Constants.Trackpoints.TRACKID));
-                double latitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LATITUDE)) / 1E6;
-                double longitude = cursor.getInt(cursor.getColumnIndex(Constants.Trackpoints.LONGITUDE)) / 1E6;
+                Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackpointsColumn.TRACKID));
+                double latitude = cursor.getInt(cursor.getColumnIndex(TrackpointsColumn.LATITUDE)) / 1E6;
+                double longitude = cursor.getInt(cursor.getColumnIndex(TrackpointsColumn.LONGITUDE)) / 1E6;
 
-                if (Constants.isValidLocation(latitude, longitude)) {
+                if (TrackpointsColumn.isValidLocation(latitude, longitude)) {
                     if (!newTrackId.equals(lastTrackId)) {
                         trackColor = colorCreator.nextColor();
                         lastTrackId = newTrackId;
@@ -325,7 +329,7 @@ public class MapsActivity extends BaseActivity {
                         startPos = latLong;
                     }
                     endPos = latLong;
-                } else if (latitude == Constants.Trackpoints.PAUSE_LATITUDE) {
+                } else if (latitude == TrackpointsColumn.PAUSE_LATITUDE) {
                     Log.d(TAG, "Got pause trackpoint");
                     polyline = null;
                 }
@@ -384,23 +388,23 @@ public class MapsActivity extends BaseActivity {
         Log.i(TAG, "Loading track from " + data);
 
         // Contains only one row.
-        try (Cursor cursor = getContentResolver().query(data, Constants.Track.PROJECTION, null, null, null)) {
+        try (Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
             if (cursor.moveToFirst()) {
-                long id = cursor.getLong(cursor.getColumnIndex(Constants.Track._ID));
-                String name = cursor.getString(cursor.getColumnIndex(Constants.Track.NAME));
-                String description = cursor.getString(cursor.getColumnIndex(Constants.Track.DESCRIPTION));
-                String category = cursor.getString(cursor.getColumnIndex(Constants.Track.CATEGORY));
-                int startTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STARTTIME));
-                int stopTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.STOPTIME));
-                float totalDistance = cursor.getFloat(cursor.getColumnIndex(Constants.Track.TOTALDISTANCE));
-                int totalTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.TOTALTIME));
-                int movingTime = cursor.getInt(cursor.getColumnIndex(Constants.Track.MOVINGTIME));
-                float avgSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGSPEED));
-                float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.AVGMOVINGSPEED));
-                float maxSpeed = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXSPEED));
-                float minElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MINELEVATION));
-                float maxElevation = cursor.getFloat(cursor.getColumnIndex(Constants.Track.MAXELEVATION));
-                float elevationGain = cursor.getFloat(cursor.getColumnIndex(Constants.Track.ELEVATIONGAIN));
+                long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
+                String name = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
+                String description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
+                String category = cursor.getString(cursor.getColumnIndex(TracksColumn.CATEGORY));
+                int startTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STARTTIME));
+                int stopTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STOPTIME));
+                float totalDistance = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
+                int totalTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
+                int movingTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.MOVINGTIME));
+                float avgSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGSPEED));
+                float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGMOVINGSPEED));
+                float maxSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXSPEED));
+                float minElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MINELEVATION));
+                float maxElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXELEVATION));
+                float elevationGain = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
 
                 // TODO: show data on dashboard
                 Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
@@ -427,10 +431,10 @@ public class MapsActivity extends BaseActivity {
         if (hasFocus && boundingBox != null) {
             Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
             this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
-                boundingBox.getCenterPoint(),
-                (byte)Math.min(Math.min(LatLongUtils.zoomForBounds(
-                        dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
-                    getZoomLevelMax()), 16)));
+                    boundingBox.getCenterPoint(),
+                    (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
+                            dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
+                            getZoomLevelMax()), 16)));
             boundingBox = null; // only set the zoomlevel once
         }
     }
