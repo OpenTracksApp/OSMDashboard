@@ -57,10 +57,13 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.maps.CompassListener;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
+import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
 
 public class MapsActivity extends BaseActivity {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
+
+    private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
     private MapsforgeMapView mapView;
     private Layer layer;
@@ -200,7 +203,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        Uri mapTheme = baseApplication.getMapThemeUri();
+        Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
@@ -214,7 +217,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     protected MapDataStore getMapFile() {
-        final Uri mapFile = baseApplication.getMapUri();
+        final Uri mapFile = PreferencesUtils.getMapUri(this);
         if (mapFile == null || !DocumentFile.isDocumentUri(this, mapFile)) {
             return null;
         }
@@ -246,7 +249,7 @@ public class MapsActivity extends BaseActivity {
             mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
             mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
         }
-        mapView.setZoomLevel(baseApplication.getZoomLevelDefault());
+        mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
         mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
         mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
     }
