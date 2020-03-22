@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.maps;
 
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 
@@ -71,7 +71,7 @@ public class StyleColorCreator {
      * @param alpha The opacity (alpha channel) of the color.
      * @return The color.
      */
-    int nextColor(int alpha) {
+    public int nextColor(int alpha) {
         this.h += GOLDEN_RATIO_CONJUGATE;
         this.h %= 1;
 
@@ -83,7 +83,7 @@ public class StyleColorCreator {
      *
      * @return The color.
      */
-    int nextColor() {
+    public int nextColor() {
         return nextColor(255);
     }
 

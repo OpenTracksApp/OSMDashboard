@@ -3,17 +3,15 @@ package de.storchp.opentracks.osmplugin;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
-import java.lang.ref.WeakReference;
+import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
 
 import static android.view.Menu.NONE;
 
@@ -24,28 +22,19 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
-    protected BaseApplication baseApplication;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        baseApplication = (BaseApplication) getApplication();
-    }
-
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
-        final Uri mapUri = baseApplication.getMapUri();
+        final Uri mapUri = PreferencesUtils.getMapUri(this);
 
         MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
         osmMapnick.setChecked(mapUri == null);
-        osmMapnick.setOnMenuItemClickListener(new MapMenuListener(this, baseApplication, null));
+        osmMapnick.setOnMenuItemClickListener(new MapMenuListener(null));
 
         SubMenu mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
 
-        final Uri mapDirectory = baseApplication.getMapDirectoryUri();
+        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
         if (mapDirectory != null) {
             DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
             if (documentsTree != null) {
@@ -53,7 +42,7 @@ abstract class BaseActivity extends AppCompatActivity {
                     if (file.isFile() && file.getName().endsWith(".map")) {
                         MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
                         mapItem.setChecked(file.getUri().equals(mapUri));
-                        mapItem.setOnMenuItemClickListener(new MapMenuListener(this, baseApplication, file.getUri()));
+                        mapItem.setOnMenuItemClickListener(new MapMenuListener(file.getUri()));
                     }
                 }
             }
@@ -69,12 +58,12 @@ abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
-        final Uri mapTheme = baseApplication.getMapThemeUri();
-        final Uri mapThemeDirectory = baseApplication.getMapThemeDirectoryUri();
+        final Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
+        final Uri mapThemeDirectory = PreferencesUtils.getMapThemeDirectoryUri(this);
 
         MenuItem defaultTheme = menu.findItem(R.id.default_theme);
         defaultTheme.setChecked(mapTheme == null);
-        defaultTheme.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, null));
+        defaultTheme.setOnMenuItemClickListener(new MapThemeMenuListener(null));
         SubMenu themeSubmenu = menu.findItem(R.id.themes_submenu).getSubMenu();
 
         if (mapThemeDirectory != null) {
@@ -85,14 +74,14 @@ abstract class BaseActivity extends AppCompatActivity {
                         String themeName = file.getName();
                         MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
                         themeItem.setChecked(file.getUri().equals(mapTheme));
-                        themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, file.getUri()));
+                        themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(file.getUri()));
                     } else if (file.isDirectory()) {
                         DocumentFile childFile = file.findFile(file.getName() + ".xml");
                         if (childFile != null) {
                             String themeName = file.getName();
                             MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
                             themeItem.setChecked(childFile.getUri().equals(mapTheme));
-                            themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(this, baseApplication, childFile.getUri()));
+                            themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(childFile.getUri()));
                         }
                     }
                 }
@@ -150,27 +139,21 @@ abstract class BaseActivity extends AppCompatActivity {
                         Intent.FLAG_GRANT_READ_URI_PERMISSION
                 );
                 if (requestCode == REQUEST_MAP_DIRECTORY) {
-                    baseApplication.setMapDirectoryUri(resultData.getData());
+                    PreferencesUtils.setMapDirectoryUri(this, resultData.getData());
                     recreate();
                 } else if (requestCode == REQUEST_THEME_DIRECTORY) {
-                    baseApplication.setMapThemeDirectoryUri(resultData.getData());
+                    PreferencesUtils.setMapThemeDirectoryUri(this, resultData.getData());
                     recreate();
                 }
             }
         }
     }
 
-    private static class MapMenuListener implements MenuItem.OnMenuItemClickListener {
-
-        private WeakReference<BaseActivity> activityRef;
-
-        private BaseApplication baseApplication;
+    private class MapMenuListener implements MenuItem.OnMenuItemClickListener {
 
         private Uri mapUri;
 
-        private MapMenuListener(final BaseActivity activity, final BaseApplication baseApplication, final Uri mapUri) {
-            this.activityRef = new WeakReference<>(activity);
-            this.baseApplication = baseApplication;
+        private MapMenuListener(final Uri mapUri) {
             this.mapUri = mapUri;
         }
 
@@ -178,30 +161,22 @@ abstract class BaseActivity extends AppCompatActivity {
         public boolean onMenuItemClick(MenuItem item) {
             item.setChecked(true);
             if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
-                baseApplication.setMapUri(null);
+                PreferencesUtils.setMapUri(BaseActivity.this, null);
             } else {
-                baseApplication.setMapUri(mapUri);
+                PreferencesUtils.setMapUri(BaseActivity.this, mapUri);
             }
 
-            BaseActivity activity = activityRef.get();
-            if (activity != null) {
-                activity.recreate();
-            }
+            BaseActivity.this.recreate();
+
             return false;
         }
     }
 
-    private static class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
-
-        private WeakReference<BaseActivity> activityRef;
-
-        private BaseApplication baseApplication;
+    private class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
 
         private Uri mapThemeUri;
 
-        private MapThemeMenuListener(final BaseActivity activity, final BaseApplication baseApplication, final Uri mapThemeUri) {
-            this.activityRef = new WeakReference<>(activity);
-            this.baseApplication = baseApplication;
+        private MapThemeMenuListener(final Uri mapThemeUri) {
             this.mapThemeUri = mapThemeUri;
         }
 
@@ -209,15 +184,13 @@ abstract class BaseActivity extends AppCompatActivity {
         public boolean onMenuItemClick(MenuItem item) {
             item.setChecked(true);
             if (item.getItemId() == R.id.default_theme) { // default theme
-                baseApplication.setMapThemeUri(null);
+                PreferencesUtils.setMapThemeUri(BaseActivity.this, null);
             } else {
-                baseApplication.setMapThemeUri(mapThemeUri);
+                PreferencesUtils.setMapThemeUri(BaseActivity.this, mapThemeUri);
             }
 
-            BaseActivity activity = activityRef.get();
-            if (activity != null) {
-                activity.recreate();
-            }
+            BaseActivity.this.recreate();
+
             return false;
         }
     }

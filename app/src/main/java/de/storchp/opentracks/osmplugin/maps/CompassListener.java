@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.maps;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
-public class Compass  implements SensorEventListener {
+public class CompassListener implements SensorEventListener {
 
     private SensorManager sensorManager;
     private final float[] accelerometerReading = new float[3];
@@ -17,13 +17,13 @@ public class Compass  implements SensorEventListener {
     private boolean lastMagnetometerSet = false;
     private final float[] rotationMatrix = new float[9];
     private final float[] orientationAngles = new float[3];
-    private ImageView compass;
+    private ImageView compassView;
     private float currentDegree = 0;
     private long lastCompassUpdate = 0;
 
-    public Compass(SensorManager sensorManager, ImageView compass) {
+    public CompassListener(SensorManager sensorManager, ImageView compassView) {
         this.sensorManager = sensorManager;
-        this.compass = compass;
+        this.compassView = compassView;
     }
 
     public void onResume() {
@@ -39,7 +39,7 @@ public class Compass  implements SensorEventListener {
         }
     }
 
-    protected void onPause() {
+    public void onPause() {
         sensorManager.unregisterListener(this);
     }
 
@@ -55,7 +55,7 @@ public class Compass  implements SensorEventListener {
             lastMagnetometerSet = true;
         }
 
-        if (lastAccelerometerSet && lastMagnetometerSet && compass != null && (System.currentTimeMillis() - lastCompassUpdate > 250)) {
+        if (lastAccelerometerSet && lastMagnetometerSet && compassView != null && (System.currentTimeMillis() - lastCompassUpdate > 250)) {
             lastCompassUpdate = System.currentTimeMillis();
             SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading);
             SensorManager.getOrientation(rotationMatrix, orientationAngles);
@@ -74,7 +74,7 @@ public class Compass  implements SensorEventListener {
             ra.setFillAfter(true);
 
             // Start the animation
-            compass.startAnimation(ra);
+            compassView.startAnimation(ra);
             currentDegree = -azimuthInDegress;
         }
     }
