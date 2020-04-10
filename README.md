@@ -1,4 +1,4 @@
-# <img src="drawable-svg/LOGO.svg" alt="OpenTracks logo" height="40"></img> OpenTracks - OSM Dashboard
+# <img src="assets/LOGO.svg" alt="OpenTracks logo" height="40"></img> OpenTracks - OSM Dashboard
 
 _OSM Dashboard_ is a companion application for [OpenTracks](https://github.com/OpenTracksApp/OpenTracks).
 It adds the functionality to show tracks on a map using data from [OpenStreetMap](https://www.openstreetmap.org).
