@@ -10,10 +10,16 @@ android {
         versionCode 8
         versionName "1.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                applicationLogo: "@drawable/ic_logo_color_24dp",
+        ]
     }
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
+            manifestPlaceholders = [
+                    applicationLogo: "@drawable/ic_logo_color_debug_24dp",
+            ]
         }
 
         release {
