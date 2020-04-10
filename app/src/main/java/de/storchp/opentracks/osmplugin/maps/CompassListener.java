@@ -18,8 +18,9 @@ public class CompassListener implements SensorEventListener {
     private final float[] rotationMatrix = new float[9];
     private final float[] orientationAngles = new float[3];
     private ImageView compassView;
+    private int lastDegreePos = -1;
+    private float[] lastDegrees = new float[5];
     private float currentDegree = 0;
-    private long lastCompassUpdate = 0;
 
     public CompassListener(SensorManager sensorManager, ImageView compassView) {
         this.sensorManager = sensorManager;
@@ -55,15 +56,24 @@ public class CompassListener implements SensorEventListener {
             lastMagnetometerSet = true;
         }
 
-        if (lastAccelerometerSet && lastMagnetometerSet && compassView != null && (System.currentTimeMillis() - lastCompassUpdate > 250)) {
-            lastCompassUpdate = System.currentTimeMillis();
+        if (lastAccelerometerSet && lastMagnetometerSet && compassView != null) {
             SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading);
             SensorManager.getOrientation(rotationMatrix, orientationAngles);
             float azimuthInRadians = orientationAngles[0];
             float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+            float newDegree = -azimuthInDegress;
+            if (lastDegreePos == -1) {
+                initLastDegrees(newDegree);
+                lastDegreePos = 1;
+            } else {
+                lastDegreePos++;
+                lastDegreePos %=lastDegrees.length;
+                lastDegrees[lastDegreePos] = newDegree;
+                newDegree = averageLastDegrees();
+            }
             RotateAnimation ra = new RotateAnimation(
                     currentDegree,
-                    -azimuthInDegress,
+                    newDegree,
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF,
                     0.5f);
@@ -75,8 +85,22 @@ public class CompassListener implements SensorEventListener {
 
             // Start the animation
             compassView.startAnimation(ra);
-            currentDegree = -azimuthInDegress;
+            currentDegree = newDegree;
         }
+    }
+
+    private void initLastDegrees(float newDegree) {
+        for(int i= 1;i <lastDegrees.length;i++){
+            lastDegrees[i] = newDegree;
+        }
+    }
+
+    private float averageLastDegrees() {
+        int difference = 0;
+        for(int i= 1;i <lastDegrees.length;i++){
+            difference += ( (lastDegrees[i]- lastDegrees[0] + 180 + 360 ) % 360 ) - 180;
+        }
+        return (360 + lastDegrees[0] + ( difference / (float)lastDegrees.length ) ) % 360;
     }
 
     @Override

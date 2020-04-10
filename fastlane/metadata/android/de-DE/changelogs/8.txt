@@ -1,1 +1,2 @@
 - Mehrere offline maps können gleichzeitig aktiviert werden
+- Compass stabilisiert
