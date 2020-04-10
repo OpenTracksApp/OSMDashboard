@@ -32,6 +32,7 @@ import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.datastore.MapDataStore;
+import org.mapsforge.map.datastore.MultiMapDataStore;
 import org.mapsforge.map.layer.GroupLayer;
 import org.mapsforge.map.layer.Layer;
 import org.mapsforge.map.layer.Layers;
@@ -50,6 +51,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
@@ -217,17 +219,25 @@ public class MapsActivity extends BaseActivity {
     }
 
     protected MapDataStore getMapFile() {
-        final Uri mapFile = PreferencesUtils.getMapUri(this);
-        if (mapFile == null || !DocumentFile.isDocumentUri(this, mapFile)) {
+        MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
+        final Set<Uri> mapFiles = PreferencesUtils.getMapUris(this);
+        if (mapFiles.isEmpty()) {
             return null;
         }
-        try {
-            FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapFile);
-            return new MapFile(inputStream, 0, null);
-        } catch (FileNotFoundException ignored) {
-            Log.e(TAG, "Can't open mapFile", ignored);
+        int mapsCount = 0;
+        for (Uri mapUri: mapFiles) {
+            try {
+                    if (DocumentFile.isDocumentUri(this, mapUri)) {
+                        FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
+                        mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
+                        mapsCount++;
+                    }
+            } catch (FileNotFoundException ignored) {
+                Log.e(TAG, "Can't open mapFile", ignored);
+            }
         }
-        return null;
+
+        return mapsCount > 0 ? mapDataStore : null;
     }
 
     protected void createLayers() {
@@ -339,7 +349,7 @@ public class MapsActivity extends BaseActivity {
                     Log.d(TAG, "Got pause trackpoint");
                     polyline = null;
                 }
-                // ingoring RESUME_LATITUDE that might be transferred by OpenTracks.
+                // ignoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
         } catch (SecurityException e) {
             Log.w(TAG, "No permission to read trackpoints");
@@ -454,4 +464,13 @@ public class MapsActivity extends BaseActivity {
         super.onPause();
     }
 
+    @Override
+    void recreateMap(boolean menuNeedsUpdate) {
+        // always recreate the map
+        if (menuNeedsUpdate) {
+            invalidateOptionsMenu();
+        } else {
+            recreate();
+        }
+    }
 }

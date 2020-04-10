@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.storchp.opentracks.osmplugin.R;
 
 public class PreferencesUtils {
@@ -15,16 +18,16 @@ public class PreferencesUtils {
     private PreferencesUtils() {
     }
 
-    public static SharedPreferences getSharedPreferences(Context context) {
+    private static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static Uri getMapUri(Context context) {
-        return getUri(context, context.getString(R.string.MAP_FILE));
+    public static Set<Uri> getMapUris(Context context) {
+        return getUris(context, context.getString(R.string.MAP_FILES));
     }
 
-    public static void setMapUri(Context context, Uri map) {
-        setUri(context, R.string.MAP_FILE, map);
+    public static void setMapUris(Context context, Set<Uri> mapUris) {
+        setUris(context, R.string.MAP_FILES, mapUris);
     }
 
     public static Uri getMapDirectoryUri(Context context) {
@@ -51,6 +54,20 @@ public class PreferencesUtils {
         setUri(context, R.string.MAP_THEME, mapTheme);
     }
 
+    private static Set<Uri> getUris(Context context, String keyId) {
+        Set<String> values = getSharedPreferences(context).getStringSet(keyId, null);
+        Set<Uri> uris = new HashSet<>();
+        if (values != null) {
+            for (String value : values) {
+                try {
+                    uris.add(Uri.parse(value));
+                } catch (Exception ignored) {
+                    Log.e(TAG, "can't read Uri string " + value);
+                }
+            }
+        }
+        return uris;
+    }
 
     private static Uri getUri(Context context, String keyId) {
         String value = getSharedPreferences(context).getString(keyId, null);
@@ -66,6 +83,16 @@ public class PreferencesUtils {
         setString(context, keyId, uri != null ? uri.toString() : null);
     }
 
+    private static void setUris(Context context, int keyId, Set<Uri> uris) {
+        Set<String> values = new HashSet<>();
+        if (uris != null) {
+            for (Uri uri : uris) {
+                values.add(uri.toString());
+            }
+        }
+        setStringSet(context, keyId, values);
+    }
+
     /**
      * Gets a string preference value.
      *
@@ -78,13 +105,19 @@ public class PreferencesUtils {
         return sharedPreferences.getString(getKey(context, keyId), defaultValue);
     }
 
-    public static void setString(Context context, int keyId, String value) {
+    private static void setString(Context context, int keyId, String value) {
         SharedPreferences sharedPreferences = getSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getKey(context, keyId), value);
         editor.apply();
     }
 
+    private static void setStringSet(Context context, int keyId, Set<String> values) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(getKey(context, keyId), values);
+        editor.apply();
+    }
     /**
      * Gets a preference key
      *

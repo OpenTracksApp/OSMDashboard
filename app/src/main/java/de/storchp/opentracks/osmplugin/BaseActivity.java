@@ -11,6 +11,8 @@ import android.view.SubMenu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
+import java.util.Set;
+
 import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
 
 import static android.view.Menu.NONE;
@@ -21,18 +23,19 @@ abstract class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_THEME_DIRECTORY = 2;
 
     private static final String TAG = BaseActivity.class.getSimpleName();
+    private SubMenu mapSubmenu;
 
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
-        final Uri mapUri = PreferencesUtils.getMapUri(this);
+        final Set<Uri> mapUris = PreferencesUtils.getMapUris(this);
 
         MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
-        osmMapnick.setChecked(mapUri == null);
+        osmMapnick.setChecked(mapUris.isEmpty());
         osmMapnick.setOnMenuItemClickListener(new MapMenuListener(null));
 
-        SubMenu mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
+        mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
 
         final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
         if (mapDirectory != null) {
@@ -41,13 +44,13 @@ abstract class BaseActivity extends AppCompatActivity {
                 for (DocumentFile file : documentsTree.listFiles()) {
                     if (file.isFile() && file.getName().endsWith(".map")) {
                         MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
-                        mapItem.setChecked(file.getUri().equals(mapUri));
+                        mapItem.setChecked(mapUris.contains(file.getUri()));
                         mapItem.setOnMenuItemClickListener(new MapMenuListener(file.getUri()));
                     }
                 }
             }
         }
-        mapSubmenu.setGroupCheckable(R.id.maps_group, true, true);
+        mapSubmenu.setGroupCheckable(R.id.maps_group, true, false);
 
         MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
         mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -140,14 +143,16 @@ abstract class BaseActivity extends AppCompatActivity {
                 );
                 if (requestCode == REQUEST_MAP_DIRECTORY) {
                     PreferencesUtils.setMapDirectoryUri(this, resultData.getData());
-                    recreate();
+                    recreateMap(true);
                 } else if (requestCode == REQUEST_THEME_DIRECTORY) {
                     PreferencesUtils.setMapThemeDirectoryUri(this, resultData.getData());
-                    recreate();
+                    recreateMap(true);
                 }
             }
         }
     }
+
+    abstract void recreateMap(boolean menuNeedsUpdate);
 
     private class MapMenuListener implements MenuItem.OnMenuItemClickListener {
 
@@ -159,14 +164,33 @@ abstract class BaseActivity extends AppCompatActivity {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            item.setChecked(true);
-            if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
-                PreferencesUtils.setMapUri(BaseActivity.this, null);
+            item.setChecked(!item.isChecked());
+            Set<Uri> mapUris = PreferencesUtils.getMapUris(BaseActivity.this);
+            if (item.isChecked()) {
+                if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
+                    mapUris.clear();
+                    for (int i = 0; i < mapSubmenu.size(); i++) {
+                        MenuItem submenuItem = mapSubmenu.getItem(i);
+                        if (submenuItem != item) {
+                            submenuItem.setChecked(false);
+                        }
+                    }
+                } else {
+                    mapUris.add(mapUri);
+                    for (int i = 0; i < mapSubmenu.size(); i++) {
+                        MenuItem submenuItem = mapSubmenu.getItem(i);
+                        if (submenuItem.getItemId() == R.id.osm_mapnik) {
+                            submenuItem.setChecked(false);
+                        }
+                    }
+                }
             } else {
-                PreferencesUtils.setMapUri(BaseActivity.this, mapUri);
+                if (mapUri != null) {
+                    mapUris.remove(mapUri);
+                }
             }
-
-            BaseActivity.this.recreate();
+            PreferencesUtils.setMapUris(BaseActivity.this, mapUris);
+            recreateMap(false);
 
             return false;
         }
@@ -189,7 +213,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 PreferencesUtils.setMapThemeUri(BaseActivity.this, mapThemeUri);
             }
 
-            BaseActivity.this.recreate();
+            recreateMap(false);
 
             return false;
         }

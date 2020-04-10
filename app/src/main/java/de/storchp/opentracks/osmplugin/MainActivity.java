@@ -29,4 +29,12 @@ public class MainActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu, false);
     }
 
+    @Override
+    void recreateMap(boolean menuNeedsUpdate) {
+        // main activity doesn't have a map, just invalidate the menu
+        if (menuNeedsUpdate) {
+            invalidateOptionsMenu();
+        }
+    }
+
 }
