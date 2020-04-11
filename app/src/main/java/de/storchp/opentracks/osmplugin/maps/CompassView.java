@@ -1,14 +1,19 @@
 package de.storchp.opentracks.osmplugin.maps;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
-public class CompassListener implements SensorEventListener {
+import androidx.annotation.Nullable;
+
+import static android.content.Context.SENSOR_SERVICE;
+
+public class CompassView extends androidx.appcompat.widget.AppCompatImageView implements SensorEventListener {
 
     private SensorManager sensorManager;
     private final float[] accelerometerReading = new float[3];
@@ -17,17 +22,33 @@ public class CompassListener implements SensorEventListener {
     private boolean lastMagnetometerSet = false;
     private final float[] rotationMatrix = new float[9];
     private final float[] orientationAngles = new float[3];
-    private ImageView compassView;
     private int lastDegreePos = -1;
     private float[] lastDegrees = new float[5];
     private float currentDegree = 0;
 
-    public CompassListener(SensorManager sensorManager, ImageView compassView) {
-        this.sensorManager = sensorManager;
-        this.compassView = compassView;
+    public CompassView(Context context) {
+        super(context);
+        createSensorManager(context);
     }
 
-    public void onResume() {
+    public CompassView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        createSensorManager(context);
+    }
+
+    public CompassView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        createSensorManager(context);
+    }
+
+    private void createSensorManager(Context context) {
+        this.sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
         Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer,
@@ -40,8 +61,10 @@ public class CompassListener implements SensorEventListener {
         }
     }
 
-    public void onPause() {
+    @Override
+    protected void onDetachedFromWindow() {
         sensorManager.unregisterListener(this);
+        super.onDetachedFromWindow();
     }
 
     @Override
@@ -56,7 +79,7 @@ public class CompassListener implements SensorEventListener {
             lastMagnetometerSet = true;
         }
 
-        if (lastAccelerometerSet && lastMagnetometerSet && compassView != null) {
+        if (lastAccelerometerSet && lastMagnetometerSet) {
             SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading);
             SensorManager.getOrientation(rotationMatrix, orientationAngles);
             float azimuthInRadians = orientationAngles[0];
@@ -84,7 +107,7 @@ public class CompassListener implements SensorEventListener {
             ra.setFillAfter(true);
 
             // Start the animation
-            compassView.startAnimation(ra);
+            startAnimation(ra);
             currentDegree = newDegree;
         }
     }

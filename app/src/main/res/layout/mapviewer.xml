@@ -23,7 +23,7 @@
             android:textColor="#000"
             android:textSize="@dimen/attribution_size" />
 
-        <ImageView
+        <de.storchp.opentracks.osmplugin.maps.CompassView
             android:id="@+id/compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

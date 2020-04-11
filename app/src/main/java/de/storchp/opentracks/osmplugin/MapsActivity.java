@@ -4,7 +4,6 @@ package de.storchp.opentracks.osmplugin;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -56,7 +54,7 @@ import java.util.Set;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
-import de.storchp.opentracks.osmplugin.maps.CompassListener;
+import de.storchp.opentracks.osmplugin.maps.CompassView;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
@@ -83,7 +81,6 @@ public class MapsActivity extends BaseActivity {
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
-    private CompassListener compassListener;
 
     static Paint createPaint(int color, int strokeWidth, Style style) {
         Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -106,8 +103,6 @@ public class MapsActivity extends BaseActivity {
 
         Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
-
-        compassListener = new CompassListener((SensorManager) getSystemService(SENSOR_SERVICE), (ImageView) findViewById(R.id.compass));
 
         createMapViews();
         createTileCaches();
@@ -438,7 +433,6 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onResume();
         }
-        compassListener.onResume();
     }
 
     @Override
@@ -460,7 +454,6 @@ public class MapsActivity extends BaseActivity {
         if (this.layer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.layer).onPause();
         }
-        compassListener.onPause();
         super.onPause();
     }
 
