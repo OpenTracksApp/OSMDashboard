@@ -1,6 +1,6 @@
 package de.storchp.opentracks.osmplugin.dashboardapi;
 
-public class TrackpointsColumn {
+public class TrackPointsColumn {
 
     public static final String _ID = "_id";
     public static final String TRACKID = "trackid";

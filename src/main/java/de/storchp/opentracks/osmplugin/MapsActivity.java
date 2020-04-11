@@ -52,7 +52,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
@@ -304,18 +304,18 @@ public class MapsActivity extends BaseActivity {
 
         List<LatLong> latLongs = new ArrayList<>();
 
-        try (Cursor cursor = getContentResolver().query(data, TrackpointsColumn.PROJECTION, null, null, null)) {
+        try (Cursor cursor = getContentResolver().query(data, TrackPointsColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackpointsColumn._ID));
+                Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
                 if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
                     continue;
                 }
                 lastTrackPointId = trackPointId;
-                Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackpointsColumn.TRACKID));
-                double latitude = cursor.getInt(cursor.getColumnIndex(TrackpointsColumn.LATITUDE)) / 1E6;
-                double longitude = cursor.getInt(cursor.getColumnIndex(TrackpointsColumn.LONGITUDE)) / 1E6;
+                Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
+                double latitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LATITUDE)) / 1E6;
+                double longitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LONGITUDE)) / 1E6;
 
-                if (TrackpointsColumn.isValidLocation(latitude, longitude)) {
+                if (TrackPointsColumn.isValidLocation(latitude, longitude)) {
                     if (!newTrackId.equals(lastTrackId)) {
                         trackColor = colorCreator.nextColor();
                         lastTrackId = newTrackId;
@@ -339,7 +339,7 @@ public class MapsActivity extends BaseActivity {
                         startPos = latLong;
                     }
                     endPos = latLong;
-                } else if (latitude == TrackpointsColumn.PAUSE_LATITUDE) {
+                } else if (latitude == TrackPointsColumn.PAUSE_LATITUDE) {
                     Log.d(TAG, "Got pause trackpoint");
                     polyline = null;
                 }
