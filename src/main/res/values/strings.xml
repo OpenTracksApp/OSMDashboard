@@ -14,7 +14,6 @@
     <string name="map_themes">Map Themes</string>
     <string name="default_theme">Default Theme</string>
     <string name="map_info_menu">Map Info</string>
-    <string name="menu_follow_my_location">Follow my position</string>
     <string name="map_folder">Offline Map Directory</string>
     <string name="theme_folder">Map Theme Directory</string>
     <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, select a Track and click the map icon to show the track on the map.
@@ -28,10 +27,5 @@
         \n\nSome maps require special themes to render correctly! These need to be downloaded and configured accordingly.
         \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Maps / Offline Map Directory</b>.
     </string>
-    <string name="map_info_title">About Maps</string>
-    <string name="app_info_ok">Ok</string>
-    <string name="grant_external_storage">You need to grant permission to use the external storage</string>
-
-    <string name="value_unknown" translatable="false">-</string>
     <string name="app_logo_description">App logo</string>
 </resources>
