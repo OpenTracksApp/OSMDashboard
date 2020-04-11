@@ -245,7 +245,7 @@ public class MapsActivity extends BaseActivity {
             mapView.getLayerManager().getLayers().add(this.layer);
         } else {
             OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
-            tileSource.setUserAgent("OpenTracks-OsmPlugIn");
+            tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
             this.layer = new TileDownloadLayer(this.tileCaches.get(0), this.mapView.getModel().mapViewPosition,
                     tileSource, AndroidGraphicFactory.INSTANCE);
             mapView.getLayerManager().getLayers().add(this.layer);
