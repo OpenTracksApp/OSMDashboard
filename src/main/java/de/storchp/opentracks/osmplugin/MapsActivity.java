@@ -54,7 +54,6 @@ import java.util.Set;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
-import de.storchp.opentracks.osmplugin.maps.CompassView;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;

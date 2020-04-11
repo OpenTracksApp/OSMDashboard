@@ -5,7 +5,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends BaseActivity {
