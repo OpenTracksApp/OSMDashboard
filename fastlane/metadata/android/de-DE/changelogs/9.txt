@@ -1,0 +1,1 @@
+- Darstellungsfehler bei großer Schriftart behoben

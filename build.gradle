@@ -26,8 +26,8 @@ android {
         applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.6.0"
+        versionCode 9
+        versionName "1.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 applicationLogo: "@drawable/ic_logo_color_24dp",
