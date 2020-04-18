@@ -1,5 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="copyright_osm">Kartendaten © OpenStreetMap Mitwirkende</string>
-    <string name="map_folder">Offline-Kartenverzeichnis</string>
-</resources>
+<resources></resources>
