@@ -23,6 +23,11 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
     </tr>
 </table>
 
+
+
+[![Crowdin](https://badges.crowdin.net/opentracks-osmdashboard/localized.svg)](https://crowdin.com/project/opentracks-osmdashboard)
+
+
 ## Features:
 * _Online map data_: download map data on-demand
 * _Offline map data_: use on-device stored map data
