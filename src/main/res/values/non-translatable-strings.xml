@@ -1,0 +1,8 @@
+<resources>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="MAP_FILES" translatable="false">APP_PREF_MAP_FILES</string>
+    <string name="MAP_DIRECTORY" translatable="false">APP_PREF_MAP_DIRECTORY</string>
+    <string name="MAP_THEME_DIRECTORY" translatable="false">APP_PREF_MAP_THEME_DIRECTORY</string>
+    <string name="MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
+    <string name="osm_mapnik" translatable="false">OSM: Mapnik</string>
+</resources>

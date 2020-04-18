@@ -1,16 +1,8 @@
 <resources>
     <string name="app_name">OpenTracks - OSM Dashboard</string>
     <string name="no_data">No track data received</string>
-
-    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-    <string name="MAP_FILES" translatable="false">APP_PREF_MAP_FILES</string>
-    <string name="MAP_DIRECTORY" translatable="false">APP_PREF_MAP_DIRECTORY</string>
-    <string name="MAP_THEME_DIRECTORY" translatable="false">APP_PREF_MAP_THEME_DIRECTORY</string>
-    <string name="MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
-
     <string name="copyright_osm">Map data © OpenStreetMap contributors</string>
     <string name="maps">Maps</string>
-    <string name="osm_mapnik">OSM: Mapnik</string>
     <string name="map_themes">Map Themes</string>
     <string name="default_theme">Default Theme</string>
     <string name="map_info_menu">Map Info</string>
