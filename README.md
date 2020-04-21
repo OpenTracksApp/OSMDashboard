@@ -24,10 +24,6 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 </table>
 
 
-
-[![Crowdin](https://badges.crowdin.net/opentracks-osmdashboard/localized.svg)](https://crowdin.com/project/opentracks-osmdashboard)
-
-
 ## Features:
 * _Online map data_: download map data on-demand
 * _Offline map data_: use on-device stored map data
@@ -55,3 +51,8 @@ Some offline maps can be found here:
 Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
 
 To use offline maps, put them on your Android device external storage (e.g. `/storage/emulated/0`, depending on your device) and select the directory in the App menu `Maps` / `Offline Map Directory`.
+
+## Translation
+
+Help translating the project at Transifex: https://www.transifex.com/opentracks/opentracks-osm-dashboard/dashboard/
+
