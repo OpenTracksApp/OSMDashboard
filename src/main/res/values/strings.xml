@@ -20,4 +20,6 @@
         \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Maps / Offline Map Directory</b>.
     </string>
     <string name="app_logo_description">App logo</string>
+    <string name="download_map">Download Map</string>
+    <string name="choose_map_to_download">Choose a map to download</string>
 </resources>

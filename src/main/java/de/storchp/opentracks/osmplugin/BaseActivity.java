@@ -21,6 +21,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int REQUEST_MAP_DIRECTORY = 1;
     protected static final int REQUEST_THEME_DIRECTORY = 2;
+    protected static final int REQUEST_DOWNLOAD_MAP = 3;
 
     private static final String TAG = BaseActivity.class.getSimpleName();
     private SubMenu mapSubmenu;
@@ -57,6 +58,16 @@ abstract class BaseActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 openMapDirectoryChooser();
+                return false;
+            }
+        });
+
+        MenuItem downloadMap = mapSubmenu.add(R.string.download_map);
+        downloadMap.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(BaseActivity.this, DownloadMapsActivity.class);
+                startActivityForResult(intent, REQUEST_DOWNLOAD_MAP);
                 return false;
             }
         });
