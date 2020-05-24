@@ -1,1 +1,2 @@
 - Darstellungsfehler bei großer Schriftart behoben
+- Einverständnis für Online-Karte einholen

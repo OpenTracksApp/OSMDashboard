@@ -1,1 +1,2 @@
 - fixed display issue with large font size
+- ask for consent to use online map
