@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -8,13 +9,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -65,7 +72,7 @@ public class MapsActivity extends BaseActivity {
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
     private MapsforgeMapView mapView;
-    private Layer layer;
+    private Layer tileLayer;
     private List<TileCache> tileCaches = new ArrayList<>();
 
     private BoundingBox boundingBox;
@@ -241,21 +248,50 @@ public class MapsActivity extends BaseActivity {
             TileRendererLayer tileRendererLayer1 = new TileRendererLayer(this.tileCaches.get(0), mapFile,
                     this.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
             tileRendererLayer1.setXmlRenderTheme(getRenderTheme());
-            this.layer = tileRendererLayer1;
-            mapView.getLayerManager().getLayers().add(this.layer);
+            this.tileLayer = tileRendererLayer1;
+            mapView.getLayerManager().getLayers().add(this.tileLayer);
+        } else if (!PreferencesUtils.getOnlineMapConsent(this)) {
+            showOnlineMapConsent();
         } else {
-            OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
-            tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
-            this.layer = new TileDownloadLayer(this.tileCaches.get(0), this.mapView.getModel().mapViewPosition,
-                    tileSource, AndroidGraphicFactory.INSTANCE);
-            mapView.getLayerManager().getLayers().add(this.layer);
-
-            mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
-            mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
+            setOnlineTileLayer();
         }
         mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
         mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
         mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
+    }
+
+    private void setOnlineTileLayer() {
+        final OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
+        tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
+        this.tileLayer = new TileDownloadLayer(this.tileCaches.get(0), this.mapView.getModel().mapViewPosition,
+                tileSource, AndroidGraphicFactory.INSTANCE);
+        mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+
+        mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
+        mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
+    }
+
+    private void showOnlineMapConsent() {
+        final SpannableString message = new SpannableString(getString(R.string.online_map_consent));
+        Linkify.addLinks(message, Linkify.ALL);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+            .setIcon(R.drawable.ic_logo_color_24dp)
+            .setTitle(R.string.app_name)
+            .setMessage(message)
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    PreferencesUtils.setOnlineMapConsent(MapsActivity.this, true);
+                    setOnlineTileLayer();
+                    ((TileDownloadLayer) tileLayer).onResume();
+                    mapConsent.setChecked(true);
+                }
+            })
+            .setNegativeButton(R.string.cancel, null)
+            .create();
+        dialog.show();
+        ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /**
@@ -271,15 +307,27 @@ public class MapsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.map_info:
-                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-                startActivityForResult(intent, 0);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.map_info ) {
+            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+            startActivityForResult(intent, 0);
+            return true;
         }
-        return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onOnlineMapConsentChanged(boolean consent) {
+        if (consent) {
+            if (this.tileLayer == null) {
+                setOnlineTileLayer();
+                ((TileDownloadLayer) this.tileLayer).onResume();
+            }
+        } else if (this.tileLayer != null && this.tileLayer instanceof TileDownloadLayer) {
+            ((TileDownloadLayer) this.tileLayer).onPause();
+            mapView.getLayerManager().getLayers().remove(tileLayer, true);
+            this.tileLayer = null;
+        }
     }
 
     private void readTrackpoints(Uri data, boolean update) {
@@ -429,8 +477,8 @@ public class MapsActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (this.layer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer) this.layer).onResume();
+        if (this.tileLayer instanceof TileDownloadLayer) {
+            ((TileDownloadLayer) this.tileLayer).onResume();
         }
     }
 
@@ -450,8 +498,8 @@ public class MapsActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        if (this.layer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer) this.layer).onPause();
+        if (this.tileLayer instanceof TileDownloadLayer) {
+            ((TileDownloadLayer) this.tileLayer).onPause();
         }
         super.onPause();
     }

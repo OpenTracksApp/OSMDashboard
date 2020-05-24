@@ -24,6 +24,11 @@
     </item>
 
     <item
+        android:id="@+id/map_online_consent"
+        android:checkable="true"
+        android:title="@string/map_online_consent_menu"/>
+
+    <item
         android:id="@+id/map_info"
         android:title="@string/map_info_menu"
         android:icon="@drawable/ic_info_gray_24px"/>

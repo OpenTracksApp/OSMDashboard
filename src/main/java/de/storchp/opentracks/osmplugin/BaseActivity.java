@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -25,6 +26,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
     private SubMenu mapSubmenu;
+    protected MenuItem mapConsent;
 
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
@@ -53,7 +55,7 @@ abstract class BaseActivity extends AppCompatActivity {
         }
         mapSubmenu.setGroupCheckable(R.id.maps_group, true, false);
 
-        MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
+        final MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
         mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -75,10 +77,10 @@ abstract class BaseActivity extends AppCompatActivity {
         final Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
         final Uri mapThemeDirectory = PreferencesUtils.getMapThemeDirectoryUri(this);
 
-        MenuItem defaultTheme = menu.findItem(R.id.default_theme);
+        final MenuItem defaultTheme = menu.findItem(R.id.default_theme);
         defaultTheme.setChecked(mapTheme == null);
         defaultTheme.setOnMenuItemClickListener(new MapThemeMenuListener(null));
-        SubMenu themeSubmenu = menu.findItem(R.id.themes_submenu).getSubMenu();
+        final SubMenu themeSubmenu = menu.findItem(R.id.themes_submenu).getSubMenu();
 
         if (mapThemeDirectory != null) {
             DocumentFile documentsTree = getDocumentFileFromTreeUri(mapThemeDirectory);
@@ -103,7 +105,7 @@ abstract class BaseActivity extends AppCompatActivity {
         }
         themeSubmenu.setGroupCheckable(R.id.themes_group, true, true);
 
-        MenuItem themeFolder = themeSubmenu.add(R.string.theme_folder);
+        final MenuItem themeFolder = themeSubmenu.add(R.string.theme_folder);
         themeFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -112,11 +114,27 @@ abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
-        MenuItem mapInfo = menu.findItem(R.id.map_info);
+        final MenuItem mapInfo = menu.findItem(R.id.map_info);
         mapInfo.setVisible(showInfo);
+
+        mapConsent = menu.findItem(R.id.map_online_consent);
+        mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent(this));
 
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.map_online_consent) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
+            onOnlineMapConsentChanged(item.isChecked());
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected abstract void onOnlineMapConsentChanged(boolean consent);
 
     private DocumentFile getDocumentFileFromTreeUri(Uri uri) {
         try {

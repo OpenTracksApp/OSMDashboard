@@ -20,6 +20,10 @@
         \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Maps / Offline Map Directory</b>.
     </string>
     <string name="app_logo_description">App logo</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy</string>
+    <string name="map_online_consent_menu">Online Map consent</string>
     <string name="download_map">Download Map</string>
     <string name="choose_map_to_download">Choose a map to download</string>
 </resources>
