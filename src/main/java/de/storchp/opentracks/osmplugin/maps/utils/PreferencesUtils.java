@@ -47,11 +47,19 @@ public class PreferencesUtils {
     }
 
     public static Uri getMapThemeUri(Context context) {
-        return getUri(context, context.getString(R.string.MAP_THEME));
+        return getUri(context, getKey(context, R.string.MAP_THEME));
     }
 
     public static void setMapThemeUri(Context context, Uri mapTheme) {
         setUri(context, R.string.MAP_THEME, mapTheme);
+    }
+
+    public static boolean getOnlineMapConsent(Context context) {
+        return getBoolean(context, R.string.ONLINE_MAP_CONSENT, false);
+    }
+
+    public static void setOnlineMapConsent(Context context, boolean onlineMapConsent) {
+        setBoolean(context, R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
     private static Set<Uri> getUris(Context context, String keyId) {
@@ -118,6 +126,19 @@ public class PreferencesUtils {
         editor.putStringSet(getKey(context, keyId), values);
         editor.apply();
     }
+
+    private static boolean getBoolean(Context context, int keyId, boolean defaultValue) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        return sharedPreferences.getBoolean(getKey(context, keyId), defaultValue);
+    }
+
+    private static void setBoolean(Context context, int keyId, boolean value) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getKey(context, keyId), value);
+        editor.apply();
+    }
+
     /**
      * Gets a preference key
      *
