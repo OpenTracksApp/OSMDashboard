@@ -72,6 +72,7 @@ public class MapsActivity extends BaseActivity {
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
+    private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
 
     private MapsforgeMapView mapView;
     private Layer tileLayer;
@@ -136,6 +137,15 @@ public class MapsActivity extends BaseActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+
+        final boolean showOnLockScreen = getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(showOnLockScreen);
+        } else if (showOnLockScreen) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         }
     }
 
