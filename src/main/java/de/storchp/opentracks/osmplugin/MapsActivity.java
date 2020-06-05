@@ -71,6 +71,8 @@ public class MapsActivity extends BaseActivity {
 
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
+    private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
+
     private MapsforgeMapView mapView;
     private Layer tileLayer;
     private List<TileCache> tileCaches = new ArrayList<>();
@@ -129,6 +131,12 @@ public class MapsActivity extends BaseActivity {
                 readTrack(tracksUri);
             }
         });
+
+        if (getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     @Override

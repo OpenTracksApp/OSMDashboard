@@ -1,2 +1,3 @@
 - Darstellungsfehler bei großer Schriftart behoben
 - Einverständnis für Online-Karte einholen
+- Übernimmt die "Lasse während der Aufnahme den Bildschirm eingeschaltet" Einstellung von OpenTracks
