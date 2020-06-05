@@ -1,2 +1,3 @@
 - fixed display issue with large font size
 - ask for consent to use online map
+- Respects "Keep screen on" and "Show on Lockscreen" preferences from OpenTracks
