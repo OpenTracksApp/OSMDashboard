@@ -23,6 +23,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_MAP_DIRECTORY = 1;
     protected static final int REQUEST_THEME_DIRECTORY = 2;
     protected static final int REQUEST_DOWNLOAD_MAP = 3;
+    protected static final int REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD = 4;
 
     private static final String TAG = BaseActivity.class.getSimpleName();
     private SubMenu mapSubmenu;
@@ -34,7 +35,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
         final Set<Uri> mapUris = PreferencesUtils.getMapUris(this);
 
-        MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
+        final MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
         osmMapnick.setChecked(mapUris.isEmpty());
         osmMapnick.setOnMenuItemClickListener(new MapMenuListener(null));
 
@@ -136,7 +137,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    private DocumentFile getDocumentFileFromTreeUri(Uri uri) {
+    protected DocumentFile getDocumentFileFromTreeUri(Uri uri) {
         try {
             return DocumentFile.fromTreeUri(getApplication(), uri);
         } catch (Exception e) {
@@ -145,40 +146,50 @@ abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
-    public void openDirectory(int requestCode) {
+    protected void openDirectory(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         startActivityForResult(intent, requestCode);
     }
 
-
-    private void openMapDirectoryChooser() {
+    protected void openMapDirectoryChooser() {
         openDirectory(REQUEST_MAP_DIRECTORY);
     }
 
-    private void openThemeDirectoryChooser() {
+    protected void openThemeDirectoryChooser() {
         openDirectory(REQUEST_THEME_DIRECTORY);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent resultData) {
         super.onActivityResult(requestCode, resultCode, resultData);
         if (resultCode == Activity.RESULT_OK && resultData != null) {
-            Uri uri = resultData.getData();
+            final Uri uri = resultData.getData();
             if (uri != null) {
-                getContentResolver().takePersistableUriPermission(
-                        resultData.getData(),
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
-                if (requestCode == REQUEST_MAP_DIRECTORY) {
-                    PreferencesUtils.setMapDirectoryUri(this, resultData.getData());
-                    recreateMap(true);
+                takePersistableUriPermission(uri);
+                if (requestCode == REQUEST_MAP_DIRECTORY || requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
+                    changeMapDirectory(uri, requestCode);
                 } else if (requestCode == REQUEST_THEME_DIRECTORY) {
-                    PreferencesUtils.setMapThemeDirectoryUri(this, resultData.getData());
-                    recreateMap(true);
+                    changeThemeDirectory(uri);
                 }
             }
         }
+    }
+
+    private void changeThemeDirectory(final Uri uri) {
+        takePersistableUriPermission(uri);
+        PreferencesUtils.setMapThemeDirectoryUri(this, uri);
+        recreateMap(true);
+    }
+
+    protected void changeMapDirectory(final Uri uri, final int requestCode) {
+        takePersistableUriPermission(uri);
+        PreferencesUtils.setMapDirectoryUri(this, uri);
+        recreateMap(true);
+    }
+
+    private void takePersistableUriPermission(final Uri uri) {
+        getContentResolver().takePersistableUriPermission(uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     }
 
     abstract void recreateMap(boolean menuNeedsUpdate);

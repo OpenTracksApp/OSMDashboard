@@ -24,6 +24,9 @@
     <string name="cancel">Cancel</string>
     <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy</string>
     <string name="map_online_consent_menu">Online Map consent</string>
-    <string name="download_map">Download Map</string>
+    <string name="download_map">Download basic offline map</string>
     <string name="choose_map_to_download">Choose a map to download</string>
+    <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de. Choose a .map file to download.</string>
+    <string name="download_map_question">Download Map %s?</string>
+    <string name="download_in_progress">There is already a download in progress!</string>
 </resources>
