@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenTracks - OSM-Dashboard</string>
+    <string name="app_name">OSM Dashboard für OpenTracks</string>
     <string name="no_data">Keine Track-Daten empfangen</string>
     <string name="copyright_osm">Kartendaten © OpenStreetMap Mitwirkende</string>
     <string name="maps">Karten</string>
@@ -25,4 +25,5 @@
     <string name="cancel">Abbrechen</string>
     <string name="online_map_consent">Es ist keine Offline-Karte konfiguriert. Bitte bestätige die Nutzung der Online-Karte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
+    <string name="app_name_info_screen">OSM Dashboard\\nfür OpenTracks</string>
 </resources>

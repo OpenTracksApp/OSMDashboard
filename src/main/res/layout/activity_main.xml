@@ -17,19 +17,20 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:elevation="4dp"
-            app:navigationIcon="@drawable/ic_nav_icon"
+            app:navigationIcon="@drawable/ic_logo_color_24dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentStart="true"
         android:paddingTop="80sp"
         android:paddingStart="20sp"
         android:paddingEnd="20sp"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_logo_color_24dp"
         android:contentDescription="@string/app_logo_description" />
 
@@ -41,15 +42,15 @@
         android:paddingTop="80sp"
         android:linksClickable="true"
         android:textStyle="bold"
-        android:textSize="18sp"
-        android:text="@string/app_name"
+        android:textSize="24sp"
+        android:text="@string/app_name_info_screen"
         android:textColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/app_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_title"
+        android:layout_below="@+id/app_logo"
         android:paddingTop="40sp"
         android:paddingStart="20sp"
         android:paddingEnd="20sp"
