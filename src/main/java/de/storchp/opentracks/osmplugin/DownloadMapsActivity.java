@@ -101,7 +101,7 @@ public class DownloadMapsActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapDirectory(Uri uri, int requestCode) {
+    protected void changeMapDirectory(final Uri uri, final int requestCode) {
         super.changeMapDirectory(uri, requestCode);
         if (requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
             startMapDownload();
@@ -109,12 +109,12 @@ public class DownloadMapsActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
+    protected void onOnlineMapConsentChanged(final boolean consent) {
         // nothing to do
     }
 
     @Override
-    void recreateMap(boolean menuNeedsUpdate) {
+    void recreateMap(final boolean menuNeedsUpdate) {
         if (menuNeedsUpdate) {
             invalidateOptionsMenu();
         }

@@ -43,11 +43,11 @@ abstract class BaseActivity extends AppCompatActivity {
 
         final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
         if (mapDirectory != null) {
-            DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
+            final DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
             if (documentsTree != null) {
-                for (DocumentFile file : documentsTree.listFiles()) {
+                for (final DocumentFile file : documentsTree.listFiles()) {
                     if (file.isFile() && file.getName().endsWith(".map")) {
-                        MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
+                        final MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
                         mapItem.setChecked(mapUris.contains(file.getUri()));
                         mapItem.setOnMenuItemClickListener(new MapMenuListener(file.getUri()));
                     }
@@ -59,17 +59,17 @@ abstract class BaseActivity extends AppCompatActivity {
         final MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
         mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onMenuItemClick(final MenuItem item) {
                 openMapDirectoryChooser();
                 return false;
             }
         });
 
-        MenuItem downloadMap = mapSubmenu.add(R.string.download_map);
+        final MenuItem downloadMap = mapSubmenu.add(R.string.download_map);
         downloadMap.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(BaseActivity.this, DownloadMapsActivity.class);
+            public boolean onMenuItemClick(final MenuItem item) {
+                final Intent intent = new Intent(BaseActivity.this, DownloadMapsActivity.class);
                 startActivityForResult(intent, REQUEST_DOWNLOAD_MAP);
                 return false;
             }
@@ -84,19 +84,19 @@ abstract class BaseActivity extends AppCompatActivity {
         final SubMenu themeSubmenu = menu.findItem(R.id.themes_submenu).getSubMenu();
 
         if (mapThemeDirectory != null) {
-            DocumentFile documentsTree = getDocumentFileFromTreeUri(mapThemeDirectory);
+            final DocumentFile documentsTree = getDocumentFileFromTreeUri(mapThemeDirectory);
             if (documentsTree != null) {
-                for (DocumentFile file : documentsTree.listFiles()) {
+                for (final DocumentFile file : documentsTree.listFiles()) {
                     if (file.isFile() && file.getName().endsWith(".xml")) {
-                        String themeName = file.getName();
-                        MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
+                        final String themeName = file.getName();
+                        final MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
                         themeItem.setChecked(file.getUri().equals(mapTheme));
                         themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(file.getUri()));
                     } else if (file.isDirectory()) {
-                        DocumentFile childFile = file.findFile(file.getName() + ".xml");
+                        final DocumentFile childFile = file.findFile(file.getName() + ".xml");
                         if (childFile != null) {
-                            String themeName = file.getName();
-                            MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
+                            final String themeName = file.getName();
+                            final MenuItem themeItem = themeSubmenu.add(R.id.themes_group, NONE, NONE, themeName);
                             themeItem.setChecked(childFile.getUri().equals(mapTheme));
                             themeItem.setOnMenuItemClickListener(new MapThemeMenuListener(childFile.getUri()));
                         }
@@ -109,7 +109,7 @@ abstract class BaseActivity extends AppCompatActivity {
         final MenuItem themeFolder = themeSubmenu.add(R.string.theme_folder);
         themeFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onMenuItemClick(final MenuItem item) {
                 openThemeDirectoryChooser();
                 return false;
             }
@@ -125,7 +125,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         if (item.getItemId() == R.id.map_online_consent) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
@@ -137,17 +137,17 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    protected DocumentFile getDocumentFileFromTreeUri(Uri uri) {
+    protected DocumentFile getDocumentFileFromTreeUri(final Uri uri) {
         try {
             return DocumentFile.fromTreeUri(getApplication(), uri);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.w(TAG, "Error getting DocumentFile from Uri: " + uri);
         }
         return null;
     }
 
-    protected void openDirectory(int requestCode) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+    protected void openDirectory(final int requestCode) {
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         startActivityForResult(intent, requestCode);
     }
@@ -196,21 +196,21 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private class MapMenuListener implements MenuItem.OnMenuItemClickListener {
 
-        private Uri mapUri;
+        private final Uri mapUri;
 
         private MapMenuListener(final Uri mapUri) {
             this.mapUri = mapUri;
         }
 
         @Override
-        public boolean onMenuItemClick(MenuItem item) {
+        public boolean onMenuItemClick(final MenuItem item) {
             item.setChecked(!item.isChecked());
-            Set<Uri> mapUris = PreferencesUtils.getMapUris(BaseActivity.this);
+            final Set<Uri> mapUris = PreferencesUtils.getMapUris(BaseActivity.this);
             if (item.isChecked()) {
                 if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
                     mapUris.clear();
                     for (int i = 0; i < mapSubmenu.size(); i++) {
-                        MenuItem submenuItem = mapSubmenu.getItem(i);
+                        final MenuItem submenuItem = mapSubmenu.getItem(i);
                         if (submenuItem != item) {
                             submenuItem.setChecked(false);
                         }
@@ -218,7 +218,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 } else {
                     mapUris.add(mapUri);
                     for (int i = 0; i < mapSubmenu.size(); i++) {
-                        MenuItem submenuItem = mapSubmenu.getItem(i);
+                        final MenuItem submenuItem = mapSubmenu.getItem(i);
                         if (submenuItem.getItemId() == R.id.osm_mapnik) {
                             submenuItem.setChecked(false);
                         }
@@ -238,14 +238,14 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
 
-        private Uri mapThemeUri;
+        private final Uri mapThemeUri;
 
         private MapThemeMenuListener(final Uri mapThemeUri) {
             this.mapThemeUri = mapThemeUri;
         }
 
         @Override
-        public boolean onMenuItemClick(MenuItem item) {
+        public boolean onMenuItemClick(final MenuItem item) {
             item.setChecked(true);
             if (item.getItemId() == R.id.default_theme) { // default theme
                 PreferencesUtils.setMapThemeUri(BaseActivity.this, null);
