@@ -25,4 +25,11 @@
     <string name="cancel">Abbrechen</string>
     <string name="online_map_consent">Es ist keine Offline-Karte konfiguriert. Bitte bestätige die Nutzung der Online-Karte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
+    <string name="download_map">Offline-Karte herunterladen</string>
+    <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
+    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de. Wähle eine .map Datei zum herunterladen.</string>
+    <string name="download_map_question">Karte %s herunterladen?</string>
+    <string name="download_in_progress">Ein Download läuft bereits!</string>
+    <string name="download_success">Karte erfolgreich heruntergeladen</string>
+    <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
 </resources>

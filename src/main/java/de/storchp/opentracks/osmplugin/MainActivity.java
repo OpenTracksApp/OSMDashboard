@@ -10,21 +10,21 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.maps_toolbar);
+        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
-        TextView info = findViewById(R.id.app_info);
+        final TextView info = findViewById(R.id.app_info);
         info.setPadding(50, 50, 50, 50);
         info.setMovementMethod(LinkMovementMethod.getInstance());
         info.setLinkTextColor(getResources().getColor(R.color.colorAccent));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         return super.onCreateOptionsMenu(menu, false);
     }
 
@@ -34,7 +34,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    void recreateMap(boolean menuNeedsUpdate) {
+    protected void onOnlineMapConsentChanged(final boolean consent) {
+        // nothing to do
+    }
+
+    @Override
+    void recreateMap(final boolean menuNeedsUpdate) {
         // main activity doesn't have a map, just invalidate the menu
         if (menuNeedsUpdate) {
             invalidateOptionsMenu();

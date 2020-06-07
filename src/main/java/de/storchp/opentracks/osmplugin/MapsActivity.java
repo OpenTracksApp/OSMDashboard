@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -76,7 +75,7 @@ public class MapsActivity extends BaseActivity {
 
     private MapsforgeMapView mapView;
     private Layer tileLayer;
-    private List<TileCache> tileCaches = new ArrayList<>();
+    private final List<TileCache> tileCaches = new ArrayList<>();
 
     private BoundingBox boundingBox;
     private GroupLayer groupLayer;
@@ -91,8 +90,8 @@ public class MapsActivity extends BaseActivity {
     private LatLong startPos;
     private LatLong endPos;
 
-    static Paint createPaint(int color, int strokeWidth, Style style) {
-        Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
+    static Paint createPaint(final int color, final int strokeWidth, final Style style) {
+        final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
         paint.setColor(color);
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(style);
@@ -100,17 +99,17 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidGraphicFactory.createInstance(this.getApplication());
 
         setContentView(R.layout.activity_maps_activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
+            final Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
 
-        Toolbar toolbar = findViewById(R.id.maps_toolbar);
+        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
         createMapViews();
@@ -126,7 +125,7 @@ public class MapsActivity extends BaseActivity {
 
         getContentResolver().registerContentObserver(trackPointsUri, true, new ContentObserver(new Handler()) {
             @Override
-            public void onChange(boolean selfChange) {
+            public void onChange(final boolean selfChange) {
                 super.onChange(selfChange);
                 readTrackpoints(trackPointsUri, true);
                 readTrack(tracksUri);
@@ -150,7 +149,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         return super.onCreateOptionsMenu(menu, true);
     }
 
@@ -217,41 +216,41 @@ public class MapsActivity extends BaseActivity {
      * By default we purge every tile cache that has been added to the tileCaches list.
      */
     protected void purgeTileCaches() {
-        for (TileCache tileCache : tileCaches) {
+        for (final TileCache tileCache : tileCaches) {
             tileCache.purge();
         }
         tileCaches.clear();
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
+        final Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
         try {
-            DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
+            final DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
             return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(renderThemeFile.getUri()));
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.e(TAG, "Error loading theme " + mapTheme, e);
             return InternalRenderTheme.DEFAULT;
         }
     }
 
     protected MapDataStore getMapFile() {
-        MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
+        final MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
         final Set<Uri> mapFiles = PreferencesUtils.getMapUris(this);
         if (mapFiles.isEmpty()) {
             return null;
         }
         int mapsCount = 0;
-        for (Uri mapUri: mapFiles) {
+        for (final Uri mapUri: mapFiles) {
             try {
                     if (DocumentFile.isDocumentUri(this, mapUri)) {
-                        FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
+                        final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
                         mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
                         mapsCount++;
                     }
-            } catch (FileNotFoundException ignored) {
+            } catch (final FileNotFoundException ignored) {
                 Log.e(TAG, "Can't open mapFile", ignored);
             }
         }
@@ -263,7 +262,7 @@ public class MapsActivity extends BaseActivity {
         final MapDataStore mapFile = getMapFile();
 
         if (mapFile != null) {
-            TileRendererLayer tileRendererLayer1 = new TileRendererLayer(this.tileCaches.get(0), mapFile,
+            final TileRendererLayer tileRendererLayer1 = new TileRendererLayer(this.tileCaches.get(0), mapFile,
                     this.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
             tileRendererLayer1.setXmlRenderTheme(getRenderTheme());
             this.tileLayer = tileRendererLayer1;
@@ -299,7 +298,7 @@ public class MapsActivity extends BaseActivity {
             .setMessage(message)
             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(final DialogInterface dialog, final int which) {
                     PreferencesUtils.setOnlineMapConsent(MapsActivity.this, true);
                     setOnlineTileLayer();
                     ((TileDownloadLayer) tileLayer).onResume();
@@ -324,9 +323,9 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == R.id.map_info ) {
-            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+            final Intent intent = new Intent(MapsActivity.this, MainActivity.class);
             startActivityForResult(intent, 0);
             return true;
         }
@@ -335,7 +334,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
+    protected void onOnlineMapConsentChanged(final boolean consent) {
         if (consent) {
             if (this.tileLayer == null) {
                 setOnlineTileLayer();
@@ -348,10 +347,10 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
-    private void readTrackpoints(Uri data, boolean update) {
+    private void readTrackpoints(final Uri data, final boolean update) {
         Log.i(TAG, "Loading track from " + data);
 
-        Layers layers = mapView.getLayerManager().getLayers();
+        final Layers layers = mapView.getLayerManager().getLayers();
         if (!update) { // reset data
             if (groupLayer != null) {
                 layers.remove(groupLayer);
@@ -368,18 +367,18 @@ public class MapsActivity extends BaseActivity {
             boundingBox = null;
         }
 
-        List<LatLong> latLongs = new ArrayList<>();
+        final List<LatLong> latLongs = new ArrayList<>();
 
-        try (Cursor cursor = getContentResolver().query(data, TrackPointsColumn.PROJECTION, null, null, null)) {
+        try (final Cursor cursor = getContentResolver().query(data, TrackPointsColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
+                final Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
                 if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
                     continue;
                 }
                 lastTrackPointId = trackPointId;
-                Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
-                double latitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LATITUDE)) / 1E6;
-                double longitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LONGITUDE)) / 1E6;
+                final Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
+                final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LATITUDE)) / 1E6;
+                final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LONGITUDE)) / 1E6;
 
                 if (TrackPointsColumn.isValidLocation(latitude, longitude)) {
                     if (!newTrackId.equals(lastTrackId)) {
@@ -394,7 +393,7 @@ public class MapsActivity extends BaseActivity {
                         polyline = newPolyline(trackColor);
                     }
 
-                    LatLong latLong = new LatLong(latitude, longitude);
+                    final LatLong latLong = new LatLong(latitude, longitude);
                     polyline.addPoint(latLong);
 
                     if (!update) {
@@ -411,9 +410,9 @@ public class MapsActivity extends BaseActivity {
                 }
                 // ignoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
-        } catch (SecurityException e) {
+        } catch (final SecurityException e) {
             Log.w(TAG, "No permission to read trackpoints");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.e(TAG, "Reading trackpoints failed", e);
             return;
         }
@@ -444,50 +443,50 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
-    private FixedPixelCircle addEndPoint(LatLong pos) {
-        FixedPixelCircle marker = new FixedPixelCircle(pos, 10, createPaint(
+    private FixedPixelCircle addEndPoint(final LatLong pos) {
+        final FixedPixelCircle marker = new FixedPixelCircle(pos, 10, createPaint(
                 AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
                 Style.FILL), null);
         groupLayer.layers.add(marker);
         return marker;
     }
 
-    private Polyline newPolyline(int trackColor) {
-        Polyline polyline = new Polyline(createPaint(trackColor,
+    private Polyline newPolyline(final int trackColor) {
+        final Polyline polyline = new Polyline(createPaint(trackColor,
                 (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
                 Style.STROKE), AndroidGraphicFactory.INSTANCE);
         groupLayer.layers.add(polyline);
         return polyline;
     }
 
-    private void readTrack(Uri data) {
+    private void readTrack(final Uri data) {
         Log.i(TAG, "Loading track from " + data);
 
         // Contains only one row.
-        try (Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
+        try (final Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
             if (cursor.moveToFirst()) {
-                long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
-                String name = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
-                String description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
-                String category = cursor.getString(cursor.getColumnIndex(TracksColumn.CATEGORY));
-                int startTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STARTTIME));
-                int stopTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STOPTIME));
-                float totalDistance = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
-                int totalTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
-                int movingTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.MOVINGTIME));
-                float avgSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGSPEED));
-                float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGMOVINGSPEED));
-                float maxSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXSPEED));
-                float minElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MINELEVATION));
-                float maxElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXELEVATION));
-                float elevationGain = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
+                final long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
+                final String name = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
+                final String description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
+                final String category = cursor.getString(cursor.getColumnIndex(TracksColumn.CATEGORY));
+                final int startTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STARTTIME));
+                final int stopTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STOPTIME));
+                final float totalDistance = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
+                final int totalTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
+                final int movingTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.MOVINGTIME));
+                final float avgSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGSPEED));
+                final float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGMOVINGSPEED));
+                final float maxSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXSPEED));
+                final float minElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MINELEVATION));
+                final float maxElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXELEVATION));
+                final float elevationGain = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
 
                 // TODO: show data on dashboard
                 Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
             }
-        } catch (SecurityException e) {
+        } catch (final SecurityException e) {
             Log.w(TAG, "No permission to read track");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.e(TAG, "Reading track failed", e);
         }
     }
@@ -501,10 +500,10 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(final boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
+            final Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
             this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
                     boundingBox.getCenterPoint(),
                     (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
@@ -523,7 +522,7 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
-    void recreateMap(boolean menuNeedsUpdate) {
+    void recreateMap(final boolean menuNeedsUpdate) {
         // always recreate the map
         if (menuNeedsUpdate) {
             invalidateOptionsMenu();
