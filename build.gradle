@@ -30,14 +30,14 @@ android {
         versionName "1.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-                applicationLogo: "@drawable/ic_logo_color_24dp",
+                applicationLogo: "@mipmap/ic_launcher",
         ]
     }
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
             manifestPlaceholders = [
-                    applicationLogo: "@drawable/ic_logo_color_debug_24dp",
+                    applicationLogo: "@mipmap/ic_launcher_debug",
             ]
         }
 
