@@ -1,1 +1,1 @@
-OpenTracks - OSM Dashboard
+OSM Dashboard for OpenTracks

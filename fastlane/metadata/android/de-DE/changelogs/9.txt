@@ -1,3 +1,5 @@
 - Darstellungsfehler bei großer Schriftart behoben
 - Einverständnis für Online-Karte einholen
 - Übernimmt die "Lasse Bildschirm eingeschaltet" und "Zeige auf Sperrbildschirm" Einstellungen von OpenTracks
+- Download von Offline-Karten direkt über die App
+- Neues Logo nach Android Adaptive Launcher Icon Spezifikation

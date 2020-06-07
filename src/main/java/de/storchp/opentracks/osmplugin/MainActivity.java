@@ -34,11 +34,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(final boolean consent) {
-        // nothing to do
-    }
-
-    @Override
     void recreateMap(final boolean menuNeedsUpdate) {
         // main activity doesn't have a map, just invalidate the menu
         if (menuNeedsUpdate) {
