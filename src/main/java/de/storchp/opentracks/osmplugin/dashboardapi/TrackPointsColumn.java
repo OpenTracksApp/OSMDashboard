@@ -25,7 +25,7 @@ public class TrackPointsColumn {
      *
      * @return true if the location is a valid location.
      */
-    public static boolean isValidLocation(double latitude, double longitude) {
+    public static boolean isValidLocation(final double latitude, final double longitude) {
         return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180 && longitude != PAUSE_LATITUDE;
     }
 }

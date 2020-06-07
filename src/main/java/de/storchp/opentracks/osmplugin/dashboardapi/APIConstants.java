@@ -12,11 +12,11 @@ public class APIConstants {
     public static final String ACTION_DASHBOARD_PAYLOAD = ACTION_DASHBOARD + ".Payload";
 
 
-    public static Uri getTracksUri(ArrayList<Uri> uris) {
+    public static Uri getTracksUri(final ArrayList<Uri> uris) {
         return uris.get(0);
     }
 
-    public static Uri getTrackPointsUri(ArrayList<Uri> uris) {
+    public static Uri getTrackPointsUri(final ArrayList<Uri> uris) {
         return uris.get(1);
     }
 

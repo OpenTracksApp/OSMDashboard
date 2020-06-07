@@ -23,25 +23,25 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
     private final float[] rotationMatrix = new float[9];
     private final float[] orientationAngles = new float[3];
     private int lastDegreePos = -1;
-    private float[] lastDegrees = new float[5];
+    private final float[] lastDegrees = new float[5];
     private float currentDegree = 0;
 
-    public CompassView(Context context) {
+    public CompassView(final Context context) {
         super(context);
         createSensorManager(context);
     }
 
-    public CompassView(Context context, @Nullable AttributeSet attrs) {
+    public CompassView(final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         createSensorManager(context);
     }
 
-    public CompassView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CompassView(final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         createSensorManager(context);
     }
 
-    private void createSensorManager(Context context) {
+    private void createSensorManager(final Context context) {
         this.sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
     }
 
@@ -49,12 +49,12 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
         }
-        Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        final Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         if (magneticField != null) {
             sensorManager.registerListener(this, magneticField,
                     SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
@@ -68,7 +68,7 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(final SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             System.arraycopy(event.values, 0, accelerometerReading,
                     0, accelerometerReading.length);
@@ -82,8 +82,8 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
         if (lastAccelerometerSet && lastMagnetometerSet) {
             SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading);
             SensorManager.getOrientation(rotationMatrix, orientationAngles);
-            float azimuthInRadians = orientationAngles[0];
-            float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+            final float azimuthInRadians = orientationAngles[0];
+            final float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
             float newDegree = -azimuthInDegress;
             if (lastDegreePos == -1) {
                 initLastDegrees(newDegree);
@@ -94,7 +94,7 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
                 lastDegrees[lastDegreePos] = newDegree;
                 newDegree = averageLastDegrees();
             }
-            RotateAnimation ra = new RotateAnimation(
+            final RotateAnimation ra = new RotateAnimation(
                     currentDegree,
                     newDegree,
                     Animation.RELATIVE_TO_SELF, 0.5f,
@@ -112,7 +112,7 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
         }
     }
 
-    private void initLastDegrees(float newDegree) {
+    private void initLastDegrees(final float newDegree) {
         for(int i= 1;i <lastDegrees.length;i++){
             lastDegrees[i] = newDegree;
         }
@@ -127,7 +127,7 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(final Sensor sensor, final int accuracy) {
 
     }
 
