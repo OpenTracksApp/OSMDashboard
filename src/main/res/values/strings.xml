@@ -29,4 +29,6 @@
     <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de. Choose a .map file to download.</string>
     <string name="download_map_question">Download Map %s?</string>
     <string name="download_in_progress">There is already a download in progress!</string>
+    <string name="download_success">Map successfully downloaded</string>
+    <string name="download_failed">Map download failed</string>
 </resources>

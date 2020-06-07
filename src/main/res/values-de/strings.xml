@@ -30,4 +30,6 @@
     <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de. Wähle eine .map Datei zum herunterladen.</string>
     <string name="download_map_question">Karte %s herunterladen?</string>
     <string name="download_in_progress">Ein Download läuft bereits!</string>
+    <string name="download_success">Karte erfolgreich heruntergeladen</string>
+    <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
 </resources>

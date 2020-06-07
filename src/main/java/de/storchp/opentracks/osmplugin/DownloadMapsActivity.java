@@ -120,7 +120,9 @@ public class DownloadMapsActivity extends BaseActivity {
         }
     }
 
-    static class DownloadTask extends AsyncTask<Uri, Integer, String> {
+    private static class DownloadTask extends AsyncTask<Uri, Integer, String> {
+        private static final String RESULT_OK = "OK";
+        private static final String RESULT_FAILED = "FAILED";
         private final WeakReference<DownloadMapsActivity> ref;
 
         public DownloadTask(final DownloadMapsActivity activity) {
@@ -128,17 +130,25 @@ public class DownloadMapsActivity extends BaseActivity {
         }
 
         @Override
-        protected String doInBackground(Uri... params) {
+        protected String doInBackground(final Uri... params) {
             InputStream input = null;
             OutputStream output = null;
             HttpURLConnection connection = null;
             String result = "";
+            int bytesWritten = 0;
             try {
                 final URL sUrl = new URL(params[0].toString());
                 connection = (HttpURLConnection) sUrl.openConnection();
                 connection.connect();
+                final int length = connection.getContentLength();
+                final ProgressBar progressBar = ref.get().progressBar;
+                if (length > 0) {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setMax(length);
+                } else {
+                    progressBar.setIndeterminate(true);
+                }
 
-                // download the file
                 input = connection.getInputStream();
                 output = ref.get().getContentResolver().openOutputStream(params[1]);
 
@@ -152,11 +162,13 @@ public class DownloadMapsActivity extends BaseActivity {
                     }
 
                     output.write(data, 0, count);
+                    bytesWritten += count;
+                    publishProgress(bytesWritten);
                 }
-                result = "OK";
+                result = RESULT_OK;
             } catch (final Exception e) {
                 Log.e(TAG, "Download failed", e);
-                result = "FAILED";
+                result = RESULT_FAILED;
             } finally {
                 try {
                     if (output != null)
@@ -178,8 +190,11 @@ public class DownloadMapsActivity extends BaseActivity {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
                 activity.progressBar.setVisibility(View.GONE);
-                if ("OK".equals(result)) {
+                if (RESULT_OK.equals(result)) {
+                    Toast.makeText(activity, R.string.download_success, Toast.LENGTH_LONG).show();
                     activity.invalidateOptionsMenu();
+                } else {
+                    Toast.makeText(activity, R.string.download_failed, Toast.LENGTH_LONG).show();
                 }
             }
             Log.d(TAG, "Download finished: " + result);
@@ -195,6 +210,10 @@ public class DownloadMapsActivity extends BaseActivity {
 
         @Override
         protected void onProgressUpdate(final Integer... values) {
+            final DownloadMapsActivity activity = ref.get();
+            if (activity != null) {
+                activity.progressBar.setProgress(values[0]);
+            }
         }
 
     }
