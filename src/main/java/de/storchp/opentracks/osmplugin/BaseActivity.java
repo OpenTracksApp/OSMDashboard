@@ -14,7 +14,7 @@ import androidx.documentfile.provider.DocumentFile;
 
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 import static android.view.Menu.NONE;
 
@@ -24,6 +24,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_THEME_DIRECTORY = 2;
     protected static final int REQUEST_DOWNLOAD_MAP = 3;
     protected static final int REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD = 4;
+    protected static final int REQUEST_MAP_SELECTION = 5;
 
     private static final String TAG = BaseActivity.class.getSimpleName();
     private SubMenu mapSubmenu;
@@ -41,7 +42,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
         mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
 
-        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
+/*        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
         if (mapDirectory != null) {
             final DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
             if (documentsTree != null) {
@@ -55,6 +56,17 @@ abstract class BaseActivity extends AppCompatActivity {
             }
         }
         mapSubmenu.setGroupCheckable(R.id.maps_group, true, false);
+*/
+
+        final MenuItem mapSelection = mapSubmenu.add(R.string.map_selection);
+        mapSelection.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final MenuItem item) {
+                final Intent intent = new Intent(BaseActivity.this, MapSelectionActivity.class);
+                startActivityForResult(intent, REQUEST_MAP_SELECTION);
+                return false;
+            }
+        });
 
         final MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
         mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {

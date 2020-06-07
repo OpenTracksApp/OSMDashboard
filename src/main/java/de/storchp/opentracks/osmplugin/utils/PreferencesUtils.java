@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.maps.utils;
+package de.storchp.opentracks.osmplugin.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

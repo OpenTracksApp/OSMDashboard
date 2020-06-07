@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadMapsActivity extends BaseActivity {
 
@@ -48,7 +48,7 @@ public class DownloadMapsActivity extends BaseActivity {
         final WebView webView = findViewById(R.id.webview);
         final WebViewClient webClient = new WebViewClient(){
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
                 Log.d(TAG, "URL: " + url);
                 if (!url.startsWith(MAPS_V_5)) {
                     return true; // don't load URLs outside the base URL
@@ -66,7 +66,7 @@ public class DownloadMapsActivity extends BaseActivity {
                         .setMessage(getString(R.string.download_map_question, lastPathSegment))
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(final DialogInterface dialog, final int which) {
                                 downloadMapUri = uri;
                                 startMapDownload();
                             }
@@ -124,6 +124,7 @@ public class DownloadMapsActivity extends BaseActivity {
         private static final String RESULT_OK = "OK";
         private static final String RESULT_FAILED = "FAILED";
         private final WeakReference<DownloadMapsActivity> ref;
+        private int contentLength = -1;
 
         public DownloadTask(final DownloadMapsActivity activity) {
             ref = new WeakReference<>(activity);
@@ -140,14 +141,7 @@ public class DownloadMapsActivity extends BaseActivity {
                 final URL sUrl = new URL(params[0].toString());
                 connection = (HttpURLConnection) sUrl.openConnection();
                 connection.connect();
-                final int length = connection.getContentLength();
-                final ProgressBar progressBar = ref.get().progressBar;
-                if (length > 0) {
-                    progressBar.setIndeterminate(false);
-                    progressBar.setMax(length);
-                } else {
-                    progressBar.setIndeterminate(true);
-                }
+                contentLength = connection.getContentLength();
 
                 input = connection.getInputStream();
                 output = ref.get().getContentResolver().openOutputStream(params[1]);
@@ -171,11 +165,13 @@ public class DownloadMapsActivity extends BaseActivity {
                 result = RESULT_FAILED;
             } finally {
                 try {
-                    if (output != null)
+                    if (output != null) {
                         output.close();
-                    if (input != null)
+                    }
+                    if (input != null) {
                         input.close();
-                } catch (IOException ignored) {
+                    }
+                } catch (final IOException ignored) {
                 }
 
                 if (connection != null) {
@@ -205,6 +201,7 @@ public class DownloadMapsActivity extends BaseActivity {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
                 activity.progressBar.setVisibility(View.VISIBLE);
+                activity.progressBar.setIndeterminate(true);
             }
         }
 
@@ -213,6 +210,11 @@ public class DownloadMapsActivity extends BaseActivity {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
                 activity.progressBar.setProgress(values[0]);
+                if (contentLength > 0 && activity.progressBar.isIndeterminate()) {
+                    // we have a content length, so switch to determinate progress
+                    activity.progressBar.setIndeterminate(false);
+                    activity.progressBar.setMax(contentLength);
+                }
             }
         }
 

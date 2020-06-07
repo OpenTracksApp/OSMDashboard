@@ -12,25 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-
-        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MapsActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MapsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter
-                android:label="@string/app_name" android:priority="50">
+                android:label="@string/app_name"
+                android:priority="50">
                 <action android:name="Intent.OpenTracks-Dashboard" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".DownloadMapsActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".DownloadMapsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
+        <activity android:name=".MapSelectionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

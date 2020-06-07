@@ -33,4 +33,5 @@
     <string name="download_in_progress">Ein Download läuft bereits!</string>
     <string name="download_success">Karte erfolgreich heruntergeladen</string>
     <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
+    <string name="map_selection">Kartenauswahl</string>
 </resources>

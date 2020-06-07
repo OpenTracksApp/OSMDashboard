@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<com.google.android.material.appbar.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/maps_toolbar"
+    <include layout="@layout/toolbar" />
+
+    <include
+        layout="@layout/mapviewer"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:elevation="4dp"
-        app:navigationIcon="@drawable/ic_logo_color_24dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-</com.google.android.material.appbar.AppBarLayout>
-
-<include
-    layout="@layout/mapviewer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

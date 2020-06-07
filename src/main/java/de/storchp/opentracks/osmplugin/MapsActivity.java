@@ -62,7 +62,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
-import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class MapsActivity extends BaseActivity {
 
