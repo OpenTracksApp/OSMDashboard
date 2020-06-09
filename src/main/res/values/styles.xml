@@ -1,21 +1,52 @@
 <resources>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- TODO Cleanup necessary due to change to appcompat -->
+        <!-- Auto generated -->
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_dark</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewCustom</item>
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerCustom</item>
+        <item name="android:editTextBackground">@drawable/edit_text_holo_dark</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_dark</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_holo_dark</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_dark</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarCustom</item>
+
+        <!--        <item name="colorPrimary">TODO</item>-->
+        <!--        <item name="colorPrimaryDark">TODO</item>-->
+
+        <item name="colorAccent">@color/holo_orange_dark</item>
+        <item name="android:colorAccent">@color/holo_orange_dark</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/holo_orange_dark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AutoCompleteTextViewCustom" parent="android:Widget.Holo.AutoCompleteTextView">
+        <item name="android:dropDownSelector">@drawable/list_selector_holo_dark</item>
+        <item name="android:background">@drawable/edit_text_holo_dark</item>
+    </style>
+
+    <style name="SpinnerCustom" parent="android:Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_background_holo_dark</item>
+        <item name="android:dropDownSelector">@drawable/list_selector_holo_dark</item>
+    </style>
+
+    <style name="ProgressBarCustom" parent="android:Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressTint">@color/holo_orange_dark</item>
+        <item name="android:indeterminateTint">@color/holo_orange_dark</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
 
 </resources>

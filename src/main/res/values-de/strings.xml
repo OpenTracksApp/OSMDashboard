@@ -28,7 +28,7 @@
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
     <string name="download_map">Offline-Karte herunterladen</string>
     <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
-    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de. Wähle eine .map Datei zum herunterladen.</string>
+    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_map_question">Karte %s herunterladen?</string>
     <string name="download_in_progress">Ein Download läuft bereits!</string>
     <string name="download_success">Karte erfolgreich heruntergeladen</string>

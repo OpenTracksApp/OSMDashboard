@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity {
         final TextView info = findViewById(R.id.app_info);
         info.setPadding(50, 50, 50, 50);
         info.setMovementMethod(LinkMovementMethod.getInstance());
-        info.setLinkTextColor(getResources().getColor(R.color.colorAccent));
+        info.setLinkTextColor(getResources().getColor(R.color.holo_orange_dark));
     }
 
     @Override
