@@ -34,59 +34,6 @@ abstract class BaseActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
-        final Set<Uri> mapUris = PreferencesUtils.getMapUris(this);
-
-        final MenuItem osmMapnick = menu.findItem(R.id.osm_mapnik);
-        osmMapnick.setChecked(mapUris.isEmpty());
-        osmMapnick.setOnMenuItemClickListener(new MapMenuListener(null));
-
-        mapSubmenu = menu.findItem(R.id.maps_submenu).getSubMenu();
-
-/*        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
-        if (mapDirectory != null) {
-            final DocumentFile documentsTree = getDocumentFileFromTreeUri(mapDirectory);
-            if (documentsTree != null) {
-                for (final DocumentFile file : documentsTree.listFiles()) {
-                    if (file.isFile() && file.getName().endsWith(".map")) {
-                        final MenuItem mapItem = mapSubmenu.add(R.id.maps_group, NONE, NONE, file.getName());
-                        mapItem.setChecked(mapUris.contains(file.getUri()));
-                        mapItem.setOnMenuItemClickListener(new MapMenuListener(file.getUri()));
-                    }
-                }
-            }
-        }
-        mapSubmenu.setGroupCheckable(R.id.maps_group, true, false);
-*/
-
-        final MenuItem mapSelection = mapSubmenu.add(R.string.map_selection);
-        mapSelection.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                final Intent intent = new Intent(BaseActivity.this, MapSelectionActivity.class);
-                startActivityForResult(intent, REQUEST_MAP_SELECTION);
-                return false;
-            }
-        });
-
-        final MenuItem mapFolder = mapSubmenu.add(R.string.map_folder);
-        mapFolder.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                openMapDirectoryChooser();
-                return false;
-            }
-        });
-
-        final MenuItem downloadMap = mapSubmenu.add(R.string.download_map);
-        downloadMap.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                final Intent intent = new Intent(BaseActivity.this, DownloadMapsActivity.class);
-                startActivityForResult(intent, REQUEST_DOWNLOAD_MAP);
-                return false;
-            }
-        });
-
         final Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
         final Uri mapThemeDirectory = PreferencesUtils.getMapThemeDirectoryUri(this);
 
@@ -138,12 +85,23 @@ abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
-        if (item.getItemId() == R.id.map_online_consent) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
-            onOnlineMapConsentChanged(item.isChecked());
-            return true;
+        switch (item.getItemId()) {
+            case R.id.map_online_consent :
+                item.setChecked(!item.isChecked());
+                PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
+                onOnlineMapConsentChanged(item.isChecked());
+                break;
+            case R.id.map_selection :
+                startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
+                break;
+            case R.id.map_folder :
+                openMapDirectoryChooser();
+                break;
+            case R.id.download_map :
+                startActivityForResult(new Intent(this, DownloadMapsActivity.class), REQUEST_DOWNLOAD_MAP);
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -205,48 +163,6 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     abstract void recreateMap(boolean menuNeedsUpdate);
-
-    private class MapMenuListener implements MenuItem.OnMenuItemClickListener {
-
-        private final Uri mapUri;
-
-        private MapMenuListener(final Uri mapUri) {
-            this.mapUri = mapUri;
-        }
-
-        @Override
-        public boolean onMenuItemClick(final MenuItem item) {
-            item.setChecked(!item.isChecked());
-            final Set<Uri> mapUris = PreferencesUtils.getMapUris(BaseActivity.this);
-            if (item.isChecked()) {
-                if (item.getItemId() == R.id.osm_mapnik) { // default Mapnik online tiles
-                    mapUris.clear();
-                    for (int i = 0; i < mapSubmenu.size(); i++) {
-                        final MenuItem submenuItem = mapSubmenu.getItem(i);
-                        if (submenuItem != item) {
-                            submenuItem.setChecked(false);
-                        }
-                    }
-                } else {
-                    mapUris.add(mapUri);
-                    for (int i = 0; i < mapSubmenu.size(); i++) {
-                        final MenuItem submenuItem = mapSubmenu.getItem(i);
-                        if (submenuItem.getItemId() == R.id.osm_mapnik) {
-                            submenuItem.setChecked(false);
-                        }
-                    }
-                }
-            } else {
-                if (mapUri != null) {
-                    mapUris.remove(mapUri);
-                }
-            }
-            PreferencesUtils.setMapUris(BaseActivity.this, mapUris);
-            recreateMap(false);
-
-            return false;
-        }
-    }
 
     private class MapThemeMenuListener implements MenuItem.OnMenuItemClickListener {
 

@@ -33,4 +33,7 @@
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
     <string name="map_selection">Map selection</string>
+    <string name="online_osm_mapnick">Online Map OSM:Mapnik</string>
+    <string name="delete_map_question">Delete map \"%s\"?</string>
+    <string name="delete_map_error">Map deletion failed</string>
 </resources>

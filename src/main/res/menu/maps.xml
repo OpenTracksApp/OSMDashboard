@@ -5,10 +5,9 @@
         android:id="@+id/maps_submenu"
         android:title="@string/maps">
         <menu>
-            <group android:id="@+id/maps_group">
-                <item android:id="@+id/osm_mapnik"
-                      android:title="@string/osm_mapnik"/>
-            </group>
+            <item android:id="@+id/map_selection" android:title="@string/map_selection"/>
+            <item android:id="@+id/map_folder" android:title="@string/map_folder"/>
+            <item android:id="@+id/download_map" android:title="@string/download_map"/>
         </menu>
     </item>
 

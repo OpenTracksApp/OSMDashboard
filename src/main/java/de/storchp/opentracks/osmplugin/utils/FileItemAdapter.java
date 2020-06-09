@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.DownloadMapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
 public class FileItemAdapter extends ArrayAdapter<FileItem> {
@@ -48,7 +51,7 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         final ViewHolder holder = (ViewHolder) rowView.getTag();
         final FileItem item = this.items.get(position);
         holder.name.setText(item.getName());
-        holder.checkBox.setChecked(selected.contains(item.getUri()));
+        holder.checkBox.setChecked(position == 0 ? selected.isEmpty() : selected.contains(item.getUri()));
         holder.checkBox.setOnClickListener(onStateChangedListener(holder.checkBox, position));
 
         return rowView;
@@ -60,10 +63,17 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
             public void onClick(final View v) {
                 final FileItem fileItem = items.get(position);
                 if (checkBox.isChecked()) {
-                    selected.add(fileItem.getUri());
+                    if (fileItem.getUri() == null) { // online map
+                        selected.clear();
+                    } else {
+                        selected.add(fileItem.getUri());
+                    }
                 } else {
-                    selected.remove(fileItem.getUri());
+                    if (fileItem.getUri() != null) { // offline map
+                        selected.remove(fileItem.getUri());
+                    }
                 }
+                notifyDataSetChanged();
             }
         };
     }
@@ -72,7 +82,7 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         return selected;
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public CheckBox checkBox;
         public TextView name;
     }

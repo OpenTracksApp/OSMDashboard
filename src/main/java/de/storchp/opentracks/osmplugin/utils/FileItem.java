@@ -2,25 +2,22 @@ package de.storchp.opentracks.osmplugin.utils;
 
 import android.net.Uri;
 
-import androidx.documentfile.provider.DocumentFile;
-
 public class FileItem {
-    private final DocumentFile file;
+    private final String name;
 
-    public FileItem(final DocumentFile file) {
-        this.file = file;
-    }
+    private final Uri uri;
 
-    public DocumentFile getFile() {
-        return file;
+    public FileItem(final String name, final Uri uri) {
+        this.name = name;
+        this.uri = uri;
     }
 
     public String getName() {
-        return file.getName();
+        return name;
     }
 
     public Uri getUri() {
-        return file.getUri();
+        return uri;
     }
 
     @Override
