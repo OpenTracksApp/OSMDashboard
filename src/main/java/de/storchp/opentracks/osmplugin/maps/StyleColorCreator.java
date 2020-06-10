@@ -12,7 +12,7 @@ public class StyleColorCreator {
     public static final double GOLDEN_RATIO_CONJUGATE = 0.618033988749895;
     private double h;
 
-    public StyleColorCreator(double start) {
+    public StyleColorCreator(final double start) {
         this.h = start;
     }
 
@@ -20,12 +20,12 @@ public class StyleColorCreator {
         this(0);
     }
 
-    private int convertHSVtoColorRGB(int alpha, double hue, double saturation, double value) {
-        double i = Math.floor(hue * 6);
-        double f = hue * 6 - i;
-        double p = value * (1 - saturation);
-        double q = value * (1 - f * saturation);
-        double t = value * (1 - (1 - f) * saturation);
+    private int convertHSVtoColorRGB(final int alpha, final double hue, final double saturation, final double value) {
+        final double i = Math.floor(hue * 6);
+        final double f = hue * 6 - i;
+        final double p = value * (1 - saturation);
+        final double q = value * (1 - f * saturation);
+        final double t = value * (1 - (1 - f) * saturation);
         double red = 0;
         double green = 0;
         double blue = 0;
@@ -71,7 +71,7 @@ public class StyleColorCreator {
      * @param alpha The opacity (alpha channel) of the color.
      * @return The color.
      */
-    public int nextColor(int alpha) {
+    public int nextColor(final int alpha) {
         this.h += GOLDEN_RATIO_CONJUGATE;
         this.h %= 1;
 

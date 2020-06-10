@@ -7,30 +7,37 @@
     <string name="maps">Karten</string>
     <string name="map_themes">Kartendesigns</string>
     <string name="default_theme">Standarddesign</string>
-    <string name="map_info_menu">Karteninfo</string>
-    <string name="map_folder">Offline-Kartenverzeichnis</string>
+    <string name="map_info_menu">Über</string>
+    <string name="map_folder">Karten-Verzeichnis</string>
     <string name="theme_folder">Kartendesign-Verzeichnis</string>
     <string name="map_info_text">Öffne <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selektiere einen Track und klicke auf das Kartenicon, um den Track auf der Karte anzuzeigen.
         \n\nDie Standardkarte wird von <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> zur Verfügung gestellt.
         \nTritt der Gemeinschaft bei und hilf die Karte zu verbessern, siehe <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
-        \n\nBitte nutze Offline-Karten, um die Last auf den Servern und Dein mobiles Datenvolumen zu schonen.
-        \nEin paar Offline-Karten findest Du hier:
+        \n\nBitte nutze Offlinekarten, um die Last auf den Servern und Dein mobiles Datenvolumen zu schonen.
+        \nEin paar Offlinekarten findest Du hier:
         \n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
         \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
         \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
         \n\nManche Karten benötigen ein passendes Design, welches extra heruntergeladen und konfiguriert werden muss, damit die Karte korrekt dargestellt wird.
-        \n\nUm Offline-Karten zu nutzen, musst Du sie herunterladen, auf Deinem Gerät speichern und über das Menü <b>Karten / Offline-Karten Verzeichnis</b> auswählen.
+        \n\nUm Offlinekarten zu nutzen, musst Du sie herunterladen, auf Deinem Gerät speichern und über das Menü <b>Offlinekarten-Verzeichnis</b> auswählen.
     </string>
     <string name="app_logo_description">App logo</string>
     <string name="ok">Ok</string>
     <string name="cancel">Abbrechen</string>
-    <string name="online_map_consent">Es ist keine Offline-Karte konfiguriert. Bitte bestätige die Nutzung der Online-Karte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
+    <string name="online_map_consent">Es ist keine Offlinekarte konfiguriert. Bitte bestätige die Nutzung der Onlinekarte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
-    <string name="download_map">Offline-Karte herunterladen</string>
+    <string name="download_map">Karten herunterladen</string>
     <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
-    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de. Wähle eine .map Datei zum herunterladen.</string>
+    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_map_question">Karte %s herunterladen?</string>
     <string name="download_in_progress">Ein Download läuft bereits!</string>
     <string name="download_success">Karte erfolgreich heruntergeladen</string>
     <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
+    <string name="map_selection">Karten</string>
+    <string name="online_osm_mapnick">Onlinekarte OSM:Mapnik</string>
+    <string name="delete_map_question">Karte \"%s\" löschen?</string>
+    <string name="delete_map_error">Karte konnte nicht gelöscht werden</string>
+    <string name="theme_selection">Kartendesigns</string>
+    <string name="delete_theme_question">Kartendesign \"%s\" löschen?</string>
+    <string name="delete_theme_error">Kartendesign konnte nicht gelöscht werden</string>
 </resources>

@@ -62,7 +62,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
-import de.storchp.opentracks.osmplugin.maps.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class MapsActivity extends BaseActivity {
 
@@ -81,7 +81,7 @@ public class MapsActivity extends BaseActivity {
     private GroupLayer groupLayer;
 
     private long lastTrackPointId = 0;
-    private Long lastTrackId = null;
+    private long lastTrackId = 0;
     private int trackColor;
     private Polyline polyline;
     private FixedPixelCircle endMarker = null;
@@ -115,6 +115,7 @@ public class MapsActivity extends BaseActivity {
         createMapViews();
         createTileCaches();
         createLayers();
+        mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
 
         // Get the intent that started this activity
         final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
@@ -245,11 +246,11 @@ public class MapsActivity extends BaseActivity {
         int mapsCount = 0;
         for (final Uri mapUri: mapFiles) {
             try {
-                    if (DocumentFile.isDocumentUri(this, mapUri)) {
-                        final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
-                        mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
-                        mapsCount++;
-                    }
+                if (DocumentFile.isDocumentUri(this, mapUri)) {
+                    final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
+                    mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
+                    mapsCount++;
+                }
             } catch (final FileNotFoundException ignored) {
                 Log.e(TAG, "Can't open mapFile", ignored);
             }
@@ -262,17 +263,17 @@ public class MapsActivity extends BaseActivity {
         final MapDataStore mapFile = getMapFile();
 
         if (mapFile != null) {
-            final TileRendererLayer tileRendererLayer1 = new TileRendererLayer(this.tileCaches.get(0), mapFile,
+            final TileRendererLayer rendererLayer = new TileRendererLayer(this.tileCaches.get(0), mapFile,
                     this.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
-            tileRendererLayer1.setXmlRenderTheme(getRenderTheme());
-            this.tileLayer = tileRendererLayer1;
-            mapView.getLayerManager().getLayers().add(this.tileLayer);
-        } else if (!PreferencesUtils.getOnlineMapConsent(this)) {
-            showOnlineMapConsent();
-        } else {
+            rendererLayer.setXmlRenderTheme(getRenderTheme());
+            this.tileLayer = rendererLayer;
+            mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+        } else if (PreferencesUtils.getOnlineMapConsent(this)) {
             setOnlineTileLayer();
+        } else {
+            showOnlineMapConsent();
         }
-        mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
+
         mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
         mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
     }
@@ -347,6 +348,24 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+
+        if (requestCode == REQUEST_MAP_SELECTION || requestCode == REQUEST_THEME_SELECTION) {
+            if (this.tileLayer != null) {
+                if (this.tileLayer instanceof TileDownloadLayer) {
+                    ((TileDownloadLayer) this.tileLayer).onPause();
+                }
+                mapView.getLayerManager().getLayers().remove(tileLayer, true);
+                this.tileLayer = null;
+            }
+            this.purgeTileCaches();
+            createTileCaches();
+            createLayers();
+        }
+    }
+
     private void readTrackpoints(final Uri data, final boolean update) {
         Log.i(TAG, "Loading track from " + data);
 
@@ -356,7 +375,7 @@ public class MapsActivity extends BaseActivity {
                 layers.remove(groupLayer);
             }
             groupLayer = new GroupLayer();
-            lastTrackId = null;
+            lastTrackId = 0;
             lastTrackPointId = 0;
             colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
             trackColor = colorCreator.nextColor();
@@ -371,17 +390,17 @@ public class MapsActivity extends BaseActivity {
 
         try (final Cursor cursor = getContentResolver().query(data, TrackPointsColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final Long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
+                final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
                 if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
                     continue;
                 }
                 lastTrackPointId = trackPointId;
-                final Long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
+                final long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
                 final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LATITUDE)) / 1E6;
                 final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LONGITUDE)) / 1E6;
 
                 if (TrackPointsColumn.isValidLocation(latitude, longitude)) {
-                    if (!newTrackId.equals(lastTrackId)) {
+                    if (newTrackId != lastTrackId) {
                         trackColor = colorCreator.nextColor();
                         lastTrackId = newTrackId;
                         polyline = null; // reset current polyline when trackId changes
@@ -521,13 +540,4 @@ public class MapsActivity extends BaseActivity {
         super.onPause();
     }
 
-    @Override
-    void recreateMap(final boolean menuNeedsUpdate) {
-        // always recreate the map
-        if (menuNeedsUpdate) {
-            invalidateOptionsMenu();
-        } else {
-            recreate();
-        }
-    }
 }
