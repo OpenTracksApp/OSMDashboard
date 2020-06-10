@@ -4,12 +4,12 @@
     <string name="no_data">No track data received</string>
     <string name="copyright_osm">Map data © OpenStreetMap contributors</string>
     <string name="maps">Maps</string>
-    <string name="map_themes">Map Themes</string>
-    <string name="default_theme">Default Theme</string>
-    <string name="map_info_menu">Map Info</string>
-    <string name="map_folder">Offline Map Directory</string>
-    <string name="theme_folder">Map Theme Directory</string>
-    <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, select a Track and click the map icon to show the track on the map.
+    <string name="map_themes">Map themes</string>
+    <string name="default_theme">Default theme</string>
+    <string name="map_info_menu">About</string>
+    <string name="map_folder">Map directory</string>
+    <string name="theme_folder">Map theme directory</string>
+    <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, select a track and click the map icon to show the track on the map.
         \n\nThe default map is provided by <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
         \nJoin the community and help to improve the map, see <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
         \n\nPlease consider downloading an offline map to decrease the server load and save your mobile data plan.
@@ -18,22 +18,25 @@
         \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
         \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
         \n\nSome maps require special themes to render correctly! These need to be downloaded and configured accordingly.
-        \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Maps / Offline Map Directory</b>.
+        \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Offline map directory</b>.
     </string>
     <string name="app_logo_description">App logo</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy</string>
-    <string name="map_online_consent_menu">Online Map consent</string>
-    <string name="download_map">Download basic offline map</string>
+    <string name="map_online_consent_menu">Online map consent</string>
+    <string name="download_map">Map download</string>
     <string name="choose_map_to_download">Choose a map to download</string>
     <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Download Map %s?</string>
+    <string name="download_map_question">Download map %s?</string>
     <string name="download_in_progress">There is already a download in progress!</string>
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
-    <string name="map_selection">Map selection</string>
-    <string name="online_osm_mapnick">Online Map OSM:Mapnik</string>
+    <string name="map_selection">Maps</string>
+    <string name="online_osm_mapnick">Online map OSM:Mapnik</string>
     <string name="delete_map_question">Delete map \"%s\"?</string>
     <string name="delete_map_error">Map deletion failed</string>
+    <string name="theme_selection">Map themes</string>
+    <string name="delete_theme_question">Delete theme \"%s\"?</string>
+    <string name="delete_theme_error">Theme deletion failed</string>
 </resources>

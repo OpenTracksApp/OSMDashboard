@@ -33,12 +33,4 @@ public class MainActivity extends BaseActivity {
         // nothing to do
     }
 
-    @Override
-    void recreateMap(final boolean menuNeedsUpdate) {
-        // main activity doesn't have a map, just invalidate the menu
-        if (menuNeedsUpdate) {
-            invalidateOptionsMenu();
-        }
-    }
-
 }

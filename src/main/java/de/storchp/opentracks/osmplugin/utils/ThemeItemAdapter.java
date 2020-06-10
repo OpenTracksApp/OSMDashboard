@@ -7,26 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.RelativeLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.DownloadMapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
-public class FileItemAdapter extends ArrayAdapter<FileItem> {
+public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
 
     private final Activity context;
     private final List<FileItem> items;
-    private final Set<Uri> selected;
+    private Uri selected;
 
-    public FileItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Set<Uri> selected) {
-        super(context, R.layout.file_item, items);
+    public ThemeItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Uri selected) {
+        super(context, R.layout.map_item, items);
         this.context = context;
         this.items = items;
         this.selected = selected;
@@ -38,11 +36,11 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         // reuse views
         if (rowView == null) {
             final LayoutInflater inflater = context.getLayoutInflater();
-            rowView = inflater.inflate(R.layout.file_item, parent, false);
+            rowView = inflater.inflate(R.layout.theme_item, parent, false);
 
             // configure view holder
             final ViewHolder viewHolder = new ViewHolder();
-            viewHolder.checkBox = rowView.findViewById(R.id.checkbox);
+            viewHolder.radioButton = rowView.findViewById(R.id.radiobutton);
             viewHolder.name = rowView.findViewById(R.id.name);
             rowView.setTag(viewHolder);
         }
@@ -51,26 +49,26 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         final ViewHolder holder = (ViewHolder) rowView.getTag();
         final FileItem item = this.items.get(position);
         holder.name.setText(item.getName());
-        holder.checkBox.setChecked(position == 0 ? selected.isEmpty() : selected.contains(item.getUri()));
-        holder.checkBox.setOnClickListener(onStateChangedListener(holder.checkBox, position));
+        holder.radioButton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
+        holder.radioButton.setOnClickListener(onStateChangedListener(holder.radioButton, position));
 
         return rowView;
     }
 
-    private View.OnClickListener onStateChangedListener(final CheckBox checkBox, final int position) {
+    private View.OnClickListener onStateChangedListener(final RadioButton radioButton, final int position) {
         return new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 final FileItem fileItem = items.get(position);
-                if (checkBox.isChecked()) {
+                if (radioButton.isChecked()) {
                     if (fileItem.getUri() == null) { // online map
-                        selected.clear();
+                        selected = null;
                     } else {
-                        selected.add(fileItem.getUri());
+                        selected = fileItem.getUri();
                     }
                 } else {
                     if (fileItem.getUri() != null) { // offline map
-                        selected.remove(fileItem.getUri());
+                        selected = null;
                     }
                 }
                 notifyDataSetChanged();
@@ -78,12 +76,16 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         };
     }
 
-    public Set<Uri> getSelectedUris() {
+    public Uri getSelectedUri() {
         return selected;
     }
 
+    public void setSelectedUri(final Uri selected) {
+        this.selected = selected;
+    }
+
     public static class ViewHolder {
-        public CheckBox checkBox;
+        public RadioButton radioButton;
         public TextView name;
     }
 
