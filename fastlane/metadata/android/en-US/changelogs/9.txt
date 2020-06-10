@@ -3,3 +3,4 @@
 - respects "Keep screen on" and "Show on Lockscreen" preferences from OpenTracks
 - download of offline maps directly via the app
 - new Logo according to the Android Adaptive Launcher Icon Specification
+- restructure menu and map/theme selection
