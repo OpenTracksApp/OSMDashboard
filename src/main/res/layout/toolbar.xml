@@ -17,8 +17,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:elevation="4dp"
-            app:navigationIcon="@drawable/ic_logo_color_24dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:navigationIcon="@drawable/ic_logo_color_24dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

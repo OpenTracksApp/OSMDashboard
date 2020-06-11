@@ -4,8 +4,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!-- TODO Cleanup necessary due to change to appcompat -->
-        <!-- Auto generated -->
         <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_dark</item>
         <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewCustom</item>
         <item name="android:dropDownSpinnerStyle">@style/SpinnerCustom</item>
@@ -14,9 +12,6 @@
         <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_holo_dark</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_dark</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarCustom</item>
-
-        <!--        <item name="colorPrimary">TODO</item>-->
-        <!--        <item name="colorPrimaryDark">TODO</item>-->
 
         <item name="colorAccent">@color/holo_orange_dark</item>
         <item name="android:colorAccent">@color/holo_orange_dark</item>
@@ -30,8 +25,6 @@
 
     <style name="AppTheme.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="AutoCompleteTextViewCustom" parent="android:Widget.Holo.AutoCompleteTextView">
         <item name="android:dropDownSelector">@drawable/list_selector_holo_dark</item>
