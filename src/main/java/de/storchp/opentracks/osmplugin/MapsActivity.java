@@ -1,7 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -23,6 +22,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
+
+import com.caverock.androidsvg.BuildConfig;
 
 import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
@@ -297,14 +298,11 @@ public class MapsActivity extends BaseActivity {
             .setIcon(R.drawable.ic_logo_color_24dp)
             .setTitle(R.string.app_name)
             .setMessage(message)
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int which) {
-                    PreferencesUtils.setOnlineMapConsent(MapsActivity.this, true);
-                    setOnlineTileLayer();
-                    ((TileDownloadLayer) tileLayer).onResume();
-                    mapConsent.setChecked(true);
-                }
+            .setPositiveButton(R.string.ok, (dialog1, which) -> {
+                PreferencesUtils.setOnlineMapConsent(MapsActivity.this, true);
+                setOnlineTileLayer();
+                ((TileDownloadLayer) tileLayer).onResume();
+                mapConsent.setChecked(true);
             })
             .setNegativeButton(R.string.cancel, null)
             .create();
@@ -524,10 +522,10 @@ public class MapsActivity extends BaseActivity {
         if (hasFocus && boundingBox != null) {
             final Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
             this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
-                    boundingBox.getCenterPoint(),
-                    (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                            dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
-                            getZoomLevelMax()), 16)));
+                boundingBox.getCenterPoint(),
+                (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
+                        dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
+                        getZoomLevelMax()), 16)));
             boundingBox = null; // only set the zoomlevel once
         }
     }

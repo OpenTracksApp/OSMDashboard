@@ -55,23 +55,20 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
     }
 
     private View.OnClickListener onStateChangedListener(final CheckBox checkBox, final int position) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                final FileItem fileItem = items.get(position);
-                if (checkBox.isChecked()) {
-                    if (fileItem.getUri() == null) { // online map
-                        selected.clear();
-                    } else {
-                        selected.add(fileItem.getUri());
-                    }
+        return v -> {
+            final FileItem fileItem = items.get(position);
+            if (checkBox.isChecked()) {
+                if (fileItem.getUri() == null) { // online map
+                    selected.clear();
                 } else {
-                    if (fileItem.getUri() != null) { // offline map
-                        selected.remove(fileItem.getUri());
-                    }
+                    selected.add(fileItem.getUri());
                 }
-                notifyDataSetChanged();
+            } else {
+                if (fileItem.getUri() != null) { // offline map
+                    selected.remove(fileItem.getUri());
+                }
             }
+            notifyDataSetChanged();
         };
     }
 

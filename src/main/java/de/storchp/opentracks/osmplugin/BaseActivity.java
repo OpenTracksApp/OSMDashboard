@@ -3,20 +3,12 @@ package de.storchp.opentracks.osmplugin;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
-
-import java.util.Set;
 
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
-
-import static android.view.Menu.NONE;
 
 abstract class BaseActivity extends AppCompatActivity {
 

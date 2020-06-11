@@ -95,11 +95,11 @@ public class CompassView extends androidx.appcompat.widget.AppCompatImageView im
                 newDegree = averageLastDegrees();
             }
             final RotateAnimation ra = new RotateAnimation(
-                    currentDegree,
-                    newDegree,
-                    Animation.RELATIVE_TO_SELF, 0.5f,
-                    Animation.RELATIVE_TO_SELF,
-                    0.5f);
+                currentDegree,
+                newDegree,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f);
             // how long the animation will take place
             ra.setDuration(0);
 

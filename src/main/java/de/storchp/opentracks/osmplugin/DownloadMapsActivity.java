@@ -3,8 +3,6 @@ package de.storchp.opentracks.osmplugin;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -15,8 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -147,15 +143,12 @@ public class DownloadMapsActivity extends BaseActivity {
         protected void publishProgress(final int progress) {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.progressBar.setProgress(progress);
-                        if (contentLength > 0 && activity.progressBar.isIndeterminate()) {
-                            // we have a content length, so switch to determinate progress
-                            activity.progressBar.setIndeterminate(false);
-                            activity.progressBar.setMax(contentLength);
-                        }
+                activity.runOnUiThread(() -> {
+                    activity.progressBar.setProgress(progress);
+                    if (contentLength > 0 && activity.progressBar.isIndeterminate()) {
+                        // we have a content length, so switch to determinate progress
+                        activity.progressBar.setIndeterminate(false);
+                        activity.progressBar.setMax(contentLength);
                     }
                 });
             }
@@ -164,12 +157,7 @@ public class DownloadMapsActivity extends BaseActivity {
         protected void end() {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.downloadEnded(success);
-                    }
-                });
+                activity.runOnUiThread(() -> activity.downloadEnded(success));
             }
         }
 

@@ -57,17 +57,12 @@ public class MapSelectionActivity extends AppCompatActivity {
 
         final ListView listView = findViewById(R.id.map_list);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> listview, final View view, final int position, final long id) {
+        listView.setOnItemClickListener((listview, view, position, id) -> {
             final MapItemAdapter.ViewHolder holder = (MapItemAdapter.ViewHolder) view.getTag();
             holder.checkBox.setChecked(!holder.checkBox.isChecked());
             holder.checkBox.callOnClick();
-            }
         });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
             final MapItemAdapter.ViewHolder holder = (MapItemAdapter.ViewHolder) view.getTag();
             final FileItem fileItem = items.get(position);
             final Uri uri = fileItem.getUri();
@@ -79,9 +74,7 @@ public class MapSelectionActivity extends AppCompatActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setMessage(getString(R.string.delete_map_question, fileItem.getName()))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
                     final DocumentFile file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
                     final boolean deleted = file.delete();
@@ -92,12 +85,10 @@ public class MapSelectionActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();
                     }
-                    }
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .create().show();
             return false;
-            }
         });
     }
 

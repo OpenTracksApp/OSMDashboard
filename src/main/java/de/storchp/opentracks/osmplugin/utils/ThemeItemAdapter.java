@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
-import java.util.Set;
 
 import de.storchp.opentracks.osmplugin.R;
 
@@ -56,23 +54,20 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
     }
 
     private View.OnClickListener onStateChangedListener(final RadioButton radioButton, final int position) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                final FileItem fileItem = items.get(position);
-                if (radioButton.isChecked()) {
-                    if (fileItem.getUri() == null) { // online map
-                        selected = null;
-                    } else {
-                        selected = fileItem.getUri();
-                    }
+        return v -> {
+            final FileItem fileItem = items.get(position);
+            if (radioButton.isChecked()) {
+                if (fileItem.getUri() == null) { // default theme
+                    selected = null;
                 } else {
-                    if (fileItem.getUri() != null) { // offline map
-                        selected = null;
-                    }
+                    selected = fileItem.getUri();
                 }
-                notifyDataSetChanged();
+            } else {
+                if (fileItem.getUri() != null) { // offline theme
+                    selected = null;
+                }
             }
+            notifyDataSetChanged();
         };
     }
 
