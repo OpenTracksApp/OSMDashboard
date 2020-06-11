@@ -8,6 +8,7 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
     <tr>
         <th>Free</th>
         <th>Free</th>
+        <th>Translation</th>
     </tr>
     <tr>
         <td>
@@ -19,7 +20,12 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
             <a href="https://play.google.com/store/apps/details?id=de.storchp.opentracks.osmplugin">
                 <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" align="middle">
             </a>
-        </td>        
+        </td>
+        <td>
+            <a href="https://www.transifex.com/opentracks/opentracks-osm-dashboard">
+                Transifex
+            </a>
+        </td>
     </tr>
 </table>
 
@@ -27,7 +33,8 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 ## Features:
 * _Online map data_: download map data on-demand
 * _Offline map data_: use on-device stored map data
-* _Map themes_: support of custom map themes
+* _In app download of offline maps_: download offline maps from withing the app, from [https://ftp-stud.hs-esslingen.de](https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/)
+* _Map themes_: support of custom map themes for offline maps
     
 __Required permissions:__
 * _INTERNET_: required for online maps
@@ -41,7 +48,7 @@ Join the community and help to improve the map, see [www.openstreetmap.org/fixth
 
 Please consider downloading an offline map to decrease the server load and save your mobile data plan.
 
-Some offline maps can be found here:
+Some basic offline maps can downloaded via the app. Other maps with special themes can be downloaded manually, for example from:
 
 - [Mapsforge](http://download.mapsforge.org/)
 - [Freizeitkarte Android](https://www.freizeitkarte-osm.de/android/en/)
@@ -49,9 +56,14 @@ Some offline maps can be found here:
 
 Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
 
-To use offline maps, put them on your Android device external storage (e.g. `/storage/emulated/0`, depending on your device) and select the directory in the App menu `Maps` / `Offline Map Directory`.
+To use offline maps, put them on your Android device external storage (e.g. `/storage/emulated/0`, depending on your device) and select the directory in the App menu `Map directory`.
 
-## Translation
-
-Help translating the project at Transifex: https://www.transifex.com/opentracks/opentracks-osm-dashboard/dashboard/
-
+## Screenshots
+<div>
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1-info-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2-single-track-map-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3-multi-track-map-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4-simple-theme-map-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5-map-download-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6-map-selection-view.png">
+</div>
