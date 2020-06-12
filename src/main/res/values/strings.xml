@@ -40,4 +40,5 @@
     <string name="delete_theme_question">Delete theme \"%s\"?</string>
     <string name="delete_theme_error">Theme deletion failed</string>
     <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
+    <string name="cancel_download_question">Cancel current download?</string>
 </resources>

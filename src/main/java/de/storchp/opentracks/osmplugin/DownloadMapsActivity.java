@@ -3,6 +3,7 @@ package de.storchp.opentracks.osmplugin;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,6 +32,7 @@ public class DownloadMapsActivity extends BaseActivity {
 
     private Uri downloadMapUri;
     private ProgressBar progressBar;
+    private DownloadTask downloadTask;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class DownloadMapsActivity extends BaseActivity {
                 final Uri uri = Uri.parse(url);
                 final String lastPathSegment = uri.getLastPathSegment();
                 if (lastPathSegment != null && lastPathSegment.endsWith(".map")) {
-                    if (progressBar.getVisibility() == View.VISIBLE) {
+                    if (isDownloadInProgress()) {
                         Toast.makeText(DownloadMapsActivity.this.getApplicationContext(), R.string.download_in_progress, Toast.LENGTH_LONG).show();
                         return true;
                     }
@@ -78,6 +80,10 @@ public class DownloadMapsActivity extends BaseActivity {
         };
         webView.setWebViewClient(webClient);
         webView.loadUrl(PreferencesUtils.getLastDownloadUrl(this, MAPS_V_5));
+    }
+
+    private boolean isDownloadInProgress() {
+        return downloadTask != null;
     }
 
     private void startMapDownload() {
@@ -108,18 +114,27 @@ public class DownloadMapsActivity extends BaseActivity {
             return;
         }
 
-        final Uri targetMapUri = mapDirectoryFile.createFile("application/binary", mapName).getUri();
-
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setIndeterminate(true);
 
-        new Thread(new DownloadTask(this, downloadMapUri, targetMapUri)).start();
+        downloadTask = new DownloadTask(this, downloadMapUri, mapDirectoryFile.createFile("application/binary", mapName).getUri());
+        downloadTask.start();
 
         Log.d(TAG, "Started map download of '" + mapName + "'");
     }
 
-    private void downloadEnded(final boolean success) {
+    private void downloadEnded(final boolean success, final boolean canceled) {
         progressBar.setVisibility(View.GONE);
+        final Uri targetMapUri = downloadTask.targetMapUri;
+        downloadTask = null;
+        if (canceled) {
+            final DocumentFile documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetMapUri);
+            if (documentFile != null) {
+                documentFile.delete();
+            }
+            onBackPressed();
+            return;
+        }
         if (success) {
             Toast.makeText(this, R.string.download_success, Toast.LENGTH_LONG).show();
         } else {
@@ -140,12 +155,13 @@ public class DownloadMapsActivity extends BaseActivity {
         // nothing to do
     }
 
-    private static class DownloadTask implements Runnable {
+    private static class DownloadTask extends Thread {
         private final WeakReference<DownloadMapsActivity> ref;
         private final Uri downloadMapUri;
         private final Uri targetMapUri;
         private int contentLength = -1;
         private boolean success = false;
+        private boolean canceled = false;
 
         public DownloadTask(final DownloadMapsActivity activity, final Uri downloadMapUri, final Uri targetMapUri) {
             ref = new WeakReference<>(activity);
@@ -170,7 +186,7 @@ public class DownloadMapsActivity extends BaseActivity {
         protected void end() {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
-                activity.runOnUiThread(() -> activity.downloadEnded(success));
+                activity.runOnUiThread(() -> activity.downloadEnded(success, canceled));
             }
         }
 
@@ -192,6 +208,12 @@ public class DownloadMapsActivity extends BaseActivity {
                 final byte[] data = new byte[4096];
                 int count;
                 while ((count = input.read(data)) != -1) {
+                    if (canceled) {
+                        input.close();
+                        output.close();
+                        end();
+                        return;
+                    }
                     output.write(data, 0, count);
                     bytesWritten += count;
                     publishProgress(bytesWritten);
@@ -215,6 +237,36 @@ public class DownloadMapsActivity extends BaseActivity {
                 }
             }
             end();
+        }
+
+        public void cancelDownload() {
+            canceled = true;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isDownloadInProgress()) {
+            new AlertDialog.Builder(DownloadMapsActivity.this)
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setMessage(getString(R.string.cancel_download_question))
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                    downloadTask.cancelDownload();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .create().show();
+        } else {
+            super.onBackPressed();
         }
     }
 
