@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/map_selection" android:title="@string/map_selection"/>
-    <item android:id="@+id/map_folder" android:title="@string/map_folder"/>
-    <item android:id="@+id/download_map" android:title="@string/download_map"/>
+    <group android:id="@+id/map_grp">
+        <item android:id="@+id/map_selection" android:title="@string/map_selection"/>
+        <item android:id="@+id/map_folder" android:title="@string/map_folder"/>
+        <item android:id="@+id/download_map" android:title="@string/download_map"/>
+    </group>
 
-    <item android:id="@+id/theme_selection" android:title="@string/theme_selection"/>
-    <item android:id="@+id/theme_folder" android:title="@string/theme_folder"/>
+    <group android:id="@+id/theme_grp">
+        <item android:id="@+id/theme_selection" android:title="@string/theme_selection"/>
+        <item android:id="@+id/theme_folder" android:title="@string/theme_folder"/>
+    </group>
 
     <item
         android:id="@+id/map_online_consent"

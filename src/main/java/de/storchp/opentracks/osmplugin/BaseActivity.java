@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuCompat;
 
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -26,6 +27,8 @@ abstract class BaseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
+
+        MenuCompat.setGroupDividerEnabled(menu, true);
 
         final MenuItem mapInfo = menu.findItem(R.id.map_info);
         mapInfo.setVisible(showInfo);
