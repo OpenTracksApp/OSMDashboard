@@ -21,3 +21,4 @@ app/.settings/
 app/release/
 
 /.idea/jarRepositories.xml
+/release/
