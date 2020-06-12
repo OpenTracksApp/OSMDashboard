@@ -1,6 +1,5 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,12 +71,13 @@ public class DownloadMapsActivity extends BaseActivity {
                         .create().show();
                     return true;
                 }
+                PreferencesUtils.setLastDownloadUrl(DownloadMapsActivity.this, url);
                 return false;
             }
 
         };
         webView.setWebViewClient(webClient);
-        webView.loadUrl(MAPS_V_5);
+        webView.loadUrl(PreferencesUtils.getLastDownloadUrl(this, MAPS_V_5));
     }
 
     private void startMapDownload() {

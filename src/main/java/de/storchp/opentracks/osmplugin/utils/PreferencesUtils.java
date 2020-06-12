@@ -62,6 +62,14 @@ public class PreferencesUtils {
         setBoolean(context, R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
+    public static String getLastDownloadUrl(final Context context, final String defaultDownloadUrl) {
+        return getString(context, R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
+    }
+
+    public static void setLastDownloadUrl(final Context context, final String lastDownloadUrl) {
+        setString(context, R.string.LAST_DOWNLOAD_URL, lastDownloadUrl);
+    }
+
     private static Set<Uri> getUris(final Context context, final String keyId) {
         final Set<String> values = getSharedPreferences(context).getStringSet(keyId, null);
         final Set<Uri> uris = new HashSet<>();
@@ -101,13 +109,6 @@ public class PreferencesUtils {
         setStringSet(context, keyId, values);
     }
 
-    /**
-     * Gets a string preference value.
-     *
-     * @param context      the context
-     * @param keyId        the key id
-     * @param defaultValue default value
-     */
     private static String getString(final Context context, final int keyId, final String defaultValue) {
         final SharedPreferences sharedPreferences = getSharedPreferences(context);
         return sharedPreferences.getString(getKey(context, keyId), defaultValue);
@@ -139,13 +140,8 @@ public class PreferencesUtils {
         editor.apply();
     }
 
-    /**
-     * Gets a preference key
-     *
-     * @param context the context
-     * @param keyId   the key id
-     */
     private static String getKey(final Context context, final int keyId) {
         return context.getString(keyId);
     }
+
 }

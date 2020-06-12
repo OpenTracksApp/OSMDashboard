@@ -5,5 +5,6 @@
     <string name="MAP_THEME_DIRECTORY" translatable="false">APP_PREF_MAP_THEME_DIRECTORY</string>
     <string name="MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
     <string name="ONLINE_MAP_CONSENT" translatable="false">APP_PREF_ONLINE_MAP_CONSENT</string>
+    <string name="LAST_DOWNLOAD_URL" translatable="false">APP_PREF_LAST_DOWNLOAD_URL</string>
     <string name="osm_mapnik" translatable="false">OSM: Mapnik</string>
 </resources>
