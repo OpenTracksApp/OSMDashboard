@@ -64,12 +64,9 @@ public class DownloadMapsActivity extends BaseActivity {
                         .setIcon(R.drawable.ic_logo_color_24dp)
                         .setTitle(R.string.app_name)
                         .setMessage(getString(R.string.download_map_question, lastPathSegment))
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                downloadMapUri = uri;
-                                startMapDownload();
-                            }
+                        .setPositiveButton(R.string.ok, (dialog, which) -> {
+                            downloadMapUri = uri;
+                            startMapDownload();
                         })
                         .setNegativeButton(R.string.cancel, null)
                         .create().show();
@@ -95,6 +92,22 @@ public class DownloadMapsActivity extends BaseActivity {
             return;
         }
         final String mapName = downloadMapUri.getLastPathSegment();
+
+        final DocumentFile file = mapDirectoryFile.findFile(mapName);
+        if (file != null) {
+            new AlertDialog.Builder(DownloadMapsActivity.this)
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setMessage(getString(R.string.overwrite_map_question, mapName))
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                    file.delete();
+                    startMapDownload();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .create().show();
+            return;
+        }
+
         final Uri targetMapUri = mapDirectoryFile.createFile("application/binary", mapName).getUri();
 
         progressBar.setVisibility(View.VISIBLE);
