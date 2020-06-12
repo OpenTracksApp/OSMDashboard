@@ -117,6 +117,7 @@ public class DownloadMapsActivity extends BaseActivity {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setIndeterminate(true);
 
+        keepScreenOn(true);
         downloadTask = new DownloadTask(this, downloadMapUri, mapDirectoryFile.createFile("application/binary", mapName).getUri());
         downloadTask.start();
 
@@ -125,6 +126,7 @@ public class DownloadMapsActivity extends BaseActivity {
 
     private void downloadEnded(final boolean success, final boolean canceled) {
         progressBar.setVisibility(View.GONE);
+        keepScreenOn(false);
         final Uri targetMapUri = downloadTask.targetMapUri;
         downloadTask = null;
         if (canceled) {

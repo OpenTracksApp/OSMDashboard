@@ -134,20 +134,8 @@ public class MapsActivity extends BaseActivity {
             }
         });
 
-        if (getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false)) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-
-        final boolean showOnLockScreen = getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(showOnLockScreen);
-        } else if (showOnLockScreen) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        }
+        keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
+        showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
     }
 
     @Override
