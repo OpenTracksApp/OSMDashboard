@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">OSM Dashboard para OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard\npara OpenTracks</string>
+    <string name="no_data">Non se recibiron datos da ruta</string>
+    <string name="copyright_osm">© dos datos do mapa: contribuíntes a OpenStreetMap</string>
+    <string name="maps">Mapas</string>
+    <string name="map_themes">Estilo do mapa</string>
+    <string name="default_theme">Estilo por omisión</string>
+    <string name="map_info_menu">Acerca de</string>
+    <string name="map_folder">Directorio de mapas</string>
+    <string name="theme_folder">Directorio de estilo de mapas</string>
+    <string name="map_info_text">Usa <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, escolle unha ruta e preme na icona do mapa para mostrar a ruta no mapa.
+\n\nO mapa por omisión está proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nÚnete á comunidade e axuda a mellorar o mapa, mira en <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
+\n\nTamén podes descargar o mapa para diminuír a carga do servidor e aforrar no teu plan de datos móbiles.
+\nAquí podes atopar mapas para descargar:
+ \n<b>-<a href="http://download.mapsforge.org/"> Mapsforge</a></b>
+\n<b>-<a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android</a></b>
+\n<b>-<a href="https://www.openandromaps.org/en"> OpenAndroMaps</a></b>
+\n\nAlgúns mapas requiren estilos especiais para ser mostrados correctamente! Estos deben ser descargados e configurados acorde os requerimentos.
+\n\nPara usar mapas sen conexión, gárdaos nun cartafol no almacenaxe externo do dispositivo Android (ex. <b>/storage/emulated/0</b>, dependendo do dispositivo) e escolle o directorio no menú da App <b>Directorio de mapa sen conexión</b></string>
+    <string name="app_logo_description">Logo da App</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
+    <string name="online_map_consent">Non hai mapa sen conexión configurado. Acepta a utilización de mapas en liña desde openstreetmap.org. Esto podería revelar a túa localización actual. Le https://operations.osmfoundation.org/policies/tiles/ sobre o uso de mapas e política de privacidade</string>
+    <string name="map_online_consent_menu">Consentimento para mapas en liña</string>
+    <string name="download_map">Descargar mapa</string>
+    <string name="choose_map_to_download">Escolle o mapa a descargar</string>
+    <string name="download_instruction">Estás a ver o contido de https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">¿Descargar o mapa %s?</string>
+    <string name="download_in_progress">Xa hai unha descarga en curso!</string>
+    <string name="download_success">Mapa descargado correctamente</string>
+    <string name="download_failed">Fallou a descarga do mapa</string>
+    <string name="map_selection">Mapas</string>
+    <string name="online_osm_mapnick">Mapa en liña OSM:Mapnik</string>
+    <string name="delete_map_question">¿Eliminar mapa \"%s\"?</string>
+    <string name="delete_map_error">Fallo a eliminación do mapa</string>
+    <string name="theme_selection">Estilos do mapa</string>
+    <string name="delete_theme_question">¿Eliminar estilo \"%s\"?</string>
+    <string name="delete_theme_error">Fallou a eliminación do estilo</string>
+    </resources>
