@@ -1,0 +1,1 @@
+- Problem mit Zugriff auf das Kartenverzeichnis nach Neustart behoben

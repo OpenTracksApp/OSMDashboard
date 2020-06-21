@@ -2,6 +2,7 @@ package de.storchp.opentracks.osmplugin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
+
+import java.util.List;
 
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -89,28 +92,41 @@ abstract class BaseActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && resultData != null) {
             final Uri uri = resultData.getData();
             if (uri != null) {
-                takePersistableUriPermission(uri);
+                takePersistableUriPermission(uri, resultData);
                 if (requestCode == REQUEST_MAP_DIRECTORY || requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
-                    changeMapDirectory(uri, requestCode);
+                    changeMapDirectory(uri, requestCode, resultData);
                 } else if (requestCode == REQUEST_THEME_DIRECTORY) {
-                    changeThemeDirectory(uri);
+                    changeThemeDirectory(uri, resultData);
                 }
+            }
+        }
+
+        // release old permissions
+        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri(this);
+        final Uri themeDirectoryUri = PreferencesUtils.getMapThemeDirectoryUri(this);
+        final List<UriPermission> persistedUriPermissions = getContentResolver().getPersistedUriPermissions();
+        for (final UriPermission permission : persistedUriPermissions) {
+            final Uri uri = permission.getUri();
+            if (!uri.equals(mapDirectoryUri) && !uri.equals(themeDirectoryUri)) {
+                getContentResolver().releasePersistableUriPermission(uri, 0);
             }
         }
     }
 
-    private void changeThemeDirectory(final Uri uri) {
-        takePersistableUriPermission(uri);
+    private void changeThemeDirectory(final Uri uri, final Intent resultData) {
+        takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapThemeDirectoryUri(this, uri);
     }
 
-    protected void changeMapDirectory(final Uri uri, final int requestCode) {
-        takePersistableUriPermission(uri);
+    protected void changeMapDirectory(final Uri uri, final int requestCode, final Intent resultData) {
+        takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapDirectoryUri(this, uri);
     }
 
-    private void takePersistableUriPermission(final Uri uri) {
-        getContentResolver().takePersistableUriPermission(uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+    private void takePersistableUriPermission(final Uri uri, final Intent intent) {
+        int takeFlags = intent.getFlags();
+        takeFlags &= (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        getContentResolver().takePersistableUriPermission(uri, takeFlags);
     }
 
     protected void keepScreenOn(final boolean keepScreenOn) {

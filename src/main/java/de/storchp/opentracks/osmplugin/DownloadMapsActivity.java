@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -145,8 +146,8 @@ public class DownloadMapsActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapDirectory(final Uri uri, final int requestCode) {
-        super.changeMapDirectory(uri, requestCode);
+    protected void changeMapDirectory(final Uri uri, final int requestCode, final Intent resultData) {
+        super.changeMapDirectory(uri, requestCode, resultData);
         if (requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
             startMapDownload();
         }

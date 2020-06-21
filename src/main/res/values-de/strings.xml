@@ -42,4 +42,5 @@
     <string name="delete_theme_error">Kartendesign konnte nicht gelöscht werden</string>
     <string name="overwrite_map_question">Die Karte \"%s\" existiert bereits! Löschen und erneut herunterladen?</string>
     <string name="cancel_download_question">Aktuellen Download abbrechen?</string>
+    <string name="error_loading_offline_map">Fehler beim Lesen der eingestellten Offlinekarte(n).</string>
 </resources>

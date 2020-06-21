@@ -20,14 +20,14 @@ allprojects {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 9
-        versionName "2.0.0"
+        targetSdkVersion 30
+        versionCode 10
+        versionName "2.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 applicationLogo: "@mipmap/ic_launcher",

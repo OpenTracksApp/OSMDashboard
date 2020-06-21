@@ -235,14 +235,22 @@ public class MapsActivity extends BaseActivity {
         int mapsCount = 0;
         for (final Uri mapUri: mapFiles) {
             try {
-                if (DocumentFile.isDocumentUri(this, mapUri)) {
-                    final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
-                    mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
-                    mapsCount++;
+                final boolean documentUri = DocumentFile.isDocumentUri(this, mapUri);
+                if (documentUri) {
+                    final DocumentFile documentFile = DocumentFile.fromSingleUri(this, mapUri);
+                    if (documentFile != null && documentFile.canRead()) {
+                        final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
+                        mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
+                        mapsCount++;
+                    }
                 }
-            } catch (final FileNotFoundException ignored) {
-                Log.e(TAG, "Can't open mapFile", ignored);
+            } catch (final Exception e) {
+                Log.e(TAG, "Can't open mapFile", e);
             }
+        }
+
+        if (mapsCount == 0 && !mapFiles.isEmpty()) {
+            Toast.makeText(this, R.string.error_loading_offline_map, Toast.LENGTH_LONG).show();
         }
 
         return mapsCount > 0 ? mapDataStore : null;
