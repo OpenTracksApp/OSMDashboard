@@ -12,7 +12,7 @@
           android:pathData="m0,-0c36,0 72,0 108,0 0,36 0,72 0,108 -36,0 -72,0 -108,0 0,-36 0,-72 0,-108z"
           android:strokeLineJoin="round"
           android:strokeWidth="1.165"
-          android:fillColor="#a0a0a0"
+          android:fillColor="#8F0000"
           android:strokeColor="#00000000"/>
     </group>
     <group>
