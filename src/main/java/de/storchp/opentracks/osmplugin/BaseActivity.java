@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
@@ -50,6 +56,9 @@ abstract class BaseActivity extends AppCompatActivity {
                 PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
                 onOnlineMapConsentChanged(item.isChecked());
                 break;
+            case R.id.track_smoothing :
+                showTrackSmoothingDialog();
+                break;
             case R.id.map_selection :
                 startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
                 break;
@@ -68,6 +77,32 @@ abstract class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showTrackSmoothingDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view = LayoutInflater.from(this).inflate(R.layout.track_smoothing_dialog, null);
+        final EditText userInput = (EditText) view.findViewById(R.id.et_tolerance);
+        userInput.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance(this)));
+
+        builder.setView(view)
+               .setIcon(R.drawable.ic_logo_color_24dp)
+               .setTitle(R.string.app_name)
+                .setCancelable(false)
+               .setPositiveButton(R.string.ok, null)
+               .setNegativeButton(R.string.cancel, null);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        alertDialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            final String newTolerance = userInput.getText().toString().trim();
+            if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
+                PreferencesUtils.setTrackSmoothingTolerance(BaseActivity.this, Integer.parseInt(newTolerance));
+                alertDialog.dismiss();
+            } else {
+                Toast.makeText(BaseActivity.this, R.string.only_digits, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);

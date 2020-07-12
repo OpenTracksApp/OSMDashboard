@@ -1,0 +1,2 @@
+- Track smoothing with Douglas-Pecker algorithm
+- Track splitting at segments (at Pause TrackPoints)

@@ -43,4 +43,8 @@
     <string name="overwrite_map_question">Die Karte \"%s\" existiert bereits! Löschen und erneut herunterladen?</string>
     <string name="cancel_download_question">Aktuellen Download abbrechen?</string>
     <string name="error_loading_offline_map">Fehler beim Lesen der eingestellten Offlinekarte(n).</string>
+    <string name="track_smoothing_menu">Tracks glätten</string>
+    <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.\\nÄnderung wird nach Neuladen wirksam.</string>
+    <string name="track_smoothing_hint">Toleranz der Track-Glättung in Meter</string>
+    <string name="only_digits">Der Wert darf nur aus Ziffern bestehen</string>
 </resources>

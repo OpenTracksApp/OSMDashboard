@@ -42,4 +42,8 @@
     <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
     <string name="cancel_download_question">Cancel current download?</string>
     <string name="error_loading_offline_map">Error reading configured offline map</string>
+    <string name="track_smoothing_menu">Track smoothing</string>
+    <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Enter 0 to disable track smoothing.\nChange come into effect after reloading the track.</string>
+    <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
+    <string name="only_digits">Value must contain only digits</string>
 </resources>

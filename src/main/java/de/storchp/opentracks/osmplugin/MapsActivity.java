@@ -53,13 +53,12 @@ import org.mapsforge.map.rendertheme.StreamRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsColumn;
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
@@ -381,50 +380,47 @@ public class MapsActivity extends BaseActivity {
         }
 
         final List<LatLong> latLongs = new ArrayList<>();
+        final int tolerance = PreferencesUtils.getTrackSmoothingTolerance(this);
 
-        try (final Cursor cursor = getContentResolver().query(data, TrackPointsColumn.PROJECTION, null, null, null)) {
-            while (cursor.moveToNext()) {
-                final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn._ID));
-                if (update && lastTrackPointId >= trackPointId) { // skip trackpoints we already have
-                    continue;
+        try {
+            final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId);
+            for (List<TrackPoint> trackPoints : segments) {
+                if (!update) {
+                    polyline = null; // cut polyline on new segment
+                    if (tolerance > 0) { // smooth track
+                        trackPoints = de.storchp.opentracks.osmplugin.utils.LatLongUtils.decimate(tolerance, trackPoints);
+                    }
                 }
-                lastTrackPointId = trackPointId;
-                final long newTrackId = cursor.getLong(cursor.getColumnIndex(TrackPointsColumn.TRACKID));
-                final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LATITUDE)) / 1E6;
-                final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPointsColumn.LONGITUDE)) / 1E6;
+                for (final TrackPoint trackPoint : trackPoints) {
+                    lastTrackPointId = trackPoint.getTrackPointId();
 
-                if (TrackPointsColumn.isValidLocation(latitude, longitude)) {
-                    if (newTrackId != lastTrackId) {
+                    if (trackPoint.getTrackId() != lastTrackId) {
                         trackColor = colorCreator.nextColor();
-                        lastTrackId = newTrackId;
+                        lastTrackId = trackPoint.getTrackId();
                         polyline = null; // reset current polyline when trackId changes
                         startPos = null;
                     }
 
                     if (polyline == null) {
-                        Log.d(TAG, "Continue new segment after pause.");
+                        Log.d(TAG, "Continue new segment.");
                         polyline = newPolyline(trackColor);
                     }
 
-                    final LatLong latLong = new LatLong(latitude, longitude);
-                    polyline.addPoint(latLong);
+                    polyline.addPoint(trackPoint.getLatLong());
+                    endPos = trackPoint.getLatLong();
 
                     if (!update) {
-                        latLongs.add(latLong);
+                        latLongs.add(trackPoint.getLatLong());
                     }
 
                     if (startPos == null) {
-                        startPos = latLong;
+                        startPos = trackPoint.getLatLong();
                     }
-                    endPos = latLong;
-                } else if (latitude == TrackPointsColumn.PAUSE_LATITUDE) {
-                    Log.d(TAG, "Got pause trackpoint");
-                    polyline = null;
                 }
-                // ignoring RESUME_LATITUDE that might be transferred by OpenTracks.
             }
         } catch (final SecurityException e) {
             Log.w(TAG, "No permission to read trackpoints");
+            return;
         } catch (final Exception e) {
             Log.e(TAG, "Reading trackpoints failed", e);
             return;

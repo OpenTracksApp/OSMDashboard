@@ -18,6 +18,10 @@
         android:title="@string/map_online_consent_menu"/>
 
     <item
+        android:id="@+id/track_smoothing"
+        android:title="@string/track_smoothing_menu"/>
+
+    <item
         android:id="@+id/map_info"
         android:title="@string/map_info_menu"
         android:icon="@drawable/ic_info_gray_24px"/>

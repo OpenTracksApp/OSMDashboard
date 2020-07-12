@@ -1,0 +1,2 @@
+- Track-Glättung nach Douglas-Pecker Algorithmus
+- Track-Aufteilung nach Segmenten (an Pause TrackPoints)

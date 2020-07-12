@@ -140,8 +140,28 @@ public class PreferencesUtils {
         editor.apply();
     }
 
+    private static int getInt(final Context context, final int keyId, final int defaultValue) {
+        final SharedPreferences sharedPreferences = getSharedPreferences(context);
+        return sharedPreferences.getInt(getKey(context, keyId), defaultValue);
+    }
+
+    private static void setInt(final Context context, final int keyId, final int value) {
+        final SharedPreferences sharedPreferences = getSharedPreferences(context);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getKey(context, keyId), value);
+        editor.apply();
+    }
+
     private static String getKey(final Context context, final int keyId) {
         return context.getString(keyId);
+    }
+
+    public static int getTrackSmoothingTolerance(final Context context) {
+        return getInt(context, R.string.TRACK_SMOOTHING_TOLERANCE, 10);
+    }
+
+    public static void setTrackSmoothingTolerance(final Context context, final int value) {
+        setInt(context, R.string.TRACK_SMOOTHING_TOLERANCE, value);
     }
 
 }
