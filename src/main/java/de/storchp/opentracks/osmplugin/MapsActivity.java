@@ -4,6 +4,7 @@ package de.storchp.opentracks.osmplugin;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import androidx.documentfile.provider.DocumentFile;
 
 import com.caverock.androidsvg.BuildConfig;
 
+import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
@@ -32,6 +34,7 @@ import org.mapsforge.core.model.BoundingBox;
 import org.mapsforge.core.model.Dimension;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
+import org.mapsforge.core.model.Point;
 import org.mapsforge.core.util.LatLongUtils;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
@@ -45,6 +48,7 @@ import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
 import org.mapsforge.map.layer.overlay.FixedPixelCircle;
+import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.reader.MapFile;
@@ -60,6 +64,7 @@ import java.util.Set;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
+import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -67,6 +72,8 @@ import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 public class MapsActivity extends BaseActivity {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
+
+    public static final String EXTRA_MARKER_ID = "marker_id";
 
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
@@ -78,8 +85,10 @@ public class MapsActivity extends BaseActivity {
     private final List<TileCache> tileCaches = new ArrayList<>();
 
     private BoundingBox boundingBox;
-    private GroupLayer groupLayer;
+    private GroupLayer polylinesLayer;
+    private GroupLayer waypointsLayer;
 
+    private long lastWaypointId = 0;
     private long lastTrackPointId = 0;
     private long lastTrackId = 0;
     private int trackColor;
@@ -121,8 +130,10 @@ public class MapsActivity extends BaseActivity {
         final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
         final Uri tracksUri = APIConstants.getTracksUri(uris);
         final Uri trackPointsUri = APIConstants.getTrackPointsUri(uris);
+        final Uri waypointsUri = APIConstants.getWaypointsUri(uris);
         readTrackpoints(trackPointsUri, false);
         readTrack(tracksUri);
+        readWaypoints(waypointsUri, false);
 
         getContentResolver().registerContentObserver(trackPointsUri, true, new ContentObserver(new Handler()) {
             @Override
@@ -130,6 +141,7 @@ public class MapsActivity extends BaseActivity {
                 super.onChange(selfChange);
                 readTrackpoints(trackPointsUri, true);
                 readTrack(tracksUri);
+                readWaypoints(waypointsUri, true);
             }
         });
 
@@ -364,10 +376,10 @@ public class MapsActivity extends BaseActivity {
 
         final Layers layers = mapView.getLayerManager().getLayers();
         if (!update) { // reset data
-            if (groupLayer != null) {
-                layers.remove(groupLayer);
+            if (polylinesLayer != null) {
+                layers.remove(polylinesLayer);
             }
-            groupLayer = new GroupLayer();
+            polylinesLayer = new GroupLayer();
             lastTrackId = 0;
             lastTrackPointId = 0;
             colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
@@ -444,8 +456,8 @@ public class MapsActivity extends BaseActivity {
 
         if (myPos != null) {
             mapView.setCenter(myPos);
-            if (layers.indexOf(groupLayer) == -1 && groupLayer.layers.size() > 0) {
-                layers.add(groupLayer);
+            if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
+                layers.add(polylinesLayer);
             }
         } else if (!update) {
             Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
@@ -456,7 +468,7 @@ public class MapsActivity extends BaseActivity {
         final FixedPixelCircle marker = new FixedPixelCircle(pos, 10, createPaint(
                 AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
                 Style.FILL), null);
-        groupLayer.layers.add(marker);
+        polylinesLayer.layers.add(marker);
         return marker;
     }
 
@@ -464,8 +476,59 @@ public class MapsActivity extends BaseActivity {
         final Polyline polyline = new Polyline(createPaint(trackColor,
                 (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
                 Style.STROKE), AndroidGraphicFactory.INSTANCE);
-        groupLayer.layers.add(polyline);
+        polylinesLayer.layers.add(polyline);
         return polyline;
+    }
+
+    private void readWaypoints(final Uri data, final boolean update) {
+        Log.i(TAG, "Loading waypoints from " + data);
+
+        final Layers layers = mapView.getLayerManager().getLayers();
+        if (waypointsLayer != null) {
+            layers.remove(waypointsLayer);
+        }
+        if (!update) { // reset data
+            lastWaypointId = 0;
+        }
+
+        try {
+            final List<Waypoint> waypoints = Waypoint.readWayoints(getContentResolver(), data, lastWaypointId);
+            for (final Waypoint waypoint : waypoints) {
+                final Marker marker = createTappableMarker(waypoint);
+                lastWaypointId = waypoint.getId();
+                if (waypointsLayer == null) {
+                    waypointsLayer = new GroupLayer();
+                }
+                waypointsLayer.layers.add(marker);
+            }
+            if (waypointsLayer != null) {
+                layers.add(waypointsLayer);
+            }
+        } catch (final SecurityException e) {
+            Log.w(TAG, "No permission to read waypoints");
+        } catch (final Exception e) {
+            Log.e(TAG, "Reading waypoints failed", e);
+        }
+
+    }
+
+    private Marker createTappableMarker(final Waypoint waypoint) {
+        final Drawable drawable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow) : getResources().getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow);
+        final Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        bitmap.incrementRefCount();
+        return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
+            @Override
+            public boolean onTap(final LatLong geoPoint, final Point viewPosition,
+                                 final Point tapPoint) {
+                if (contains(mapView.getMapViewProjection().toPixels(getPosition()), tapPoint)) {
+                    final Intent intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
+                    intent.putExtra(EXTRA_MARKER_ID, waypoint.getId());
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        };
     }
 
     private void readTrack(final Uri data) {

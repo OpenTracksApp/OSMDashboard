@@ -1,0 +1,1 @@
+- Wegpunkt-Markierungen werden nun auf der Karte angezeigt und können in OpenTracks angezeigt werden
