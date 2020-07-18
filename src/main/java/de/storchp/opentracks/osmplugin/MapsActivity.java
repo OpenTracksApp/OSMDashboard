@@ -2,6 +2,8 @@ package de.storchp.opentracks.osmplugin;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -80,6 +83,8 @@ public class MapsActivity extends BaseActivity {
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
 
+    private Toolbar toolbar;
+
     private MapsforgeMapView mapView;
     private Layer tileLayer;
     private final List<TileCache> tileCaches = new ArrayList<>();
@@ -118,7 +123,7 @@ public class MapsActivity extends BaseActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
+        toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
 
         createMapViews();
@@ -147,6 +152,13 @@ public class MapsActivity extends BaseActivity {
 
         keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+            enterPictureInPictureMode();
+        }
     }
 
     @Override
@@ -586,8 +598,23 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
+    public void onPictureInPictureModeChanged (final boolean isInPictureInPictureMode, final Configuration newConfig) {
+        if (isInPictureInPictureMode) {
+            toolbar.setVisibility(View.GONE);
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean isPiPMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return isInPictureInPictureMode();
+        }
+        return false;
+    }
+    @Override
     protected void onPause() {
-        if (this.tileLayer instanceof TileDownloadLayer) {
+        if (this.tileLayer instanceof TileDownloadLayer && !isPiPMode()) {
             ((TileDownloadLayer) this.tileLayer).onPause();
         }
         super.onPause();
