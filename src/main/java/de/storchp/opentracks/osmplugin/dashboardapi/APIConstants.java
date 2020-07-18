@@ -20,4 +20,11 @@ public class APIConstants {
         return uris.get(1);
     }
 
+    /**
+     * Waypoints are only available in newer versions of OpenTracks.
+     */
+    public static Uri getWaypointsUri(final ArrayList<Uri> uris) {
+        return uris.size() > 2 ? uris.get(2) : null;
+    }
+
 }

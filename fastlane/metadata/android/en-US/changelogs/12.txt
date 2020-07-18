@@ -1,0 +1,1 @@
+- waypoint marker are shown on the map and can be opened in OpenTracks
