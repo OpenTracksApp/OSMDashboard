@@ -68,6 +68,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
+import de.storchp.opentracks.osmplugin.maps.CompassView;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -88,6 +89,7 @@ public class MapsActivity extends BaseActivity {
     private MapsforgeMapView mapView;
     private Layer tileLayer;
     private final List<TileCache> tileCaches = new ArrayList<>();
+    private CompassView compassView;
 
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
@@ -125,6 +127,8 @@ public class MapsActivity extends BaseActivity {
 
         toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
+
+        compassView = findViewById(R.id.compass);
 
         createMapViews();
         createTileCaches();
@@ -599,11 +603,10 @@ public class MapsActivity extends BaseActivity {
 
     @Override
     public void onPictureInPictureModeChanged (final boolean isInPictureInPictureMode, final Configuration newConfig) {
-        if (isInPictureInPictureMode) {
-            toolbar.setVisibility(View.GONE);
-        } else {
-            toolbar.setVisibility(View.VISIBLE);
-        }
+        toolbar.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        compassView.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        mapView.setBuiltInZoomControls(!isInPictureInPictureMode);
+        mapView.getMapScaleBar().setVisible(!isInPictureInPictureMode);
     }
 
     private boolean isPiPMode() {
@@ -614,8 +617,10 @@ public class MapsActivity extends BaseActivity {
     }
     @Override
     protected void onPause() {
-        if (this.tileLayer instanceof TileDownloadLayer && !isPiPMode()) {
-            ((TileDownloadLayer) this.tileLayer).onPause();
+        if (!isPiPMode()) {
+            if (tileLayer instanceof TileDownloadLayer) {
+                ((TileDownloadLayer) tileLayer).onPause();
+            }
         }
         super.onPause();
     }
