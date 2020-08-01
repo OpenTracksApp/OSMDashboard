@@ -81,8 +81,11 @@ public class MapsActivity extends BaseActivity {
 
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
+    private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
+
+    private boolean isOpenTracksRecordingThisTrack;
 
     private Toolbar toolbar;
 
@@ -156,12 +159,17 @@ public class MapsActivity extends BaseActivity {
 
         keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+        isOpenTracksRecordingThisTrack = getIntent().getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
     }
 
     @Override
     public void onBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+                && isOpenTracksRecordingThisTrack) {
             enterPictureInPictureMode();
+        } else {
+            super.onBackPressed();
         }
     }
 
