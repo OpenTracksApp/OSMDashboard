@@ -8,8 +8,9 @@
     <application
         android:name=".Startup"
         android:allowBackup="true"
-        android:icon="${applicationLogo}"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">

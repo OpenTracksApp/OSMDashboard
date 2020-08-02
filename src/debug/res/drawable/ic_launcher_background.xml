@@ -10,7 +10,7 @@
         android:translateY="17.28">
         <group>
             <path
-                android:fillColor="#505050"
+                android:fillColor="#9E9E9E"
                 android:pathData="m0,-0c36,0 72,0 108,0 0,36 0,72 0,108 -36,0 -72,0 -108,0 0,-36 0,-72 0,-108z"
                 android:strokeWidth="1.165"
                 android:strokeColor="#00000000"
