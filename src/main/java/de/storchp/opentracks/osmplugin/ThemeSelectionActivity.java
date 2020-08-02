@@ -42,7 +42,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         final Uri selected = PreferencesUtils.getMapThemeUri(this);
-        adapter = new ThemeItemAdapter(this, new ArrayList<FileItem>(), selected);
+        adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected);
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
         new Thread(() -> {

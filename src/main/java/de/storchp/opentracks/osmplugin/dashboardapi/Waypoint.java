@@ -58,12 +58,12 @@ public class Waypoint {
     /**
      * Reads the Waypoints from the Content Uri.
      */
-    public static List<Waypoint> readWayoints(final ContentResolver resolver, final Uri data, final long lastWaypointId) {
+    public static List<Waypoint> readWaypoints(final ContentResolver resolver, final Uri data, final long lastWaypointId) {
         final List<Waypoint> waypoints = new ArrayList<>();
         try (final Cursor cursor = resolver.query(data, Waypoint.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final long waypointtId = cursor.getLong(cursor.getColumnIndex(Waypoint._ID));
-                if (lastWaypointId > 0 && lastWaypointId >= waypointtId) { // skip waypoints we already have
+                final long waypointId = cursor.getLong(cursor.getColumnIndex(Waypoint._ID));
+                if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
                     continue;
                 }
                 final String name = cursor.getString(cursor.getColumnIndex(Waypoint.NAME));
@@ -76,7 +76,7 @@ public class Waypoint {
                 if (LatLongUtils.isValid(latitude, longitude)) {
                     final LatLong latLong = new LatLong(latitude, longitude);
                     final String photoUrl = cursor.getString(cursor.getColumnIndex(Waypoint.PHOTOURL));
-                    waypoints.add(new Waypoint(waypointtId, name, description, category, icon, trackId, latLong, photoUrl));
+                    waypoints.add(new Waypoint(waypointId, name, description, category, icon, trackId, latLong, photoUrl));
                 }
             }
         }

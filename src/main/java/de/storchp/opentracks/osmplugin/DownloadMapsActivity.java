@@ -263,9 +263,7 @@ public class DownloadMapsActivity extends BaseActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setMessage(getString(R.string.cancel_download_question))
-                .setPositiveButton(R.string.ok, (dialog, which) -> {
-                    downloadTask.cancelDownload();
-                })
+                .setPositiveButton(R.string.ok, (dialog, which) -> downloadTask.cancelDownload())
                 .setNegativeButton(R.string.cancel, null)
                 .create().show();
         } else {

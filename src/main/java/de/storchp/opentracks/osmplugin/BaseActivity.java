@@ -90,7 +90,7 @@ abstract class BaseActivity extends AppCompatActivity {
     private void showTrackSmoothingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View view = LayoutInflater.from(this).inflate(R.layout.track_smoothing_dialog, null);
-        final EditText userInput = (EditText) view.findViewById(R.id.et_tolerance);
+        final EditText userInput = view.findViewById(R.id.et_tolerance);
         userInput.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance(this)));
 
         builder.setView(view)
@@ -102,7 +102,7 @@ abstract class BaseActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-        alertDialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             final String newTolerance = userInput.getText().toString().trim();
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
                 PreferencesUtils.setTrackSmoothingTolerance(BaseActivity.this, Integer.parseInt(newTolerance));
