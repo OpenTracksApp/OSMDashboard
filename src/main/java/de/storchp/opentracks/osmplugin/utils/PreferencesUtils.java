@@ -3,8 +3,9 @@ package de.storchp.opentracks.osmplugin.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.util.Log;
+
+import androidx.preference.PreferenceManager;
 
 import java.util.HashSet;
 import java.util.Set;
