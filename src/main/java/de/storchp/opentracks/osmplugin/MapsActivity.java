@@ -492,7 +492,7 @@ public class MapsActivity extends BaseActivity {
         }
 
         try {
-            final List<Waypoint> waypoints = Waypoint.readWayoints(getContentResolver(), data, lastWaypointId);
+            final List<Waypoint> waypoints = Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId);
             for (final Waypoint waypoint : waypoints) {
                 final Marker marker = createTappableMarker(waypoint);
                 lastWaypointId = waypoint.getId();
