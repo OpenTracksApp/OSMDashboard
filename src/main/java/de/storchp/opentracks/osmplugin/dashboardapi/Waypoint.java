@@ -2,11 +2,9 @@ package de.storchp.opentracks.osmplugin.dashboardapi;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
-import android.location.Location;
 import android.net.Uri;
 
 import org.mapsforge.core.model.LatLong;
-import org.mapsforge.map.datastore.Way;
 
 import java.util.ArrayList;
 import java.util.List;

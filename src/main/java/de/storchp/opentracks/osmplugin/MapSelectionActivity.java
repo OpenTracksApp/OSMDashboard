@@ -1,12 +1,9 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.FileItem;
+import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.MapItemAdapter;
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class MapSelectionActivity extends AppCompatActivity {
 

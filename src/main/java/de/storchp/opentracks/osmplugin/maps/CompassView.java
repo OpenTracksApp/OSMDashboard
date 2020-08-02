@@ -10,10 +10,11 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import static android.content.Context.SENSOR_SERVICE;
 
-public class CompassView extends androidx.appcompat.widget.AppCompatImageView implements SensorEventListener {
+public class CompassView extends AppCompatImageView implements SensorEventListener {
 
     private SensorManager sensorManager;
     private final float[] accelerometerReading = new float[3];
