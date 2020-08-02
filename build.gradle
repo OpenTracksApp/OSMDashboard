@@ -4,11 +4,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-   }
+    }
 }
 
 allprojects {
@@ -21,17 +20,13 @@ allprojects {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 13
         versionName "2.3.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                applicationLogo: "@mipmap/ic_launcher",
-        ]
     }
     compileOptions {
         // Flag to enable support for the new language APIs
@@ -47,10 +42,12 @@ android {
                     applicationLogo: "@mipmap/ic_launcher_debug",
             ]
         }
-
         release {
+            manifestPlaceholders = [
+                    applicationLogo: "@mipmap/ic_launcher",
+            ]
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     lintOptions {
@@ -59,24 +56,21 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.5'
+    // Desugaring
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // AndroidX
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "androidx.annotation:annotation:1.1.0"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'com.google.android.material:material:1.1.0'
 
-    implementation 'org.mapsforge:mapsforge-core:0.13.0'
-    implementation 'org.mapsforge:mapsforge-map:0.13.0'
-    implementation 'org.mapsforge:mapsforge-map-reader:0.13.0'
-    implementation 'org.mapsforge:mapsforge-themes:0.13.0'
-    implementation 'org.mapsforge:mapsforge-map-android:0.13.0'
+    // Other
+    def mapsforgeVersion = '0.13.0'
+    implementation "org.mapsforge:mapsforge-core:$mapsforgeVersion"
+    implementation "org.mapsforge:mapsforge-map:$mapsforgeVersion"
+    implementation "org.mapsforge:mapsforge-map-android:$mapsforgeVersion"
+    implementation "org.mapsforge:mapsforge-map-reader:$mapsforgeVersion"
+    implementation "org.mapsforge:mapsforge-themes:$mapsforgeVersion"
     implementation 'net.sf.kxml:kxml2:2.3.0'
     implementation 'com.caverock:androidsvg:1.4'
-
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'androidx.documentfile:documentfile:1.0.1'
 }
