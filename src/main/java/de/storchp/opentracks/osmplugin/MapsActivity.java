@@ -2,6 +2,8 @@ package de.storchp.opentracks.osmplugin;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -65,6 +68,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
+import de.storchp.opentracks.osmplugin.maps.CompassView;
 import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -77,12 +81,18 @@ public class MapsActivity extends BaseActivity {
 
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
+    private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
+
+    private boolean isOpenTracksRecordingThisTrack;
+
+    private Toolbar toolbar;
 
     private MapsforgeMapView mapView;
     private Layer tileLayer;
     private final List<TileCache> tileCaches = new ArrayList<>();
+    private CompassView compassView;
 
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
@@ -118,8 +128,10 @@ public class MapsActivity extends BaseActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
+        toolbar = findViewById(R.id.maps_toolbar);
         setSupportActionBar(toolbar);
+
+        compassView = findViewById(R.id.compass);
 
         createMapViews();
         createTileCaches();
@@ -147,6 +159,19 @@ public class MapsActivity extends BaseActivity {
 
         keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+        isOpenTracksRecordingThisTrack = getIntent().getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+                && isOpenTracksRecordingThisTrack
+                && PreferencesUtils.isPipEnabled(this)) {
+            enterPictureInPictureMode();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -586,9 +611,25 @@ public class MapsActivity extends BaseActivity {
     }
 
     @Override
+    public void onPictureInPictureModeChanged (final boolean isInPictureInPictureMode, final Configuration newConfig) {
+        toolbar.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        compassView.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        mapView.setBuiltInZoomControls(!isInPictureInPictureMode);
+        mapView.getMapScaleBar().setVisible(!isInPictureInPictureMode);
+    }
+
+    private boolean isPiPMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return isInPictureInPictureMode();
+        }
+        return false;
+    }
+    @Override
     protected void onPause() {
-        if (this.tileLayer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer) this.tileLayer).onPause();
+        if (!isPiPMode()) {
+            if (tileLayer instanceof TileDownloadLayer) {
+                ((TileDownloadLayer) tileLayer).onPause();
+            }
         }
         super.onPause();
     }
