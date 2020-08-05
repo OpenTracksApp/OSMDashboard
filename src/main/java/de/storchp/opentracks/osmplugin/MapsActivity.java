@@ -166,7 +166,8 @@ public class MapsActivity extends BaseActivity {
     public void onBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                 && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
-                && isOpenTracksRecordingThisTrack) {
+                && isOpenTracksRecordingThisTrack
+                && PreferencesUtils.isPipEnabled(this)) {
             enterPictureInPictureMode();
         } else {
             super.onBackPressed();

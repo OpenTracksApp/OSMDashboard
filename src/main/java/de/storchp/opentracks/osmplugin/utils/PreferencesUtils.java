@@ -164,4 +164,12 @@ public class PreferencesUtils {
         setInt(context, R.string.TRACK_SMOOTHING_TOLERANCE, value);
     }
 
+    public static boolean isPipEnabled(final Context context) {
+        return getBoolean(context, R.string.PIP_ENABLED, true);
+    }
+
+    public static void setPipEnabled(final Context context, final boolean enabled) {
+        setBoolean(context, R.string.PIP_ENABLED, enabled);
+    }
+
 }

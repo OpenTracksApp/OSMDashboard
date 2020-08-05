@@ -32,6 +32,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_THEME_SELECTION = 6;
 
     protected MenuItem mapConsent;
+    protected MenuItem pipMode;
 
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
@@ -44,6 +45,9 @@ abstract class BaseActivity extends AppCompatActivity {
 
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent(this));
+
+        pipMode = menu.findItem(R.id.pip_mode);
+        pipMode.setChecked(PreferencesUtils.isPipEnabled(this));
 
         return true;
     }
@@ -58,6 +62,10 @@ abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.track_smoothing :
                 showTrackSmoothingDialog();
+                break;
+            case R.id.pip_mode :
+                item.setChecked(!item.isChecked());
+                PreferencesUtils.setPipEnabled(this, item.isChecked());
                 break;
             case R.id.map_selection :
                 startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);

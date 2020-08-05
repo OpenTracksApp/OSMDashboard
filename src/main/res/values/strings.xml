@@ -46,4 +46,5 @@
     <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Enter 0 to disable track smoothing.\nChange come into effect after reloading the track.</string>
     <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
     <string name="only_digits">Value must contain only digits</string>
+    <string name="pip_mode">Picture in picture mode</string>
 </resources>
