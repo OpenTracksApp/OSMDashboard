@@ -141,7 +141,17 @@ public class MapsActivity extends BaseActivity {
         mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
 
         // Get the intent that started this activity
-        final ArrayList<Uri> uris = getIntent().getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
+        final Intent intent = getIntent();
+        if (intent != null) {
+            onNewIntent(intent);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
+
+        final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
         final Uri tracksUri = APIConstants.getTracksUri(uris);
         final Uri trackPointsUri = APIConstants.getTrackPointsUri(uris);
         final Uri waypointsUri = APIConstants.getWaypointsUri(uris);
@@ -159,10 +169,10 @@ public class MapsActivity extends BaseActivity {
             }
         });
 
-        keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
-        showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
-        showFullscreen(getIntent().getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
-        isOpenTracksRecordingThisTrack = getIntent().getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+        keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
+        showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+        showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
+        isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
     }
 
     private void showFullscreen(final boolean showFullscreen) {
