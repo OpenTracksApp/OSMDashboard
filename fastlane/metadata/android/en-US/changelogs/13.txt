@@ -1,1 +1,2 @@
 - Picture in picture mode for live track recordings
+- Added fullscreen mode from OpenTracks

@@ -84,6 +84,7 @@ public class MapsActivity extends BaseActivity {
     private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
+    private static final String EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN";
 
     private boolean isOpenTracksRecordingThisTrack;
 
@@ -108,6 +109,7 @@ public class MapsActivity extends BaseActivity {
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
+    private boolean fullscreenMode = false;
 
     static Paint createPaint(final int color, final int strokeWidth, final Style style) {
         final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -159,7 +161,25 @@ public class MapsActivity extends BaseActivity {
 
         keepScreenOn(getIntent().getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(getIntent().getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+        showFullscreen(getIntent().getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
         isOpenTracksRecordingThisTrack = getIntent().getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+    }
+
+    private void showFullscreen(final boolean showFullscreen) {
+        this.fullscreenMode = showFullscreen;
+        final View decorView = getWindow().getDecorView();
+        int uiOptions = decorView.getSystemUiVisibility();
+        if (showFullscreen) {
+            uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+            uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+            uiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        } else {
+            uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+            uiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
+            uiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        }
+        toolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
     @Override
@@ -223,6 +243,22 @@ public class MapsActivity extends BaseActivity {
         mapView.getMapZoomControls().setZoomOutResource(R.drawable.zoom_control_out);
         mapView.getMapZoomControls().setMarginHorizontal(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
         mapView.getMapZoomControls().setMarginVertical(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
+        mapView.setOnMapDragListener(() -> temporarilyDisableFullscreen());
+    }
+
+    private void temporarilyDisableFullscreen() {
+        if (fullscreenMode) {
+            showFullscreen(false);
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (final InterruptedException ignore) {
+                }
+                runOnUiThread(() -> {
+                    showFullscreen(true);
+                });
+            }).start();
+        }
     }
 
     protected int getMapViewId() {
