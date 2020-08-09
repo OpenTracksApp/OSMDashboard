@@ -4,18 +4,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding;
+import de.storchp.opentracks.osmplugin.databinding.MapItemBinding;
 import de.storchp.opentracks.osmplugin.utils.FileItem;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.MapItemAdapter;
@@ -30,11 +30,11 @@ public class MapSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_selection);
+        ActivityMapSelectionBinding binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
-        toolbar.setTitle(R.string.map_selection);
-        setSupportActionBar(toolbar);
+        binding.toolbar.mapsToolbar.setTitle(R.string.map_selection);
+        setSupportActionBar(binding.toolbar.mapsToolbar);
 
         final List<FileItem> items = new ArrayList<>();
         items.add(new FileItem(getString(R.string.online_osm_mapnick), null));
@@ -52,15 +52,13 @@ public class MapSelectionActivity extends AppCompatActivity {
         final Set<Uri> selected = PreferencesUtils.getMapUris(this);
         adapter = new MapItemAdapter(this, items, selected);
 
-        final ListView listView = findViewById(R.id.map_list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener((listview, view, position, id) -> {
-            final MapItemAdapter.ViewHolder holder = (MapItemAdapter.ViewHolder) view.getTag();
-            holder.checkBox.setChecked(!holder.checkBox.isChecked());
-            holder.checkBox.callOnClick();
+        binding.mapList.setAdapter(adapter);
+        binding.mapList.setOnItemClickListener((listview, view, position, id) -> {
+            final MapItemBinding itemBinding = (MapItemBinding) view.getTag();
+            itemBinding.checkbox.setChecked(!itemBinding.checkbox.isChecked());
+            itemBinding.checkbox.callOnClick();
         });
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            final MapItemAdapter.ViewHolder holder = (MapItemAdapter.ViewHolder) view.getTag();
+        binding.mapList.setOnItemLongClickListener((parent, view, position, id) -> {
             final FileItem fileItem = items.get(position);
             final Uri uri = fileItem.getUri();
             if (uri == null) {

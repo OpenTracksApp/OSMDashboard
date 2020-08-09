@@ -3,24 +3,22 @@ package de.storchp.opentracks.osmplugin;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
+import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        final TextView info = findViewById(R.id.app_info);
-        info.setPadding(50, 50, 50, 50);
-        info.setMovementMethod(LinkMovementMethod.getInstance());
-        info.setLinkTextColor(getResources().getColor(R.color.holo_orange_dark));
+        binding.appInfo.setPadding(50, 50, 50, 50);
+        binding.appInfo.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.appInfo.setLinkTextColor(getResources().getColor(R.color.holo_orange_dark));
     }
 
     @Override
@@ -29,7 +27,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
+    protected void onOnlineMapConsentChanged(final boolean consent) {
         // nothing to do
     }
 

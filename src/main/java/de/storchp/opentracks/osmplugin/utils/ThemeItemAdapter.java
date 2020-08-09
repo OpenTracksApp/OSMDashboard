@@ -2,18 +2,17 @@ package de.storchp.opentracks.osmplugin.utils;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
 import de.storchp.opentracks.osmplugin.R;
+import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding;
 
 public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
 
@@ -33,22 +32,17 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         View rowView = convertView;
         // reuse views
         if (rowView == null) {
-            final LayoutInflater inflater = context.getLayoutInflater();
-            rowView = inflater.inflate(R.layout.theme_item, parent, false);
-
-            // configure view holder
-            final ViewHolder viewHolder = new ViewHolder();
-            viewHolder.radioButton = rowView.findViewById(R.id.radiobutton);
-            viewHolder.name = rowView.findViewById(R.id.name);
-            rowView.setTag(viewHolder);
+            final ThemeItemBinding binding = ThemeItemBinding.inflate(context.getLayoutInflater(), parent, false);
+            rowView = binding.getRoot();
+            rowView.setTag(binding);
         }
 
         // fill data
-        final ViewHolder holder = (ViewHolder) rowView.getTag();
+        final ThemeItemBinding binding = (ThemeItemBinding) rowView.getTag();
         final FileItem item = this.items.get(position);
-        holder.name.setText(item.getName());
-        holder.radioButton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
-        holder.radioButton.setOnClickListener(onStateChangedListener(holder.radioButton, position));
+        binding.name.setText(item.getName());
+        binding.radiobutton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
+        binding.radiobutton.setOnClickListener(onStateChangedListener(binding.radiobutton, position));
 
         return rowView;
     }
@@ -77,11 +71,6 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
 
     public void setSelectedUri(final Uri selected) {
         this.selected = selected;
-    }
-
-    public static class ViewHolder {
-        public RadioButton radioButton;
-        public TextView name;
     }
 
 }

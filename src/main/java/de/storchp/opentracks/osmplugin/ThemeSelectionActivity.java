@@ -5,18 +5,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding;
+import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding;
 import de.storchp.opentracks.osmplugin.utils.FileItem;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -28,18 +27,16 @@ public class ThemeSelectionActivity extends AppCompatActivity {
 
     private ThemeItemAdapter adapter;
 
-    private ProgressBar progressBar;
+    private ActivityThemeSelectionBinding binding;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_theme_selection);
+        binding = ActivityThemeSelectionBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
-        toolbar.setTitle(R.string.theme_selection);
-        setSupportActionBar(toolbar);
-
-        progressBar = findViewById(R.id.progressBar);
+        binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection);
+        setSupportActionBar(binding.toolbar.mapsToolbar);
 
         final Uri selected = PreferencesUtils.getMapThemeUri(this);
         adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected);
@@ -66,19 +63,17 @@ public class ThemeSelectionActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 adapter.addAll(items);
                 adapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
+                binding.progressBar.setVisibility(View.GONE);
             });
         }).start();
 
-        final ListView listView = findViewById(R.id.theme_list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener((listview, view, position, id) -> {
-            final ThemeItemAdapter.ViewHolder holder = (ThemeItemAdapter.ViewHolder) view.getTag();
-            holder.radioButton.setChecked(!holder.radioButton.isChecked());
-            holder.radioButton.callOnClick();
+        binding.themeList.setAdapter(adapter);
+        binding.themeList.setOnItemClickListener((listview, view, position, id) -> {
+            final ThemeItemBinding itemBinding = (ThemeItemBinding) view.getTag();
+            itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked());
+            itemBinding.radiobutton.callOnClick();
         });
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            final ThemeItemAdapter.ViewHolder holder = (ThemeItemAdapter.ViewHolder) view.getTag();
+        binding.themeList.setOnItemLongClickListener((parent, view, position, id) -> {
             final FileItem fileItem = adapter.getItem(position);
             final Uri uri = fileItem.getUri();
             if (uri == null) {

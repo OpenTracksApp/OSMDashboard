@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="de.storchp.opentracks.osmplugin.MapSelectionActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
 
     <ListView
         android:id="@+id/map_list"

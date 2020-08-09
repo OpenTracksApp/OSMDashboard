@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.caverock.androidsvg.BuildConfig;
@@ -68,8 +67,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
-import de.storchp.opentracks.osmplugin.maps.CompassView;
-import de.storchp.opentracks.osmplugin.maps.MapsforgeMapView;
+import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -88,12 +86,10 @@ public class MapsActivity extends BaseActivity {
 
     private boolean isOpenTracksRecordingThisTrack;
 
-    private Toolbar toolbar;
+    private ActivityMapsBinding binding;
 
-    private MapsforgeMapView mapView;
     private Layer tileLayer;
     private final List<TileCache> tileCaches = new ArrayList<>();
-    private CompassView compassView;
 
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
@@ -111,34 +107,25 @@ public class MapsActivity extends BaseActivity {
     private LatLong endPos;
     private boolean fullscreenMode = false;
 
-    static Paint createPaint(final int color, final int strokeWidth, final Style style) {
-        final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
-        paint.setColor(color);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setStyle(style);
-        return paint;
-    }
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidGraphicFactory.createInstance(this.getApplication());
 
-        setContentView(R.layout.activity_maps_activity);
+        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
 
-        toolbar = findViewById(R.id.maps_toolbar);
-        setSupportActionBar(toolbar);
-
-        compassView = findViewById(R.id.compass);
+        setSupportActionBar(binding.toolbar.mapsToolbar);
 
         createMapViews();
         createTileCaches();
         createLayers();
-        mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
+        binding.map.mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
 
         // Get the intent that started this activity
         final Intent intent = getIntent();
@@ -188,7 +175,7 @@ public class MapsActivity extends BaseActivity {
             uiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
             uiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         }
-        toolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
+        binding.toolbar.mapsToolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
         decorView.setSystemUiVisibility(uiOptions);
     }
 
@@ -211,8 +198,8 @@ public class MapsActivity extends BaseActivity {
 
     protected void createTileCaches() {
         this.tileCaches.add(AndroidUtil.createTileCache(this, getPersistableId(),
-                this.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio(),
-                this.mapView.getModel().frameBufferModel.getOverdrawFactor(), true));
+                this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio(),
+                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), true));
     }
 
     /**
@@ -241,19 +228,18 @@ public class MapsActivity extends BaseActivity {
      * Template method to create the map views.
      */
     protected void createMapViews() {
-        mapView = findViewById(getMapViewId());
-        mapView.setClickable(true);
-        mapView.getMapScaleBar().setVisible(true);
-        mapView.setBuiltInZoomControls(true);
-        mapView.getMapZoomControls().setAutoHide(true);
-        mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
-        mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
-        mapView.getMapZoomControls().setZoomControlsOrientation(MapZoomControls.Orientation.VERTICAL_IN_OUT);
-        mapView.getMapZoomControls().setZoomInResource(R.drawable.zoom_control_in);
-        mapView.getMapZoomControls().setZoomOutResource(R.drawable.zoom_control_out);
-        mapView.getMapZoomControls().setMarginHorizontal(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
-        mapView.getMapZoomControls().setMarginVertical(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
-        mapView.setOnMapDragListener(() -> temporarilyDisableFullscreen());
+        binding.map.mapView.setClickable(true);
+        binding.map.mapView.getMapScaleBar().setVisible(true);
+        binding.map.mapView.setBuiltInZoomControls(true);
+        binding.map.mapView.getMapZoomControls().setAutoHide(true);
+        binding.map.mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
+        binding.map.mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
+        binding.map.mapView.getMapZoomControls().setZoomControlsOrientation(MapZoomControls.Orientation.VERTICAL_IN_OUT);
+        binding.map.mapView.getMapZoomControls().setZoomInResource(R.drawable.zoom_control_in);
+        binding.map.mapView.getMapZoomControls().setZoomOutResource(R.drawable.zoom_control_out);
+        binding.map.mapView.getMapZoomControls().setMarginHorizontal(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
+        binding.map.mapView.getMapZoomControls().setMarginVertical(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
+        binding.map.mapView.setOnMapDragListener(() -> temporarilyDisableFullscreen());
     }
 
     private void temporarilyDisableFullscreen() {
@@ -271,16 +257,12 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
-    protected int getMapViewId() {
-        return R.id.mapView;
-    }
-
     protected byte getZoomLevelMax() {
-        return (byte) Math.min(mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
+        return (byte) Math.min(binding.map.mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
     }
 
     protected byte getZoomLevelMin() {
-        return mapView.getModel().mapViewPosition.getZoomLevelMin();
+        return binding.map.mapView.getModel().mapViewPosition.getZoomLevelMin();
     }
 
     /**
@@ -343,29 +325,29 @@ public class MapsActivity extends BaseActivity {
 
         if (mapFile != null) {
             final TileRendererLayer rendererLayer = new TileRendererLayer(this.tileCaches.get(0), mapFile,
-                    this.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
+                    this.binding.map.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
             rendererLayer.setXmlRenderTheme(getRenderTheme());
             this.tileLayer = rendererLayer;
-            mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+            binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
         } else if (PreferencesUtils.getOnlineMapConsent(this)) {
             setOnlineTileLayer();
         } else {
             showOnlineMapConsent();
         }
 
-        mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
-        mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
+        binding.map.mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
+        binding.map.mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
     }
 
     private void setOnlineTileLayer() {
         final OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
         tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
-        this.tileLayer = new TileDownloadLayer(this.tileCaches.get(0), this.mapView.getModel().mapViewPosition,
+        this.tileLayer = new TileDownloadLayer(this.tileCaches.get(0), this.binding.map.mapView.getModel().mapViewPosition,
                 tileSource, AndroidGraphicFactory.INSTANCE);
-        mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+        binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
 
-        mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
-        mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
+        binding.map.mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
+        binding.map.mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
     }
 
     private void showOnlineMapConsent() {
@@ -393,7 +375,7 @@ public class MapsActivity extends BaseActivity {
      */
     @Override
     protected void onDestroy() {
-        mapView.destroyAll();
+        binding.map.mapView.destroyAll();
         AndroidGraphicFactory.clearResourceMemoryCache();
         purgeTileCaches();
         super.onDestroy();
@@ -419,7 +401,7 @@ public class MapsActivity extends BaseActivity {
             }
         } else if (this.tileLayer != null && this.tileLayer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.tileLayer).onPause();
-            mapView.getLayerManager().getLayers().remove(tileLayer, true);
+            binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
             this.tileLayer = null;
         }
     }
@@ -433,7 +415,7 @@ public class MapsActivity extends BaseActivity {
                 if (this.tileLayer instanceof TileDownloadLayer) {
                     ((TileDownloadLayer) this.tileLayer).onPause();
                 }
-                mapView.getLayerManager().getLayers().remove(tileLayer, true);
+                binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
                 this.tileLayer = null;
             }
             this.purgeTileCaches();
@@ -445,7 +427,7 @@ public class MapsActivity extends BaseActivity {
     private void readTrackpoints(final Uri data, final boolean update) {
         Log.i(TAG, "Loading track from " + data);
 
-        final Layers layers = mapView.getLayerManager().getLayers();
+        final Layers layers = binding.map.mapView.getLayerManager().getLayers();
         if (!update) { // reset data
             if (polylinesLayer != null) {
                 layers.remove(polylinesLayer);
@@ -526,7 +508,7 @@ public class MapsActivity extends BaseActivity {
         }
 
         if (myPos != null) {
-            mapView.setCenter(myPos);
+            binding.map.mapView.setCenter(myPos);
             if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
                 layers.add(polylinesLayer);
             }
@@ -545,16 +527,24 @@ public class MapsActivity extends BaseActivity {
 
     private Polyline newPolyline(final int trackColor) {
         final Polyline polyline = new Polyline(createPaint(trackColor,
-                (int) (8 * mapView.getModel().displayModel.getScaleFactor()),
+                (int) (8 * binding.map.mapView.getModel().displayModel.getScaleFactor()),
                 Style.STROKE), AndroidGraphicFactory.INSTANCE);
         polylinesLayer.layers.add(polyline);
         return polyline;
     }
 
+    static Paint createPaint(final int color, final int strokeWidth, final Style style) {
+        final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint.setColor(color);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStyle(style);
+        return paint;
+    }
+
     private void readWaypoints(final Uri data, final boolean update) {
         Log.i(TAG, "Loading waypoints from " + data);
 
-        final Layers layers = mapView.getLayerManager().getLayers();
+        final Layers layers = binding.map.mapView.getLayerManager().getLayers();
         if (waypointsLayer != null) {
             layers.remove(waypointsLayer);
         }
@@ -584,14 +574,14 @@ public class MapsActivity extends BaseActivity {
     }
 
     private Marker createTappableMarker(final Waypoint waypoint) {
-        final Drawable drawable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow) : getResources().getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow);
+        final Drawable drawable = getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow);
         final Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
         return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
             @Override
             public boolean onTap(final LatLong geoPoint, final Point viewPosition,
                                  final Point tapPoint) {
-                if (contains(mapView.getMapViewProjection().toPixels(getPosition()), tapPoint)) {
+                if (contains(binding.map.mapView.getMapViewProjection().toPixels(getPosition()), tapPoint)) {
                     final Intent intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
                     intent.putExtra(EXTRA_MARKER_ID, waypoint.getId());
                     startActivity(intent);
@@ -646,11 +636,11 @@ public class MapsActivity extends BaseActivity {
     public void onWindowFocusChanged(final boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            final Dimension dimension = this.mapView.getModel().mapViewDimension.getDimension();
-            this.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
+            final Dimension dimension = this.binding.map.mapView.getModel().mapViewDimension.getDimension();
+            this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
                 boundingBox.getCenterPoint(),
                 (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                        dimension, boundingBox, this.mapView.getModel().displayModel.getTileSize()),
+                        dimension, boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
                         getZoomLevelMax()), 16)));
             boundingBox = null; // only set the zoomlevel once
         }
@@ -658,10 +648,10 @@ public class MapsActivity extends BaseActivity {
 
     @Override
     public void onPictureInPictureModeChanged (final boolean isInPictureInPictureMode, final Configuration newConfig) {
-        toolbar.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
-        compassView.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
-        mapView.setBuiltInZoomControls(!isInPictureInPictureMode);
-        mapView.getMapScaleBar().setVisible(!isInPictureInPictureMode);
+        binding.toolbar.mapsToolbar.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        binding.map.compass.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
+        binding.map.mapView.setBuiltInZoomControls(!isInPictureInPictureMode);
+        binding.map.mapView.getMapScaleBar().setVisible(!isInPictureInPictureMode);
     }
 
     private boolean isPiPMode() {

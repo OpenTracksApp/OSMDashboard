@@ -9,9 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +18,7 @@ import androidx.core.view.MenuCompat;
 
 import java.util.List;
 
+import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 abstract class BaseActivity extends AppCompatActivity {
@@ -89,11 +88,10 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private void showTrackSmoothingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view = LayoutInflater.from(this).inflate(R.layout.track_smoothing_dialog, null);
-        final EditText userInput = view.findViewById(R.id.et_tolerance);
-        userInput.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance(this)));
+        final TrackSmoothingDialogBinding binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance(this)));
 
-        builder.setView(view)
+        builder.setView(binding.getRoot())
                .setIcon(R.drawable.ic_logo_color_24dp)
                .setTitle(R.string.app_name)
                 .setCancelable(false)
@@ -103,7 +101,7 @@ abstract class BaseActivity extends AppCompatActivity {
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            final String newTolerance = userInput.getText().toString().trim();
+            final String newTolerance = binding.etTolerance.getText().toString().trim();
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
                 PreferencesUtils.setTrackSmoothingTolerance(BaseActivity.this, Integer.parseInt(newTolerance));
                 alertDialog.dismiss();

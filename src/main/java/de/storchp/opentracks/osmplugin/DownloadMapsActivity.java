@@ -8,11 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
 import java.io.IOException;
@@ -22,6 +20,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapsBinding;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -32,20 +31,19 @@ public class DownloadMapsActivity extends BaseActivity {
     private static final String MAPS_V_5 = "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/";
 
     private Uri downloadMapUri;
-    private ProgressBar progressBar;
     private DownloadTask downloadTask;
+    private ActivityDownloadMapsBinding binding;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download_maps);
+        binding = ActivityDownloadMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final Toolbar toolbar = findViewById(R.id.maps_toolbar);
-        toolbar.setTitle(R.string.choose_map_to_download);
-        setSupportActionBar(toolbar);
+        binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download);
+        setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setIndeterminate(true);
+        binding.progressBar.setIndeterminate(true);
 
         final WebView webView = findViewById(R.id.webview);
         final WebViewClient webClient = new WebViewClient(){
@@ -115,8 +113,8 @@ public class DownloadMapsActivity extends BaseActivity {
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setIndeterminate(true);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.setIndeterminate(true);
 
         keepScreenOn(true);
         downloadTask = new DownloadTask(this, downloadMapUri, mapDirectoryFile.createFile("application/binary", mapName).getUri());
@@ -126,7 +124,7 @@ public class DownloadMapsActivity extends BaseActivity {
     }
 
     private void downloadEnded(final boolean success, final boolean canceled) {
-        progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.GONE);
         keepScreenOn(false);
         final Uri targetMapUri = downloadTask.targetMapUri;
         downloadTask = null;
@@ -175,14 +173,7 @@ public class DownloadMapsActivity extends BaseActivity {
         protected void publishProgress(final int progress) {
             final DownloadMapsActivity activity = ref.get();
             if (activity != null) {
-                activity.runOnUiThread(() -> {
-                    activity.progressBar.setProgress(progress);
-                    if (contentLength > 0 && activity.progressBar.isIndeterminate()) {
-                        // we have a content length, so switch to determinate progress
-                        activity.progressBar.setIndeterminate(false);
-                        activity.progressBar.setMax(contentLength);
-                    }
-                });
+                activity.runOnUiThread(() -> activity.updateProgress(contentLength, progress));
             }
         }
 
@@ -244,6 +235,15 @@ public class DownloadMapsActivity extends BaseActivity {
 
         public void cancelDownload() {
             canceled = true;
+        }
+    }
+
+    private void updateProgress(final int contentLength, final int progress) {
+        binding.progressBar.setProgress(progress);
+        if (contentLength > 0 && binding.progressBar.isIndeterminate()) {
+            // we have a content length, so switch to determinate progress
+            binding.progressBar.setIndeterminate(false);
+            binding.progressBar.setMax(contentLength);
         }
     }
 
