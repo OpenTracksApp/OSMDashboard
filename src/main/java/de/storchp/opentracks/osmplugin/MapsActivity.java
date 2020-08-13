@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,18 +21,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.caverock.androidsvg.BuildConfig;
 
 import org.mapsforge.core.graphics.Bitmap;
-import org.mapsforge.core.graphics.Color;
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.BoundingBox;
@@ -38,6 +41,7 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.core.util.LatLongUtils;
+import org.mapsforge.map.android.graphics.AndroidBitmap;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
@@ -49,7 +53,6 @@ import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
-import org.mapsforge.map.layer.overlay.FixedPixelCircle;
 import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
@@ -100,12 +103,15 @@ public class MapsActivity extends BaseActivity {
     private long lastTrackId = 0;
     private int trackColor;
     private Polyline polyline;
-    private FixedPixelCircle endMarker = null;
+    private Marker endMarker = null;
 
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
     private boolean fullscreenMode = false;
+
+    private android.graphics.Bitmap markerBitmap;
+    private LatLong secondToLastPos;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -115,10 +121,9 @@ public class MapsActivity extends BaseActivity {
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        markerBitmap = getBitmapFromVectorDrawable(R.drawable.ic_compass);
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
@@ -132,6 +137,19 @@ public class MapsActivity extends BaseActivity {
         if (intent != null) {
             onNewIntent(intent);
         }
+    }
+
+    public android.graphics.Bitmap getBitmapFromVectorDrawable(final int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(this, drawableId);
+        drawable = (DrawableCompat.wrap(drawable)).mutate();
+
+        final android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), android.graphics.Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     @Override
@@ -442,6 +460,7 @@ public class MapsActivity extends BaseActivity {
             endPos = null;
             endMarker = null;
             boundingBox = null;
+            secondToLastPos = null;
         }
 
         final List<LatLong> latLongs = new ArrayList<>();
@@ -471,15 +490,19 @@ public class MapsActivity extends BaseActivity {
                         polyline = newPolyline(trackColor);
                     }
 
-                    polyline.addPoint(trackPoint.getLatLong());
-                    endPos = trackPoint.getLatLong();
+                    final LatLong newPos = trackPoint.getLatLong();
+                    polyline.addPoint(newPos);
+                    if (endPos != null && !endPos.equals(newPos)) {
+                        secondToLastPos = endPos;
+                    }
+                    endPos = newPos;
 
                     if (!update) {
-                        latLongs.add(trackPoint.getLatLong());
+                        latLongs.add(newPos);
                     }
 
                     if (startPos == null) {
-                        startPos = trackPoint.getLatLong();
+                        startPos = newPos;
                     }
                 }
             }
@@ -492,11 +515,7 @@ public class MapsActivity extends BaseActivity {
         }
 
         if (endPos != null) {
-            if (endMarker == null) {
-                endMarker = addEndPoint(endPos);
-            } else {
-                endMarker.setLatLong(endPos);
-            }
+            setEndMarker(endPos, secondToLastPos);
         }
 
         LatLong myPos = null;
@@ -517,12 +536,34 @@ public class MapsActivity extends BaseActivity {
         }
     }
 
-    private FixedPixelCircle addEndPoint(final LatLong pos) {
-        final FixedPixelCircle marker = new FixedPixelCircle(pos, 10, createPaint(
-                AndroidGraphicFactory.INSTANCE.createColor(Color.RED), 0,
-                Style.FILL), null);
-        polylinesLayer.layers.add(marker);
-        return marker;
+    private void setEndMarker(final LatLong endPos, final LatLong secondToLastPos) {
+        Log.d(TAG, "SecondToLast: " + secondToLastPos + ", End: " + endPos);
+        final float bearing = de.storchp.opentracks.osmplugin.utils.LatLongUtils.bearing(secondToLastPos, endPos);
+        final float degrees = normalizeDegree(bearing);
+        Log.d(TAG, "Bearing: " + bearing + ", Degrees: " + degrees);
+        final AndroidBitmap bitmap = new AndroidBitmap(degrees == 0 ? markerBitmap : getRotatedMarkerBitmap(degrees));
+        synchronized (binding.map.mapView.getLayerManager().getLayers()) {
+            if (endMarker != null) {
+                endMarker.setBitmap(bitmap);
+                endMarker.setLatLong(endPos);
+            } else {
+                endMarker = new Marker(endPos, bitmap, 0, 0);
+            }
+            polylinesLayer.layers.add(endMarker);
+        }
+    }
+
+    private android.graphics.Bitmap getRotatedMarkerBitmap(final float degrees) {
+        final Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return android.graphics.Bitmap.createBitmap(markerBitmap, 0, 0, markerBitmap.getWidth(), markerBitmap.getHeight(), matrix, true);
+    }
+
+    private float normalizeDegree(final float bearing) {
+        if (bearing < 0) {
+            return bearing + 360;
+        }
+        return bearing;
     }
 
     private Polyline newPolyline(final int trackColor) {

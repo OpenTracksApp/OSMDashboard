@@ -1,5 +1,7 @@
 package de.storchp.opentracks.osmplugin.utils;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 
 import org.mapsforge.core.model.LatLong;
@@ -132,4 +134,19 @@ public class LatLongUtils {
     public static boolean isValid(final double latitude, final double longitude) {
         return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
     }
+
+    public static float bearing(final LatLong src, final LatLong dest) {
+        if (src == null || dest == null) {
+            return 0;
+        }
+        return toLocation(src).bearingTo(toLocation(dest));
+    }
+
+    public static Location toLocation(final LatLong latLong) {
+        final Location location = new Location("");
+        location.setLatitude(latLong.latitude);
+        location.setLongitude(latLong.longitude);
+        return location;
+    }
+
 }
