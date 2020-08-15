@@ -1,10 +1,14 @@
 package de.storchp.opentracks.osmplugin.utils;
 
 import android.location.Location;
-import android.location.LocationManager;
 import android.util.Log;
 
+import org.mapsforge.core.graphics.Paint;
+import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
+import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+import org.mapsforge.map.layer.overlay.Polyline;
+import org.mapsforge.map.view.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +21,11 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
  *
  * Derived from: https://github.com/OpenTracksApp/OpenTracks/blob/23f47f10f8cd0f8b30bd6fcdccb1987008eaa07e/src/main/java/de/dennisguse/opentracks/util/LocationUtils.java
  */
-public class LatLongUtils {
+public class MapUtils {
 
-    private static final String TAG = LatLongUtils.class.getSimpleName();
+    private static final String TAG = MapUtils.class.getSimpleName();
 
-    private LatLongUtils() {
+    private MapUtils() {
     }
 
     /**
@@ -93,7 +97,7 @@ public class LatLongUtils {
                 current = stack.pop();
                 maxDist = 0;
                 for (idx = current[0] + 1; idx < current[1]; ++idx) {
-                    dist = LatLongUtils.distance(trackPoints.get(idx).getLatLong(), trackPoints.get(current[0]).getLatLong(), trackPoints.get(current[1]).getLatLong());
+                    dist = MapUtils.distance(trackPoints.get(idx).getLatLong(), trackPoints.get(current[0]).getLatLong(), trackPoints.get(current[1]).getLatLong());
                     if (dist > maxDist) {
                         maxDist = dist;
                         maxIdx = idx;
@@ -148,5 +152,31 @@ public class LatLongUtils {
         location.setLongitude(latLong.longitude);
         return location;
     }
+
+    public static float bearingInDegrees(final LatLong secondToLastPos, final LatLong endPos) {
+        return bearingToDegrees(bearing(secondToLastPos, endPos));
+    }
+
+    public static float bearingToDegrees(final float bearing) {
+        if (bearing < 0) {
+            return bearing + 360;
+        }
+        return bearing;
+    }
+
+    public static Paint createPaint(final int color, final int strokeWidth) {
+        final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint.setColor(color);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStyle(Style.STROKE);
+        return paint;
+    }
+
+    public static Polyline createPolyline(final MapView mapView, final int trackColor) {
+        return new Polyline(MapUtils.createPaint(trackColor,
+                (int) (8 * mapView.getModel().displayModel.getScaleFactor())
+        ), AndroidGraphicFactory.INSTANCE);
+    }
+
 
 }

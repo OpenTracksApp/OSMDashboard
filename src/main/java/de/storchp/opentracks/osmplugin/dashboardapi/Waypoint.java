@@ -9,7 +9,7 @@ import org.mapsforge.core.model.LatLong;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.storchp.opentracks.osmplugin.utils.LatLongUtils;
+import de.storchp.opentracks.osmplugin.utils.MapUtils;
 
 public class Waypoint {
 
@@ -73,7 +73,7 @@ public class Waypoint {
                 final long trackId = cursor.getLong(cursor.getColumnIndex(Waypoint.TRACKID));
                 final double latitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LATITUDE)) / 1E6;
                 final double longitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LONGITUDE)) / 1E6;
-                if (LatLongUtils.isValid(latitude, longitude)) {
+                if (MapUtils.isValid(latitude, longitude)) {
                     final LatLong latLong = new LatLong(latitude, longitude);
                     final String photoUrl = cursor.getString(cursor.getColumnIndex(Waypoint.PHOTOURL));
                     waypoints.add(new Waypoint(waypointId, name, description, category, icon, trackId, latLong, photoUrl));

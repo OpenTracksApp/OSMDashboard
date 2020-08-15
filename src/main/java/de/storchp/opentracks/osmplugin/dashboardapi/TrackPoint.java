@@ -9,7 +9,7 @@ import org.mapsforge.core.model.LatLong;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.storchp.opentracks.osmplugin.utils.LatLongUtils;
+import de.storchp.opentracks.osmplugin.utils.MapUtils;
 
 public class TrackPoint {
 
@@ -37,7 +37,7 @@ public class TrackPoint {
     public TrackPoint(final long trackId, final long trackPointId, final double latitude, final double longitude) {
         this.trackId = trackId;
         this.trackPointId = trackPointId;
-        if (LatLongUtils.isValid(latitude, longitude)) {
+        if (MapUtils.isValid(latitude, longitude)) {
             this.latLong = new LatLong(latitude, longitude);
         } else {
             latLong = null;

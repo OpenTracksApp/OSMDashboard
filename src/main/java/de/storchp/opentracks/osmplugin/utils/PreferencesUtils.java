@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.MapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
 public class PreferencesUtils {
@@ -171,6 +172,14 @@ public class PreferencesUtils {
 
     public static void setPipEnabled(final Context context, final boolean enabled) {
         setBoolean(context, R.string.PIP_ENABLED, enabled);
+    }
+
+    public static ArrowMode getArrowMode(final Context context) {
+        return ArrowMode.valueOf(getString(context, R.string.ARROW_MODE, ArrowMode.DIRECTION.name()));
+    }
+
+    public static void setArrowMode(final Context context, final ArrowMode arrowMode) {
+        setString(context, R.string.ARROW_MODE, arrowMode.name());
     }
 
 }

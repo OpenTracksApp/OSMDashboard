@@ -19,6 +19,7 @@ import androidx.core.view.MenuCompat;
 import java.util.List;
 
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
+import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 abstract class BaseActivity extends AppCompatActivity {
@@ -47,6 +48,8 @@ abstract class BaseActivity extends AppCompatActivity {
 
         pipMode = menu.findItem(R.id.pip_mode);
         pipMode.setChecked(PreferencesUtils.isPipEnabled(this));
+
+        menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode(this).getMessageId());
 
         return true;
     }
@@ -81,10 +84,19 @@ abstract class BaseActivity extends AppCompatActivity {
             case R.id.download_map :
                 startActivityForResult(new Intent(this, DownloadMapsActivity.class), REQUEST_DOWNLOAD_MAP);
                 break;
+            case R.id.arrow_mode :
+                ArrowMode arrowMode = PreferencesUtils.getArrowMode(this);
+                arrowMode = arrowMode.next();
+                item.setTitle(arrowMode.getMessageId());
+                PreferencesUtils.setArrowMode(this, arrowMode);
+                changeArrowMode(arrowMode);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected abstract void changeArrowMode(final ArrowMode arrowMode);
 
     private void showTrackSmoothingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

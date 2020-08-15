@@ -48,4 +48,6 @@
     <string name="track_smoothing_hint">Toleranz der Track-Glättung in Meter</string>
     <string name="only_digits">Der Wert darf nur aus Ziffern bestehen</string>
     <string name="pip_mode">Bild in Bild Modus</string>
+    <string name="arrow_mode_heading">Pfeil zeigt Richtung</string>
+    <string name="arrow_mode_north">Pfeil zeigt nach Norden</string>
 </resources>

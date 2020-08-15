@@ -5,6 +5,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding;
+import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 
 public class MainActivity extends BaseActivity {
 
@@ -24,6 +25,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         return super.onCreateOptionsMenu(menu, false);
+    }
+
+    @Override
+    protected void changeArrowMode(final ArrowMode arrowMode) {
+        // nothing to do
     }
 
     @Override

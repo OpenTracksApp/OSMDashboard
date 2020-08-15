@@ -47,4 +47,6 @@
     <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
     <string name="only_digits">Value must contain only digits</string>
     <string name="pip_mode">Picture in picture mode</string>
+    <string name="arrow_mode_heading">Arrow shows direction</string>
+    <string name="arrow_mode_north">Arrow points to north</string>
 </resources>
