@@ -10,7 +10,6 @@ import androidx.preference.PreferenceManager;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.MapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
 public class PreferencesUtils {
@@ -175,11 +174,19 @@ public class PreferencesUtils {
     }
 
     public static ArrowMode getArrowMode(final Context context) {
-        return ArrowMode.valueOf(getString(context, R.string.ARROW_MODE, ArrowMode.DIRECTION.name()));
+        return ArrowMode.valueOf(getString(context, R.string.ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
     }
 
     public static void setArrowMode(final Context context, final ArrowMode arrowMode) {
         setString(context, R.string.ARROW_MODE, arrowMode.name());
+    }
+
+    public static MapMode getMapMode(final Context context) {
+        return MapMode.valueOf(getString(context, R.string.MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
+    }
+
+    public static void setMapMode(final Context context, final MapMode mapMode) {
+        setString(context, R.string.MAP_MODE, mapMode.name());
     }
 
 }

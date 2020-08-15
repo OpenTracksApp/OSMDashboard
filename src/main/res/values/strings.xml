@@ -47,6 +47,10 @@
     <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
     <string name="only_digits">Value must contain only digits</string>
     <string name="pip_mode">Picture in picture mode</string>
-    <string name="arrow_mode_heading">Arrow shows direction</string>
     <string name="arrow_mode_north">Arrow points to north</string>
+    <string name="arrow_mode_direction">Arrow moving direction</string>
+    <string name="arrow_mode_compass">Arrow as compass</string>
+    <string name="map_mode_north_top">Map north on top</string>
+    <string name="map_mode_direction">Map moving direction</string>
+    <string name="map_mode_compass">Map as compass</string>
 </resources>

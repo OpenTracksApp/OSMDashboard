@@ -18,7 +18,7 @@ public class CompassRotation implements SensorEventListener {
     private final float[] rotationMatrix = new float[9];
     private final float[] orientationAngles = new float[3];
     private int lastDegreePos = -1;
-    private final float[] lastDegrees = new float[5];
+    private final float[] lastDegrees = new float[10];
     private RotationListener listener = null;
     private float currentDegrees = 0;
 

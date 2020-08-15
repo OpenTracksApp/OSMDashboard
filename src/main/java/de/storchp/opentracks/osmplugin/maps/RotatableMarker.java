@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -13,12 +14,17 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidBitmap;
 import org.mapsforge.map.layer.overlay.Marker;
 
-public class RoteableMarker extends Marker {
+import de.storchp.opentracks.osmplugin.utils.ArrowMode;
+import de.storchp.opentracks.osmplugin.utils.MapMode;
+
+public class RotatableMarker extends Marker {
+
+    private static final String TAG = RotatableMarker.class.getSimpleName();
 
     private final android.graphics.Bitmap markerBitmap;
 
-    public RoteableMarker(final LatLong latLong, final android.graphics.Bitmap markerBitmap, final float degrees) {
-        super(latLong, createRotatedMarkerBitmap(markerBitmap, degrees), 0, 0);
+    public RotatableMarker(final LatLong latLong, final android.graphics.Bitmap markerBitmap) {
+        super(latLong, createRotatedMarkerBitmap(markerBitmap, 0), 0, 0);
         this.markerBitmap = markerBitmap;
     }
 
@@ -41,8 +47,22 @@ public class RoteableMarker extends Marker {
         return bitmap;
     }
 
-    public void rotateTo(final float degrees) {
+    private void rotateTo(final float degrees) {
         setBitmap(createRotatedMarkerBitmap(markerBitmap, degrees));
+    }
+
+    public void rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final CompassRotation compassRotation) {
+        Log.d(TAG, "Map heading: " + mapMode.getHeading(movementDirection, compassRotation) + ", Arrow degrees: " + arrowMode.getDegrees(movementDirection, compassRotation));
+        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
+            || arrowMode == ArrowMode.NORTH) {
+            rotateTo(0);
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
+            rotateTo(mapMode.getHeading(movementDirection, compassRotation));
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
+            rotateTo(arrowMode.getDegrees(movementDirection, compassRotation));
+        } else {
+            rotateTo(arrowMode.getDegrees(movementDirection, compassRotation) + mapMode.getHeading(movementDirection, compassRotation) % 360);
+        }
     }
 
 }
