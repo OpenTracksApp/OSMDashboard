@@ -20,6 +20,7 @@ import java.util.List;
 
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
+import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 abstract class BaseActivity extends AppCompatActivity {
@@ -50,6 +51,7 @@ abstract class BaseActivity extends AppCompatActivity {
         pipMode.setChecked(PreferencesUtils.isPipEnabled(this));
 
         menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode(this).getMessageId());
+        menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode(this).getMessageId());
 
         return true;
     }
@@ -91,10 +93,19 @@ abstract class BaseActivity extends AppCompatActivity {
                 PreferencesUtils.setArrowMode(this, arrowMode);
                 changeArrowMode(arrowMode);
                 break;
+            case R.id.map_mode :
+                MapMode mapMode = PreferencesUtils.getMapMode(this);
+                mapMode = mapMode.next();
+                item.setTitle(mapMode.getMessageId());
+                PreferencesUtils.setMapMode(this, mapMode);
+                changeMapMode(mapMode);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected abstract void changeMapMode(final MapMode mapMode);
 
     protected abstract void changeArrowMode(final ArrowMode arrowMode);
 

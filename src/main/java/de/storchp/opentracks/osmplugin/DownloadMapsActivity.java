@@ -23,6 +23,7 @@ import java.net.URL;
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapsBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
+import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadMapsActivity extends BaseActivity {
@@ -255,6 +256,11 @@ public class DownloadMapsActivity extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void changeMapMode(final MapMode mapMode) {
+        // nothing to do
     }
 
     @Override

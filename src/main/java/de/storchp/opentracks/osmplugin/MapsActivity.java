@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -17,6 +18,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -64,9 +66,10 @@ import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.CompassRotation;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 import de.storchp.opentracks.osmplugin.maps.RotationListener;
-import de.storchp.opentracks.osmplugin.maps.RoteableMarker;
+import de.storchp.opentracks.osmplugin.maps.RotatableMarker;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
+import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -99,7 +102,7 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     private long lastTrackId = 0;
     private int trackColor;
     private Polyline polyline;
-    private RoteableMarker endMarker = null;
+    private RotatableMarker endMarker = null;
 
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
@@ -108,6 +111,8 @@ public class MapsActivity extends BaseActivity implements RotationListener {
 
     private CompassRotation compassRotation;
     private MovementDirection movementDirection = new MovementDirection();
+    private ArrowMode arrowMode;
+    private MapMode mapMode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -119,6 +124,9 @@ public class MapsActivity extends BaseActivity implements RotationListener {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
+        arrowMode = PreferencesUtils.getArrowMode(this);
+        mapMode = PreferencesUtils.getMapMode(this);
+
         compassRotation = new CompassRotation(this);
         compassRotation.setRotationListener(this);
 
@@ -128,6 +136,9 @@ public class MapsActivity extends BaseActivity implements RotationListener {
         createTileCaches();
         createLayers();
         binding.map.mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
+
+        binding.map.zoomInButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomIn());
+        binding.map.zoomOutButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomOut());
 
         // Get the intent that started this activity
         final Intent intent = getIntent();
@@ -231,16 +242,11 @@ public class MapsActivity extends BaseActivity implements RotationListener {
      */
     protected void createMapViews() {
         binding.map.mapView.setClickable(true);
-        binding.map.mapView.getMapScaleBar().setVisible(true);
-        binding.map.mapView.setBuiltInZoomControls(true);
-        binding.map.mapView.getMapZoomControls().setAutoHide(true);
+        binding.map.mapView.getModel().frameBufferModel.setOverdrawFactor(1.0d);
+        binding.map.mapView.getMapScaleBar().setVisible(false);
+        binding.map.mapView.setBuiltInZoomControls(false);
         binding.map.mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
         binding.map.mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
-        binding.map.mapView.getMapZoomControls().setZoomControlsOrientation(MapZoomControls.Orientation.VERTICAL_IN_OUT);
-        binding.map.mapView.getMapZoomControls().setZoomInResource(R.drawable.zoom_control_in);
-        binding.map.mapView.getMapZoomControls().setZoomOutResource(R.drawable.zoom_control_out);
-        binding.map.mapView.getMapZoomControls().setMarginHorizontal(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
-        binding.map.mapView.getMapZoomControls().setMarginVertical(getResources().getDimensionPixelOffset(R.dimen.controls_margin));
         binding.map.mapView.setOnMapDragListener(() -> temporarilyDisableFullscreen());
     }
 
@@ -395,8 +401,15 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     }
 
     @Override
+    protected void changeMapMode(final MapMode mapMode) {
+        this.mapMode = mapMode;
+        rotateMap();
+    }
+
+    @Override
     protected void changeArrowMode(final ArrowMode arrowMode) {
-        endMarker.rotateTo(arrowMode.getDegrees(movementDirection, compassRotation));
+        this.arrowMode = arrowMode;
+        endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
         binding.map.mapView.getLayerManager().redrawLayers();
     }
 
@@ -524,16 +537,17 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     }
 
     private void setEndMarker(final LatLong endPos) {
-        final float degrees = PreferencesUtils.getArrowMode(this).getDegrees(movementDirection, compassRotation);
         synchronized (binding.map.mapView.getLayerManager().getLayers()) {
             if (endMarker != null) {
-                endMarker.rotateTo(degrees);
+                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
                 endMarker.setLatLong(endPos);
             } else {
-                endMarker = new RoteableMarker(endPos, RoteableMarker.getBitmapFromVectorDrawable(this, R.drawable.ic_compass), degrees);
+                endMarker = new RotatableMarker(endPos, RotatableMarker.getBitmapFromVectorDrawable(this, R.drawable.ic_compass));
+                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
                 polylinesLayer.layers.add(endMarker);
             }
         }
+        rotateMap();
     }
 
     private Polyline addNewPolyline(final int trackColor) {
@@ -649,9 +663,10 @@ public class MapsActivity extends BaseActivity implements RotationListener {
 
     @Override
     public void onPictureInPictureModeChanged (final boolean isInPictureInPictureMode, final Configuration newConfig) {
-        binding.toolbar.mapsToolbar.setVisibility(!isInPictureInPictureMode ? View.VISIBLE : View.GONE);
-        binding.map.mapView.setBuiltInZoomControls(!isInPictureInPictureMode);
-        binding.map.mapView.getMapScaleBar().setVisible(!isInPictureInPictureMode);
+        final int visibility = isInPictureInPictureMode ? View.GONE : View.VISIBLE;
+        binding.toolbar.mapsToolbar.setVisibility(visibility);
+        binding.map.zoomInButton.setVisibility(visibility);
+        binding.map.zoomOutButton.setVisibility(visibility);
     }
 
     private boolean isPiPMode() {
@@ -678,10 +693,17 @@ public class MapsActivity extends BaseActivity implements RotationListener {
 
     @Override
     public void onRotationUpdate(final float degrees) {
-        if (endMarker != null && PreferencesUtils.getArrowMode(this).isUpdateable()) {
-            endMarker.rotateTo(degrees);
+        if (endMarker != null) {
+            endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
             binding.map.mapView.getLayerManager().redrawLayers();
         }
+
+        rotateMap();
+    }
+
+    private void rotateMap() {
+        binding.map.rotateView.setHeading(mapMode.getHeading(movementDirection, compassRotation));
+        binding.map.rotateView.postInvalidate();
     }
 
 }

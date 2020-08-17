@@ -6,14 +6,19 @@ import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 
 public enum ArrowMode {
 
-    DIRECTION(R.string.arrow_mode_heading, false) {
+    DIRECTION(R.string.arrow_mode_direction, false) {
         public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
             return movementDirection.getCurrentDegrees();
         }
     },
-    NORTH(R.string.arrow_mode_north, true) {
+    COMPASS(R.string.arrow_mode_compass, true) {
         public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
             return compassRotation.getCurrentDegrees();
+        }
+    },
+    NORTH(R.string.arrow_mode_north, true) {
+        public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
+            return -compassRotation.getCurrentDegrees();
         }
     };
 
@@ -40,7 +45,12 @@ public enum ArrowMode {
 
     public abstract float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation);
 
-    public boolean isUpdateable() {
-        return updateable;
+    public static ArrowMode valueOf(final String name, final ArrowMode defaultValue) {
+        try {
+            return valueOf(name);
+        } catch (final IllegalArgumentException ignored) {
+            return defaultValue;
+        }
     }
+
 }

@@ -22,8 +22,12 @@
         android:title="@string/track_smoothing_menu"/>
 
     <item
+        android:id="@+id/map_mode"
+        android:title="@string/map_mode_north_top"/>
+
+    <item
         android:id="@+id/arrow_mode"
-        android:title="@string/arrow_mode_heading"/>
+        android:title="@string/arrow_mode_direction"/>
 
     <item
         android:id="@+id/pip_mode"
