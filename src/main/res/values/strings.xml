@@ -53,4 +53,6 @@
     <string name="map_mode_north_top">Map north on top</string>
     <string name="map_mode_direction">Map moving direction</string>
     <string name="map_mode_compass">Map as compass</string>
+    <string name="compass_smoothing_menu">Compass smoothing</string>
+    <string name="compass_smoothing_info">Higher values reduce noise</string>
 </resources>

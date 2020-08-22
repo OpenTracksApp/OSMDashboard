@@ -154,14 +154,31 @@ public class MapUtils {
     }
 
     public static float bearingInDegrees(final LatLong secondToLastPos, final LatLong endPos) {
-        return bearingToDegrees(bearing(secondToLastPos, endPos));
+        return normalizeAngle(bearing(secondToLastPos, endPos));
     }
 
-    public static float bearingToDegrees(final float bearing) {
-        if (bearing < 0) {
-            return bearing + 360;
+    /**
+     * Converts an angle to between 0 and 360
+     * @param angle the angle in degrees
+     * @return the normalized angle
+     */
+    public static float normalizeAngle(final float angle) {
+        float outputAngle = angle;
+        while (outputAngle < 0) {
+            outputAngle += 360;
         }
-        return bearing;
+        return outputAngle % 360;
+    }
+
+    public static float deltaAngle(final float angle1, final float angle2) {
+        float delta = angle2 - angle1;
+        delta += 180;
+        delta -= Math.floor(delta / 360) * 360;
+        delta -= 180;
+        if (Math.abs(Math.abs(delta) - 180) <= Float.MIN_VALUE) {
+            delta = 180f;
+        }
+        return delta;
     }
 
     public static Paint createPaint(final int color, final int strokeWidth) {

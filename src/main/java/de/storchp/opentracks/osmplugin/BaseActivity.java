@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +19,7 @@ import androidx.core.view.MenuCompat;
 
 import java.util.List;
 
+import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
@@ -66,6 +68,9 @@ abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.track_smoothing :
                 showTrackSmoothingDialog();
+                break;
+            case R.id.compass_smoothing :
+                showCompassSmoothingDialog();
                 break;
             case R.id.pip_mode :
                 item.setChecked(!item.isChecked());
@@ -131,6 +136,45 @@ abstract class BaseActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(BaseActivity.this, R.string.only_digits, Toast.LENGTH_LONG).show();
             }
+        });
+    }
+
+    private void showCompassSmoothingDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final CompassSmoothingDialogBinding binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        final int smoothing = PreferencesUtils.getCompassSmoothing(this);
+        binding.tvCompassSmoothing.setText(String.valueOf(smoothing));
+        binding.sbCompassSmoothing.setProgress(smoothing);
+        binding.sbCompassSmoothing.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(final SeekBar seekBar, final int i, final boolean b) {
+                binding.tvCompassSmoothing.setText(String.valueOf(Math.max(binding.sbCompassSmoothing.getProgress(), 1)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(final SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(final SeekBar seekBar) {
+
+            }
+        });
+
+        builder.setView(binding.getRoot())
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok, null)
+                .setNegativeButton(R.string.cancel, null);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            final int compassSmoothing = binding.sbCompassSmoothing.getProgress();
+            PreferencesUtils.setCompasSmoothing(BaseActivity.this, compassSmoothing);
+            alertDialog.dismiss();
         });
     }
 

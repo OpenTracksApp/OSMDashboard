@@ -22,6 +22,10 @@
         android:title="@string/track_smoothing_menu"/>
 
     <item
+        android:id="@+id/compass_smoothing"
+        android:title="@string/compass_smoothing_menu"/>
+
+    <item
         android:id="@+id/map_mode"
         android:title="@string/map_mode_north_top"/>
 

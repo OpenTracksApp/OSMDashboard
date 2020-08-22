@@ -1,7 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -18,7 +17,6 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -35,7 +33,6 @@ import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.core.util.LatLongUtils;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
-import org.mapsforge.map.android.input.MapZoomControls;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.datastore.MultiMapDataStore;
@@ -58,14 +55,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.compass.SensorListener;
+import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
-import de.storchp.opentracks.osmplugin.maps.CompassRotation;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
-import de.storchp.opentracks.osmplugin.maps.RotationListener;
 import de.storchp.opentracks.osmplugin.maps.RotatableMarker;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
@@ -73,7 +70,7 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
-public class MapsActivity extends BaseActivity implements RotationListener {
+public class MapsActivity extends BaseActivity implements SensorListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -109,7 +106,7 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     private LatLong endPos;
     private boolean fullscreenMode = false;
 
-    private CompassRotation compassRotation;
+    private Compass compass;
     private MovementDirection movementDirection = new MovementDirection();
     private ArrowMode arrowMode;
     private MapMode mapMode;
@@ -127,8 +124,7 @@ public class MapsActivity extends BaseActivity implements RotationListener {
         arrowMode = PreferencesUtils.getArrowMode(this);
         mapMode = PreferencesUtils.getMapMode(this);
 
-        compassRotation = new CompassRotation(this);
-        compassRotation.setRotationListener(this);
+        compass = new Compass(this);
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
@@ -409,7 +405,7 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     @Override
     protected void changeArrowMode(final ArrowMode arrowMode) {
         this.arrowMode = arrowMode;
-        endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
+        endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
         binding.map.mapView.getLayerManager().redrawLayers();
     }
 
@@ -539,11 +535,11 @@ public class MapsActivity extends BaseActivity implements RotationListener {
     private void setEndMarker(final LatLong endPos) {
         synchronized (binding.map.mapView.getLayerManager().getLayers()) {
             if (endMarker != null) {
-                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
+                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
                 endMarker.setLatLong(endPos);
             } else {
                 endMarker = new RotatableMarker(endPos, RotatableMarker.getBitmapFromVectorDrawable(this, R.drawable.ic_compass));
-                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
+                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
                 polylinesLayer.layers.add(endMarker);
             }
         }
@@ -644,7 +640,7 @@ public class MapsActivity extends BaseActivity implements RotationListener {
         if (this.tileLayer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.tileLayer).onResume();
         }
-        compassRotation.onStart();
+        compass.start(this);
     }
 
     @Override
@@ -687,23 +683,24 @@ public class MapsActivity extends BaseActivity implements RotationListener {
 
     @Override
     protected void onStop() {
-        compassRotation.onStop();
+        compass.stop(this);
         super.onStop();
     }
 
+    private void rotateMap() {
+        binding.map.rotateView.setHeading(mapMode.getHeading(movementDirection, compass));
+        binding.map.rotateView.postInvalidate();
+    }
+
     @Override
-    public void onRotationUpdate(final float degrees) {
+    public boolean updateSensor() {
         if (endMarker != null) {
-            endMarker.rotateWith(arrowMode, mapMode, movementDirection, compassRotation);
+            endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
             binding.map.mapView.getLayerManager().redrawLayers();
         }
 
         rotateMap();
-    }
 
-    private void rotateMap() {
-        binding.map.rotateView.setHeading(mapMode.getHeading(movementDirection, compassRotation));
-        binding.map.rotateView.postInvalidate();
+        return true;
     }
-
 }

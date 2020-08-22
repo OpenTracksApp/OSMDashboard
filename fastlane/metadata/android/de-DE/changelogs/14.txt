@@ -1,1 +1,2 @@
 - Richtungspfeil als Endemarkierung
+- Kompass-Glättung

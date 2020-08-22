@@ -9,13 +9,11 @@ public class MovementDirection {
     private LatLong secondToLastPos;
     private float currentDegrees = 0;
 
-    public float updatePos(final LatLong endPos) {
+    public void updatePos(final LatLong endPos) {
         if (endPos != null && !endPos.equals(secondToLastPos)) {
             currentDegrees = MapUtils.bearingInDegrees(secondToLastPos, endPos);
             secondToLastPos = endPos;
         }
-
-        return currentDegrees;
     }
 
     public float getCurrentDegrees() {

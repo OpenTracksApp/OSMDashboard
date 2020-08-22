@@ -1,34 +1,31 @@
 package de.storchp.opentracks.osmplugin.utils;
 
 import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.maps.CompassRotation;
+import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 
 public enum ArrowMode {
 
-    DIRECTION(R.string.arrow_mode_direction, false) {
-        public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
+    DIRECTION(R.string.arrow_mode_direction) {
+        public float getDegrees(final MovementDirection movementDirection, final Compass compass) {
             return movementDirection.getCurrentDegrees();
         }
     },
-    COMPASS(R.string.arrow_mode_compass, true) {
-        public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
-            return compassRotation.getCurrentDegrees();
+    COMPASS(R.string.arrow_mode_compass) {
+        public float getDegrees(final MovementDirection movementDirection, final Compass compass) {
+            return -compass.getBearing().getValue();
         }
     },
-    NORTH(R.string.arrow_mode_north, true) {
-        public float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation) {
-            return -compassRotation.getCurrentDegrees();
+    NORTH(R.string.arrow_mode_north) {
+        public float getDegrees(final MovementDirection movementDirection, final Compass compass) {
+            return compass.getBearing().getValue();
         }
     };
 
     private final int messageId;
 
-    private final boolean updateable;
-
-    ArrowMode(final int messageId, final boolean updateable) {
+    ArrowMode(final int messageId) {
         this.messageId = messageId;
-        this.updateable = updateable;
     }
 
     public int getMessageId() {
@@ -43,7 +40,7 @@ public enum ArrowMode {
         return values()[nextOrdinal];
     }
 
-    public abstract float getDegrees(final MovementDirection movementDirection, final CompassRotation compassRotation);
+    public abstract float getDegrees(final MovementDirection movementDirection, final Compass compass);
 
     public static ArrowMode valueOf(final String name, final ArrowMode defaultValue) {
         try {

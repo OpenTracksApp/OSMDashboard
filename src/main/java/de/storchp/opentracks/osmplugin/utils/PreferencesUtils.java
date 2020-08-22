@@ -189,4 +189,12 @@ public class PreferencesUtils {
         setString(context, R.string.MAP_MODE, mapMode.name());
     }
 
+    public static int getCompassSmoothing(final Context context) {
+        return getInt(context, R.string.COMPASS_SMOOTHING, 2);
+    }
+
+    public static void setCompasSmoothing(final Context context, final int value) {
+        setInt(context, R.string.COMPASS_SMOOTHING, value);
+    }
+
 }
