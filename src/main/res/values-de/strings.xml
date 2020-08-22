@@ -54,4 +54,6 @@
     <string name="map_mode_north_top">Karte zeigt Norden oben</string>
     <string name="map_mode_direction">Karte in Bewegungsrichtung</string>
     <string name="map_mode_compass">Karte als Kompass</string>
+    <string name="compass_smoothing_menu">Kompass Glättung</string>
+    <string name="compass_smoothing_info">Höhere Werte reduzieren das Rauschen</string>
 </resources>

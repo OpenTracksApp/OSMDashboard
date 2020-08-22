@@ -14,6 +14,7 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidBitmap;
 import org.mapsforge.map.layer.overlay.Marker;
 
+import de.storchp.opentracks.osmplugin.compass.VectorCompass;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 
@@ -51,17 +52,17 @@ public class RotatableMarker extends Marker {
         setBitmap(createRotatedMarkerBitmap(markerBitmap, degrees));
     }
 
-    public void rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final CompassRotation compassRotation) {
-        Log.d(TAG, "Map heading: " + mapMode.getHeading(movementDirection, compassRotation) + ", Arrow degrees: " + arrowMode.getDegrees(movementDirection, compassRotation));
+    public void rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final VectorCompass compass) {
+        Log.d(TAG, "Map heading: " + mapMode.getHeading(movementDirection, compass) + ", Arrow degrees: " + arrowMode.getDegrees(movementDirection, compass));
         if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
             || arrowMode == ArrowMode.NORTH) {
             rotateTo(0);
         } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
-            rotateTo(mapMode.getHeading(movementDirection, compassRotation));
+            rotateTo(mapMode.getHeading(movementDirection, compass));
         } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
-            rotateTo(arrowMode.getDegrees(movementDirection, compassRotation));
+            rotateTo(arrowMode.getDegrees(movementDirection, compass));
         } else {
-            rotateTo(arrowMode.getDegrees(movementDirection, compassRotation) + mapMode.getHeading(movementDirection, compassRotation) % 360);
+            rotateTo(arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360);
         }
     }
 

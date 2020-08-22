@@ -1,1 +1,2 @@
 - Arrow as endmarker to show current heading
+- Compass smoothing
