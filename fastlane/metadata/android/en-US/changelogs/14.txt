@@ -1,2 +1,3 @@
 - Arrow as endmarker to show current heading
+- Map rotation options: compass and moving direction
 - Compass smoothing

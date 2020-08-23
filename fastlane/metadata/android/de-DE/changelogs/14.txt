@@ -1,2 +1,3 @@
 - Richtungspfeil als Endemarkierung
+- Kartenrotation als Kompass oder in Bewegungsrichtung
 - Kompass-Glättung
