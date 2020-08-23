@@ -26,7 +26,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/zoom_control_out"/>
+            android:src="@drawable/ic_baseline_zoom_out_48"/>
 
         <ImageButton
             android:id="@+id/zoomInButton"
@@ -36,7 +36,17 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/zoom_control_in" />
+            android:src="@drawable/ic_baseline_zoom_in_48" />
+
+        <ImageButton
+            android:id="@+id/fullscreenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/zoomInButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_fullscreen_48"/>
 
         <TextView
             android:id="@+id/attribution"

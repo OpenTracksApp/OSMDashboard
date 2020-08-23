@@ -55,8 +55,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.compass.Compass;
+import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
@@ -135,12 +135,17 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         binding.map.zoomInButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomIn());
         binding.map.zoomOutButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomOut());
+        binding.map.fullscreenButton.setOnClickListener(v -> switchFullscreen());
 
         // Get the intent that started this activity
         final Intent intent = getIntent();
         if (intent != null) {
             onNewIntent(intent);
         }
+    }
+
+    private void switchFullscreen() {
+        showFullscreen(!fullscreenMode);
     }
 
     @Override
@@ -179,10 +184,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
             uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
             uiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            binding.map.fullscreenButton.setImageDrawable(getDrawable(R.drawable.ic_baseline_fullscreen_exit_48));
         } else {
             uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
             uiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
             uiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            binding.map.fullscreenButton.setImageDrawable(getDrawable(R.drawable.ic_baseline_fullscreen_48));
         }
         binding.toolbar.mapsToolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
         decorView.setSystemUiVisibility(uiOptions);
@@ -243,22 +250,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.mapView.setBuiltInZoomControls(false);
         binding.map.mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
         binding.map.mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
-        binding.map.mapView.setOnMapDragListener(() -> temporarilyDisableFullscreen());
-    }
-
-    private void temporarilyDisableFullscreen() {
-        if (fullscreenMode) {
-            showFullscreen(false);
-            new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                } catch (final InterruptedException ignore) {
-                }
-                runOnUiThread(() -> {
-                    showFullscreen(true);
-                });
-            }).start();
-        }
     }
 
     protected byte getZoomLevelMax() {
@@ -663,6 +654,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.toolbar.mapsToolbar.setVisibility(visibility);
         binding.map.zoomInButton.setVisibility(visibility);
         binding.map.zoomOutButton.setVisibility(visibility);
+        binding.map.fullscreenButton.setVisibility(visibility);
     }
 
     private boolean isPiPMode() {
