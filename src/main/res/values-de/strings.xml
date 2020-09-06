@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OSM Dashboard für OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard\\nfür OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard\nfür OpenTracks</string>
     <string name="no_data">Keine Track-Daten empfangen</string>
     <string name="copyright_osm">Kartendaten © OpenStreetMap Mitwirkende</string>
     <string name="maps">Karten</string>
@@ -44,7 +44,7 @@
     <string name="cancel_download_question">Aktuellen Download abbrechen?</string>
     <string name="error_loading_offline_map">Fehler beim Lesen der eingestellten Offlinekarte(n).</string>
     <string name="track_smoothing_menu">Tracks glätten</string>
-    <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.\\nÄnderung wird nach Neuladen wirksam.</string>
+    <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.\nÄnderung wird nach Neuladen wirksam.</string>
     <string name="track_smoothing_hint">Toleranz der Track-Glättung in Meter</string>
     <string name="only_digits">Der Wert darf nur aus Ziffern bestehen</string>
     <string name="pip_mode">Bild in Bild Modus</string>
