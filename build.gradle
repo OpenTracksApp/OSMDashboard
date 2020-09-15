@@ -25,8 +25,8 @@ android {
         applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 14
-        versionName "2.4.0"
+        versionCode 15
+        versionName "2.4.1"
     }
     compileOptions {
         // Flag to enable support for the new language APIs

@@ -1,0 +1,1 @@
+- Dummyversion for F-Droid to fix target-SDK 30
