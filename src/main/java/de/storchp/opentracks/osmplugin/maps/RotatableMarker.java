@@ -20,8 +20,6 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 
 public class RotatableMarker extends Marker {
 
-    private static final String TAG = RotatableMarker.class.getSimpleName();
-
     private final android.graphics.Bitmap markerBitmap;
 
     public RotatableMarker(final LatLong latLong, final android.graphics.Bitmap markerBitmap) {
@@ -53,7 +51,6 @@ public class RotatableMarker extends Marker {
     }
 
     public void rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final Compass compass) {
-        Log.d(TAG, "Map heading: " + mapMode.getHeading(movementDirection, compass) + ", Arrow degrees: " + arrowMode.getDegrees(movementDirection, compass));
         if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
             || arrowMode == ArrowMode.NORTH) {
             rotateTo(0);
