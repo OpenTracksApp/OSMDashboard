@@ -89,7 +89,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private ActivityMapsBinding binding;
 
     private Layer tileLayer;
-    private final List<TileCache> tileCaches = new ArrayList<>();
+    private TileCache tileCache;
 
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
@@ -220,9 +220,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     protected void createTileCaches() {
-        this.tileCaches.add(AndroidUtil.createTileCache(this, getPersistableId(),
+        this.tileCache = AndroidUtil.createTileCache(this, getPersistableId(),
                 this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio(),
-                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), true));
+                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), true);
     }
 
     /**
@@ -272,10 +272,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
      * By default we purge every tile cache that has been added to the tileCaches list.
      */
     protected void purgeTileCaches() {
-        for (final TileCache tileCache : tileCaches) {
+        if (tileCache != null) {
             tileCache.purge();
         }
-        tileCaches.clear();
     }
 
     protected XmlRenderTheme getRenderTheme() {
@@ -326,7 +325,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         final MapDataStore mapFile = getMapFile();
 
         if (mapFile != null) {
-            final TileRendererLayer rendererLayer = new TileRendererLayer(this.tileCaches.get(0), mapFile,
+            final TileRendererLayer rendererLayer = new TileRendererLayer(this.tileCache, mapFile,
                     this.binding.map.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
             rendererLayer.setXmlRenderTheme(getRenderTheme());
             this.tileLayer = rendererLayer;
@@ -344,7 +343,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void setOnlineTileLayer() {
         final OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
         tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
-        this.tileLayer = new TileDownloadLayer(this.tileCaches.get(0), this.binding.map.mapView.getModel().mapViewPosition,
+        this.tileLayer = new TileDownloadLayer(this.tileCache, this.binding.map.mapView.getModel().mapViewPosition,
                 tileSource, AndroidGraphicFactory.INSTANCE);
         binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
 
