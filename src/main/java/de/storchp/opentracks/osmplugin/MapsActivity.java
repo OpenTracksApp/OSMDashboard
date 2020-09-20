@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.mapsforge.core.graphics.Bitmap;
@@ -191,12 +192,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
             uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
             uiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            binding.map.fullscreenButton.setImageDrawable(getDrawable(R.drawable.ic_baseline_fullscreen_exit_48));
+            binding.map.fullscreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_exit_48));
         } else {
             uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
             uiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
             uiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            binding.map.fullscreenButton.setImageDrawable(getDrawable(R.drawable.ic_baseline_fullscreen_48));
+            binding.map.fullscreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_48));
         }
         binding.toolbar.mapsToolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
         decorView.setSystemUiVisibility(uiOptions);
@@ -581,7 +582,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Marker createTappableMarker(final Waypoint waypoint) {
-        final Drawable drawable = getDrawable(R.drawable.ic_marker_orange_pushpin_with_shadow);
+        final Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
         final Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
         return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
