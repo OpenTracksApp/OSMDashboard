@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
 
     // Other
-    def mapsforgeVersion = '0.13.0'
+    def mapsforgeVersion = '0.14.0'
     implementation "org.mapsforge:mapsforge-core:$mapsforgeVersion"
     implementation "org.mapsforge:mapsforge-map:$mapsforgeVersion"
     implementation "org.mapsforge:mapsforge-map-android:$mapsforgeVersion"
