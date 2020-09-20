@@ -197,4 +197,12 @@ public class PreferencesUtils {
         setInt(context, R.string.COMPASS_SMOOTHING, value);
     }
 
+    public static boolean getMultiThreadMapRendering(final Context context) {
+        return getBoolean(context, R.string.MAP_MULTI_THREAD_RENDERING, true);
+    }
+
+    public static void setMultiThreadMapRendering(final Context context, final boolean multiThread) {
+        setBoolean(context, R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
+    }
+
 }

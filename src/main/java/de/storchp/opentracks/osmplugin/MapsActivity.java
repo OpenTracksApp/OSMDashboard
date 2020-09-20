@@ -32,6 +32,7 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.core.util.LatLongUtils;
+import org.mapsforge.core.util.Parameters;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.datastore.MapDataStore;
@@ -120,6 +121,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         setContentView(binding.getRoot());
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        if (PreferencesUtils.getMultiThreadMapRendering(this)) {
+            Parameters.NUMBER_OF_THREADS = Math.max(Runtime.getRuntime().availableProcessors() - 1, 1);
+        } else {
+            Parameters.NUMBER_OF_THREADS = 1;
+        }
 
         arrowMode = PreferencesUtils.getArrowMode(this);
         mapMode = PreferencesUtils.getMapMode(this);
@@ -695,4 +702,5 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         return true;
     }
+
 }

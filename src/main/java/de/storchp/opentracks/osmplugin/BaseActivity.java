@@ -36,6 +36,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected MenuItem mapConsent;
     protected MenuItem pipMode;
+    protected MenuItem multiThreadMapRendering;
 
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
@@ -48,6 +49,9 @@ abstract class BaseActivity extends AppCompatActivity {
 
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent(this));
+
+        multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
+        multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering(this));
 
         pipMode = menu.findItem(R.id.pip_mode);
         pipMode.setChecked(PreferencesUtils.isPipEnabled(this));
@@ -71,6 +75,10 @@ abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.compass_smoothing :
                 showCompassSmoothingDialog();
+                break;
+            case R.id.multi_thread_map_rendering :
+                item.setChecked(!item.isChecked());
+                PreferencesUtils.setMultiThreadMapRendering(this, item.isChecked());
                 break;
             case R.id.pip_mode :
                 item.setChecked(!item.isChecked());

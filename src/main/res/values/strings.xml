@@ -55,4 +55,6 @@
     <string name="map_mode_compass">Map as compass</string>
     <string name="compass_smoothing_menu">Compass smoothing</string>
     <string name="compass_smoothing_info">Higher values reduce noise</string>
+    <string name="menu_advanced">Advanced</string>
+    <string name="multi_thread_map_rendering">Multithread map rendering</string>
 </resources>

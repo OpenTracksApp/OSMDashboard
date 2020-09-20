@@ -11,5 +11,6 @@
     <string name="PIP_ENABLED" translatable="false">APP_PREF_PIP_ENABLED</string>
     <string name="ARROW_MODE" translatable="false">APP_PREF_ARROW_MODE</string>
     <string name="MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
+    <string name="MAP_MULTI_THREAD_RENDERING" translatable="false">APP_PREF_MAP_MULTI_THREAD_RENDERING</string>
     <string name="osm_mapnik" translatable="false">OSM: Mapnik</string>
 </resources>

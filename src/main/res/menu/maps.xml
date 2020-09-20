@@ -18,14 +18,6 @@
         android:title="@string/map_online_consent_menu"/>
 
     <item
-        android:id="@+id/track_smoothing"
-        android:title="@string/track_smoothing_menu"/>
-
-    <item
-        android:id="@+id/compass_smoothing"
-        android:title="@string/compass_smoothing_menu"/>
-
-    <item
         android:id="@+id/map_mode"
         android:title="@string/map_mode_north_top"/>
 
@@ -34,9 +26,29 @@
         android:title="@string/arrow_mode_direction"/>
 
     <item
-        android:id="@+id/pip_mode"
-        android:checkable="true"
-        android:title="@string/pip_mode"/>
+        android:id="@+id/submenu_advanced"
+        android:title="@string/menu_advanced">
+        <menu>
+            <item
+                android:id="@+id/track_smoothing"
+                android:title="@string/track_smoothing_menu"/>
+
+            <item
+                android:id="@+id/compass_smoothing"
+                android:title="@string/compass_smoothing_menu"/>
+
+            <item
+                android:id="@+id/multi_thread_map_rendering"
+                android:title="@string/multi_thread_map_rendering"
+                android:checkable="true"
+                />
+
+            <item
+                android:id="@+id/pip_mode"
+                android:checkable="true"
+                android:title="@string/pip_mode"/>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/map_info"
