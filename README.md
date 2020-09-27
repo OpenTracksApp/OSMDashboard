@@ -1,4 +1,4 @@
-# <img src="assets/LOGO2.svg" alt="OpenTracks logo" height="40"></img> OpenTracks - OSM Dashboard
+# <img src="assets/LOGO2.svg" alt="OpenTracks logo" height="40"></img>OSM Dashboard for OpenTracks
 
 _OSM Dashboard_ is a companion application for [OpenTracks](https://github.com/OpenTracksApp/OpenTracks).
 It adds the functionality to show tracks on a map using data from [OpenStreetMap](https://www.openstreetmap.org).
@@ -15,6 +15,8 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
             <a href="https://f-droid.org/en/packages/de.storchp.opentracks.osmplugin/">
                 <img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="60" align="middle">
             </a>
+            <br />
+            <img alt="OSM Dashboard for OpenTracks version published on F-Droid" src="https://img.shields.io/f-droid/v/de.storchp.opentracks.osmplugin.svg" align="middle" >            
         </td>
         <td>
             <a href="https://play.google.com/store/apps/details?id=de.storchp.opentracks.osmplugin">
