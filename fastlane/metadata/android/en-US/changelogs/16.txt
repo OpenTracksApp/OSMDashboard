@@ -1,0 +1,2 @@
+- upgrade mapsforge library to version 0.14.0
+- multihread map rendering
