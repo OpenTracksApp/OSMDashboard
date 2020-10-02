@@ -22,11 +22,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "de.storchp.opentracks.osmplugin"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 16
-        versionName "2.5.0"
+        versionCode 17
+        versionName "2.6.0"
     }
     compileOptions {
         // Flag to enable support for the new language APIs
@@ -34,6 +33,27 @@ android {
         // Sets Java compatibility to Java 8
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    productFlavors {
+        full {
+            applicationId "de.storchp.opentracks.osmplugin"
+            buildConfigField "boolean", "offline", "false"
+            flavorDimensions "default"
+        }
+        offline {
+            applicationId "de.storchp.opentracks.osmplugin.offline"
+            buildConfigField "boolean", "offline", "true"
+            flavorDimensions "default"
+        }
+    }
+    flavorDimensions "default"
+    sourceSets {
+        full {
+            manifest.srcFile "src/full/AndroidManifest.xml"
+        }
+        offline {
+            manifest.srcFile "src/offline/AndroidManifest.xml"
+        }
     }
     buildTypes {
         debug {

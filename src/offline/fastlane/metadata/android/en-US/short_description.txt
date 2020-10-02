@@ -1,0 +1,1 @@
+Offline variant of the OpenStreetMap dashboard for OpenTracks

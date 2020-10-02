@@ -331,6 +331,13 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             rendererLayer.setXmlRenderTheme(getRenderTheme());
             this.tileLayer = rendererLayer;
             binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+        } else if (BuildConfig.offline) {
+            new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_logo_color_24dp)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.no_map_configured)
+                    .setPositiveButton(R.string.ok, null)
+                    .create().show();
         } else if (PreferencesUtils.getOnlineMapConsent(this)) {
             setOnlineTileLayer();
         } else {
