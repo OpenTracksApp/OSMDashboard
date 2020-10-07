@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.storchp.opentracks.osmplugin">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".Startup"
         android:allowBackup="true"

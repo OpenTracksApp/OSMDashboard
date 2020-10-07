@@ -50,6 +50,11 @@ abstract class BaseActivity extends AppCompatActivity {
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent(this));
 
+        if (BuildConfig.offline) {
+            mapConsent.setVisible(false);
+            menu.findItem(R.id.download_map).setVisible(false);
+        }
+
         multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
         multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering(this));
 

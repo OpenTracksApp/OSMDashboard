@@ -58,4 +58,5 @@
     <string name="compass_smoothing_info">Höhere Werte reduzieren das Rauschen</string>
     <string name="menu_advanced">Erweitert</string>
     <string name="multi_thread_map_rendering">Multithread Karten-Rendering</string>
+    <string name="no_map_configured">Du hast noch keine Offlinekarte konfiguriert.</string>
 </resources>

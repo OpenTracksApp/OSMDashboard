@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">OSM Dashboard for OpenTracks (debug)</string>
+    <string name="app_name_info_screen">OSM Dashboard\nfor OpenTracks (debug)</string>
+</resources>

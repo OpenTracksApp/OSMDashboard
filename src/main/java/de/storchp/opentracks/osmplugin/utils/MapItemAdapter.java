@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import java.util.List;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.BuildConfig;
 import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.databinding.MapItemBinding;
 
@@ -42,7 +43,7 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
         final MapItemBinding binding = (MapItemBinding) rowView.getTag();
         final FileItem item = this.items.get(position);
         binding.name.setText(item.getName());
-        binding.checkbox.setChecked(position == 0 ? selected.isEmpty() : selected.contains(item.getUri()));
+        binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.getUri()));
         binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position));
 
         return rowView;
