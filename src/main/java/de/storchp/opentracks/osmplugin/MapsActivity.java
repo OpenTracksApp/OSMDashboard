@@ -161,19 +161,32 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onNewIntent(intent);
 
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
-        final Uri tracksUri = APIConstants.getTracksUri(uris);
+        //final Uri tracksUri = APIConstants.getTracksUri(uris); not used yet
         final Uri trackPointsUri = APIConstants.getTrackPointsUri(uris);
         final Uri waypointsUri = APIConstants.getWaypointsUri(uris);
         readTrackpoints(trackPointsUri, false);
-        readTrack(tracksUri);
+        // readTrack(tracksUri); not used yet
         readWaypoints(waypointsUri, false);
 
-        getContentResolver().registerContentObserver(trackPointsUri, true, new ContentObserver(new Handler()) {
+        getContentResolver().registerContentObserver(trackPointsUri, false, new ContentObserver(new Handler()) {
             @Override
             public void onChange(final boolean selfChange) {
-                super.onChange(selfChange);
+                onChange(selfChange, null);
+            }
+
+            @Override
+            public void onChange(final boolean selfChange, final Uri uri) {
                 readTrackpoints(trackPointsUri, true);
-                readTrack(tracksUri);
+            }
+        });
+        getContentResolver().registerContentObserver(waypointsUri, false, new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(final boolean selfChange) {
+                onChange(selfChange, null);
+            }
+
+            @Override
+            public void onChange(final boolean selfChange, final Uri uri) {
                 readWaypoints(waypointsUri, true);
             }
         });
@@ -447,7 +460,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void readTrackpoints(final Uri data, final boolean update) {
-        Log.i(TAG, "Loading track from " + data);
+        Log.i(TAG, "Loading trackpoints from " + data);
 
         final Layers layers = binding.map.mapView.getLayerManager().getLayers();
         if (!update) { // reset data
@@ -472,6 +485,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         try {
             final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId);
+            if (segments.isEmpty()) {
+                Log.d(TAG, "No new trackpoints received");
+                return;
+            }
             for (List<TrackPoint> trackPoints : segments) {
                 if (!update) {
                     polyline = null; // cut polyline on new segment
@@ -514,6 +531,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             Log.e(TAG, "Reading trackpoints failed", e);
             return;
         }
+
+        Log.d(TAG, "Last trackpointId=" + lastTrackPointId);
 
         if (endPos != null) {
             setEndMarker(endPos);
