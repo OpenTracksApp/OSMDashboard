@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -61,7 +60,6 @@ import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
-import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
@@ -112,6 +110,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private MovementDirection movementDirection = new MovementDirection();
     private ArrowMode arrowMode;
     private MapMode mapMode;
+    private OpenTracksContentObserver contentObserver;
+    private Uri tracksUri;
+    private Uri trackPointsUri;
+    private Uri waypointsUri;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -161,40 +163,45 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onNewIntent(intent);
 
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
-        //final Uri tracksUri = APIConstants.getTracksUri(uris); not used yet
-        final Uri trackPointsUri = APIConstants.getTrackPointsUri(uris);
-        final Uri waypointsUri = APIConstants.getWaypointsUri(uris);
+        tracksUri = APIConstants.getTracksUri(uris);
+        trackPointsUri = APIConstants.getTrackPointsUri(uris);
+        waypointsUri = APIConstants.getWaypointsUri(uris);
         readTrackpoints(trackPointsUri, false);
-        // readTrack(tracksUri); not used yet
+        readTracks(tracksUri);
         readWaypoints(waypointsUri, false);
-
-        getContentResolver().registerContentObserver(trackPointsUri, false, new ContentObserver(new Handler()) {
-            @Override
-            public void onChange(final boolean selfChange) {
-                onChange(selfChange, null);
-            }
-
-            @Override
-            public void onChange(final boolean selfChange, final Uri uri) {
-                readTrackpoints(trackPointsUri, true);
-            }
-        });
-        getContentResolver().registerContentObserver(waypointsUri, false, new ContentObserver(new Handler()) {
-            @Override
-            public void onChange(final boolean selfChange) {
-                onChange(selfChange, null);
-            }
-
-            @Override
-            public void onChange(final boolean selfChange, final Uri uri) {
-                readWaypoints(waypointsUri, true);
-            }
-        });
 
         keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
         showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
         isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+    }
+
+    private class OpenTracksContentObserver extends ContentObserver {
+
+        private final Uri tracksUri;
+        private final Uri trackpointsUri;
+        private final Uri waypointsUri;
+
+        public OpenTracksContentObserver(final Uri tracksUri, final Uri trackpointsUri, final Uri waypointsUri) {
+            super(new Handler());
+            this.tracksUri = tracksUri;
+            this.trackpointsUri = trackpointsUri;
+            this.waypointsUri = waypointsUri;
+        }
+
+        @Override
+        public void onChange(final boolean selfChange, final Uri uri) {
+            if (uri == null) {
+                return; // nothing can be done without an uri
+            }
+            if (tracksUri.toString().startsWith(uri.toString())) {
+                readTracks(tracksUri);
+            } else if (trackpointsUri.toString().startsWith(uri.toString())) {
+                readTrackpoints(trackpointsUri, true);
+            } else if (waypointsUri.toString().startsWith(uri.toString())) {
+                readWaypoints(waypointsUri, true);
+            }
+        }
     }
 
     private void showFullscreen(final boolean showFullscreen) {
@@ -626,12 +633,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         };
     }
 
-    private void readTrack(final Uri data) {
+    private void readTracks(final Uri data) {
         Log.i(TAG, "Loading track from " + data);
 
-        // Contains only one row.
+        /* not used at the moment
         try (final Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
-            if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
                 final long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
                 final String name = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
                 final String description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
@@ -656,6 +663,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         } catch (final Exception e) {
             Log.e(TAG, "Reading track failed", e);
         }
+        */
     }
 
     @Override
@@ -707,8 +715,26 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d(TAG, "register content observer");
+        contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri);
+        getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
+        getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
+        if (waypointsUri != null) {
+            getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+        }
+    }
+
+    @Override
     protected void onStop() {
         compass.stop(this);
+        if (contentObserver != null) {
+            Log.d(TAG, "unregister content observer");
+            getContentResolver().unregisterContentObserver(contentObserver);
+            contentObserver = null;
+        }
         super.onStop();
     }
 
