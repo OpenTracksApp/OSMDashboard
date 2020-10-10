@@ -57,18 +57,17 @@ public class TrackPoint {
      * Reads the TrackPoints from the Content Uri and split by segments.
      * Pause TrackPoints and different Track IDs split the segments.
      */
-    //TODO Make lastTrackPointId nullable to not filter on initial reading
     public static List<List<TrackPoint>> readTrackPointsBySegments(final ContentResolver resolver, final Uri data, final long lastTrackPointId) {
         final List<List<TrackPoint>> segments = new ArrayList<>();
         try (final Cursor cursor = resolver.query(data, TrackPoint.PROJECTION, TrackPoint._ID + "> ?", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
-            final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPoint._ID));
-            final long trackId = cursor.getLong(cursor.getColumnIndex(TrackPoint.TRACKID));
-            final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LATITUDE)) / 1E6;
-            final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LONGITUDE)) / 1E6;
-
             while (cursor.moveToNext()) {
+                final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPoint._ID));
+                final long trackId = cursor.getLong(cursor.getColumnIndex(TrackPoint.TRACKID));
+                final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LATITUDE)) / 1E6;
+                final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LONGITUDE)) / 1E6;
+
                 if (lastTrackPoint == null || lastTrackPoint.trackId != trackId) {
                     segment = new ArrayList<>();
                     segments.add(segment);
