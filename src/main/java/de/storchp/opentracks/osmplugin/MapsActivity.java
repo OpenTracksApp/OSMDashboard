@@ -114,6 +114,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private Uri tracksUri;
     private Uri trackPointsUri;
     private Uri waypointsUri;
+    private float currentMapHeading = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -430,8 +431,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     protected void changeArrowMode(final ArrowMode arrowMode) {
         this.arrowMode = arrowMode;
-        endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
-        binding.map.mapView.getLayerManager().redrawLayers();
+        if (endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
+            binding.map.mapView.getLayerManager().redrawLayers();
+        }
     }
 
     @Override
@@ -739,15 +741,22 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void rotateMap() {
-        binding.map.rotateView.setHeading(mapMode.getHeading(movementDirection, compass));
-        binding.map.rotateView.postInvalidate();
+        final float mapHeading = mapMode.getHeading(movementDirection, compass);
+        if (Math.abs(currentMapHeading - mapHeading) > 1) {
+            // only rotate map if it is at lease on degree different than before
+            Log.d(TAG, "CurrentMapHeading=" + currentMapHeading + ", mapHeading=" + mapHeading);
+            binding.map.rotateView.setHeading(mapHeading);
+            binding.map.rotateView.postInvalidate();
+            currentMapHeading = mapHeading;
+        }
     }
 
     @Override
     public boolean updateSensor() {
         if (endMarker != null) {
-            endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
-            binding.map.mapView.getLayerManager().redrawLayers();
+            if (endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
+                binding.map.mapView.getLayerManager().redrawLayers();
+            }
         }
 
         rotateMap();

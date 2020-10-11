@@ -20,7 +20,9 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 
 public class RotatableMarker extends Marker {
 
+    private static final String TAG = RotatableMarker.class.getSimpleName();
     private final android.graphics.Bitmap markerBitmap;
+    private float currentDegrees = 0;
 
     public RotatableMarker(final LatLong latLong, final android.graphics.Bitmap markerBitmap) {
         super(latLong, createRotatedMarkerBitmap(markerBitmap, 0), 0, 0);
@@ -30,6 +32,7 @@ public class RotatableMarker extends Marker {
     private static Bitmap createRotatedMarkerBitmap(final android.graphics.Bitmap markerBitmap, final float degrees) {
         final Matrix matrix = new Matrix();
         matrix.postRotate(degrees);
+        // TODO: think about destroying / reusing bitmaps
         return new AndroidBitmap(android.graphics.Bitmap.createBitmap(markerBitmap, 0, 0, markerBitmap.getWidth(), markerBitmap.getHeight(), matrix, true));
     }
 
@@ -46,20 +49,27 @@ public class RotatableMarker extends Marker {
         return bitmap;
     }
 
-    private void rotateTo(final float degrees) {
-        setBitmap(createRotatedMarkerBitmap(markerBitmap, degrees));
+    private boolean rotateTo(final float degrees) {
+        if (Math.abs(currentDegrees - degrees) > 1) {
+            // only create a new Marker Bitmap if it is at least 1 degree different
+            Log.d(TAG, "CurrentDegrees=" + currentDegrees + ", degrees=" + degrees);
+            setBitmap(createRotatedMarkerBitmap(markerBitmap, degrees));
+            currentDegrees = degrees;
+            return true;
+        }
+        return false;
     }
 
-    public void rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final Compass compass) {
+    public boolean rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final Compass compass) {
         if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
             || arrowMode == ArrowMode.NORTH) {
-            rotateTo(0);
+            return rotateTo(0);
         } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
-            rotateTo(mapMode.getHeading(movementDirection, compass));
+            return rotateTo(mapMode.getHeading(movementDirection, compass));
         } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
-            rotateTo(arrowMode.getDegrees(movementDirection, compass));
+            return rotateTo(arrowMode.getDegrees(movementDirection, compass));
         } else {
-            rotateTo(arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360);
+            return rotateTo(arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360);
         }
     }
 
