@@ -1,0 +1,1 @@
+- Split in full and offline only variant

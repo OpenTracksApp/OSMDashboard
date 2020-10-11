@@ -32,7 +32,6 @@ public class RotatableMarker extends Marker {
     private static Bitmap createRotatedMarkerBitmap(final android.graphics.Bitmap markerBitmap, final float degrees) {
         final Matrix matrix = new Matrix();
         matrix.postRotate(degrees);
-        // TODO: think about destroying / reusing bitmaps
         return new AndroidBitmap(android.graphics.Bitmap.createBitmap(markerBitmap, 0, 0, markerBitmap.getWidth(), markerBitmap.getHeight(), matrix, true));
     }
 

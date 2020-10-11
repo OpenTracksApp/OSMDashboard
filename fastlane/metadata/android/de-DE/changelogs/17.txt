@@ -1,0 +1,1 @@
+- Aufteilung in vollwertige und reine offline Variante
