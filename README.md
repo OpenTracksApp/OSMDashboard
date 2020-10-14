@@ -7,6 +7,7 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 <table>
     <tr>
         <th>Free</th>
+        <th>Free (Offline)</th>
         <th>Free</th>
         <th>Translation</th>
     </tr>
@@ -17,6 +18,13 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
             </a>
             <br />
             <img alt="OSM Dashboard for OpenTracks version published on F-Droid" src="https://img.shields.io/f-droid/v/de.storchp.opentracks.osmplugin.svg" align="middle" >            
+        </td>
+        <td>
+            <a href="https://f-droid.org/en/packages/de.storchp.opentracks.osmplugin.offline/">
+                <img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="60" align="middle">
+            </a>
+            <br />
+            <img alt="OSM Dashboard for OpenTracks version published on F-Droid" src="https://img.shields.io/f-droid/v/de.storchp.opentracks.osmplugin.offline.svg" align="middle" >            
         </td>
         <td>
             <a href="https://play.google.com/store/apps/details?id=de.storchp.opentracks.osmplugin">
@@ -39,7 +47,7 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 * _Map themes_: support of custom map themes for offline maps
     
 __Required permissions:__
-* _INTERNET_: required for online maps
+* _INTERNET_: required for online maps (only required for the full version, the pure offline version doesn't need any permission)
 
 ## Maps
 
