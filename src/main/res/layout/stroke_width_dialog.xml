@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/stroke_width_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:padding="20sp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="@string/stroke_width_info"/>
+
+    <SeekBar
+        android:id="@+id/sb_stroke_width"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stroke_width_info"
+        android:layout_toStartOf="@id/tv_stroke_width"
+        android:layout_margin="20sp"
+        android:max="20"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/tv_stroke_width"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stroke_width_info"
+        android:layout_alignParentEnd="true"
+        android:padding="20sp"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

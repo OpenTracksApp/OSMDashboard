@@ -38,6 +38,10 @@
                 android:title="@string/compass_smoothing_menu"/>
 
             <item
+                android:id="@+id/stroke_width"
+                android:title="@string/stroke_width_menu"/>
+
+            <item
                 android:id="@+id/multi_thread_map_rendering"
                 android:title="@string/multi_thread_map_rendering"
                 android:checkable="true"

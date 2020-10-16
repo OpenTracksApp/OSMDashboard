@@ -24,8 +24,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 18
-        versionName "2.6.1"
+        versionCode 19
+        versionName "2.7.0"
     }
     compileOptions {
         // Flag to enable support for the new language APIs

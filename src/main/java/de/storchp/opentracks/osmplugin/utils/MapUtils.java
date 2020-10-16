@@ -189,9 +189,9 @@ public class MapUtils {
         return paint;
     }
 
-    public static Polyline createPolyline(final MapView mapView, final int trackColor) {
+    public static Polyline createPolyline(final MapView mapView, final int trackColor, final int strokeWidth) {
         return new Polyline(MapUtils.createPaint(trackColor,
-                (int) (8 * mapView.getModel().displayModel.getScaleFactor())
+                (int) (strokeWidth * mapView.getModel().displayModel.getScaleFactor())
         ), AndroidGraphicFactory.INSTANCE);
     }
 

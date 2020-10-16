@@ -115,6 +115,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private Uri trackPointsUri;
     private Uri waypointsUri;
     private float currentMapHeading = 0;
+    private int strokeWidth;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -132,6 +133,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             Parameters.NUMBER_OF_THREADS = 1;
         }
 
+        strokeWidth = PreferencesUtils.getStrokeWidth(this);
         arrowMode = PreferencesUtils.getArrowMode(this);
         mapMode = PreferencesUtils.getMapMode(this);
 
@@ -580,7 +582,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Polyline addNewPolyline(final int trackColor) {
-        polyline = MapUtils.createPolyline(binding.map.mapView, trackColor);
+        polyline = MapUtils.createPolyline(binding.map.mapView, trackColor, strokeWidth);
         polylinesLayer.layers.add(polyline);
         return this.polyline;
     }

@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.storchp.opentracks.osmplugin.MapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
 public class PreferencesUtils {
@@ -205,4 +206,11 @@ public class PreferencesUtils {
         setBoolean(context, R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
     }
 
+    public static int getStrokeWidth(final Context context) {
+        return getInt(context, R.string.STROKE_WIDTH, 4);
+    }
+
+    public static void setStrokeWidth(final Context context, final int value) {
+        setInt(context, R.string.STROKE_WIDTH, value);
+    }
 }

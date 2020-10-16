@@ -58,4 +58,6 @@
     <string name="menu_advanced">Advanced</string>
     <string name="multi_thread_map_rendering">Multithread map rendering</string>
     <string name="no_map_configured">You have no offline map configured yet.</string>
+    <string name="stroke_width_info">Define the stroke width of the tracks</string>
+    <string name="stroke_width_menu">Track stroke width</string>
 </resources>

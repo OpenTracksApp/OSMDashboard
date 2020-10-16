@@ -1,0 +1,1 @@
+- Konfigurierbare Strichstärke für die Tracks
