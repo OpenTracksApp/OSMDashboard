@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OSM Dashboard für OpenTracks</string>
     <string name="app_name_info_screen">OSM Dashboard\nfür OpenTracks</string>
@@ -58,5 +57,7 @@
     <string name="compass_smoothing_info">Höhere Werte reduzieren das Rauschen</string>
     <string name="menu_advanced">Erweitert</string>
     <string name="multi_thread_map_rendering">Multithread Karten-Rendering</string>
-    <string name="no_map_configured">Du hast noch keine Offlinekarte konfiguriert.</string>
+    <string name="no_map_configured">Du hast noch keine Offline-Karte konfiguriert.</string>
+    <string name="stroke_width_info">Definiere die Strichbreite der Tracks</string>
+    <string name="stroke_width_menu">Strichbreite der Tracks</string>
 </resources>
