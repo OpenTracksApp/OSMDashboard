@@ -32,8 +32,8 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
             </a>
         </td>
         <td>
-            <a href="https://www.transifex.com/opentracks/opentracks-osm-dashboard">
-                Transifex
+            <a href="https://weblate.bubu1.eu/projects/open-tracks-osm-dashboard/">
+                Weblate.bubu1.eu
             </a>
         </td>
     </tr>
