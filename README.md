@@ -34,6 +34,9 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
         <td>
             <a href="https://weblate.bubu1.eu/projects/open-tracks-osm-dashboard/">
                 Weblate.bubu1.eu
+            </a><br/>
+            <a href="https://weblate.bubu1.eu/engage/open-tracks-osm-dashboard/">
+                <img src="https://weblate.bubu1.eu/widgets/open-tracks-osm-dashboard/-/strings-xml/svg-badge.svg" alt="Translation state">
             </a>
         </td>
     </tr>
