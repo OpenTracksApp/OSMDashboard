@@ -558,7 +558,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
 
         if (myPos != null) {
-            binding.map.mapView.setCenter(myPos);
+            if (update) {
+                binding.map.mapView.getModel().mapViewPosition.animateTo(myPos);
+            } else {
+                binding.map.mapView.setCenter(myPos);
+            }
             if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
                 layers.add(polylinesLayer);
             }
