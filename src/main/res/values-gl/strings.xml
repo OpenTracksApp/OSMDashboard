@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OSM Dashboard para OpenTracks</string>
     <string name="app_name_info_screen">OSM Dashboard\npara OpenTracks</string>
@@ -10,15 +11,19 @@
     <string name="map_folder">Directorio de mapas</string>
     <string name="theme_folder">Directorio de estilo de mapas</string>
     <string name="map_info_text">Usa <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, escolle unha ruta e preme na icona do mapa para mostrar a ruta no mapa.
-\n\nO mapa por omisión está proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\n
+\nO mapa por omisión está proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
 \nÚnete á comunidade e axuda a mellorar o mapa, mira en <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
-\n\nTamén podes descargar o mapa para diminuír a carga do servidor e aforrar no teu plan de datos móbiles.
+\n
+\nTamén podes descargar o mapa para diminuír a carga do servidor e aforrar no teu plan de datos móbiles.
 \nAquí podes atopar mapas para descargar:
- \n<b>-<a href="http://download.mapsforge.org/"> Mapsforge</a></b>
+\n<b>-<a href="http://download.mapsforge.org/"> Mapsforge</a></b>
 \n<b>-<a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android</a></b>
 \n<b>-<a href="https://www.openandromaps.org/en"> OpenAndroMaps</a></b>
-\n\nAlgúns mapas requiren estilos especiais para ser mostrados correctamente! Estos deben ser descargados e configurados acorde os requerimentos.
-\n\nPara usar mapas sen conexión, gárdaos nun cartafol no almacenaxe externo do dispositivo Android (ex. <b>/storage/emulated/0</b>, dependendo do dispositivo) e escolle o directorio no menú da App <b>Directorio de mapa sen conexión</b></string>
+\n
+\nAlgúns mapas requiren estilos especiais para ser mostrados correctamente! Estos deben ser descargados e configurados acorde os requerimentos.
+\n
+\nPara usar mapas sen conexión, gárdaos nun cartafol no almacenaxe externo do dispositivo Android (ex. <b>/storage/emulated/0</b>, dependendo do dispositivo) e escolle o directorio no menú da App <b>Directorio de mapa sen conexión</b> . </string>
     <string name="app_logo_description">Logo da App</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancelar</string>
@@ -38,4 +43,26 @@
     <string name="theme_selection">Estilos do mapa</string>
     <string name="delete_theme_question">¿Eliminar estilo \"%s\"?</string>
     <string name="delete_theme_error">Fallou a eliminación do estilo</string>
-    </resources>
+    <string name="cancel_download_question">Cancelar a descarga actual?</string>
+    <string name="error_loading_offline_map">Erro ó ler o mapa sen conexión configurado</string>
+    <string name="track_smoothing_menu">Suavizado da ruta</string>
+    <string name="track_smoothing_hint">Tolerancia do suavizado da ruta en metros</string>
+    <string name="only_digits">O valor só pode conter díxitos</string>
+    <string name="pip_mode">Modo imaxe en imaxe</string>
+    <string name="arrow_mode_north">Frecha apunta ó norte</string>
+    <string name="arrow_mode_direction">Frecha na dirección do movemento</string>
+    <string name="arrow_mode_compass">Frecha como compás</string>
+    <string name="map_mode_north_top">Norte do mapa arriba</string>
+    <string name="map_mode_direction">Mapa na dirección de movemento</string>
+    <string name="map_mode_compass">Mapa como compás</string>
+    <string name="compass_smoothing_menu">Suavizado do compás</string>
+    <string name="compass_smoothing_info">Valores máis altos diminúen o ruido</string>
+    <string name="menu_advanced">Avanzado</string>
+    <string name="multi_thread_map_rendering">Presentación multitema do mapa</string>
+    <string name="stroke_width_info">Define o ancho do trazo nas rutas</string>
+    <string name="overwrite_map_question">O mapa \"%s\" xa existe! Eliminar e descargar de novo?</string>
+    <string name="track_smoothing_info">Definir a tolerancia en metros para o algoritmo de suavizado da ruta. Escribe 0 para desactivalo.
+\nOs cambios teñen efectos tras recargar a ruta.</string>
+    <string name="no_map_configured">Non tes configurado un mapa para visualizar sen conexión.</string>
+    <string name="stroke_width_menu">Ancho do trazo da ruta</string>
+</resources>

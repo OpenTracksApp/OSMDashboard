@@ -1,1 +1,2 @@
 - map movement animation to new trackpoint
+- updated and extended translations

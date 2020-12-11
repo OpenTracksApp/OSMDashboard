@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">OSM Dashboard til OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\ntil OpenTracks</string>
+    <string name="no_data">Ingen spor data modtaget</string>
+    <string name="copyright_osm">Kortdata © OpenStreetMap contributors</string>
+    <string name="maps">Kortlægge</string>
+    <string name="map_themes">Kort temaer</string>
+    <string name="default_theme">Standard tema</string>
+    <string name="map_info_menu">Om</string>
+    <string name="map_folder">Kort oversigt</string>
+    <string name="theme_folder">Kort tema bibliotek</string>
+    <string name="map_info_text">Brug <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, vælg et spor og klik på kortikonet for at vise sporet på kortet.
+\n
+\nStandardkortet leveres af <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
+\nDeltag i samfundet og hjælp til at forbedre kortet, se <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
+\n
+\nOvervej at downloade et offline-kort for at mindske serverbelastningen og gemme din mobildataplan.
+\nNogle offline kort kan findes her:
+\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
+\n<b> - <a href="https://www.freizeitkarte-osm.de/android/da/"> Freizeitkarte Android </a> </b>
+\n<b> - <a href="https://www.openandromaps.org/da"> OpenAndroMaps </a> </b>
+\n
+\nNogle kort kræver specielle temaer for at blive gengivet korrekt! Disse skal downloades og konfigureres i overensstemmelse hermed.
+\n
+\nFor at bruge offline kort skal du placere dem i en mappe på din Android-enhed eksternt lager (f.eks. <b> / lager / emuleret / 0 </b>, afhængigt af din enhed) og vælge biblioteket i appmenuen <b> Offline kort bibliotek </b>. </string>
+    <string name="app_logo_description">App-logo</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annullere</string>
+    <string name="online_map_consent">Der er ingen offline kort konfigureret. Accepter venligst at bruge online kortet fra openstreetmap.org. dette kan lække din aktuelle placering. Se https://operations.osmfoundation.org/policies/tiles/ for flise brug og privacy polic</string>
+    <string name="map_online_consent_menu">Samtykke til online kort</string>
+    <string name="download_map">Kort do downloadnload</string>
+    <string name="choose_map_to_download">Vælg et kort, der skal do mapnloades</string>
+    <string name="download_instruction">Du ser indholdet af https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Hent kort %s?</string>
+    <string name="download_in_progress">Der er allerede en Do !nload i gang!</string>
+    <string name="download_success">Kort med succes do successfullynloadet</string>
+    <string name="download_failed">Kort do downloadnload mislykkedes</string>
+    <string name="map_selection">Kortlægge</string>
+    <string name="online_osm_mapnick">Online kort OSM:Mapnik</string>
+    <string name="delete_map_question">Slet kort \"%s\"?</string>
+    <string name="delete_map_error">Sletning af kort mislykkedes</string>
+    <string name="theme_selection">Kort temaer</string>
+    <string name="delete_theme_question">Slet tema\"%s\"?</string>
+    <string name="delete_theme_error">Tema sletning mislykkedes</string>
+    <string name="overwrite_map_question">Kortet\" \"%s\" findes allerede! Slet og Do nload igen?</string>
+    <string name="cancel_download_question">Annuller nuværende download?</string>
+    <string name="error_loading_offline_map">Fejl læsning konfigureret offline kort</string>
+    <string name="track_smoothing_menu">Spor udjævning</string>
+    <string name="track_smoothing_hint">Spor udjævningstolerance i meter</string>
+    <string name="only_digits">Værdien må kun indeholde cifre</string>
+    <string name="pip_mode">Billede i billedtilstand</string>
+    <string name="arrow_mode_north">Pilen peger mod nord</string>
+    <string name="arrow_mode_direction">Pil bevægende retning</string>
+    <string name="arrow_mode_compass">Pil som kompas</string>
+    <string name="map_mode_north_top">Kort nord på toppen</string>
+    <string name="map_mode_compass">Kort som kompas</string>
+    <string name="compass_smoothing_menu">Kompas udjævning</string>
+    <string name="compass_smoothing_info">Højere værdier reducerer støj</string>
+    <string name="menu_advanced">Avanceret</string>
+    <string name="multi_thread_map_rendering">Multithread kort rendering</string>
+    <string name="stroke_width_info">Definer stregbredden af sporene</string>
+    <string name="stroke_width_menu">Spor slagtilfælde bredde</string>
+    <string name="track_smoothing_info">Definer tolerancen i meter for sporudjævningsalgoritmen. Indtast 0 for at deaktivere sporudjævning.
+\nÆndring træder i kraft efter genindlæsning af sporet.</string>
+    <string name="map_mode_direction">Kort bevægende retning</string>
+    <string name="no_map_configured">Du har ingen offline kort konfigureret endnu.</string>
+</resources>

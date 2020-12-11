@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name_info_screen">OSM Dashboard
+\npara OpenTracks</string>
+    <string name="no_data">No se ha recibido ninguna pista</string>
+    <string name="maps">Mapas</string>
+    <string name="map_themes">Temas de mapa</string>
+    <string name="default_theme">Tema por defecto</string>
+    <string name="map_info_menu">Acerca de</string>
+    <string name="map_folder">Carpeta de mapas</string>
+    <string name="theme_folder">Carpeta de temas de mapa</string>
+    <string name="app_logo_description">Logo de la aplicación</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="online_map_consent">No hay mapa configurado. Por favor, acepte usar el mapa online de openstreetmap.org. Esto puede determinar tu posición actual. Ver https://operations.osmfoundation.org/policies/tiles/ para los términos de uso y política de privacidad</string>
+    <string name="map_online_consent_menu">Autorizar mapa online</string>
+    <string name="download_map">Mapa descargado</string>
+    <string name="choose_map_to_download">Elige un mapa para descargar</string>
+    <string name="download_instruction">Estás viendo contenido de https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">¿Descargar mapa %s?</string>
+    <string name="download_in_progress">¡Ya hay una descarga en proceso!</string>
+    <string name="download_success">Mapa descargado correctamente</string>
+    <string name="download_failed">Falló la descarga del mapa</string>
+    <string name="map_selection">Mapas</string>
+    <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
+    <string name="delete_map_question">¿Borrar mapa \"%s\"?</string>
+    <string name="delete_map_error">Error al borrar mapa</string>
+    <string name="theme_selection">Temas de mapa</string>
+    <string name="delete_theme_question">¿Borrar tema \"%s\"?</string>
+    <string name="delete_theme_error">Error al borrar el tema</string>
+    <string name="overwrite_map_question">¡El mapa \"%s\" ya existe! ¿Borrar y descargar de nuevo?</string>
+    <string name="cancel_download_question">¿Cancelar descarga actual?</string>
+    <string name="error_loading_offline_map">Error al leer el mapa offline configurado</string>
+    <string name="app_name">OSM Dashboard para OpenTracks</string>
+    <string name="copyright_osm">Datos del mapa © contribuyentes de OpenStreetMap</string>
+    <string name="map_info_text">Usa <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecciona una pista y haz clic en el icono del mapa para mostrar la pista sobre el mapa.
+\n
+\nEl mapa por defecto es proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nÚnete a la comunidad y ayuda a mejorar el mapa, ver <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
+\n
+\nPor favor, considera descargar un mapa offline para no sobrecargar el servidor y ahorrar datos.
+\nAlgunos mapas offline los puedes encontrar y descargar aquí:
+\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
+\n
+\n¡Algunos mapas necesitan temas especiales para que se puedan mostrar correctamente! Estos necesitan ser descargados y configurados adecuadamente.
+\n
+\nPara usar mapas offline, colócalos en una carpeta del almacenamiento externo de tu dispositivo Android (por ejemplo: <b>/storage/emulated/0</b>, dependiendo de tu dispositivo) y selecciona el directorio en el menú <b>Carpeta de mapas offline</b>. </string>
+    <string name="track_smoothing_menu">Suavizado de pista</string>
+    <string name="track_smoothing_info">Defina la tolerancia en metros para el algoritmo de suavizado de pistas. Introduzca 0 para deshabilitar el suavizado de pistas.
+\nEl cambio entrará en vigor después de volver a cargar la pista.</string>
+    <string name="pip_mode">Imagen en modo de imagen</string>
+    <string name="arrow_mode_north">Flecha apunta hacia el norte</string>
+    <string name="arrow_mode_direction">Dirección de movimiento de flecha</string>
+    <string name="arrow_mode_compass">Flecha como brújula</string>
+    <string name="map_mode_north_top">Mapa norte en la parte superior</string>
+    <string name="map_mode_compass">Mapa como brújula</string>
+    <string name="compass_smoothing_menu">Suavizado de brújula</string>
+    <string name="compass_smoothing_info">Valores más altos reducen el ruido</string>
+    <string name="menu_advanced">Avanzado</string>
+    <string name="multi_thread_map_rendering">Representación de mapas multiproceso</string>
+    <string name="stroke_width_info">Definir el ancho de trazo de las pistas</string>
+    <string name="stroke_width_menu">Anchura del movimiento de la pista</string>
+    <string name="track_smoothing_hint">Tolerancia de suavizado de pista en metros</string>
+    <string name="only_digits">El valor debe contener solo dígitos</string>
+    <string name="map_mode_direction">Mapa de dirección de movimiento</string>
+    <string name="no_map_configured">Todavía no tiene ningún mapa sin conexión configurado.</string>
+</resources>

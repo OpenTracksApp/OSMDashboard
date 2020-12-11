@@ -1,1 +1,2 @@
 - Animierte Kartenbewegung zu neuen Trackpoints
+- Aktualisierte und erweiterte Übersetzungen
