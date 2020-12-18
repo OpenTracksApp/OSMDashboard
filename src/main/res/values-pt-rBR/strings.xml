@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="copyright_osm">Dados do mapa de contribuidores do © OpenStreetMap</string>
+    <string name="online_map_consent">Não há mapa offline configurado. Concorde em usar o mapa online de openstreetmap.org. Isso pode vazar sua localização atual. Consulte https://operations.osmfoundation.org/policies/tiles/ para uso de blocos e política de privacidade</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\npara OpenTracks</string>
+    <string name="no_data">Nenhum dado de trilha recebido</string>
+    <string name="maps">Mapas</string>
+    <string name="map_themes">Temas de mapas</string>
+    <string name="default_theme">Tema Padrão</string>
+    <string name="map_info_menu">Sobre</string>
+    <string name="map_folder">Diretório de mapas</string>
+    <string name="theme_folder">Diretório de temas do mapa</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
+    <string name="app_name">OSM Dashboard para OpenTracks</string>
+</resources>
