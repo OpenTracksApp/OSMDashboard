@@ -1,2 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name_info_screen">OSM Dashboard
+\npro OpenTracks</string>
+    <string name="no_data">Neobdržena žádna data tras</string>
+    <string name="maps">Mapy</string>
+    <string name="map_themes">Vzhledy map</string>
+    <string name="default_theme">Výchozí vzhled</string>
+    <string name="map_info_menu">O aplikaci</string>
+    <string name="map_folder">Adresář map</string>
+    <string name="theme_folder">Adresář vzhledů map</string>
+    <string name="app_logo_description">Logo aplikace</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Zrušit</string>
+    <string name="download_map">Stažení map</string>
+    <string name="download_instruction">Zobrazujete obsah z https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Stáhnout mapu %s\?</string>
+    <string name="download_in_progress">Již probíhá jiné stahování!</string>
+    <string name="download_success">Mapa úspěšně stažena</string>
+    <string name="map_selection">Mapy</string>
+    <string name="online_osm_mapnick">Online mapa OSM:Mapnik</string>
+    <string name="delete_map_question">Smazat mapu \"%s\"\?</string>
+    <string name="delete_map_error">Smazání mapy selhalo</string>
+    <string name="theme_selection">Vzhledy mapy</string>
+    <string name="delete_theme_question">Smazat vzhled \"%s\"\?</string>
+    <string name="delete_theme_error">Smazání vzhledu selhalo</string>
+    <string name="overwrite_map_question">Mapa \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
+    <string name="cancel_download_question">Přerušit aktuální stahování\?</string>
+    <string name="error_loading_offline_map">Chyba načítání vybrané offline mapy</string>
+    <string name="only_digits">Hodnota může obsahovat pouze číslice</string>
+    <string name="pip_mode">Mód obraz v obraze</string>
+    <string name="arrow_mode_north">Šipka ukazuje k severu</string>
+    <string name="arrow_mode_direction">Šipka ukazuje ve směru pohybu</string>
+    <string name="arrow_mode_compass">Šipka jako kompas</string>
+    <string name="map_mode_north_top">Sever na mapě nahoře</string>
+    <string name="map_mode_direction">Mapa dle směru pohybu</string>
+    <string name="map_mode_compass">Mapa jako kompas</string>
+    <string name="menu_advanced">Rozšířené</string>
+    <string name="multi_thread_map_rendering">Vícevláknové renderování mapy</string>
+    <string name="no_map_configured">Zatím není nakonfigurována žádná offline mapa.</string>
+    <string name="app_name">OSM Dashboard pro OpenTracks</string>
+    <string name="copyright_osm">Mapová data © přispěvatelé OpenStreetMap</string>
+    <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
+    <string name="download_failed">Stažení mapy selhalo</string>
+    <string name="compass_smoothing_info">Vyšší hodnoty snižují šum</string>
+</resources>
