@@ -73,7 +73,7 @@ android {
 }
 
 ext {
-    mapsforgeVersion = '0.14.0'
+    mapsforgeVersion = '0.15.0'
 }
 
 dependencies {
