@@ -78,6 +78,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
 
+    private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
     private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
@@ -116,6 +117,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private Uri waypointsUri;
     private float currentMapHeading = 0;
     private int strokeWidth;
+    private int protocolVersion = 1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -166,12 +168,13 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onNewIntent(intent);
 
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
+        protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
         tracksUri = APIConstants.getTracksUri(uris);
         trackPointsUri = APIConstants.getTrackPointsUri(uris);
         waypointsUri = APIConstants.getWaypointsUri(uris);
-        readTrackpoints(trackPointsUri, false);
-        readTracks(tracksUri);
-        readWaypoints(waypointsUri, false);
+        readTrackpoints(trackPointsUri, false, protocolVersion);
+        readTracks(tracksUri, protocolVersion);
+        readWaypoints(waypointsUri, false, protocolVersion);
 
         keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
@@ -184,12 +187,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         private final Uri tracksUri;
         private final Uri trackpointsUri;
         private final Uri waypointsUri;
+        private final int protocolVersion;
 
-        public OpenTracksContentObserver(final Uri tracksUri, final Uri trackpointsUri, final Uri waypointsUri) {
+        public OpenTracksContentObserver(final Uri tracksUri, final Uri trackpointsUri, final Uri waypointsUri, final int protocolVersion) {
             super(new Handler());
             this.tracksUri = tracksUri;
             this.trackpointsUri = trackpointsUri;
             this.waypointsUri = waypointsUri;
+            this.protocolVersion = protocolVersion;
         }
 
         @Override
@@ -198,11 +203,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 return; // nothing can be done without an uri
             }
             if (tracksUri.toString().startsWith(uri.toString())) {
-                readTracks(tracksUri);
+                readTracks(tracksUri, protocolVersion);
             } else if (trackpointsUri.toString().startsWith(uri.toString())) {
-                readTrackpoints(trackpointsUri, true);
+                readTrackpoints(trackpointsUri, true, protocolVersion);
             } else if (waypointsUri.toString().startsWith(uri.toString())) {
-                readWaypoints(waypointsUri, true);
+                readWaypoints(waypointsUri, true, protocolVersion);
             }
         }
     }
@@ -470,7 +475,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
     }
 
-    private void readTrackpoints(final Uri data, final boolean update) {
+    private void readTrackpoints(final Uri data, final boolean update, final int protocolVersion) {
         Log.i(TAG, "Loading trackpoints from " + data);
 
         final Layers layers = binding.map.mapView.getLayerManager().getLayers();
@@ -495,7 +500,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         final int tolerance = PreferencesUtils.getTrackSmoothingTolerance(this);
 
         try {
-            final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId);
+            final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
             if (segments.isEmpty()) {
                 Log.d(TAG, "No new trackpoints received");
                 return;
@@ -591,7 +596,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         return this.polyline;
     }
 
-    private void readWaypoints(final Uri data, final boolean update) {
+    private void readWaypoints(final Uri data, final boolean update, final int protocolVersion) {
         Log.i(TAG, "Loading waypoints from " + data);
 
         final Layers layers = binding.map.mapView.getLayerManager().getLayers();
@@ -641,7 +646,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         };
     }
 
-    private void readTracks(final Uri data) {
+    private void readTracks(final Uri data, final int protocolVersion) {
         Log.i(TAG, "Loading track from " + data);
 
         /* not used at the moment
@@ -727,7 +732,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onStart();
 
         Log.d(TAG, "register content observer");
-        contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri);
+        contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri, protocolVersion);
         getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
         getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
         if (waypointsUri != null) {

@@ -11,6 +11,7 @@ import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.view.MapView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -78,7 +79,7 @@ public class MapUtils {
         final List<TrackPoint> decimated = new ArrayList<>();
         final int n = trackPoints.size();
         if (n < 1) {
-            return null;
+            return Collections.emptyList();
         }
         int idx;
         int maxIdx = 0;
