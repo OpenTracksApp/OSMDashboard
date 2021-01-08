@@ -21,8 +21,8 @@
     <string name="delete_theme_error">Temasletting feilet</string>
     <string name="overwrite_map_question">Kartet \"%s\" finnes allerede! Vil du slette og laste ned igjen?</string>
     <string name="error_loading_offline_map">Feil ved lesing av innstilt offline-kart</string>
-    <string name="track_smoothing_menu">Spor utjevning</string>
-    <string name="track_smoothing_hint">Spor utjevning toleranse i meter</string>
+    <string name="track_smoothing_menu">Sporutjevning</string>
+    <string name="track_smoothing_hint">Sporutjevningstoleranse i meter</string>
     <string name="only_digits">Verdi må kun inneholde sifre</string>
     <string name="pip_mode">Bilde-i-bilde-modus</string>
     <string name="arrow_mode_north">Pil peker mot nord</string>
@@ -31,39 +31,39 @@
     <string name="map_mode_north_top">Kart viser nord opp</string>
     <string name="map_mode_direction">Kart i bevegelsesretning</string>
     <string name="map_mode_compass">Kart som kompass</string>
-    <string name="compass_smoothing_menu">Compass utjevning</string>
+    <string name="compass_smoothing_menu">Kompassutjevning</string>
     <string name="compass_smoothing_info">Høyere verdier reduserer støy</string>
     <string name="menu_advanced">Avansert</string>
     <string name="multi_thread_map_rendering">Flertrådet kartgjengivelse</string>
     <string name="no_map_configured">Du har ikke satt opp noe frakoblet kart ennå.</string>
     <string name="stroke_width_info">Definer strekbredden til sporene</string>
     <string name="stroke_width_menu">Sporstrekbredde</string>
-    <string name="track_smoothing_info">Angi toleranse i meter for sporet utjevning algoritme. Angi 0 for å deaktivere spor utjevning.
-\nEndringen trer i kraft etter omlasting sporet.</string>
-    <string name="copyright_osm">Kartdata fra © OpenStreetMap-bidragsytere</string>
-    <string name="map_info_text">Bruk <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velger du et spor, og klikk på kart-ikonet for å vise sporet på kartet.
+    <string name="track_smoothing_info">Definer toleransen i meter for sporutjevningsalgoritmen. Angi 0 for å slå av sporutjevning.
+\nEndring trer i kraft etter at du har lastet sporet på nytt.</string>
+    <string name="copyright_osm">Kartdata © OpenStreetMap-bidragsytere</string>
+    <string name="map_info_text">Bruk <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velg et spor og trykk på kartikonet for å vise sporet på kartet.
 \n
-\nStandard kartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nStandardkartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
 \nBli med i fellesskapet og bidra til å forbedre kartet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
 \n
-\nVennligst vurder å laste ned en offline-kart for å redusere belastningen på serveren og lagre den mobile data plan.
+\nVurder å laste ned et offline-kart for å redusere belastningen på serveren og spare på din mobildatabruk.
 \nNoen offline-kart finner du her:
 \n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
 \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
 \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
 \n
-\nNoen av kartene krever spesielle temaer for å gjengi riktig! Disse trenger å bli lastet ned og konfigurert i henhold til dette.
+\nNoen kart krever spesielle temaer for å gjengis riktig! Disse må lastes ned og stilles inn.
 \n
-\nÅ bruke offline-kart, legg dem i en mappe på din Android-enhet, ekstern lagring (f.eks. <b>/storage/emulert/0</b>, avhengig av enheten) og velg katalogen i App-menyen <b>Frakoblet kart katalogen</b>. </string>
-    <string name="online_map_consent">Det er ingen offline-kart konfigurert. Kan du samtykker i å bruke den elektroniske kart fra openstreetmap.org. Dette kan lekke din gjeldende plassering. Se https://operations.osmfoundation.org/policies/tiles/ for flis bruk og personvern</string>
-    <string name="map_online_consent_menu">Online kart samtykke</string>
+\nFor å bruke offline-kart, plasser dem i en mappe på din Android-enhets eksterne lagring (f.eks. <b>/storage/emulated/0</b>, avhengig av enheten) og velg mappen i App-menyen - <b>Kartmappe</b>. </string>
+    <string name="online_map_consent">Ingen offline-kart er stilt inn. Godta å bruke online-kartet fra openstreetmap.org. Dette kan lekke din gjeldende posisjon. Se https://operations.osmfoundation.org/policies/tiles/ for bruk av kartfliser og personvern</string>
+    <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>
-    <string name="choose_map_to_download">Velge et kart for å laste ned</string>
-    <string name="download_instruction">Du viser innholdet av https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Last ned kart %s?</string>
-    <string name="download_in_progress">Det er allerede en nedlasting pågår!</string>
+    <string name="choose_map_to_download">Velg et kart for å laste ned</string>
+    <string name="download_instruction">Du ser innholdet fra https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Laste ned kart %s\?</string>
+    <string name="download_in_progress">Det pågår allerede en nedlasting!</string>
     <string name="download_success">Kart lastet ned</string>
-    <string name="download_failed">Kart laste ned mislyktes</string>
-    <string name="online_osm_mapnick">Online kart OSM:Mapnik</string>
-    <string name="cancel_download_question">Avbryte gjeldende last ned?</string>
+    <string name="download_failed">Kartnedlasting mislyktes</string>
+    <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
+    <string name="cancel_download_question">Avbryte gjeldende nedlasting\?</string>
 </resources>
