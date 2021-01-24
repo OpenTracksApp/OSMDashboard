@@ -14,4 +14,56 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancelar</string>
     <string name="app_name">OSM Dashboard para OpenTracks</string>
+    <string name="cancel_download_question">Cancelar o download atual\?</string>
+    <string name="download_map">Download do mapa</string>
+    <string name="choose_map_to_download">Escolha um mapa para fazer o download</string>
+    <string name="download_instruction">Você está visualizando o conteúdo de https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Fazer o download do mapa %s\?</string>
+    <string name="download_in_progress">Já existe um download em andamento!</string>
+    <string name="app_logo_description">Logo do aplicativo</string>
+    <string name="map_online_consent_menu">Autorização do mapa online</string>
+    <string name="download_success">Mapa baixado com sucesso</string>
+    <string name="download_failed">O download do mapa falhou</string>
+    <string name="map_selection">Mapas</string>
+    <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
+    <string name="delete_map_question">Excluir mapa \"%s\"\?</string>
+    <string name="delete_map_error">Falha ao excluir o mapa</string>
+    <string name="theme_selection">Temas de mapas</string>
+    <string name="delete_theme_question">Excluir tema \"%s\"\?</string>
+    <string name="delete_theme_error">Falha ao excluir o tema</string>
+    <string name="overwrite_map_question">O mapa \"%s\" já existe! Excluir e baixar novamente\?</string>
+    <string name="error_loading_offline_map">Erro ao ler mapa offline configurado</string>
+    <string name="track_smoothing_menu">Suavização de trilha</string>
+    <string name="track_smoothing_info">Defina a tolerância em metros para o algoritmo de suavização da trilha. Insira 0 para desativar a suavização da trilha.
+\nA mudança entra em vigor após recarregar a trilha.</string>
+    <string name="track_smoothing_hint">Tolerância de suavização da trilha em metros</string>
+    <string name="only_digits">O valor deve conter apenas dígitos</string>
+    <string name="pip_mode">Modo picture in picture</string>
+    <string name="arrow_mode_north">A seta aponta para o norte</string>
+    <string name="arrow_mode_direction">Direção do movimento da seta</string>
+    <string name="arrow_mode_compass">Seta é como bússola</string>
+    <string name="map_mode_north_top">Mapa do norte no topo</string>
+    <string name="map_mode_direction">Direção do movimento do mapa</string>
+    <string name="map_mode_compass">Mapa é como bússola</string>
+    <string name="compass_smoothing_menu">Suavização da bússola</string>
+    <string name="compass_smoothing_info">Valores mais altos reduzem o ruído</string>
+    <string name="menu_advanced">Avançado</string>
+    <string name="multi_thread_map_rendering">Renderização de mapa multithread</string>
+    <string name="no_map_configured">Você ainda não configurou um mapa offline.</string>
+    <string name="stroke_width_info">Defina a largura do traço das trilhas</string>
+    <string name="stroke_width_menu">Largura do traço da trilha</string>
+    <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecione uma trilha e clique no ícone do mapa para mostrar a trilha no mapa.
+\n
+\nO mapa padrão é fornecido por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nJunte-se à comunidade e ajude a melhorar o mapa, veja <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
+\n
+\nConsidere baixar um mapa offline para diminuir a carga do servidor e salvar seu plano de dados móveis.
+\nAlguns mapas offline podem ser encontrados aqui:
+\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
+\n
+\nAlguns mapas requerem temas especiais para serem renderizados corretamente! Eles precisam ser baixados e configurados de acordo.
+\n
+\nPara usar mapas offline, coloque-os em uma pasta no armazenamento externo de seu dispositivo Android (ex. <b>/storage/emulated/0</b>, dependendo do seu dispositivo) e selecione o diretório no menu do aplicativo <b>Diretório de mapas offline</b>. </string>
 </resources>
