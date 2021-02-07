@@ -43,4 +43,27 @@
     <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
     <string name="download_failed">Stažení mapy selhalo</string>
     <string name="compass_smoothing_info">Vyšší hodnoty snižují šum</string>
+    <string name="stroke_width_info">Definujte šířku zdvihu Stop</string>
+    <string name="compass_smoothing_menu">Kompas vyhlazování</string>
+    <string name="track_smoothing_hint">Tolerance vyhlazení stopy v metrech</string>
+    <string name="track_smoothing_menu">Vyhlazení stopy</string>
+    <string name="stroke_width_menu">Šířka zdvihu dráhy</string>
+    <string name="map_online_consent_menu">Souhlas s mapou Online</string>
+    <string name="track_smoothing_info">Definujte toleranci v metrech pro algoritmus vyhlazení stopy. Zadejte 0 zakázat vyhlazení stopy.
+\nZměna vstoupí v platnost po opětovném načtení stopy.</string>
+    <string name="online_map_consent">Neexistuje žádná offline mapa nakonfigurována. Prosím, souhlasíte s tím, používat on-line mapy z openstreetmap.org. to by mohlo uniknout vaší aktuální poloze. Viz https://operations.osmfoundation.org/policies/tiles / pro použití dlaždic a Zásady ochrany osobních údajů</string>
+    <string name="map_info_text">Použijte <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, vyberte trasu a kliknutím na ikonu mapy ji zobrazte na mapě.
+\n
+\nVýchozí mapu poskytuje <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
+\nPřipojte se ke komunitě a pomozte vylepšit mapu, viz <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
+\n
+\nZvažte stažení offline mapy, abyste snížili zatížení serveru a uložili svůj mobilní datový plán.
+\nNěkteré offline mapy najdete zde:
+\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
+\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte pro Android </a> </b>
+\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
+\n
+\nNěkteré mapy vyžadují ke správnému vykreslení speciální motivy! Je třeba je stáhnout a podle toho nakonfigurovat.
+\n
+\nChcete-li používat offline mapy, vložte je do složky na externím úložišti zařízení Android (např. <b> / storage / emulated / 0 </b>, v závislosti na vašem zařízení) a vyberte adresář v nabídce Aplikace <b> Offline mapa adresář </b>. </string>
 </resources>
