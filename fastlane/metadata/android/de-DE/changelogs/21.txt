@@ -1,0 +1,3 @@
+- Update von Abhängigkeiten
+- Neue Übersetzungen für Tschechisch, Norwegisch und Portugiesisch (brasilianisch)
+- Support für die neue OpenTracks API v2

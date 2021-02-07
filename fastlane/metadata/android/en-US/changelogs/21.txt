@@ -1,0 +1,3 @@
+- Update dependencies
+- New translations for Czech, Norwegian and Portuguese
+- Support for new OpenTracks API v2
