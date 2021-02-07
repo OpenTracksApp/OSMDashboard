@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="track_smoothing_menu">Spår utjämning</string>
+    <string name="error_loading_offline_map">Fel läsning konfigurerad offline karta</string>
+    <string name="cancel_download_question">Avbryt aktuell nedladdning\?</string>
+    <string name="overwrite_map_question">Kartan \"%s \" finns redan! Ta bort och ladda ner igen\?</string>
+    <string name="online_map_consent">Det finns ingen offline karta konfigurerad. Godkänn att använda online-kartan från openstreetmap.org. - det här kan läcka din nuvarande plats. Se https://operations.osmfoundation.org/policies/tiles / för kakel Användning och Sekretesspolicy</string>
+    <string name="map_online_consent_menu">Online karta samtycke</string>
+    <string name="download_map">Karta ladda ner</string>
+    <string name="choose_map_to_download">Välj en karta att ladda ner</string>
+    <string name="delete_theme_error">Tema radering misslyckades</string>
+    <string name="delete_theme_question">Ta bort temat \"%s\" \?</string>
+    <string name="theme_selection">Karta teman</string>
+    <string name="delete_map_error">Kartborttagning misslyckades</string>
+    <string name="no_data">Inga spårdata mottagits</string>
+    <string name="copyright_osm">Kartdata © OpenStreetMap bidragsgivare</string>
+    <string name="maps">Karta</string>
+    <string name="map_themes">Karta teman</string>
+    <string name="default_theme">Standard tema</string>
+    <string name="map_info_menu">Om</string>
+    <string name="map_folder">Karta katalog</string>
+    <string name="delete_map_question">Ta bort kartan \"%s\"\?</string>
+    <string name="online_osm_mapnick">Online-karta OSM:Mapnik</string>
+    <string name="map_selection">Karta</string>
+    <string name="download_failed">Karta nedladdning misslyckades</string>
+    <string name="download_success">Karta hämtade</string>
+    <string name="download_in_progress">Det finns redan en nedladdning pågår!</string>
+    <string name="download_map_question">Hämta karta %s\?</string>
+    <string name="download_instruction">Du visar innehåll https://ftp-stud.hs-esslingen.de.</string>
+    <string name="cancel">Avbryta</string>
+    <string name="ok">OK</string>
+    <string name="app_logo_description">App logotyp</string>
+    <string name="theme_folder">Karta tema katalog</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\nför OpenTracks</string>
+    <string name="app_name">OSM Dashboard för OpenTracks</string>
+    <string name="stroke_width_info">Definiera banans slagbredd</string>
+    <string name="multi_thread_map_rendering">Multithread karta rendering</string>
+    <string name="compass_smoothing_info">Högre värden minskar buller</string>
+    <string name="compass_smoothing_menu">Kompass utjämning</string>
+    <string name="map_mode_compass">Karta som kompass</string>
+    <string name="map_mode_direction">Karta rörlig riktning</string>
+    <string name="map_mode_north_top">Karta norr på toppen</string>
+    <string name="arrow_mode_compass">Pil som kompass</string>
+    <string name="arrow_mode_direction">Pil rörlig riktning</string>
+    <string name="arrow_mode_north">Pil pekar mot norr</string>
+    <string name="only_digits">Värdet får endast innehålla siffror</string>
+    <string name="track_smoothing_hint">Spår utjämning tolerans i meter</string>
+    <string name="menu_advanced">Avancerad</string>
+    <string name="stroke_width_menu">Spår slagbredd</string>
+    <string name="no_map_configured">Du har ingen offline karta konfigurerad ännu.</string>
+    <string name="pip_mode">Bild i bildläge</string>
+    <string name="track_smoothing_info">Definiera toleransen i meter för spårutjämningsalgoritmen. Ange 0 för att inaktivera spår utjämning.
+\nFörändring träder i kraft efter omlastning av spåret.</string>
+    <string name="map_info_text">Använd <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, välj ett spår och klicka på kartikonen för att visa spåret på kartan.
+\n
+\nStandardkartan tillhandahålls av <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
+\nGå med i communityn och hjälp med att förbättra kartan, se <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
+\n
+\nÖverväg att ladda ner en offline-karta för att minska serverbelastningen och spara din mobildataplan.
+\nNågra offline-kartor finns här:
+\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
+\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
+\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
+\n
+\nVissa kartor kräver speciella teman för att återges korrekt! Dessa måste laddas ner och konfigureras därefter.
+\n
+\nFör att använda offline-kartor, placera dem i en mapp på din Android-enhet extern lagring (t.ex. <b> / lagring / emulerad / 0 </b>, beroende på din enhet) och välj katalogen i App-menyn <b> Offline karta katalog </b>. </string>
+</resources>
