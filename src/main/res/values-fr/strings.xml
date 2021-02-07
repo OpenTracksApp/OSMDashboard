@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="theme_selection">Thèmes de la carte</string>
+    <string name="delete_map_error">La suppression de la carte a échoué</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\npour OpenTracks</string>
+    <string name="app_name">OSM Dashboard pour OpenTracks</string>
+    <string name="no_data">Aucune donnée de suivi reçue</string>
+    <string name="copyright_osm">Données cartographiques © contributeurs OpenStreetMap</string>
+    <string name="maps">Cartes</string>
+    <string name="map_themes">Thèmes de la carte</string>
+    <string name="online_osm_mapnick">Carte en ligne OSM:Mapnik</string>
+    <string name="map_selection">Cartes</string>
+    <string name="download_failed">Le téléchargement des cartes a échoué</string>
+    <string name="download_success">Carte téléchargée avec succès</string>
+    <string name="download_in_progress">Il y a déjà un téléchargement en cours !</string>
+    <string name="download_map_question">Télécharger la carte %s \?</string>
+    <string name="download_instruction">Vous consultez le contenu du site https://ftp-stud.hs-esslingen.de.</string>
+    <string name="choose_map_to_download">Choisissez une carte à télécharger</string>
+    <string name="download_map">Télécharger la carte</string>
+    <string name="map_online_consent_menu">Consentement à la carte en ligne</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">Ok</string>
+    <string name="default_theme">Thème par défaut</string>
+    <string name="map_info_menu">À propos de</string>
+    <string name="map_folder">Annuaire des cartes</string>
+    <string name="theme_folder">Répertoire des thèmes de la carte</string>
+    <string name="app_logo_description">Le logo de l\'application</string>
+    <string name="delete_map_question">Supprimer la carte \"%s\" \?</string>
+    <string name="stroke_width_menu">Largeur du trait de piste</string>
+    <string name="stroke_width_info">Définir la largeur des traces</string>
+    <string name="no_map_configured">Vous n\'avez pas encore configuré de carte hors ligne.</string>
+    <string name="multi_thread_map_rendering">Rendu cartographique multithread</string>
+    <string name="menu_advanced">Avancé</string>
+    <string name="compass_smoothing_info">Des valeurs plus élevées réduisent le bruit</string>
+    <string name="compass_smoothing_menu">Lissage des compas</string>
+    <string name="map_mode_direction">Direction de la carte</string>
+    <string name="map_mode_north_top">Carte du nord en haut</string>
+    <string name="arrow_mode_compass">Flèche comme boussole</string>
+    <string name="arrow_mode_direction">Flèche de direction</string>
+    <string name="arrow_mode_north">La flèche indique le nord</string>
+    <string name="only_digits">La valeur doit contenir uniquement des chiffres</string>
+    <string name="track_smoothing_hint">Tolérance de lissage des pistes en mètres</string>
+    <string name="track_smoothing_menu">Lissage des pistes</string>
+    <string name="error_loading_offline_map">Erreur de lecture d\'une carte hors ligne configurée</string>
+    <string name="cancel_download_question">Annuler le téléchargement en cours \?</string>
+    <string name="overwrite_map_question">La carte \"%s\" existe déjà ! Effacer et télécharger à nouveau \?</string>
+    <string name="delete_theme_error">La suppression du thème a échoué</string>
+    <string name="map_mode_compass">La carte comme compas</string>
+    <string name="pip_mode">Image en mode image</string>
+    <string name="track_smoothing_info">Définir la tolérance en mètres pour l\'algorithme de lissage des traces. Entrez 0 pour désactiver le lissage de la piste.
+\nLa modification entre en vigueur après le rechargement de la piste.</string>
+    <string name="online_map_consent">Il n\'y a pas de carte configurée hors ligne. Veuillez accepter d\'utiliser la carte en ligne de openstreetmap.org. Cela pourrait entraîner une fuite de votre position actuelle. Voir https://operations.osmfoundation.org/policies/tiles/ pour l\'utilisation des tuiles et la politique de confidentialité</string>
+    <string name="delete_theme_question">Supprimer le thème \"%s\" \?</string>
+    <string name="map_info_text">Utilisez <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, sélectionnez une piste et cliquez sur l\'icône de la carte pour afficher la piste Sur la carte.
+\n
+\nLa carte par défaut est fournie par <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
+\nRejoignez la communauté et aidez à améliorer la carte, voir <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
+\n
+\nVeuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et enregistrer votre forfait de données mobiles.
+\nCertaines cartes hors ligne peuvent être trouvées ici:
+\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
+\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
+\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
+\n
+\nCertaines cartes nécessitent des thèmes spéciaux pour un rendu correct! Ceux-ci doivent être téléchargés et configurés en conséquence.
+\n
+\nPour utiliser des cartes hors connexion, placez-les dans un dossier sur le stockage externe de votre appareil Android (par exemple <b> / storage / emulated / 0 </b>, selon votre appareil) et sélectionnez le répertoire dans le menu de l\'application <b> Carte hors ligne répertoire </b>. </string>
+</resources>
