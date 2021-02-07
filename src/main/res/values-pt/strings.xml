@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="arrow_mode_compass">Flecha como bússola</string>
+    <string name="only_digits">O valor só deve conter dígitos</string>
+    <string name="track_smoothing_hint">Tolerância de suavização de via em metros</string>
+    <string name="track_smoothing_menu">Suavização de rastos</string>
+    <string name="cancel_download_question">Cancelar o download actual\?</string>
+    <string name="delete_theme_error">A eliminação de temas falhou</string>
+    <string name="theme_selection">Temas do mapa</string>
+    <string name="delete_map_error">Apagamento de mapas falhou</string>
+    <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
+    <string name="map_selection">Mapas</string>
+    <string name="download_failed">O download do mapa falhou</string>
+    <string name="download_success">Mapa transferido com êxito</string>
+    <string name="download_instruction">Está a ver o conteúdo de https://ftp-stud.hs-esslingen.de.</string>
+    <string name="choose_map_to_download">Escolha um mapa para descarregar</string>
+    <string name="download_map">Descarregar mapa</string>
+    <string name="map_online_consent_menu">Autorização do mapa online</string>
+    <string name="track_smoothing_info">Definir a tolerância em metros para o algoritmo de suavização da via. Introduzir 0 para desactivar o alisamento da via.
+\nA alteração entra em vigor após recarregar a via.</string>
+    <string name="overwrite_map_question">O mapa \"%s\" já existe! Apagar e descarregar novamente\?</string>
+    <string name="delete_theme_question">Eliminar o tema \"%s\"\?</string>
+    <string name="delete_map_question">Eliminar mapa \"%s\"\?</string>
+    <string name="download_map_question">Descarregar mapa %s\?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="app_logo_description">Logotipo do aplicativo</string>
+    <string name="app_name">OSM Dashboard para OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\npara OpenTracks</string>
+    <string name="no_data">Não foram recebidos dados de pista</string>
+    <string name="copyright_osm">Dados do mapa © OpenStreetMap contribuidores</string>
+    <string name="maps">Mapas</string>
+    <string name="theme_folder">Directório de temas do mapa</string>
+    <string name="map_folder">Directório de mapas</string>
+    <string name="map_info_menu">Sobre</string>
+    <string name="default_theme">Tema padrão</string>
+    <string name="map_themes">Temas de mapas</string>
+    <string name="online_map_consent">Não existe um mapa off-line configurado. Por favor, aceite utilizar o mapa online de openstreetmap.org. Isto pode vazar a sua localização actual. Ver https://operations.osmfoundation.org/policies/tiles/ para utilização de azulejos e política de privacidade</string>
+    <string name="stroke_width_info">Definir a largura do traçado das pistas</string>
+    <string name="no_map_configured">Ainda não tem o mapa offline configurado.</string>
+    <string name="menu_advanced">Avançado</string>
+    <string name="compass_smoothing_info">Valores mais altos reduzem o ruído</string>
+    <string name="compass_smoothing_menu">Suavização da bússola</string>
+    <string name="map_mode_compass">Mapa como bússola</string>
+    <string name="map_mode_direction">Mapa em movimento</string>
+    <string name="map_mode_north_top">Mapa norte no topo</string>
+    <string name="stroke_width_menu">Largura do traçado</string>
+    <string name="multi_thread_map_rendering">Reprodução de mapas multithread</string>
+    <string name="arrow_mode_direction">Seta movendo-se na direcção</string>
+    <string name="arrow_mode_north">Pontos de flecha a norte</string>
+    <string name="pip_mode">Imagem em modo de imagem</string>
+    <string name="error_loading_offline_map">Leitura de erros configurados no mapa offline</string>
+    <string name="download_in_progress">Já há um download em curso!</string>
+    <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, seleccione uma pista e clique no ícone do mapa para mostrar a pista no mapa.
+\n
+\nO mapa padrão é fornecido por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nJunte-se à comunidade e ajude a melhorar o mapa, ver <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
+\n
+\nPor favor, considere descarregar um mapa offline para diminuir a carga do servidor e guardar o seu plano de dados móvel.
+\nAlguns mapas off-line podem ser encontrados aqui:
+\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
+\n
+\nAlguns mapas requerem temas especiais para serem renderizados correctamente! Estes precisam de ser descarregados e configurados em conformidade.
+\n
+\nPara utilizar mapas offline, coloque-os numa pasta no armazenamento externo do seu dispositivo Android (por exemplo <b>/storage/emulated/0</b>, dependendo do seu dispositivo) e seleccione o directório no menu App <b>Offline map directory</b>. </string>
+</resources>
