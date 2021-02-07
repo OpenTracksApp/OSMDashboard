@@ -1,2 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="no_data">Nie odebrano danych o trasie</string>
+    <string name="copyright_osm">Dane mapowe © OpenStreetMap contributors</string>
+    <string name="maps">Mapy</string>
+    <string name="map_themes">Tematy map</string>
+    <string name="default_theme">Domyślny motyw</string>
+    <string name="map_info_menu">O</string>
+    <string name="map_folder">Katalog map</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\ndla OpenTracks</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Anuluj</string>
+    <string name="download_map_question">Ściągnąć mapę %s\?</string>
+    <string name="download_instruction">Przeglądasz zawartość strony https://ftp-stud.hs-esslingen.de.</string>
+    <string name="choose_map_to_download">Wybierz mapę do pobrania</string>
+    <string name="download_map">Pobieranie mapy</string>
+    <string name="map_online_consent_menu">Zgoda na mapę online</string>
+    <string name="stroke_width_info">Zdefiniuj szerokość obrysu ścieżek</string>
+    <string name="no_map_configured">Nie masz jeszcze skonfigurowanej mapy offline.</string>
+    <string name="menu_advanced">Zaawansowane</string>
+    <string name="compass_smoothing_info">Wyższe wartości redukują hałas</string>
+    <string name="compass_smoothing_menu">Wygładzanie kompasu</string>
+    <string name="map_mode_compass">Mapa jako kompas</string>
+    <string name="map_mode_direction">Kierunek ruchu mapy</string>
+    <string name="map_mode_north_top">Mapa północna na górze</string>
+    <string name="arrow_mode_compass">Strzałka jako kompas</string>
+    <string name="arrow_mode_north">Strzałka wskazuje północ</string>
+    <string name="pip_mode">Obraz w trybie zdjęć</string>
+    <string name="only_digits">Wartość musi zawierać tylko cyfry</string>
+    <string name="track_smoothing_menu">Wygładzanie toru jazdy</string>
+    <string name="error_loading_offline_map">Błąd odczytu skonfigurowanej mapy offline</string>
+    <string name="cancel_download_question">Anulować bieżące pobieranie\?</string>
+    <string name="delete_theme_error">Usuwanie motywu nie powiodło się</string>
+    <string name="theme_selection">Tematy map</string>
+    <string name="delete_map_error">Usuwanie map nie powiodło się</string>
+    <string name="overwrite_map_question">Mapa \"%s\" już istnieje! Skasować i pobrać ponownie\?</string>
+    <string name="delete_theme_question">Usunąć motyw \"%s\"\?</string>
+    <string name="delete_map_question">Usunąć mapę \"%s\"\?</string>
+    <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
+    <string name="map_selection">Mapy</string>
+    <string name="download_failed">Pobieranie mapy nie powiodło się</string>
+    <string name="download_success">Mapa została pomyślnie pobrana</string>
+    <string name="download_in_progress">Pobieranie jest już w toku!</string>
+    <string name="stroke_width_menu">Szerokość skoku ścieżki</string>
+    <string name="multi_thread_map_rendering">Wielowątkowy rendering map</string>
+    <string name="arrow_mode_direction">Strzałka kierunku ruchu</string>
+    <string name="track_smoothing_hint">Tolerancja wygładzania ścieżki w metrach</string>
+    <string name="track_smoothing_info">Określić tolerancję w metrach dla algorytmu wygładzania ścieżek. Wprowadź 0, aby wyłączyć wygładzanie ścieżki.
+\nZmiana wejdzie w życie po ponownym załadowaniu ścieżki.</string>
+    <string name="app_name">OSM Dashboard dla OpenTracks</string>
+    <string name="theme_folder">Katalog tematyczny map</string>
+    <string name="app_logo_description">Logo aplikacji</string>
+    <string name="online_map_consent">Nie ma skonfigurowanej mapy offline. Wyraź zgodę na używanie mapy online z openstreetmap.org. Może to spowodować wyciek z Twojej bieżącej lokalizacji. Zobacz https://operations.osmfoundation.org/policies/tiles/, aby zapoznać się z użytkowaniem kafelków i polityką prywatności</string>
+    <string name="map_info_text">Użyj <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, wybierz ścieżkę i kliknij ikonę mapy, aby pokazać ścieżkę na mapie.
+\n
+\nDomyślna mapa jest dostarczana przez <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nDołącz do społeczności i pomóż ulepszyć mapę, zobacz <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.
+\n
+\nProsimy rozważyć pobranie mapy w trybie offline, aby zmniejszyć obciążenie serwera i oszczędzić Twój plan taryfowy na transmisję danych.
+\nNiektóre mapy offline można znaleźć tutaj:
+\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
+\n
+\nNiektóre mapy wymagają specjalnych motywów do prawidłowego renderowania! Muszą one zostać pobrane i odpowiednio skonfigurowane.
+\n
+\nAby korzystać z map offline, umieść je w folderze na zewnętrznej pamięci masowej urządzenia Android (np. <b>/storage/emulated/0</b>, w zależności od urządzenia) i wybierz katalog w menu aplikacji <b>Katalog map offline</b>. </string>
+</resources>
