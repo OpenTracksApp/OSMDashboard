@@ -52,18 +52,18 @@
 \nLa modification entre en vigueur après le rechargement de la piste.</string>
     <string name="online_map_consent">Il n\'y a pas de carte configurée hors ligne. Veuillez accepter d\'utiliser la carte en ligne de openstreetmap.org. Cela pourrait entraîner une fuite de votre position actuelle. Voir https://operations.osmfoundation.org/policies/tiles/ pour l\'utilisation des tuiles et la politique de confidentialité</string>
     <string name="delete_theme_question">Supprimer le thème \"%s\" \?</string>
-    <string name="map_info_text">Utilisez <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, sélectionnez une piste et cliquez sur l\'icône de la carte pour afficher la piste Sur la carte.
+    <string name="map_info_text">Utilisez <b><a href="https ://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks </a></b>, sélectionnez une piste et cliquez sur l\'icône de la carte pour afficher la piste Sur la carte.
 \n
-\nLa carte par défaut est fournie par <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
-\nRejoignez la communauté et aidez à améliorer la carte, voir <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
+\nLa carte par défaut est fournie par <b> <a href="https ://openstreetmap.org"> OpenStreetMap.org </a> </b>.
+\nRejoignez la communauté et aidez à améliorer la carte, voir <b> <a href="https ://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
 \n
 \nVeuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et enregistrer votre forfait de données mobiles.
-\nCertaines cartes hors ligne peuvent être trouvées ici:
-\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
-\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
-\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
+\nCertaines cartes hors ligne peuvent être trouvées ici :
+\n<b> - <a href="http ://download.mapsforge.org/"> Mapsforge </a> </b>
+\n<b> - <a href="https ://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
+\n<b> - <a href="https ://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
 \n
-\nCertaines cartes nécessitent des thèmes spéciaux pour un rendu correct! Ceux-ci doivent être téléchargés et configurés en conséquence.
+\nCertaines cartes nécessitent des thèmes spéciaux pour un rendu correct ! Ceux-ci doivent être téléchargés et configurés en conséquence.
 \n
 \nPour utiliser des cartes hors connexion, placez-les dans un dossier sur le stockage externe de votre appareil Android (par exemple <b> / storage / emulated / 0 </b>, selon votre appareil) et sélectionnez le répertoire dans le menu de l\'application <b> Carte hors ligne répertoire </b>. </string>
 </resources>
