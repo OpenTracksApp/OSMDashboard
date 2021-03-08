@@ -2,4 +2,9 @@
 <resources>
     <string name="maps">සිතියම්</string>
     <string name="map_info_menu">පිළිබඳව</string>
+    <string name="download_success">සිතියම සාර්ථකව බාගත කර ඇත</string>
+    <string name="download_failed">සිතියම් බාගත කිරීම අසාර්ථක විය</string>
+    <string name="map_selection">සිතියම්</string>
+    <string name="online_osm_mapnick">මාර්ගගත සිතියම OSM: Mapnik</string>
+    <string name="delete_map_error">සිතියම් මකාදැමීම අසාර්ථක විය</string>
 </resources>
