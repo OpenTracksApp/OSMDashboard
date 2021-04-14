@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_info_screen">OSM Dashboard
+\nдля OpenTracks</string>
+    <string name="no_data">Дані треку не отримані</string>
+    <string name="maps">Мапи</string>
+    <string name="default_theme">Тема за замовчуванням</string>
+    <string name="map_themes">Тема мапи</string>
+    <string name="map_info_menu">Про додаток</string>
+    <string name="map_folder">Тека з мапами</string>
+    <string name="theme_folder">Тека з темами мап</string>
+    <string name="app_logo_description">Лого додатка</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Скасувати</string>
+    <string name="online_map_consent">Немає налаштованої офлайн-карти. Будь ласка, погодьтеся використовувати Інтернет-карту з openstreetmap.org. Це може розкрити ваше поточне місцезнаходження. Див. Https://operations.osmfoundation.org/policies/tiles/ щодо використання тайлів мапи та політики конфіденційності</string>
+    <string name="map_online_consent_menu">Погодитися на онлайн-карту</string>
+    <string name="download_map">Завантажити мапу</string>
+    <string name="choose_map_to_download">Виберіть мапу для завантаження</string>
+    <string name="download_in_progress">Завантаження вже триває!</string>
+    <string name="online_osm_mapnick">Онлайн мапа OSM:Mapnik</string>
+    <string name="delete_map_question">Видалити мапу \"%s\"\?</string>
+    <string name="delete_map_error">Не вдалося видалити мапу</string>
+    <string name="theme_selection">Тема мапи</string>
+    <string name="delete_theme_error">Не вдалося видалити тему</string>
+    <string name="cancel_download_question">Скасувати поточне завантаження\?</string>
+    <string name="error_loading_offline_map">Помилка читання налаштованої офлайн-мапи</string>
+    <string name="track_smoothing_menu">Згладжування треків</string>
+    <string name="download_map_question">Завантажити мапу %s\?</string>
+    <string name="download_success">Мапа успішно завантажена</string>
+    <string name="map_selection">Мапи</string>
+    <string name="track_smoothing_hint">Допуск на згладжування треків у метрах</string>
+    <string name="only_digits">Значення має містити лише цифри</string>
+    <string name="pip_mode">Режим \"картинка в картинці\"</string>
+    <string name="arrow_mode_north">Стрілка вказує на північ</string>
+    <string name="arrow_mode_compass">Стрілка як компас</string>
+    <string name="map_mode_north_top">Північ мапи зверху</string>
+    <string name="map_mode_direction">Мапа рухаєтьсчя за напрямком</string>
+    <string name="compass_smoothing_menu">Згладжування компаса</string>
+    <string name="compass_smoothing_info">Більш високі значення зменшують шум</string>
+    <string name="menu_advanced">Розширені</string>
+    <string name="multi_thread_map_rendering">Мультипотоковий рендер мапи</string>
+    <string name="no_map_configured">У вас ще не налаштовано офлайн-мапи.</string>
+    <string name="stroke_width_info">Вкажіть товщину лінії треку</string>
+    <string name="stroke_width_menu">Товщина лінії</string>
+    <string name="app_name">OSM Dashboard для OpenTracks</string>
+    <string name="copyright_osm">Картографічні дані © Учасники OpenStreetMap</string>
+    <string name="map_info_text">Використовуйте <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, виберіть записаний або розпочатий трек та натисніть піктограму мапи, щоб побачити на ній трек.
+\n
+\nМапа за замовчуванням надається <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
+\nПриєднуйтесь до спільноти та допомагайте покращувати карту, див. <b><a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap</a></b> 
+\n
+\nБудь ласка, розгляньте можливість завантаження офлайн-карту, щоб зменшити навантаження на сервер і зберегти ваш план мобільних даних. Деякі офлайн-карти можна знайти тут:
+\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b>- <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a></b>
+\n
+\nДеякі карти вимагають спеціальних тем для правильного відображення для них! Їх потрібно завантажити та налаштувати відповідно.
+\n
+\nЩоб використовувати офлайн-карти, покладіть їх у теку на зовнішньому сховищі вашого пристрою Android (наприклад, <b>/storage/emulated/0</b>, залежно від вашого пристрою) і виберіть теку у меню програми - <b>Тека з мапами</b>. </string>
+    <string name="download_instruction">Ви переглядаєте вміст https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_failed">Не вдалося завантажити мапу</string>
+    <string name="delete_theme_question">Видалити тему \"%s\"\?</string>
+    <string name="overwrite_map_question">Мапа \"%s\" вже існує! Видалити та завантажити знову\?</string>
+    <string name="track_smoothing_info">Визначте допуск у метрах для алгоритму згладжування треку. Введіть 0, щоб вимкнути згладжування треку.
+\nЗміна вступає в силу після перезавантаження треку.</string>
+    <string name="arrow_mode_direction">Стрілка рухається в напрямку</string>
+    <string name="map_mode_compass">Мапа як компас</string>
+</resources>
