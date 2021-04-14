@@ -1,0 +1,3 @@
+- update dependencies
+- New translation Sinhala
+- New translation Ukrainian
