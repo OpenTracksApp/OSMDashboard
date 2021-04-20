@@ -41,4 +41,14 @@
     <string name="track_smoothing_info">ධාවන සුමට ඇල්ගොරිතම සඳහා මීටර වලින් ඉවසීම නිර්වචනය කරන්න. ධාවන සුමටනය අක්‍රිය කිරීමට 0 ඇතුලත් කරන්න.
 \nධාවන පථය නැවත පූරණය කිරීමෙන් පසුව වෙනස් කිරීම බලාත්මක වේ.</string>
     <string name="map_info_text"></string>
+    <string name="app_logo_description">යෙදුම් ලාංඡනය</string>
+    <string name="ok">හරි</string>
+    <string name="cancel">අවලංගු කරන්න</string>
+    <string name="map_online_consent_menu">මාර්ගගත සිතියම් කැමැත්ත</string>
+    <string name="download_map">සිතියම් බාගත කිරීම</string>
+    <string name="delete_map_question">සිතියම \"%s\" මකන්නද\?</string>
+    <string name="theme_selection">සිතියම් තේමාවන්</string>
+    <string name="delete_theme_question">\"%s\" තේමාව මකන්නද\?</string>
+    <string name="online_map_consent">නොබැඳි සිතියමක් වින්‍යාස කර නොමැත. Opnstreetmap.org වෙතින් සබැඳි සිතියම භාවිතා කිරීමට කරුණාකර එකඟ වන්න. මෙය ඔබගේ වර්තමාන ස්ථානය කාන්දු විය හැක. උළු භාවිතය සහ රහස්‍යතා ප්‍රතිපත්තිය සඳහා https://operations.osmfoundation.org/policies/tiles/ බලන්න</string>
+    <string name="overwrite_map_question">\"%s\" සිතියම දැනටමත් පවතී! මකා දමා නැවත බාගත කරන්න\?</string>
 </resources>
