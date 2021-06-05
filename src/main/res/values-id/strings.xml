@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name_info_screen">Dasbor OSM
+\nuntuk OpenTracks</string>
+    <string name="map_themes">Tema-tema peta</string>
+    <string name="map_info_menu">Tentang</string>
+    <string name="map_folder">Direktori peta</string>
+    <string name="theme_folder">Direktori tema peta</string>
+    <string name="cancel">Batal</string>
+    <string name="app_name">Dasbor OSM untuk OpenTracks</string>
+    <string name="copyright_osm">Data peta © kontributor OpenStreetMap</string>
+    <string name="maps">Peta</string>
+    <string name="default_theme">Tema default</string>
+    <string name="app_logo_description">Logo aplikasi</string>
+    <string name="ok">Oke</string>
+</resources>
