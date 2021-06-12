@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_info_screen">Dasbor OSM
+\nuntuk OpenTracks</string>
+    <string name="map_themes">Tema-tema peta</string>
+    <string name="map_info_menu">Tentang</string>
+    <string name="map_folder">Direktori peta</string>
+    <string name="theme_folder">Direktori tema peta</string>
+    <string name="cancel">Batal</string>
+    <string name="app_name">Dasbor OSM untuk OpenTracks</string>
+    <string name="copyright_osm">Data peta © kontributor OpenStreetMap</string>
+    <string name="maps">Peta</string>
+    <string name="default_theme">Tema default</string>
+    <string name="app_logo_description">Logo aplikasi</string>
+    <string name="ok">Oke</string>
+    <string name="online_map_consent">Tidak ada peta luring yang dikonfigurasi. Harap setujui untuk menggunakan peta online dari openstreetmap.org ini mungkin akan membocorkan lokasimu saat ini. Lihat https://operations.osmfoundation.org/policies/tiles / untuk kebijakan penggunaan ubin dan privasi</string>
+    <string name="compass_smoothing_info">Nilai yang lebih tinggi kurangi derau</string>
+    <string name="track_smoothing_info">Definisikan toleransi dalam meter untuk algoritma pembuka trek. Enter 0 untuk menonaktifkan berciuman trek.
+\nUbah datang ke efek setelah memuat ulang trek.</string>
+    <string name="overwrite_map_question">Peta \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
+    <string name="map_info_text">"Gunakan &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\" &gt;OpenTracks&lt;/a&gt;&lt;/b&gt;, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.
+\n
+\nPeta Baku disediakan oleh &lt;b&gt;&lt;href=\"https://openstreetmap.org\" &gt;OpenStreetMap.org&lt;/a&gt;&lt;/b&gt;.
+\nBergabung dengan komunitas dan membantu untuk memperbaiki peta, lihat &lt;b&gt;&lt;a href=\"https://www.openstreetmap.org/fixthemap\" &gt;www.openstreetmap.org/fixthemap&lt;/a&gt;&lt;/b&gt;
+\n
+\nMohon pertimbangkan mengunduh peta luring untuk menurunkan beban server dan menyimpan rencana data mobile Anda.
+\nBeberapa peta luring dapat ditemukan di sini:
+\n&lt;b&gt; - &lt;a href=\"http://download.mapsforge.org/\" &gt;Mapsforge&lt; / a&gt;&lt; / b&gt;
+\n&lt;b&gt; - &lt;a href=\"https://www.freizeitkarte-osm.de/android/en/\" &gt;Freizeitarte Android&lt;/a&gt;&lt;/b&gt;
+\n&lt;b&gt; - &lt;a href=\"https://www.openandromaps.org/en\" &gt;OpenAndroMaps&lt;/a&gt;&lt;/b&gt;
+\n
+\nBeberapa peta membutuhkan tema khusus untuk membuat dengan benar! Ini perlu diunduh dan diatur sesuai.
+\n
+\nUntuk menggunakan peta luring, taruh dalam folder pada penyimpanan perangkat Android Anda (mis. &lt;b&gt;/storage/emulasikan/0&lt;/b&gt;, tergantung pada perangkat Anda) dan pilih direktori di menu Aplikasi &lt;b&gt;map Offline&lt;/b&gt;Offline. "</string>
+    <string name="no_data">Tak ada data trek yang diterima</string>
+    <string name="map_online_consent_menu">Persetujuan peta Online</string>
+    <string name="download_map">Unduh peta</string>
+    <string name="choose_map_to_download">Pilih peta untuk diunduh</string>
+    <string name="download_instruction">Anda melihat isi https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Peta Unduh %s\?</string>
+    <string name="stroke_width_menu">Lebar sapuan trek</string>
+    <string name="stroke_width_info">Tentukan lebar sapuan trek</string>
+    <string name="no_map_configured">Anda tidak memiliki peta luring belum dikonfigurasi.</string>
+    <string name="multi_thread_map_rendering">Perenderan peta Multithread</string>
+    <string name="menu_advanced">Tingkat lanjut</string>
+    <string name="compass_smoothing_menu">Kecupan Kompas</string>
+    <string name="map_mode_compass">Peta sebagai kompas</string>
+    <string name="map_mode_direction">Peta arah perpindahan</string>
+    <string name="track_smoothing_menu">Penghalusan trek</string>
+    <string name="error_loading_offline_map">Galat saat membaca peta yang dikonfigurasi luring</string>
+    <string name="cancel_download_question">Batalkan unduhan saat ini\?</string>
+    <string name="map_mode_north_top">Peta Utara Di Atas</string>
+    <string name="arrow_mode_compass">Panah sebagai kompas</string>
+    <string name="arrow_mode_direction">Arah perpindahan panah</string>
+    <string name="arrow_mode_north">Panah menunjuk ke utara</string>
+    <string name="pip_mode">Gambar pada mode gambar</string>
+    <string name="only_digits">Nilai harus memuat hanya digit</string>
+    <string name="track_smoothing_hint">Track smoothing toleransi dalam meter</string>
+    <string name="delete_theme_error">Penghapusan tema gagal</string>
+    <string name="delete_theme_question">Hapus tema \"%s\"\?</string>
+    <string name="theme_selection">Peta tema</string>
+    <string name="delete_map_error">Penghapusan peta gagal</string>
+    <string name="delete_map_question">Hapus peta \"%s\"\?</string>
+    <string name="online_osm_mapnick">Peta Online OSM:Mapnik</string>
+    <string name="map_selection">Peta</string>
+    <string name="download_failed">Pengunduhan peta gagal</string>
+    <string name="download_success">Peta berhasil diunduh</string>
+    <string name="download_in_progress">Sudah ada proses pengunduhan!</string>
+</resources>
