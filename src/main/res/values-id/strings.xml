@@ -18,16 +18,16 @@
     <string name="track_smoothing_info">Definisikan toleransi dalam meter untuk algoritma pembuka trek. Enter 0 untuk menonaktifkan berciuman trek.
 \nUbah datang ke efek setelah memuat ulang trek.</string>
     <string name="overwrite_map_question">Peta \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
-    <string name="map_info_text">"Gunakan &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\" &gt;OpenTracks&lt;/a&gt;&lt;/b&gt;, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.
+    <string name="map_info_text">"Gunakan &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\"&gt;OpenTracks&lt;/a&gt;&lt;/b&gt;, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.
 \n
-\nPeta Baku disediakan oleh &lt;b&gt;&lt;href=\"https://openstreetmap.org\" &gt;OpenStreetMap.org&lt;/a&gt;&lt;/b&gt;.
-\nBergabung dengan komunitas dan membantu untuk memperbaiki peta, lihat &lt;b&gt;&lt;a href=\"https://www.openstreetmap.org/fixthemap\" &gt;www.openstreetmap.org/fixthemap&lt;/a&gt;&lt;/b&gt;
+\nPeta Baku disediakan oleh &lt;b&gt;&lt;href=\"https://openstreetmap.org\"&gt;OpenStreetMap.org&lt;/a&gt;&lt;/b&gt;.
+\nBergabung dengan komunitas dan membantu untuk memperbaiki peta, lihat &lt;b&gt;&lt;a href=\"https://www.openstreetmap.org/fixthemap\"&gt;www.openstreetmap.org/fixthemap&lt;/a&gt;&lt;/b&gt;
 \n
 \nMohon pertimbangkan mengunduh peta luring untuk menurunkan beban server dan menyimpan rencana data mobile Anda.
 \nBeberapa peta luring dapat ditemukan di sini:
-\n&lt;b&gt; - &lt;a href=\"http://download.mapsforge.org/\" &gt;Mapsforge&lt; / a&gt;&lt; / b&gt;
-\n&lt;b&gt; - &lt;a href=\"https://www.freizeitkarte-osm.de/android/en/\" &gt;Freizeitarte Android&lt;/a&gt;&lt;/b&gt;
-\n&lt;b&gt; - &lt;a href=\"https://www.openandromaps.org/en\" &gt;OpenAndroMaps&lt;/a&gt;&lt;/b&gt;
+\n&lt;b&gt; - &lt;a href=\"http://download.mapsforge.org/\"&gt;Mapsforge&lt;/a&gt;&lt;/b&gt;
+\n&lt;b&gt; - &lt;a href=\"https://www.freizeitkarte-osm.de/android/en/\"&gt;Freizeitarte Android&lt;/a&gt;&lt;/b&gt;
+\n&lt;b&gt; - &lt;a href=\"https://www.openandromaps.org/en\"&gt;OpenAndroMaps&lt;/a&gt;&lt;/b&gt;
 \n
 \nBeberapa peta membutuhkan tema khusus untuk membuat dengan benar! Ini perlu diunduh dan diatur sesuai.
 \n
