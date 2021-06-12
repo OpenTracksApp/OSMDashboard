@@ -40,16 +40,16 @@
     <string name="track_smoothing_hint">මීටර වලින් සුමට ඉවසීම නිරීක්ෂණය කරන්න</string>
     <string name="track_smoothing_info">ධාවන සුමට ඇල්ගොරිතම සඳහා මීටර වලින් ඉවසීම නිර්වචනය කරන්න. ධාවන සුමටනය අක්‍රිය කිරීමට 0 ඇතුලත් කරන්න.
 \nධාවන පථය නැවත පූරණය කිරීමෙන් පසුව වෙනස් කිරීම බලාත්මක වේ.</string>
-    <string name="map_info_text">භාවිත<b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b> භාවිතා කරන්න, ධාවන පථයක් තෝරාගෙන ධාවන පථය පෙන්වීමට සිතියම් නිරූපකය ක්ලික් කරන්න සිතියමේ.
+    <string name="map_info_text">භාවිත <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> භාවිතා කරන්න, ධාවන පථයක් තෝරාගෙන ධාවන පථය පෙන්වීමට සිතියම් නිරූපකය ක්ලික් කරන්න සිතියමේ.
 \n
-\nපෙරනිමි සිතියම සපයනු ලබන්නේ <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b> විසිනි.
-\nප්‍රජාවට සම්බන්ධ වී සිතියම වැඩිදියුණු කිරීමට උදව් කරන්න, <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b> බලන්න
+\nපෙරනිමි සිතියම සපයනු ලබන්නේ <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> විසිනි.
+\nප්‍රජාවට සම්බන්ධ වී සිතියම වැඩිදියුණු කිරීමට උදව් කරන්න, <b> <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b> බලන්න
 \n
 \nකරුණාකර සේවාදායක පැටවීම අඩු කිරීමට සහ ඔබගේ ජංගම දත්ත සැලැස්ම සුරැකීමට නොබැඳි සිතියමක් බාගත කිරීම සලකා බලන්න.
 \nසමහර නොබැඳි සිතියම් මෙහි සොයාගත හැකිය:
-\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
-\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
-\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
+\n<b> - <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+\n<b> - <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
 \n
 \nසමහර සිතියම් නිවැරදිව ඉදිරිපත් කිරීමට විශේෂ තේමාවන් අවශ්‍ය වේ! මේවා බාගත කර ඒ අනුව වින්‍යාසගත කළ යුතුය.
 \n
@@ -62,7 +62,7 @@
     <string name="delete_map_question">සිතියම \"%s\" මකන්නද\?</string>
     <string name="theme_selection">සිතියම් තේමාවන්</string>
     <string name="delete_theme_question">\"%s\" තේමාව මකන්නද\?</string>
-    <string name="online_map_consent">නොබැඳි සිතියමක් වින්‍යාස කර නොමැත. Opnstreetmap.org වෙතින් සබැඳි සිතියම භාවිතා කිරීමට කරුණාකර එකඟ වන්න. මෙය ඔබගේ වර්තමාන ස්ථානය කාන්දු විය හැක. උළු භාවිතය සහ රහස්‍යතා ප්‍රතිපත්තිය සඳහා https://operations.osmfoundation.org/policies/tiles/ බලන්න</string>
+    <string name="online_map_consent">නොබැඳි සිතියමක් වින්‍යාස කර නොමැත. Openstreetmap.org වෙතින් සබැඳි සිතියම භාවිතා කිරීමට කරුණාකර එකඟ වන්න. මෙය ඔබගේ වර්තමාන ස්ථානය කාන්දු විය හැක. උළු භාවිතය සහ රහස්‍යතා ප්‍රතිපත්තිය සඳහා https://operations.osmfoundation.org/policies/tiles/ බලන්න</string>
     <string name="overwrite_map_question">\"%s\" සිතියම දැනටමත් පවතී! මකා දමා නැවත බාගත කරන්න\?</string>
     <string name="app_name_info_screen">OSM Dashboard
 \nසදහා OpenTracks</string>
