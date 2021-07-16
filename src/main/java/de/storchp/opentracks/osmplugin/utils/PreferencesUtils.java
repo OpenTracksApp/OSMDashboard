@@ -2,78 +2,83 @@ package de.storchp.opentracks.osmplugin.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.StringRes;
 import androidx.preference.PreferenceManager;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.storchp.opentracks.osmplugin.MapsActivity;
 import de.storchp.opentracks.osmplugin.R;
 
 public class PreferencesUtils {
 
     private final static String TAG = PreferencesUtils.class.getSimpleName();
+    private static SharedPreferences sharedPrefs;
+    private static Resources mRes;
 
-    private PreferencesUtils() {
+    public static void initPreferences(final Context context, final Resources res) {
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mRes = res;
     }
 
-    private static SharedPreferences getSharedPreferences(final Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+    private static String getKey(@StringRes final int keyId) {
+        return mRes.getString(keyId);
     }
 
-    public static Set<Uri> getMapUris(final Context context) {
-        return getUris(context, context.getString(R.string.MAP_FILES));
+    public static Set<Uri> getMapUris() {
+        return getUris(getKey(R.string.MAP_FILES));
     }
 
-    public static void setMapUris(final Context context, final Set<Uri> mapUris) {
-        setUris(context, R.string.MAP_FILES, mapUris);
+    public static void setMapUris(final Set<Uri> mapUris) {
+        setUris(R.string.MAP_FILES, mapUris);
     }
 
-    public static Uri getMapDirectoryUri(final Context context) {
-        return getUri(context, context.getString(R.string.MAP_DIRECTORY));
+    public static Uri getMapDirectoryUri() {
+        return getUri(getKey(R.string.MAP_DIRECTORY));
     }
 
-    public static void setMapDirectoryUri(final Context context, final Uri mapDirectory) {
-        setUri(context, R.string.MAP_DIRECTORY, mapDirectory);
+    public static void setMapDirectoryUri(final Uri mapDirectory) {
+        setUri(R.string.MAP_DIRECTORY, mapDirectory);
     }
 
-    public static Uri getMapThemeDirectoryUri(final Context context) {
-        return getUri(context, context.getString(R.string.MAP_THEME_DIRECTORY));
+    public static Uri getMapThemeDirectoryUri() {
+        return getUri(getKey(R.string.MAP_THEME_DIRECTORY));
     }
 
-    public static void setMapThemeDirectoryUri(final Context context, final Uri mapThemeDirectory) {
-        setUri(context, R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
+    public static void setMapThemeDirectoryUri(final Uri mapThemeDirectory) {
+        setUri(R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
     }
 
-    public static Uri getMapThemeUri(final Context context) {
-        return getUri(context, getKey(context, R.string.MAP_THEME));
+    public static Uri getMapThemeUri() {
+        return getUri(getKey(R.string.MAP_THEME));
     }
 
-    public static void setMapThemeUri(final Context context, final Uri mapTheme) {
-        setUri(context, R.string.MAP_THEME, mapTheme);
+    public static void setMapThemeUri(final Uri mapTheme) {
+        setUri(R.string.MAP_THEME, mapTheme);
     }
 
-    public static boolean getOnlineMapConsent(final Context context) {
-        return getBoolean(context, R.string.ONLINE_MAP_CONSENT, false);
+    public static boolean getOnlineMapConsent() {
+        return getBoolean(R.string.ONLINE_MAP_CONSENT, false);
     }
 
-    public static void setOnlineMapConsent(final Context context, final boolean onlineMapConsent) {
-        setBoolean(context, R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
+    public static void setOnlineMapConsent(final boolean onlineMapConsent) {
+        setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
-    public static String getLastDownloadUrl(final Context context, final String defaultDownloadUrl) {
-        return getString(context, R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
+    public static String getLastDownloadUrl(final String defaultDownloadUrl) {
+        return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
 
-    public static void setLastDownloadUrl(final Context context, final String lastDownloadUrl) {
-        setString(context, R.string.LAST_DOWNLOAD_URL, lastDownloadUrl);
+    public static void setLastDownloadUrl(final String lastDownloadUrl) {
+        setString(R.string.LAST_DOWNLOAD_URL, lastDownloadUrl);
     }
 
-    private static Set<Uri> getUris(final Context context, final String keyId) {
-        final Set<String> values = getSharedPreferences(context).getStringSet(keyId, null);
+    private static Set<Uri> getUris(final String keyId) {
+        final Set<String> values = sharedPrefs.getStringSet(keyId, null);
         final Set<Uri> uris = new HashSet<>();
         if (values != null) {
             for (final String value : values) {
@@ -87,8 +92,8 @@ public class PreferencesUtils {
         return uris;
     }
 
-    private static Uri getUri(final Context context, final String keyId) {
-        final String value = getSharedPreferences(context).getString(keyId, null);
+    private static Uri getUri(final String keyId) {
+        final String value = sharedPrefs.getString(keyId, null);
         try {
             return Uri.parse(value);
         } catch (final Exception ignored) {
@@ -97,120 +102,109 @@ public class PreferencesUtils {
         return null;
     }
 
-    private static void setUri(final Context context, final int keyId, final Uri uri) {
-        setString(context, keyId, uri != null ? uri.toString() : null);
+    private static void setUri(final int keyId, final Uri uri) {
+        setString(keyId, uri != null ? uri.toString() : null);
     }
 
-    private static void setUris(final Context context, final int keyId, final Set<Uri> uris) {
+    private static void setUris(final int keyId, final Set<Uri> uris) {
         final Set<String> values = new HashSet<>();
         if (uris != null) {
             for (final Uri uri : uris) {
                 values.add(uri.toString());
             }
         }
-        setStringSet(context, keyId, values);
+        setStringSet(keyId, values);
     }
 
-    private static String getString(final Context context, final int keyId, final String defaultValue) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        return sharedPreferences.getString(getKey(context, keyId), defaultValue);
+    private static String getString(final int keyId, final String defaultValue) {
+        return sharedPrefs.getString(getKey(keyId), defaultValue);
     }
 
-    private static void setString(final Context context, final int keyId, final String value) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getKey(context, keyId), value);
-        editor.apply();
+    private static void setString(final int keyId, final String value) {
+        sharedPrefs.edit()
+                .putString(getKey(keyId), value)
+                .apply();
     }
 
-    private static void setStringSet(final Context context, final int keyId, final Set<String> values) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet(getKey(context, keyId), values);
-        editor.apply();
+    private static void setStringSet(final int keyId, final Set<String> values) {
+        sharedPrefs.edit()
+                .putStringSet(getKey(keyId), values)
+                .apply();
     }
 
-    private static boolean getBoolean(final Context context, final int keyId, final boolean defaultValue) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        return sharedPreferences.getBoolean(getKey(context, keyId), defaultValue);
+    private static boolean getBoolean(final int keyId, final boolean defaultValue) {
+        return sharedPrefs.getBoolean(getKey(keyId), defaultValue);
     }
 
-    private static void setBoolean(final Context context, final int keyId, final boolean value) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(getKey(context, keyId), value);
-        editor.apply();
+    private static void setBoolean(final int keyId, final boolean value) {
+        sharedPrefs.edit()
+                .putBoolean(getKey(keyId), value)
+                .apply();
     }
 
-    private static int getInt(final Context context, final int keyId, final int defaultValue) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        return sharedPreferences.getInt(getKey(context, keyId), defaultValue);
+    private static int getInt(final int keyId, final int defaultValue) {
+        return sharedPrefs.getInt(getKey(keyId), defaultValue);
     }
 
-    private static void setInt(final Context context, final int keyId, final int value) {
-        final SharedPreferences sharedPreferences = getSharedPreferences(context);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(getKey(context, keyId), value);
-        editor.apply();
+    private static void setInt(final int keyId, final int value) {
+        sharedPrefs.edit()
+                .putInt(getKey(keyId), value)
+                .apply();
     }
 
-    private static String getKey(final Context context, final int keyId) {
-        return context.getString(keyId);
+    public static int getTrackSmoothingTolerance() {
+        return getInt(R.string.TRACK_SMOOTHING_TOLERANCE, 10);
     }
 
-    public static int getTrackSmoothingTolerance(final Context context) {
-        return getInt(context, R.string.TRACK_SMOOTHING_TOLERANCE, 10);
+    public static void setTrackSmoothingTolerance(final int value) {
+        setInt(R.string.TRACK_SMOOTHING_TOLERANCE, value);
     }
 
-    public static void setTrackSmoothingTolerance(final Context context, final int value) {
-        setInt(context, R.string.TRACK_SMOOTHING_TOLERANCE, value);
+    public static boolean isPipEnabled() {
+        return getBoolean(R.string.PIP_ENABLED, true);
     }
 
-    public static boolean isPipEnabled(final Context context) {
-        return getBoolean(context, R.string.PIP_ENABLED, true);
+    public static void setPipEnabled(final boolean enabled) {
+        setBoolean(R.string.PIP_ENABLED, enabled);
     }
 
-    public static void setPipEnabled(final Context context, final boolean enabled) {
-        setBoolean(context, R.string.PIP_ENABLED, enabled);
+    public static ArrowMode getArrowMode() {
+        return ArrowMode.valueOf(getString(R.string.ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
     }
 
-    public static ArrowMode getArrowMode(final Context context) {
-        return ArrowMode.valueOf(getString(context, R.string.ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
+    public static void setArrowMode(final ArrowMode arrowMode) {
+        setString(R.string.ARROW_MODE, arrowMode.name());
     }
 
-    public static void setArrowMode(final Context context, final ArrowMode arrowMode) {
-        setString(context, R.string.ARROW_MODE, arrowMode.name());
+    public static MapMode getMapMode() {
+        return MapMode.valueOf(getString(R.string.MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
     }
 
-    public static MapMode getMapMode(final Context context) {
-        return MapMode.valueOf(getString(context, R.string.MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
+    public static void setMapMode(final MapMode mapMode) {
+        setString(R.string.MAP_MODE, mapMode.name());
     }
 
-    public static void setMapMode(final Context context, final MapMode mapMode) {
-        setString(context, R.string.MAP_MODE, mapMode.name());
+    public static int getCompassSmoothing() {
+        return getInt(R.string.COMPASS_SMOOTHING, 2);
     }
 
-    public static int getCompassSmoothing(final Context context) {
-        return getInt(context, R.string.COMPASS_SMOOTHING, 2);
+    public static void setCompassSmoothing(final int value) {
+        setInt(R.string.COMPASS_SMOOTHING, value);
     }
 
-    public static void setCompasSmoothing(final Context context, final int value) {
-        setInt(context, R.string.COMPASS_SMOOTHING, value);
+    public static boolean getMultiThreadMapRendering() {
+        return getBoolean(R.string.MAP_MULTI_THREAD_RENDERING, true);
     }
 
-    public static boolean getMultiThreadMapRendering(final Context context) {
-        return getBoolean(context, R.string.MAP_MULTI_THREAD_RENDERING, true);
+    public static void setMultiThreadMapRendering(final boolean multiThread) {
+        setBoolean(R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
     }
 
-    public static void setMultiThreadMapRendering(final Context context, final boolean multiThread) {
-        setBoolean(context, R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
+    public static int getStrokeWidth() {
+        return getInt(R.string.STROKE_WIDTH, 4);
     }
 
-    public static int getStrokeWidth(final Context context) {
-        return getInt(context, R.string.STROKE_WIDTH, 4);
-    }
-
-    public static void setStrokeWidth(final Context context, final int value) {
-        setInt(context, R.string.STROKE_WIDTH, value);
+    public static void setStrokeWidth(final int value) {
+        setInt(R.string.STROKE_WIDTH, value);
     }
 }

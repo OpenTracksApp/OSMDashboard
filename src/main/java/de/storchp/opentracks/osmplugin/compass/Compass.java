@@ -25,7 +25,7 @@ public class Compass extends AbstractSensor {
         super();
         accelerometer = SensorChecker.hasGravity(context) ? new GravitySensor(context) : new LowPassAccelerometer(context);
         magnetometer = new Magnetometer(context);
-        final int filterSize = PreferencesUtils.getCompassSmoothing(context) * 2 * 2;
+        final int filterSize = PreferencesUtils.getCompassSmoothing() * 2 * 2;
         filter = new MovingAverageFilter(filterSize);
     }
 
