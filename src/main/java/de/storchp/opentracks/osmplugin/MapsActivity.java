@@ -129,15 +129,15 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if (PreferencesUtils.getMultiThreadMapRendering(this)) {
+        if (PreferencesUtils.getMultiThreadMapRendering()) {
             Parameters.NUMBER_OF_THREADS = Math.max(Runtime.getRuntime().availableProcessors() - 1, 1);
         } else {
             Parameters.NUMBER_OF_THREADS = 1;
         }
 
-        strokeWidth = PreferencesUtils.getStrokeWidth(this);
-        arrowMode = PreferencesUtils.getArrowMode(this);
-        mapMode = PreferencesUtils.getMapMode(this);
+        strokeWidth = PreferencesUtils.getStrokeWidth();
+        arrowMode = PreferencesUtils.getArrowMode();
+        mapMode = PreferencesUtils.getMapMode();
 
         compass = new Compass(this);
 
@@ -236,7 +236,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                 && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
                 && isOpenTracksRecordingThisTrack
-                && PreferencesUtils.isPipEnabled(this)) {
+                && PreferencesUtils.isPipEnabled()) {
             enterPictureInPictureMode();
         } else {
             super.onBackPressed();
@@ -307,7 +307,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        final Uri mapTheme = PreferencesUtils.getMapThemeUri(this);
+        final Uri mapTheme = PreferencesUtils.getMapThemeUri();
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
@@ -322,7 +322,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     protected MapDataStore getMapFile() {
         final MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
-        final Set<Uri> mapFiles = PreferencesUtils.getMapUris(this);
+        final Set<Uri> mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
         }
@@ -366,7 +366,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                     .setMessage(R.string.no_map_configured)
                     .setPositiveButton(R.string.ok, null)
                     .create().show();
-        } else if (PreferencesUtils.getOnlineMapConsent(this)) {
+        } else if (PreferencesUtils.getOnlineMapConsent()) {
             setOnlineTileLayer();
         } else {
             showOnlineMapConsent();
@@ -396,7 +396,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             .setTitle(R.string.app_name)
             .setMessage(message)
             .setPositiveButton(R.string.ok, (dialog1, which) -> {
-                PreferencesUtils.setOnlineMapConsent(MapsActivity.this, true);
+                PreferencesUtils.setOnlineMapConsent(true);
                 setOnlineTileLayer();
                 ((TileDownloadLayer) tileLayer).onResume();
                 mapConsent.setChecked(true);
@@ -497,7 +497,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
 
         final List<LatLong> latLongs = new ArrayList<>();
-        final int tolerance = PreferencesUtils.getTrackSmoothingTolerance(this);
+        final int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
         try {
             final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);

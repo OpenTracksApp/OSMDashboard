@@ -74,13 +74,13 @@ public class DownloadMapsActivity extends BaseActivity {
                         .create().show();
                     return true;
                 }
-                PreferencesUtils.setLastDownloadUrl(DownloadMapsActivity.this, url);
+                PreferencesUtils.setLastDownloadUrl(url);
                 return false;
             }
 
         };
         webView.setWebViewClient(webClient);
-        webView.loadUrl(PreferencesUtils.getLastDownloadUrl(this, MAPS_V_5));
+        webView.loadUrl(PreferencesUtils.getLastDownloadUrl(MAPS_V_5));
     }
 
     private boolean isDownloadInProgress() {
@@ -88,7 +88,7 @@ public class DownloadMapsActivity extends BaseActivity {
     }
 
     private void startMapDownload() {
-        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri(this);
+        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri();
         if (mapDirectoryUri == null) {
             openDirectory(REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD);
             return;

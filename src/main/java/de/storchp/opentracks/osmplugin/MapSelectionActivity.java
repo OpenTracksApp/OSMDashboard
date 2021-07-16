@@ -1,7 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -41,7 +40,7 @@ public class MapSelectionActivity extends AppCompatActivity {
         if (!BuildConfig.offline) {
             items.add(new FileItem(getString(R.string.online_osm_mapnick), null));
         }
-        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri(this);
+        final Uri mapDirectory = PreferencesUtils.getMapDirectoryUri();
         if (mapDirectory != null) {
             final DocumentFile documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
             if (documentsTree != null) {
@@ -52,7 +51,7 @@ public class MapSelectionActivity extends AppCompatActivity {
                 }
             }
         }
-        final Set<Uri> selected = PreferencesUtils.getMapUris(this);
+        final Set<Uri> selected = PreferencesUtils.getMapUris();
         adapter = new MapItemAdapter(this, items, selected);
 
         binding.mapList.setAdapter(adapter);
@@ -102,7 +101,7 @@ public class MapSelectionActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         final Set<Uri> selectedUris = adapter.getSelectedUris();
-        PreferencesUtils.setMapUris(this, selectedUris);
+        PreferencesUtils.setMapUris(selectedUris);
 
         super.onBackPressed();
     }

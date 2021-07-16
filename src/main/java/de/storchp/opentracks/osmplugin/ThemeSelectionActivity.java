@@ -38,12 +38,12 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        final Uri selected = PreferencesUtils.getMapThemeUri(this);
+        final Uri selected = PreferencesUtils.getMapThemeUri();
         adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected);
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
         new Thread(() -> {
-            final Uri directory = PreferencesUtils.getMapThemeDirectoryUri(ThemeSelectionActivity.this);
+            final Uri directory = PreferencesUtils.getMapThemeDirectoryUri();
             final List<FileItem> items = new ArrayList<>();
             if (directory != null) {
                 final DocumentFile documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
@@ -114,7 +114,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         final Uri selectedUri = adapter.getSelectedUri();
-        PreferencesUtils.setMapThemeUri(this, selectedUri);
+        PreferencesUtils.setMapThemeUri(selectedUri);
 
         super.onBackPressed();
     }

@@ -49,7 +49,7 @@ abstract class BaseActivity extends AppCompatActivity {
         mapInfo.setVisible(showInfo);
 
         mapConsent = menu.findItem(R.id.map_online_consent);
-        mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent(this));
+        mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
 
         if (BuildConfig.offline) {
             mapConsent.setVisible(false);
@@ -57,13 +57,13 @@ abstract class BaseActivity extends AppCompatActivity {
         }
 
         multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
-        multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering(this));
+        multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering());
 
         pipMode = menu.findItem(R.id.pip_mode);
-        pipMode.setChecked(PreferencesUtils.isPipEnabled(this));
+        pipMode.setChecked(PreferencesUtils.isPipEnabled());
 
-        menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode(this).getMessageId());
-        menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode(this).getMessageId());
+        menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode().getMessageId());
+        menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode().getMessageId());
 
         return true;
     }
@@ -73,7 +73,7 @@ abstract class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.map_online_consent :
                 item.setChecked(!item.isChecked());
-                PreferencesUtils.setOnlineMapConsent(this, item.isChecked());
+                PreferencesUtils.setOnlineMapConsent(item.isChecked());
                 onOnlineMapConsentChanged(item.isChecked());
                 break;
             case R.id.track_smoothing :
@@ -87,11 +87,11 @@ abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.multi_thread_map_rendering :
                 item.setChecked(!item.isChecked());
-                PreferencesUtils.setMultiThreadMapRendering(this, item.isChecked());
+                PreferencesUtils.setMultiThreadMapRendering(item.isChecked());
                 break;
             case R.id.pip_mode :
                 item.setChecked(!item.isChecked());
-                PreferencesUtils.setPipEnabled(this, item.isChecked());
+                PreferencesUtils.setPipEnabled(item.isChecked());
                 break;
             case R.id.map_selection :
                 startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
@@ -109,17 +109,17 @@ abstract class BaseActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, DownloadMapsActivity.class), REQUEST_DOWNLOAD_MAP);
                 break;
             case R.id.arrow_mode :
-                ArrowMode arrowMode = PreferencesUtils.getArrowMode(this);
+                ArrowMode arrowMode = PreferencesUtils.getArrowMode();
                 arrowMode = arrowMode.next();
                 item.setTitle(arrowMode.getMessageId());
-                PreferencesUtils.setArrowMode(this, arrowMode);
+                PreferencesUtils.setArrowMode(arrowMode);
                 changeArrowMode(arrowMode);
                 break;
             case R.id.map_mode :
-                MapMode mapMode = PreferencesUtils.getMapMode(this);
+                MapMode mapMode = PreferencesUtils.getMapMode();
                 mapMode = mapMode.next();
                 item.setTitle(mapMode.getMessageId());
-                PreferencesUtils.setMapMode(this, mapMode);
+                PreferencesUtils.setMapMode(mapMode);
                 changeMapMode(mapMode);
                 break;
         }
@@ -134,7 +134,7 @@ abstract class BaseActivity extends AppCompatActivity {
     private void showTrackSmoothingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final TrackSmoothingDialogBinding binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
-        binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance(this)));
+        binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance()));
 
         builder.setView(binding.getRoot())
                .setIcon(R.drawable.ic_logo_color_24dp)
@@ -148,7 +148,7 @@ abstract class BaseActivity extends AppCompatActivity {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             final String newTolerance = binding.etTolerance.getText().toString().trim();
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
-                PreferencesUtils.setTrackSmoothingTolerance(BaseActivity.this, Integer.parseInt(newTolerance));
+                PreferencesUtils.setTrackSmoothingTolerance(Integer.parseInt(newTolerance));
                 alertDialog.dismiss();
             } else {
                 Toast.makeText(BaseActivity.this, R.string.only_digits, Toast.LENGTH_LONG).show();
@@ -159,7 +159,7 @@ abstract class BaseActivity extends AppCompatActivity {
     private void showCompassSmoothingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final CompassSmoothingDialogBinding binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
-        final int smoothing = PreferencesUtils.getCompassSmoothing(this);
+        final int smoothing = PreferencesUtils.getCompassSmoothing();
         binding.tvCompassSmoothing.setText(String.valueOf(smoothing));
         binding.sbCompassSmoothing.setProgress(smoothing);
         binding.sbCompassSmoothing.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -190,7 +190,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             final int compassSmoothing = binding.sbCompassSmoothing.getProgress();
-            PreferencesUtils.setCompasSmoothing(BaseActivity.this, compassSmoothing);
+            PreferencesUtils.setCompassSmoothing(compassSmoothing);
             alertDialog.dismiss();
         });
     }
@@ -198,7 +198,7 @@ abstract class BaseActivity extends AppCompatActivity {
     private void showStrokeWidthDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final StrokeWidthDialogBinding binding = StrokeWidthDialogBinding.inflate(LayoutInflater.from(this));
-        final int currentStrokeWidth = PreferencesUtils.getStrokeWidth(this);
+        final int currentStrokeWidth = PreferencesUtils.getStrokeWidth();
         binding.tvStrokeWidth.setText(String.valueOf(currentStrokeWidth));
         binding.sbStrokeWidth.setProgress(currentStrokeWidth);
         binding.sbStrokeWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -229,7 +229,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             final int strokeWidth = binding.sbStrokeWidth.getProgress();
-            PreferencesUtils.setStrokeWidth(BaseActivity.this, strokeWidth);
+            PreferencesUtils.setStrokeWidth(strokeWidth);
             alertDialog.dismiss();
         });
     }
@@ -266,8 +266,8 @@ abstract class BaseActivity extends AppCompatActivity {
         }
 
         // release old permissions
-        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri(this);
-        final Uri themeDirectoryUri = PreferencesUtils.getMapThemeDirectoryUri(this);
+        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri();
+        final Uri themeDirectoryUri = PreferencesUtils.getMapThemeDirectoryUri();
         final List<UriPermission> persistedUriPermissions = getContentResolver().getPersistedUriPermissions();
         for (final UriPermission permission : persistedUriPermissions) {
             final Uri uri = permission.getUri();
@@ -279,12 +279,12 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private void changeThemeDirectory(final Uri uri, final Intent resultData) {
         takePersistableUriPermission(uri, resultData);
-        PreferencesUtils.setMapThemeDirectoryUri(this, uri);
+        PreferencesUtils.setMapThemeDirectoryUri(uri);
     }
 
     protected void changeMapDirectory(final Uri uri, final int requestCode, final Intent resultData) {
         takePersistableUriPermission(uri, resultData);
-        PreferencesUtils.setMapDirectoryUri(this, uri);
+        PreferencesUtils.setMapDirectoryUri(uri);
     }
 
     private void takePersistableUriPermission(final Uri uri, final Intent intent) {
