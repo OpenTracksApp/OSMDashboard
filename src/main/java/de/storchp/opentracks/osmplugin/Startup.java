@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.StrictMode;
 import android.util.Log;
 
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+
 /**
  * Code that is executed when the application starts.
  * <p>
@@ -21,6 +23,7 @@ public class Startup extends Application {
         //Include version information into stack traces.
         Log.i(TAG, BuildConfig.APPLICATION_ID + "; BuildType: " + BuildConfig.BUILD_TYPE + "; VersionName: " + BuildConfig.VERSION_NAME + "/" + " VersionCode: " + BuildConfig.VERSION_CODE);
 
+        PreferencesUtils.initPreferences(this, getResources());
         //In debug builds: show thread and VM warnings.
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Enabling strict mode");
