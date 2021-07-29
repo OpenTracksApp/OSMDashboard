@@ -16,10 +16,10 @@
 \n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
 \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
 \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b> ommige kaarten hebben speciale thema\'s nodig om correct weer te geven! Deze moeten worden gedownload en geconfigureerd. m offline kaarten te gebruiken, plaatst u ze in een map op de externe opslag van uw Android-toestel (bijv. <b>/storage/emulated/0</b>, afhankelijk van uw toestel) en selecteert u de map in het Appmenu <b>Offline map</b>. </string>
-    <string name="app_logo_description">App logo</string>
+    <string name="app_logo_description">App-logo</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuleer</string>
-    <string name="online_map_consent">Er is geen offline kaart geconfigureerd. Ga akkoord met het gebruik van de online kaart van openstreetmap.org. Dit kan uw huidige locatie lekken. Zie https://operations.osmfoundation.org/policies/tiles/ voor het gebruik van tegels en het privacybeleid.</string>
+    <string name="online_map_consent">Er is geen offline kaart geconfigureerd. Ga akkoord met het gebruik van de online kaart van openstreetmap.org. Dit kan uw huidige locatie lekken. Zie https://operations.osmfoundation.org/policies/tiles/ voor het gebruik van tegels en het privacybeleid</string>
     <string name="map_online_consent_menu">Online kaart toestemming</string>
     <string name="download_map">Kaart downloaden</string>
     <string name="choose_map_to_download">Kies een kaart om te downloaden</string>
@@ -53,7 +53,7 @@
     <string name="compass_smoothing_info">Hogere waarden verminderen het geluid</string>
     <string name="menu_advanced">Gevorderde</string>
     <string name="multi_thread_map_rendering">Multithread kaartweergave</string>
-    <string name="no_map_configured">U hebt nog geen offline kaart geconfigureerd</string>
+    <string name="no_map_configured">U hebt nog geen offline kaart geconfigureerd.</string>
     <string name="stroke_width_info">Definieer de slagbreedte van de sporen</string>
     <string name="stroke_width_menu">Spoorbreedte</string>
 </resources>
