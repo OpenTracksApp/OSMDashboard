@@ -50,11 +50,15 @@ import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import org.mapsforge.map.rendertheme.StreamRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
+import org.mapsforge.map.rendertheme.ZipRenderTheme;
+import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
@@ -313,7 +317,17 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
         try {
             final DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
-            return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(renderThemeFile.getUri()));
+            Uri themeFileUri = renderThemeFile.getUri();
+            if (renderThemeFile.getName().endsWith(".zip")) {
+                final String fragment = themeFileUri.getFragment();
+                if (fragment != null) {
+                    themeFileUri = themeFileUri.buildUpon().fragment(null).build();
+                } else {
+                    throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+                }
+                return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
+            }
+            return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
         } catch (final Exception e) {
             Log.e(TAG, "Error loading theme " + mapTheme, e);
             return InternalRenderTheme.DEFAULT;

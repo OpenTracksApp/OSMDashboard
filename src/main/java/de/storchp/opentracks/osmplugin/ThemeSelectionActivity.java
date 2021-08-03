@@ -11,8 +11,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
+import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
+
+import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding;
 import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding;
@@ -49,8 +53,19 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                 final DocumentFile documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
                 if (documentsTree != null) {
                     for (final DocumentFile file : documentsTree.listFiles()) {
-                        if (file.isFile() && file.getName().endsWith(".xml")) {
-                            items.add(new FileItem(file.getName(), file.getUri()));
+                        if (file.isFile()) {
+                            if (file.getName().endsWith(".xml")) {
+                                items.add(new FileItem(file.getName(), file.getUri()));
+                            } else if (file.getName().endsWith(".zip")) {
+                                try {
+                                    final List<String> xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
+                                    for (final String xmlTheme : xmlThemes) {
+                                        items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build()));
+                                    }
+                                } catch (final Exception e) {
+                                    Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
+                                }
+                            }
                         } else if (file.isDirectory()) {
                             final DocumentFile childFile = file.findFile(file.getName() + ".xml");
                             if (childFile != null) {

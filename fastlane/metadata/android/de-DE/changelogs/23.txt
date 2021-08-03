@@ -1,3 +1,5 @@
-- Updated translations
-- Update gradle
-- Update dependencies
+- Neue Übersetzung Sinhala
+- Neue Übersetzung Ukrainian
+- Update Gradle
+- Update Dependencies
+- Unterstützung für Map Theme Dateien im .zip Format hinzugefügt
