@@ -21,17 +21,20 @@
         \n\nTo use offline maps, put them in a folder on your Android device external storage (e.g. <b>/storage/emulated/0</b>, depending on your device) and select the directory in the App menu <b>Offline map directory</b>.
     </string>
     <string name="app_logo_description">App logo</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy</string>
     <string name="map_online_consent_menu">Online map consent</string>
     <string name="download_map">Map download</string>
+    <string name="download_theme">Theme download</string>
     <string name="choose_map_to_download">Choose a map to download</string>
     <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_map_question">Download map %s?</string>
     <string name="download_in_progress">There is already a download in progress!</string>
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
+    <string name="download_theme_success">Theme successfully downloaded</string>
+    <string name="download_theme_failed">Theme download failed</string>
     <string name="map_selection">Maps</string>
     <string name="online_osm_mapnick">Online map OSM:Mapnik</string>
     <string name="delete_map_question">Delete map \"%s\"?</string>
@@ -40,6 +43,7 @@
     <string name="delete_theme_question">Delete theme \"%s\"?</string>
     <string name="delete_theme_error">Theme deletion failed</string>
     <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
+    <string name="overwrite_theme_question">The theme \"%s\" already exists! Delete and download again?</string>
     <string name="cancel_download_question">Cancel current download?</string>
     <string name="error_loading_offline_map">Error reading configured offline map</string>
     <string name="track_smoothing_menu">Track smoothing</string>
@@ -60,4 +64,6 @@
     <string name="no_map_configured">You have no offline map configured yet.</string>
     <string name="stroke_width_info">Define the stroke width of the tracks</string>
     <string name="stroke_width_menu">Track stroke width</string>
+    <string name="now_download_uri_found">No URI to download found</string>
+    <string name="startDownload">Start Download</string>
 </resources>

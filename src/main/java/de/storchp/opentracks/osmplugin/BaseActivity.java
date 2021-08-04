@@ -34,6 +34,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD = 4;
     protected static final int REQUEST_MAP_SELECTION = 5;
     protected static final int REQUEST_THEME_SELECTION = 6;
+    protected static final int REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD = 7;
 
     protected MenuItem mapConsent;
     protected MenuItem pipMode;
@@ -70,58 +71,45 @@ abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.map_online_consent :
-                item.setChecked(!item.isChecked());
-                PreferencesUtils.setOnlineMapConsent(item.isChecked());
-                onOnlineMapConsentChanged(item.isChecked());
-                break;
-            case R.id.track_smoothing :
-                showTrackSmoothingDialog();
-                break;
-            case R.id.compass_smoothing :
-                showCompassSmoothingDialog();
-                break;
-            case R.id.stroke_width :
-                showStrokeWidthDialog();
-                break;
-            case R.id.multi_thread_map_rendering :
-                item.setChecked(!item.isChecked());
-                PreferencesUtils.setMultiThreadMapRendering(item.isChecked());
-                break;
-            case R.id.pip_mode :
-                item.setChecked(!item.isChecked());
-                PreferencesUtils.setPipEnabled(item.isChecked());
-                break;
-            case R.id.map_selection :
-                startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
-                break;
-            case R.id.theme_selection :
-                startActivityForResult(new Intent(this, ThemeSelectionActivity.class), REQUEST_THEME_SELECTION);
-                break;
-            case R.id.map_folder :
-                openMapDirectoryChooser();
-                break;
-            case R.id.theme_folder :
-                openThemeDirectoryChooser();
-                break;
-            case R.id.download_map :
-                startActivityForResult(new Intent(this, DownloadMapsActivity.class), REQUEST_DOWNLOAD_MAP);
-                break;
-            case R.id.arrow_mode :
-                ArrowMode arrowMode = PreferencesUtils.getArrowMode();
-                arrowMode = arrowMode.next();
-                item.setTitle(arrowMode.getMessageId());
-                PreferencesUtils.setArrowMode(arrowMode);
-                changeArrowMode(arrowMode);
-                break;
-            case R.id.map_mode :
-                MapMode mapMode = PreferencesUtils.getMapMode();
-                mapMode = mapMode.next();
-                item.setTitle(mapMode.getMessageId());
-                PreferencesUtils.setMapMode(mapMode);
-                changeMapMode(mapMode);
-                break;
+        final int itemId = item.getItemId();
+        if (itemId == R.id.map_online_consent) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setOnlineMapConsent(item.isChecked());
+            onOnlineMapConsentChanged(item.isChecked());
+        } else if (itemId == R.id.track_smoothing) {
+            showTrackSmoothingDialog();
+        } else if (itemId == R.id.compass_smoothing) {
+            showCompassSmoothingDialog();
+        } else if (itemId == R.id.stroke_width) {
+            showStrokeWidthDialog();
+        } else if (itemId == R.id.multi_thread_map_rendering) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setMultiThreadMapRendering(item.isChecked());
+        } else if (itemId == R.id.pip_mode) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setPipEnabled(item.isChecked());
+        } else if (itemId == R.id.map_selection) {
+            startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
+        } else if (itemId == R.id.theme_selection) {
+            startActivityForResult(new Intent(this, ThemeSelectionActivity.class), REQUEST_THEME_SELECTION);
+        } else if (itemId == R.id.map_folder) {
+            openMapDirectoryChooser();
+        } else if (itemId == R.id.theme_folder) {
+            openThemeDirectoryChooser();
+        } else if (itemId == R.id.download_map) {
+            startActivityForResult(new Intent(this, DownloadMapSelectionActivity.class), REQUEST_DOWNLOAD_MAP);
+        } else if (itemId == R.id.arrow_mode) {
+            ArrowMode arrowMode = PreferencesUtils.getArrowMode();
+            arrowMode = arrowMode.next();
+            item.setTitle(arrowMode.getMessageId());
+            PreferencesUtils.setArrowMode(arrowMode);
+            changeArrowMode(arrowMode);
+        } else if (itemId == R.id.map_mode) {
+            MapMode mapMode = PreferencesUtils.getMapMode();
+            mapMode = mapMode.next();
+            item.setTitle(mapMode.getMessageId());
+            PreferencesUtils.setMapMode(mapMode);
+            changeMapMode(mapMode);
         }
 
         return super.onOptionsItemSelected(item);
@@ -259,8 +247,8 @@ abstract class BaseActivity extends AppCompatActivity {
                 takePersistableUriPermission(uri, resultData);
                 if (requestCode == REQUEST_MAP_DIRECTORY || requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
                     changeMapDirectory(uri, requestCode, resultData);
-                } else if (requestCode == REQUEST_THEME_DIRECTORY) {
-                    changeThemeDirectory(uri, resultData);
+                } else if (requestCode == REQUEST_THEME_DIRECTORY || requestCode == REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD) {
+                    changeThemeDirectory(uri, requestCode, resultData);
                 }
             }
         }
@@ -277,7 +265,7 @@ abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void changeThemeDirectory(final Uri uri, final Intent resultData) {
+    protected void changeThemeDirectory(final Uri uri, final int requestCode, final Intent resultData) {
         takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapThemeDirectoryUri(uri);
     }

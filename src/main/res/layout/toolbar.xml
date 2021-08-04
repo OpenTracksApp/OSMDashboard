@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.google.android.material.appbar.AppBarLayout
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +17,4 @@
             android:elevation="4dp"
             app:navigationIcon="@drawable/ic_logo_color_24dp" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-</merge>
+</com.google.android.material.appbar.AppBarLayout>

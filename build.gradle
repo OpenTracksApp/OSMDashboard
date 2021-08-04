@@ -70,7 +70,7 @@ android {
         disable 'MissingTranslation'
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
 }
 

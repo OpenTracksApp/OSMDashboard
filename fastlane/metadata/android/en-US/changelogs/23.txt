@@ -2,3 +2,4 @@
 - New translation Sinhala
 - New translation Ukrainian
 - Added support for map theme files in .zip format
+- Added support to download maps and themes from Mapsforge, Freizeitkarte Android and OpenAndroMaps via the download links of their websites

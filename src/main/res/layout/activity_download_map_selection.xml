@@ -21,23 +21,12 @@
         android:layout_below="@id/toolbar"
         />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:minHeight="20dip"
-        android:maxHeight="20dip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="#f0f0f0"
-        android:layout_below="@id/download_provider_info"
-        style="?android:attr/progressBarStyleHorizontal"/>
-
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/progressBar"
+        android:layout_below="@id/download_provider_info"
         />
 
 </RelativeLayout>
