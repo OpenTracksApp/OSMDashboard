@@ -15,7 +15,7 @@
     <string name="theme_folder">සිතියම් තේමා නාමාවලිය</string>
     <string name="app_name">OSM Dashboard සඳහා OpenTracks</string>
     <string name="download_in_progress">බාගැනීමක් දැනටමත් සිදු වෙමින් පවතී!</string>
-    <string name="download_map_question">සිතියම% s බාගන්නද %s\?</string>
+    <string name="download_map_question">සිතියම බාගන්නද %s\?</string>
     <string name="download_instruction">ඔබ https://ftp-stud.hs-esslingen.de හි අන්තර්ගතය නරඹමින් සිටී.</string>
     <string name="track_smoothing_menu">සුමටනය ලුහුබඳින්න</string>
     <string name="error_loading_offline_map">වින්‍යාසගත නොබැඳි සිතියම කියවීමේ දෝෂයකි</string>
