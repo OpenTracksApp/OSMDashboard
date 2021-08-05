@@ -71,7 +71,7 @@ public class MapSelectionActivity extends AppCompatActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setMessage(getString(R.string.delete_map_question, fileItem.getName()))
-                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
                     final DocumentFile file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
                     final boolean deleted = file.delete();
@@ -83,7 +83,7 @@ public class MapSelectionActivity extends AppCompatActivity {
                         Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();
                     }
                 })
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
             return false;
         });

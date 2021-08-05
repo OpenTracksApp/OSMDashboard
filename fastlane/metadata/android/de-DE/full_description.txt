@@ -12,3 +12,7 @@ Einige Offlinekarten findest Du hier:
 - <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
 
 Einge Karte benötigen ein spezielles Kartentheme, um korrekt dargestellt zu werden. Diese müssen ebenfalls heruntergeladen und konfiguriert werden.
+
+Offlinekarten können über das Menü "Karten herunterladen" oder über die Downloadlinks der o.a. Webseiten herunter geladen werden. Bei einige Browsern (z.B. Firefox) muss man lange auf den Link klicken und "Öffne Link in externer App" und OSMDashboard wählen.
+
+Manuell heruntergeladene Offlinekarten oder Karten, die mit anderen Apps geteilt werden, können von Deinem Androidgerät über das Menü "Karten-Verzeichnis" geöffnet werden.

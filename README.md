@@ -59,17 +59,17 @@ The map implementation is based on the [Mapsforge](https://github.com/mapsforge/
 The default online map is provided by [OpenStreetMap.org](https://openstreetmap.org).
 Join the community and help to improve the map, see [www.openstreetmap.org/fixthemap](https://www.openstreetmap.org/fixthemap).
 
-Please consider downloading an offline map to decrease the server load and save your mobile data plan.
-
-Some basic offline maps can downloaded via the app. Other maps with special themes can be downloaded manually, for example from:
+Please consider downloading an offline map to decrease the server load and save your mobile data plan.Some offline maps can be found here:
 
 - [Mapsforge](http://download.mapsforge.org/)
 - [Freizeitkarte Android](https://www.freizeitkarte-osm.de/android/en/)
 - [OpenAndroMaps](https://www.openandromaps.org/en)
 
-Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
+**Some maps require special themes to render correctly!** These need to be downloaded and configured accordingly.
 
-To use offline maps, put them on your Android device external storage (e.g. `/storage/emulated/0`, depending on your device) and select the directory in the App menu `Map directory`.
+Offline maps can be downloaded via the menu `Map download` or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.
+
+Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu `Map directory`.
 
 ## Screenshots
 <div>

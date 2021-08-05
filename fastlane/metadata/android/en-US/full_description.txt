@@ -12,3 +12,7 @@ Some offline maps can be found here:
 - <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
 
 Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.
+
+Offline maps can be downloaded via the menu "Map download" or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.
+
+Manual downloaded offline maps or maps shared with other apps can be opened from your Android device. Select the directory in the menu "Map directory".

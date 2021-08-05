@@ -128,8 +128,8 @@ abstract class BaseActivity extends AppCompatActivity {
                .setIcon(R.drawable.ic_logo_color_24dp)
                .setTitle(R.string.app_name)
                 .setCancelable(false)
-               .setPositiveButton(R.string.ok, null)
-               .setNegativeButton(R.string.cancel, null);
+               .setPositiveButton(android.R.string.ok, null)
+               .setNegativeButton(android.R.string.cancel, null);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -171,8 +171,8 @@ abstract class BaseActivity extends AppCompatActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setCancelable(false)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null);
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -210,8 +210,8 @@ abstract class BaseActivity extends AppCompatActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setCancelable(false)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null);
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 

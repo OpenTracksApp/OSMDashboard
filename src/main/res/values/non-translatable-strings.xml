@@ -14,4 +14,8 @@
     <string name="MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
     <string name="MAP_MULTI_THREAD_RENDERING" translatable="false">APP_PREF_MAP_MULTI_THREAD_RENDERING</string>
     <string name="osm_mapnik" translatable="false">OSM: Mapnik</string>
+    <string name="offline_maps" translatable="false"><b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
+        \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
+        \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b></string>
+
 </resources>

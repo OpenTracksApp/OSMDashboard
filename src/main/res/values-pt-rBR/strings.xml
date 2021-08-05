@@ -11,8 +11,6 @@
     <string name="map_info_menu">Sobre</string>
     <string name="map_folder">Diretório de mapas</string>
     <string name="theme_folder">Diretório de temas do mapa</string>
-    <string name="ok">Ok</string>
-    <string name="cancel">Cancelar</string>
     <string name="app_name">OSM Dashboard para OpenTracks</string>
     <string name="cancel_download_question">Cancelar o download atual\?</string>
     <string name="download_map">Download do mapa</string>
@@ -52,18 +50,10 @@
     <string name="no_map_configured">Você ainda não configurou um mapa offline.</string>
     <string name="stroke_width_info">Defina a largura do traço das trilhas</string>
     <string name="stroke_width_menu">Largura do traço da trilha</string>
-    <string name="map_info_text">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecione uma trilha e clique no ícone do mapa para mostrar a trilha no mapa.
-\n
-\nO mapa padrão é fornecido por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
-\nJunte-se à comunidade e ajude a melhorar o mapa, veja <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
-\n
-\nConsidere baixar um mapa offline para diminuir a carga do servidor e salvar seu plano de dados móveis.
-\nAlguns mapas offline podem ser encontrados aqui:
-\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
-\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
-\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
-\n
-\nAlguns mapas requerem temas especiais para serem renderizados corretamente! Eles precisam ser baixados e configurados de acordo.
-\n
-\nPara usar mapas offline, coloque-os em uma pasta no armazenamento externo de seu dispositivo Android (ex. <b>/storage/emulated/0</b>, dependendo do seu dispositivo) e selecione o diretório no menu do aplicativo <b>Diretório de mapas offline</b>. </string>
+    <string name="usage_info">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecione uma trilha e clique no ícone do mapa para mostrar a trilha no mapa.</string>
+    <string name="osm_info">O mapa padrão é fornecido por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Junte-se à comunidade e ajude a melhorar o mapa, veja <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Considere baixar um mapa offline para diminuir a carga do servidor e salvar seu plano de dados móveis. Alguns mapas offline podem ser encontrados aqui:</string>
+    <string name="map_theme_info"><b>Alguns mapas requerem temas especiais para serem renderizados corretamente!</b> Eles precisam ser baixados e configurados de acordo.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
 </resources>

@@ -378,7 +378,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                     .setIcon(R.drawable.ic_logo_color_24dp)
                     .setTitle(R.string.app_name)
                     .setMessage(R.string.no_map_configured)
-                    .setPositiveButton(R.string.ok, null)
+                    .setPositiveButton(android.R.string.ok, null)
                     .create().show();
         } else if (PreferencesUtils.getOnlineMapConsent()) {
             setOnlineTileLayer();
@@ -409,13 +409,13 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             .setIcon(R.drawable.ic_logo_color_24dp)
             .setTitle(R.string.app_name)
             .setMessage(message)
-            .setPositiveButton(R.string.ok, (dialog1, which) -> {
+            .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
                 PreferencesUtils.setOnlineMapConsent(true);
                 setOnlineTileLayer();
                 ((TileDownloadLayer) tileLayer).onResume();
                 mapConsent.setChecked(true);
             })
-            .setNegativeButton(R.string.cancel, null)
+            .setNegativeButton(android.R.string.cancel, null)
             .create();
         dialog.show();
         ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());

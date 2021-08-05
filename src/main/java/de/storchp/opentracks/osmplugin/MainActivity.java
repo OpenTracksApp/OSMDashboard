@@ -18,9 +18,9 @@ public class MainActivity extends BaseActivity {
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        binding.appInfo.setPadding(50, 50, 50, 50);
-        binding.appInfo.setMovementMethod(LinkMovementMethod.getInstance());
-        binding.appInfo.setLinkTextColor(getResources().getColor(R.color.holo_orange_dark));
+        binding.usageInfo.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.osmInfo.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.offlineMaps.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

@@ -10,15 +10,13 @@
     <string name="map_info_menu">Over</string>
     <string name="map_folder">Kaartenmap</string>
     <string name="theme_folder">Thematische kaart</string>
-    <string name="map_info_text">Gebruik <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecteer een track en klik op het kaartpictogram om de track op de kaart te tonen.
-\n
-\nDe standaardkaart wordt geleverd door <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. luit je aan bij de community en help de kaart te verbeteren, zie <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>. verweeg alsjeblieft om een offline kaart te downloaden om de belasting van de server te verminderen en je mobiele data-abonnement op te slaan. ommige offline kaarten zijn hier te vinden:
-\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
-\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
-\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b> ommige kaarten hebben speciale thema\'s nodig om correct weer te geven! Deze moeten worden gedownload en geconfigureerd. m offline kaarten te gebruiken, plaatst u ze in een map op de externe opslag van uw Android-toestel (bijv. <b>/storage/emulated/0</b>, afhankelijk van uw toestel) en selecteert u de map in het Appmenu <b>Offline map</b>. </string>
+    <string name="usage_info">Gebruik <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecteer een track en klik op het kaartpictogram om de track op de kaart te tonen.</string>
+    <string name="osm_info">De standaardkaart wordt geleverd door <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Luit je aan bij de community en help de kaart te verbeteren, zie <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Verweeg alsjeblieft om een offline kaart te downloaden om de belasting van de server te verminderen en je mobiele data-abonnement op te slaan. ommige offline kaarten zijn hier te vinden:</string>
+    <string name="map_theme_info"><b>Ommige kaarten hebben speciale thema\'s nodig om correct weer te geven!</b> Deze moeten worden gedownload en geconfigureerd.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="app_logo_description">App-logo</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Annuleer</string>
     <string name="online_map_consent">Er is geen offline kaart geconfigureerd. Ga akkoord met het gebruik van de online kaart van openstreetmap.org. Dit kan uw huidige locatie lekken. Zie https://operations.osmfoundation.org/policies/tiles/ voor het gebruik van tegels en het privacybeleid</string>
     <string name="map_online_consent_menu">Online kaart toestemming</string>
     <string name="download_map">Kaart downloaden</string>

@@ -27,8 +27,6 @@
     <string name="download_in_progress">Det finns redan en nedladdning pågår!</string>
     <string name="download_map_question">Hämta karta %s\?</string>
     <string name="download_instruction">Du visar innehåll https://ftp-stud.hs-esslingen.de.</string>
-    <string name="cancel">Avbryta</string>
-    <string name="ok">OK</string>
     <string name="app_logo_description">App logotyp</string>
     <string name="theme_folder">Karta tema katalog</string>
     <string name="app_name_info_screen">OSM Dashboard
@@ -52,18 +50,10 @@
     <string name="pip_mode">Bild i bildläge</string>
     <string name="track_smoothing_info">Definiera toleransen i meter för spårutjämningsalgoritmen. Ange 0 för att inaktivera spår utjämning.
 \nFörändring träder i kraft efter omlastning av spåret.</string>
-    <string name="map_info_text">Använd <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b>, välj ett spår och klicka på kartikonen för att visa spåret på kartan.
-\n
-\nStandardkartan tillhandahålls av <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b>.
-\nGå med i communityn och hjälp med att förbättra kartan, se <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
-\n
-\nÖverväg att ladda ner en offline-karta för att minska serverbelastningen och spara din mobildataplan.
-\nNågra offline-kartor finns här:
-\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
-\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/"> Freizeitkarte Android </a> </b>
-\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
-\n
-\nVissa kartor kräver speciella teman för att återges korrekt! Dessa måste laddas ner och konfigureras därefter.
-\n
-\nFör att använda offline-kartor, placera dem i en mapp på din Android-enhet extern lagring (t.ex. <b> / lagring / emulerad / 0 </b>, beroende på din enhet) och välj katalogen i App-menyn <b> Offline karta katalog </b>. </string>
+    <string name="usage_info">Använd <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, välj ett spår och klicka på kartikonen för att visa spåret på kartan.</string>
+    <string name="osm_info">Standardkartan tillhandahålls av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Gå med i communityn och hjälp med att förbättra kartan, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Överväg att ladda ner en offline-karta för att minska serverbelastningen och spara din mobildataplan. Några offline-kartor finns här:</string>
+    <string name="map_theme_info"><b>Vissa kartor kräver speciella teman för att återges korrekt!</b> Dessa måste laddas ner och konfigureras därefter.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
 </resources>

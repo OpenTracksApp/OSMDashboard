@@ -102,7 +102,7 @@ public class DownloadActivity extends BaseActivity {
             binding.downloadInfo.setText(downloadUri.toString());
             binding.startDownloadButton.setOnClickListener((view) -> startDownload());
         } else {
-            binding.downloadInfo.setText(R.string.now_download_uri_found);
+            binding.downloadInfo.setText(R.string.no_download_uri_found);
             binding.startDownloadButton.setEnabled(false);
         }
 
@@ -131,11 +131,11 @@ public class DownloadActivity extends BaseActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setMessage(getString(downloadType.getOverwriteMessageId(), fileName))
-                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     file.delete();
                     startDownload();
                 })
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
             return;
         }
@@ -330,8 +330,8 @@ public class DownloadActivity extends BaseActivity {
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setMessage(getString(R.string.cancel_download_question))
-                .setPositiveButton(R.string.ok, (dialog, which) -> downloadTask.cancelDownload())
-                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> downloadTask.cancelDownload())
+                .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
         } else {
             super.onBackPressed();

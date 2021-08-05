@@ -12,8 +12,6 @@
     <string name="online_map_consent">Nincs offline térkép konfigurálva. Kérjük, fogadja el, hogy használja az online térképet openstreetmap.org. ez kiszivárogtathatja az aktuális tartózkodási helyét. Lásd https://operations.osmfoundation.org/policies/tiles / a csempék használatához és az adatvédelmi irányelvekhez</string>
     <string name="download_map">Térkép letöltése</string>
     <string name="map_online_consent_menu">Online térkép hozzájárulás</string>
-    <string name="cancel">Mégsem</string>
-    <string name="ok">Ok</string>
     <string name="app_logo_description">Alkalmazás logó</string>
     <string name="stroke_width_info">Határozza meg a sávok szélességét</string>
     <string name="multi_thread_map_rendering">Többszálú térkép renderelés</string>
@@ -51,19 +49,11 @@
 \nA változás a pálya újratöltése után lép hatályba.</string>
     <string name="app_name">OSM Dashboard az OpenTracks</string>
     <string name="default_theme">Alapértelmezett téma</string>
-    <string name="map_info_text">Használja a <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks"> OpenTracks </a> </b> alkalmazást, válasszon ki egy számot, és kattintson a térkép ikonjára a pálya megjelenítéséhez a térképen.
-\n
-\nAz alapértelmezett térképet a <b> <a href="https://openstreetmap.org"> OpenStreetMap.org </a> </b> szolgáltatja.
-\nCsatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b> <a href="https://www.openstreetmap.org/fixthemap"> www.openstreetmap.org/fixthemap </a> </b>
-\n
-\nFontolja meg egy offline térkép letöltését a szerver terhelésének csökkentése és a mobil adatcsomag mentése érdekében.
-\nNéhány offline térkép megtalálható itt:
-\n<b> - <a href="http://download.mapsforge.org/"> Mapsforge </a> </b>
-\n<b> - <a href="https://www.freizeitkarte-osm.de/android/hu/"> Android mobileszközök </a> </b>
-\n<b> - <a href="https://www.openandromaps.org/en"> OpenAndroMaps </a> </b>
-\n
-\nEgyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez! Ezeket le kell tölteni és ennek megfelelően kell konfigurálni.
-\n
-\nAz offline térképek használatához helyezze azokat egy mappába az Android-eszköz külső tárhelyén (pl. <b> / storage / emulated / 0 </b>, az eszköztől függően), és válassza ki a könyvtárat az App menüben <b> Offline térkép könyvtár </b>. </string>
+    <string name="usage_info">Használja a <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> alkalmazást, válasszon ki egy számot, és kattintson a térkép ikonjára a pálya megjelenítéséhez a térképen.</string>
+    <string name="osm_info">Az alapértelmezett térképet a <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> szolgáltatja. Csatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését a szerver terhelésének csökkentése és a mobil adatcsomag mentése érdekében. Néhány offline térkép megtalálható itt:</string>
+    <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez!</b> Ezeket le kell tölteni és ennek megfelelően kell konfigurálni.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="download_in_progress">Már folyamatban van egy letöltés!</string>
 </resources>

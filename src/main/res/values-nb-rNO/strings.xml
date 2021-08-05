@@ -9,8 +9,6 @@
     <string name="map_folder">Kartmappe</string>
     <string name="theme_folder">Karttema-mappe</string>
     <string name="app_logo_description">App logo</string>
-    <string name="ok">Ok</string>
-    <string name="cancel">Avbryt</string>
     <string name="map_selection">Kart</string>
     <string name="delete_map_question">Vil du slette kart \"%s\"?</string>
     <string name="delete_map_error">Kartsletting feilet</string>
@@ -41,20 +39,12 @@
     <string name="track_smoothing_info">Definer toleransen i meter for sporutjevningsalgoritmen. Angi 0 for å slå av sporutjevning.
 \nEndring trer i kraft etter at du har lastet sporet på nytt.</string>
     <string name="copyright_osm">Kartdata © OpenStreetMap-bidragsytere</string>
-    <string name="map_info_text">Bruk <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velg et spor og trykk på kartikonet for å vise sporet på kartet.
-\n
-\nStandardkartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>.
-\nBli med i fellesskapet og bidra til å forbedre kartet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>
-\n
-\nVurder å laste ned et offline-kart for å redusere belastningen på serveren og spare på din mobildatabruk.
-\nNoen offline-kart finner du her:
-\n<b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
-\n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
-\n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
-\n
-\nNoen kart krever spesielle temaer for å gjengis riktig! Disse må lastes ned og stilles inn.
-\n
-\nFor å bruke offline-kart, plasser dem i en mappe på din Android-enhets eksterne lagring (f.eks. <b>/storage/emulated/0</b>, avhengig av enheten) og velg mappen i App-menyen - <b>Kartmappe</b>. </string>
+    <string name="usage_info">Bruk <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velg et spor og trykk på kartikonet for å vise sporet på kartet.</string>
+    <string name="osm_info">Standardkartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bli med i fellesskapet og bidra til å forbedre kartet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Vurder å laste ned et offline-kart for å redusere belastningen på serveren og spare på din mobildatabruk. Noen offline-kart finner du her:</string>
+    <string name="map_theme_info"><b>Noen kart krever spesielle temaer for å gjengis riktig!</b> Disse må lastes ned og stilles inn.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="online_map_consent">Ingen offline-kart er stilt inn. Godta å bruke online-kartet fra openstreetmap.org. Dette kan lekke din gjeldende posisjon. Se https://operations.osmfoundation.org/policies/tiles/ for bruk av kartfliser og personvern</string>
     <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>

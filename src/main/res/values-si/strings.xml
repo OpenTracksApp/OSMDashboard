@@ -40,23 +40,13 @@
     <string name="track_smoothing_hint">මීටර වලින් සුමට ඉවසීම නිරීක්ෂණය කරන්න</string>
     <string name="track_smoothing_info">ධාවන සුමට ඇල්ගොරිතම සඳහා මීටර වලින් ඉවසීම නිර්වචනය කරන්න. ධාවන සුමටනය අක්‍රිය කිරීමට 0 ඇතුලත් කරන්න.
 \nධාවන පථය නැවත පූරණය කිරීමෙන් පසුව වෙනස් කිරීම බලාත්මක වේ.</string>
-    <string name="map_info_text">භාවිත <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> භාවිතා කරන්න, ධාවන පථයක් තෝරාගෙන ධාවන පථය පෙන්වීමට සිතියම් නිරූපකය ක්ලික් කරන්න සිතියමේ.
-\n
-\nපෙරනිමි සිතියම සපයනු ලබන්නේ <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> විසිනි.
-\nප්‍රජාවට සම්බන්ධ වී සිතියම වැඩිදියුණු කිරීමට උදව් කරන්න, <b> <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b> බලන්න
-\n
-\nකරුණාකර සේවාදායක පැටවීම අඩු කිරීමට සහ ඔබගේ ජංගම දත්ත සැලැස්ම සුරැකීමට නොබැඳි සිතියමක් බාගත කිරීම සලකා බලන්න.
-\nසමහර නොබැඳි සිතියම් මෙහි සොයාගත හැකිය:
-\n<b> - <a href="http://download.mapsforge.org/">Mapsforge</a></b>
-\n<b> - <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
-\n<b> - <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b>
-\n
-\nසමහර සිතියම් නිවැරදිව ඉදිරිපත් කිරීමට විශේෂ තේමාවන් අවශ්‍ය වේ! මේවා බාගත කර ඒ අනුව වින්‍යාසගත කළ යුතුය.
-\n
-\nනොබැඳි සිතියම් භාවිතා කිරීම සඳහා, ඒවා ඔබගේ ඇන්ඩ්‍රොයිඩ් උපාංගයේ බාහිර ගබඩාවේ ෆෝල්ඩරයකට දමන්න (උදා: <b> / ආචයනය / අනුකරණය / 0 </b>, ඔබගේ උපාංගය අනුව) සහ යෙදුම් මෙනුවේ නාමාවලිය තෝරන්න <b> නොබැඳි සිතියම නාමාවලිය </b>. </string>
+    <string name="usage_info">භාවිත <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> භාවිතා කරන්න, ධාවන පථයක් තෝරාගෙන ධාවන පථය පෙන්වීමට සිතියම් නිරූපකය ක්ලික් කරන්න සිතියමේ.</string>
+    <string name="osm_info">පෙරනිමි සිතියම සපයනු ලබන්නේ <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> විසිනි. ප්‍රජාවට සම්බන්ධ වී සිතියම වැඩිදියුණු කිරීමට උදව් කරන්න, <b> <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b> බලන්න.</string>
+    <string name="consider_offline_maps">කරුණාකර සේවාදායක පැටවීම අඩු කිරීමට සහ ඔබගේ ජංගම දත්ත සැලැස්ම සුරැකීමට නොබැඳි සිතියමක් බාගත කිරීම සලකා බලන්න. සමහර නොබැඳි සිතියම් මෙහි සොයාගත හැකිය:</string>
+    <string name="map_theme_info"><b>සමහර සිතියම් නිවැරදිව ඉදිරිපත් කිරීමට විශේෂ තේමාවන් අවශ්‍ය වේ!</b> මේවා බාගත කර ඒ අනුව වින්‍යාසගත කළ යුතුය.</string>
+    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
+    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="app_logo_description">යෙදුම් ලාංඡනය</string>
-    <string name="ok">හරි</string>
-    <string name="cancel">අවලංගු කරන්න</string>
     <string name="map_online_consent_menu">මාර්ගගත සිතියම් කැමැත්ත</string>
     <string name="download_map">සිතියම් බාගත කිරීම</string>
     <string name="delete_map_question">සිතියම \"%s\" මකන්නද\?</string>
