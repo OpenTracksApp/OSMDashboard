@@ -18,7 +18,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:textStyle="bold"
-        android:maxLines="1"
+        android:maxLines="2"
         android:layout_toEndOf="@+id/radiobutton"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
