@@ -1,2 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name_info_screen">OSM Dashboard 
+\npentru OpenTracks</string>
+    <string name="no_data">Nu se primesc date de cale</string>
+    <string name="maps">Hărți</string>
+    <string name="map_themes">Teme de hărți</string>
+    <string name="default_theme">Tema implicită</string>
+    <string name="map_info_menu">Despre</string>
+    <string name="map_folder">Director hartă</string>
+    <string name="theme_folder">Harta directorului tematic</string>
+    <string name="app_logo_description">Logoul aplicației</string>
+    <string name="choose_map_to_download">Alegeți o hartă pentru a o descărca</string>
+    <string name="download_instruction">Vizualizați conținutul https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Descarcă harta %s\?</string>
+    <string name="download_in_progress">Există deja o descărcare în curs de desfășurare!</string>
+    <string name="download_success">Harta descărcată cu succes</string>
+    <string name="download_failed">Descărcarea hărții nu a reușit</string>
+    <string name="download_theme_success">Tema descărcată cu succes</string>
+    <string name="download_theme_failed">Descărcarea temei nu a reușit</string>
+    <string name="map_selection">Hărți</string>
+    <string name="delete_map_question">Șterge harta \"%s\"\?</string>
+    <string name="online_osm_mapnick">Hartă online OSM:Mapnik</string>
+    <string name="map_online_consent_menu">Acordare online a hărții</string>
+    <string name="download_map">Descarcă harta</string>
+    <string name="download_theme">Descărcare temă</string>
+    <string name="map_theme_info"><b>Câteva hărți necesită teme speciale pentru a fi redate corect!</b> Acestea trebuie descărcate și configurate corespunzător.</string>
+    <string name="manual_offline_map_info">Hărțile offline descărcate manual sau hărțile partajate cu alte aplicații pot fi deschise de pe dispozitivul Android. Selectați directorul în meniul <b>Director de hărți</b>.</string>
+    <string name="usage_info">Utilizați <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selectați un traseu și faceți clic pe pictograma de hartă pentru a afișa traseul pe hartă.</string>
+    <string name="startDownload">Start Descărcare</string>
+    <string name="no_download_uri_found">Nu s-a găsit niciun URI de descărcat</string>
+    <string name="stroke_width_menu">Lățimea cursei de traseu</string>
+    <string name="stroke_width_info">Definirea lățimii de trasare a benzilor</string>
+    <string name="no_map_configured">Nu aveți încă configurată nicio hartă offline.</string>
+    <string name="multi_thread_map_rendering">Redare multithread a hărții</string>
+    <string name="menu_advanced">Avansată</string>
+    <string name="compass_smoothing_info">Valori mai mari reduc zgomotul</string>
+    <string name="compass_smoothing_menu">Netezirea compasului</string>
+    <string name="map_mode_compass">Harta ca busola</string>
+    <string name="map_mode_direction">Direcție de deplasare a hărții</string>
+    <string name="map_mode_north_top">Harta nord pe partea de sus</string>
+    <string name="arrow_mode_compass">Săgeata ca o busolă</string>
+    <string name="arrow_mode_direction">Săgeată direcție de mișcare</string>
+    <string name="arrow_mode_north">Săgeata indică nordul</string>
+    <string name="pip_mode">Imagine în modul imagine</string>
+    <string name="only_digits">Valoarea trebuie să conțină numai cifre</string>
+    <string name="track_smoothing_hint">Toleranța de netezire a pistei în metri</string>
+    <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Introduceți 0 pentru a dezactiva netezirea pistei.
+\nModificarea intră în vigoare după reîncărcarea pistei.</string>
+    <string name="track_smoothing_menu">Netezirea liniei</string>
+    <string name="error_loading_offline_map">Eroare la citirea hărții configurate offline</string>
+    <string name="cancel_download_question">Anulează descărcarea curentă\?</string>
+    <string name="overwrite_theme_question">Tema \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
+    <string name="overwrite_map_question">Harta \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
+    <string name="delete_theme_error">Eliminarea temei a eșuat</string>
+    <string name="delete_theme_question">Șterge tema \"%s\"\?</string>
+    <string name="theme_selection">Teme de hărți</string>
+    <string name="delete_map_error">Ștergerea hărților a eșuat</string>
+    <string name="app_name">OSM Dashboard pentru OpenTracks</string>
+    <string name="copyright_osm">Date de pe hartă © OpenStreetMap contributori</string>
+    <string name="consider_offline_maps">Vă rugăm să luați în considerare descărcarea unei hărți offline pentru a reduce încărcarea serverului și pentru a economisi planul de date mobile. Unele hărți offline pot fi găsite aici:</string>
+    <string name="offline_map_info">Hărțile offline pot fi descărcate prin intermediul meniului <b>Descărcare hărți</b> sau vizitând site-urile web menționate mai sus și făcând clic pe link-urile de descărcare. Unele browsere (de exemplu, Firefox) necesită un clic lung pe link și Open link in external app (Deschidere link în aplicație externă) și apoi alegeți OSMDashboard.</string>
+    <string name="online_map_consent">Nu este configurată nicio hartă offline. Vă rugăm să acceptați să utilizați harta online de pe openstreetmap.org. Este posibil ca aceasta să vă scurgă locația actuală. Consultați https://operations.osmfoundation.org/policies/tiles/ pentru politica de utilizare a plăcilor și de confidențialitate.</string>
+    <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+</resources>
