@@ -16,7 +16,7 @@
     <string name="map_theme_info"><b>Manche Karten benötigen ein passendes Design damit die Karte korrekt dargestellt wird!</b> Diese müssen extra heruntergeladen und konfiguriert werden muss.</string>
     <string name="offline_map_info">Offlinekarten können über das Menü <b>Karten herunterladen</b> oder über die Downloadlinks der o.a. Webseiten herunter geladen werden. Bei einige Browsern (z.B. Firefox) muss man lange auf den Link klicken und "Öffne Link in externer App" und OSMDashboard wählen.</string>
     <string name="manual_offline_map_info">Manuell heruntergeladene Offlinekarten oder Karten, die mit anderen Apps geteilt werden, können von Deinem Androidgerät über das Menü <b>Karten-Verzeichnis</b> geöffnet werden.</string>
-    <string name="app_logo_description">App logo</string>
+    <string name="app_logo_description">App Logo</string>
     <string name="online_map_consent">Es ist keine Offlinekarte konfiguriert. Bitte bestätige die Nutzung der Onlinekarte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
     <string name="download_map">Karten herunterladen</string>
