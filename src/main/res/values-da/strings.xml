@@ -15,7 +15,6 @@
     <string name="osm_info">Standardkortet leveres af <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Deltag i samfundet og hjælp til at forbedre kortet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Overvej at downloade et offline-kort for at mindske serverbelastningen og gemme din mobildataplan. Nogle offline kort kan findes her:</string>
     <string name="map_theme_info"><b>Nogle kort kræver specielle temaer for at blive gengivet korrekt!</b> Disse skal downloades og konfigureres i overensstemmelse hermed..</string>
-    <string name="offline_map_info"></string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="app_logo_description">App-logo</string>
     <string name="online_map_consent">Der er ingen offline kort konfigureret. Accepter venligst at bruge online kortet fra openstreetmap.org. dette kan lække din aktuelle placering. Se https://operations.osmfoundation.org/policies/tiles/ for flise brug og privacy polic.</string>

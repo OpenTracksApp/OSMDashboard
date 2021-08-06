@@ -35,7 +35,6 @@
     <string name="osm_info">El mapa por defecto es proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Únete a la comunidad y ayuda a mejorar el mapa, ver <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Por favor, considera descargar un mapa offline para no sobrecargar el servidor y ahorrar datos. Algunos mapas offline los puedes encontrar y descargar aquí:</string>
     <string name="map_theme_info"><b>¡Algunos mapas necesitan temas especiales para que se puedan mostrar correctamente!</b> Estos necesitan ser descargados y configurados adecuadamente.</string>
-    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Mapa descargado</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Carpeta de mapas</b>.</string>
     <string name="track_smoothing_menu">Suavizado de pista</string>
     <string name="track_smoothing_info">Defina la tolerancia en metros para el algoritmo de suavizado de pistas. Introduzca 0 para deshabilitar el suavizado de pistas.
