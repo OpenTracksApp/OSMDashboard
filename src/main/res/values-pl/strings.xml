@@ -55,4 +55,11 @@
     <string name="consider_offline_maps">Prosimy rozważyć pobranie mapy w trybie offline, aby zmniejszyć obciążenie serwera i oszczędzić Twój plan taryfowy na transmisję danych. Niektóre mapy offline można znaleźć tutaj:</string>
     <string name="map_theme_info"><b>Niektóre mapy wymagają specjalnych motywów do prawidłowego renderowania!</b> Muszą one zostać pobrane i odpowiednio skonfigurowane.</string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
+    <string name="download_theme">Temat do pobrania</string>
+    <string name="download_theme_success">Temat został pomyślnie pobrany</string>
+    <string name="download_theme_failed">Nie udało się pobrać motywu</string>
+    <string name="overwrite_theme_question">Motyw \"%s\" już istnieje! Usunąć i pobrać ponownie\?</string>
+    <string name="no_download_uri_found">Nie znaleziono URI do pobrania</string>
+    <string name="startDownload">Start Pobierz</string>
+    <string name="offline_map_info">Mapy offline można pobrać poprzez menu <b>Pobieranie map</b> lub odwiedzając wyżej wymienione strony internetowe i klikając na linki do pobrania. Niektóre przeglądarki (np. Firefox) wymagają długiego kliknięcia na link i polecenia Otwórz link w zewnętrznej aplikacji, a następnie wybrania OSMDashboard.</string>
 </resources>
