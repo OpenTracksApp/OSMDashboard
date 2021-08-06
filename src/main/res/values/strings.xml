@@ -16,7 +16,7 @@
     <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.</string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared with other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="app_logo_description">App logo</string>
-    <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy</string>
+    <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy.</string>
     <string name="map_online_consent_menu">Online map consent</string>
     <string name="download_map">Map download</string>
     <string name="download_theme">Theme download</string>
