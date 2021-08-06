@@ -53,4 +53,11 @@
     <string name="no_map_configured">U hebt nog geen offline kaart geconfigureerd.</string>
     <string name="stroke_width_info">Definieer de slagbreedte van de sporen</string>
     <string name="stroke_width_menu">Spoorbreedte</string>
+    <string name="download_theme">Thema downloaden</string>
+    <string name="download_theme_success">Thema met succes gedownload</string>
+    <string name="download_theme_failed">Thema downloaden mislukt</string>
+    <string name="overwrite_theme_question">Het thema \"%s\" bestaat al! Verwijderen en opnieuw downloaden\?</string>
+    <string name="no_download_uri_found">Geen URI om te downloaden gevonden</string>
+    <string name="startDownload">Begin met downloaden</string>
+    <string name="offline_map_info">Offline kaarten kunnen worden gedownload via het menu <b>Kaarten downloaden</b> of door de hierboven genoemde websites te bezoeken en op de downloadlinks te klikken. Sommige browsers (b.v. Firefox) vereisen een lange klik op de link en Open link in externe app en kies dan OSMDashboard.</string>
 </resources>
