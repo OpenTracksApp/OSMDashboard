@@ -17,7 +17,7 @@
     <string name="offline_map_info">Offlinekarten können über das Menü <b>Karten herunterladen</b> oder über die Downloadlinks der o.a. Webseiten herunter geladen werden. Bei einige Browsern (z.B. Firefox) muss man lange auf den Link klicken und "Öffne Link in externer App" und OSMDashboard wählen.</string>
     <string name="manual_offline_map_info">Manuell heruntergeladene Offlinekarten oder Karten, die mit anderen Apps geteilt werden, können von Deinem Androidgerät über das Menü <b>Karten-Verzeichnis</b> geöffnet werden.</string>
     <string name="app_logo_description">App Logo</string>
-    <string name="online_map_consent">Es ist keine Offlinekarte konfiguriert. Bitte bestätige die Nutzung der Onlinekarte von Openstreetmap.org. Damit wird eventuell deine aktuelle Position an den Kartenanbieter übertragen. Die Nutzungsbedingungen und Datenschutzrichtlinie des Anbieters kannst du unter und https://operations.osmfoundation.org/policies/tiles/ einsehen.</string>
+    <string name="online_map_consent">Es ist keine Offline-Karte konfiguriert. Bitte stimme der Verwendung der Online-Karte von openstreetmap.org zu. Dadurch kann Dein aktueller Standort verloren gehen. Siehe https://operations.osmfoundation.org/policies/tiles/ für die Kachelnutzung und die Datenschutzrichtlinie.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
     <string name="download_map">Karten herunterladen</string>
     <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
@@ -54,4 +54,10 @@
     <string name="no_map_configured">Du hast noch keine Offline-Karte konfiguriert.</string>
     <string name="stroke_width_info">Definiere die Strichbreite der Tracks</string>
     <string name="stroke_width_menu">Strichbreite der Tracks</string>
+    <string name="overwrite_theme_question">Das Thema \"%s\" existiert bereits! Löschen und erneut herunterladen\?</string>
+    <string name="download_theme_failed">Theme-Download fehlgeschlagen</string>
+    <string name="download_theme_success">Thema erfolgreich heruntergeladen</string>
+    <string name="download_theme">Thema herunterladen</string>
+    <string name="startDownload">Download beginnen</string>
+    <string name="no_download_uri_found">Keine URI zum Download gefunden</string>
 </resources>
