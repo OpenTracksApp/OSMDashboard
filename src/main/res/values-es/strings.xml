@@ -10,7 +10,7 @@
     <string name="map_folder">Carpeta de mapas</string>
     <string name="theme_folder">Carpeta de temas de mapa</string>
     <string name="app_logo_description">Logo de la aplicación</string>
-    <string name="online_map_consent">No hay mapa configurado. Por favor, acepte usar el mapa online de openstreetmap.org. Esto puede determinar tu posición actual. Ver https://operations.osmfoundation.org/policies/tiles/ para los términos de uso y política de privacidad</string>
+    <string name="online_map_consent">No hay mapa configurado. Por favor, acepte usar el mapa online de openstreetmap.org. Esto puede determinar tu posición actual. Ver https://operations.osmfoundation.org/policies/tiles/ para los términos de uso y política de privacidad.</string>
     <string name="map_online_consent_menu">Autorizar mapa online</string>
     <string name="download_map">Mapa descargado</string>
     <string name="choose_map_to_download">Elige un mapa para descargar</string>
