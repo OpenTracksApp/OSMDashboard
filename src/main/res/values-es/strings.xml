@@ -55,4 +55,11 @@
     <string name="only_digits">El valor debe contener solo dígitos</string>
     <string name="map_mode_direction">Mapa de dirección de movimiento</string>
     <string name="no_map_configured">Todavía no tiene ningún mapa sin conexión configurado.</string>
+    <string name="offline_map_info">Los mapas sin conexión pueden descargarse a través del menú <b>Descarga de mapas</b> o visitando los sitios web mencionados anteriormente y haciendo clic en los enlaces de descarga. Algunos navegadores (por ejemplo, Firefox) requieren un clic largo en el enlace y Abrir enlace en la aplicación externa y luego elegir OSMDashboard.</string>
+    <string name="download_theme">Descargar el tema</string>
+    <string name="download_theme_success">Tema descargado con éxito</string>
+    <string name="download_theme_failed">Fallo en la descarga del tema</string>
+    <string name="overwrite_theme_question">El tema \"%s\" ya existe. ¿Borrar y descargar de nuevo\?</string>
+    <string name="no_download_uri_found">No se ha encontrado ningún URI para descargar</string>
+    <string name="startDownload">Empezar a descargar</string>
 </resources>
