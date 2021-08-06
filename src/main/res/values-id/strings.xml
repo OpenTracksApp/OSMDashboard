@@ -55,4 +55,11 @@
     <string name="download_failed">Pengunduhan peta gagal</string>
     <string name="download_success">Peta berhasil diunduh</string>
     <string name="download_in_progress">Sudah ada proses pengunduhan!</string>
+    <string name="download_theme">Unduh tema</string>
+    <string name="download_theme_success">Tema berhasil diunduh</string>
+    <string name="download_theme_failed">Pengunduhan tema gagal</string>
+    <string name="overwrite_theme_question">Tema \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
+    <string name="no_download_uri_found">URI tak ditemukan</string>
+    <string name="startDownload">Mulai Unduh</string>
+    <string name="offline_map_info">Peta luring dapat diunduh melalui menu <b>Unduh</b> atau dengan mengunjungi situs-situs yang disebutkan dan klik link unduh. Beberapa browser (misalnya Firefox) memerlukan klik panjang pada link dan buka link dalam aplikasi eksternal lalu pilih OSMDashboar.</string>
 </resources>
