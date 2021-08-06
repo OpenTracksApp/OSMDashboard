@@ -55,4 +55,11 @@
 \nЗміна вступає в силу після перезавантаження треку.</string>
     <string name="arrow_mode_direction">Стрілка рухається в напрямку</string>
     <string name="map_mode_compass">Мапа як компас</string>
+    <string name="download_theme">Завантажити тему</string>
+    <string name="download_theme_success">Тема успішно завантажена</string>
+    <string name="download_theme_failed">Не вдалося завантажити тему</string>
+    <string name="overwrite_theme_question">Тема \"%s \" вже існує! Видалити і завантажити знову\?</string>
+    <string name="no_download_uri_found">Не знайдено URI для завантаження</string>
+    <string name="startDownload">Почати Завантаження</string>
+    <string name="offline_map_info">Автономні карти можна завантажити через меню <b>Map download</b> або відвідавши вищезгадані веб-сайти та перейшовши за посиланнями для завантаження. Деякі браузери (наприклад, Firefox) вимагають тривалого натискання на посилання і відкриття посилання в зовнішньому додатку, а потім вибору OSMDashboard.</string>
 </resources>
