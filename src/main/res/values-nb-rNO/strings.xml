@@ -43,7 +43,7 @@
     <string name="osm_info">Standardkartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bli med i fellesskapet og bidra til å forbedre kartet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Vurder å laste ned et offline-kart for å redusere belastningen på serveren og spare på din mobildatabruk. Noen offline-kart finner du her:</string>
     <string name="map_theme_info"><b>Noen kart krever spesielle temaer for å gjengis riktig!</b> Disse må lastes ned og stilles inn.</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
+    <string name="manual_offline_map_info">Manuelt nedlastede offline-kart eller kart delt med andre apper kan åpnes fra Android-enheten din. Velg mappen i menyen <b>Kartmappe</b>.</string>
     <string name="online_map_consent">Ingen offline-kart er stilt inn. Godta å bruke online-kartet fra openstreetmap.org. Dette kan lekke din gjeldende posisjon. Se https://operations.osmfoundation.org/policies/tiles/ for bruk av kartfliser og personvern.</string>
     <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>
@@ -55,4 +55,11 @@
     <string name="download_failed">Kartnedlasting mislyktes</string>
     <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
     <string name="cancel_download_question">Avbryte gjeldende nedlasting\?</string>
+    <string name="download_theme">Last ned tema</string>
+    <string name="download_theme_success">Tema lastet ned</string>
+    <string name="download_theme_failed">Temanedlasting feilet</string>
+    <string name="overwrite_theme_question">Temaet \"%s\" finnes allerede! Slette og laste ned på nytt\?</string>
+    <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
+    <string name="startDownload">Start nedlasting</string>
+    <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
 </resources>
