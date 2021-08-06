@@ -49,11 +49,11 @@
     <string name="app_name">OSM Dashboard dla OpenTracks</string>
     <string name="theme_folder">Katalog tematyczny map</string>
     <string name="app_logo_description">Logo aplikacji</string>
-    <string name="online_map_consent">Nie ma skonfigurowanej mapy offline. Wyraź zgodę na używanie mapy online z openstreetmap.org. Może to spowodować wyciek z Twojej bieżącej lokalizacji. Zobacz https://operations.osmfoundation.org/policies/tiles/, aby zapoznać się z użytkowaniem kafelków i polityką prywatności</string>
+    <string name="online_map_consent">Nie ma skonfigurowanej mapy offline. Wyraź zgodę na używanie mapy online z openstreetmap.org. Może to spowodować wyciek z Twojej bieżącej lokalizacji. Zobacz https://operations.osmfoundation.org/policies/tiles/, aby zapoznać się z użytkowaniem kafelków i polityką prywatności.</string>
     <string name="usage_info">Użyj <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, wybierz ścieżkę i kliknij ikonę mapy, aby pokazać ścieżkę na mapie.</string>
     <string name="osm_info">Domyślna mapa jest dostarczana przez <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Dołącz do społeczności i pomóż ulepszyć mapę, zobacz <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Prosimy rozważyć pobranie mapy w trybie offline, aby zmniejszyć obciążenie serwera i oszczędzić Twój plan taryfowy na transmisję danych. Niektóre mapy offline można znaleźć tutaj:</string>
     <string name="map_theme_info"><b>Niektóre mapy wymagają specjalnych motywów do prawidłowego renderowania!</b> Muszą one zostać pobrane i odpowiednio skonfigurowane.</string>
-    <string name="offline_map_info">Offline maps can be downloaded via the menu <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and Open link in external app and then choose OSMDashboard.</string>
+    <string name="offline_map_info"></string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
 </resources>
