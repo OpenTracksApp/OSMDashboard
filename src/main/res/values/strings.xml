@@ -59,4 +59,5 @@
     <string name="stroke_width_menu">Track stroke width</string>
     <string name="no_download_uri_found">No URI to download found</string>
     <string name="startDownload">Start Download</string>
+    <string name="no_file_manager_found">No file manager found</string>
 </resources>

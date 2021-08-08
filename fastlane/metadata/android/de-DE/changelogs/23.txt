@@ -5,3 +5,4 @@
 - Update Dependencies
 - Unterstützung für Map Theme Dateien im .zip Format hinzugefügt
 - Unterstützung für Map und Theme Downloads von Mapsforge, Freizeitkarte Android und OpenAndroMaps über die Download Links der Webseiten
+- Absturz wenn kein Dateimanager verfügbar ist

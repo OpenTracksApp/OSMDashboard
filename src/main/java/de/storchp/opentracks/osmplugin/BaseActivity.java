@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.net.Uri;
@@ -227,7 +228,11 @@ abstract class BaseActivity extends AppCompatActivity {
     protected void openDirectory(final int requestCode) {
         final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-        startActivityForResult(intent, requestCode);
+        try {
+            startActivityForResult(intent, requestCode);
+        } catch (final ActivityNotFoundException exception) {
+            Toast.makeText(BaseActivity.this, R.string.no_file_manager_found, Toast.LENGTH_LONG).show();
+        }
     }
 
     protected void openMapDirectoryChooser() {
