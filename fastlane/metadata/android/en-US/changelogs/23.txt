@@ -2,6 +2,9 @@
 - New translation Sinhala
 - New translation Ukrainian
 - New translation Romanian
+- New translation Slovenian
+- New translation Slovak
+- New translation Latvian
 - Added support for map theme files in .zip format
 - Added support to download maps and themes from Mapsforge, Freizeitkarte Android and OpenAndroMaps via the download links of their websites
 - Fix crash when no file manager is available
