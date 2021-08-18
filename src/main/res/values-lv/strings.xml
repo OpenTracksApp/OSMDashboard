@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OSM Dashboard vietnē OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\nvietnē OpenTracks</string>
+    <string name="no_data">Nav saņemti ceļa dati</string>
+    <string name="maps">Kartes</string>
+    <string name="map_themes">Kartes tēmas</string>
+    <string name="default_theme">Noklusējuma temats</string>
+    <string name="map_info_menu">Par</string>
+    <string name="map_folder">Karšu katalogs</string>
+    <string name="theme_folder">Kartes tēmu katalogs</string>
+    <string name="consider_offline_maps">Lūdzu, apsveriet iespēju lejupielādēt bezsaistes karti, lai samazinātu servera slodzi un ietaupītu mobilo datu plānu. Dažas bezsaistes kartes var atrast šeit:</string>
+    <string name="map_theme_info"><b>Lai pareizi atveidotu dažas kartes, ir nepieciešamas īpašas tēmas!</b> Tās ir attiecīgi jālejupielādē un jākonfigurē.</string>
+    <string name="manual_offline_map_info">Manuāli lejupielādētās bezsaistes kartes vai ar citām lietotnēm kopīgotās kartes var atvērt no Android ierīces. Izvēlnē <b>Karteņu direktorija</b> izvēlnē izvēlieties direktoriju.</string>
+    <string name="map_online_consent_menu">Piekrišana kartēm tiešsaistē</string>
+    <string name="download_map">Kartes lejupielādēšana</string>
+    <string name="download_theme">Tēmas lejupielāde</string>
+    <string name="choose_map_to_download">Izvēlieties karti lejupielādei</string>
+    <string name="download_instruction">Jūs skatāties https://ftp-stud.hs-esslingen.de saturu.</string>
+    <string name="download_map_question">Lejuplādēt karti %s\?</string>
+    <string name="download_in_progress">Lejupielāde jau notiek!</string>
+    <string name="download_success">Veiksmīgi lejupielādēta karte</string>
+    <string name="download_failed">Kartes lejupielāde neizdevās</string>
+    <string name="app_logo_description">Aplikācijas logotips</string>
+    <string name="track_smoothing_hint">Trases izlīdzināšanas pielaide metros</string>
+    <string name="track_smoothing_info">Noteikt pielaidi metros trases izlīdzināšanas algoritmam. Ievadiet 0, lai atspējotu sliežu izlīdzināšanu.
+\nIzmaiņas stājas spēkā pēc celiņa ielādēšanas.</string>
+    <string name="track_smoothing_menu">Trases izlīdzināšana</string>
+    <string name="error_loading_offline_map">Kļūda, lasot konfigurēto bezsaistes karti</string>
+    <string name="cancel_download_question">Atcelt pašreizējo lejupielādi\?</string>
+    <string name="overwrite_theme_question">Tēma \"%s\" jau eksistē! Dzēst un lejupielādēt vēlreiz\?</string>
+    <string name="overwrite_map_question">Karte \"%s\" jau pastāv! Dzēst un lejupielādēt vēlreiz\?</string>
+    <string name="delete_theme_error">Tēma dzēšana neizdevās</string>
+    <string name="startDownload">Sākt lejupielādi</string>
+    <string name="no_download_uri_found">Nav atrasts URI lejupielādei</string>
+    <string name="stroke_width_menu">Sliedes gājiena platums</string>
+    <string name="stroke_width_info">Definēt sliedes svītru platumu</string>
+    <string name="no_map_configured">Jums vēl nav konfigurēta bezsaistes karte.</string>
+    <string name="multi_thread_map_rendering">Daudzpavedienu karšu atveidošana</string>
+    <string name="compass_smoothing_info">Lielākas vērtības samazina troksni</string>
+    <string name="download_theme_success">Tēma veiksmīgi lejupielādēta</string>
+    <string name="download_theme_failed">Tēmas lejupielāde neizdevās</string>
+    <string name="map_selection">Kartes</string>
+    <string name="online_osm_mapnick">Tiešsaistes kartes OSM:Mapnik</string>
+    <string name="delete_map_question">Kartes \"%s\" dzēšana\?</string>
+    <string name="delete_map_error">Kartes dzēšana nav izdevusies</string>
+    <string name="theme_selection">Kartes tēmas</string>
+    <string name="delete_theme_question">Dzēst tēmu \"%s\"\?</string>
+    <string name="only_digits">Vērtībā jābūt tikai cipariem</string>
+    <string name="pip_mode">Attēla attēla režīmā</string>
+    <string name="arrow_mode_north">Bulta norāda uz ziemeļiem</string>
+    <string name="arrow_mode_direction">Bultu kustības virziens</string>
+    <string name="arrow_mode_compass">Bulta kā kompass</string>
+    <string name="map_mode_north_top">Karte uz ziemeļiem augšā</string>
+    <string name="map_mode_direction">Kartes virziena maiņa</string>
+    <string name="map_mode_compass">Kartes kā kompasa attēls</string>
+    <string name="compass_smoothing_menu">Kompasu izlīdzināšana</string>
+    <string name="menu_advanced">Uzlabotas</string>
+    <string name="copyright_osm">Kartes dati © OpenStreetMap</string>
+    <string name="usage_info">Izmantojiet <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, izvēlieties trasi un noklikšķiniet uz kartes ikonas, lai parādītu trasi kartē.</string>
+    <string name="osm_info">Noklusējuma karti nodrošina <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Pievienojieties kopienai un palīdziet uzlabot karti, skatiet <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="offline_map_info">Bezsaistes kartes var lejupielādēt, izmantojot izvēlni <b>Karšu lejupielāde</b> vai apmeklējot iepriekš minētās vietnes un noklikšķinot uz lejupielādes saitēm. Dažās pārlūkprogrammās (piemēram, Firefox) ir nepieciešams ilgi noklikšķināt uz saites un Atvērt saiti ārējā lietotnē un pēc tam izvēlēties OSMDashboard.</string>
+    <string name="online_map_consent">Nav konfigurēta bezsaistes karte. Lūdzu, piekrītiet izmantot tiešsaistes karti no openstreetmap.org. Tas var noplūdināt jūsu pašreizējo atrašanās vietu. Skatiet https://operations.osmfoundation.org/policies/tiles/ par flīžu lietošanu un privātuma politiku.</string>
+</resources>
