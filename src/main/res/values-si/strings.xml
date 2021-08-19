@@ -62,4 +62,5 @@
     <string name="no_download_uri_found">බාගැනීමට යූආර්අයි නොමැත</string>
     <string name="startDownload">බාගැනීම ආරම්භ කරන්න</string>
     <string name="offline_map_info">නොබැඳි සිතියම් <b> සිතියම් බාගැනීම </b> මෙනු හරහා හෝ ඉහත සඳහන් වෙබ් අඩවි වලට පිවිස බාගැනීම් සම්බන්ධක ක්ලික් කිරීමෙන් බාගත හැකිය. සමහර බ්‍රව්සර් (උදා. ෆයර්ෆොක්ස්) සඳහා සම්බන්ධකය මත දිගු ක්ලික් කිරීමක් අවශ්‍ය වන අතර බාහිර යෙදුමේ සම්බන්ධකය විවෘත කර OSMDashboard තෝරා ගන්න.</string>
+    <string name="no_file_manager_found">කිසිදු ගොනුව කළමනාකරු සොයාගෙන ඇත</string>
 </resources>
