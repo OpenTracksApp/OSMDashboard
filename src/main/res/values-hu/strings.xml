@@ -62,4 +62,5 @@
     <string name="download_theme_success">Téma sikeresen letöltve</string>
     <string name="download_theme">Téma letöltése</string>
     <string name="offline_map_info">Az offline térképek letölthetők a <b>Térkép letöltése</b> menüponton keresztül, vagy a fent említett weboldalakon a letöltési linkekre kattintva. Egyes böngészőkben (pl. Firefox) hosszan kell kattintani a linkre és a Link megnyitása külső alkalmazásban, majd az OSMDashboard.</string>
+    <string name="no_file_manager_found">Nem talált fájlkezelőt</string>
 </resources>
