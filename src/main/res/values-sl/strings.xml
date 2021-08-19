@@ -62,4 +62,5 @@
     <string name="usage_info">Uporabite <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, izberite progo in kliknite ikono zemljevida za prikaz proge na zemljevidu.</string>
     <string name="osm_info">Privzet zemljevid zagotavlja <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Pridružite se skupnosti in pomagajte izboljšati zemljevid, glejte <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="offline_map_info">Zemljevide brez povezave lahko prenesete prek menija <b>Prenos zemljevidov</b> ali tako, da obiščete zgoraj navedene spletne strani in kliknete povezave za prenos. V nekaterih brskalnikih (npr. Firefox) je potreben dolg klik na povezavo in Odprite povezavo v zunanji aplikaciji ter nato izberite OSMDashboard.</string>
+    <string name="no_file_manager_found">Upravitelj datotek ni bil najden</string>
 </resources>
