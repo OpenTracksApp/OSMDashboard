@@ -60,4 +60,5 @@
     <string name="download_theme">Thema herunterladen</string>
     <string name="startDownload">Download beginnen</string>
     <string name="no_download_uri_found">Keine URI zum Download gefunden</string>
+    <string name="no_file_manager_found">Kein Dateimanager gefunden</string>
 </resources>
