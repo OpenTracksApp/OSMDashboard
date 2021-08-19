@@ -62,4 +62,5 @@
     <string name="no_download_uri_found">Ingen URI att hämta hittades</string>
     <string name="startDownload">Starta nedladdning</string>
     <string name="offline_map_info">Offlinekartor kan laddas ner via menyn <b>Kartnedladdning</b> eller genom att besöka ovan nämnda webbplatser och klicka på nedladdningslänkarna. Vissa webbläsare (t.ex. Firefox) kräver ett långt klick på länken och Öppna länk i extern app och välj sedan OSMDashboard.</string>
+    <string name="no_file_manager_found">Ingen filhanterare hittades</string>
 </resources>
