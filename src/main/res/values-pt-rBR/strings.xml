@@ -62,4 +62,5 @@
     <string name="startDownload">Iniciar Download</string>
     <string name="offline_map_info">Os mapas off-line podem ser baixados através do menu <b>Map download</b> ou visitando os sites acima mencionados e clicando nos links de download. Alguns navegadores (por exemplo, Firefox) requerem um clique longo no link e Abrir link em aplicativo externo e depois escolher OSMDashboard.</string>
     <string name="download_theme_success">Tema descarregado com sucesso</string>
+    <string name="no_file_manager_found">Nenhum gerente de arquivo encontrado</string>
 </resources>
