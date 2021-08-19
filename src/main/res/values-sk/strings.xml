@@ -62,4 +62,5 @@
     <string name="download_theme_failed">Stiahnutie motívu zlyhalo</string>
     <string name="delete_theme_question">Odstránenie témy \"%s\"\?</string>
     <string name="overwrite_theme_question">Téma \"%s\" už existuje! Vymazať a stiahnuť znova\?</string>
+    <string name="no_file_manager_found">Nenašiel sa správca súborov</string>
 </resources>
