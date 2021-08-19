@@ -60,4 +60,5 @@
     <string name="no_download_uri_found">Geen URI om te downloaden gevonden</string>
     <string name="startDownload">Begin met downloaden</string>
     <string name="offline_map_info">Offline kaarten kunnen worden gedownload via het menu <b>Kaarten downloaden</b> of door de hierboven genoemde websites te bezoeken en op de downloadlinks te klikken. Sommige browsers (b.v. Firefox) vereisen een lange klik op de link en Open link in externe app en kies dan OSMDashboard.</string>
+    <string name="no_file_manager_found">Geen file manager gevonden</string>
 </resources>
