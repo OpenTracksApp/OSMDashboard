@@ -62,4 +62,5 @@
     <string name="no_download_uri_found">Ingen URI til download fundet</string>
     <string name="startDownload">Starter download</string>
     <string name="offline_map_info">Offlinekort kan downloades via menuen <b>Kort download</b> eller ved at besøge de ovennævnte websteder og klikke på downloadlinks. Nogle browsere (f.eks. Firefox) kræver et langt klik på linket og Open link in external app og vælg derefter OSMDashboard.</string>
+    <string name="no_file_manager_found">Ingen filhåndtering fundet</string>
 </resources>
