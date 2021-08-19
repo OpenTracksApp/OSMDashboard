@@ -62,4 +62,5 @@
     <string name="overwrite_theme_question">El tema \"%s\" ya existe. ¿Borrar y descargar de nuevo\?</string>
     <string name="no_download_uri_found">No se ha encontrado ningún URI para descargar</string>
     <string name="startDownload">Empezar a descargar</string>
+    <string name="no_file_manager_found">No se ha encontrado ningún gestor de archivos</string>
 </resources>
