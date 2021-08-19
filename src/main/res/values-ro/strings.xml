@@ -62,4 +62,5 @@
     <string name="offline_map_info">Hărțile offline pot fi descărcate prin intermediul meniului <b>Descărcare hărți</b> sau vizitând site-urile web menționate mai sus și făcând clic pe link-urile de descărcare. Unele browsere (de exemplu, Firefox) necesită un clic lung pe link și Open link in external app (Deschidere link în aplicație externă) și apoi alegeți OSMDashboard.</string>
     <string name="online_map_consent">Nu este configurată nicio hartă offline. Vă rugăm să acceptați să utilizați harta online de pe openstreetmap.org. Este posibil ca aceasta să vă scurgă locația actuală. Consultați https://operations.osmfoundation.org/policies/tiles/ pentru politica de utilizare a plăcilor și de confidențialitate.</string>
     <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="no_file_manager_found">Nu s-a găsit niciun manager de fișiere</string>
 </resources>
