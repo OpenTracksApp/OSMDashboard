@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
-\nfor OpenTracks</string>
+\ntil OpenTracks</string>
     <string name="no_data">Ingen spor-data mottatt</string>
     <string name="maps">Kart</string>
     <string name="map_themes">Karttemaer</string>
     <string name="map_info_menu">Om</string>
     <string name="map_folder">Kartmappe</string>
     <string name="theme_folder">Karttema-mappe</string>
-    <string name="app_logo_description">App logo</string>
+    <string name="app_logo_description">App-logo</string>
     <string name="map_selection">Kart</string>
     <string name="delete_map_question">Vil du slette kart \"%s\"?</string>
     <string name="delete_map_error">Kartsletting feilet</string>
     <string name="delete_theme_question">Vil du slette tema \"%s\"?</string>
-    <string name="app_name">OSM Dashboard for OpenTracks</string>
+    <string name="app_name">OSM Dashboard til OpenTracks</string>
     <string name="default_theme">Standardtema</string>
     <string name="theme_selection">Karttemaer</string>
     <string name="delete_theme_error">Temasletting feilet</string>
@@ -62,4 +62,5 @@
     <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
     <string name="startDownload">Start nedlasting</string>
     <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
+    <string name="no_file_manager_found">Ingen file manager funnet</string>
 </resources>
