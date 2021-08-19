@@ -61,4 +61,5 @@
     <string name="no_download_uri_found">Non URI para descargar atopado</string>
     <string name="startDownload">Comezar A Descargar</string>
     <string name="offline_map_info">Offline mapas poden descargarse a través do menú <b>Mapa descargar</b> ou visitar o mencionado sitios web e prema en ligazóns para descargar. Algúns navegadores (por exemplo, Firefox) requiren un longo prema na ligazón e Abrir ligazón externa aplicación e, a continuación, escoller OSMDashboard.</string>
+    <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
 </resources>
