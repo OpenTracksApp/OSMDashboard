@@ -1,2 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="maps">Žemėlapiai</string>
+    <string name="map_themes">Žemėlapio temos</string>
+    <string name="default_theme">Nusistatytosios temos</string>
+    <string name="map_info_menu">Apie</string>
+    <string name="map_folder">Žemėlapių katalogas</string>
+    <string name="theme_folder">Žemėlapių temos katalogas</string>
+    <string name="manual_offline_map_info">Rankiniu būdu atsisiųstus neprisijungus prie interneto parsisiųstus žemėlapius arba su kitomis programėlėmis bendrinamus žemėlapius galima atidaryti iš \"Android\" prietaiso. Meniu <b>Žemėlapių katalogas</b> pasirinkite katalogą.</string>
+    <string name="app_logo_description">Programėlės logotipą</string>
+    <string name="map_online_consent_menu">Internetinis žemėlapio sutikimas</string>
+    <string name="download_theme">Temos atsisiuntimas</string>
+    <string name="choose_map_to_download">Pasirinkite žemėlapį, kurį norite atsisiųsti</string>
+    <string name="download_success">Žemėlapis sėkmingai atsisiųstas</string>
+    <string name="download_failed">Nepavyko atsisiųsti žemėlapio</string>
+    <string name="download_theme_success">Tema sėkmingai atsisiųsta</string>
+    <string name="map_selection">Žemėlapiai</string>
+    <string name="online_osm_mapnick">Online žemėlapis OSM:Mapnik</string>
+    <string name="delete_theme_error">Nepavyko ištrinti temos</string>
+    <string name="delete_theme_question">Ištrinti temą \"%s\"\?</string>
+    <string name="theme_selection">Žemėlapio temos</string>
+    <string name="delete_map_error">Žemėlapio šalinimas nepavyko</string>
+    <string name="delete_map_question">Ištrinkite žemėlapį \"%s\"\?</string>
+    <string name="cancel_download_question">Atšaukti esamą atsisiuntimą\?</string>
+    <string name="track_smoothing_hint">Trasos išlyginimo tolerancija metrais</string>
+    <string name="only_digits">Vertėje turi būti tik skaitmenys</string>
+    <string name="pip_mode">Paveikslėlio režimas</string>
+    <string name="arrow_mode_north">Rodyklė rodo į šiaurę</string>
+    <string name="arrow_mode_direction">Rodyklė juda kryptimi</string>
+    <string name="map_mode_north_top">Žemėlapio šiaurė viršuje</string>
+    <string name="map_mode_compass">Žemėlapis - kompasas</string>
+    <string name="compass_smoothing_menu">Kompaso išlyginimas</string>
+    <string name="compass_smoothing_info">Didesnės vertės sumažina triukšmą</string>
+    <string name="menu_advanced">Išplėstinė</string>
+    <string name="multi_thread_map_rendering">Daugiagretainis žemėlapio atvaizdavimas</string>
+    <string name="stroke_width_info">Nustatykite takelių brūkšnio plotį</string>
+    <string name="stroke_width_menu">Bėgio eigos plotis</string>
+    <string name="no_download_uri_found">Nerastas atsisiuntimo URI</string>
+    <string name="startDownload">Pradėti atsisiųsti</string>
+    <string name="no_file_manager_found">Failų tvarkyklė nerandama</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\ndel OpenTracks</string>
+    <string name="no_data">Nėra gautų kelio duomenų</string>
+    <string name="copyright_osm">Žemėlapio duomenys © OpenStreetMap autoriai</string>
+    <string name="app_name">OSM Dashboard del OpenTracks</string>
+    <string name="usage_info">Naudokite <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, pasirinkite kelią ir spustelėkite žemėlapio piktogramą, kad kelias būtų parodytas žemėlapyje.</string>
+    <string name="osm_info">Numatytąjį žemėlapį pateikia <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Prisijunkite prie bendruomenės ir padėkite tobulinti žemėlapį, žr. <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Apsvarstykite galimybę atsisiųsti neprisijungusį žemėlapį, kad sumažintumėte serverio apkrovą ir sutaupytumėte savo mobiliųjų duomenų planą. Kai kuriuos neprisijungus prie interneto naudojamus žemėlapius galite rasti čia:</string>
+    <string name="map_theme_info"><b>Kai kuriems žemėlapiams tinkamai atvaizduoti reikia specialių temų!</b> Jas reikia atsisiųsti ir atitinkamai sukonfigūruoti.</string>
+    <string name="offline_map_info">Neprisijungę prie interneto žemėlapius galite atsisiųsti per meniu <b>Žemėlapių atsisiuntimas</b> arba apsilankę pirmiau minėtose svetainėse ir spustelėję atsisiuntimo nuorodas. Kai kuriose naršyklėse (pvz., Firefox) reikia ilgai spragtelėti nuorodą ir Atverti nuorodą išorinėje programoje, tada pasirinkti OSMDashboard.</string>
+    <string name="online_map_consent">Nėra sukonfigūruoto neprisijungusio žemėlapio. Prašome sutikti naudoti internetinį žemėlapį iš openstreetmap.org. Tai gali nutekinti jūsų dabartinę buvimo vietą. Žr. https://operations.osmfoundation.org/policies/tiles/ plytelių naudojimo ir privatumo politiką.</string>
+    <string name="download_map">Parsisiųsti žemėlapį</string>
+    <string name="track_smoothing_menu">Trasos išlyginimas</string>
+    <string name="error_loading_offline_map">Klaida skaitant sukonfigūruotą neprisijungusį žemėlapį</string>
+    <string name="overwrite_theme_question">Tema \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
+    <string name="overwrite_map_question">Žemėlapis \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
+    <string name="download_instruction">Jūs peržiūrite https://ftp-stud.hs-esslingen.de turinį.</string>
+    <string name="download_map_question">Atsisiųsti %s žemėlapį\?</string>
+    <string name="download_in_progress">Atsisiuntimas jau vyksta!</string>
+    <string name="download_theme_failed">Temos atsisiųsti nepavyko</string>
+    <string name="track_smoothing_info">Nustatykite takelio išlyginimo algoritmo paklaidą metrais. Įveskite 0, kad išjungtumėte takelio išlyginimą.
+\nPakeitimai įsigalioja įkėlus takelį iš naujo.</string>
+    <string name="arrow_mode_compass">Strėlė kaip kompasas</string>
+    <string name="map_mode_direction">Žemėlapis juda kryptimi</string>
+    <string name="no_map_configured">Dar nesukonfigūruotas neprisijungęs žemėlapis.</string>
+</resources>
