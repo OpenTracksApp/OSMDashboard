@@ -1,2 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">OSM Dashboard fyrir OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\nfyrir OpenTracks</string>
+    <string name="no_data">Enginn að fylgjast með gögn fengið</string>
+    <string name="maps">Kort</string>
+    <string name="map_themes">Kort þemum</string>
+    <string name="default_theme">Vanræksla þema</string>
+    <string name="map_info_menu">Um</string>
+    <string name="map_folder">Kort möppu</string>
+    <string name="theme_folder">Kort þema möppu</string>
+    <string name="map_theme_info"><b>kort sérstaka þemum að gera rétt!</b> Þetta þarf að vera niður og stillt í samræmi við það.</string>
+    <string name="manual_offline_map_info">Handbók niður ótengdur kort eða kort deilt með öðrum forrit er hægt að opna frá Android tækið. Veldu möppuna á matseðlinum <b>Kort skrá</b>.</string>
+    <string name="app_logo_description">App merki</string>
+    <string name="map_online_consent_menu">Netinu kort samþykki</string>
+    <string name="download_map">Kort sækja</string>
+    <string name="download_theme">Þema sækja</string>
+    <string name="choose_map_to_download">Velja kort til að sækja</string>
+    <string name="download_instruction">Þú ert að skoða efni https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Sæktu kort %s\?</string>
+    <string name="download_in_progress">Það er nú þegar sótt í gangi!</string>
+    <string name="download_success">Kort tókst að sækja</string>
+    <string name="download_failed">Kort sækja mistókst</string>
+    <string name="download_theme_success">Þema tókst að sækja</string>
+    <string name="download_theme_failed">Þema sækja mistókst</string>
+    <string name="map_selection">Kort</string>
+    <string name="online_osm_mapnick">Netinu kort OSM:Mapnik</string>
+    <string name="delete_map_question">Eyða kort \"%s\"\?</string>
+    <string name="delete_map_error">Kort eyðingu mistókst</string>
+    <string name="theme_selection">Kort þemum</string>
+    <string name="delete_theme_question">Eyða þema \"%s\"\?</string>
+    <string name="delete_theme_error">Þema eyðingu mistókst</string>
+    <string name="overwrite_map_question">Kort \"%s\" þegar til! Hreinn og sækja aftur\?</string>
+    <string name="overwrite_theme_question">Þema \"%s\" þegar til! Hreinn og sækja aftur\?</string>
+    <string name="cancel_download_question">Hætta núverandi sækja\?</string>
+    <string name="error_loading_offline_map">Villa að lesa stillt ótengdur kort</string>
+    <string name="track_smoothing_menu">Fylgjast refur</string>
+    <string name="track_smoothing_hint">Fylgjast refur umburðarlyndi í metra</string>
+    <string name="only_digits">Gildi verður að innihalda aðeins tölustafir</string>
+    <string name="pip_mode">Mynd í mynd ham</string>
+    <string name="arrow_mode_north">Arrow stig til norður</string>
+    <string name="arrow_mode_direction">Arrow átt að flytja</string>
+    <string name="arrow_mode_compass">Arrow eins og áttavita</string>
+    <string name="map_mode_north_top">Kort norður á efstu</string>
+    <string name="map_mode_direction">Kort átt að flytja</string>
+    <string name="map_mode_compass">Kort eins og áttavita</string>
+    <string name="compass_smoothing_menu">Áttavita refur</string>
+    <string name="compass_smoothing_info">Hærra gildi draga úr hávaða</string>
+    <string name="menu_advanced">Háþróaður</string>
+    <string name="multi_thread_map_rendering">Multithread kort flutningur</string>
+    <string name="stroke_width_info">Skilgreina heilablóðfall breidd lögin</string>
+    <string name="stroke_width_menu">Fylgjast heilablóðfall breidd</string>
+    <string name="no_download_uri_found">Nei URI að sækja komist</string>
+    <string name="startDownload">Byrja Niðurhal</string>
+    <string name="no_file_manager_found">Nei skráasafn komist</string>
+    <string name="copyright_osm">Kort gögn spila Niðurhala framlag</string>
+    <string name="usage_info">Nota <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velja lag og smelltu á kort táknið til að sýna brautinni á kortinu.</string>
+    <string name="osm_info">Sjálfgefið kort er veitt af <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Taka þátt í samfélaginu og hjálpa til við að bæta kort, sjáðu <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Vinsamlegast íhuga að sækja ótengdur kort til að minnka miðlara hlaða og spara gsm gagna-áætlun. Sumir ótengdur kort hægt er að finna hér:</string>
+    <string name="offline_map_info">Ótengdur kort má niður í gegnum matseðill <b>Kort sækja</b> eða með því að fara yfir getið vefsíður og smelltu sækja hlekkur. Sumir vafrar (t. Eldur) þurfa langa smelltu á tengilinn og Opna hlekkur í ytri app og þá velja OSMDashboard.</string>
+    <string name="online_map_consent">Það er engin ótengdur kort stillt. Vinsamlegast samþykkir að nota kort frá netinu openstreetmap.org. Þetta gæti leka staðsetningu þína. Að sjá https://operations.osmfoundation.org/policies/tiles/ fyrir flísar notkun og næði stefnu.</string>
+    <string name="track_smoothing_info">Skilgreina umburðarlyndi í metra fyrir utan refur reiknirit. Sláðu 0 til að slökkva á brautinni refur.
+\nBreytingar koma inn áhrif eftir að endurhlaða brautinni.</string>
+    <string name="no_map_configured">Þú hefur ekki ótengdur kort stillt enn.</string>
+</resources>
