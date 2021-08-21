@@ -1,2 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="no_data">Podaci o stazi nisu primljeni</string>
+    <string name="copyright_osm">Podaci o karti © članovi OpenStreetMap</string>
+    <string name="maps">Karte</string>
+    <string name="map_themes">Teme karata</string>
+    <string name="default_theme">Zadana tema</string>
+    <string name="map_info_menu">Oh</string>
+    <string name="map_folder">Katalog karata</string>
+    <string name="consider_offline_maps">Razmislite o preuzimanju izvanmrežne karte kako biste smanjili opterećenje poslužitelja i spremili podatkovni plan mobilnog prijenosa. Neke izvanmrežne karte mogu se naći ovdje:</string>
+    <string name="map_theme_info"><b>neke kartice zahtijevaju posebne teme kako bi ispravno vizualizirale!</b> moraju se preuzeti i prilagoditi u skladu s tim.</string>
+    <string name="manual_offline_map_info">Ručno preuzete izvanmrežne karte ili karte koje se dijele s drugim aplikacijama mogu se otvoriti s vašeg Android uređaja. Odaberite direktorij u izborniku<b>direktorij karte </b>.</string>
+    <string name="app_logo_description">Logo aplikacije</string>
+    <string name="map_online_consent_menu">Pristanak na mrežnu karticu</string>
+    <string name="download_map">Preuzimanje Karta</string>
+    <string name="download_theme">Preuzmite temu</string>
+    <string name="choose_map_to_download">Odaberite karticu za preuzimanje</string>
+    <string name="download_instruction">Pregledavate sadržaj https://ftp-stud.hs-esslingen.de hej.</string>
+    <string name="download_map_question">Preuzimanje karte %s\?</string>
+    <string name="download_in_progress">Preuzimanje je već u tijeku!</string>
+    <string name="download_success">Kartica je uspješno učitana</string>
+    <string name="download_theme_success">Tema je uspješno preuzeta</string>
+    <string name="download_theme_failed">Nije moguće učitati temu</string>
+    <string name="map_selection">Karte</string>
+    <string name="online_osm_mapnick">Online karta OSM: Mapnik</string>
+    <string name="delete_map_question">Izbriši karticu \"%s\"\?</string>
+    <string name="theme_selection">Teme karata</string>
+    <string name="delete_theme_question">Ukloni temu \"%s\"\?</string>
+    <string name="overwrite_map_question">Kartica\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
+    <string name="cancel_download_question">Otkazivanje trenutnog preuzimanja\?</string>
+    <string name="error_loading_offline_map">Pogreška čitanja prilagođene izvanmrežne kartice</string>
+    <string name="track_smoothing_menu">Izglađivanje staze</string>
+    <string name="track_smoothing_info">Odredite toleranciju u metrima za algoritam za izravnavanje staze. Unesite 0 da biste onemogućili zaglađivanje staze.
+\nPromjene stupaju na snagu nakon ponovnog pokretanja staze.</string>
+    <string name="track_smoothing_hint">Tolerancija izglađivanja staze u metrima</string>
+    <string name="only_digits">Vrijednost mora sadržavati samo brojeve</string>
+    <string name="pip_mode">Slika u načinu slike</string>
+    <string name="arrow_mode_north">Strelica pokazuje prema sjeveru</string>
+    <string name="arrow_mode_direction">Smjer kretanja strelice</string>
+    <string name="arrow_mode_compass">Strelica kao kompas</string>
+    <string name="map_mode_north_top">Karta sjevera odozgo</string>
+    <string name="map_mode_direction">Smjer kretanja karte</string>
+    <string name="map_mode_compass">Karta kao kompas</string>
+    <string name="compass_smoothing_menu">Izglađivanje preko kompasa</string>
+    <string name="compass_smoothing_info">Veće vrijednosti smanjuju razinu buke</string>
+    <string name="menu_advanced">Napredno</string>
+    <string name="multi_thread_map_rendering">Multithreaded renderiranje kartice</string>
+    <string name="no_map_configured">Još niste postavili izvanmrežnu kartu.</string>
+    <string name="stroke_width_info">Odredite širinu trake</string>
+    <string name="stroke_width_menu">Širina hoda gusjenice</string>
+    <string name="no_download_uri_found">Nije pronađen URI za preuzimanje</string>
+    <string name="startDownload">Pokreni Preuzimanje</string>
+    <string name="no_file_manager_found">Upravitelj datoteka nije pronađen</string>
+    <string name="app_name">OSM Dashboard za OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard 
+\nza OpenTracks</string>
+    <string name="theme_folder">Direktorij tema karte</string>
+    <string name="usage_info">Koristite <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a> </b>, odaberite pjesmu i kliknite ikonu karte da biste prikazali stazu na karti.</string>
+    <string name="osm_info">Zadana kartica je <b> <a href="https://openstreetmap.org">OpenStreetMap.org</a> </b>. Pridružite se zajednici i pomažite u poboljšanju karte, pogledajte <b> <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="offline_map_info">Izvanmrežne karte mogu se preuzeti putem izbornika <b> preuzimanje karte</b> ili posjetom gore navedenih web stranica i klikom na veze za preuzimanje. Neki preglednici (poput Firefoxa) zahtijevaju dugo klikanje na vezu i otvaranje veze u vanjskoj aplikaciji, a zatim odabir Osmdashboarda.</string>
+    <string name="download_failed">Nije moguće učitati karticu</string>
+    <string name="delete_map_error">Nije moguće izbrisati karticu</string>
+    <string name="online_map_consent">Izvanmrežna karta nije konfigurirana. Molimo vas da se slažete da koristite online karticu s openstreetmap.org. to može uzrokovati curenje vaše trenutačne lokacije. Vidiš\? https://operations.osmfoundation.org/policies/tiles/ za korištenje pločica i pravila o privatnosti.</string>
+    <string name="delete_theme_error">Nije moguće ukloniti temu</string>
+    <string name="overwrite_theme_question">Tema\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
+</resources>
