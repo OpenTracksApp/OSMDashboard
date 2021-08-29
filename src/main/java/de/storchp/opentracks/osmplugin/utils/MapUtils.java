@@ -116,7 +116,6 @@ public class MapUtils {
 
         int i = 0;
         idx = 0;
-        decimated.clear();
         for (final TrackPoint trackPoint : trackPoints) {
             if (dists[idx] != 0) {
                 decimated.add(trackPoint);

@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin.dashboardapi;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -35,14 +36,14 @@ public class Waypoint {
             PHOTOURL
     };
 
-    private long id = -1L;
-    private String name = "";
-    private String description = "";
-    private String category = "";
-    private String icon = "";
-    private long trackId = -1L;
-    private LatLong latLong;
-    private String photoUrl = "";
+    private final long id;
+    private final String name;
+    private final String description;
+    private final String category;
+    private final String icon;
+    private final long trackId;
+    private final LatLong latLong;
+    private final String photoUrl;
 
     public Waypoint(final long id, final String name, final String description, final String category, final String icon, final long trackId, final LatLong latLong, final String photoUrl) {
         this.id = id;
@@ -62,20 +63,20 @@ public class Waypoint {
         final List<Waypoint> waypoints = new ArrayList<>();
         try (final Cursor cursor = resolver.query(data, Waypoint.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final long waypointId = cursor.getLong(cursor.getColumnIndex(Waypoint._ID));
+                @SuppressLint("Range") final long waypointId = cursor.getLong(cursor.getColumnIndex(Waypoint._ID));
                 if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
                     continue;
                 }
-                final String name = cursor.getString(cursor.getColumnIndex(Waypoint.NAME));
-                final String description = cursor.getString(cursor.getColumnIndex(Waypoint.DESCRIPTION));
-                final String category = cursor.getString(cursor.getColumnIndex(Waypoint.CATEGORY));
-                final String icon = cursor.getString(cursor.getColumnIndex(Waypoint.ICON));
-                final long trackId = cursor.getLong(cursor.getColumnIndex(Waypoint.TRACKID));
-                final double latitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LATITUDE)) / 1E6;
-                final double longitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LONGITUDE)) / 1E6;
+                @SuppressLint("Range") final String name = cursor.getString(cursor.getColumnIndex(Waypoint.NAME));
+                @SuppressLint("Range") final String description = cursor.getString(cursor.getColumnIndex(Waypoint.DESCRIPTION));
+                @SuppressLint("Range") final String category = cursor.getString(cursor.getColumnIndex(Waypoint.CATEGORY));
+                @SuppressLint("Range") final String icon = cursor.getString(cursor.getColumnIndex(Waypoint.ICON));
+                @SuppressLint("Range") final long trackId = cursor.getLong(cursor.getColumnIndex(Waypoint.TRACKID));
+                @SuppressLint("Range") final double latitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LATITUDE)) / 1E6;
+                @SuppressLint("Range") final double longitude = cursor.getInt(cursor.getColumnIndex(Waypoint.LONGITUDE)) / 1E6;
                 if (MapUtils.isValid(latitude, longitude)) {
                     final LatLong latLong = new LatLong(latitude, longitude);
-                    final String photoUrl = cursor.getString(cursor.getColumnIndex(Waypoint.PHOTOURL));
+                    @SuppressLint("Range") final String photoUrl = cursor.getString(cursor.getColumnIndex(Waypoint.PHOTOURL));
                     waypoints.add(new Waypoint(waypointId, name, description, category, icon, trackId, latLong, photoUrl));
                 }
             }

@@ -643,6 +643,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private Marker createTappableMarker(final Waypoint waypoint) {
         final Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
+        assert drawable != null;
         final Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
         return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {

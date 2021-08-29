@@ -30,7 +30,7 @@ public class MapSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMapSelectionBinding binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
+        final ActivityMapSelectionBinding binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.toolbar.mapsToolbar.setTitle(R.string.map_selection);
@@ -74,6 +74,7 @@ public class MapSelectionActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
                     final DocumentFile file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
+                    assert file != null;
                     final boolean deleted = file.delete();
                     if (deleted) {
                         items.remove(position);

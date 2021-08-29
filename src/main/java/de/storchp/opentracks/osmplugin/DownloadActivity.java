@@ -119,7 +119,7 @@ public class DownloadActivity extends BaseActivity {
             return;
         }
         final DocumentFile directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
-        if (!directoryFile.canWrite()) {
+        if (directoryFile == null || !directoryFile.canWrite()) {
             openDirectory(downloadType.getRequestDirectoryCode());
             return;
         }
@@ -270,7 +270,11 @@ public class DownloadActivity extends BaseActivity {
         }
 
         private void copy(final InputStream input, final String filename, final DocumentFile directoryFile) throws IOException {
-            targetUri = directoryFile.createFile("application/binary", filename).getUri();
+            final DocumentFile file = directoryFile.createFile("application/binary", filename);
+            if (file == null) {
+                throw new IOException("Unable to create file: " + filename);
+            }
+            targetUri = file.getUri();
             final OutputStream output = ref.get().getContentResolver().openOutputStream(targetUri);
 
             final byte[] data = new byte[4096];

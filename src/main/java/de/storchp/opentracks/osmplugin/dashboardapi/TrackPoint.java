@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin.dashboardapi;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -74,10 +75,10 @@ public class TrackPoint {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
-                final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPoint._ID));
-                final long trackId = cursor.getLong(cursor.getColumnIndex(TrackPoint.TRACKID));
-                final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LATITUDE)) / 1E6;
-                final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LONGITUDE)) / 1E6;
+                @SuppressLint("Range") final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPoint._ID));
+                @SuppressLint("Range") final long trackId = cursor.getLong(cursor.getColumnIndex(TrackPoint.TRACKID));
+                @SuppressLint("Range") final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LATITUDE)) / 1E6;
+                @SuppressLint("Range") final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LONGITUDE)) / 1E6;
                 final int typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
                 Integer type = null;
                 if (typeIndex > -1) {

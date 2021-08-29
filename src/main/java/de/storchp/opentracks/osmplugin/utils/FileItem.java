@@ -2,6 +2,8 @@ package de.storchp.opentracks.osmplugin.utils;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 public class FileItem {
     private final String name;
 
@@ -20,6 +22,7 @@ public class FileItem {
         return uri;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getName();
