@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="UnusedAttribute">
         <activity
             android:launchMode="singleInstance"
             android:name=".MainActivity"
