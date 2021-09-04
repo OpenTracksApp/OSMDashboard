@@ -19,12 +19,22 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
     private final Activity context;
     private final List<FileItem> items;
     private Uri selected;
+    private final boolean onlineMapSelected;
 
-    public ThemeItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Uri selected) {
+    public ThemeItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Uri selected, final boolean onlineMapSelected) {
         super(context, R.layout.map_item, items);
         this.context = context;
         this.items = items;
         this.selected = selected;
+        this.onlineMapSelected = onlineMapSelected;
+    }
+
+    public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    public boolean isEnabled(final int position) {
+        return !onlineMapSelected || position == 0;
     }
 
     @Override
@@ -41,8 +51,10 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         final ThemeItemBinding binding = (ThemeItemBinding) rowView.getTag();
         final FileItem item = this.items.get(position);
         binding.name.setText(item.getName());
+        binding.name.setEnabled(isEnabled(position));
         binding.radiobutton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
         binding.radiobutton.setOnClickListener(onStateChangedListener(binding.radiobutton, position));
+        binding.radiobutton.setEnabled(isEnabled(position));
 
         return rowView;
     }

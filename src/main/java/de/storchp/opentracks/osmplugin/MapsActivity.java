@@ -57,6 +57,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.zip.ZipInputStream;
 
@@ -122,6 +123,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private float currentMapHeading = 0;
     private int strokeWidth;
     private int protocolVersion = 1;
+    private Set<Uri> mapFiles;
+    private Uri mapTheme;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -311,14 +314,15 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        final Uri mapTheme = PreferencesUtils.getMapThemeUri();
+        mapTheme = PreferencesUtils.getMapThemeUri();
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
         try {
             final DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
+            assert renderThemeFile != null;
             Uri themeFileUri = renderThemeFile.getUri();
-            if (renderThemeFile.getName().endsWith(".zip")) {
+            if (Objects.requireNonNull(renderThemeFile.getName(), "Theme files must have a name").endsWith(".zip")) {
                 final String fragment = themeFileUri.getFragment();
                 if (fragment != null) {
                     themeFileUri = themeFileUri.buildUpon().fragment(null).build();
@@ -336,7 +340,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     protected MapDataStore getMapFile() {
         final MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
-        final Set<Uri> mapFiles = PreferencesUtils.getMapUris();
+        mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
         }
@@ -418,7 +422,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             .setNegativeButton(android.R.string.cancel, null)
             .create();
         dialog.show();
-        ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) Objects.requireNonNull(dialog.findViewById(android.R.id.message),
+                "An AlertDialog must have a TextView with id.message"))
+                .setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /**
@@ -435,8 +441,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == R.id.map_info ) {
-            final Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-            startActivityForResult(intent, 0);
+            startActivity(new Intent(this, MainActivity.class));
             return true;
         }
 
@@ -468,24 +473,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             ((TileDownloadLayer) this.tileLayer).onPause();
             binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
             this.tileLayer = null;
-        }
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent resultData) {
-        super.onActivityResult(requestCode, resultCode, resultData);
-
-        if (requestCode == REQUEST_MAP_SELECTION || requestCode == REQUEST_THEME_SELECTION) {
-            if (this.tileLayer != null) {
-                if (this.tileLayer instanceof TileDownloadLayer) {
-                    ((TileDownloadLayer) this.tileLayer).onPause();
-                }
-                binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
-                this.tileLayer = null;
-            }
-            this.purgeTileCaches();
-            createTileCaches();
-            createLayers();
         }
     }
 
@@ -697,6 +684,22 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public void onResume() {
         super.onResume();
+
+        // if map or theme changed, recreate layers
+        if (!Objects.equals(mapTheme, PreferencesUtils.getMapThemeUri())
+            || !Objects.equals(mapFiles, PreferencesUtils.getMapUris())) {
+            if (this.tileLayer != null) {
+                if (this.tileLayer instanceof TileDownloadLayer) {
+                    ((TileDownloadLayer) this.tileLayer).onPause();
+                }
+                binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
+                this.tileLayer = null;
+            }
+            this.purgeTileCaches();
+            createTileCaches();
+            createLayers();
+        }
+
         if (this.tileLayer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.tileLayer).onResume();
         }

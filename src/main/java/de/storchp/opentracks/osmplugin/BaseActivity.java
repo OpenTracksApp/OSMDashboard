@@ -14,6 +14,9 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
@@ -28,14 +31,6 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 abstract class BaseActivity extends AppCompatActivity {
-
-    protected static final int REQUEST_MAP_DIRECTORY = 1;
-    protected static final int REQUEST_THEME_DIRECTORY = 2;
-    protected static final int REQUEST_DOWNLOAD_MAP = 3;
-    protected static final int REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD = 4;
-    protected static final int REQUEST_MAP_SELECTION = 5;
-    protected static final int REQUEST_THEME_SELECTION = 6;
-    protected static final int REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD = 7;
 
     protected MenuItem mapConsent;
     protected MenuItem pipMode;
@@ -90,15 +85,15 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setPipEnabled(item.isChecked());
         } else if (itemId == R.id.map_selection) {
-            startActivityForResult(new Intent(this, MapSelectionActivity.class), REQUEST_MAP_SELECTION);
+            startActivity(new Intent(this, MapSelectionActivity.class));
         } else if (itemId == R.id.theme_selection) {
-            startActivityForResult(new Intent(this, ThemeSelectionActivity.class), REQUEST_THEME_SELECTION);
+            startActivity(new Intent(this, ThemeSelectionActivity.class));
         } else if (itemId == R.id.map_folder) {
-            openMapDirectoryChooser();
+            openDirectory(mapDirectoryLauncher);
         } else if (itemId == R.id.theme_folder) {
-            openThemeDirectoryChooser();
+            openDirectory(themeDirectoryLauncher);
         } else if (itemId == R.id.download_map) {
-            startActivityForResult(new Intent(this, DownloadMapSelectionActivity.class), REQUEST_DOWNLOAD_MAP);
+            startActivity(new Intent(this, DownloadMapSelectionActivity.class));
         } else if (itemId == R.id.arrow_mode) {
             ArrowMode arrowMode = PreferencesUtils.getArrowMode();
             arrowMode = arrowMode.next();
@@ -225,40 +220,36 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    protected void openDirectory(final int requestCode) {
-        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+    protected ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    changeMapDirectory(result.getData().getData(), result.getData());
+                }
+            });
+
+    protected ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    changeThemeDirectory(result.getData().getData(), result.getData());
+                }
+            });
+
+    protected void openDirectory(final ActivityResultLauncher<Intent> launcher) {
         try {
-            startActivityForResult(intent, requestCode);
+            launcher.launch(createOpenDocumentIntent());
         } catch (final ActivityNotFoundException exception) {
             Toast.makeText(BaseActivity.this, R.string.no_file_manager_found, Toast.LENGTH_LONG).show();
         }
     }
 
-    protected void openMapDirectoryChooser() {
-        openDirectory(REQUEST_MAP_DIRECTORY);
+    @NonNull
+    private Intent createOpenDocumentIntent() {
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        return intent;
     }
 
-    protected void openThemeDirectoryChooser() {
-        openDirectory(REQUEST_THEME_DIRECTORY);
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent resultData) {
-        super.onActivityResult(requestCode, resultCode, resultData);
-        if (resultCode == Activity.RESULT_OK && resultData != null) {
-            final Uri uri = resultData.getData();
-            if (uri != null) {
-                takePersistableUriPermission(uri, resultData);
-                if (requestCode == REQUEST_MAP_DIRECTORY || requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
-                    changeMapDirectory(uri, requestCode, resultData);
-                } else if (requestCode == REQUEST_THEME_DIRECTORY || requestCode == REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD) {
-                    changeThemeDirectory(uri, requestCode, resultData);
-                }
-            }
-        }
-
-        // release old permissions
+    private void releaseOldPermissions() {
         final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri();
         final Uri themeDirectoryUri = PreferencesUtils.getMapThemeDirectoryUri();
         final List<UriPermission> persistedUriPermissions = getContentResolver().getPersistedUriPermissions();
@@ -270,14 +261,16 @@ abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void changeThemeDirectory(final Uri uri, final int requestCode, final Intent resultData) {
+    protected void changeThemeDirectory(final Uri uri, final Intent resultData) {
         takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapThemeDirectoryUri(uri);
+        releaseOldPermissions();
     }
 
-    protected void changeMapDirectory(final Uri uri, final int requestCode, final Intent resultData) {
+    protected void changeMapDirectory(final Uri uri, final Intent resultData) {
         takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapDirectoryUri(uri);
+        releaseOldPermissions();
     }
 
     private void takePersistableUriPermission(final Uri uri, final Intent intent) {

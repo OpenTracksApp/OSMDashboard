@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -115,12 +116,12 @@ public class DownloadActivity extends BaseActivity {
     public void startDownload() {
         final Uri directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
-            openDirectory(downloadType.getRequestDirectoryCode());
+            openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
         final DocumentFile directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
-            openDirectory(downloadType.getRequestDirectoryCode());
+            openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
         final String fileName = downloadUri.getLastPathSegment();
@@ -171,19 +172,15 @@ public class DownloadActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapDirectory(final Uri uri, final int requestCode, final Intent resultData) {
-        super.changeMapDirectory(uri, requestCode, resultData);
-        if (requestCode == REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD) {
-            startDownload();
-        }
+    protected void changeMapDirectory(final Uri uri, final Intent resultData) {
+        super.changeMapDirectory(uri, resultData);
+        startDownload();
     }
 
     @Override
-    protected void changeThemeDirectory(final Uri uri, final int requestCode, final Intent resultData) {
-        super.changeThemeDirectory(uri, requestCode, resultData);
-        if (requestCode == REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD) {
-            startDownload();
-        }
+    protected void changeThemeDirectory(final Uri uri, final Intent resultData) {
+        super.changeThemeDirectory(uri, resultData);
+        startDownload();
     }
 
     @Override
@@ -344,30 +341,44 @@ public class DownloadActivity extends BaseActivity {
 
     private enum DownloadType {
 
-        MAP(REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false) {
+        MAP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false) {
+            @Override
             public Uri getDirectoryUri() {
                 return  PreferencesUtils.getMapDirectoryUri();
             }
+
+            @Override
+            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+                return activity.mapDirectoryLauncher;
+            }
         },
-        MAP_ZIP(REQUEST_MAP_DIRECTORY_FOR_DOWNLOAD, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
+        MAP_ZIP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
+            @Override
             public Uri getDirectoryUri() {
                 return  PreferencesUtils.getMapDirectoryUri();
             }
+            @Override
+            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+                return activity.mapDirectoryLauncher;
+            }
         },
-        THEME(REQUEST_THEME_DIRECTORY_FOR_DOWNLOAD, R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
+        THEME(R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
+            @Override
             public Uri getDirectoryUri() {
                 return  PreferencesUtils.getMapThemeDirectoryUri();
             }
+            @Override
+            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+                return activity.themeDirectoryLauncher;
+            }
         };
 
-        private final int requestDirectoryCode;
         private final int overwriteMessageId;
         private final int successMessageId;
         private final int failedMessageId;
         private final boolean extractMapFromZIP;
 
-        DownloadType(final int requestDirectoryCode, final int overwriteMessageId, final int successMessageId, final int failedMessageId, final boolean extractMapFromZIP) {
-            this.requestDirectoryCode = requestDirectoryCode;
+        DownloadType(final int overwriteMessageId, final int successMessageId, final int failedMessageId, final boolean extractMapFromZIP) {
             this.overwriteMessageId = overwriteMessageId;
             this.successMessageId = successMessageId;
             this.failedMessageId = failedMessageId;
@@ -375,10 +386,6 @@ public class DownloadActivity extends BaseActivity {
         }
 
         abstract public Uri getDirectoryUri();
-
-        public int getRequestDirectoryCode() {
-            return requestDirectoryCode;
-        }
 
         public int getOverwriteMessageId() {
             return overwriteMessageId;
@@ -395,6 +402,8 @@ public class DownloadActivity extends BaseActivity {
         public boolean isExtractMapFromZIP() {
             return extractMapFromZIP;
         }
+
+        public abstract ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity);
     }
 
 }

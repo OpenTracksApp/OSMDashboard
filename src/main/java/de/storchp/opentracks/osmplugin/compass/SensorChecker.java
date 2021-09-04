@@ -1,12 +1,12 @@
 package de.storchp.opentracks.osmplugin.compass;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
 import java.util.List;
-
-import static android.content.Context.SENSOR_SERVICE;
 
 /**
  * Derived from https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/sensors/SensorChecker.kt

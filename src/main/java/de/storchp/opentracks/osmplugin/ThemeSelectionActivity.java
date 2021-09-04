@@ -42,8 +42,13 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
+        final boolean onlineMapSelected = PreferencesUtils.getMapUris().isEmpty();
+        if (onlineMapSelected) {
+            PreferencesUtils.setMapThemeUri(null);
+        }
+
         final Uri selected = PreferencesUtils.getMapThemeUri();
-        adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected);
+        adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected, onlineMapSelected);
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
         new Thread(() -> {
@@ -53,7 +58,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                 final DocumentFile documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
                 if (documentsTree != null) {
                     for (final DocumentFile file : documentsTree.listFiles()) {
-                        if (file.isFile()) {
+                        if (file.isFile() && file.getName() != null) {
                             if (file.getName().endsWith(".xml")) {
                                 items.add(new FileItem(file.getName(), file.getUri()));
                             } else if (file.getName().endsWith(".zip")) {
