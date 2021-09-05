@@ -1,0 +1,3 @@
+- Upgrade target API 31
+- Upgrade Gradle
+- Neue Übersetzungen von Mondstern
