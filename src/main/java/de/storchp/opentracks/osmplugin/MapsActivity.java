@@ -751,10 +751,15 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         Log.d(TAG, "register content observer");
         contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri, protocolVersion);
-        getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
-        getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
-        if (waypointsUri != null) {
-            getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+        try {
+            getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
+            getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
+            if (waypointsUri != null) {
+                getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+            }
+        } catch (final SecurityException se) {
+            Log.e(TAG, "Error on registering OpenTracksContentObserver", se);
+            Toast.makeText(this, R.string.error_reg_content_observer, Toast.LENGTH_LONG).show();
         }
     }
 
