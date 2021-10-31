@@ -457,7 +457,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     protected void changeArrowMode(final ArrowMode arrowMode) {
         this.arrowMode = arrowMode;
-        if (endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
+        if (endMarker != null && endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
             binding.map.mapView.getLayerManager().redrawLayers();
         }
     }
