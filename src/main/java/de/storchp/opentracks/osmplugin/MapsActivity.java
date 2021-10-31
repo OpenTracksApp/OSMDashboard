@@ -711,12 +711,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
             final Dimension dimension = this.binding.map.mapView.getModel().mapViewDimension.getDimension();
-            this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
-                boundingBox.getCenterPoint(),
-                (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                        dimension, boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
-                        getZoomLevelMax()), 16)));
-            boundingBox = null; // only set the zoomlevel once
+            if (dimension != null) {
+                this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
+                        boundingBox.getCenterPoint(),
+                        (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
+                                dimension, boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
+                                getZoomLevelMax()), 16)));
+                boundingBox = null; // only set the zoomlevel once
+            }
         }
     }
 
