@@ -1,0 +1,3 @@
+- Updated translation for Norwegian Bokmål
+- Updated Gradle
+- Fix crashes reported by Google Play Console
