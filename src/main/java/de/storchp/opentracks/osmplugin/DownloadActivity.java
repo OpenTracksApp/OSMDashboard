@@ -154,12 +154,14 @@ public class DownloadActivity extends BaseActivity {
     private void downloadEnded(final boolean success, final boolean canceled) {
         binding.progressBar.setVisibility(View.GONE);
         keepScreenOn(false);
-        final Uri targetUri = downloadTask.targetUri;
+        final Uri targetUri = downloadTask != null ? downloadTask.targetUri : null;
         downloadTask = null;
         if (canceled) {
-            final DocumentFile documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
-            if (documentFile != null) {
-                documentFile.delete();
+            if (targetUri != null) {
+                final DocumentFile documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
+                if (documentFile != null) {
+                    documentFile.delete();
+                }
             }
             onBackPressed();
             return;
