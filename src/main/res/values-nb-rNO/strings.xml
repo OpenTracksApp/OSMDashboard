@@ -63,4 +63,5 @@
     <string name="startDownload">Start nedlasting</string>
     <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
+    <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>
 </resources>
