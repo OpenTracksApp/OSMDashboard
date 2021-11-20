@@ -63,4 +63,5 @@
     <string name="no_download_uri_found">No se ha encontrado ningún URI para descargar</string>
     <string name="startDownload">Empezar a descargar</string>
     <string name="no_file_manager_found">No se ha encontrado ningún gestor de archivos</string>
+    <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
 </resources>
