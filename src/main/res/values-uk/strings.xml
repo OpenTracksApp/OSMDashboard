@@ -63,4 +63,5 @@
     <string name="startDownload">Почати Завантаження</string>
     <string name="offline_map_info">Автономні карти можна завантажити через меню <b>Map download</b> або відвідавши вищезгадані веб-сайти та перейшовши за посиланнями для завантаження. Деякі браузери (наприклад, Firefox) вимагають тривалого натискання на посилання і відкриття посилання в зовнішньому додатку, а потім вибору OSMDashboard.</string>
     <string name="no_file_manager_found">Файловий менеджер не знайден</string>
+    <string name="error_reg_content_observer">Помилка при реєстрації OpenTracksContentObserver</string>
 </resources>
