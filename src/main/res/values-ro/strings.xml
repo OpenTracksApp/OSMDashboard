@@ -63,4 +63,5 @@
     <string name="online_map_consent">Nu este configurată nicio hartă offline. Vă rugăm să acceptați să utilizați harta online de pe openstreetmap.org. Este posibil ca aceasta să vă scurgă locația actuală. Consultați https://operations.osmfoundation.org/policies/tiles/ pentru politica de utilizare a plăcilor și de confidențialitate.</string>
     <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="no_file_manager_found">Nu s-a găsit niciun manager de fișiere</string>
+    <string name="error_reg_content_observer">Eroare la înregistrarea OpenTracksContentObserver</string>
 </resources>
