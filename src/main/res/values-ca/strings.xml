@@ -63,4 +63,5 @@
     <string name="multi_thread_map_rendering">Multithread mapa de renderització</string>
     <string name="no_map_configured">No teniu els mapes fora de línia encara no s\'ha configurat.</string>
     <string name="startDownload">Inicia La Baixada</string>
+    <string name="error_reg_content_observer">Error en el registre OpenTracksContentObserver</string>
 </resources>
