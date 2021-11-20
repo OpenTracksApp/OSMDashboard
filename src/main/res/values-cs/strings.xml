@@ -63,4 +63,5 @@
     <string name="offline_map_info">Offline mapy lze stáhnout prostřednictvím nabídky <b>Mapy ke stažení</b> nebo navštívením výše uvedených webových stránek a kliknutím na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují dlouhé kliknutí na odkaz a Otevřít odkaz v externí aplikaci a poté zvolit OSMDashboard.</string>
     <string name="overwrite_theme_question">Téma \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
     <string name="no_file_manager_found">Nebyl nalezen správce souborů</string>
+    <string name="error_reg_content_observer">Chyba při registraci OpenTracksContentObserver</string>
 </resources>
