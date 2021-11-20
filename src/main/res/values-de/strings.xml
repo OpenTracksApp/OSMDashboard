@@ -61,4 +61,5 @@
     <string name="startDownload">Download beginnen</string>
     <string name="no_download_uri_found">Keine URI zum Download gefunden</string>
     <string name="no_file_manager_found">Kein Dateimanager gefunden</string>
+    <string name="error_reg_content_observer">Fehler bei der Registrierung von OpenTracksContentObserver</string>
 </resources>
