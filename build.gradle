@@ -20,6 +20,32 @@ allprojects {
     }
 }
 
+def getVersionName = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (ignored) {
+        return null
+    }
+}
+
+def getVersionCode = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', 'HEAD', '--count'
+            standardOutput = stdout
+        }
+        return Integer.valueOf(stdout.toString().trim())
+    } catch (ignored) {
+        return null
+    }
+}
+
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
@@ -28,6 +54,16 @@ android {
         targetSdkVersion 31
         versionCode 25
         versionName "2.12.1"
+    }
+    signingConfigs {
+        nightly {
+            if (System.getProperty("nightly_store_file") != null) {
+                storeFile file(System.getProperty("nightly_store_file"))
+                storePassword System.getProperty("nightly_store_password")
+                keyAlias System.getProperty("nightly_key_alias")
+                keyPassword System.getProperty("nightly_key_password")
+            }
+        }
     }
     compileOptions {
         // Flag to enable support for the new language APIs
@@ -61,6 +97,10 @@ android {
         debug {
             applicationIdSuffix ".debug"
         }
+        nightly {
+            signingConfig signingConfigs.nightly
+            applicationIdSuffix ".nightly"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -71,6 +111,19 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "applicationId", variant.applicationId
+
+        if (variant.buildType.name == 'nightly') {
+            variant.outputs.all {
+                setVersionCodeOverride(getVersionCode())
+                setVersionNameOverride(getVersionName())
+            }
+        }
+        variant.outputs.all {
+            outputFileName = "${applicationId}_${variant.versionCode}.apk"
+        }
     }
 }
 
