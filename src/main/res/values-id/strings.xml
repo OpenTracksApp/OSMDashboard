@@ -63,4 +63,5 @@
     <string name="startDownload">Mulai Unduh</string>
     <string name="offline_map_info">Peta luring dapat diunduh melalui menu <b>Unduh</b> atau dengan mengunjungi situs-situs yang disebutkan dan klik link unduh. Beberapa browser (misalnya Firefox) memerlukan klik panjang pada link dan buka link dalam aplikasi eksternal lalu pilih OSMDashboar.</string>
     <string name="no_file_manager_found">Tak ditemukan manajer berkas</string>
+    <string name="error_reg_content_observer">Error pada registrasi OpenTracksContentObserver</string>
 </resources>

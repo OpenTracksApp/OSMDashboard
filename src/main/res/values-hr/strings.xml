@@ -63,4 +63,5 @@
     <string name="online_map_consent">Izvanmrežna karta nije konfigurirana. Molimo vas da se slažete da koristite online karticu s openstreetmap.org. to može uzrokovati curenje vaše trenutačne lokacije. Vidiš\? https://operations.osmfoundation.org/policies/tiles/ za korištenje pločica i pravila o privatnosti.</string>
     <string name="delete_theme_error">Nije moguće ukloniti temu</string>
     <string name="overwrite_theme_question">Tema\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
+    <string name="error_reg_content_observer">Greška prilikom registracije OpenTracksContentObserver</string>
 </resources>

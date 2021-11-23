@@ -63,4 +63,5 @@
     <string name="delete_theme_question">Odstránenie témy \"%s\"\?</string>
     <string name="overwrite_theme_question">Téma \"%s\" už existuje! Vymazať a stiahnuť znova\?</string>
     <string name="no_file_manager_found">Nenašiel sa správca súborov</string>
+    <string name="error_reg_content_observer">Chyba pri registrácii OpenTracksContentObserver</string>
 </resources>

@@ -63,4 +63,5 @@
     <string name="arrow_mode_compass">Strėlė kaip kompasas</string>
     <string name="map_mode_direction">Žemėlapis juda kryptimi</string>
     <string name="no_map_configured">Dar nesukonfigūruotas neprisijungęs žemėlapis.</string>
+    <string name="error_reg_content_observer">Klaida registruojant OpenTracksContentObserver</string>
 </resources>

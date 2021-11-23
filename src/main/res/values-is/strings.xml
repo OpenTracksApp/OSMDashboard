@@ -63,4 +63,5 @@
     <string name="track_smoothing_info">Skilgreina umburðarlyndi í metra fyrir utan refur reiknirit. Sláðu 0 til að slökkva á brautinni refur.
 \nBreytingar koma inn áhrif eftir að endurhlaða brautinni.</string>
     <string name="no_map_configured">Þú hefur ekki ótengdur kort stillt enn.</string>
+    <string name="error_reg_content_observer">Villa á skrá OpenTracksContentObserver</string>
 </resources>
