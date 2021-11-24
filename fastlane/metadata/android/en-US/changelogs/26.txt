@@ -1,2 +1,3 @@
 - update translations
 - update dependencies
+- ignore trackpoints of type SENSORPOINT as they don't contain coordinates

@@ -1,2 +1,3 @@
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert
+- Ignoriere Wegpunkte vom Typ SENSORPOINT, da diese keine Koordinaten enthalten
