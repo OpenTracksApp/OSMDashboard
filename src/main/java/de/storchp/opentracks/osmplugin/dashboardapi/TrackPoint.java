@@ -70,7 +70,7 @@ public class TrackPoint {
     public static List<List<TrackPoint>> readTrackPointsBySegments(final ContentResolver resolver, final Uri data, final long lastTrackPointId, final int protocolVersion) {
         final List<List<TrackPoint>> segments = new ArrayList<>();
         final String[] projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
-        try (final Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ?", new String[]{Long.toString(lastTrackPointId)}, null)) {
+         try (final Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
