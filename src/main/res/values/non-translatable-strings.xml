@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name" translatable="false">OSM Dashboard</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="MAP_FILES" translatable="false">APP_PREF_MAP_FILES</string>
     <string name="MAP_DIRECTORY" translatable="false">APP_PREF_MAP_DIRECTORY</string>

@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name" translatable="false">OSM Dashboard for OpenTracks (debug)</string>
-    <string name="app_name_info_screen" translatable="false">OSM Dashboard\nfor OpenTracks (debug)</string>
+    <string name="app_name" translatable="false">OSM Dashboard (Debug)</string>
 </resources>
