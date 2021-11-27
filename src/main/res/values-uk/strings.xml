@@ -40,7 +40,6 @@
     <string name="no_map_configured">У вас ще не налаштовано офлайн-мапи.</string>
     <string name="stroke_width_info">Вкажіть товщину лінії треку</string>
     <string name="stroke_width_menu">Товщина лінії</string>
-    <string name="app_name">OSM Dashboard для OpenTracks</string>
     <string name="copyright_osm">Картографічні дані © Учасники OpenStreetMap</string>
     <string name="usage_info">Використовуйте <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, виберіть записаний або розпочатий трек та натисніть піктограму мапи, щоб побачити на ній трек.</string>
     <string name="osm_info">Мапа за замовчуванням надається <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Приєднуйтесь до спільноти та допомагайте покращувати карту, див. <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>

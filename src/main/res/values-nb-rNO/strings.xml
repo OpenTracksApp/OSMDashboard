@@ -13,7 +13,6 @@
     <string name="delete_map_question">Vil du slette kart \"%s\"?</string>
     <string name="delete_map_error">Kartsletting feilet</string>
     <string name="delete_theme_question">Vil du slette tema \"%s\"?</string>
-    <string name="app_name">OSM Dashboard for OpenTracks</string>
     <string name="default_theme">Standardtema</string>
     <string name="theme_selection">Karttemaer</string>
     <string name="delete_theme_error">Temasletting feilet</string>

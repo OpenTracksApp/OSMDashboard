@@ -31,7 +31,6 @@
     <string name="theme_folder">Karta tema katalog</string>
     <string name="app_name_info_screen">OSM Dashboard
 \nför OpenTracks</string>
-    <string name="app_name">OSM Dashboard för OpenTracks</string>
     <string name="stroke_width_info">Definiera banans slagbredd</string>
     <string name="multi_thread_map_rendering">Multithread karta rendering</string>
     <string name="compass_smoothing_info">Högre värden minskar buller</string>

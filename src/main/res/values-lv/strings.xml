@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSM Dashboard vietnē OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \nvietnē OpenTracks</string>
     <string name="no_data">Nav saņemti ceļa dati</string>
     <string name="maps">Kartes</string>

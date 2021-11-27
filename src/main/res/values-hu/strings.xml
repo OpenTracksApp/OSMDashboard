@@ -47,7 +47,6 @@
     <string name="track_smoothing_hint">Pálya simító tolerancia méterben</string>
     <string name="track_smoothing_info">Adja meg a tűréshatárt méterben a sávsimító algoritmus számára. Írja be a 0-t a sávsimítás letiltásához.
 \nA változás a pálya újratöltése után lép hatályba.</string>
-    <string name="app_name">OSM Dashboard az OpenTracks</string>
     <string name="default_theme">Alapértelmezett téma</string>
     <string name="usage_info">Használja a <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> alkalmazást, válasszon ki egy számot, és kattintson a térkép ikonjára a pálya megjelenítéséhez a térképen.</string>
     <string name="osm_info">Az alapértelmezett térképet a <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> szolgáltatja. Csatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>

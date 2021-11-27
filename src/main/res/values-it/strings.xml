@@ -40,7 +40,6 @@
     <string name="stroke_width_menu">Larghezza del tratto del percorso</string>
     <string name="map_mode_direction">Direzione di movimento della mappa</string>
     <string name="map_mode_compass">Movimento della mappa come una bussola</string>
-    <string name="app_name">Cruscotto OSM per OpenTracks</string>
     <string name="copyright_osm">Dati cartografici © Collaboratori di OpenStreetMap</string>
     <string name="usage_info">Utilizzo di &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\"&gt;OpenTracks&lt;/a&gt;&lt;/b&gt;: selezionare una traccia e cliccare sull\'icona della mappa per mostrare la traccia sulla mappa.</string>
     <string name="osm_info">La mappa predefinita è fornita da <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Unisciti alla community e aiuta a migliorare la mappa su <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>

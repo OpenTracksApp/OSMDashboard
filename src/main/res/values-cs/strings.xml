@@ -36,7 +36,6 @@
     <string name="menu_advanced">Rozšířené</string>
     <string name="multi_thread_map_rendering">Vícevláknové renderování mapy</string>
     <string name="no_map_configured">Zatím není nakonfigurována žádná offline mapa.</string>
-    <string name="app_name">OSM Dashboard pro OpenTracks</string>
     <string name="copyright_osm">Mapová data © přispěvatelé OpenStreetMap</string>
     <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
     <string name="download_failed">Stažení mapy selhalo</string>

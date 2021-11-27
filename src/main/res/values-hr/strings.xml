@@ -51,8 +51,7 @@
     <string name="no_download_uri_found">Nije pronađen URI za preuzimanje</string>
     <string name="startDownload">Pokreni Preuzimanje</string>
     <string name="no_file_manager_found">Upravitelj datoteka nije pronađen</string>
-    <string name="app_name">OSM Dashboard za OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \nza OpenTracks</string>
     <string name="theme_folder">Direktorij tema karte</string>
     <string name="usage_info">Koristite <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a> </b>, odaberite pjesmu i kliknite ikonu karte da biste prikazali stazu na karti.</string>

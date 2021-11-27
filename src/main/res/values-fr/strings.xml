@@ -4,7 +4,6 @@
     <string name="delete_map_error">La suppression de la carte a échoué</string>
     <string name="app_name_info_screen">OSM Dashboard 
 \npour OpenTracks</string>
-    <string name="app_name">OSM Dashboard pour OpenTracks</string>
     <string name="no_data">Aucune donnée de suivi reçue</string>
     <string name="copyright_osm">Données cartographiques © contributeurs OpenStreetMap</string>
     <string name="maps">Cartes</string>

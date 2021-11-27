@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSM Dashboard til OpenTracks</string>
     <string name="app_name_info_screen">OSM Dashboard
 \ntil OpenTracks</string>
     <string name="no_data">Ingen spor data modtaget</string>

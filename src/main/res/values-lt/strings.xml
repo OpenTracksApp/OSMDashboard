@@ -42,7 +42,6 @@
 \ndel OpenTracks</string>
     <string name="no_data">Nėra gautų kelio duomenų</string>
     <string name="copyright_osm">Žemėlapio duomenys © OpenStreetMap autoriai</string>
-    <string name="app_name">OSM Dashboard del OpenTracks</string>
     <string name="usage_info">Naudokite <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, pasirinkite kelią ir spustelėkite žemėlapio piktogramą, kad kelias būtų parodytas žemėlapyje.</string>
     <string name="osm_info">Numatytąjį žemėlapį pateikia <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Prisijunkite prie bendruomenės ir padėkite tobulinti žemėlapį, žr. <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Apsvarstykite galimybę atsisiųsti neprisijungusį žemėlapį, kad sumažintumėte serverio apkrovą ir sutaupytumėte savo mobiliųjų duomenų planą. Kai kuriuos neprisijungus prie interneto naudojamus žemėlapius galite rasti čia:</string>

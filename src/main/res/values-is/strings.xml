@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSM Dashboard fyrir OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \nfyrir OpenTracks</string>
     <string name="no_data">Enginn að fylgjast með gögn fengið</string>
     <string name="maps">Kort</string>

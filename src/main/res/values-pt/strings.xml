@@ -23,8 +23,7 @@
     <string name="delete_map_question">Eliminar mapa \"%s\"\?</string>
     <string name="download_map_question">Descarregar mapa %s\?</string>
     <string name="app_logo_description">Logotipo do aplicativo</string>
-    <string name="app_name">OSM Dashboard para OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \npara OpenTracks</string>
     <string name="no_data">Não foram recebidos dados de pista</string>
     <string name="copyright_osm">Dados do mapa © OpenStreetMap contribuidores</string>

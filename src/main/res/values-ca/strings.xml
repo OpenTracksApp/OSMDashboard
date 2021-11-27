@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSM Dashboard per OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \nper OpenTracks</string>
     <string name="no_data">No seguiment de les dades rebudes</string>
     <string name="copyright_osm">Mapa de dades © OpenStreetMap col·laboradors</string>

@@ -46,7 +46,6 @@
     <string name="track_smoothing_hint">Tolerancja wygładzania ścieżki w metrach</string>
     <string name="track_smoothing_info">Określić tolerancję w metrach dla algorytmu wygładzania ścieżek. Wprowadź 0, aby wyłączyć wygładzanie ścieżki.
 \nZmiana wejdzie w życie po ponownym załadowaniu ścieżki.</string>
-    <string name="app_name">OSM Dashboard dla OpenTracks</string>
     <string name="theme_folder">Katalog tematyczny map</string>
     <string name="app_logo_description">Logo aplikacji</string>
     <string name="online_map_consent">Nie ma skonfigurowanej mapy offline. Wyraź zgodę na używanie mapy online z openstreetmap.org. Może to spowodować wyciek z Twojej bieżącej lokalizacji. Zobacz https://operations.osmfoundation.org/policies/tiles/, aby zapoznać się z użytkowaniem kafelków i polityką prywatności.</string>

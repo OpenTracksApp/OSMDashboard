@@ -29,7 +29,6 @@
     <string name="overwrite_map_question">¡El mapa \"%s\" ya existe! ¿Borrar y descargar de nuevo?</string>
     <string name="cancel_download_question">¿Cancelar descarga actual?</string>
     <string name="error_loading_offline_map">Error al leer el mapa offline configurado</string>
-    <string name="app_name">OSM Dashboard para OpenTracks</string>
     <string name="copyright_osm">Datos del mapa © contribuyentes de OpenStreetMap</string>
     <string name="usage_info">Usa <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecciona una pista y haz clic en el icono del mapa para mostrar la pista sobre el mapa.</string>
     <string name="osm_info">El mapa por defecto es proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Únete a la comunidad y ayuda a mejorar el mapa, ver <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>

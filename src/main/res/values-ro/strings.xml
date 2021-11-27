@@ -56,7 +56,6 @@
     <string name="delete_theme_question">Șterge tema \"%s\"\?</string>
     <string name="theme_selection">Teme de hărți</string>
     <string name="delete_map_error">Ștergerea hărților a eșuat</string>
-    <string name="app_name">OSM Dashboard pentru OpenTracks</string>
     <string name="copyright_osm">Date de pe hartă © OpenStreetMap contributori</string>
     <string name="consider_offline_maps">Vă rugăm să luați în considerare descărcarea unei hărți offline pentru a reduce încărcarea serverului și pentru a economisi planul de date mobile. Unele hărți offline pot fi găsite aici:</string>
     <string name="offline_map_info">Hărțile offline pot fi descărcate prin intermediul meniului <b>Descărcare hărți</b> sau vizitând site-urile web menționate mai sus și făcând clic pe link-urile de descărcare. Unele browsere (de exemplu, Firefox) necesită un clic lung pe link și Open link in external app (Deschidere link în aplicație externă) și apoi alegeți OSMDashboard.</string>

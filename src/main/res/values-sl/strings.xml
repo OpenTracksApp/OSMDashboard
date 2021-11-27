@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSM Dashboard za OpenTracks</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \nza OpenTracks</string>
     <string name="copyright_osm">Podatki na zemljevidu © sodelavci OpenStreetMap</string>
     <string name="maps">Zemljevidi</string>
