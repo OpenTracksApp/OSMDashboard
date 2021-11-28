@@ -46,6 +46,7 @@ import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
 import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
+import org.mapsforge.map.model.Model;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import org.mapsforge.map.rendertheme.StreamRenderTheme;
@@ -710,16 +711,26 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public void onWindowFocusChanged(final boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            final Dimension dimension = this.binding.map.mapView.getModel().mapViewDimension.getDimension();
+            final Dimension dimension = getScaledDimension(this.binding.map.mapView.getModel());
             if (dimension != null) {
                 this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
                         boundingBox.getCenterPoint(),
                         (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                                dimension, boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
+                                dimension,
+                                boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
                                 getZoomLevelMax()), 16)));
                 boundingBox = null; // only set the zoomlevel once
             }
         }
+    }
+
+    private Dimension getScaledDimension(final Model model) {
+        final Dimension dimension = model.mapViewDimension.getDimension();
+        if (dimension != null) {
+            final float scaleFactor = model.displayModel.getScaleFactor();
+            return new Dimension((int)(dimension.width / scaleFactor), (int)(dimension.height / scaleFactor));
+        }
+        return null;
     }
 
     @Override
