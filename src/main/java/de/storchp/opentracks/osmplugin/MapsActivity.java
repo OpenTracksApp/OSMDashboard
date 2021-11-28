@@ -288,7 +288,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
      */
     protected void createMapViews() {
         binding.map.mapView.setClickable(true);
-        binding.map.mapView.getModel().frameBufferModel.setOverdrawFactor(1.0d);
+        binding.map.mapView.getModel().frameBufferModel.setOverdrawFactor(1.4d);
         binding.map.mapView.getMapScaleBar().setVisible(false);
         binding.map.mapView.setBuiltInZoomControls(false);
         binding.map.mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());

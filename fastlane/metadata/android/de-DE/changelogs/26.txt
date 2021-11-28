@@ -1,3 +1,4 @@
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert
 - Ignoriere Wegpunkte vom Typ SENSORPOINT, da diese keine Koordinaten enthalten
+- Overdraw Factor erhöht, um leere Kartenteile zu verhindern
