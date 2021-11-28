@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mainView"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainView"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
 
         <org.mapsforge.map.android.rotation.RotateView
             android:id="@+id/rotateView"
@@ -17,36 +18,107 @@
 
         </org.mapsforge.map.android.rotation.RotateView>
 
-        <ImageButton
-            android:id="@+id/zoomOutButton"
+        <TextView
+            android:id="@+id/share_picture_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="16pt"
+            android:visibility="invisible"
+            tools:text="OpenTracks" />
+
+        <LinearLayout
+            android:id="@+id/controls"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
+            android:layout_above="@id/statistics"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_zoom_out_48"/>
-
-        <ImageButton
-            android:id="@+id/zoomInButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/zoomOutButton"
-            android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_zoom_in_48" />
+            >
+                <ImageButton
+                    android:id="@+id/fullscreenButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_fullscreen_48"
+                    android:contentDescription="@string/toggle_full_screen_mode" />
 
-        <ImageButton
-            android:id="@+id/fullscreenButton"
-            android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/zoomInButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_zoom_in_48"
+                    android:contentDescription="@string/zoom_in" />
+
+                <ImageButton
+                    android:id="@+id/zoomOutButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_zoom_out_48"
+                    android:contentDescription="@string/zoom_out" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/statistics"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/zoomInButton"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_fullscreen_48"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@+id/attribution"
+            >
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    tools:text="CATEGORY" />
+
+                <TextView
+                    android:id="@+id/total_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    tools:text="00:10:10" />
+
+                <TextView
+                    android:id="@+id/total_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    tools:text="135km" />
+
+                <TextView
+                    android:id="@+id/gain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    tools:text="214m" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/attribution"
@@ -57,7 +129,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/copyright_osm"
-            android:textColor="#000"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/attribution_size" />
 
 </RelativeLayout>

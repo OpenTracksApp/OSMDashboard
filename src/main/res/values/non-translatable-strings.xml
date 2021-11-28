@@ -19,4 +19,7 @@
         \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
         \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b></string>
 
+    <string name="distance_with_unit" translatable="false">%1$s %2$s</string>
+    <string name="altitude_with_unit" translatable="false">%1$s %2$s</string>
+
 </resources>

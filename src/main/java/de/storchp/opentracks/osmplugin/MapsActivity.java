@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -25,7 +29,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.documentfile.provider.DocumentFile;
 
-import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.BoundingBox;
 import org.mapsforge.core.model.Dimension;
 import org.mapsforge.core.model.LatLong;
@@ -66,6 +69,7 @@ import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
+import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
@@ -75,6 +79,7 @@ import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.StringUtils;
 
 public class MapsActivity extends BaseActivity implements SensorListener {
 
@@ -126,6 +131,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private int protocolVersion = 1;
     private Set<Uri> mapFiles;
     private Uri mapTheme;
+    private String trackname;
+    private String description;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -253,7 +260,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        return super.onCreateOptionsMenu(menu, true);
+        super.onCreateOptionsMenu(menu, true);
+
+        final MenuItem share = menu.findItem(R.id.share);
+        share.setVisible(true);
+
+        return true;
     }
 
     protected void createTileCaches() {
@@ -444,9 +456,45 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         if (item.getItemId() == R.id.map_info ) {
             startActivity(new Intent(this, MainActivity.class));
             return true;
+        } else if (item.getItemId() == R.id.share) {
+            sharePicture();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sharePicture() {
+        // prepare rendering
+        final View view = binding.map.mainView;
+
+        binding.map.controls.setVisibility(View.INVISIBLE);
+        binding.map.attribution.setVisibility(View.INVISIBLE);
+        binding.map.sharePictureTitle.setText(R.string.share_picture_title);
+        binding.map.sharePictureTitle.setVisibility(View.VISIBLE);
+
+        // draw
+        final Canvas canvas = new Canvas();
+        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+
+        view.draw(canvas);
+
+        try {
+            final String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, trackname, description);
+            final Uri uri = Uri.parse(path);
+            final Intent share = new Intent(Intent.ACTION_SEND);
+            share.putExtra(Intent.EXTRA_STREAM, uri);
+            share.setType("image/*");
+            share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(share, trackname));
+        } catch (final Exception exception) {
+            Log.e(TAG, "Error sharing Bitmap", exception);
+        }
+
+        binding.map.controls.setVisibility(View.VISIBLE);
+        binding.map.attribution.setVisibility(View.VISIBLE);
+        binding.map.sharePictureTitle.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -632,7 +680,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private Marker createTappableMarker(final Waypoint waypoint) {
         final Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
         assert drawable != null;
-        final Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        final org.mapsforge.core.graphics.Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
         return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
             @Override
@@ -652,34 +700,35 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readTracks(final Uri data, final int protocolVersion) {
         Log.i(TAG, "Loading track from " + data);
 
-        /* not used at the moment
         try (final Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
                 final long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
-                final String name = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
-                final String description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
+                trackname = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
+                description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
                 final String category = cursor.getString(cursor.getColumnIndex(TracksColumn.CATEGORY));
                 final int startTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STARTTIME));
                 final int stopTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STOPTIME));
-                final float totalDistance = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
-                final int totalTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
+                final float totalDistanceMeter = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
+                final int totalTimeMillis = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
                 final int movingTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.MOVINGTIME));
                 final float avgSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGSPEED));
                 final float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGMOVINGSPEED));
                 final float maxSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXSPEED));
                 final float minElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MINELEVATION));
                 final float maxElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXELEVATION));
-                final float elevationGain = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
+                final float elevationGainMeter = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
 
-                // TODO: show data on dashboard
-                Log.d(TAG, "Track: " + name + ", start: " + startTime + ", end: " + stopTime);
+                Log.d(TAG, "Track: " + trackname + ", start: " + startTime + ", end: " + stopTime);
+                binding.map.category.setText(category);
+                binding.map.totalTime.setText(StringUtils.formatElapsedTimeWithHour(totalTimeMillis));
+                binding.map.totalDistance.setText(StringUtils.formatDistance(this, totalDistanceMeter));
+                binding.map.gain.setText(StringUtils.formatAltitudeChange(this, elevationGainMeter));
             }
         } catch (final SecurityException e) {
             Log.w(TAG, "No permission to read track");
         } catch (final Exception e) {
             Log.e(TAG, "Reading track failed", e);
         }
-        */
     }
 
     @Override

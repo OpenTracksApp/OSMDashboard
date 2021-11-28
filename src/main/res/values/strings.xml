@@ -60,4 +60,13 @@
     <string name="startDownload">Start Download</string>
     <string name="no_file_manager_found">No file manager found</string>
     <string name="error_reg_content_observer">Error on registering OpenTracksContentObserver</string>
+
+    <string name="unit_meter">m</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_feet">ft</string>
+    <string name="share">Share</string>
+    <string name="toggle_full_screen_mode">Toggle fullscreen mode</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="share_picture_title">OpenTracks</string>
 </resources>
