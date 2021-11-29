@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.mapsforge.core.model.BoundingBox;
@@ -58,7 +60,9 @@ import org.mapsforge.map.rendertheme.ZipRenderTheme;
 import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -468,33 +472,35 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         // prepare rendering
         final View view = binding.map.mainView;
 
+        binding.map.sharePictureTitle.setText(R.string.share_picture_title);
         binding.map.controls.setVisibility(View.INVISIBLE);
         binding.map.attribution.setVisibility(View.INVISIBLE);
-        binding.map.sharePictureTitle.setText(R.string.share_picture_title);
-        binding.map.sharePictureTitle.setVisibility(View.VISIBLE);
 
         // draw
         final Canvas canvas = new Canvas();
         final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         canvas.setBitmap(bitmap);
-
         view.draw(canvas);
 
         try {
-            final String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, trackname, description);
-            final Uri uri = Uri.parse(path);
+            final File sharedFolderPath = new File(this.getCacheDir(), "shared");
+            sharedFolderPath.mkdir();
+            final File file = new File(sharedFolderPath, System.currentTimeMillis() + ".png");
+            final FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+            final Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file);
             final Intent share = new Intent(Intent.ACTION_SEND);
             share.putExtra(Intent.EXTRA_STREAM, uri);
-            share.setType("image/*");
-            share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(share, trackname));
+            share.setType("image/png");
+            startActivity(Intent.createChooser(share, "send"));
         } catch (final Exception exception) {
             Log.e(TAG, "Error sharing Bitmap", exception);
         }
 
         binding.map.controls.setVisibility(View.VISIBLE);
         binding.map.attribution.setVisibility(View.VISIBLE);
-        binding.map.sharePictureTitle.setVisibility(View.INVISIBLE);
+        binding.map.sharePictureTitle.setText("");
     }
 
     @Override

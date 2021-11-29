@@ -20,15 +20,15 @@
 
         <TextView
             android:id="@+id/share_picture_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="20pt"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="70dp"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="16pt"
-            android:visibility="invisible"
             tools:text="OpenTracks" />
 
         <LinearLayout
