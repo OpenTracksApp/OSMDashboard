@@ -63,4 +63,11 @@
 \nBreytingar koma inn áhrif eftir að endurhlaða brautinni.</string>
     <string name="no_map_configured">Þú hefur ekki ótengdur kort stillt enn.</string>
     <string name="error_reg_content_observer">Villa á skrá OpenTracksContentObserver</string>
+    <string name="zoom_out">Zoom út</string>
+    <string name="zoom_in">Stækka</string>
+    <string name="toggle_full_screen_mode">Að skipta á öllum skjánum ham</string>
+    <string name="share">Deila</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>
