@@ -63,4 +63,11 @@
     <string name="offline_map_info">Offlinekort kan downloades via menuen <b>Kort download</b> eller ved at besøge de ovennævnte websteder og klikke på downloadlinks. Nogle browsere (f.eks. Firefox) kræver et langt klik på linket og Open link in external app og vælg derefter OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhåndtering fundet</string>
     <string name="error_reg_content_observer">Fejl ved registrering af OpenTracksContentObserver</string>
+    <string name="zoom_in">Zoom ind</string>
+    <string name="toggle_full_screen_mode">Slå fuldskærmstilstand fra</string>
+    <string name="share">Del</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
+    <string name="zoom_out">Zoome ud</string>
 </resources>
