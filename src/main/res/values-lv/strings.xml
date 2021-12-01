@@ -63,4 +63,11 @@
     <string name="online_map_consent">Nav konfigurēta bezsaistes karte. Lūdzu, piekrītiet izmantot tiešsaistes karti no openstreetmap.org. Tas var noplūdināt jūsu pašreizējo atrašanās vietu. Skatiet https://operations.osmfoundation.org/policies/tiles/ par flīžu lietošanu un privātuma politiku.</string>
     <string name="no_file_manager_found">Failu pārvaldnieks nav atrasts</string>
     <string name="error_reg_content_observer">Kļūda, reģistrējot OpenTracksContentObserver</string>
+    <string name="zoom_out">Palielināt attālumu</string>
+    <string name="zoom_in">Pietuvināt attēlu</string>
+    <string name="toggle_full_screen_mode">Pārslēgt pilnekrāna režīmu</string>
+    <string name="share">Dalīties</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>
