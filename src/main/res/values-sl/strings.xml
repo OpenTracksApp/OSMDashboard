@@ -63,4 +63,11 @@
     <string name="offline_map_info">Zemljevide brez povezave lahko prenesete prek menija <b>Prenos zemljevidov</b> ali tako, da obiščete zgoraj navedene spletne strani in kliknete povezave za prenos. V nekaterih brskalnikih (npr. Firefox) je potreben dolg klik na povezavo in Odprite povezavo v zunanji aplikaciji ter nato izberite OSMDashboard.</string>
     <string name="no_file_manager_found">Upravitelj datotek ni bil najden</string>
     <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
+    <string name="zoom_out">Pomanjšanje slike</string>
+    <string name="zoom_in">Povečanje slike</string>
+    <string name="toggle_full_screen_mode">Preklapljanje celozaslonskega načina</string>
+    <string name="share">Delite</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>
