@@ -20,9 +20,9 @@ public class PreferencesUtils {
     private static SharedPreferences sharedPrefs;
     private static Resources mRes;
 
-    public static void initPreferences(final Context context, final Resources res) {
+    public static void initPreferences(final Context context) {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mRes = res;
+        mRes = context.getResources();
     }
 
     private static String getKey(@StringRes final int keyId) {

@@ -23,7 +23,7 @@ public class Startup extends Application {
         //Include version information into stack traces.
         Log.i(TAG, BuildConfig.APPLICATION_ID + "; BuildType: " + BuildConfig.BUILD_TYPE + "; VersionName: " + BuildConfig.VERSION_NAME + "/" + " VersionCode: " + BuildConfig.VERSION_CODE);
 
-        PreferencesUtils.initPreferences(this, getResources());
+        PreferencesUtils.initPreferences(this);
         //In debug builds: show thread and VM warnings.
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Enabling strict mode");
