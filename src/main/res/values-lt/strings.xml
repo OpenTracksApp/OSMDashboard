@@ -63,4 +63,11 @@
     <string name="map_mode_direction">Žemėlapis juda kryptimi</string>
     <string name="no_map_configured">Dar nesukonfigūruotas neprisijungęs žemėlapis.</string>
     <string name="error_reg_content_observer">Klaida registruojant OpenTracksContentObserver</string>
+    <string name="zoom_out">Padidinti mastelį</string>
+    <string name="zoom_in">Priartinti vaizdą</string>
+    <string name="toggle_full_screen_mode">Perjungti viso ekrano režimą</string>
+    <string name="share">Dalintis</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

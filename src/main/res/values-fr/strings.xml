@@ -63,4 +63,11 @@
     <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées via le menu <b>Téléchargement de cartes</b> ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
     <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
+    <string name="zoom_out">Zoom arrière</string>
+    <string name="zoom_in">Zoom avant</string>
+    <string name="toggle_full_screen_mode">Basculer le mode plein écran</string>
+    <string name="share">Partager</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

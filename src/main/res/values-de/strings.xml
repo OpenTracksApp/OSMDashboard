@@ -61,4 +61,11 @@
     <string name="no_download_uri_found">Keine URI zum Download gefunden</string>
     <string name="no_file_manager_found">Kein Dateimanager gefunden</string>
     <string name="error_reg_content_observer">Fehler bei der Registrierung von OpenTracksContentObserver</string>
+    <string name="toggle_full_screen_mode">Vollbildmodus einschalten</string>
+    <string name="share">Teilen</string>
+    <string name="zoom_in">Vergrößern</string>
+    <string name="zoom_out">Verkleinern</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

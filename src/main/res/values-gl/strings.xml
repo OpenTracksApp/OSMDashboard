@@ -62,4 +62,11 @@
     <string name="offline_map_info">Offline mapas poden descargarse a través do menú <b>Mapa descargar</b> ou visitar o mencionado sitios web e prema en ligazóns para descargar. Algúns navegadores (por exemplo, Firefox) requiren un longo prema na ligazón e Abrir ligazón externa aplicación e, a continuación, escoller OSMDashboard.</string>
     <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
     <string name="error_reg_content_observer">Erro ao rexistrar OpenTracksContentObserver</string>
+    <string name="unit_meter">m</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_feet">ft</string>
+    <string name="share">Compartir</string>
+    <string name="toggle_full_screen_mode">Activar modo pantalla completa</string>
+    <string name="zoom_in">Aumentar</string>
+    <string name="zoom_out">Diminuír</string>
 </resources>

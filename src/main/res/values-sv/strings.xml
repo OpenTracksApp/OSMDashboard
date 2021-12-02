@@ -63,4 +63,11 @@
     <string name="offline_map_info">Offlinekartor kan laddas ner via menyn <b>Kartnedladdning</b> eller genom att besöka ovan nämnda webbplatser och klicka på nedladdningslänkarna. Vissa webbläsare (t.ex. Firefox) kräver ett långt klick på länken och Öppna länk i extern app och välj sedan OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhanterare hittades</string>
     <string name="error_reg_content_observer">Fel vid registrering av OpenTracksContentObserver</string>
+    <string name="zoom_out">Zooma ut</string>
+    <string name="zoom_in">Zooma in</string>
+    <string name="toggle_full_screen_mode">Växla till helskärmsläge</string>
+    <string name="share">Dela</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>
