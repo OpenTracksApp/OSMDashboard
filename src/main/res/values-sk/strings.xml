@@ -63,4 +63,11 @@
     <string name="overwrite_theme_question">Téma \"%s\" už existuje! Vymazať a stiahnuť znova\?</string>
     <string name="no_file_manager_found">Nenašiel sa správca súborov</string>
     <string name="error_reg_content_observer">Chyba pri registrácii OpenTracksContentObserver</string>
+    <string name="zoom_out">Zväčšenie</string>
+    <string name="zoom_in">Priblíženie</string>
+    <string name="toggle_full_screen_mode">Prepínanie režimu celej obrazovky</string>
+    <string name="share">Zdieľať</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

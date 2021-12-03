@@ -63,4 +63,11 @@
     <string name="no_map_configured">No teniu els mapes fora de línia encara no s\'ha configurat.</string>
     <string name="startDownload">Inicia La Baixada</string>
     <string name="error_reg_content_observer">Error en el registre OpenTracksContentObserver</string>
+    <string name="zoom_out">Disminuir el zoom</string>
+    <string name="zoom_in">Apropar</string>
+    <string name="toggle_full_screen_mode">Canvia el mode de pantalla completa</string>
+    <string name="share">Compartir</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

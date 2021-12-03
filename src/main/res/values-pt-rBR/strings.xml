@@ -63,4 +63,11 @@
     <string name="download_theme_success">Tema descarregado com sucesso</string>
     <string name="no_file_manager_found">Nenhum gerente de arquivo encontrado</string>
     <string name="error_reg_content_observer">Erro no registro do OpenTracksContentObserver</string>
+    <string name="zoom_out">Ampliar</string>
+    <string name="zoom_in">Aumentar</string>
+    <string name="toggle_full_screen_mode">Alternar o modo tela cheia</string>
+    <string name="share">Compartilhe</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

@@ -63,4 +63,11 @@
     <string name="startDownload">Empezar a descargar</string>
     <string name="no_file_manager_found">No se ha encontrado ningún gestor de archivos</string>
     <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
+    <string name="zoom_out">Alejar el zoom</string>
+    <string name="zoom_in">Ampliar la imagen</string>
+    <string name="toggle_full_screen_mode">Activar el modo de pantalla completa</string>
+    <string name="share">Compartir</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

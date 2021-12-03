@@ -63,4 +63,11 @@
     <string name="offline_map_info">Az offline térképek letölthetők a <b>Térkép letöltése</b> menüponton keresztül, vagy a fent említett weboldalakon a letöltési linkekre kattintva. Egyes böngészőkben (pl. Firefox) hosszan kell kattintani a linkre és a Link megnyitása külső alkalmazásban, majd az OSMDashboard.</string>
     <string name="no_file_manager_found">Nem talált fájlkezelőt</string>
     <string name="error_reg_content_observer">Hiba az OpenTracksContentObserver regisztrálásakor</string>
+    <string name="zoom_out">Kicsinyítés</string>
+    <string name="zoom_in">Nagyítás</string>
+    <string name="toggle_full_screen_mode">Teljes képernyős mód váltása</string>
+    <string name="share">Megosztás</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>

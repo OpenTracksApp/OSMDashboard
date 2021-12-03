@@ -63,4 +63,11 @@
     <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="no_file_manager_found">Nu s-a găsit niciun manager de fișiere</string>
     <string name="error_reg_content_observer">Eroare la înregistrarea OpenTracksContentObserver</string>
+    <string name="zoom_in">Zoom înainte</string>
+    <string name="toggle_full_screen_mode">Comutarea modului fullscreen</string>
+    <string name="share">Împărtășiți</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
+    <string name="zoom_out">Zoom înapoi</string>
 </resources>

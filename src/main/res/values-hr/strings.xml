@@ -63,4 +63,11 @@
     <string name="delete_theme_error">Nije moguće ukloniti temu</string>
     <string name="overwrite_theme_question">Tema\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
     <string name="error_reg_content_observer">Greška prilikom registracije OpenTracksContentObserver</string>
+    <string name="zoom_out">Smanjivanje</string>
+    <string name="zoom_in">Povećaj</string>
+    <string name="toggle_full_screen_mode">Prebacivanje cijelog zaslona</string>
+    <string name="share">Podijeli</string>
+    <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_meter">m</string>
 </resources>
