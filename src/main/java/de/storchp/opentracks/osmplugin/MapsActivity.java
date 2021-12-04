@@ -803,6 +803,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.zoomInButton.setVisibility(visibility);
         binding.map.zoomOutButton.setVisibility(visibility);
         binding.map.fullscreenButton.setVisibility(visibility);
+        binding.map.statistics.setVisibility(visibility);
     }
 
     private boolean isPiPMode() {
