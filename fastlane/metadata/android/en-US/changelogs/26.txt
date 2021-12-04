@@ -3,3 +3,4 @@
 - ignore trackpoints of type SENSORPOINT as they don't contain coordinates
 - increase overdraw factor to get rid of blank tiles
 - fixed zoomlevel to view the whole track on the map
+- fixed crash on Android 12 because of too high sensor sampling
