@@ -1,23 +1,23 @@
 package de.storchp.opentracks.osmplugin;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -478,16 +478,24 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         // draw
         final Canvas canvas = new Canvas();
-        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
+        final Bitmap toBeCropped = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(toBeCropped);
         view.draw(canvas);
+
+        final BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        bitmapOptions.inTargetDensity = 1;
+        toBeCropped.setDensity(Bitmap.DENSITY_NONE);
+
+        final int cropFromTop = (int)(70 * ((float) getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        final int fromHere = toBeCropped.getHeight() - cropFromTop;
+        final Bitmap croppedBitmap = Bitmap.createBitmap(toBeCropped, 0, cropFromTop, toBeCropped.getWidth(), fromHere);
 
         try {
             final File sharedFolderPath = new File(this.getCacheDir(), "shared");
             sharedFolderPath.mkdir();
             final File file = new File(sharedFolderPath, System.currentTimeMillis() + ".png");
             final FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            croppedBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
             final Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file);
             final Intent share = new Intent(Intent.ACTION_SEND);
@@ -708,21 +716,21 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         try (final Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final long id = cursor.getLong(cursor.getColumnIndex(TracksColumn._ID));
-                trackname = cursor.getString(cursor.getColumnIndex(TracksColumn.NAME));
-                description = cursor.getString(cursor.getColumnIndex(TracksColumn.DESCRIPTION));
-                final String category = cursor.getString(cursor.getColumnIndex(TracksColumn.CATEGORY));
-                final int startTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STARTTIME));
-                final int stopTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.STOPTIME));
-                final float totalDistanceMeter = cursor.getFloat(cursor.getColumnIndex(TracksColumn.TOTALDISTANCE));
-                final int totalTimeMillis = cursor.getInt(cursor.getColumnIndex(TracksColumn.TOTALTIME));
-                final int movingTime = cursor.getInt(cursor.getColumnIndex(TracksColumn.MOVINGTIME));
-                final float avgSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGSPEED));
-                final float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.AVGMOVINGSPEED));
-                final float maxSpeed = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXSPEED));
-                final float minElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MINELEVATION));
-                final float maxElevation = cursor.getFloat(cursor.getColumnIndex(TracksColumn.MAXELEVATION));
-                final float elevationGainMeter = cursor.getFloat(cursor.getColumnIndex(TracksColumn.ELEVATIONGAIN));
+                final long id = cursor.getLong(cursor.getColumnIndexOrThrow(TracksColumn._ID));
+                trackname = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.NAME));
+                description = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.DESCRIPTION));
+                final String category = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.CATEGORY));
+                final int startTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.STARTTIME));
+                final int stopTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.STOPTIME));
+                final float totalDistanceMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.TOTALDISTANCE));
+                final int totalTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.TOTALTIME));
+                final int movingTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.MOVINGTIME));
+                final float avgSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.AVGSPEED));
+                final float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.AVGMOVINGSPEED));
+                final float maxSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MAXSPEED));
+                final float minElevation = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MINELEVATION));
+                final float maxElevation = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MAXELEVATION));
+                final float elevationGainMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.ELEVATIONGAIN));
 
                 Log.d(TAG, "Track: " + trackname + ", start: " + startTime + ", end: " + stopTime);
                 binding.map.category.setText(category);
