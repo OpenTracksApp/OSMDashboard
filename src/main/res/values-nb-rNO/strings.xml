@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
-\ntil OpenTracks</string>
+\nfor OpenTracks</string>
     <string name="no_data">Ingen spor-data mottatt</string>
     <string name="maps">Kart</string>
     <string name="map_themes">Karttemaer</string>
@@ -63,9 +63,9 @@
     <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
     <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>
-    <string name="zoom_in">Zoome</string>
-    <string name="toggle_full_screen_mode">Veksle fullskjermmodus</string>
-    <string name="share">Dele</string>
+    <string name="zoom_in">Zoom inn</string>
+    <string name="toggle_full_screen_mode">Fullskjermmodus av/på</string>
+    <string name="share">Del</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
