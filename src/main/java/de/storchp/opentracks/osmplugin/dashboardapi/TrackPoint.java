@@ -68,16 +68,16 @@ public class TrackPoint {
      * Pause TrackPoints and different Track IDs split the segments.
      */
     public static List<List<TrackPoint>> readTrackPointsBySegments(final ContentResolver resolver, final Uri data, final long lastTrackPointId, final int protocolVersion) {
-        final List<List<TrackPoint>> segments = new ArrayList<>();
-        final String[] projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
+         final List<List<TrackPoint>> segments = new ArrayList<>();
+         final String[] projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
          try (final Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
-                final long trackPointId = cursor.getLong(cursor.getColumnIndex(TrackPoint._ID));
-                final long trackId = cursor.getLong(cursor.getColumnIndex(TrackPoint.TRACKID));
-                final double latitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LATITUDE)) / 1E6;
-                final double longitude = cursor.getInt(cursor.getColumnIndex(TrackPoint.LONGITUDE)) / 1E6;
+                final long trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
+                final long trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
+                final double latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / 1E6;
+                final double longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / 1E6;
                 final int typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
                 Integer type = null;
                 if (typeIndex > -1) {
@@ -98,6 +98,7 @@ public class TrackPoint {
                 }
             }
         }
+
         return segments;
     }
 

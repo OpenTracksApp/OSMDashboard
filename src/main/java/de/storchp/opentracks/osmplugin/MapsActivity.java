@@ -73,7 +73,7 @@ import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
-import de.storchp.opentracks.osmplugin.dashboardapi.TracksColumn;
+import de.storchp.opentracks.osmplugin.dashboardapi.Track;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
@@ -84,6 +84,7 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.StringUtils;
+import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 
 public class MapsActivity extends BaseActivity implements SensorListener {
 
@@ -135,8 +136,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private int protocolVersion = 1;
     private Set<Uri> mapFiles;
     private Uri mapTheme;
-    private String trackname;
-    private String description;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -712,36 +711,13 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void readTracks(final Uri data, final int protocolVersion) {
-        Log.i(TAG, "Loading track from " + data);
-
-        try (final Cursor cursor = getContentResolver().query(data, TracksColumn.PROJECTION, null, null, null)) {
-            while (cursor.moveToNext()) {
-                final long id = cursor.getLong(cursor.getColumnIndexOrThrow(TracksColumn._ID));
-                trackname = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.NAME));
-                description = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.DESCRIPTION));
-                final String category = cursor.getString(cursor.getColumnIndexOrThrow(TracksColumn.CATEGORY));
-                final int startTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.STARTTIME));
-                final int stopTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.STOPTIME));
-                final float totalDistanceMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.TOTALDISTANCE));
-                final int totalTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.TOTALTIME));
-                final int movingTime = cursor.getInt(cursor.getColumnIndexOrThrow(TracksColumn.MOVINGTIME));
-                final float avgSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.AVGSPEED));
-                final float avgMovingSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.AVGMOVINGSPEED));
-                final float maxSpeed = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MAXSPEED));
-                final float minElevation = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MINELEVATION));
-                final float maxElevation = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.MAXELEVATION));
-                final float elevationGainMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(TracksColumn.ELEVATIONGAIN));
-
-                Log.d(TAG, "Track: " + trackname + ", start: " + startTime + ", end: " + stopTime);
-                binding.map.category.setText(category);
-                binding.map.totalTime.setText(StringUtils.formatElapsedTimeWithHour(totalTimeMillis));
-                binding.map.totalDistance.setText(StringUtils.formatDistance(this, totalDistanceMeter));
-                binding.map.gain.setText(StringUtils.formatAltitudeChange(this, elevationGainMeter));
-            }
-        } catch (final SecurityException e) {
-            Log.w(TAG, "No permission to read track");
-        } catch (final Exception e) {
-            Log.e(TAG, "Reading track failed", e);
+        final List<Track> tracks = Track.readTracks(getContentResolver(), data, protocolVersion);
+        if (!tracks.isEmpty()) {
+            final TrackStatistics statistics = new TrackStatistics(tracks);
+            binding.map.category.setText(statistics.getCategory());
+            binding.map.totalTime.setText(StringUtils.formatElapsedTimeWithHour(statistics.getTotalTimeMillis()));
+            binding.map.totalDistance.setText(StringUtils.formatDistance(this, statistics.getTotalDistanceMeter()));
+            binding.map.gain.setText(StringUtils.formatAltitudeChange(this, statistics.getElevationGainMeter()));
         }
     }
 
