@@ -52,8 +52,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 26
-        versionName "2.13"
+        versionCode 27
+        versionName "2.13.1"
     }
     signingConfigs {
         nightly {
