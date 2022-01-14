@@ -25,8 +25,7 @@ public class Compass extends AbstractSensor {
         super();
         accelerometer = SensorChecker.hasGravity(context) ? new GravitySensor(context) : new LowPassAccelerometer(context);
         magnetometer = new Magnetometer(context);
-        final int filterSize = PreferencesUtils.getCompassSmoothing() * 2 * 2;
-        filter = new MovingAverageFilter(filterSize);
+        filter = new MovingAverageFilter(PreferencesUtils.getCompassSmoothing() * 2 * 2);
     }
 
     private void updateBearing(final float newBearing) {
@@ -44,12 +43,12 @@ public class Compass extends AbstractSensor {
         }
 
         // Gravity
-        final Vector3 normGravity = accelerometer.getValue().normalize();
-        final Vector3 normMagField = magnetometer.getValue().normalize();
+        final var normGravity = accelerometer.getValue().normalize();
+        final var normMagField = magnetometer.getValue().normalize();
 
         // East vector
-        final Vector3  east = normMagField.cross(normGravity);
-        final Vector3  normEast = east.normalize();
+        final var  east = normMagField.cross(normGravity);
+        final var  normEast = east.normalize();
 
         // Magnitude check
         final float eastMagnitude = east.magnitude();
@@ -60,9 +59,8 @@ public class Compass extends AbstractSensor {
         }
 
         // North vector
-        final float dotProduct = normGravity.dot(normMagField);
-        final Vector3 north = normMagField.minus(normGravity.times(dotProduct));
-        final Vector3 normNorth = north.normalize();
+        final var north = normMagField.minus(normGravity.times(normGravity.dot(normMagField)));
+        final var normNorth = north.normalize();
 
         // Azimuth
         // NB: see https://math.stackexchange.com/questions/381649/whats-the-best-3d-angular-co-ordinate-system-for-working-with-smartfone-apps

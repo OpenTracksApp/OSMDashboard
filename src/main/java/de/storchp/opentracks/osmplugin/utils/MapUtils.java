@@ -3,6 +3,8 @@ package de.storchp.opentracks.osmplugin.utils;
 import android.location.Location;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
@@ -62,8 +64,8 @@ public class MapUtils {
             return c0.sphericalDistance(c2);
         }
 
-        final LatLong sa = new LatLong(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
-        final LatLong sb = new LatLong(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
+        final var sa = new LatLong(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
+        final var sb = new LatLong(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
 
         return sa.sphericalDistance(sb);
     }
@@ -76,15 +78,14 @@ public class MapUtils {
      * @param trackPoints input
      */
     public static List<TrackPoint> decimate(final int tolerance, final List<TrackPoint> trackPoints) {
-        final List<TrackPoint> decimated = new ArrayList<>();
         final int n = trackPoints.size();
         if (n < 1) {
             return Collections.emptyList();
         }
         int idx;
         int maxIdx = 0;
-        final Stack<int[]> stack = new Stack<>();
-        final double[] dists = new double[n];
+        final var stack = new Stack<int[]>();
+        final var dists = new double[n];
         dists[0] = 1;
         dists[n - 1] = 1;
         double maxDist;
@@ -92,8 +93,7 @@ public class MapUtils {
         int[] current;
 
         if (n > 2) {
-            final int[] stackVal = new int[]{0, (n - 1)};
-            stack.push(stackVal);
+            stack.push(new int[]{0, (n - 1)});
             while (stack.size() > 0) {
                 current = stack.pop();
                 maxDist = 0;
@@ -106,25 +106,28 @@ public class MapUtils {
                 }
                 if (maxDist > tolerance) {
                     dists[maxIdx] = maxDist;
-                    final int[] stackValCurMax = {current[0], maxIdx};
-                    stack.push(stackValCurMax);
-                    final int[] stackValMaxCur = {maxIdx, current[1]};
-                    stack.push(stackValMaxCur);
+                    stack.push(new int[]{current[0], maxIdx});
+                    stack.push(new int[]{maxIdx, current[1]});
                 }
             }
         }
 
-        int i = 0;
-        idx = 0;
-        for (final TrackPoint trackPoint : trackPoints) {
+        final var decimated = collectTrackPoints(trackPoints, dists);
+        Log.d(TAG, "Decimating " + n + " points to " + decimated.size() + " w/ tolerance = " + tolerance);
+
+        return decimated;
+    }
+
+    @NonNull
+    private static ArrayList<TrackPoint> collectTrackPoints(final List<TrackPoint> trackPoints, final double[] dists) {
+        int idx = 0;
+        final var decimated = new ArrayList<TrackPoint>();
+        for (final var trackPoint : trackPoints) {
             if (dists[idx] != 0) {
                 decimated.add(trackPoint);
-                i++;
             }
             idx++;
         }
-        Log.d(TAG, "Decimating " + n + " points to " + i + " w/ tolerance = " + tolerance);
-
         return decimated;
     }
 
@@ -147,7 +150,7 @@ public class MapUtils {
     }
 
     public static Location toLocation(final LatLong latLong) {
-        final Location location = new Location("");
+        final var location = new Location("");
         location.setLatitude(latLong.latitude);
         location.setLongitude(latLong.longitude);
         return location;
@@ -182,7 +185,7 @@ public class MapUtils {
     }
 
     public static Paint createPaint(final int color, final int strokeWidth) {
-        final Paint paint = AndroidGraphicFactory.INSTANCE.createPaint();
+        final var paint = AndroidGraphicFactory.INSTANCE.createPaint();
         paint.setColor(color);
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Style.STROKE);

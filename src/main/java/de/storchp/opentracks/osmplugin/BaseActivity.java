@@ -21,8 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
-import java.util.List;
-
 import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.StrokeWidthDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
@@ -42,8 +40,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
         MenuCompat.setGroupDividerEnabled(menu, true);
 
-        final MenuItem mapInfo = menu.findItem(R.id.map_info);
-        mapInfo.setVisible(showInfo);
+        menu.findItem(R.id.map_info).setVisible(showInfo);
 
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
@@ -95,13 +92,13 @@ abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.download_map) {
             startActivity(new Intent(this, DownloadMapSelectionActivity.class));
         } else if (itemId == R.id.arrow_mode) {
-            ArrowMode arrowMode = PreferencesUtils.getArrowMode();
+            var arrowMode = PreferencesUtils.getArrowMode();
             arrowMode = arrowMode.next();
             item.setTitle(arrowMode.getMessageId());
             PreferencesUtils.setArrowMode(arrowMode);
             changeArrowMode(arrowMode);
         } else if (itemId == R.id.map_mode) {
-            MapMode mapMode = PreferencesUtils.getMapMode();
+            var mapMode = PreferencesUtils.getMapMode();
             mapMode = mapMode.next();
             item.setTitle(mapMode.getMessageId());
             PreferencesUtils.setMapMode(mapMode);
@@ -116,21 +113,21 @@ abstract class BaseActivity extends AppCompatActivity {
     protected abstract void changeArrowMode(final ArrowMode arrowMode);
 
     private void showTrackSmoothingDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final TrackSmoothingDialogBinding binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        final var binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
         binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance()));
 
-        builder.setView(binding.getRoot())
-               .setIcon(R.drawable.ic_logo_color_24dp)
-               .setTitle(R.string.app_name)
+        final var alertDialog = new AlertDialog.Builder(this)
+                .setView(binding.getRoot())
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
                 .setCancelable(false)
-               .setPositiveButton(android.R.string.ok, null)
-               .setNegativeButton(android.R.string.cancel, null);
-        final AlertDialog alertDialog = builder.create();
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            final String newTolerance = binding.etTolerance.getText().toString().trim();
+            final var newTolerance = binding.etTolerance.getText().toString().trim();
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
                 PreferencesUtils.setTrackSmoothingTolerance(Integer.parseInt(newTolerance));
                 alertDialog.dismiss();
@@ -141,8 +138,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void showCompassSmoothingDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final CompassSmoothingDialogBinding binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        final var binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
         final int smoothing = PreferencesUtils.getCompassSmoothing();
         binding.tvCompassSmoothing.setText(String.valueOf(smoothing));
         binding.sbCompassSmoothing.setProgress(smoothing);
@@ -163,24 +159,23 @@ abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
-        builder.setView(binding.getRoot())
+        final var alertDialog = new AlertDialog.Builder(this)
+                .setView(binding.getRoot())
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null);
-        final AlertDialog alertDialog = builder.create();
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            final int compassSmoothing = binding.sbCompassSmoothing.getProgress();
-            PreferencesUtils.setCompassSmoothing(compassSmoothing);
+            PreferencesUtils.setCompassSmoothing(binding.sbCompassSmoothing.getProgress());
             alertDialog.dismiss();
         });
     }
 
     private void showStrokeWidthDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final StrokeWidthDialogBinding binding = StrokeWidthDialogBinding.inflate(LayoutInflater.from(this));
         final int currentStrokeWidth = PreferencesUtils.getStrokeWidth();
         binding.tvStrokeWidth.setText(String.valueOf(currentStrokeWidth));
@@ -202,32 +197,32 @@ abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
-        builder.setView(binding.getRoot())
+        final var alertDialog = new AlertDialog.Builder(this)
+                .setView(binding.getRoot())
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null);
-        final AlertDialog alertDialog = builder.create();
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            final int strokeWidth = binding.sbStrokeWidth.getProgress();
-            PreferencesUtils.setStrokeWidth(strokeWidth);
+            PreferencesUtils.setStrokeWidth(binding.sbStrokeWidth.getProgress());
             alertDialog.dismiss();
         });
     }
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    protected ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected final ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeMapDirectory(result.getData().getData(), result.getData());
                 }
             });
 
-    protected ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected final ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeThemeDirectory(result.getData().getData(), result.getData());
@@ -244,21 +239,17 @@ abstract class BaseActivity extends AppCompatActivity {
 
     @NonNull
     private Intent createOpenDocumentIntent() {
-        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        final var intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         return intent;
     }
 
     private void releaseOldPermissions() {
-        final Uri mapDirectoryUri = PreferencesUtils.getMapDirectoryUri();
-        final Uri themeDirectoryUri = PreferencesUtils.getMapThemeDirectoryUri();
-        final List<UriPermission> persistedUriPermissions = getContentResolver().getPersistedUriPermissions();
-        for (final UriPermission permission : persistedUriPermissions) {
-            final Uri uri = permission.getUri();
-            if (!uri.equals(mapDirectoryUri) && !uri.equals(themeDirectoryUri)) {
-                getContentResolver().releasePersistableUriPermission(uri, 0);
-            }
-        }
+        getContentResolver().getPersistedUriPermissions().stream()
+                .map(UriPermission::getUri)
+                .filter(uri -> !uri.equals(PreferencesUtils.getMapDirectoryUri())
+                        && !uri.equals(PreferencesUtils.getMapThemeDirectoryUri()))
+                .forEach(uri -> getContentResolver().releasePersistableUriPermission(uri, 0));
     }
 
     protected void changeThemeDirectory(final Uri uri, final Intent resultData) {

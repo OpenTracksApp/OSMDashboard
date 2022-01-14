@@ -20,7 +20,7 @@ public class MovingAverageFilter {
         if (window.size() > size){
             window.remove(0);
         }
-        return window.stream().mapToDouble(e->e).average().getAsDouble();
+        return window.stream().mapToDouble(e->e).average().orElse(0);
     }
 
 }

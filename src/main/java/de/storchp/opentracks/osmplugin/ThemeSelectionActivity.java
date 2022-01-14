@@ -1,6 +1,5 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
 
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding;
@@ -47,36 +45,17 @@ public class ThemeSelectionActivity extends AppCompatActivity {
             PreferencesUtils.setMapThemeUri(null);
         }
 
-        final Uri selected = PreferencesUtils.getMapThemeUri();
-        adapter = new ThemeItemAdapter(this, new ArrayList<>(), selected, onlineMapSelected);
+        adapter = new ThemeItemAdapter(this, new ArrayList<>(), PreferencesUtils.getMapThemeUri(), onlineMapSelected);
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
         new Thread(() -> {
-            final Uri directory = PreferencesUtils.getMapThemeDirectoryUri();
-            final List<FileItem> items = new ArrayList<>();
+            final var directory = PreferencesUtils.getMapThemeDirectoryUri();
+            final var items = new ArrayList<FileItem>();
             if (directory != null) {
-                final DocumentFile documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
+                final var documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
                 if (documentsTree != null) {
-                    for (final DocumentFile file : documentsTree.listFiles()) {
-                        if (file.isFile() && file.getName() != null) {
-                            if (file.getName().endsWith(".xml")) {
-                                items.add(new FileItem(file.getName(), file.getUri()));
-                            } else if (file.getName().endsWith(".zip")) {
-                                try {
-                                    final List<String> xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
-                                    for (final String xmlTheme : xmlThemes) {
-                                        items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build()));
-                                    }
-                                } catch (final Exception e) {
-                                    Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
-                                }
-                            }
-                        } else if (file.isDirectory()) {
-                            final DocumentFile childFile = file.findFile(file.getName() + ".xml");
-                            if (childFile != null) {
-                                items.add(new FileItem(childFile.getName(), childFile.getUri()));
-                            }
-                        }
+                    for (final var file : documentsTree.listFiles()) {
+                        readThemeFile(items, file);
                     }
                 }
             }
@@ -89,13 +68,13 @@ public class ThemeSelectionActivity extends AppCompatActivity {
 
         binding.themeList.setAdapter(adapter);
         binding.themeList.setOnItemClickListener((listview, view, position, id) -> {
-            final ThemeItemBinding itemBinding = (ThemeItemBinding) view.getTag();
+            final var itemBinding = (ThemeItemBinding) view.getTag();
             itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked());
             itemBinding.radiobutton.callOnClick();
         });
         binding.themeList.setOnItemLongClickListener((parent, view, position, id) -> {
-            final FileItem fileItem = adapter.getItem(position);
-            final Uri uri = fileItem.getUri();
+            final var fileItem = adapter.getItem(position);
+            final var uri = fileItem.getUri();
             if (uri == null) {
                 // online theme can't be deleted
                 return false;
@@ -106,7 +85,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                 .setMessage(getString(R.string.delete_theme_question, fileItem.getName()))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
-                    final DocumentFile file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
+                    final var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
                     assert file != null;
                     final boolean deleted = file.delete();
                     if (deleted) {
@@ -123,6 +102,26 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         });
     }
 
+    private void readThemeFile(final ArrayList<FileItem> items, final DocumentFile file) {
+        if (file.isFile() && file.getName() != null) {
+            if (file.getName().endsWith(".xml")) {
+                items.add(new FileItem(file.getName(), file.getUri()));
+            } else if (file.getName().endsWith(".zip")) {
+                try {
+                    final var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
+                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build())));
+                } catch (final Exception e) {
+                    Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
+                }
+            }
+        } else if (file.isDirectory()) {
+            final var childFile = file.findFile(file.getName() + ".xml");
+            if (childFile != null) {
+                items.add(new FileItem(childFile.getName(), childFile.getUri()));
+            }
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -134,9 +133,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        final Uri selectedUri = adapter.getSelectedUri();
-        PreferencesUtils.setMapThemeUri(selectedUri);
-
+        PreferencesUtils.setMapThemeUri(adapter.getSelectedUri());
         super.onBackPressed();
     }
 

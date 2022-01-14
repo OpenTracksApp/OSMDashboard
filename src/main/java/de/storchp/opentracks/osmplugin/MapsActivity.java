@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -44,7 +41,6 @@ import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.datastore.MultiMapDataStore;
 import org.mapsforge.map.layer.GroupLayer;
 import org.mapsforge.map.layer.Layer;
-import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
@@ -64,16 +60,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.Track;
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
@@ -171,7 +167,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.fullscreenButton.setOnClickListener(v -> switchFullscreen());
 
         // Get the intent that started this activity
-        final Intent intent = getIntent();
+        final var intent = getIntent();
         if (intent != null) {
             onNewIntent(intent);
         }
@@ -232,7 +228,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private void showFullscreen(final boolean showFullscreen) {
         this.fullscreenMode = showFullscreen;
-        final View decorView = getWindow().getDecorView();
+        final var decorView = getWindow().getDecorView();
         int uiOptions = decorView.getSystemUiVisibility();
         if (showFullscreen) {
             uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -251,8 +247,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     @Override
     public void onBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
                 && isOpenTracksRecordingThisTrack
                 && PreferencesUtils.isPipEnabled()) {
             enterPictureInPictureMode();
@@ -264,10 +259,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu, true);
-
-        final MenuItem share = menu.findItem(R.id.share);
-        share.setVisible(true);
-
+        menu.findItem(R.id.share).setVisible(true);
         return true;
     }
 
@@ -335,11 +327,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             return InternalRenderTheme.DEFAULT;
         }
         try {
-            final DocumentFile renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
+            final var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
             assert renderThemeFile != null;
-            Uri themeFileUri = renderThemeFile.getUri();
+            var themeFileUri = renderThemeFile.getUri();
             if (Objects.requireNonNull(renderThemeFile.getName(), "Theme files must have a name").endsWith(".zip")) {
-                final String fragment = themeFileUri.getFragment();
+                final var fragment = themeFileUri.getFragment();
                 if (fragment != null) {
                     themeFileUri = themeFileUri.buildUpon().fragment(null).build();
                 } else {
@@ -355,40 +347,40 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     protected MapDataStore getMapFile() {
-        final MultiMapDataStore mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
+        final var mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
         mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
         }
-        int mapsCount = 0;
-        for (final Uri mapUri: mapFiles) {
-            try {
-                final boolean documentUri = DocumentFile.isDocumentUri(this, mapUri);
-                if (documentUri) {
-                    final DocumentFile documentFile = DocumentFile.fromSingleUri(this, mapUri);
-                    if (documentFile != null && documentFile.canRead()) {
-                        final FileInputStream inputStream = (FileInputStream) getContentResolver().openInputStream(mapUri);
-                        mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
-                        mapsCount++;
-                    }
-                }
-            } catch (final Exception e) {
-                Log.e(TAG, "Can't open mapFile", e);
-            }
-        }
+        final var mapsCount = new AtomicInteger(0);
+        mapFiles.stream()
+                .filter(uri -> DocumentFile.isDocumentUri(this, uri))
+                .map(uri -> DocumentFile.fromSingleUri(this, uri))
+                .filter(documentFile -> documentFile != null && documentFile.canRead())
+                .forEach(documentFile -> readMapFile(mapDataStore, mapsCount, documentFile));
 
-        if (mapsCount == 0 && !mapFiles.isEmpty()) {
+        if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
             Toast.makeText(this, R.string.error_loading_offline_map, Toast.LENGTH_LONG).show();
         }
 
-        return mapsCount > 0 ? mapDataStore : null;
+        return mapsCount.get() > 0 ? mapDataStore : null;
+    }
+
+    private void readMapFile(final MultiMapDataStore mapDataStore, final AtomicInteger mapsCount, final DocumentFile documentFile) {
+        try {
+            final var inputStream = (FileInputStream) getContentResolver().openInputStream(documentFile.getUri());
+            mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
+            mapsCount.getAndIncrement();
+        } catch (final Exception e) {
+            Log.e(TAG, "Can't open mapFile", e);
+        }
     }
 
     protected void createLayers() {
-        final MapDataStore mapFile = getMapFile();
+        final var mapFile = getMapFile();
 
         if (mapFile != null) {
-            final TileRendererLayer rendererLayer = new TileRendererLayer(this.tileCache, mapFile,
+            final var rendererLayer = new TileRendererLayer(this.tileCache, mapFile,
                     this.binding.map.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
             rendererLayer.setXmlRenderTheme(getRenderTheme());
             this.tileLayer = rendererLayer;
@@ -411,7 +403,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void setOnlineTileLayer() {
-        final OpenStreetMapMapnik tileSource = OpenStreetMapMapnik.INSTANCE;
+        final var tileSource = OpenStreetMapMapnik.INSTANCE;
         tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
         this.tileLayer = new TileDownloadLayer(this.tileCache, this.binding.map.mapView.getModel().mapViewPosition,
                 tileSource, AndroidGraphicFactory.INSTANCE);
@@ -422,7 +414,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void showOnlineMapConsent() {
-        final SpannableString message = new SpannableString(getString(R.string.online_map_consent));
+        final var message = new SpannableString(getString(R.string.online_map_consent));
         Linkify.addLinks(message, Linkify.ALL);
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
@@ -469,36 +461,35 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private void sharePicture() {
         // prepare rendering
-        final View view = binding.map.mainView;
+        final var view = binding.map.mainView;
 
         binding.map.sharePictureTitle.setText(R.string.share_picture_title);
         binding.map.controls.setVisibility(View.INVISIBLE);
         binding.map.attribution.setVisibility(View.INVISIBLE);
 
         // draw
-        final Canvas canvas = new Canvas();
-        final Bitmap toBeCropped = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        final var canvas = new Canvas();
+        final var toBeCropped = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         canvas.setBitmap(toBeCropped);
         view.draw(canvas);
 
-        final BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        final var bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inTargetDensity = 1;
         toBeCropped.setDensity(Bitmap.DENSITY_NONE);
 
         final int cropFromTop = (int)(70 * ((float) getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
         final int fromHere = toBeCropped.getHeight() - cropFromTop;
-        final Bitmap croppedBitmap = Bitmap.createBitmap(toBeCropped, 0, cropFromTop, toBeCropped.getWidth(), fromHere);
+        final var croppedBitmap = Bitmap.createBitmap(toBeCropped, 0, cropFromTop, toBeCropped.getWidth(), fromHere);
 
         try {
-            final File sharedFolderPath = new File(this.getCacheDir(), "shared");
+            final var sharedFolderPath = new File(this.getCacheDir(), "shared");
             sharedFolderPath.mkdir();
-            final File file = new File(sharedFolderPath, System.currentTimeMillis() + ".png");
-            final FileOutputStream out = new FileOutputStream(file);
+            final var file = new File(sharedFolderPath, System.currentTimeMillis() + ".png");
+            final var out = new FileOutputStream(file);
             croppedBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
-            final Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file);
-            final Intent share = new Intent(Intent.ACTION_SEND);
-            share.putExtra(Intent.EXTRA_STREAM, uri);
+            final var share = new Intent(Intent.ACTION_SEND);
+            share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file));
             share.setType("image/png");
             startActivity(Intent.createChooser(share, "send"));
         } catch (final Exception exception) {
@@ -541,7 +532,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readTrackpoints(final Uri data, final boolean update, final int protocolVersion) {
         Log.i(TAG, "Loading trackpoints from " + data);
 
-        final Layers layers = binding.map.mapView.getLayerManager().getLayers();
+        final var layers = binding.map.mapView.getLayerManager().getLayers();
         if (!update) { // reset data
             if (polylinesLayer != null) {
                 layers.remove(polylinesLayer);
@@ -559,23 +550,23 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             movementDirection = new MovementDirection();
         }
 
-        final List<LatLong> latLongs = new ArrayList<>();
+        final var latLongs = new ArrayList<LatLong>();
         final int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
         try {
-            final List<List<TrackPoint>> segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
+            final var segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
             if (segments.isEmpty()) {
                 Log.d(TAG, "No new trackpoints received");
                 return;
             }
-            for (List<TrackPoint> trackPoints : segments) {
+            for (var trackPoints : segments) {
                 if (!update) {
                     polyline = null; // cut polyline on new segment
                     if (tolerance > 0) { // smooth track
                         trackPoints = MapUtils.decimate(tolerance, trackPoints);
                     }
                 }
-                for (final TrackPoint trackPoint : trackPoints) {
+                for (final var trackPoint : trackPoints) {
                     lastTrackPointId = trackPoint.getTrackPointId();
 
                     if (trackPoint.getTrackId() != lastTrackId) {
@@ -662,7 +653,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readWaypoints(final Uri data, final boolean update, final int protocolVersion) {
         Log.i(TAG, "Loading waypoints from " + data);
 
-        final Layers layers = binding.map.mapView.getLayerManager().getLayers();
+        final var layers = binding.map.mapView.getLayerManager().getLayers();
         if (waypointsLayer != null) {
             layers.remove(waypointsLayer);
         }
@@ -671,14 +662,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
 
         try {
-            final List<Waypoint> waypoints = Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId);
-            for (final Waypoint waypoint : waypoints) {
-                final Marker marker = createTappableMarker(waypoint);
+            for (final var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
                 if (waypointsLayer == null) {
                     waypointsLayer = new GroupLayer();
                 }
-                waypointsLayer.layers.add(marker);
+                waypointsLayer.layers.add(createTappableMarker(waypoint));
             }
             if (waypointsLayer != null) {
                 layers.add(waypointsLayer);
@@ -691,16 +680,16 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Marker createTappableMarker(final Waypoint waypoint) {
-        final Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
+        final var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
         assert drawable != null;
-        final org.mapsforge.core.graphics.Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        final var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
         return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
             @Override
             public boolean onTap(final LatLong geoPoint, final Point viewPosition,
                                  final Point tapPoint) {
                 if (contains(binding.map.mapView.getMapViewProjection().toPixels(getPosition()), tapPoint)) {
-                    final Intent intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
+                    final var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
                     intent.putExtra(EXTRA_MARKER_ID, waypoint.getId());
                     startActivity(intent);
                     return true;
@@ -711,9 +700,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private void readTracks(final Uri data, final int protocolVersion) {
-        final List<Track> tracks = Track.readTracks(getContentResolver(), data, protocolVersion);
+        final var tracks = Track.readTracks(getContentResolver(), data, protocolVersion);
         if (!tracks.isEmpty()) {
-            final TrackStatistics statistics = new TrackStatistics(tracks);
+            final var statistics = new TrackStatistics(tracks);
             binding.map.category.setText(statistics.getCategory());
             binding.map.totalTime.setText(StringUtils.formatElapsedTimeWithHour(statistics.getTotalTimeMillis()));
             binding.map.totalDistance.setText(StringUtils.formatDistance(this, statistics.getTotalDistanceMeter()));
@@ -750,7 +739,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public void onWindowFocusChanged(final boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            final Dimension dimension = getScaledDimension(this.binding.map.mapView.getModel());
+            final var dimension = getScaledDimension(this.binding.map.mapView.getModel());
             if (dimension != null) {
                 this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
                         boundingBox.getCenterPoint(),
@@ -764,7 +753,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Dimension getScaledDimension(final Model model) {
-        final Dimension dimension = model.mapViewDimension.getDimension();
+        final var dimension = model.mapViewDimension.getDimension();
         if (dimension != null) {
             final float scaleFactor = model.displayModel.getScaleFactor();
             return new Dimension((int)(dimension.width / scaleFactor), (int)(dimension.height / scaleFactor));
@@ -783,10 +772,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private boolean isPiPMode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return isInPictureInPictureMode();
-        }
-        return false;
+        return isInPictureInPictureMode();
     }
     @Override
     protected void onPause() {

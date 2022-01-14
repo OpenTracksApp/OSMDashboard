@@ -1,10 +1,10 @@
 package de.storchp.opentracks.osmplugin;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -22,27 +22,27 @@ public class DownloadMapSelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityDownloadMapSelectionBinding binding = ActivityDownloadMapSelectionBinding.inflate(getLayoutInflater());
+        final var binding = ActivityDownloadMapSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
         final WebView webView = findViewById(R.id.webview);
-        final WebViewClient webClient = new WebViewClient(){
+        final var webClient = new WebViewClient(){
             @Override
-            public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
-                Log.d(TAG, "URL: " + url);
-                if (!url.startsWith(MAPS_V_5)) {
+            public boolean shouldOverrideUrlLoading(final WebView view, final WebResourceRequest request) {
+                final var uri = request.getUrl();
+                Log.d(TAG, "URL: " + uri);
+                if (!uri.toString().startsWith(MAPS_V_5)) {
                     return true; // don't load URLs outside the base URL
                 }
-                final Uri uri = Uri.parse(url);
-                final String lastPathSegment = uri.getLastPathSegment();
+                final var lastPathSegment = uri.getLastPathSegment();
                 if (lastPathSegment != null && lastPathSegment.endsWith(".map")) {
                     startActivity(new Intent(Intent.ACTION_DEFAULT, uri, DownloadMapSelectionActivity.this, DownloadActivity.class));
                     return true;
                 }
-                PreferencesUtils.setLastDownloadUrl(url);
+                PreferencesUtils.setLastDownloadUrl(uri.toString());
                 return false;
             }
 

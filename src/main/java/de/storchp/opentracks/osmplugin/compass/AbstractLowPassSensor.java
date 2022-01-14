@@ -51,7 +51,7 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
     };
 
     protected void startImpl() {
-        final Sensor sensor = sensorManager.getDefaultSensor(sensorType);
+        final var sensor = sensorManager.getDefaultSensor(sensorType);
         if (sensor != null) {
             sensorManager.registerListener(
                 sensorListener,

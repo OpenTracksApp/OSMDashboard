@@ -1,5 +1,7 @@
 package de.storchp.opentracks.osmplugin.dashboardapi;
 
+import static de.storchp.opentracks.osmplugin.dashboardapi.APIConstants.LAT_LON_FACTOR;
+
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -68,17 +70,17 @@ public class TrackPoint {
      * Pause TrackPoints and different Track IDs split the segments.
      */
     public static List<List<TrackPoint>> readTrackPointsBySegments(final ContentResolver resolver, final Uri data, final long lastTrackPointId, final int protocolVersion) {
-         final List<List<TrackPoint>> segments = new ArrayList<>();
-         final String[] projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
+         final var segments = new ArrayList<List<TrackPoint>>();
+         final var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
          try (final Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
-                final long trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
-                final long trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
-                final double latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / 1E6;
-                final double longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / 1E6;
-                final int typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
+                final var trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
+                final var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
+                final var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / LAT_LON_FACTOR;
+                final var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / LAT_LON_FACTOR;
+                final var typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
                 Integer type = null;
                 if (typeIndex > -1) {
                     type = cursor.getInt(typeIndex);

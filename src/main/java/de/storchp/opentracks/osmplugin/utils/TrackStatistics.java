@@ -23,7 +23,7 @@ public class TrackStatistics {
         if (tracks.isEmpty()) {
             return;
         }
-        final Track first = tracks.get(0);
+        final var first = tracks.get(0);
         category = first.getCategory();
         startTimeEpochMillis = first.getStartTimeEpochMillis();
         stopTimeEpochMillis = first.getStopTimeEpochMillis();
@@ -40,7 +40,7 @@ public class TrackStatistics {
         if (tracks.size() > 1) {
             float totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond;
             float totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond;
-            for (final Track track : tracks.subList(1, tracks.size())) {
+            for (final var track : tracks.subList(1, tracks.size())) {
                 if (!category.equals(track.getCategory())) {
                     category = "mixed";
                 }

@@ -9,8 +9,10 @@ import android.util.Log;
 import androidx.annotation.StringRes;
 import androidx.preference.PreferenceManager;
 
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import de.storchp.opentracks.osmplugin.R;
 
@@ -78,22 +80,17 @@ public class PreferencesUtils {
     }
 
     private static Set<Uri> getUris(final String keyId) {
-        final Set<String> values = sharedPrefs.getStringSet(keyId, null);
-        final Set<Uri> uris = new HashSet<>();
-        if (values != null) {
-            for (final String value : values) {
-                try {
-                    uris.add(Uri.parse(value));
-                } catch (final Exception ignored) {
-                    Log.e(TAG, "can't read Uri string " + value);
-                }
-            }
-        }
-        return uris;
+        return sharedPrefs.getStringSet(keyId, Collections.emptySet()).stream()
+                .map(PreferencesUtils::parseUri)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     private static Uri getUri(final String keyId) {
-        final String value = sharedPrefs.getString(keyId, null);
+        return parseUri(sharedPrefs.getString(keyId, null));
+    }
+
+    private static Uri parseUri(final String value) {
         try {
             return Uri.parse(value);
         } catch (final Exception ignored) {
@@ -107,13 +104,10 @@ public class PreferencesUtils {
     }
 
     private static void setUris(final int keyId, final Set<Uri> uris) {
-        final Set<String> values = new HashSet<>();
-        if (uris != null) {
-            for (final Uri uri : uris) {
-                values.add(uri.toString());
-            }
-        }
-        setStringSet(keyId, values);
+        setStringSet(keyId,
+                uris.stream()
+                .map(Uri::toString)
+                .collect(Collectors.toSet()));
     }
 
     private static String getString(final int keyId, final String defaultValue) {

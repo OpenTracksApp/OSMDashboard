@@ -14,7 +14,6 @@ import androidx.documentfile.provider.DocumentFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -56,13 +55,12 @@ public class DownloadActivity extends BaseActivity {
 
         binding.progressBar.setIndeterminate(true);
 
-        final Uri uri = getIntent().getData();
+        final var uri = getIntent().getData();
         if (uri != null) {
-            final String scheme = uri.getScheme();
-            final String host = uri.getHost();
-            final String path = uri.getPath();
-            final String lastPathSegment = uri.getLastPathSegment();
-            Log.i(TAG, "scheme=" + scheme + ",host=" + host + ", path=" + path + ", lastPathSegment=" + lastPathSegment);
+            final var scheme = uri.getScheme();
+            final var host = uri.getHost();
+            final var path = uri.getPath();
+            Log.i(TAG, "scheme=" + scheme + ",host=" + host + ", path=" + path + ", lastPathSegment=" + uri.getLastPathSegment());
             downloadUri = uri;
 
             if (MF_V4_MAP_SCHEME.equals(scheme)) {
@@ -114,19 +112,20 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void startDownload() {
-        final Uri directoryUri = downloadType.getDirectoryUri();
+        final var directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
             openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
-        final DocumentFile directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
+
+        final var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
             openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
-        final String fileName = downloadUri.getLastPathSegment();
 
-        final DocumentFile file = directoryFile.findFile(fileName);
+        final var fileName = downloadUri.getLastPathSegment();
+        final var file = directoryFile.findFile(fileName);
         if (file != null) {
             new AlertDialog.Builder(DownloadActivity.this)
                 .setIcon(R.drawable.ic_logo_color_24dp)
@@ -158,7 +157,7 @@ public class DownloadActivity extends BaseActivity {
         downloadTask = null;
         if (canceled) {
             if (targetUri != null) {
-                final DocumentFile documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
+                final var documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
                 if (documentFile != null) {
                     documentFile.delete();
                 }
@@ -210,14 +209,14 @@ public class DownloadActivity extends BaseActivity {
         }
 
         protected void publishProgress(final int progress) {
-            final DownloadActivity activity = ref.get();
+            final var activity = ref.get();
             if (activity != null) {
                 activity.runOnUiThread(() -> activity.updateProgress(contentLength, progress));
             }
         }
 
         protected void end() {
-            final DownloadActivity activity = ref.get();
+            final var activity = ref.get();
             if (activity != null) {
                 activity.runOnUiThread(() -> activity.downloadEnded(success, canceled));
             }
@@ -228,19 +227,17 @@ public class DownloadActivity extends BaseActivity {
             InputStream input = null;
             HttpURLConnection connection = null;
             try {
-                final URL sUrl = new URL(downloadUri.toString());
-                connection = (HttpURLConnection) sUrl.openConnection();
+                connection = (HttpURLConnection) new URL(downloadUri.toString()).openConnection();
                 connection.connect();
                 contentLength = connection.getContentLength();
 
                 input = connection.getInputStream();
                 if (downloadType.isExtractMapFromZIP()) {
-                    final ZipInputStream zis = new ZipInputStream(input);
+                    final var zis = new ZipInputStream(input);
                     ZipEntry ze;
                     boolean foundMapInZip = false;
                     while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
-                        final String filename = ze.getName();
-                        if (filename.endsWith(".map")) {
+                        if (ze.getName().endsWith(".map")) {
                             contentLength = (int) ze.getSize();
                             copy(zis, ze.getName(), directoryFile);
                             foundMapInZip = true;
@@ -269,14 +266,14 @@ public class DownloadActivity extends BaseActivity {
         }
 
         private void copy(final InputStream input, final String filename, final DocumentFile directoryFile) throws IOException {
-            final DocumentFile file = directoryFile.createFile("application/binary", filename);
+            final var file = directoryFile.createFile("application/binary", filename);
             if (file == null) {
                 throw new IOException("Unable to create file: " + filename);
             }
             targetUri = file.getUri();
-            final OutputStream output = ref.get().getContentResolver().openOutputStream(targetUri);
+            final var output = ref.get().getContentResolver().openOutputStream(targetUri);
 
-            final byte[] data = new byte[4096];
+            final var data = new byte[4096];
             int count;
             int bytesWritten = 0;
             while ((count = input.read(data)) != -1) {

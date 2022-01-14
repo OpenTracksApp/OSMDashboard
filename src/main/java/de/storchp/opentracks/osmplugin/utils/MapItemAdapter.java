@@ -31,17 +31,17 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
 
     @Override
     public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-        View rowView = convertView;
+        var rowView = convertView;
         // reuse views
         if (rowView == null) {
-            final MapItemBinding binding = MapItemBinding.inflate(context.getLayoutInflater(), parent, false);
+            final var binding = MapItemBinding.inflate(context.getLayoutInflater(), parent, false);
             rowView = binding.getRoot();
             rowView.setTag(binding);
         }
 
         // fill data
-        final MapItemBinding binding = (MapItemBinding) rowView.getTag();
-        final FileItem item = this.items.get(position);
+        final var binding = (MapItemBinding) rowView.getTag();
+        final var item = this.items.get(position);
         binding.name.setText(item.getName());
         binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.getUri()));
         binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position));
@@ -51,7 +51,7 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
 
     private View.OnClickListener onStateChangedListener(final CheckBox checkBox, final int position) {
         return v -> {
-            final FileItem fileItem = items.get(position);
+            final var fileItem = items.get(position);
             if (checkBox.isChecked()) {
                 if (fileItem.getUri() == null) { // online map
                     selected.clear();

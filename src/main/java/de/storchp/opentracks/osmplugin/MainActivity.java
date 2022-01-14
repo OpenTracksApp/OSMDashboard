@@ -13,7 +13,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        final var binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar.mapsToolbar);

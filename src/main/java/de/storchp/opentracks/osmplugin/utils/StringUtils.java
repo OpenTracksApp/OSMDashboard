@@ -50,7 +50,7 @@ public class StringUtils {
      * Format a decimal number while removing trailing zeros of the decimal part (if present).
      */
     public static String formatDecimal(final double value, final int decimalPlaces) {
-        final DecimalFormat df = new DecimalFormat();
+        final var df = new DecimalFormat();
         df.setMinimumFractionDigits(decimalPlaces);
         df.setMaximumFractionDigits(decimalPlaces);
         df.setRoundingMode(RoundingMode.HALF_EVEN);

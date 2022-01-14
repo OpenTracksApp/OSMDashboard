@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class APIConstants {
 
+    public static final double LAT_LON_FACTOR = 1E6;
+
     // NOTE: Needs to be used in AndroidManifest.xml!
     public static final String ACTION_DASHBOARD = "Intent.OpenTracks-Dashboard";
 

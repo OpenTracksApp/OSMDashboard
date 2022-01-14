@@ -1,0 +1,1 @@
+- raise minSdk to 24, modernize code

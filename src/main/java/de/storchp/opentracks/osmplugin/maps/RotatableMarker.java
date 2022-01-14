@@ -3,7 +3,6 @@ package de.storchp.opentracks.osmplugin.maps;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -30,19 +29,19 @@ public class RotatableMarker extends Marker {
     }
 
     private static Bitmap createRotatedMarkerBitmap(final android.graphics.Bitmap markerBitmap, final float degrees) {
-        final Matrix matrix = new Matrix();
+        final var matrix = new Matrix();
         matrix.postRotate(degrees);
         return new AndroidBitmap(android.graphics.Bitmap.createBitmap(markerBitmap, 0, 0, markerBitmap.getWidth(), markerBitmap.getHeight(), matrix, true));
     }
 
     public static android.graphics.Bitmap getBitmapFromVectorDrawable(final Context context, final int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        var drawable = ContextCompat.getDrawable(context, drawableId);
         assert drawable != null;
         drawable = (DrawableCompat.wrap(drawable)).mutate();
 
-        final android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+        final var bitmap = android.graphics.Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), android.graphics.Bitmap.Config.ARGB_8888);
-        final Canvas canvas = new Canvas(bitmap);
+        final var canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
 

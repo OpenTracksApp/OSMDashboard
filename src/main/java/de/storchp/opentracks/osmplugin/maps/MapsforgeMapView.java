@@ -15,7 +15,6 @@ public class MapsforgeMapView extends MapView {
 
     public MapsforgeMapView(final Context context, final AttributeSet attributeSet) {
         super(context, attributeSet);
-
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
 
@@ -34,9 +33,7 @@ public class MapsforgeMapView extends MapView {
      * Notifies the parent class when a MapView has been dragged
      */
     public interface MapDragListener {
-
         void onDrag();
-
     }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
