@@ -1,1 +1,2 @@
 - MinSDK auf 24 erhöht und Java Code modernisiert
+- Abhängigkeiten aktualisiert (z.B. Mapsforge Bibliothek)
