@@ -23,4 +23,6 @@
     <string name="distance_with_unit" translatable="false">%1$s %2$s</string>
     <string name="altitude_with_unit" translatable="false">%1$s %2$s</string>
 
+    <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
+
 </resources>

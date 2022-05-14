@@ -42,6 +42,10 @@ abstract class BaseActivity extends AppCompatActivity {
 
         menu.findItem(R.id.map_info).setVisible(showInfo);
 
+        if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("nightly")) {
+            menu.findItem(R.id.test_crash_report).setVisible(true);
+        }
+
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
 
@@ -103,6 +107,8 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setTitle(mapMode.getMessageId());
             PreferencesUtils.setMapMode(mapMode);
             changeMapMode(mapMode);
+        } else if (itemId == R.id.test_crash_report) {
+            throw new RuntimeException(getString(R.string.test_crash_report));
         }
 
         return super.onOptionsItemSelected(item);

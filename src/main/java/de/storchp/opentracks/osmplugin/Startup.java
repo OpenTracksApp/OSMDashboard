@@ -1,9 +1,15 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
+import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
+import java.util.List;
+
+import de.storchp.opentracks.osmplugin.utils.ExceptionHandler;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 /**
@@ -36,6 +42,40 @@ public class Startup extends Application {
                     .penaltyLog()
                     .build());
         }
+    }
+
+    @Override
+    protected void attachBaseContext(final Context base) {
+        super.attachBaseContext(base);
+
+        // we don't want to handle crashes occurring inside crash reporter activity/process;
+        // let the platform deal with those
+        final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
+
+        if (!isCrashReportingProcess) {
+            final var defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
+            final ExceptionHandler crashReporter = new ExceptionHandler(this,
+                    defaultPlatformHandler);
+            Thread.setDefaultUncaughtExceptionHandler(crashReporter);
+        }
+    }
+
+    private String getAppProcessName() {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            final var manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+            final int ownPid = android.os.Process.myPid();
+            final var processes = manager.getRunningAppProcesses();
+            if (processes != null) {
+                return processes.stream()
+                        .filter(info -> info.pid == ownPid)
+                        .findFirst()
+                        .map(info -> info.processName)
+                        .orElse("");
+            }
+        } else {
+            return Application.getProcessName();
+        }
+        return "";
     }
 
 }

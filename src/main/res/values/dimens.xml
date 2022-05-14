@@ -3,4 +3,6 @@
     <dimen name="attribution_margin">1dp</dimen>
     <dimen name="attribution_size">4pt</dimen>
     <dimen name="controls_margin">8dp</dimen>
+    <dimen name="standard_padding">16dp</dimen>
+    <dimen name="standard_list_item_size">72dp</dimen>
 </resources>

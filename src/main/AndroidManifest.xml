@@ -102,6 +102,14 @@
         <activity
             android:name=".ThemeSelectionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowErrorActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:process=":crash"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
