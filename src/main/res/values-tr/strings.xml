@@ -1,2 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="toggle_full_screen_mode">Tam ekran modunu değiştir</string>
+    <string name="no_data">Parça verisi alınmadı</string>
+    <string name="copyright_osm">Harita verileri © OpenStreetMap katkıda bulunanlar</string>
+    <string name="maps">Haritalar</string>
+    <string name="map_themes">Harita temaları</string>
+    <string name="default_theme">Varsayılan tema</string>
+    <string name="map_folder">Harita dizini</string>
+    <string name="theme_folder">Harita teması dizini</string>
+    <string name="map_theme_info"><b>Bazı haritaların doğru şekilde oluşturulabilmesi için özel temalar gerekir!</b> Bunların indirilmesi ve buna göre yapılandırılması gerekir.</string>
+    <string name="manual_offline_map_info">Manuel olarak indirilen çevrimdışı haritalar veya diğer uygulamalarla paylaşılan haritalar Android cihazınızdan açılabilir. <b>Harita dizini</b> menüsünde dizini seçin.</string>
+    <string name="app_logo_description">Uygulama logosu</string>
+    <string name="online_map_consent">Ayarlanmış çevrimdışı harita yok. Lütfen openstreetmap.org adresindeki çevrimiçi haritayı kullanmayı kabul edin. Bu, geçerli konumunuzu sızdırabilir. Kutucuk kullanımı ve gizlilik politikası için https://actions.osmfoundation.org/policies/tiles/ adresine bakın.</string>
+    <string name="download_map">Harita indirme</string>
+    <string name="download_theme">Tema indirme</string>
+    <string name="download_instruction">https://ftp-stud.hs-esslingen.de adresinin içeriğini görüntülüyorsunuz.</string>
+    <string name="download_map_question">%s haritası indirilsin mi\?</string>
+    <string name="download_in_progress">Halihazırda devam eden bir indirme var!</string>
+    <string name="download_failed">Harita indirilemedi</string>
+    <string name="download_theme_success">Tema başarıyla indirildi</string>
+    <string name="download_theme_failed">Tema indirilemedi</string>
+    <string name="online_osm_mapnick">Çevrimiçi harita OSM:Mapnik</string>
+    <string name="delete_map_question">\"%s\" haritası silinsin mi\?</string>
+    <string name="delete_map_error">Harita silinemedi</string>
+    <string name="delete_theme_question">\"%s\" teması silinsin mi\?</string>
+    <string name="delete_theme_error">Tema silinemedi</string>
+    <string name="overwrite_theme_question">\"%s\" teması zaten var! Silinip tekrar indirilsin mi\?</string>
+    <string name="cancel_download_question">Mevcut indirme iptal edilsin mi\?</string>
+    <string name="error_loading_offline_map">Ayarlanmış çevrimdışı harita okunurken hata oluştu</string>
+    <string name="track_smoothing_menu">Parça yumuşatma</string>
+    <string name="track_smoothing_info">Parça yumuşatma algoritması için toleransı metre cinsinden tanımlayın. Parça yumuşatmayı devre dışı bırakmak için 0 girin.
+\nParça yeniden yüklendikten sonra değişiklik yürürlüğe girer.</string>
+    <string name="track_smoothing_hint">Metre cinsinden parça yumuşatma toleransı</string>
+    <string name="only_digits">Değer yalnızca rakam içermelidir</string>
+    <string name="pip_mode">Resim içinde resim modu</string>
+    <string name="arrow_mode_north">Ok kuzeyi gösteriyor</string>
+    <string name="arrow_mode_compass">Pusula olarak ok</string>
+    <string name="map_mode_direction">Haritanın hareket yönü</string>
+    <string name="map_mode_compass">Pusula olarak harita</string>
+    <string name="compass_smoothing_menu">Pusula yumuşatma</string>
+    <string name="compass_smoothing_info">Daha yüksek değerler gürültüyü azaltır</string>
+    <string name="menu_advanced">Gelişmiş</string>
+    <string name="no_map_configured">Henüz ayarlanmış bir çevrimdışı haritanız yok.</string>
+    <string name="stroke_width_menu">Kontur genişliğini takip et</string>
+    <string name="startDownload">İndirmeyi Başlat</string>
+    <string name="no_file_manager_found">Dosya yöneticisi bulunamadı</string>
+    <string name="error_reg_content_observer">OpenTracksContentObserver kaydında hata</string>
+    <string name="unit_meter">m</string>
+    <string name="unit_kilometer">km</string>
+    <string name="zoom_in">Yakınlaştır</string>
+    <string name="zoom_out">Uzaklaştır</string>
+    <string name="unit_feet">ft</string>
+    <string name="share">Paylaş</string>
+    <string name="app_name_info_screen">OSM Panosu
+\nOpenTracks için</string>
+    <string name="map_info_menu">Hakkında</string>
+    <string name="usage_info"><b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> kullanın, bir parça seçin ve parçayı göstermek için haritada harita simgesine tıklayın.</string>
+    <string name="osm_info">Varsayılan harita <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> tarafından sağlanır. Topluluğa katılın ve haritayı geliştirmeye yardımcı olun, bakınız<b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">Sunucu yükünü azaltmak ve mobil veriden tasarruf etmek için lütfen çevrimdışı bir harita indirmeyi düşünün. Bazı çevrimdışı haritalar burada bulunabilir:</string>
+    <string name="offline_map_info">Çevrimdışı haritalar, <b>Harita indirme</b> menüsü aracılığıyla veya yukarıda belirtilen web sitelerini ziyaret edip indirme bağlantısı ile indirilebilir. Bazı tarayıcılar (ör. Firefox) bağlantıya uzun süre basılı tutmayı ve bağlantıyı harici uygulamada açmayı ve ardından OSMDashboard\'u seçmeyi gerektirir.</string>
+    <string name="map_online_consent_menu">Çevrimiçi harita onayı</string>
+    <string name="choose_map_to_download">İndirmek için bir harita seçin</string>
+    <string name="download_success">Harita başarıyla indirildi</string>
+    <string name="map_selection">Haritalar</string>
+    <string name="theme_selection">Harita temaları</string>
+    <string name="overwrite_map_question">\"%s\" haritası zaten var! Silinip tekrar indirilsin mi\?</string>
+    <string name="arrow_mode_direction">Okun hareket yönü</string>
+    <string name="map_mode_north_top">Kuzey haritası üstte</string>
+    <string name="multi_thread_map_rendering">Çok iş parçacıklı harita oluşturma</string>
+    <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
+    <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
+</resources>
