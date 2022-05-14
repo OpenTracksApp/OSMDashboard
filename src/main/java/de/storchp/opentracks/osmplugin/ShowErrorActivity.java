@@ -47,7 +47,6 @@ public class ShowErrorActivity extends AppCompatActivity {
     }
 
     private void reportBug() {
-        copyToClipboard(binding.textViewError.getText().toString());
         final Uri uriUrl;
         try {
             uriUrl = Uri.parse(
@@ -62,17 +61,6 @@ public class ShowErrorActivity extends AppCompatActivity {
         }
         final var intent = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(intent);
-        Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show();
-    }
-
-    public void copyToClipboard(final String text) {
-        try {
-            final var clip = ClipData.newPlainText(getString(R.string.clipboard_label, getString(R.string.app_name)), text);
-            ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(clip);
-        } catch (final Exception e) {
-            Toast.makeText(this, R.string.clipboard_unexpected_error, Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "Exception caught while copying to clipboard", e);
-        }
     }
 
     @Override

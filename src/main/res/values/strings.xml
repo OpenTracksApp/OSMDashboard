@@ -71,9 +71,6 @@
 
     <string name="error_crash_title">%1$s crashed</string>
     <string name="no_browser_available">No browser available</string>
-    <string name="copied_to_clipboard">Crash report copied to clipboard</string>
-    <string name="clipboard_label">Text copied from %1$s</string>
-    <string name="clipboard_unexpected_error">Unexpected error while copying to clipboard</string>
     <string name="test_crash_report">Test crash report</string>
     <string name="bug_report">Report bug</string>
 
