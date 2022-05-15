@@ -61,11 +61,6 @@
                 android:checkable="true"
                 android:title="@string/pip_mode"/>
 
-            <item
-                android:id="@+id/test_crash_report"
-                android:title="@string/test_crash_report"
-                android:visible="false"
-                />
         </menu>
     </item>
 

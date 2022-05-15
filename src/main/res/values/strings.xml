@@ -71,7 +71,6 @@
 
     <string name="error_crash_title">%1$s crashed</string>
     <string name="no_browser_available">No browser available</string>
-    <string name="test_crash_report">Test crash report</string>
     <string name="bug_report">Report bug</string>
 
 </resources>
