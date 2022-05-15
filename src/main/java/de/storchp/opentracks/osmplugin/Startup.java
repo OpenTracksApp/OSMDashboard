@@ -7,8 +7,6 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
-import java.util.List;
-
 import de.storchp.opentracks.osmplugin.utils.ExceptionHandler;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 

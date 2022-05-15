@@ -1,1 +1,2 @@
 - Add crash report activity
+- Update target SDK level to 32
