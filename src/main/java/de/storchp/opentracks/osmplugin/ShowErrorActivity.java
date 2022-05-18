@@ -19,8 +19,6 @@ public class ShowErrorActivity extends AppCompatActivity {
 
     public static final String EXTRA_ERROR_TEXT = "error";
 
-    private static final String TAG = ShowErrorActivity.class.getSimpleName();
-
     private ActivityShowErrorBinding binding;
 
     @Override
@@ -51,8 +49,8 @@ public class ShowErrorActivity extends AppCompatActivity {
                             URLEncoder.encode(binding.textViewError.getText().toString(), StandardCharsets.UTF_8.toString())
                     )
             );
-        } catch (final UnsupportedEncodingException e) {
-            Log.e(TAG, "Can't encode error report", e);
+        } catch (final UnsupportedEncodingException ignored) {
+            // can't happen as UTF-8 is always available
             return;
         }
         final var intent = new Intent(Intent.ACTION_VIEW, uriUrl);

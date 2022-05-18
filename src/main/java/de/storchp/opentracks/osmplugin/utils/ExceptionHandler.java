@@ -6,7 +6,8 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import java.util.Arrays;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import de.storchp.opentracks.osmplugin.BuildConfig;
 import de.storchp.opentracks.osmplugin.ShowErrorActivity;
@@ -42,35 +43,19 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private String formatException(final Thread thread, final Throwable exception) {
-        return formatExceptionRecursive(thread, exception, 0);
-    }
-
-    private String formatExceptionRecursive(final Thread thread, final Throwable exception, final int count) {
-        if (count > EXCEPTION_FORMAT_MAX_RECURSIVITY) {
-            return "Max number of recursive exception causes exceeded!";
-        }
-        // print exception
         final var stringBuilder = new StringBuilder();
-        final var stackTrace = exception.getStackTrace();
-        stringBuilder.append(String.format("Exception in thread \"%s\" %s\n", thread.getName(), exception));
-        // print available stacktrace
-        Arrays.stream(stackTrace).forEach(element -> stringBuilder.append("    at ").append(element).append("\n"));
+        stringBuilder.append(String.format("Exception in thread \"%s\": ", thread.getName()));
 
-        // print cause recursively
-        if (exception.getCause() != null) {
-            stringBuilder.append("Caused by: ");
-            stringBuilder.append(formatExceptionRecursive(thread, exception.getCause(), count + 1));
-        }
+        // print available stacktrace
+        final var writer = new StringWriter();
+        exception.printStackTrace(new PrintWriter(writer));
+        stringBuilder.append(writer);
+
         return stringBuilder.toString();
     }
 
     private String generateErrorReport(final String stackTrace) {
-        return "### Cause of error\n" +
-            "```java\n" +
-            stackTrace + "\n" +
-            "```\n" +
-            "\n" +
-            "### App information\n" +
+        return "### App information\n" +
             "* ID: " + BuildConfig.APPLICATION_ID + "\n" +
             "* Version: " + BuildConfig.VERSION_CODE + " " + BuildConfig.VERSION_NAME + "\n" +
             "* Build flavor: " + BuildConfig.FLAVOR + "\n" +
@@ -85,7 +70,12 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             "### Firmware\n" +
             "* SDK: " + Build.VERSION.SDK_INT + "\n" +
             "* Release: " + Build.VERSION.RELEASE + "\n" +
-            "* Incremental: " + Build.VERSION.INCREMENTAL + "\n";
+            "* Incremental: " + Build.VERSION.INCREMENTAL + "\n" +
+            "\n" +
+            "### Cause of error\n" +
+            "```java\n" +
+            stackTrace + "\n" +
+            "```\n";
     }
 
 }
