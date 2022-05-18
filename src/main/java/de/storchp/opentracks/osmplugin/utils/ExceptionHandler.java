@@ -14,8 +14,6 @@ import de.storchp.opentracks.osmplugin.ShowErrorActivity;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private static final int EXCEPTION_FORMAT_MAX_RECURSIVITY = 10;
-
     private final Context context;
     private final Thread.UncaughtExceptionHandler defaultExceptionHandler;
 
