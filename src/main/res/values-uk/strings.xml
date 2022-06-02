@@ -70,4 +70,7 @@
     <string name="unit_feet">фут</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
+    <string name="error_crash_title">%1$s зазнав краху</string>
+    <string name="no_browser_available">Немає доступного браузера</string>
+    <string name="bug_report">Повідомити про помилку</string>
 </resources>
