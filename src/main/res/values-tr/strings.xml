@@ -70,4 +70,7 @@
     <string name="multi_thread_map_rendering">Çok iş parçacıklı harita oluşturma</string>
     <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
     <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
+    <string name="error_crash_title">%1$s çöktü</string>
+    <string name="no_browser_available">Tarayıcı mevcut değil</string>
+    <string name="bug_report">Hata bildir</string>
 </resources>
