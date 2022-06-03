@@ -70,4 +70,7 @@
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="zoom_out">Zoom ut</string>
+    <string name="error_crash_title">%1$s krasjet</string>
+    <string name="no_browser_available">Ingen nettleser tilgjengelig</string>
+    <string name="bug_report">Rapporter feil</string>
 </resources>

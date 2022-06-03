@@ -68,4 +68,8 @@
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
+    <string name="error_crash_title">%1$s gecrasht</string>
+    <string name="no_browser_available">Geen browser beschikbaar</string>
+    <string name="test_crash_report">Test crash verslag</string>
+    <string name="bug_report">Bug melden</string>
 </resources>
