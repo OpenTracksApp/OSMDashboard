@@ -70,4 +70,7 @@
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
+    <string name="error_crash_title">%1$s lezuhant</string>
+    <string name="no_browser_available">Nincs elérhető böngésző</string>
+    <string name="bug_report">Hiba jelentése</string>
 </resources>

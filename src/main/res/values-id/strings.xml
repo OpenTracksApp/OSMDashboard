@@ -70,4 +70,7 @@
     <string name="zoom_out">Perkecil</string>
     <string name="zoom_in">Perbesar</string>
     <string name="toggle_full_screen_mode">Berpindah mode layar penuh</string>
+    <string name="error_crash_title">%1$s jatuh</string>
+    <string name="no_browser_available">Tidak ada browser yang tersedia</string>
+    <string name="bug_report">Laporkan bug</string>
 </resources>

@@ -69,4 +69,7 @@
     <string name="toggle_full_screen_mode">Activar modo pantalla completa</string>
     <string name="zoom_in">Aumentar</string>
     <string name="zoom_out">Diminuír</string>
+    <string name="error_crash_title">%1$s caeu</string>
+    <string name="no_browser_available">Non navegador dispoñible</string>
+    <string name="bug_report">Informe de erro</string>
 </resources>

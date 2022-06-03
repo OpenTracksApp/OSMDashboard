@@ -70,4 +70,7 @@
     <string name="unit_feet">අඩි</string>
     <string name="unit_kilometer">කි.මී</string>
     <string name="unit_meter">එම්</string>
+    <string name="error_crash_title">%1$s බිඳ වැටිණි</string>
+    <string name="no_browser_available">බ්‍රවුසරයක් නොමැත</string>
+    <string name="bug_report">දෝෂය වාර්තා කරන්න</string>
 </resources>
