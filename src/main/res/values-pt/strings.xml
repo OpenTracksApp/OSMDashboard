@@ -70,4 +70,7 @@
     <string name="unit_meter">m</string>
     <string name="zoom_out">Ampliar</string>
     <string name="zoom_in">Aumentar</string>
+    <string name="error_crash_title">%1$s caiu</string>
+    <string name="no_browser_available">Nenhum navegador disponível</string>
+    <string name="bug_report">Relatório bug</string>
 </resources>

@@ -70,4 +70,7 @@
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
+    <string name="error_crash_title">%1$s sugedo</string>
+    <string name="no_browser_available">Nėra prieinamos naršyklės</string>
+    <string name="bug_report">Pranešti apie klaidą</string>
 </resources>

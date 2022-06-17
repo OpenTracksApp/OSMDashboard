@@ -70,4 +70,7 @@
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
+    <string name="no_browser_available">No hi ha navegador disponible</string>
+    <string name="error_crash_title">%1$s ha fallat</string>
+    <string name="bug_report">Informe d \' error</string>
 </resources>
