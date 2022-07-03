@@ -17,42 +17,42 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     private final Context context;
     private final Thread.UncaughtExceptionHandler defaultExceptionHandler;
 
-    public ExceptionHandler(final Context context, final Thread.UncaughtExceptionHandler defaultExceptionHandler) {
+    public ExceptionHandler(Context context, Thread.UncaughtExceptionHandler defaultExceptionHandler) {
         this.context = context;
         this.defaultExceptionHandler = defaultExceptionHandler;
     }
 
     @Override
-    public void uncaughtException(@NonNull final Thread thread, @NonNull final Throwable exception) {
+    public void uncaughtException(@NonNull Thread thread, @NonNull Throwable exception) {
         try {
-            final var errorReport = generateErrorReport(formatException(thread, exception));
-            final var intent = new Intent(context, ShowErrorActivity.class);
+            var errorReport = generateErrorReport(formatException(thread, exception));
+            var intent = new Intent(context, ShowErrorActivity.class);
             intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
             // Pass exception to OS for graceful handling - OS will report it via ADB
             // and close all activities and services.
             defaultExceptionHandler.uncaughtException(thread, exception);
-        } catch (final Exception fatalException) {
+        } catch (Exception fatalException) {
             // do not recurse into custom handler if exception is thrown during
             // exception handling. Pass this ultimate fatal exception to OS
             defaultExceptionHandler.uncaughtException(thread, fatalException);
         }
     }
 
-    private String formatException(final Thread thread, final Throwable exception) {
-        final var stringBuilder = new StringBuilder();
+    private String formatException(Thread thread, Throwable exception) {
+        var stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("Exception in thread \"%s\": ", thread.getName()));
 
         // print available stacktrace
-        final var writer = new StringWriter();
+        var writer = new StringWriter();
         exception.printStackTrace(new PrintWriter(writer));
         stringBuilder.append(writer);
 
         return stringBuilder.toString();
     }
 
-    private String generateErrorReport(final String stackTrace) {
+    private String generateErrorReport(String stackTrace) {
         return "### App information\n" +
             "* ID: " + BuildConfig.APPLICATION_ID + "\n" +
             "* Version: " + BuildConfig.VERSION_CODE + " " + BuildConfig.VERSION_NAME + "\n" +

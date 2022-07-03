@@ -46,7 +46,7 @@ public class TrackPoint {
     private final LatLong latLong;
     private final boolean pause;
 
-    public TrackPoint(final long trackId, final long trackPointId, final double latitude, final double longitude, final Integer type) {
+    public TrackPoint(long trackId, long trackPointId, double latitude, double longitude, Integer type) {
         this.trackId = trackId;
         this.trackPointId = trackPointId;
         if (MapUtils.isValid(latitude, longitude)) {
@@ -69,18 +69,18 @@ public class TrackPoint {
      * Reads the TrackPoints from the Content Uri and split by segments.
      * Pause TrackPoints and different Track IDs split the segments.
      */
-    public static List<List<TrackPoint>> readTrackPointsBySegments(final ContentResolver resolver, final Uri data, final long lastTrackPointId, final int protocolVersion) {
-         final var segments = new ArrayList<List<TrackPoint>>();
-         final var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
-         try (final Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
+    public static List<List<TrackPoint>> readTrackPointsBySegments(ContentResolver resolver, Uri data, long lastTrackPointId, int protocolVersion) {
+         var segments = new ArrayList<List<TrackPoint>>();
+         var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
+         try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
-                final var trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
-                final var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
-                final var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / LAT_LON_FACTOR;
-                final var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / LAT_LON_FACTOR;
-                final var typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
+                var trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
+                var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
+                var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / LAT_LON_FACTOR;
+                var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / LAT_LON_FACTOR;
+                var typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
                 Integer type = null;
                 if (typeIndex > -1) {
                     type = cursor.getInt(typeIndex);

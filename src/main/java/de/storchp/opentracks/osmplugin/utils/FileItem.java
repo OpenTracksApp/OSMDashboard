@@ -9,7 +9,7 @@ public class FileItem {
 
     private final Uri uri;
 
-    public FileItem(final String name, final Uri uri) {
+    public FileItem(String name, Uri uri) {
         this.name = name;
         this.uri = uri;
     }

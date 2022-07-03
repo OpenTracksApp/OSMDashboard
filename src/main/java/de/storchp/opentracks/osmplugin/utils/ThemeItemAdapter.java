@@ -21,7 +21,7 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
     private Uri selected;
     private final boolean onlineMapSelected;
 
-    public ThemeItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Uri selected, final boolean onlineMapSelected) {
+    public ThemeItemAdapter(@NonNull Activity context, List<FileItem> items, Uri selected, boolean onlineMapSelected) {
         super(context, R.layout.map_item, items);
         this.context = context;
         this.items = items;
@@ -33,23 +33,23 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         return false;
     }
 
-    public boolean isEnabled(final int position) {
+    public boolean isEnabled(int position) {
         return !onlineMapSelected || position == 0;
     }
 
     @Override
-    public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         var rowView = convertView;
         // reuse views
         if (rowView == null) {
-            final var binding = ThemeItemBinding.inflate(context.getLayoutInflater(), parent, false);
+            var binding = ThemeItemBinding.inflate(context.getLayoutInflater(), parent, false);
             rowView = binding.getRoot();
             rowView.setTag(binding);
         }
 
         // fill data
-        final var binding = (ThemeItemBinding) rowView.getTag();
-        final var item = this.items.get(position);
+        var binding = (ThemeItemBinding) rowView.getTag();
+        var item = this.items.get(position);
         binding.name.setText(item.getName());
         binding.name.setEnabled(isEnabled(position));
         binding.radiobutton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
@@ -59,9 +59,9 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         return rowView;
     }
 
-    private View.OnClickListener onStateChangedListener(final RadioButton radioButton, final int position) {
+    private View.OnClickListener onStateChangedListener(RadioButton radioButton, int position) {
         return v -> {
-            final var fileItem = items.get(position);
+            var fileItem = items.get(position);
             if (radioButton.isChecked()) {
                 if (fileItem.getUri() == null) { // default theme
                     selected = null;
@@ -81,7 +81,7 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         return selected;
     }
 
-    public void setSelectedUri(final Uri selected) {
+    public void setSelectedUri(Uri selected) {
         this.selected = selected;
     }
 

@@ -45,7 +45,7 @@ public class DownloadActivity extends BaseActivity {
     private ActivityDownloadBinding binding;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDownloadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -55,11 +55,11 @@ public class DownloadActivity extends BaseActivity {
 
         binding.progressBar.setIndeterminate(true);
 
-        final var uri = getIntent().getData();
+        var uri = getIntent().getData();
         if (uri != null) {
-            final var scheme = uri.getScheme();
-            final var host = uri.getHost();
-            final var path = uri.getPath();
+            var scheme = uri.getScheme();
+            var host = uri.getHost();
+            var path = uri.getPath();
             Log.i(TAG, "scheme=" + scheme + ",host=" + host + ", path=" + path + ", lastPathSegment=" + uri.getLastPathSegment());
             downloadUri = uri;
 
@@ -112,20 +112,20 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void startDownload() {
-        final var directoryUri = downloadType.getDirectoryUri();
+        var directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
             openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
 
-        final var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
+        var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
             openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
 
-        final var fileName = downloadUri.getLastPathSegment();
-        final var file = directoryFile.findFile(fileName);
+        var fileName = downloadUri.getLastPathSegment();
+        var file = directoryFile.findFile(fileName);
         if (file != null) {
             new AlertDialog.Builder(DownloadActivity.this)
                 .setIcon(R.drawable.ic_logo_color_24dp)
@@ -150,14 +150,14 @@ public class DownloadActivity extends BaseActivity {
         Log.d(TAG, "Started download of '" + fileName + "'");
     }
 
-    private void downloadEnded(final boolean success, final boolean canceled) {
+    private void downloadEnded(boolean success, boolean canceled) {
         binding.progressBar.setVisibility(View.GONE);
         keepScreenOn(false);
-        final Uri targetUri = downloadTask != null ? downloadTask.targetUri : null;
+        Uri targetUri = downloadTask != null ? downloadTask.targetUri : null;
         downloadTask = null;
         if (canceled) {
             if (targetUri != null) {
-                final var documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
+                var documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
                 if (documentFile != null) {
                     documentFile.delete();
                 }
@@ -173,19 +173,19 @@ public class DownloadActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapDirectory(final Uri uri, final Intent resultData) {
+    protected void changeMapDirectory(Uri uri, Intent resultData) {
         super.changeMapDirectory(uri, resultData);
         startDownload();
     }
 
     @Override
-    protected void changeThemeDirectory(final Uri uri, final Intent resultData) {
+    protected void changeThemeDirectory(Uri uri, Intent resultData) {
         super.changeThemeDirectory(uri, resultData);
         startDownload();
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(final boolean consent) {
+    protected void onOnlineMapConsentChanged(boolean consent) {
         // nothing to do
     }
 
@@ -200,7 +200,7 @@ public class DownloadActivity extends BaseActivity {
         private boolean success = false;
         private boolean canceled = false;
 
-        public DownloadTask(final DownloadActivity activity, final Uri downloadUri, final DocumentFile directoryFile, final String filename, final DownloadType downloadType) {
+        public DownloadTask(DownloadActivity activity, Uri downloadUri, DocumentFile directoryFile, String filename, DownloadType downloadType) {
             ref = new WeakReference<>(activity);
             this.downloadUri = downloadUri;
             this.directoryFile = directoryFile;
@@ -208,15 +208,15 @@ public class DownloadActivity extends BaseActivity {
             this.filename = filename;
         }
 
-        protected void publishProgress(final int progress) {
-            final var activity = ref.get();
+        protected void publishProgress(int progress) {
+            var activity = ref.get();
             if (activity != null) {
                 activity.runOnUiThread(() -> activity.updateProgress(contentLength, progress));
             }
         }
 
         protected void end() {
-            final var activity = ref.get();
+            var activity = ref.get();
             if (activity != null) {
                 activity.runOnUiThread(() -> activity.downloadEnded(success, canceled));
             }
@@ -233,7 +233,7 @@ public class DownloadActivity extends BaseActivity {
 
                 input = connection.getInputStream();
                 if (downloadType.isExtractMapFromZIP()) {
-                    final var zis = new ZipInputStream(input);
+                    var zis = new ZipInputStream(input);
                     ZipEntry ze;
                     boolean foundMapInZip = false;
                     while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
@@ -248,14 +248,14 @@ public class DownloadActivity extends BaseActivity {
                 }
 
                 success = true;
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 Log.e(TAG, "Download failed", e);
             } finally {
                 try {
                     if (input != null) {
                         input.close();
                     }
-                } catch (final IOException ignored) {
+                } catch (IOException ignored) {
                 }
 
                 if (connection != null) {
@@ -265,15 +265,15 @@ public class DownloadActivity extends BaseActivity {
             end();
         }
 
-        private void copy(final InputStream input, final String filename, final DocumentFile directoryFile) throws IOException {
-            final var file = directoryFile.createFile("application/binary", filename);
+        private void copy(InputStream input, String filename, DocumentFile directoryFile) throws IOException {
+            var file = directoryFile.createFile("application/binary", filename);
             if (file == null) {
                 throw new IOException("Unable to create file: " + filename);
             }
             targetUri = file.getUri();
-            final var output = ref.get().getContentResolver().openOutputStream(targetUri);
+            var output = ref.get().getContentResolver().openOutputStream(targetUri);
 
-            final var data = new byte[4096];
+            var data = new byte[4096];
             int count;
             int bytesWritten = 0;
             while ((count = input.read(data)) != -1) {
@@ -295,7 +295,7 @@ public class DownloadActivity extends BaseActivity {
         }
     }
 
-    private void updateProgress(final int contentLength, final int progress) {
+    private void updateProgress(int contentLength, int progress) {
         binding.progressBar.setProgress(progress);
         if (contentLength > 0 && binding.progressBar.isIndeterminate()) {
             // we have a content length, so switch to determinate progress
@@ -305,7 +305,7 @@ public class DownloadActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
@@ -314,12 +314,12 @@ public class DownloadActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapMode(final MapMode mapMode) {
+    protected void changeMapMode(MapMode mapMode) {
         // nothing to do
     }
 
     @Override
-    protected void changeArrowMode(final ArrowMode arrowMode) {
+    protected void changeArrowMode(ArrowMode arrowMode) {
         // nothing to do
     }
 
@@ -347,7 +347,7 @@ public class DownloadActivity extends BaseActivity {
             }
 
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
                 return activity.mapDirectoryLauncher;
             }
         },
@@ -357,7 +357,7 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
                 return activity.mapDirectoryLauncher;
             }
         },
@@ -367,7 +367,7 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapThemeDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity) {
+            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
                 return activity.themeDirectoryLauncher;
             }
         };
@@ -377,7 +377,7 @@ public class DownloadActivity extends BaseActivity {
         private final int failedMessageId;
         private final boolean extractMapFromZIP;
 
-        DownloadType(final int overwriteMessageId, final int successMessageId, final int failedMessageId, final boolean extractMapFromZIP) {
+        DownloadType(int overwriteMessageId, int successMessageId, int failedMessageId, boolean extractMapFromZIP) {
             this.overwriteMessageId = overwriteMessageId;
             this.successMessageId = successMessageId;
             this.failedMessageId = failedMessageId;
@@ -402,7 +402,7 @@ public class DownloadActivity extends BaseActivity {
             return extractMapFromZIP;
         }
 
-        public abstract ActivityResultLauncher<Intent> getLauncher(final BaseActivity activity);
+        public abstract ActivityResultLauncher<Intent> getLauncher(BaseActivity activity);
     }
 
 }

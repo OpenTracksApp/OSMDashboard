@@ -11,11 +11,11 @@ public class MovingAverageFilter {
     private final int size;
     private final List<Double> window = new ArrayList<>();
 
-    MovingAverageFilter(final int size) {
+    MovingAverageFilter(int size) {
         this.size = size;
     }
 
-    public double filter(final double measurement) {
+    public double filter(double measurement) {
         window.add(measurement);
         if (window.size() > size){
             window.remove(0);

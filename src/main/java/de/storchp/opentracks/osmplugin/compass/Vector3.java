@@ -11,13 +11,13 @@ public class Vector3 {
     private final float z;
     private final float x;
 
-    public Vector3(final float x, final float y, final float z) {
+    public Vector3(float x, float y, float z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public Vector3 cross(final Vector3 other) {
+    public Vector3 cross(Vector3 other) {
         return new Vector3(
                 this.y * other.z - this.z * other.y,
                 this.z * other.x - this.x * other.z,
@@ -25,7 +25,7 @@ public class Vector3 {
         );
     }
 
-    public Vector3 minus(final Vector3 other) {
+    public Vector3 minus(Vector3 other) {
         return new Vector3(
                 x - other.x,
                 y - other.y,
@@ -33,7 +33,7 @@ public class Vector3 {
         );
     }
 
-    public Vector3 plus(final Vector3 other) {
+    public Vector3 plus(Vector3 other) {
         return new Vector3(
                 x + other.x,
                 y + other.y,
@@ -41,7 +41,7 @@ public class Vector3 {
         );
     }
 
-    public Vector3 times(final float factor) {
+    public Vector3 times(float factor) {
         return new Vector3(
                 x * factor,
                 y * factor,
@@ -53,7 +53,7 @@ public class Vector3 {
         return new float[]{x, y, z};
     }
 
-    public float dot(final Vector3 other) {
+    public float dot(Vector3 other) {
         return x * other.x + y * other.y + z * other.z;
     }
 
@@ -62,7 +62,7 @@ public class Vector3 {
     }
 
     public Vector3 normalize() {
-        final float mag = magnitude();
+        float mag = magnitude();
         return new Vector3(
                 x / mag,
                 y / mag,

@@ -62,7 +62,7 @@ public class Track {
     private final float maxElevationMeter;
     private final float elevationGainMeter;
 
-    public Track(final long id, final String trackname, final String description, final String category, final int startTimeEpochMillis, final int stopTimeEpochMillis, final float totalDistanceMeter, final int totalTimeMillis, final int movingTimeMillis, final float avgSpeedMeterPerSecond, final float avgMovingSpeedMeterPerSecond, final float maxSpeedMeterPerSecond, final float minElevationMeter, final float maxElevationMeter, final float elevationGainMeter) {
+    public Track(long id, String trackname, String description, String category, int startTimeEpochMillis, int stopTimeEpochMillis, float totalDistanceMeter, int totalTimeMillis, int movingTimeMillis, float avgSpeedMeterPerSecond, float avgMovingSpeedMeterPerSecond, float maxSpeedMeterPerSecond, float minElevationMeter, float maxElevationMeter, float elevationGainMeter) {
         this.id = id;
         this.trackname = trackname;
         this.description = description;
@@ -83,35 +83,35 @@ public class Track {
     /**
      * Reads the Tracks from the Content Uri
      */
-    public static List<Track> readTracks(final ContentResolver resolver, final Uri data, final int protocolVersion) {
+    public static List<Track> readTracks(ContentResolver resolver, Uri data, int protocolVersion) {
         Log.i(TAG, "Loading track(s) from " + data);
 
-        final var tracks = new ArrayList<Track>();
-        try (final Cursor cursor = resolver.query(data, Track.PROJECTION, null, null, null)) {
+        var tracks = new ArrayList<Track>();
+        try (Cursor cursor = resolver.query(data, Track.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final var id = cursor.getLong(cursor.getColumnIndexOrThrow(Track._ID));
-                final var trackname = cursor.getString(cursor.getColumnIndexOrThrow(Track.NAME));
-                final var description = cursor.getString(cursor.getColumnIndexOrThrow(Track.DESCRIPTION));
-                final var category = cursor.getString(cursor.getColumnIndexOrThrow(Track.CATEGORY));
-                final var startTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STARTTIME));
-                final var stopTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STOPTIME));
-                final var totalDistanceMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.TOTALDISTANCE));
-                final var totalTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.TOTALTIME));
-                final var movingTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.MOVINGTIME));
-                final var avgSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGSPEED));
-                final var avgMovingSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGMOVINGSPEED));
-                final var maxSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXSPEED));
-                final var minElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MINELEVATION));
-                final var maxElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXELEVATION));
-                final var elevationGainMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.ELEVATIONGAIN));
+                var id = cursor.getLong(cursor.getColumnIndexOrThrow(Track._ID));
+                var trackname = cursor.getString(cursor.getColumnIndexOrThrow(Track.NAME));
+                var description = cursor.getString(cursor.getColumnIndexOrThrow(Track.DESCRIPTION));
+                var category = cursor.getString(cursor.getColumnIndexOrThrow(Track.CATEGORY));
+                var startTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STARTTIME));
+                var stopTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STOPTIME));
+                var totalDistanceMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.TOTALDISTANCE));
+                var totalTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.TOTALTIME));
+                var movingTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.MOVINGTIME));
+                var avgSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGSPEED));
+                var avgMovingSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGMOVINGSPEED));
+                var maxSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXSPEED));
+                var minElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MINELEVATION));
+                var maxElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXELEVATION));
+                var elevationGainMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.ELEVATIONGAIN));
 
                 tracks.add(new Track(id, trackname, description, category, startTimeEpochMillis, stopTimeEpochMillis,
                         totalDistanceMeter, totalTimeMillis, movingTimeMillis, avgSpeedMeterPerSecond, avgMovingSpeedMeterPerSecond, maxSpeedMeterPerSecond,
                         minElevationMeter, maxElevationMeter, elevationGainMeter));
             }
-        } catch (final SecurityException e) {
+        } catch (SecurityException e) {
             Log.w(TAG, "No permission to read track");
-        } catch (final Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, "Reading track failed", e);
         }
         return tracks;

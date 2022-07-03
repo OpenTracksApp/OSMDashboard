@@ -25,21 +25,21 @@ public class MapSelectionActivity extends AppCompatActivity {
     private MapItemAdapter adapter;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final var binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
+        var binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.toolbar.mapsToolbar.setTitle(R.string.map_selection);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        final var items = new ArrayList<FileItem>();
+        var items = new ArrayList<FileItem>();
         if (!BuildConfig.offline) {
             items.add(new FileItem(getString(R.string.online_osm_mapnick), null));
         }
-        final var mapDirectory = PreferencesUtils.getMapDirectoryUri();
+        var mapDirectory = PreferencesUtils.getMapDirectoryUri();
         if (mapDirectory != null) {
-            final var documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
+            var documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
             if (documentsTree != null) {
                 Arrays.stream(documentsTree.listFiles())
                         .filter(file -> file.isFile() && file.getName().endsWith(".map"))
@@ -50,13 +50,13 @@ public class MapSelectionActivity extends AppCompatActivity {
 
         binding.mapList.setAdapter(adapter);
         binding.mapList.setOnItemClickListener((listview, view, position, id) -> {
-            final var itemBinding = (MapItemBinding) view.getTag();
+            var itemBinding = (MapItemBinding) view.getTag();
             itemBinding.checkbox.setChecked(!itemBinding.checkbox.isChecked());
             itemBinding.checkbox.callOnClick();
         });
         binding.mapList.setOnItemLongClickListener((parent, view, position, id) -> {
-            final var fileItem = items.get(position);
-            final var uri = fileItem.getUri();
+            var fileItem = items.get(position);
+            var uri = fileItem.getUri();
             if (uri == null) {
                 // online map can't be deleted
                 return false;
@@ -67,9 +67,9 @@ public class MapSelectionActivity extends AppCompatActivity {
                 .setMessage(getString(R.string.delete_map_question, fileItem.getName()))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
-                    final var file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
+                    var file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
                     assert file != null;
-                    final boolean deleted = file.delete();
+                    boolean deleted = file.delete();
                     if (deleted) {
                         items.remove(position);
                         PreferencesUtils.getMapUris().remove(uri);
@@ -85,7 +85,7 @@ public class MapSelectionActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;

@@ -8,16 +8,16 @@ public class LowPassFilter {
     private final float alpha;
     private float estimate;
 
-    public LowPassFilter(final float alpha, final float estimate) {
+    public LowPassFilter(float alpha, float estimate) {
         this.alpha = alpha;
         this.estimate = estimate;
     }
 
-    public LowPassFilter(final float alpha) {
+    public LowPassFilter(float alpha) {
         this(alpha, 0f);
     }
 
-    public float filter(final float measurement) {
+    public float filter(float measurement) {
         estimate = (1 - alpha) * estimate + alpha * measurement;
         return estimate;
     }

@@ -19,7 +19,7 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
     private final LowPassFilter[] filters;
     private Vector3 value = Vector3.ZERO;
 
-    public AbstractLowPassSensor(final Context context, final int sensorType, final int sensorDelay, final float filterSize) {
+    public AbstractLowPassSensor(Context context, int sensorType, int sensorDelay, float filterSize) {
         this.sensorType = sensorType;
         this.sensorDelay = sensorDelay;
         this.sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
@@ -29,7 +29,7 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
                 new LowPassFilter(filterSize)};
     }
 
-    protected void handleSensorEvent(final SensorEvent event) {
+    protected void handleSensorEvent(SensorEvent event) {
         value = new Vector3(
                 filters[0].filter(event.values[0]),
                 filters[1].filter(event.values[1]),
@@ -37,21 +37,21 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
         );
     }
 
-    private final SensorEventListener sensorListener = new SensorEventListener() {
+    private SensorEventListener sensorListener = new SensorEventListener() {
         @Override
-        public void onSensorChanged(final SensorEvent event) {
+        public void onSensorChanged(SensorEvent event) {
             handleSensorEvent(event);
             notifyListeners();
         }
 
         @Override
-        public void onAccuracyChanged(final Sensor sensor, final int newAccuracy) {
+        public void onAccuracyChanged(Sensor sensor, int newAccuracy) {
         }
 
     };
 
     protected void startImpl() {
-        final var sensor = sensorManager.getDefaultSensor(sensorType);
+        var sensor = sensorManager.getDefaultSensor(sensorType);
         if (sensor != null) {
             sensorManager.registerListener(
                 sensorListener,

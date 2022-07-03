@@ -22,12 +22,12 @@ public class PreferencesUtils {
     private static SharedPreferences sharedPrefs;
     private static Resources mRes;
 
-    public static void initPreferences(final Context context) {
+    public static void initPreferences(Context context) {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         mRes = context.getResources();
     }
 
-    private static String getKey(@StringRes final int keyId) {
+    private static String getKey(@StringRes int keyId) {
         return mRes.getString(keyId);
     }
 
@@ -35,7 +35,7 @@ public class PreferencesUtils {
         return getUris(getKey(R.string.MAP_FILES));
     }
 
-    public static void setMapUris(final Set<Uri> mapUris) {
+    public static void setMapUris(Set<Uri> mapUris) {
         setUris(R.string.MAP_FILES, mapUris);
     }
 
@@ -43,7 +43,7 @@ public class PreferencesUtils {
         return getUri(getKey(R.string.MAP_DIRECTORY));
     }
 
-    public static void setMapDirectoryUri(final Uri mapDirectory) {
+    public static void setMapDirectoryUri(Uri mapDirectory) {
         setUri(R.string.MAP_DIRECTORY, mapDirectory);
     }
 
@@ -51,7 +51,7 @@ public class PreferencesUtils {
         return getUri(getKey(R.string.MAP_THEME_DIRECTORY));
     }
 
-    public static void setMapThemeDirectoryUri(final Uri mapThemeDirectory) {
+    public static void setMapThemeDirectoryUri(Uri mapThemeDirectory) {
         setUri(R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
     }
 
@@ -59,7 +59,7 @@ public class PreferencesUtils {
         return getUri(getKey(R.string.MAP_THEME));
     }
 
-    public static void setMapThemeUri(final Uri mapTheme) {
+    public static void setMapThemeUri(Uri mapTheme) {
         setUri(R.string.MAP_THEME, mapTheme);
     }
 
@@ -67,80 +67,80 @@ public class PreferencesUtils {
         return getBoolean(R.string.ONLINE_MAP_CONSENT, false);
     }
 
-    public static void setOnlineMapConsent(final boolean onlineMapConsent) {
+    public static void setOnlineMapConsent(boolean onlineMapConsent) {
         setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
-    public static String getLastDownloadUrl(final String defaultDownloadUrl) {
+    public static String getLastDownloadUrl(String defaultDownloadUrl) {
         return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
 
-    public static void setLastDownloadUrl(final String lastDownloadUrl) {
+    public static void setLastDownloadUrl(String lastDownloadUrl) {
         setString(R.string.LAST_DOWNLOAD_URL, lastDownloadUrl);
     }
 
-    private static Set<Uri> getUris(final String keyId) {
+    private static Set<Uri> getUris(String keyId) {
         return sharedPrefs.getStringSet(keyId, Collections.emptySet()).stream()
                 .map(PreferencesUtils::parseUri)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
 
-    private static Uri getUri(final String keyId) {
+    private static Uri getUri(String keyId) {
         return parseUri(sharedPrefs.getString(keyId, null));
     }
 
-    private static Uri parseUri(final String value) {
+    private static Uri parseUri(String value) {
         try {
             return Uri.parse(value);
-        } catch (final Exception ignored) {
+        } catch (Exception ignored) {
             Log.e(TAG, "can't read Uri string " + value);
         }
         return null;
     }
 
-    private static void setUri(final int keyId, final Uri uri) {
+    private static void setUri(int keyId, Uri uri) {
         setString(keyId, uri != null ? uri.toString() : null);
     }
 
-    private static void setUris(final int keyId, final Set<Uri> uris) {
+    private static void setUris(int keyId, Set<Uri> uris) {
         setStringSet(keyId,
                 uris.stream()
                 .map(Uri::toString)
                 .collect(Collectors.toSet()));
     }
 
-    private static String getString(final int keyId, final String defaultValue) {
+    private static String getString(int keyId, String defaultValue) {
         return sharedPrefs.getString(getKey(keyId), defaultValue);
     }
 
-    private static void setString(final int keyId, final String value) {
+    private static void setString(int keyId, String value) {
         sharedPrefs.edit()
                 .putString(getKey(keyId), value)
                 .apply();
     }
 
-    private static void setStringSet(final int keyId, final Set<String> values) {
+    private static void setStringSet(int keyId, Set<String> values) {
         sharedPrefs.edit()
                 .putStringSet(getKey(keyId), values)
                 .apply();
     }
 
-    private static boolean getBoolean(final int keyId, final boolean defaultValue) {
+    private static boolean getBoolean(int keyId, boolean defaultValue) {
         return sharedPrefs.getBoolean(getKey(keyId), defaultValue);
     }
 
-    private static void setBoolean(final int keyId, final boolean value) {
+    private static void setBoolean(int keyId, boolean value) {
         sharedPrefs.edit()
                 .putBoolean(getKey(keyId), value)
                 .apply();
     }
 
-    private static int getInt(final int keyId, final int defaultValue) {
+    private static int getInt(int keyId, int defaultValue) {
         return sharedPrefs.getInt(getKey(keyId), defaultValue);
     }
 
-    private static void setInt(final int keyId, final int value) {
+    private static void setInt(int keyId, int value) {
         sharedPrefs.edit()
                 .putInt(getKey(keyId), value)
                 .apply();
@@ -150,7 +150,7 @@ public class PreferencesUtils {
         return getInt(R.string.TRACK_SMOOTHING_TOLERANCE, 10);
     }
 
-    public static void setTrackSmoothingTolerance(final int value) {
+    public static void setTrackSmoothingTolerance(int value) {
         setInt(R.string.TRACK_SMOOTHING_TOLERANCE, value);
     }
 
@@ -158,7 +158,7 @@ public class PreferencesUtils {
         return getBoolean(R.string.PIP_ENABLED, true);
     }
 
-    public static void setPipEnabled(final boolean enabled) {
+    public static void setPipEnabled(boolean enabled) {
         setBoolean(R.string.PIP_ENABLED, enabled);
     }
 
@@ -166,7 +166,7 @@ public class PreferencesUtils {
         return ArrowMode.valueOf(getString(R.string.ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
     }
 
-    public static void setArrowMode(final ArrowMode arrowMode) {
+    public static void setArrowMode(ArrowMode arrowMode) {
         setString(R.string.ARROW_MODE, arrowMode.name());
     }
 
@@ -174,7 +174,7 @@ public class PreferencesUtils {
         return MapMode.valueOf(getString(R.string.MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
     }
 
-    public static void setMapMode(final MapMode mapMode) {
+    public static void setMapMode(MapMode mapMode) {
         setString(R.string.MAP_MODE, mapMode.name());
     }
 
@@ -182,7 +182,7 @@ public class PreferencesUtils {
         return getInt(R.string.COMPASS_SMOOTHING, 2);
     }
 
-    public static void setCompassSmoothing(final int value) {
+    public static void setCompassSmoothing(int value) {
         setInt(R.string.COMPASS_SMOOTHING, value);
     }
 
@@ -190,7 +190,7 @@ public class PreferencesUtils {
         return getBoolean(R.string.MAP_MULTI_THREAD_RENDERING, true);
     }
 
-    public static void setMultiThreadMapRendering(final boolean multiThread) {
+    public static void setMultiThreadMapRendering(boolean multiThread) {
         setBoolean(R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
     }
 
@@ -198,7 +198,7 @@ public class PreferencesUtils {
         return getBoolean(R.string.MAP_PERSISTENT_TILECACHE, true);
     }
 
-    public static void setPersistentTileCache(final boolean persistentTileCache) {
+    public static void setPersistentTileCache(boolean persistentTileCache) {
         setBoolean(R.string.MAP_PERSISTENT_TILECACHE, persistentTileCache);
     }
 
@@ -206,7 +206,7 @@ public class PreferencesUtils {
         return getInt(R.string.STROKE_WIDTH, 4);
     }
 
-    public static void setStrokeWidth(final int value) {
+    public static void setStrokeWidth(int value) {
         setInt(R.string.STROKE_WIDTH, value);
     }
 }

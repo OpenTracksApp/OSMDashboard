@@ -22,7 +22,7 @@ public class ShowErrorActivity extends AppCompatActivity {
     private ActivityShowErrorBinding binding;
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityShowErrorBinding.inflate(getLayoutInflater());
@@ -41,7 +41,7 @@ public class ShowErrorActivity extends AppCompatActivity {
     }
 
     private void reportBug() {
-        final Uri uriUrl;
+        Uri uriUrl;
         try {
             uriUrl = Uri.parse(
                     String.format(
@@ -49,22 +49,22 @@ public class ShowErrorActivity extends AppCompatActivity {
                             URLEncoder.encode(binding.textViewError.getText().toString(), StandardCharsets.UTF_8.toString())
                     )
             );
-        } catch (final UnsupportedEncodingException ignored) {
+        } catch (UnsupportedEncodingException ignored) {
             // can't happen as UTF-8 is always available
             return;
         }
-        final var intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+        var intent = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(intent);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.show_error, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.error_share) {
             onClickedShare();
             return true;
@@ -76,7 +76,7 @@ public class ShowErrorActivity extends AppCompatActivity {
     }
 
     private void onClickedShare() {
-        final var intent = new Intent(Intent.ACTION_SEND);
+        var intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_SUBJECT, createErrorTitle());
         intent.putExtra(Intent.EXTRA_TEXT, binding.textViewError.getText());
         intent.setType("text/plain");

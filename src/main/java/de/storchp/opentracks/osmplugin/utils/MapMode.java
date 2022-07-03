@@ -7,24 +7,24 @@ import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 public enum MapMode {
 
     NORTH(R.string.map_mode_north_top) {
-        public float getHeading(final MovementDirection movementDirection, final Compass compass) {
+        public float getHeading(MovementDirection movementDirection, Compass compass) {
             return 0;
         }
     },
     DIRECTION(R.string.map_mode_direction) {
-        public float getHeading(final MovementDirection movementDirection, final Compass compass) {
+        public float getHeading(MovementDirection movementDirection, Compass compass) {
             return movementDirection.getCurrentDegrees();
         }
     },
     COMPASS(R.string.map_mode_compass) {
-        public float getHeading(final MovementDirection movementDirection, final Compass compass) {
+        public float getHeading(MovementDirection movementDirection, Compass compass) {
             return compass.getBearing().getValue();
         }
     };
 
     private final int messageId;
 
-    MapMode(final int messageId) {
+    MapMode(int messageId) {
         this.messageId = messageId;
     }
 
@@ -40,12 +40,12 @@ public enum MapMode {
         return values()[nextOrdinal];
     }
 
-    public abstract float getHeading(final MovementDirection movementDirection, final Compass compass);
+    public abstract float getHeading(MovementDirection movementDirection, Compass compass);
 
-    public static MapMode valueOf(final String name, final MapMode defaultValue) {
+    public static MapMode valueOf(String name, MapMode defaultValue) {
         try {
             return valueOf(name);
-        } catch (final IllegalArgumentException ignored) {
+        } catch (IllegalArgumentException ignored) {
             return defaultValue;
         }
     }

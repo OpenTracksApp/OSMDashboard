@@ -11,9 +11,9 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final var binding = ActivityMainBinding.inflate(getLayoutInflater());
+        var binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
@@ -24,22 +24,22 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu, false);
     }
 
     @Override
-    protected void changeMapMode(final MapMode mapMode) {
+    protected void changeMapMode(MapMode mapMode) {
         // nothing to do
     }
 
     @Override
-    protected void changeArrowMode(final ArrowMode arrowMode) {
+    protected void changeArrowMode(ArrowMode arrowMode) {
         // nothing to do
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(final boolean consent) {
+    protected void onOnlineMapConsentChanged(boolean consent) {
         // nothing to do
     }
 

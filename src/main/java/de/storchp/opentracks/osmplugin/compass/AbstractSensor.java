@@ -11,7 +11,7 @@ public abstract class AbstractSensor {
     private final List<SensorListener> listeners = new ArrayList<>();
     private boolean started = false;
 
-    public void start(final SensorListener listener){
+    public void start(SensorListener listener){
         listeners.add(listener);
         if (started) {
             return;
@@ -20,7 +20,7 @@ public abstract class AbstractSensor {
         started = true;
     }
 
-    public void stop(final SensorListener listener){
+    public void stop(SensorListener listener){
         synchronized(listeners) {
             if (listener != null) {
                 listeners.remove(listener);

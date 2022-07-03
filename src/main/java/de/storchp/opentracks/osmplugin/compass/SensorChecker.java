@@ -11,8 +11,8 @@ import android.hardware.SensorManager;
  */
 public class SensorChecker {
 
-    public static boolean hasGravity(final Context context) {
-        final var sensors = ((SensorManager) context.getSystemService(SENSOR_SERVICE)).getSensorList(Sensor.TYPE_GRAVITY);
+    public static boolean hasGravity(Context context) {
+        var sensors = ((SensorManager) context.getSystemService(SENSOR_SERVICE)).getSensorList(Sensor.TYPE_GRAVITY);
         return sensors != null && !sensors.isEmpty();
     }
 

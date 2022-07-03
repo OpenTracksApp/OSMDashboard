@@ -46,7 +46,7 @@ public class Waypoint {
     private final LatLong latLong;
     private final String photoUrl;
 
-    public Waypoint(final long id, final String name, final String description, final String category, final String icon, final long trackId, final LatLong latLong, final String photoUrl) {
+    public Waypoint(long id, String name, String description, String category, String icon, long trackId, LatLong latLong, String photoUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -60,24 +60,24 @@ public class Waypoint {
     /**
      * Reads the Waypoints from the Content Uri.
      */
-    public static List<Waypoint> readWaypoints(final ContentResolver resolver, final Uri data, final long lastWaypointId) {
-        final var waypoints = new ArrayList<Waypoint>();
-        try (final Cursor cursor = resolver.query(data, Waypoint.PROJECTION, null, null, null)) {
+    public static List<Waypoint> readWaypoints(ContentResolver resolver, Uri data, long lastWaypointId) {
+        var waypoints = new ArrayList<Waypoint>();
+        try (Cursor cursor = resolver.query(data, Waypoint.PROJECTION, null, null, null)) {
             while (cursor.moveToNext()) {
-                final var waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(Waypoint._ID));
+                var waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(Waypoint._ID));
                 if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
                     continue;
                 }
-                final var name = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.NAME));
-                final var description = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.DESCRIPTION));
-                final var category = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.CATEGORY));
-                final var icon = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.ICON));
-                final var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(Waypoint.TRACKID));
-                final var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LATITUDE)) / LAT_LON_FACTOR;
-                final var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LONGITUDE)) / LAT_LON_FACTOR;
+                var name = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.NAME));
+                var description = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.DESCRIPTION));
+                var category = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.CATEGORY));
+                var icon = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.ICON));
+                var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(Waypoint.TRACKID));
+                var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LATITUDE)) / LAT_LON_FACTOR;
+                var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LONGITUDE)) / LAT_LON_FACTOR;
                 if (MapUtils.isValid(latitude, longitude)) {
-                    final var latLong = new LatLong(latitude, longitude);
-                    final var photoUrl = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.PHOTOURL));
+                    var latLong = new LatLong(latitude, longitude);
+                    var photoUrl = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.PHOTOURL));
                     waypoints.add(new Waypoint(waypointId, name, description, category, icon, trackId, latLong, photoUrl));
                 }
             }

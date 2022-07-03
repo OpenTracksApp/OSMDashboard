@@ -21,14 +21,14 @@ public class Compass extends AbstractSensor {
     private boolean gotMag = false;
     private boolean gotAccel = false;
 
-    public Compass(final Context context) {
+    public Compass(Context context) {
         super();
         accelerometer = SensorChecker.hasGravity(context) ? new GravitySensor(context) : new LowPassAccelerometer(context);
         magnetometer = new Magnetometer(context);
         filter = new MovingAverageFilter(PreferencesUtils.getCompassSmoothing() * 2 * 2);
     }
 
-    private void updateBearing(final float newBearing) {
+    private void updateBearing(float newBearing) {
         bearing += MapUtils.deltaAngle(bearing, newBearing);
         filteredBearing = (float)filter.filter(bearing);
     }
@@ -43,30 +43,30 @@ public class Compass extends AbstractSensor {
         }
 
         // Gravity
-        final var normGravity = accelerometer.getValue().normalize();
-        final var normMagField = magnetometer.getValue().normalize();
+        var normGravity = accelerometer.getValue().normalize();
+        var normMagField = magnetometer.getValue().normalize();
 
         // East vector
-        final var  east = normMagField.cross(normGravity);
-        final var  normEast = east.normalize();
+        var  east = normMagField.cross(normGravity);
+        var  normEast = east.normalize();
 
         // Magnitude check
-        final float eastMagnitude = east.magnitude();
-        final float gravityMagnitude = accelerometer.getValue().magnitude();
-        final float magneticMagnitude = magnetometer.getValue().magnitude();
+        float eastMagnitude = east.magnitude();
+        float gravityMagnitude = accelerometer.getValue().magnitude();
+        float magneticMagnitude = magnetometer.getValue().magnitude();
         if (gravityMagnitude * magneticMagnitude * eastMagnitude < 0.1f) {
             return true;
         }
 
         // North vector
-        final var north = normMagField.minus(normGravity.times(normGravity.dot(normMagField)));
-        final var normNorth = north.normalize();
+        var north = normMagField.minus(normGravity.times(normGravity.dot(normMagField)));
+        var normNorth = north.normalize();
 
         // Azimuth
         // NB: see https://math.stackexchange.com/questions/381649/whats-the-best-3d-angular-co-ordinate-system-for-working-with-smartfone-apps
-        final float sin = normEast.getY() - normNorth.getX();
-        final float cos = normEast.getX() + normNorth.getY();
-        final float azimuth = (sin != 0f && cos != 0f) ? (float) Math.atan2(sin, cos) : 0f;
+        float sin = normEast.getY() - normNorth.getX();
+        float cos = normEast.getX() + normNorth.getY();
+        float azimuth = (sin != 0f && cos != 0f) ? (float) Math.atan2(sin, cos) : 0f;
 
         if (Float.isNaN(azimuth)){
             return true;

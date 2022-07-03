@@ -35,7 +35,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected MenuItem multiThreadMapRendering;
     protected MenuItem persistentTileCache;
 
-    public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
+    public boolean onCreateOptionsMenu(Menu menu, boolean showInfo) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
@@ -67,8 +67,8 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        final int itemId = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
         if (itemId == R.id.map_online_consent) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(item.isChecked());
@@ -115,15 +115,15 @@ abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected abstract void changeMapMode(final MapMode mapMode);
+    protected abstract void changeMapMode(MapMode mapMode);
 
-    protected abstract void changeArrowMode(final ArrowMode arrowMode);
+    protected abstract void changeArrowMode(ArrowMode arrowMode);
 
     private void showTrackSmoothingDialog() {
-        final var binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        var binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
         binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance()));
 
-        final var alertDialog = new AlertDialog.Builder(this)
+        var alertDialog = new AlertDialog.Builder(this)
                 .setView(binding.getRoot())
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
@@ -134,7 +134,7 @@ abstract class BaseActivity extends AppCompatActivity {
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            final var newTolerance = binding.etTolerance.getText().toString().trim();
+            var newTolerance = binding.etTolerance.getText().toString().trim();
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
                 PreferencesUtils.setTrackSmoothingTolerance(Integer.parseInt(newTolerance));
                 alertDialog.dismiss();
@@ -145,28 +145,28 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void showCompassSmoothingDialog() {
-        final var binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
-        final int smoothing = PreferencesUtils.getCompassSmoothing();
+        var binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
+        int smoothing = PreferencesUtils.getCompassSmoothing();
         binding.tvCompassSmoothing.setText(String.valueOf(smoothing));
         binding.sbCompassSmoothing.setProgress(smoothing);
         binding.sbCompassSmoothing.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(final SeekBar seekBar, final int i, final boolean b) {
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 binding.tvCompassSmoothing.setText(String.valueOf(Math.max(binding.sbCompassSmoothing.getProgress(), 1)));
             }
 
             @Override
-            public void onStartTrackingTouch(final SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(final SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
-        final var alertDialog = new AlertDialog.Builder(this)
+        var alertDialog = new AlertDialog.Builder(this)
                 .setView(binding.getRoot())
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
@@ -183,28 +183,28 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void showStrokeWidthDialog() {
-        final StrokeWidthDialogBinding binding = StrokeWidthDialogBinding.inflate(LayoutInflater.from(this));
-        final int currentStrokeWidth = PreferencesUtils.getStrokeWidth();
+        StrokeWidthDialogBinding binding = StrokeWidthDialogBinding.inflate(LayoutInflater.from(this));
+        int currentStrokeWidth = PreferencesUtils.getStrokeWidth();
         binding.tvStrokeWidth.setText(String.valueOf(currentStrokeWidth));
         binding.sbStrokeWidth.setProgress(currentStrokeWidth);
         binding.sbStrokeWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(final SeekBar seekBar, final int i, final boolean b) {
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 binding.tvStrokeWidth.setText(String.valueOf(Math.max(binding.sbStrokeWidth.getProgress(), 1)));
             }
 
             @Override
-            public void onStartTrackingTouch(final SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(final SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
-        final var alertDialog = new AlertDialog.Builder(this)
+        var alertDialog = new AlertDialog.Builder(this)
                 .setView(binding.getRoot())
                 .setIcon(R.drawable.ic_logo_color_24dp)
                 .setTitle(R.string.app_name)
@@ -222,31 +222,31 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    protected final ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeMapDirectory(result.getData().getData(), result.getData());
                 }
             });
 
-    protected final ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeThemeDirectory(result.getData().getData(), result.getData());
                 }
             });
 
-    protected void openDirectory(final ActivityResultLauncher<Intent> launcher) {
+    protected void openDirectory(ActivityResultLauncher<Intent> launcher) {
         try {
             launcher.launch(createOpenDocumentIntent());
-        } catch (final ActivityNotFoundException exception) {
+        } catch (ActivityNotFoundException exception) {
             Toast.makeText(BaseActivity.this, R.string.no_file_manager_found, Toast.LENGTH_LONG).show();
         }
     }
 
     @NonNull
     private Intent createOpenDocumentIntent() {
-        final var intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        var intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         return intent;
     }
@@ -259,25 +259,25 @@ abstract class BaseActivity extends AppCompatActivity {
                 .forEach(uri -> getContentResolver().releasePersistableUriPermission(uri, 0));
     }
 
-    protected void changeThemeDirectory(final Uri uri, final Intent resultData) {
+    protected void changeThemeDirectory(Uri uri, Intent resultData) {
         takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapThemeDirectoryUri(uri);
         releaseOldPermissions();
     }
 
-    protected void changeMapDirectory(final Uri uri, final Intent resultData) {
+    protected void changeMapDirectory(Uri uri, Intent resultData) {
         takePersistableUriPermission(uri, resultData);
         PreferencesUtils.setMapDirectoryUri(uri);
         releaseOldPermissions();
     }
 
-    private void takePersistableUriPermission(final Uri uri, final Intent intent) {
+    private void takePersistableUriPermission(Uri uri, Intent intent) {
         int takeFlags = intent.getFlags();
         takeFlags &= (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         getContentResolver().takePersistableUriPermission(uri, takeFlags);
     }
 
-    protected void keepScreenOn(final boolean keepScreenOn) {
+    protected void keepScreenOn(boolean keepScreenOn) {
         if (keepScreenOn) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
@@ -285,7 +285,7 @@ abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void showOnLockScreen(final boolean showOnLockScreen) {
+    protected void showOnLockScreen(boolean showOnLockScreen) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(showOnLockScreen);
         } else if (showOnLockScreen) {

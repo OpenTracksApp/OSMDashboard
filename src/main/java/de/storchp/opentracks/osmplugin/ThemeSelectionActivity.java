@@ -32,7 +32,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
     private ActivityThemeSelectionBinding binding;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityThemeSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -40,7 +40,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        final boolean onlineMapSelected = PreferencesUtils.getMapUris().isEmpty();
+        boolean onlineMapSelected = PreferencesUtils.getMapUris().isEmpty();
         if (onlineMapSelected) {
             PreferencesUtils.setMapThemeUri(null);
         }
@@ -49,12 +49,12 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
         new Thread(() -> {
-            final var directory = PreferencesUtils.getMapThemeDirectoryUri();
-            final var items = new ArrayList<FileItem>();
+            var directory = PreferencesUtils.getMapThemeDirectoryUri();
+            var items = new ArrayList<FileItem>();
             if (directory != null) {
-                final var documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
+                var documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
                 if (documentsTree != null) {
-                    for (final var file : documentsTree.listFiles()) {
+                    for (var file : documentsTree.listFiles()) {
                         readThemeFile(items, file);
                     }
                 }
@@ -68,13 +68,13 @@ public class ThemeSelectionActivity extends AppCompatActivity {
 
         binding.themeList.setAdapter(adapter);
         binding.themeList.setOnItemClickListener((listview, view, position, id) -> {
-            final var itemBinding = (ThemeItemBinding) view.getTag();
+            var itemBinding = (ThemeItemBinding) view.getTag();
             itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked());
             itemBinding.radiobutton.callOnClick();
         });
         binding.themeList.setOnItemLongClickListener((parent, view, position, id) -> {
-            final var fileItem = adapter.getItem(position);
-            final var uri = fileItem.getUri();
+            var fileItem = adapter.getItem(position);
+            var uri = fileItem.getUri();
             if (uri == null) {
                 // online theme can't be deleted
                 return false;
@@ -85,9 +85,9 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                 .setMessage(getString(R.string.delete_theme_question, fileItem.getName()))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     Log.d(TAG, "Delete " + fileItem.getName());
-                    final var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
+                    var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
                     assert file != null;
-                    final boolean deleted = file.delete();
+                    boolean deleted = file.delete();
                     if (deleted) {
                         adapter.remove(fileItem);
                         adapter.setSelectedUri(null);
@@ -102,20 +102,20 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         });
     }
 
-    private void readThemeFile(final ArrayList<FileItem> items, final DocumentFile file) {
+    private void readThemeFile(ArrayList<FileItem> items, DocumentFile file) {
         if (file.isFile() && file.getName() != null) {
             if (file.getName().endsWith(".xml")) {
                 items.add(new FileItem(file.getName(), file.getUri()));
             } else if (file.getName().endsWith(".zip")) {
                 try {
-                    final var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
+                    var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
                     xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build())));
-                } catch (final Exception e) {
+                } catch (Exception e) {
                     Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
                 }
             }
         } else if (file.isDirectory()) {
-            final var childFile = file.findFile(file.getName() + ".xml");
+            var childFile = file.findFile(file.getName() + ".xml");
             if (childFile != null) {
                 items.add(new FileItem(childFile.getName(), childFile.getUri()));
             }
@@ -123,7 +123,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;

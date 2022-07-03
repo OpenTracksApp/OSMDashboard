@@ -9,7 +9,7 @@ import android.hardware.SensorManager;
  */
 public class LowPassAccelerometer extends AbstractLowPassSensor {
 
-    public LowPassAccelerometer(final Context context)  {
+    public LowPassAccelerometer(Context context)  {
         super(context, Sensor.TYPE_ACCELEROMETER, SensorManager.SENSOR_DELAY_GAME, 0.05f);
     }
 

@@ -9,7 +9,7 @@ import android.hardware.SensorManager;
  */
 public class Magnetometer extends AbstractLowPassSensor {
 
-    public Magnetometer(final Context context) {
+    public Magnetometer(Context context) {
         super(context, Sensor.TYPE_MAGNETIC_FIELD, SensorManager.SENSOR_DELAY_GAME, 0.03f);
     }
 

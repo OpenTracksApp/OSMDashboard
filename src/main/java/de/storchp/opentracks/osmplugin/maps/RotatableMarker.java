@@ -23,32 +23,32 @@ public class RotatableMarker extends Marker {
     private final android.graphics.Bitmap markerBitmap;
     private float currentDegrees = 0;
 
-    public RotatableMarker(final LatLong latLong, final android.graphics.Bitmap markerBitmap) {
+    public RotatableMarker(LatLong latLong, android.graphics.Bitmap markerBitmap) {
         super(latLong, createRotatedMarkerBitmap(markerBitmap, 0), 0, 0);
         this.markerBitmap = markerBitmap;
     }
 
-    private static Bitmap createRotatedMarkerBitmap(final android.graphics.Bitmap markerBitmap, final float degrees) {
-        final var matrix = new Matrix();
+    private static Bitmap createRotatedMarkerBitmap(android.graphics.Bitmap markerBitmap, float degrees) {
+        var matrix = new Matrix();
         matrix.postRotate(degrees);
         return new AndroidBitmap(android.graphics.Bitmap.createBitmap(markerBitmap, 0, 0, markerBitmap.getWidth(), markerBitmap.getHeight(), matrix, true));
     }
 
-    public static android.graphics.Bitmap getBitmapFromVectorDrawable(final Context context, final int drawableId) {
+    public static android.graphics.Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
         var drawable = ContextCompat.getDrawable(context, drawableId);
         assert drawable != null;
         drawable = (DrawableCompat.wrap(drawable)).mutate();
 
-        final var bitmap = android.graphics.Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+        var bitmap = android.graphics.Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), android.graphics.Bitmap.Config.ARGB_8888);
-        final var canvas = new Canvas(bitmap);
+        var canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
 
         return bitmap;
     }
 
-    private boolean rotateTo(final float degrees) {
+    private boolean rotateTo(float degrees) {
         if (Math.abs(currentDegrees - degrees) > 1) {
             // only create a new Marker Bitmap if it is at least 1 degree different
             Log.d(TAG, "CurrentDegrees=" + currentDegrees + ", degrees=" + degrees);
@@ -59,7 +59,7 @@ public class RotatableMarker extends Marker {
         return false;
     }
 
-    public boolean rotateWith(final ArrowMode arrowMode, final MapMode mapMode, final MovementDirection movementDirection, final Compass compass) {
+    public boolean rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
         if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
             || arrowMode == ArrowMode.NORTH) {
             return rotateTo(0);

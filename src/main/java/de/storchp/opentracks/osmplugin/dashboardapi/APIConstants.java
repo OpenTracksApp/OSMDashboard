@@ -14,18 +14,18 @@ public class APIConstants {
     public static final String ACTION_DASHBOARD_PAYLOAD = ACTION_DASHBOARD + ".Payload";
 
 
-    public static Uri getTracksUri(final ArrayList<Uri> uris) {
+    public static Uri getTracksUri(ArrayList<Uri> uris) {
         return uris.get(0);
     }
 
-    public static Uri getTrackPointsUri(final ArrayList<Uri> uris) {
+    public static Uri getTrackPointsUri(ArrayList<Uri> uris) {
         return uris.get(1);
     }
 
     /**
      * Waypoints are only available in newer versions of OpenTracks.
      */
-    public static Uri getWaypointsUri(final ArrayList<Uri> uris) {
+    public static Uri getWaypointsUri(ArrayList<Uri> uris) {
         return uris.size() > 2 ? uris.get(2) : null;
     }
 

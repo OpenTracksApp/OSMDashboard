@@ -45,7 +45,7 @@ public class Startup extends Application {
     }
 
     @Override
-    protected void attachBaseContext(final Context base) {
+    protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
         // handle crashes only outside the crash reporter activity/process
@@ -62,11 +62,11 @@ public class Startup extends Application {
             // Using reflection since ActivityThread is an internal API
             try {
                 @SuppressLint("PrivateApi")
-                final var activityThread = Class.forName("android.app.ActivityThread");
+                var activityThread = Class.forName("android.app.ActivityThread");
                 @SuppressLint("DiscouragedPrivateApi")
-                final var getProcessName = activityThread.getDeclaredMethod("currentProcessName");
+                var getProcessName = activityThread.getDeclaredMethod("currentProcessName");
                 processName = (String) getProcessName.invoke(null);
-            } catch (final Exception ignored) {
+            } catch (Exception ignored) {
             }
         } else {
             processName = Application.getProcessName();

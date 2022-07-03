@@ -19,11 +19,11 @@ public class TrackStatistics {
     private float maxElevationMeter;
     private float elevationGainMeter;
 
-    public TrackStatistics(final List<Track> tracks) {
+    public TrackStatistics(List<Track> tracks) {
         if (tracks.isEmpty()) {
             return;
         }
-        final var first = tracks.get(0);
+        var first = tracks.get(0);
         category = first.getCategory();
         startTimeEpochMillis = first.getStartTimeEpochMillis();
         stopTimeEpochMillis = first.getStopTimeEpochMillis();
@@ -40,7 +40,7 @@ public class TrackStatistics {
         if (tracks.size() > 1) {
             float totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond;
             float totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond;
-            for (final var track : tracks.subList(1, tracks.size())) {
+            for (var track : tracks.subList(1, tracks.size())) {
                 if (!category.equals(track.getCategory())) {
                     category = "mixed";
                 }

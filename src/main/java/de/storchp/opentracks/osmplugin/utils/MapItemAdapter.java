@@ -22,7 +22,7 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
     private final List<FileItem> items;
     private final Set<Uri> selected;
 
-    public MapItemAdapter(@NonNull final Activity context, final List<FileItem> items, final Set<Uri> selected) {
+    public MapItemAdapter(@NonNull Activity context, List<FileItem> items, Set<Uri> selected) {
         super(context, R.layout.map_item, items);
         this.context = context;
         this.items = items;
@@ -30,18 +30,18 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
     }
 
     @Override
-    public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         var rowView = convertView;
         // reuse views
         if (rowView == null) {
-            final var binding = MapItemBinding.inflate(context.getLayoutInflater(), parent, false);
+            var binding = MapItemBinding.inflate(context.getLayoutInflater(), parent, false);
             rowView = binding.getRoot();
             rowView.setTag(binding);
         }
 
         // fill data
-        final var binding = (MapItemBinding) rowView.getTag();
-        final var item = this.items.get(position);
+        var binding = (MapItemBinding) rowView.getTag();
+        var item = this.items.get(position);
         binding.name.setText(item.getName());
         binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.getUri()));
         binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position));
@@ -49,9 +49,9 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
         return rowView;
     }
 
-    private View.OnClickListener onStateChangedListener(final CheckBox checkBox, final int position) {
+    private View.OnClickListener onStateChangedListener(CheckBox checkBox, int position) {
         return v -> {
-            final var fileItem = items.get(position);
+            var fileItem = items.get(position);
             if (checkBox.isChecked()) {
                 if (fileItem.getUri() == null) { // online map
                     selected.clear();

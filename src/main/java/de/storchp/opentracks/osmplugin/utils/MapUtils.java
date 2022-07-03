@@ -39,21 +39,21 @@ public class MapUtils {
      * @param c2 the end of the lone segment
      * @return the distance in m (assuming spherical earth)
      */
-    private static double distance(final LatLong c0, final LatLong c1, final LatLong c2) {
+    private static double distance(LatLong c0, LatLong c1, LatLong c2) {
         if (c1.equals(c2)) {
             return c2.sphericalDistance(c0);
         }
 
-        final double s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD;
-        final double s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD;
-        final double s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD;
-        final double s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD;
-        final double s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD;
-        final double s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD;
+        double s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD;
+        double s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD;
+        double s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD;
 
-        final double s2s1lat = s2lat - s1lat;
-        final double s2s1lng = s2lng - s1lng;
-        final double u = ((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
+        double s2s1lat = s2lat - s1lat;
+        double s2s1lng = s2lng - s1lng;
+        double u = ((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
                 / (s2s1lat * s2s1lat + s2s1lng * s2s1lng);
 
         if (u <= 0) {
@@ -64,8 +64,8 @@ public class MapUtils {
             return c0.sphericalDistance(c2);
         }
 
-        final var sa = new LatLong(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
-        final var sb = new LatLong(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
+        var sa = new LatLong(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
+        var sb = new LatLong(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
 
         return sa.sphericalDistance(sb);
     }
@@ -77,15 +77,15 @@ public class MapUtils {
      * @param tolerance in meters
      * @param trackPoints input
      */
-    public static List<TrackPoint> decimate(final int tolerance, final List<TrackPoint> trackPoints) {
-        final int n = trackPoints.size();
+    public static List<TrackPoint> decimate(int tolerance, List<TrackPoint> trackPoints) {
+        int n = trackPoints.size();
         if (n < 1) {
             return Collections.emptyList();
         }
         int idx;
         int maxIdx = 0;
-        final var stack = new Stack<int[]>();
-        final var dists = new double[n];
+        var stack = new Stack<int[]>();
+        var dists = new double[n];
         dists[0] = 1;
         dists[n - 1] = 1;
         double maxDist;
@@ -112,17 +112,17 @@ public class MapUtils {
             }
         }
 
-        final var decimated = collectTrackPoints(trackPoints, dists);
+        var decimated = collectTrackPoints(trackPoints, dists);
         Log.d(TAG, "Decimating " + n + " points to " + decimated.size() + " w/ tolerance = " + tolerance);
 
         return decimated;
     }
 
     @NonNull
-    private static ArrayList<TrackPoint> collectTrackPoints(final List<TrackPoint> trackPoints, final double[] dists) {
+    private static ArrayList<TrackPoint> collectTrackPoints(List<TrackPoint> trackPoints, double[] dists) {
         int idx = 0;
-        final var decimated = new ArrayList<TrackPoint>();
-        for (final var trackPoint : trackPoints) {
+        var decimated = new ArrayList<TrackPoint>();
+        for (var trackPoint : trackPoints) {
             if (dists[idx] != 0) {
                 decimated.add(trackPoint);
             }
@@ -138,25 +138,25 @@ public class MapUtils {
      *
      * @return true if the location is a valid location.
      */
-    public static boolean isValid(final double latitude, final double longitude) {
+    public static boolean isValid(double latitude, double longitude) {
         return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
     }
 
-    public static float bearing(final LatLong src, final LatLong dest) {
+    public static float bearing(LatLong src, LatLong dest) {
         if (src == null || dest == null) {
             return 0;
         }
         return toLocation(src).bearingTo(toLocation(dest));
     }
 
-    public static Location toLocation(final LatLong latLong) {
-        final var location = new Location("");
+    public static Location toLocation(LatLong latLong) {
+        var location = new Location("");
         location.setLatitude(latLong.latitude);
         location.setLongitude(latLong.longitude);
         return location;
     }
 
-    public static float bearingInDegrees(final LatLong secondToLastPos, final LatLong endPos) {
+    public static float bearingInDegrees(LatLong secondToLastPos, LatLong endPos) {
         return normalizeAngle(bearing(secondToLastPos, endPos));
     }
 
@@ -165,7 +165,7 @@ public class MapUtils {
      * @param angle the angle in degrees
      * @return the normalized angle
      */
-    public static float normalizeAngle(final float angle) {
+    public static float normalizeAngle(float angle) {
         float outputAngle = angle;
         while (outputAngle < 0) {
             outputAngle += 360;
@@ -173,7 +173,7 @@ public class MapUtils {
         return outputAngle % 360;
     }
 
-    public static float deltaAngle(final float angle1, final float angle2) {
+    public static float deltaAngle(float angle1, float angle2) {
         float delta = angle2 - angle1;
         delta += 180;
         delta -= Math.floor(delta / 360) * 360;
@@ -184,15 +184,15 @@ public class MapUtils {
         return delta;
     }
 
-    public static Paint createPaint(final int color, final int strokeWidth) {
-        final var paint = AndroidGraphicFactory.INSTANCE.createPaint();
+    public static Paint createPaint(int color, int strokeWidth) {
+        var paint = AndroidGraphicFactory.INSTANCE.createPaint();
         paint.setColor(color);
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Style.STROKE);
         return paint;
     }
 
-    public static Polyline createPolyline(final MapView mapView, final int trackColor, final int strokeWidth) {
+    public static Polyline createPolyline(MapView mapView, int trackColor, int strokeWidth) {
         return new Polyline(MapUtils.createPaint(trackColor,
                 (int) (strokeWidth * mapView.getModel().displayModel.getScaleFactor())
         ), AndroidGraphicFactory.INSTANCE);

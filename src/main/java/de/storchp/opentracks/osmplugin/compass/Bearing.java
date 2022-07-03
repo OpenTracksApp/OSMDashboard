@@ -9,7 +9,7 @@ public class Bearing {
 
     private final float value;
 
-    Bearing(final float value){
+    Bearing(float value){
         this.value = MapUtils.normalizeAngle(value);
     }
 

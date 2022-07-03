@@ -20,24 +20,24 @@ public class DownloadMapSelectionActivity extends BaseActivity {
     private static final String MAPS_V_5 = "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/";
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final var binding = ActivityDownloadMapSelectionBinding.inflate(getLayoutInflater());
+        var binding = ActivityDownloadMapSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download);
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
-        final WebView webView = findViewById(R.id.webview);
-        final var webClient = new WebViewClient(){
+        WebView webView = findViewById(R.id.webview);
+        var webClient = new WebViewClient(){
             @Override
-            public boolean shouldOverrideUrlLoading(final WebView view, final WebResourceRequest request) {
-                final var uri = request.getUrl();
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                var uri = request.getUrl();
                 Log.d(TAG, "URL: " + uri);
                 if (!uri.toString().startsWith(MAPS_V_5)) {
                     return true; // don't load URLs outside the base URL
                 }
-                final var lastPathSegment = uri.getLastPathSegment();
+                var lastPathSegment = uri.getLastPathSegment();
                 if (lastPathSegment != null && lastPathSegment.endsWith(".map")) {
                     startActivity(new Intent(Intent.ACTION_DEFAULT, uri, DownloadMapSelectionActivity.this, DownloadActivity.class));
                     return true;
@@ -52,12 +52,12 @@ public class DownloadMapSelectionActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(final boolean consent) {
+    protected void onOnlineMapConsentChanged(boolean consent) {
         // nothing to do
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
@@ -66,12 +66,12 @@ public class DownloadMapSelectionActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapMode(final MapMode mapMode) {
+    protected void changeMapMode(MapMode mapMode) {
         // nothing to do
     }
 
     @Override
-    protected void changeArrowMode(final ArrowMode arrowMode) {
+    protected void changeArrowMode(ArrowMode arrowMode) {
         // nothing to do
     }
 

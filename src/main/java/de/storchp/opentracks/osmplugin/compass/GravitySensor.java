@@ -9,7 +9,7 @@ import android.hardware.SensorManager;
  */
 public class GravitySensor extends AbstractLowPassSensor {
 
-    public GravitySensor(final Context context)  {
+    public GravitySensor(Context context)  {
         super(context, Sensor.TYPE_GRAVITY, SensorManager.SENSOR_DELAY_GAME, 0.03f);
     }
 
