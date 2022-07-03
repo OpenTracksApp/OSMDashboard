@@ -1,0 +1,3 @@
+- New: Advanced / TileCache options
+- Update dependencies
+- Update translations

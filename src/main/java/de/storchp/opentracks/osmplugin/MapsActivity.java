@@ -260,13 +260,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu, true);
         menu.findItem(R.id.share).setVisible(true);
+        menu.findItem(R.id.purge_tilecache).setVisible(true);
         return true;
     }
 
     protected void createTileCaches() {
         this.tileCache = AndroidUtil.createTileCache(this, getPersistableId(),
                 this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio(),
-                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), true);
+                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), PreferencesUtils.getPersistentTileCache());
     }
 
     /**
@@ -453,6 +454,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             return true;
         } else if (item.getItemId() == R.id.share) {
             sharePicture();
+            return true;
+        } else if (item.getItemId() == R.id.purge_tilecache) {
+            purgeTileCaches();
             return true;
         }
 

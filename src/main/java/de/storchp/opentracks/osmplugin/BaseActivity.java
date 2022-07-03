@@ -33,6 +33,7 @@ abstract class BaseActivity extends AppCompatActivity {
     protected MenuItem mapConsent;
     protected MenuItem pipMode;
     protected MenuItem multiThreadMapRendering;
+    protected MenuItem persistentTileCache;
 
     public boolean onCreateOptionsMenu(final Menu menu, final boolean showInfo) {
         super.onCreateOptionsMenu(menu);
@@ -52,6 +53,9 @@ abstract class BaseActivity extends AppCompatActivity {
 
         multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
         multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering());
+
+        persistentTileCache = menu.findItem(R.id.persistent_tilecache);
+        persistentTileCache.setChecked(PreferencesUtils.getPersistentTileCache());
 
         pipMode = menu.findItem(R.id.pip_mode);
         pipMode.setChecked(PreferencesUtils.isPipEnabled());
@@ -78,6 +82,9 @@ abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.multi_thread_map_rendering) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setMultiThreadMapRendering(item.isChecked());
+        } else if (itemId == R.id.persistent_tilecache) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setPersistentTileCache(item.isChecked());
         } else if (itemId == R.id.pip_mode) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setPipEnabled(item.isChecked());

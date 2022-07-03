@@ -194,6 +194,14 @@ public class PreferencesUtils {
         setBoolean(R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
     }
 
+    public static boolean getPersistentTileCache() {
+        return getBoolean(R.string.MAP_PERSISTENT_TILECACHE, true);
+    }
+
+    public static void setPersistentTileCache(final boolean persistentTileCache) {
+        setBoolean(R.string.MAP_PERSISTENT_TILECACHE, persistentTileCache);
+    }
+
     public static int getStrokeWidth() {
         return getInt(R.string.STROKE_WIDTH, 4);
     }
