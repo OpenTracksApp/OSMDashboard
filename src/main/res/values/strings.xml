@@ -74,5 +74,7 @@
     <string name="error_crash_title">%1$s crashed</string>
     <string name="no_browser_available">No browser available</string>
     <string name="bug_report">Report bug</string>
+    <string name="overdraw_factor">Map overdraw factor</string>
+    <string name="overdraw_factor_info">Define map overdraw factor</string>
 
 </resources>

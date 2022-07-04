@@ -1,3 +1,4 @@
 - New: Advanced / TileCache options
+- New: map overdraw factor configurable
 - Update dependencies
 - Update translations

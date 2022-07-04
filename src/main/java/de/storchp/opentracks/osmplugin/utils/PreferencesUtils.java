@@ -146,6 +146,16 @@ public class PreferencesUtils {
                 .apply();
     }
 
+    private static float getFloat(int keyId, float defaultValue) {
+        return sharedPrefs.getFloat(getKey(keyId), defaultValue);
+    }
+
+    private static void setFloat(int keyId, float value) {
+        sharedPrefs.edit()
+                .putFloat(getKey(keyId), value)
+                .apply();
+    }
+
     public static int getTrackSmoothingTolerance() {
         return getInt(R.string.TRACK_SMOOTHING_TOLERANCE, 10);
     }
@@ -209,4 +219,13 @@ public class PreferencesUtils {
     public static void setStrokeWidth(int value) {
         setInt(R.string.STROKE_WIDTH, value);
     }
+
+    public static double getOverdrawFactor() {
+        return (double)getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.4f);
+    }
+
+    public static void setOverdrawFactor(double overdrawFactor) {
+        setFloat(R.string.MAP_OVERDRAW_FACTOR, (float) overdrawFactor);
+    }
+
 }

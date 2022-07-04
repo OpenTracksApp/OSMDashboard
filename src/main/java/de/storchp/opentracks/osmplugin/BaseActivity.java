@@ -7,6 +7,7 @@ import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
+import java.util.Locale;
+
 import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
+import de.storchp.opentracks.osmplugin.databinding.OverdrawFactorDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.StrokeWidthDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
@@ -29,6 +33,8 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 abstract class BaseActivity extends AppCompatActivity {
+
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     protected MenuItem mapConsent;
     protected MenuItem pipMode;
@@ -110,6 +116,8 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setTitle(mapMode.getMessageId());
             PreferencesUtils.setMapMode(mapMode);
             changeMapMode(mapMode);
+        } else if (itemId == R.id.overdraw_factor) {
+            showOverdrawFactorDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -180,6 +188,55 @@ abstract class BaseActivity extends AppCompatActivity {
             PreferencesUtils.setCompassSmoothing(binding.sbCompassSmoothing.getProgress());
             alertDialog.dismiss();
         });
+    }
+
+    private void showOverdrawFactorDialog() {
+        OverdrawFactorDialogBinding binding = OverdrawFactorDialogBinding.inflate(LayoutInflater.from(this));
+        double currentOverdrawFactor = PreferencesUtils.getOverdrawFactor();
+
+        binding.tvOverdrawFactor.setText(String.format(Locale.getDefault(), "%.2f", currentOverdrawFactor));
+        binding.sbOverdrawFactor.setProgress((int)(100 * currentOverdrawFactor) - 100);
+        binding.sbOverdrawFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                binding.tvOverdrawFactor.setText(String.format(Locale.getDefault(), "%.2f", getOverdrawFactorFromProgress(binding)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        var alertDialog = new AlertDialog.Builder(this)
+                .setView(binding.getRoot())
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        alertDialog.show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            double overdrawFactor = getOverdrawFactorFromProgress(binding);
+            PreferencesUtils.setOverdrawFactor(overdrawFactor);
+            Log.i(TAG, "New overdrawFactor: " + overdrawFactor);
+            alertDialog.dismiss();
+        });
+    }
+
+    private double getOverdrawFactorFromProgress(final OverdrawFactorDialogBinding binding) {
+        int progress = binding.sbOverdrawFactor.getProgress();
+        if (progress == 0) {
+            return 1;
+        }
+        return (Math.max(progress, 1) / (double)100) + 1;
     }
 
     private void showStrokeWidthDialog() {

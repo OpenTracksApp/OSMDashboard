@@ -57,6 +57,11 @@
                 />
 
             <item
+                android:id="@+id/overdraw_factor"
+                android:title="@string/overdraw_factor"
+                />
+
+            <item
                 android:id="@+id/persistent_tilecache"
                 android:title="@string/persistent_tilecache"
                 android:checkable="true"
