@@ -221,7 +221,7 @@ public class PreferencesUtils {
     }
 
     public static double getOverdrawFactor() {
-        return (double)getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.4f);
+        return (double)getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.2f);
     }
 
     public static void setOverdrawFactor(double overdrawFactor) {
