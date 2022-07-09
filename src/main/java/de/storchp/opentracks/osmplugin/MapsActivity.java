@@ -450,7 +450,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.map_info ) {
-            startActivity(new Intent(this, MainActivity.class));
+            var intent = new Intent(this, MainActivity.class);
+            if (tileCache != null) {
+                intent.putExtra(MainActivity.EXTRA_MAP_INFO, "TileCache capacity=" + tileCache.getCapacity() + ", capacityFirstLevel=" + tileCache.getCapacityFirstLevel());
+            }
+            startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.share) {
             sharePicture();
