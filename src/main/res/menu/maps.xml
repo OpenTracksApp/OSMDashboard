@@ -62,6 +62,11 @@
                 />
 
             <item
+                android:id="@+id/tilecache_capacity_factor"
+                android:title="@string/tilecache_capacity_factor"
+                />
+
+            <item
                 android:id="@+id/persistent_tilecache"
                 android:title="@string/persistent_tilecache"
                 android:checkable="true"

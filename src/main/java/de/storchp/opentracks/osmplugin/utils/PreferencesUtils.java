@@ -221,11 +221,19 @@ public class PreferencesUtils {
     }
 
     public static double getOverdrawFactor() {
-        return (double)getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.2f);
+        return getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.2f);
     }
 
     public static void setOverdrawFactor(double overdrawFactor) {
         setFloat(R.string.MAP_OVERDRAW_FACTOR, (float) overdrawFactor);
+    }
+
+    public static float getTileCacheCapacityFactor() {
+        return getFloat(R.string.MAP_TILE_CACHE_CAPACITY_FACTOR, 2f);
+    }
+
+    public static void setTileCacheCapacityFactor(float tileCacheCapacityFactor) {
+        setFloat(R.string.MAP_TILE_CACHE_CAPACITY_FACTOR, tileCacheCapacityFactor);
     }
 
 }

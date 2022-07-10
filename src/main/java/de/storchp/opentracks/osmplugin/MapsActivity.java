@@ -266,7 +266,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     protected void createTileCaches() {
         this.tileCache = AndroidUtil.createTileCache(this, getPersistableId(),
-                this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio() * 2,
+                this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio() * PreferencesUtils.getTileCacheCapacityFactor(),
                 this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), PreferencesUtils.getPersistentTileCache());
     }
 
