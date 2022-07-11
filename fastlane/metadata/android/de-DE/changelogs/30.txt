@@ -1,0 +1,5 @@
+- Neu: Erweitert / TileCache Optionen
+- Neu: konfigurierbarer Karten-Überzeichenen-Faktor
+- Behoben: Leere Kartenkacheln
+- Aktualisierung der Abhängigkeiten
+- Aktualisierte Übersetzungen

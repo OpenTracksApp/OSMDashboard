@@ -1,4 +1,5 @@
 - New: Advanced / TileCache options
 - New: map overdraw factor configurable
+- Fixed: blank map tiles
 - Update dependencies
 - Update translations
