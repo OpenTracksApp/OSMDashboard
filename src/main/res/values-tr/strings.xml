@@ -52,8 +52,8 @@
     <string name="zoom_out">Uzaklaştır</string>
     <string name="unit_feet">ft</string>
     <string name="share">Paylaş</string>
-    <string name="app_name_info_screen">OSM Panosu
-\nOpenTracks için</string>
+    <string name="app_name_info_screen">OpenTracks için 
+\nOSM Panosu</string>
     <string name="map_info_menu">Hakkında</string>
     <string name="usage_info"><b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> kullanın, bir parça seçin ve parçayı göstermek için haritada harita simgesine tıklayın.</string>
     <string name="osm_info">Varsayılan harita <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> tarafından sağlanır. Topluluğa katılın ve haritayı geliştirmeye yardımcı olun, bakınız<b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
