@@ -10,7 +10,6 @@ public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
 
-
     public static DocumentFile getDocumentFileFromTreeUri(Context context, Uri uri) {
         try {
             return DocumentFile.fromTreeUri(context, uri);
@@ -19,6 +18,5 @@ public class FileUtil {
         }
         return null;
     }
-
 
 }

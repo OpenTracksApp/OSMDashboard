@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -23,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -187,8 +189,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         trackPointsUri = APIConstants.getTrackPointsUri(uris);
         waypointsUri = APIConstants.getWaypointsUri(uris);
         readTrackpoints(trackPointsUri, false, protocolVersion);
-        readTracks(tracksUri, protocolVersion);
-        readWaypoints(waypointsUri, false, protocolVersion);
+        readTracks(tracksUri);
+        readWaypoints(waypointsUri, false);
 
         keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
@@ -217,11 +219,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 return; // nothing can be done without an uri
             }
             if (tracksUri.toString().startsWith(uri.toString())) {
-                readTracks(tracksUri, protocolVersion);
+                readTracks(tracksUri);
             } else if (trackpointsUri.toString().startsWith(uri.toString())) {
                 readTrackpoints(trackpointsUri, true, protocolVersion);
             } else if (waypointsUri.toString().startsWith(uri.toString())) {
-                readWaypoints(waypointsUri, true, protocolVersion);
+                readWaypoints(waypointsUri, true);
             }
         }
     }
@@ -257,7 +259,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         super.onCreateOptionsMenu(menu, true);
         menu.findItem(R.id.share).setVisible(true);
         menu.findItem(R.id.purge_tilecache).setVisible(true);
@@ -419,17 +421,17 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         Linkify.addLinks(message, Linkify.ALL);
 
         AlertDialog dialog = new AlertDialog.Builder(this)
-            .setIcon(R.drawable.ic_logo_color_24dp)
-            .setTitle(R.string.app_name)
-            .setMessage(message)
-            .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
-                PreferencesUtils.setOnlineMapConsent(true);
-                setOnlineTileLayer();
-                ((TileDownloadLayer) tileLayer).onResume();
-                mapConsent.setChecked(true);
-            })
-            .setNegativeButton(android.R.string.cancel, null)
-            .create();
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
+                    PreferencesUtils.setOnlineMapConsent(true);
+                    setOnlineTileLayer();
+                    ((TileDownloadLayer) tileLayer).onResume();
+                    mapConsent.setChecked(true);
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
         dialog.show();
         ((TextView) Objects.requireNonNull(dialog.findViewById(android.R.id.message),
                 "An AlertDialog must have a TextView with id.message"))
@@ -449,7 +451,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.map_info ) {
+        if (item.getItemId() == R.id.map_info) {
             var intent = new Intent(this, MainActivity.class);
             if (tileCache != null) {
                 intent.putExtra(MainActivity.EXTRA_MAP_INFO, "TileCache capacity=" + tileCache.getCapacity() + ", capacityFirstLevel=" + tileCache.getCapacityFirstLevel());
@@ -485,7 +487,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         bitmapOptions.inTargetDensity = 1;
         toBeCropped.setDensity(Bitmap.DENSITY_NONE);
 
-        int cropFromTop = (int)(70 * ((float) getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        int cropFromTop = (int) (70 * ((float) getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
         int fromHere = toBeCropped.getHeight() - cropFromTop;
         var croppedBitmap = Bitmap.createBitmap(toBeCropped, 0, cropFromTop, toBeCropped.getWidth(), fromHere);
 
@@ -658,7 +660,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         return this.polyline;
     }
 
-    private void readWaypoints(Uri data, boolean update, int protocolVersion) {
+    private void readWaypoints(Uri data, boolean update) {
         Log.i(TAG, "Loading waypoints from " + data);
 
         var layers = binding.map.mapView.getLayerManager().getLayers();
@@ -707,8 +709,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         };
     }
 
-    private void readTracks(Uri data, int protocolVersion) {
-        var tracks = Track.readTracks(getContentResolver(), data, protocolVersion);
+    private void readTracks(Uri data) {
+        var tracks = Track.readTracks(getContentResolver(), data);
         if (!tracks.isEmpty()) {
             var statistics = new TrackStatistics(tracks);
             binding.map.category.setText(statistics.getCategory());
@@ -724,7 +726,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
         // if map or theme changed, recreate layers
         if (!Objects.equals(mapTheme, PreferencesUtils.getMapThemeUri())
-            || !Objects.equals(mapFiles, PreferencesUtils.getMapUris())) {
+                || !Objects.equals(mapFiles, PreferencesUtils.getMapUris())) {
             if (this.tileLayer != null) {
                 if (this.tileLayer instanceof TileDownloadLayer) {
                     ((TileDownloadLayer) this.tileLayer).onPause();
@@ -752,8 +754,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
                         boundingBox.getCenterPoint(),
                         (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                                dimension,
-                                boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
+                                        dimension,
+                                        boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
                                 getZoomLevelMax()), 16)));
                 boundingBox = null; // only set the zoomlevel once
             }
@@ -764,13 +766,16 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         var dimension = model.mapViewDimension.getDimension();
         if (dimension != null) {
             float scaleFactor = model.displayModel.getScaleFactor();
-            return new Dimension((int)(dimension.width / scaleFactor), (int)(dimension.height / scaleFactor));
+            return new Dimension((int) (dimension.width / scaleFactor), (int) (dimension.height / scaleFactor));
         }
         return null;
     }
 
     @Override
-    public void onPictureInPictureModeChanged (boolean isInPictureInPictureMode, Configuration newConfig) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, @NonNull Configuration newConfig) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+        }
         int visibility = isInPictureInPictureMode ? View.GONE : View.VISIBLE;
         binding.toolbar.mapsToolbar.setVisibility(visibility);
         binding.map.zoomInButton.setVisibility(visibility);
@@ -782,6 +787,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private boolean isPiPMode() {
         return isInPictureInPictureMode();
     }
+
     @Override
     protected void onPause() {
         if (!isPiPMode()) {

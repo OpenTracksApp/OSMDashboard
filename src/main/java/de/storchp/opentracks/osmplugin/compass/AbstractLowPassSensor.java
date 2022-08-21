@@ -23,7 +23,7 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
         this.sensorType = sensorType;
         this.sensorDelay = sensorDelay;
         this.sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        this.filters = new LowPassFilter[] {
+        this.filters = new LowPassFilter[]{
                 new LowPassFilter(filterSize),
                 new LowPassFilter(filterSize),
                 new LowPassFilter(filterSize)};
@@ -37,7 +37,7 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
         );
     }
 
-    private SensorEventListener sensorListener = new SensorEventListener() {
+    private final SensorEventListener sensorListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
             handleSensorEvent(event);
@@ -54,9 +54,9 @@ public abstract class AbstractLowPassSensor extends AbstractSensor {
         var sensor = sensorManager.getDefaultSensor(sensorType);
         if (sensor != null) {
             sensorManager.registerListener(
-                sensorListener,
-                sensor,
-                sensorDelay
+                    sensorListener,
+                    sensor,
+                    sensorDelay
             );
         }
     }

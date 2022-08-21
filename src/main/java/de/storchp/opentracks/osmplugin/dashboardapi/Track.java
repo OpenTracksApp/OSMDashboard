@@ -83,7 +83,7 @@ public class Track {
     /**
      * Reads the Tracks from the Content Uri
      */
-    public static List<Track> readTracks(ContentResolver resolver, Uri data, int protocolVersion) {
+    public static List<Track> readTracks(ContentResolver resolver, Uri data) {
         Log.i(TAG, "Loading track(s) from " + data);
 
         var tracks = new ArrayList<Track>();

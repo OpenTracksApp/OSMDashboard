@@ -7,8 +7,6 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
-import java.lang.reflect.Method;
-
 import de.storchp.opentracks.osmplugin.utils.ExceptionHandler;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -57,7 +55,7 @@ public class Startup extends Application {
 
     private boolean isCrashReportingProcess() {
         var processName = "";
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             // Using the same technique as Application.getProcessName() for older devices
             // Using reflection since ActivityThread is an internal API
             try {

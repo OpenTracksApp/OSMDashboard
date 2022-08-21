@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 
+import androidx.annotation.NonNull;
+
 import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
@@ -35,7 +37,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         return super.onCreateOptionsMenu(menu, false);
     }
 
