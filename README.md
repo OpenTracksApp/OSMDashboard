@@ -9,6 +9,7 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
         <th>Free</th>
         <th>Free (Offline)</th>
         <th>Free</th>
+        <th>Free Nightly Build</th>
         <th>Translation</th>
     </tr>
     <tr>
@@ -29,6 +30,11 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
         <td>
             <a href="https://play.google.com/store/apps/details?id=de.storchp.opentracks.osmplugin">
                 <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" align="middle">
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://fdroid.storchp.de/fdroid/repo?fingerprint=99985A7E73DCB0B16C9BDDCE7A0B4996F88068AE7C771ED53E217E69CD1FF196">
+                <img alt="Nightly builds (for F-Droid client)" src="https://opentracksapp.com/static/img/fdroid.storchp.de.png" height="90" align="middle">
             </a>
         </td>
         <td>
