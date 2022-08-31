@@ -13,6 +13,7 @@ import androidx.documentfile.provider.DocumentFile;
 import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
 
 import java.io.BufferedInputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.zip.ZipInputStream;
 
@@ -48,23 +49,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         adapter = new ThemeItemAdapter(this, new ArrayList<>(), PreferencesUtils.getMapThemeUri(), onlineMapSelected);
         adapter.add(new FileItem(getString(R.string.default_theme), null));
 
-        new Thread(() -> {
-            var directory = PreferencesUtils.getMapThemeDirectoryUri();
-            var items = new ArrayList<FileItem>();
-            if (directory != null) {
-                var documentsTree = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, directory);
-                if (documentsTree != null) {
-                    for (var file : documentsTree.listFiles()) {
-                        readThemeFile(items, file);
-                    }
-                }
-            }
-            runOnUiThread(() -> {
-                adapter.addAll(items);
-                adapter.notifyDataSetChanged();
-                binding.progressBar.setVisibility(View.GONE);
-            });
-        }).start();
+        new Thread(new MapThemeDirScanner(this)).start();
 
         binding.themeList.setAdapter(adapter);
         binding.themeList.setOnItemClickListener((listview, view, position, id) -> {
@@ -80,26 +65,59 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                 return false;
             }
             new AlertDialog.Builder(ThemeSelectionActivity.this)
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setMessage(getString(R.string.delete_theme_question, fileItem.getName()))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    Log.d(TAG, "Delete " + fileItem.getName());
-                    var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
-                    assert file != null;
-                    boolean deleted = file.delete();
-                    if (deleted) {
-                        adapter.remove(fileItem);
-                        adapter.setSelectedUri(null);
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(ThemeSelectionActivity.this, R.string.delete_theme_error, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show();
+                    .setIcon(R.drawable.ic_logo_color_24dp)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(R.string.delete_theme_question, fileItem.getName()))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        Log.d(TAG, "Delete " + fileItem.getName());
+                        var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
+                        assert file != null;
+                        boolean deleted = file.delete();
+                        if (deleted) {
+                            adapter.remove(fileItem);
+                            adapter.setSelectedUri(null);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(ThemeSelectionActivity.this, R.string.delete_theme_error, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create().show();
             return false;
         });
+    }
+
+    private static class MapThemeDirScanner implements Runnable {
+
+        final WeakReference<ThemeSelectionActivity> activityRef;
+
+        private MapThemeDirScanner(final ThemeSelectionActivity activity) {
+            this.activityRef = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void run() {
+            var directory = PreferencesUtils.getMapThemeDirectoryUri();
+            var items = new ArrayList<FileItem>();
+            var activity = activityRef.get();
+            if (activity == null) {
+                return;
+            }
+            if (directory != null) {
+                var documentsTree = FileUtil.getDocumentFileFromTreeUri(activity, directory);
+                if (documentsTree != null) {
+                    for (var file : documentsTree.listFiles()) {
+                        activity.readThemeFile(items, file);
+                    }
+                }
+            }
+
+            activity.runOnUiThread(() -> {
+                activity.adapter.addAll(items);
+                activity.adapter.notifyDataSetChanged();
+                activity.binding.progressBar.setVisibility(View.GONE);
+            });
+        }
     }
 
     private void readThemeFile(ArrayList<FileItem> items, DocumentFile file) {
