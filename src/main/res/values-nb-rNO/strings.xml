@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s krasjet</string>
     <string name="no_browser_available">Ingen nettleser tilgjengelig</string>
     <string name="bug_report">Rapporter feil</string>
+    <string name="persistent_tilecache">Vedvarende TileCache</string>
+    <string name="purge_tilecache">Tøm TileCache</string>
+    <string name="overdraw_factor_info">Bestem faktor for å tegne over kart</string>
+    <string name="overdraw_factor">Faktor for å tegne over kart</string>
+    <string name="tilecache_capacity_factor_info">Bestem kapasitetsfaktor for TileCache</string>
+    <string name="tilecache_capacity_factor">Kapasitetsfaktor for TileCache</string>
 </resources>
