@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s çöktü</string>
     <string name="no_browser_available">Tarayıcı mevcut değil</string>
     <string name="bug_report">Hata bildir</string>
+    <string name="overdraw_factor">Harita fazla çizim faktörü</string>
+    <string name="tilecache_capacity_factor_info">TileCache kapasite faktörünü tanımlayın</string>
+    <string name="tilecache_capacity_factor">TileCache kapasite faktörü</string>
+    <string name="purge_tilecache">TileCache\'i temizle</string>
+    <string name="persistent_tilecache">Kalıcı TileCache</string>
+    <string name="overdraw_factor_info">Harita fazla çizim faktörünü tanımlayın</string>
 </resources>
