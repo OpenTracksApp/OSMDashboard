@@ -1,0 +1,2 @@
+- minSdk a ardú go 24, nuachóirigh cód
+- spleáchríocha a nuashonrú (e.g. leabharlann mapsforge)
