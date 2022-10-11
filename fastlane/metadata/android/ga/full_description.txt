@@ -1,0 +1,18 @@
+Deais OpenStreetMap le haghaidh <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Taispeánann sé rian roghnaithe le pointí tosaigh agus críochphointí ar léarscáil ó <a href="https://openstreetmap.org">OpenStreetMap</a> bunaithe ar an <a href="https://github.com/mapsforge /mapsforge">Leabharlann Mapsforge</a>.
+Is léarscáil ar líne an réamhshocrú, ach tacaítear le léarscáileanna as líne freisin. Le léarscáileanna as líne, níl aon ghá le plean sonraí soghluaiste.
+
+Soláthraíonn <a href="https://openstreetmap.org">OpenStreetMap.org</a> an léarscáil réamhshocraithe.
+Bí leis an bpobal agus cuidigh le feabhas a chur ar an léarscáil, féach <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Smaoinigh le do thoil ar léarscáil as líne a íoslódáil chun ualach an fhreastalaí a laghdú agus chun do phlean sonraí soghluaiste a shábháil.
+Is féidir roinnt léarscáileanna as líne a fháil anseo:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/ga/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/ga">OpenAndroMaps</a>
+
+Teastaíonn téamaí speisialta ó roinnt léarscáileanna chun rindreáil i gceart! Ní mór iad seo a íoslódáil agus a chumrú dá réir.
+
+Is féidir léarscáileanna as líne a íoslódáil tríd an roghchlár "Íoslódáil Léarscáileanna" nó trí chuairt a thabhairt ar na láithreáin ghréasáin thuasluaite agus cliceáil ar na naisc íoslódála. Éilíonn roinnt brabhsálaithe (m.sh. Firefox) cliceáil fada ar an nasc agus "Oscail nasc san aip sheachtrach" agus ansin roghnaigh OSMDashboard.
+
+Is féidir léarscáileanna as líne íoslódáilte de láimh nó léarscáileanna a roinntear le haipeanna eile a oscailt ó do ghléas Android. Roghnaigh an eolaire sa roghchlár "Map eolaire".
