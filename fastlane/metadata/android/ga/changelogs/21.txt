@@ -1,0 +1,3 @@
+- Nuashonraigh spleáchríocha
+- Aistriúcháin nua ar sheicis, ioruais agus portaingéilis
+- - Tacaíocht LE HAGHAIDH Openstack NUA API v2
