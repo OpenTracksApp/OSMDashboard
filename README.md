@@ -38,11 +38,11 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
             </a>
         </td>
         <td>
-            <a href="https://weblate.bubu1.eu/projects/open-tracks-osm-dashboard/">
-                Weblate.bubu1.eu
+            <a href="https://translate.codeberg.org/projects/open-tracks-osm-dashboard/">
+                translate.codeberg.org
             </a><br/>
-            <a href="https://weblate.bubu1.eu/engage/open-tracks-osm-dashboard/">
-                <img src="https://weblate.bubu1.eu/widgets/open-tracks-osm-dashboard/-/strings-xml/svg-badge.svg" alt="Translation state">
+            <a href="https://translate.codeberg.org/engage/open-tracks-osm-dashboard/">
+                <img src="https://translate.codeberg.org/widgets/open-tracks-osm-dashboard/-/strings-xml/svg-badge.svg" alt="Translation state">
             </a>
         </td>
     </tr>
