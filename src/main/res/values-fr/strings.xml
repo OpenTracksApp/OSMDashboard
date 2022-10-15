@@ -2,7 +2,7 @@
 <resources>
     <string name="theme_selection">Thèmes de la carte</string>
     <string name="delete_map_error">La suppression de la carte a échoué</string>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">Tableau de bord OSM
 \npour OpenTracks</string>
     <string name="no_data">Aucune donnée de suivi reçue</string>
     <string name="copyright_osm">Données cartographiques © contributeurs OpenStreetMap</string>
@@ -30,36 +30,36 @@
     <string name="multi_thread_map_rendering">Rendu cartographique multithread</string>
     <string name="menu_advanced">Avancé</string>
     <string name="compass_smoothing_info">Des valeurs plus élevées réduisent le bruit</string>
-    <string name="compass_smoothing_menu">Lissage des compas</string>
+    <string name="compass_smoothing_menu">Lissage du compas</string>
     <string name="map_mode_direction">Direction de la carte</string>
     <string name="map_mode_north_top">Carte du nord en haut</string>
     <string name="arrow_mode_compass">Flèche comme boussole</string>
     <string name="arrow_mode_direction">Flèche de direction</string>
     <string name="arrow_mode_north">La flèche indique le nord</string>
     <string name="only_digits">La valeur doit contenir uniquement des chiffres</string>
-    <string name="track_smoothing_hint">Tolérance de lissage des pistes en mètres</string>
-    <string name="track_smoothing_menu">Lissage des pistes</string>
+    <string name="track_smoothing_hint">Tolérance de lissage des traces en mètres</string>
+    <string name="track_smoothing_menu">Lissage des traces</string>
     <string name="error_loading_offline_map">Erreur de lecture d\'une carte hors ligne configurée</string>
     <string name="cancel_download_question">Annuler le téléchargement en cours \?</string>
     <string name="overwrite_map_question">La carte \"%s\" existe déjà ! Effacer et télécharger à nouveau \?</string>
     <string name="delete_theme_error">La suppression du thème a échoué</string>
     <string name="map_mode_compass">La carte comme compas</string>
-    <string name="pip_mode">Image en mode image</string>
+    <string name="pip_mode">Mode incrustration</string>
     <string name="track_smoothing_info">Définir la tolérance en mètres pour l\'algorithme de lissage des traces. Entrez 0 pour désactiver le lissage de la piste.
 \nLa modification entre en vigueur après le rechargement de la piste.</string>
     <string name="online_map_consent">Il n\'y a pas de carte configurée hors ligne. Veuillez accepter d\'utiliser la carte en ligne de openstreetmap.org. Cela pourrait entraîner une fuite de votre position actuelle. Voir https://operations.osmfoundation.org/policies/tiles/ pour l\'utilisation des tuiles et la politique de confidentialité.</string>
     <string name="delete_theme_question">Supprimer le thème \"%s\" \?</string>
     <string name="usage_info">Utilisez <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, sélectionnez une piste et cliquez sur l\'icône de la carte pour afficher la piste Sur la carte.</string>
     <string name="osm_info">La carte par défaut est fournie par <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Rejoignez la communauté et aidez à améliorer la carte, voir <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="consider_offline_maps">Veuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et enregistrer votre forfait de données mobiles. Certaines cartes hors ligne peuvent être trouvées ici :</string>
+    <string name="consider_offline_maps">Veuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et économiser votre forfait de données mobiles. Certaines cartes hors ligne peuvent être trouvées ici :</string>
     <string name="map_theme_info"><b>Certaines cartes nécessitent des thèmes spéciaux pour un rendu correct !</b> Ceux-ci doivent être téléchargés et configurés en conséquence.</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
+    <string name="manual_offline_map_info"></string>
     <string name="download_theme">Télécharger le thème</string>
     <string name="download_theme_success">Thème téléchargé avec succès</string>
     <string name="download_theme_failed">Le téléchargement du thème a échoué</string>
     <string name="overwrite_theme_question">Le thème \"%s\" existe déjà ! Supprimer et télécharger à nouveau \?</string>
     <string name="no_download_uri_found">Pas d\'URI à télécharger trouvé</string>
-    <string name="startDownload">Démarrer Télécharger</string>
+    <string name="startDownload">Démarrer le téléchargement</string>
     <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées via le menu <b>Téléchargement de cartes</b> ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
     <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
