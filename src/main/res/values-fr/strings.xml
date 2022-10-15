@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s s\'est écrasé</string>
     <string name="no_browser_available">Pas de navigateur disponible</string>
     <string name="bug_report">Signaler un bogue</string>
+    <string name="persistent_tilecache">Cache de tuiles persistant</string>
+    <string name="purge_tilecache">Purger TileCache</string>
+    <string name="overdraw_factor_info">Définir le facteur de surimpression de la carte</string>
+    <string name="tilecache_capacity_factor_info">Définir le facteur de capacité du TileCache</string>
+    <string name="tilecache_capacity_factor">Facteur de capacité de TileCache</string>
+    <string name="overdraw_factor">Facteur de surimpression de la carte</string>
 </resources>
