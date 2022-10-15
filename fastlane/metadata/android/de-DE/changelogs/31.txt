@@ -1,0 +1,2 @@
+- Abhängigkeiten aktualisieren
+- Repariere #169, einen möglichen Speicherleck in ThemeSelectionActivity
