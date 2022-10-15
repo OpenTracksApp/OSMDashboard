@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s jatuh</string>
     <string name="no_browser_available">Tidak ada browser yang tersedia</string>
     <string name="bug_report">Laporkan bug</string>
+    <string name="purge_tilecache">Bersihkan TileCache</string>
+    <string name="overdraw_factor_info">Tentukan faktor overdraw peta</string>
+    <string name="tilecache_capacity_factor_info">Tentukan faktor kapasitas TileCache</string>
+    <string name="tilecache_capacity_factor">Faktor kapasitas TileCache</string>
+    <string name="persistent_tilecache">TileCache Persisten</string>
+    <string name="overdraw_factor">Faktor overdraw peta</string>
 </resources>
