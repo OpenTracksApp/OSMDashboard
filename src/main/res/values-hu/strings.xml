@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s lezuhant</string>
     <string name="no_browser_available">Nincs elérhető böngésző</string>
     <string name="bug_report">Hiba jelentése</string>
+    <string name="persistent_tilecache">Tartós TileCache</string>
+    <string name="purge_tilecache">TileCache törlése</string>
+    <string name="overdraw_factor">Térkép túlhúzási tényező</string>
+    <string name="tilecache_capacity_factor_info">TileCache kapacitástényező meghatározása</string>
+    <string name="tilecache_capacity_factor">TileCache kapacitási tényező</string>
+    <string name="overdraw_factor_info">Térkép túlhúzási tényező meghatározása</string>
 </resources>
