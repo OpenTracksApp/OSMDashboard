@@ -71,4 +71,10 @@
     <string name="error_crash_title">%1$s gecrasht</string>
     <string name="no_browser_available">Geen browser beschikbaar</string>
     <string name="bug_report">Bug melden</string>
+    <string name="persistent_tilecache">Persistente TegelCache</string>
+    <string name="purge_tilecache">TileCache wissen</string>
+    <string name="overdraw_factor_info">Kaartovertrekkingsfactor bepalen</string>
+    <string name="tilecache_capacity_factor_info">Definieer TileCache-capaciteitsfactor</string>
+    <string name="tilecache_capacity_factor">TileCache capaciteitsfactor</string>
+    <string name="overdraw_factor">Kaart overdraaifactor</string>
 </resources>
