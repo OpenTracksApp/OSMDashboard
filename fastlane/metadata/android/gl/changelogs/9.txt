@@ -1,0 +1,6 @@
+- arranxo do problema coas letras moi grandes 
+- pedir permiso para usar mapa con conexión 
+- respectar os axustes de OpenTracks "Manter pantalla acesa" e "Mostrar na pantalla bloqueada" 
+- descargar mapas sen conexión directamente desde a app
+- novo Logo que segue a Android Adaptive Launcher Icon Specification 
+- arranxos no menú e na selección de mapas e decorado
