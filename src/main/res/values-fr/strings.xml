@@ -53,7 +53,7 @@
     <string name="osm_info">La carte par défaut est fournie par <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Rejoignez la communauté et aidez à améliorer la carte, voir <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Veuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et économiser votre forfait de données mobiles. Certaines cartes hors ligne peuvent être trouvées ici :</string>
     <string name="map_theme_info"><b>Certaines cartes nécessitent des thèmes spéciaux pour un rendu correct !</b> Ceux-ci doivent être téléchargés et configurés en conséquence.</string>
-    <string name="manual_offline_map_info"></string>
+    <string name="manual_offline_map_info">Les cartes hors ligne téléchargées manuellement ou les cartes partagées avec d\'autres applications peuvent être ouvertes à partir de votre appareil Android. Sélectionnez le répertoire dans le menu <b>Répertoire de la carte</b>.</string>
     <string name="download_theme">Télécharger le thème</string>
     <string name="download_theme_success">Thème téléchargé avec succès</string>
     <string name="download_theme_failed">Le téléchargement du thème a échoué</string>
