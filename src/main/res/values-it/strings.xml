@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s si è bloccato</string>
     <string name="no_browser_available">Nessun browser disponibile</string>
     <string name="bug_report">Segnala il bug</string>
+    <string name="persistent_tilecache">TileCache persistente</string>
+    <string name="purge_tilecache">Eliminare TileCache</string>
+    <string name="overdraw_factor">Fattore di sovrascrittura della mappa</string>
+    <string name="tilecache_capacity_factor_info">Definire il fattore di capacità di TileCache</string>
+    <string name="tilecache_capacity_factor">Fattore di capacità TileCache</string>
+    <string name="overdraw_factor_info">Definire il fattore di sovradimensionamento della mappa</string>
 </resources>

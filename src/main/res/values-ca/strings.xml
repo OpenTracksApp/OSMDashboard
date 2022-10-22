@@ -73,4 +73,10 @@
     <string name="no_browser_available">No hi ha navegador disponible</string>
     <string name="error_crash_title">%1$s ha fallat</string>
     <string name="bug_report">Informe d \' error</string>
+    <string name="purge_tilecache">Purga TileCache</string>
+    <string name="overdraw_factor">Factor de sobreescriptura del mapa</string>
+    <string name="overdraw_factor_info">Defineix el factor de sobreescriptura del mapa</string>
+    <string name="tilecache_capacity_factor">Factor de capacitat de TileCache</string>
+    <string name="persistent_tilecache">TileCache Seasmhach</string>
+    <string name="tilecache_capacity_factor_info">Defineix El factor de Capacitat De TileCache</string>
 </resources>

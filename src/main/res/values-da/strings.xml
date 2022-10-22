@@ -73,4 +73,10 @@
     <string name="bug_report">Rapportere fejl</string>
     <string name="error_crash_title">%1$s gik ned</string>
     <string name="no_browser_available">Ingen browser tilgængelig</string>
+    <string name="overdraw_factor">Overtrækningsfaktor for kort</string>
+    <string name="tilecache_capacity_factor_info">Definer TileCache-kapacitetsfaktor</string>
+    <string name="tilecache_capacity_factor">TileCache-kapacitetsfaktor</string>
+    <string name="persistent_tilecache">Vedvarende TileCache</string>
+    <string name="purge_tilecache">Rens TileCache</string>
+    <string name="overdraw_factor_info">Definer overtrækningsfaktor for kort</string>
 </resources>

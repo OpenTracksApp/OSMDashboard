@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="no_browser_available">Ingen webbläsare tillgänglig</string>
     <string name="bug_report">Rapportera fel</string>
+    <string name="purge_tilecache">Rensa TileCache</string>
+    <string name="overdraw_factor">Faktor för överdragning av kartan</string>
+    <string name="tilecache_capacity_factor_info">Definiera TileCache-kapacitetsfaktor</string>
+    <string name="tilecache_capacity_factor">TileCache-kapacitetsfaktor</string>
+    <string name="persistent_tilecache">Beständig TileCache</string>
+    <string name="overdraw_factor_info">Definiera faktor för överdragning av kartor</string>
 </resources>

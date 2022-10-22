@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s зазнав краху</string>
     <string name="no_browser_available">Немає доступного браузера</string>
     <string name="bug_report">Повідомити про помилку</string>
+    <string name="persistent_tilecache">Постійний кеш TileCache</string>
+    <string name="purge_tilecache">Очистити TileCache</string>
+    <string name="overdraw_factor">Коефіцієнт овердрафту карти</string>
+    <string name="tilecache_capacity_factor_info">Визначення коефіцієнту ємності TileCache</string>
+    <string name="tilecache_capacity_factor">Коефіцієнт ємності TileCache</string>
+    <string name="overdraw_factor_info">Визначте коефіцієнт перевитрати за карткою</string>
 </resources>

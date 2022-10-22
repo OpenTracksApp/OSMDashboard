@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s havarovalo</string>
     <string name="no_browser_available">Prohlížeč není k dispozici</string>
     <string name="bug_report">Nahlásit chybu</string>
+    <string name="persistent_tilecache">Trvalá mezipaměť TileCache</string>
+    <string name="purge_tilecache">Vyčistit TileCache</string>
+    <string name="overdraw_factor">Faktor překreslení mapy</string>
+    <string name="tilecache_capacity_factor_info">Definice kapacitního faktoru mezipaměti TileCache</string>
+    <string name="tilecache_capacity_factor">Kapacitní faktor TileCache</string>
+    <string name="overdraw_factor_info">Definice faktoru překreslení mapy</string>
 </resources>

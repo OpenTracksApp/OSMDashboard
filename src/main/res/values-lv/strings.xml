@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s avārija</string>
     <string name="no_browser_available">Nav pieejams pārlūks</string>
     <string name="bug_report">Paziņot par kļūdu</string>
+    <string name="persistent_tilecache">Pastāvīgā TileCache</string>
+    <string name="purge_tilecache">TileCache tīrīšana</string>
+    <string name="overdraw_factor">Kartes pārvilkšanas koeficients</string>
+    <string name="tilecache_capacity_factor">TileCache jaudas koeficients</string>
+    <string name="overdraw_factor_info">Definēt kartes pārvilkšanas koeficientu</string>
+    <string name="tilecache_capacity_factor_info">Definēt TileCache jaudas koeficientu</string>
 </resources>
