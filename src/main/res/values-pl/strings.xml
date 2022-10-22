@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s się zepsuł</string>
     <string name="no_browser_available">Przeglądarka nie jest dostępna</string>
     <string name="bug_report">Zgłoś problem</string>
+    <string name="persistent_tilecache">Trwały TileCache</string>
+    <string name="purge_tilecache">Wyczyść TileCache</string>
+    <string name="overdraw_factor">Współczynnik przekroczenia mapy</string>
+    <string name="tilecache_capacity_factor_info">Określenie współczynnika pojemności TileCache</string>
+    <string name="tilecache_capacity_factor">Współczynnik pojemności TileCache</string>
+    <string name="overdraw_factor_info">Określanie współczynnika przerysowania mapy</string>
 </resources>

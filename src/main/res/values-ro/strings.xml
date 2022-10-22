@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s s-a blocat</string>
     <string name="no_browser_available">Niciun browser disponibil</string>
     <string name="bug_report">Raportați un bug</string>
+    <string name="purge_tilecache">Eliminarea TileCache</string>
+    <string name="overdraw_factor_info">Definiți factorul de supraîncărcare a hărții</string>
+    <string name="tilecache_capacity_factor_info">Definiți factorul de capacitate TileCache</string>
+    <string name="persistent_tilecache">TileCache persistent</string>
+    <string name="overdraw_factor">Factorul de supraîncărcare a hărții</string>
+    <string name="tilecache_capacity_factor">Factor de capacitate TileCache</string>
 </resources>

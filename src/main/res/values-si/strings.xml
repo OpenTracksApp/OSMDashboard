@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s බිඳ වැටිණි</string>
     <string name="no_browser_available">බ්‍රවුසරයක් නොමැත</string>
     <string name="bug_report">දෝෂය වාර්තා කරන්න</string>
+    <string name="persistent_tilecache">නොනැසී පවතින TileCache</string>
+    <string name="purge_tilecache">TileCache පිරිසිදු කරන්න</string>
+    <string name="overdraw_factor">සිතියම අතික්‍රමණය කිරීමේ සාධකය</string>
+    <string name="tilecache_capacity_factor">TileCache ධාරිතාව සාධකය</string>
+    <string name="tilecache_capacity_factor_info">TileCache ධාරිතාව සාධකය නිර්වචනය කරන්න</string>
+    <string name="overdraw_factor_info">සිතියම ඉක්මවා යන සාධකය නිර්වචනය කරන්න</string>
 </resources>

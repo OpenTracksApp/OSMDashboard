@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s sugedo</string>
     <string name="no_browser_available">Nėra prieinamos naršyklės</string>
     <string name="bug_report">Pranešti apie klaidą</string>
+    <string name="persistent_tilecache">Nuolatinė \"TileCache</string>
+    <string name="purge_tilecache">Išvalyti \"TileCache</string>
+    <string name="overdraw_factor">Žemėlapio perkirpimo koeficientas</string>
+    <string name="tilecache_capacity_factor_info">Apibrėžti \"TileCache\" talpos koeficientą</string>
+    <string name="tilecache_capacity_factor">\"TileCache\" talpos koeficientas</string>
+    <string name="overdraw_factor_info">Apibrėžti žemėlapio perpiešimo koeficientą</string>
 </resources>

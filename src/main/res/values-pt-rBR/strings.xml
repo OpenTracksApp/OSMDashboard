@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s falharam</string>
     <string name="no_browser_available">Sem navegador disponível</string>
     <string name="bug_report">Reportar erro</string>
+    <string name="overdraw_factor">Fator de sobre-esboço do mapa</string>
+    <string name="overdraw_factor_info">Definir fator de sobredesenho do mapa</string>
+    <string name="tilecache_capacity_factor_info">Definir fator de capacidade TileCache</string>
+    <string name="tilecache_capacity_factor">Fator de capacidade TileCache</string>
+    <string name="persistent_tilecache">Cache de Telha Persistente</string>
+    <string name="purge_tilecache">TileCache de purga</string>
 </resources>

@@ -73,4 +73,10 @@
     <string name="error_crash_title">%1$s hrundi</string>
     <string name="no_browser_available">Enginn vafri tiltækur</string>
     <string name="bug_report">Tilkynna villu</string>
+    <string name="persistent_tilecache">Viðvarandi</string>
+    <string name="purge_tilecache">Eyða</string>
+    <string name="overdraw_factor">Kort yfirdráttarstuðull</string>
+    <string name="tilecache_capacity_factor_info">Skilgreina Getu þáttur</string>
+    <string name="tilecache_capacity_factor">Getu þáttur</string>
+    <string name="overdraw_factor_info">Skilgreina kort yfirdráttar þáttur</string>
 </resources>
