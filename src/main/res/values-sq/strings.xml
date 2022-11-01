@@ -1,2 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="no_data">Nuk ka të dhëna të pista të marra</string>
+    <string name="copyright_osm">Të dhënat e hartës © kontribuesit E OpenStreetMap</string>
+    <string name="maps">Hartat</string>
+    <string name="map_themes">Temat e hartave</string>
+    <string name="map_info_menu">Rreth</string>
+    <string name="map_folder">Drejtoria e hartave</string>
+    <string name="theme_folder">Drejtoria e temave të hartave</string>
+    <string name="offline_map_info">Hartat Offline mund të shkarkohen përmes menusë <b>shkarkimi I Hartës</b> ose duke vizituar faqet e internetit të lartpërmendura dhe klikoni në lidhjet e shkarkimit. Disa shfletues (P.Sh. Firefox) kërkojnë një klik të gjatë në lidhjen dhe Lidhjen E Hapur në aplikacionin e jashtëm dhe më pas zgjidhni OSMDashboard.</string>
+    <string name="manual_offline_map_info">Hartat manuale të shkarkuara jashtë linje ose hartat e ndara me aplikacione të tjera mund të hapen nga pajisja Juaj Android. Zgjidhni direktorinë në menunë <b>drejtoria E Hartës</b>.</string>
+    <string name="app_logo_description">Logoja e aplikacionit</string>
+    <string name="online_map_consent">Nuk ka asnjë hartë offline të konfiguruar. Ju lutemi pranoni të përdorni hartën në internet nga openstreetmap.org. Kjo mund të rrjedhë vendndodhjen tuaj aktuale. Shih https://operations.osmfoundation.org/policies/tiles / për përdorimin e pllakave dhe politikën e privatësisë.</string>
+    <string name="map_online_consent_menu">Pëlqimi i hartës në internet</string>
+    <string name="download_map">Shkarkimi i hartës</string>
+    <string name="download_theme">Shkarkimi i temës</string>
+    <string name="choose_map_to_download">Zgjidhni një hartë për ta shkarkuar</string>
+    <string name="download_instruction">Jeni duke parë përmbajtje të https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_map_question">Shkarkoni hartën %s\?</string>
+    <string name="download_in_progress">Tashmë ka një shkarkim në progres!</string>
+    <string name="download_success">Harta shkarkohet me sukses</string>
+    <string name="download_failed">Shkarkimi i hartës dështoi</string>
+    <string name="download_theme_success">Tema shkarkohet me sukses</string>
+    <string name="map_selection">Hartat</string>
+    <string name="online_osm_mapnick">HARTA ONLINE OSM:Mapnik</string>
+    <string name="delete_map_question">Fshini hartën \"%s\"\?</string>
+    <string name="delete_map_error">Fshirja e hartës dështoi</string>
+    <string name="theme_selection">Temat e hartave</string>
+    <string name="delete_theme_question">Fshi temën \"%s\"\?</string>
+    <string name="delete_theme_error">Fshirja e temës dështoi</string>
+    <string name="tilecache_capacity_factor">Faktori i kapacitetit TileCache</string>
+    <string name="overdraw_factor_info">Përcaktoni faktorin e mbitërheqjes së hartës</string>
+    <string name="overdraw_factor">Faktori i mbitërheqjes së hartës</string>
+    <string name="bug_report">Raporti bug</string>
+    <string name="no_browser_available">Asnjë shfletues në dispozicion</string>
+    <string name="error_crash_title">%1$s u rrëzua</string>
+    <string name="zoom_out">Zmadhoni</string>
+    <string name="share">Ndaj</string>
+    <string name="error_reg_content_observer">Gabim në regjistrimin OpenTracksContentObserver</string>
+    <string name="no_file_manager_found">Asnjë menaxher skedarësh nuk u gjet</string>
+    <string name="startDownload">Filloni Shkarkimin</string>
+    <string name="no_download_uri_found">Nuk URI për të shkarkuar gjetur</string>
+    <string name="overwrite_map_question">Harta \"%s \" tashmë ekziston! Fshini dhe shkarkoni përsëri\?</string>
+    <string name="cancel_download_question">Anuloni shkarkimin aktual\?</string>
+    <string name="error_loading_offline_map">Gabim leximi konfiguruar offline hartë</string>
+    <string name="track_smoothing_menu">Zbutja e gjurmëve</string>
+    <string name="track_smoothing_hint">Ndiqni tolerancën e zbutjes në metra</string>
+    <string name="only_digits">Vlera duhet të përmbajë vetëm shifra</string>
+    <string name="pip_mode">Foto në modalitetin e figurës</string>
+    <string name="arrow_mode_north">Shigjeta tregon në veri</string>
+    <string name="arrow_mode_direction">Drejtimi i lëvizjes së shigjetës</string>
+    <string name="arrow_mode_compass">Shigjeta si busull</string>
+    <string name="map_mode_north_top">Harta në veri në krye</string>
+    <string name="map_mode_direction">Drejtimi i lëvizjes së hartës</string>
+    <string name="map_mode_compass">Harta si busull</string>
+    <string name="compass_smoothing_menu">Zbutja e busullës</string>
+    <string name="compass_smoothing_info">Vlerat më të larta zvogëlojnë zhurmën</string>
+    <string name="menu_advanced">Avancuar</string>
+    <string name="multi_thread_map_rendering">Multithread hartë pasqyrim</string>
+    <string name="persistent_tilecache">TileCache E Vazhdueshme</string>
+    <string name="purge_tilecache">Spastrim Cache E Pllakave</string>
+    <string name="stroke_width_info">Përcaktoni gjerësinë e goditjes së gjurmëve</string>
+    <string name="zoom_in">Zoom në</string>
+    <string name="unit_meter">m</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_feet">ft</string>
+    <string name="tilecache_capacity_factor_info">Përcaktoni Faktorin E kapacitetit TileCache</string>
+    <string name="toggle_full_screen_mode">Ndryshoni modalitetin e ekranit të plotë</string>
+    <string name="stroke_width_menu">Gjerësia e goditjes së gjurmës</string>
+    <string name="app_name_info_screen">Osm Pult
+\nPër OpenTracks</string>
+    <string name="default_theme">Tema e paracaktuar</string>
+    <string name="consider_offline_maps">Ju lutemi merrni parasysh shkarkimin e një harte jashtë linje për të ulur ngarkesën e serverit dhe për të ruajtur planin tuaj të të dhënave celulare. Disa harta offline mund të gjenden këtu:</string>
+    <string name="map_theme_info"><b>Disa harta kërkojnë tema të veçanta për t\'u dhënë në mënyrë korrekte!</b> Këto Duhet të shkarkohen dhe konfigurohen në përputhje me rrethanat.</string>
+    <string name="usage_info">Përdorni <b><a href="https://f-droid.org/packages/de.dennis guse.opentracks">OpenTracks</a></b>, zgjidhni një udhë dhe klikoni ikonën hartë për të treguar rrugën në hartë.</string>
+    <string name="osm_info">Harta e paracaktuar sigurohet nga <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bashkohuni me komunitetin dhe ndihmoni për të përmirësuar hartën, shihn <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="download_theme_failed">Shkarkimi i temës dështoi</string>
+    <string name="overwrite_theme_question">Tema \"%s \" tashmë ekziston! Fshini dhe shkarkoni përsëri\?</string>
+    <string name="track_smoothing_info">Përcaktoni tolerancën në metra për algoritmin e zbutjes së pistave. Futni 0 për të çaktivizuar zbutjen e gjurmëve.
+\nNdryshimi hyn në fuqi pas ringarkimit të pistës.</string>
+    <string name="no_map_configured">Ju ende nuk keni konfiguruar hartën offline.</string>
+</resources>
