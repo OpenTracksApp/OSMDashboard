@@ -1,0 +1,18 @@
+Un tableau de bord OpenStreetMap pour <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Il affiche les traces sélectionnées du départ à l’arrivée sur une carte <a href="https://openstreetmap.org">OpenStreetMap</a> basée sur la librairie <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Par défaut, la carte affichée est celle en ligne. Les cartes hors-lignes sont également prises en charge et ne nécessitent pas de donnée mobiles.
+
+La carte par défaut est fournie par <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Rejoignez la communauté et contribuez à son amélioration sur <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Nous vous recommandons d’utiliser une carte hors-ligne afin d’économiser votre forfait mobile ainsi que réduire la charge des serveurs.
+Des cartes sont disponibles ici :
+– <a href="http://download.mapsforge.org/">Mapsforge</a> ;
+– <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a> ;
+– <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>.
+
+Certaines cartes nécessitent des thèmes spéciaux pour s’afficher correctement ! Ils doivent être téléchargés et configurés parallèlement.
+
+Les cartes hors-ligne sont accessibles via le menu « Téléchargement de carte » ou en visitant un des liens sus-mentionnés et d’ouvrir un lien de téléchargement. Certains navigateurs (ex : Firefox) nécessitent un appui long sur le lien, « Ouvrir le lien dans une application externe » puis de choisir OSMDashboard.
+
+Les cartes téléchargées manuellement ou partagées avec d’autres applications peuvent être ouvertes sur votre appareil Android. Sélectionnez  un dossier dans le menu « Dossier de cartes ».
