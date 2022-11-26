@@ -1,0 +1,18 @@
+Un pannello OpenStreetMap per <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Mostra un tracciato selezionato con punti d'inizio e arrivo su una mappa di <a href="https://openstreetmap.org">OpenStreetMap</a> basata sulla liberira <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Verrà utilizzata una mappa online in maniera predefinita, ma sono supportate anche le mappe offline. Con le mappe offline non c'è necessità di una connessione internet cellulare.
+
+La mappa predefinita è fornita da<a href="https://openstreetmap.org">OpenStreetMap.org</a>
+Unisciti alla comunità e aiuta a migliorare la mappa, vedi <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Scaricare una mappa online aiuta a ridurre sia il carico sui server che il peso sul tuo piano dati mobile.
+Alcune mappe online possono essere trovate qui:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Alcune mappe richiedono temi particolari per essere rappresentate correttamente! Questi devono essere scaricati e configurati appropriatamente.
+
+Le mappe offline possono essere scaricate dal menu "Scaricamento mappe" o tramite i siti web elencati sopra, cliccando sui collegamenti di download. Alcuni browser (p. e. Firefox) richiedono un clic lungo sui link e la successiva selezione "Apri link con applicazione esterna" e poi di OSMDashboard.
+
+Le mappe offline scaricate manualmente o mappe condivise con altre applicazioni possono essere aperte dal tuo dispositivo Android. Seleziona la cartella nel menu "Cartella mappe".
