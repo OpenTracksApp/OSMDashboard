@@ -73,4 +73,6 @@
     <string name="bug_report">Fehler melden</string>
     <string name="purge_tilecache">TileCache säubern</string>
     <string name="persistent_tilecache">Persistenter TileCache</string>
+    <string name="overdraw_factor_info">Überzeichnungsfaktor der Karte definieren</string>
+    <string name="overdraw_factor">Überzeichnungsfaktor der Karte</string>
 </resources>
