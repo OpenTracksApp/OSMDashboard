@@ -1,0 +1,18 @@
+OpenStreetMap prietaisų skydelis <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Jame rodomas pasirinktas kelias su pradžios ir pabaigos taškais žemėlapyje iš <a href="https://openstreetmap.org">OpenStreetMap</a> remiantis <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> biblioteka.
+Pagal numatytuosius nustatymus naudojamas internetinis žemėlapis, tačiau palaikomi ir neprisijungusieji žemėlapiai. Naudojant neprisijungus prie interneto naudojamus žemėlapius, nereikia mobiliojo ryšio duomenų plano.
+
+Numatytąjį žemėlapį pateikia <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Prisijunkite prie bendruomenės ir padėkite tobulinti žemėlapį, žr. <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Apsvarstykite galimybę atsisiųsti neprisijungusį žemėlapį, kad sumažintumėte serverio apkrovą ir sutaupytumėte savo mobiliųjų duomenų planą.
+Kai kuriuos neprisijungus prie interneto naudojamus žemėlapius galite rasti čia:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Some maps require special themes teisingai atvaizduoti! Juos reikia atsisiųsti ir atitinkamai sukonfigūruoti.
+
+Neprisijungę prie interneto žemėlapius galite atsisiųsti per meniu "Žemėlapių atsisiuntimas" arba apsilankę pirmiau minėtose svetainėse ir spustelėję atsisiuntimo nuorodas. Kai kuriose naršyklėse (pvz., "Firefox") reikia ilgai spragtelėti nuorodą ir pasirinkti "Open link in external app" ("Atidaryti nuorodą išorinėje programoje"), tada pasirinkti OSMDashboard.
+
+Rankiniu būdu atsisiųstus neprisijungties žemėlapius arba su kitomis programėlėmis bendrinamus žemėlapius galima atidaryti iš "Android" prietaiso. Meniu "Map directory" (žemėlapių katalogas) pasirinkite katalogą.
