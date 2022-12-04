@@ -75,4 +75,6 @@
     <string name="persistent_tilecache">Persistenter TileCache</string>
     <string name="overdraw_factor_info">Überzeichnungsfaktor der Karte definieren</string>
     <string name="overdraw_factor">Überzeichnungsfaktor der Karte</string>
+    <string name="tilecache_capacity_factor_info">Definiere den TileCache-Nutzungsgrad</string>
+    <string name="tilecache_capacity_factor">TileCache-Nutzungsgrad</string>
 </resources>
