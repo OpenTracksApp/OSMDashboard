@@ -1,2 +1,3 @@
 - Abhängigkeiten aktualisieren
+- Übersetzungen aktualisiert
 - Repariere #169, einen möglichen Speicherleck in ThemeSelectionActivity

@@ -1,2 +1,3 @@
 - update dependencies
+- update translations
 - fix #169 possible memory leak in ThemeSelectionActivity
