@@ -1,0 +1,18 @@
+Nadzorna plošča OpenStreetMap za <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Prikazuje izbrano pot z začetno in končno točko na zemljevidu <a href="https://openstreetmap.org">OpenStreetMap</a>, ki temelji naknjižnici <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Spletni zemljevid je nastavljen kot privzeta opcija, so pa podprti tudi zemljevidi brez povezave. Z zemljevidi brez povezave ni potrebe po rabi mobilnih podatkov.
+
+Privzeti zemljevid zagotavlja <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Pridružite se skupnosti in pomagajte izboljšati zemljevid, glej <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Razmislite o prenosu zemljevida brez povezave, da zmanjšate obremenitev strežnika in prihranite na rabi svojih mobilnih podatkov.
+Nekaj zemljevidov brez povezave najdete tukaj:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Nekateri zemljevidi za pravilno upodabljanje zahtevajo posebne teme! Te je treba prenesti in ustrezno nastaviti.
+
+Zemljevide brez povezave lahko prenesete prek menija »Prenos zemljevida« ali pa tako, da obiščete zgoraj omenjeno spletno mesto in kliknete povezave za prenos. Nekateri brskalniki (npr. Firefox) zahtevajo dolgi klik na povezavo in "Odpri povezavo v zunanji aplikaciji" nakar izberite OSMDashboard.
+
+Ročno prenesene zemljevide brez povezave ali zemljevide, ki jih delite z drugimi aplikacijami, lahko odprete v vaši Android napravi. Izberite imenik v meniju "Imenik zemljevidov".
