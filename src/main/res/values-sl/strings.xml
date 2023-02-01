@@ -6,7 +6,7 @@
     <string name="maps">Zemljevidi</string>
     <string name="map_themes">Teme zemljevida</string>
     <string name="default_theme">Privzeta tema</string>
-    <string name="map_info_menu">O</string>
+    <string name="map_info_menu">O aplikaciji</string>
     <string name="map_folder">Mapa imenik</string>
     <string name="theme_folder">Mapa imenik teme</string>
     <string name="consider_offline_maps">Razmislite o prenosu zemljevida brez povezave, da zmanjšate obremenitev strežnika in prihranite svoj mobilni podatkovni načrt. Nekaj zemljevidov brez povezave je na voljo tukaj:</string>
