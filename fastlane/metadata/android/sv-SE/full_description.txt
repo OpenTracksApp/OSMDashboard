@@ -1,0 +1,18 @@
+En OpenStreetMap-kontrollpanel för <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Den visar valt spår med start- och slutpunkter på en karta från <a href="https://openstreetmap.org">OpenStreetMap</a> baserad på <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>-biblioteket.
+Det förvalda är en online-karta, men stöd finns även för offline-kartor. Med offline-kartor behövs ingen mobildataabbonemang.
+
+Den förvalda kartan kommer från <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Gå med i communityt och hjälp till med att förbättra kartan, se <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Hämta gärna hem en offline-karta för att minska trycket på servern och spara på ditt mobildata.
+Några offline-kartor hittar du här:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Vissa kartor kräver speciella teman för att visas korrekt! Dessa teman behöver då också hämtas och konfigureras.
+
+Offline-kartor kan hämtas via menyn "Map download" eller genom att besöka ovan nämnda webbplatser och klicka på nedladdningslänkarna. I vissa webbläsare (t.ex. Firefox) behöver du långklicka på länken och välja "Öppna länk i en extern app" och sedan välja OSMDashboard.
+
+Manuellt hämtade offline-kartor eller kartor som delas med andra appar kan öppnas från din Android-enhet. Välj nedladdningsmappen i menyn "Kartmapp" ("Map directory").
