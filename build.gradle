@@ -1,5 +1,3 @@
-apply plugin: 'com.android.application'
-
 buildscript {
     repositories {
         google()
@@ -11,13 +9,9 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url 'https://jitpack.io' }
-    }
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 def getVersionCode = { ->
