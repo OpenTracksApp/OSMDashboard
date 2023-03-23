@@ -71,6 +71,14 @@ public class PreferencesUtils {
         setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
+    public static boolean getColorBySpeed() {
+        return getBoolean(R.string.COLOR_BY_SPEED, false);
+    }
+
+    public static void setColorBySpeed(boolean colorBySpeed) {
+        setBoolean(R.string.COLOR_BY_SPEED, colorBySpeed);
+    }
+
     public static String getLastDownloadUrl(String defaultDownloadUrl) {
         return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
@@ -106,8 +114,8 @@ public class PreferencesUtils {
     private static void setUris(int keyId, Set<Uri> uris) {
         setStringSet(keyId,
                 uris.stream()
-                .map(Uri::toString)
-                .collect(Collectors.toSet()));
+                        .map(Uri::toString)
+                        .collect(Collectors.toSet()));
     }
 
     private static String getString(int keyId, String defaultValue) {

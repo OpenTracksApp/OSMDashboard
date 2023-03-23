@@ -8,6 +8,7 @@ import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -569,6 +571,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 Log.d(TAG, "No new trackpoints received");
                 return;
             }
+
+            var colorBySpeed = PreferencesUtils.getColorBySpeed();
+            double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
+            double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
+            double averageToMaxSpeed = maxSpeed - average;
+
             for (var trackPoints : segments) {
                 if (!update) {
                     polyline = null; // cut polyline on new segment
@@ -584,11 +592,22 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                         lastTrackId = trackPoint.getTrackId();
                         polyline = null; // reset current polyline when trackId changes
                         startPos = null;
+                        endPos = null;
                     }
 
-                    if (polyline == null) {
-                        Log.d(TAG, "Continue new segment.");
+                    if (colorBySpeed) {
+                        trackColor = getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
                         polyline = addNewPolyline(trackColor);
+                        if (endPos != null) {
+                            polyline.addPoint(endPos);
+                        } else if (startPos != null) {
+                            polyline.addPoint(startPos);
+                        }
+                    } else {
+                        if (polyline == null) {
+                            Log.d(TAG, "Continue new segment.");
+                            polyline = addNewPolyline(trackColor);
+                        }
                     }
 
                     endPos = trackPoint.getLatLong();
@@ -637,6 +656,17 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             }
         } else if (!update) {
             Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
+        double speed = trackPoint.getSpeed();
+        if (speed == 0.0) {
+            return Color.argb(0, 255, 0, 0);
+        } else if (trackPoint.getSpeed() < average) {
+            return Color.argb(255, 255, (int) (255 * speed / average), 0);
+        } else {
+            return Color.argb(255, 255 - (int) (255 * (speed - average) / averageToMaxSpeed), 255, 0);
         }
     }
 

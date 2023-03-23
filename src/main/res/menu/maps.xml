@@ -35,6 +35,11 @@
         android:title="@string/arrow_mode_direction"/>
 
     <item
+        android:id="@+id/color_by_speed"
+        android:checkable="true"
+        android:title="@string/color_by_speed"/>
+
+    <item
         android:id="@+id/submenu_advanced"
         android:title="@string/menu_advanced">
         <menu>

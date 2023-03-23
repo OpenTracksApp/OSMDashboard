@@ -1,2 +1,3 @@
+- New: color by speed
 - Updated translations
 - Updated dependencies

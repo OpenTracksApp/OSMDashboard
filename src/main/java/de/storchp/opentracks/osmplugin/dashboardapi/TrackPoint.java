@@ -21,7 +21,7 @@ public class TrackPoint {
     public static final String LATITUDE = "latitude";
     public static final String TIME = "time";
     public static final String TYPE = "type";
-
+    public static final String SPEED = "speed";
     public static final double PAUSE_LATITUDE = 100.0;
 
     public static final String[] PROJECTION_V1 = {
@@ -29,7 +29,8 @@ public class TrackPoint {
             TRACKID,
             LATITUDE,
             LONGITUDE,
-            TIME
+            TIME,
+            SPEED
     };
 
     public static final String[] PROJECTION_V2 = {
@@ -38,15 +39,17 @@ public class TrackPoint {
             LATITUDE,
             LONGITUDE,
             TIME,
-            TYPE
+            TYPE,
+            SPEED
     };
 
     private final long trackPointId;
     private final long trackId;
     private final LatLong latLong;
     private final boolean pause;
+    private final double speed;
 
-    public TrackPoint(long trackId, long trackPointId, double latitude, double longitude, Integer type) {
+    public TrackPoint(long trackId, long trackPointId, double latitude, double longitude, Integer type, double speed) {
         this.trackId = trackId;
         this.trackPointId = trackPointId;
         if (MapUtils.isValid(latitude, longitude)) {
@@ -55,6 +58,7 @@ public class TrackPoint {
             latLong = null;
         }
         this.pause = type != null ? type != 0 : latitude == PAUSE_LATITUDE;
+        this.speed = speed;
     }
 
     public boolean hasValidLocation() {
@@ -70,9 +74,9 @@ public class TrackPoint {
      * Pause TrackPoints and different Track IDs split the segments.
      */
     public static List<List<TrackPoint>> readTrackPointsBySegments(ContentResolver resolver, Uri data, long lastTrackPointId, int protocolVersion) {
-         var segments = new ArrayList<List<TrackPoint>>();
-         var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
-         try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
+        var segments = new ArrayList<List<TrackPoint>>();
+        var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
+        try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
@@ -81,6 +85,8 @@ public class TrackPoint {
                 var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / LAT_LON_FACTOR;
                 var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LONGITUDE)) / LAT_LON_FACTOR;
                 var typeIndex = cursor.getColumnIndex(TrackPoint.TYPE);
+                var speed = cursor.getDouble(cursor.getColumnIndexOrThrow(TrackPoint.SPEED));
+
                 Integer type = null;
                 if (typeIndex > -1) {
                     type = cursor.getInt(typeIndex);
@@ -91,7 +97,7 @@ public class TrackPoint {
                     segments.add(segment);
                 }
 
-                lastTrackPoint = new TrackPoint(trackId, trackPointId, latitude, longitude, type);
+                lastTrackPoint = new TrackPoint(trackId, trackPointId, latitude, longitude, type, speed);
                 if (lastTrackPoint.hasValidLocation()) {
                     segment.add(lastTrackPoint);
                 }
@@ -115,4 +121,9 @@ public class TrackPoint {
     public LatLong getLatLong() {
         return latLong;
     }
+
+    public double getSpeed() {
+        return speed;
+    }
+    
 }

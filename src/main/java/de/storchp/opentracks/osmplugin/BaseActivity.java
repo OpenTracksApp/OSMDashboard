@@ -53,6 +53,9 @@ abstract class BaseActivity extends AppCompatActivity {
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
 
+        var colorBySpeed = menu.findItem(R.id.color_by_speed);
+        colorBySpeed.setChecked(PreferencesUtils.getColorBySpeed());
+
         if (BuildConfig.offline) {
             mapConsent.setVisible(false);
             menu.findItem(R.id.download_map).setVisible(false);
@@ -80,6 +83,9 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(item.isChecked());
             onOnlineMapConsentChanged(item.isChecked());
+        } else if (itemId == R.id.color_by_speed) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setColorBySpeed(item.isChecked());
         } else if (itemId == R.id.track_smoothing) {
             showTrackSmoothingDialog();
         } else if (itemId == R.id.compass_smoothing) {
@@ -198,7 +204,7 @@ abstract class BaseActivity extends AppCompatActivity {
         double currentOverdrawFactor = PreferencesUtils.getOverdrawFactor();
 
         binding.tvOverdrawFactor.setText(String.format(Locale.getDefault(), "%.2f", currentOverdrawFactor));
-        binding.sbOverdrawFactor.setProgress((int)(100 * currentOverdrawFactor) - 100);
+        binding.sbOverdrawFactor.setProgress((int) (100 * currentOverdrawFactor) - 100);
         binding.sbOverdrawFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -239,7 +245,7 @@ abstract class BaseActivity extends AppCompatActivity {
         if (progress == 0) {
             return 1;
         }
-        return (progress / (double)100) + 1;
+        return (progress / (double) 100) + 1;
     }
 
     private void showTileCacheCapacityFactorDialog() {
@@ -247,7 +253,7 @@ abstract class BaseActivity extends AppCompatActivity {
         float currentTileCacheCapacityFactor = PreferencesUtils.getTileCacheCapacityFactor();
 
         binding.tvTilecacheCapacityFactor.setText(String.format(Locale.getDefault(), "%.2f", currentTileCacheCapacityFactor));
-        binding.sbTilecacheCapacityFactor.setProgress((int)((currentTileCacheCapacityFactor * 100) - 100) / 3);
+        binding.sbTilecacheCapacityFactor.setProgress((int) ((currentTileCacheCapacityFactor * 100) - 100) / 3);
         binding.sbTilecacheCapacityFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -288,7 +294,7 @@ abstract class BaseActivity extends AppCompatActivity {
         if (progress == 0) {
             return 1;
         }
-        return (progress * 3 / (float)100) + 1;
+        return (progress * 3 / (float) 100) + 1;
     }
 
     private void showStrokeWidthDialog() {

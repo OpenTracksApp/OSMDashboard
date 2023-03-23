@@ -78,5 +78,6 @@
     <string name="overdraw_factor_info">Define map overdraw factor</string>
     <string name="tilecache_capacity_factor_info">Define TileCache capacity factor</string>
     <string name="tilecache_capacity_factor">TileCache capacity factor</string>
+    <string name="color_by_speed">Color by speed</string>
 
 </resources>

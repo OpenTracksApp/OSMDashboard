@@ -7,6 +7,7 @@
     <string name="MAP_THEME_DIRECTORY" translatable="false">APP_PREF_MAP_THEME_DIRECTORY</string>
     <string name="MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
     <string name="ONLINE_MAP_CONSENT" translatable="false">APP_PREF_ONLINE_MAP_CONSENT</string>
+    <string name="COLOR_BY_SPEED" translatable="false">APP_PREF_COLOR_BY_SPEED</string>
     <string name="LAST_DOWNLOAD_URL" translatable="false">APP_PREF_LAST_DOWNLOAD_URL</string>
     <string name="TRACK_SMOOTHING_TOLERANCE" translatable="false">APP_PREF_TRACK_SMOOTHING_TOLERANCE</string>
     <string name="COMPASS_SMOOTHING" translatable="false">APP_PREF_COMPASS_SMOOTHING</string>
