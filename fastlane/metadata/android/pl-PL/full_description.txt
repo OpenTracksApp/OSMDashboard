@@ -1,0 +1,18 @@
+Panel OpenStreetMap dla <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Pokazuje wybraną trasę z punktami początkowymi i końcowymi na mapie <a href="https://openstreetmap.org">OpenStreetMap</a> bazując na bibliotece <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Domyślna jest mapa online, ale mapy offline są również obsługiwane. W przypadku map offline nie ma konieczności korzystania z mobilnego pakietu danych.
+
+Domyślnym dostawcą map jest <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Dołącz do społeczności i pomóż ulepszać mapy, wejdź na <a href="https://www.openstreetmap.org/fixthemap">>www.openstreetmap.org/fixthemap</a>
+
+Prosimy rozważyć pobranie mapy offline, aby zmniejszyć obciążenie serwera i oszczędzić swój mobilny pakiet danych.
+Mapy offline można znaleźć tutaj:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Niektóre mapy wymagają specjalnych motywów do poprawnego renderowania! Należy je pobrać i odpowiednio skonfigurować.
+
+Mapy offline można pobrać poprzez menu, wybierając opcję "Pobierz mapę" lub wchodząc na wyżej wymienione strony internetowe i klikając w linki do pobrania. Niektóre przeglądarki (np. Firefox) wymagają długiego kliknięcia na link i wybraniu "Otwórz link w zewnętrznej aplikacji", a następnie wybraniu OSMDashboard.
+
+Ręcznie pobrane mapy offline lub mapy współdzielone z innymi aplikacjami można otworzyć z urządzenia z systemem Android. Wybierz katalog w menu "Katalog map".
