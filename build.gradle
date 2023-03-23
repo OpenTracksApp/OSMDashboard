@@ -108,7 +108,7 @@ android {
 
 ext {
     mapsforgeVersion = '0.18.0'
-    lifecycle_version = '2.6.0'
+    lifecycle_version = '2.6.1'
 }
 
 dependencies {
