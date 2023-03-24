@@ -572,14 +572,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 return;
             }
 
-            var colorBySpeed = PreferencesUtils.getColorBySpeed();
             double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
             double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
             double averageToMaxSpeed = maxSpeed - average;
+            var colorBySpeed = !update && PreferencesUtils.getColorBySpeed();
 
             for (var trackPoints : segments) {
+                polyline = null; // cut polyline on new segment
                 if (!update) {
-                    polyline = null; // cut polyline on new segment
                     if (tolerance > 0) { // smooth track
                         trackPoints = MapUtils.decimate(tolerance, trackPoints);
                     }
@@ -661,13 +661,16 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
         double speed = trackPoint.getSpeed();
+        int red = 255;
+        int green = 255;
         if (speed == 0.0) {
-            return Color.argb(0, 255, 0, 0);
+            green = 0;
         } else if (trackPoint.getSpeed() < average) {
-            return Color.argb(255, 255, (int) (255 * speed / average), 0);
+            green = (int) (255 * speed / average);
         } else {
-            return Color.argb(255, 255 - (int) (255 * (speed - average) / averageToMaxSpeed), 255, 0);
+            red = 255 - (int) (255 * (speed - average) / averageToMaxSpeed);
         }
+        return Color.argb(255, red, green, 0);
     }
 
     private void setEndMarker(LatLong endPos) {
