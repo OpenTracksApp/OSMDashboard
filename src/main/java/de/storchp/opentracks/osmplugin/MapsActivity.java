@@ -190,14 +190,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         tracksUri = APIConstants.getTracksUri(uris);
         trackPointsUri = APIConstants.getTrackPointsUri(uris);
         waypointsUri = APIConstants.getWaypointsUri(uris);
-        readTrackpoints(trackPointsUri, false, protocolVersion);
-        readTracks(tracksUri);
-        readWaypoints(waypointsUri, false);
-
         keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
         showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
         showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
         isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+
+        readTrackpoints(trackPointsUri, false, protocolVersion);
+        readTracks(tracksUri);
+        readWaypoints(waypointsUri, false);
     }
 
     private class OpenTracksContentObserver extends ContentObserver {
@@ -575,11 +575,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
             double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
             double averageToMaxSpeed = maxSpeed - average;
-            var colorBySpeed = !update && PreferencesUtils.getColorBySpeed();
+            var colorBySpeed = !isOpenTracksRecordingThisTrack && PreferencesUtils.getColorBySpeed();
 
             for (var trackPoints : segments) {
-                polyline = null; // cut polyline on new segment
                 if (!update) {
+                    polyline = null; // cut polyline on new segment
                     if (tolerance > 0) { // smooth track
                         trackPoints = MapUtils.decimate(tolerance, trackPoints);
                     }
@@ -689,6 +689,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     private Polyline addNewPolyline(int trackColor) {
         polyline = MapUtils.createPolyline(binding.map.mapView, trackColor, strokeWidth);
+        polyline.setDisplayModel(binding.map.mapView.getModel().displayModel);
         polylinesLayer.layers.add(polyline);
         return this.polyline;
     }
