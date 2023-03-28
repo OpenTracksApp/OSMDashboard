@@ -79,4 +79,5 @@
     <string name="tilecache_capacity_factor_info">Określenie współczynnika pojemności TileCache</string>
     <string name="tilecache_capacity_factor">Współczynnik pojemności TileCache</string>
     <string name="overdraw_factor_info">Określanie współczynnika przerysowania mapy</string>
+    <string name="color_by_speed">Kolor zależny od prędkości</string>
 </resources>

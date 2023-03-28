@@ -78,4 +78,5 @@
     <string name="overdraw_factor_info">Definir o factor de sobrescritura do mapa</string>
     <string name="tilecache_capacity_factor_info">Definir a capacidade do factor TileCache</string>
     <string name="tilecache_capacity_factor">Factor de capacidade de TileCache</string>
+    <string name="color_by_speed">Cor por vel.</string>
 </resources>
