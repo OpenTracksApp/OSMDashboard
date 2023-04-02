@@ -12,8 +12,8 @@
     <string name="manual_offline_map_info">Manuel olarak indirilen çevrimdışı haritalar veya diğer uygulamalarla paylaşılan haritalar Android cihazınızdan açılabilir. <b>Harita dizini</b> menüsünde dizini seçin.</string>
     <string name="app_logo_description">Uygulama logosu</string>
     <string name="online_map_consent">Ayarlanmış çevrimdışı harita yok. Lütfen openstreetmap.org adresindeki çevrimiçi haritayı kullanmayı kabul edin. Bu, geçerli konumunuzu sızdırabilir. Kutucuk kullanımı ve gizlilik politikası için https://actions.osmfoundation.org/policies/tiles/ adresine bakın.</string>
-    <string name="download_map">Harita indirme</string>
-    <string name="download_theme">Tema indirme</string>
+    <string name="download_map">Harita indir</string>
+    <string name="download_theme">Tema indir</string>
     <string name="download_instruction">https://ftp-stud.hs-esslingen.de adresinin içeriğini görüntülüyorsunuz.</string>
     <string name="download_map_question">%s haritası indirilsin mi\?</string>
     <string name="download_in_progress">Halihazırda devam eden bir indirme var!</string>
@@ -26,9 +26,9 @@
     <string name="delete_theme_question">\"%s\" teması silinsin mi\?</string>
     <string name="delete_theme_error">Tema silinemedi</string>
     <string name="overwrite_theme_question">\"%s\" teması zaten var! Silinip tekrar indirilsin mi\?</string>
-    <string name="cancel_download_question">Mevcut indirme iptal edilsin mi\?</string>
+    <string name="cancel_download_question">Geçerli indirme iptal edilsin mi\?</string>
     <string name="error_loading_offline_map">Ayarlanmış çevrimdışı harita okunurken hata oluştu</string>
-    <string name="track_smoothing_menu">Parça yumuşatma</string>
+    <string name="track_smoothing_menu">Parça yumuşat</string>
     <string name="track_smoothing_info">Parça yumuşatma algoritması için toleransı metre cinsinden tanımlayın. Parça yumuşatmayı devre dışı bırakmak için 0 girin.
 \nParça yeniden yüklendikten sonra değişiklik yürürlüğe girer.</string>
     <string name="track_smoothing_hint">Metre cinsinden parça yumuşatma toleransı</string>
@@ -38,7 +38,7 @@
     <string name="arrow_mode_compass">Pusula olarak ok</string>
     <string name="map_mode_direction">Haritanın hareket yönü</string>
     <string name="map_mode_compass">Pusula olarak harita</string>
-    <string name="compass_smoothing_menu">Pusula yumuşatma</string>
+    <string name="compass_smoothing_menu">Pusula yumuşat</string>
     <string name="compass_smoothing_info">Daha yüksek değerler gürültüyü azaltır</string>
     <string name="menu_advanced">Gelişmiş</string>
     <string name="no_map_configured">Henüz ayarlanmış bir çevrimdışı haritanız yok.</string>
@@ -67,11 +67,11 @@
     <string name="overwrite_map_question">\"%s\" haritası zaten var! Silinip tekrar indirilsin mi\?</string>
     <string name="arrow_mode_direction">Okun hareket yönü</string>
     <string name="map_mode_north_top">Kuzey haritası üstte</string>
-    <string name="multi_thread_map_rendering">Çok iş parçacıklı harita oluşturma</string>
+    <string name="multi_thread_map_rendering">Çok iş parçacıklı harita oluştur</string>
     <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
     <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
     <string name="error_crash_title">%1$s çöktü</string>
-    <string name="no_browser_available">Tarayıcı mevcut değil</string>
+    <string name="no_browser_available">Kullanılabilir tarayıcı yok</string>
     <string name="bug_report">Hata bildir</string>
     <string name="overdraw_factor">Harita fazla çizim faktörü</string>
     <string name="tilecache_capacity_factor_info">TileCache kapasite faktörünü tanımlayın</string>
@@ -79,4 +79,5 @@
     <string name="purge_tilecache">TileCache\'i temizle</string>
     <string name="persistent_tilecache">Kalıcı TileCache</string>
     <string name="overdraw_factor_info">Harita fazla çizim faktörünü tanımlayın</string>
+    <string name="color_by_speed">Hıza göre renklendir</string>
 </resources>
