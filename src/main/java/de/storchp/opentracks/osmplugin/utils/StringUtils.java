@@ -1,5 +1,7 @@
 package de.storchp.opentracks.osmplugin.utils;
 
+import static de.storchp.opentracks.osmplugin.utils.UnitConversions.MS_TO_KMH;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -18,28 +20,32 @@ public class StringUtils {
     }
 
     /**
-     * Formats the elapsed timed in the form "MM:SS" or "H:MM:SS".
+     * Formats the elapsed time in the form "H:MM".
      */
-    public static String formatElapsedTime(int seconds) {
-        return DateUtils.formatElapsedTime(seconds);
+    public static String formatElapsedTimeHoursMinutes(int millis) {
+        var value = DateUtils.formatElapsedTime(millis / 1000);
+        value = value.substring(0, value.lastIndexOf(':'));
+        return TextUtils.split(value, ":").length == 1 ? "0:" + value : value;
     }
 
-    /**
-     * Formats the elapsed time in the form "H:MM:SS".
-     */
-    public static String formatElapsedTimeWithHour(int millis) {
-        String value = formatElapsedTime(millis/1000);
-        return TextUtils.split(value, ":").length == 2 ? "0:" + value : value;
-    }
-
-    /**
-     * Formats the distance in meters.
-     *
-     * @param context     the context
-     * @param distanceMeter    the distance
-     */
-    public static String formatDistance(Context context, float distanceMeter) {
+    public static String formatDistanceInKm(Context context, float distanceMeter) {
         return context.getString(R.string.distance_with_unit, formatDecimal(distanceMeter / 1000), context.getString(R.string.unit_kilometer));
+    }
+
+    public static String formatSpeedInKmPerHour(Context context, float meterPerSeconds) {
+        return context.getString(R.string.distance_with_unit, formatDecimal(meterPerSeconds * MS_TO_KMH), context.getString(R.string.unit_kilometer_per_hour));
+    }
+
+    public static String formatPaceMinPerKm(Context context, float meterPerSeconds) {
+        if (meterPerSeconds == 0) {
+            return "0:00";
+        }
+        float kmPerSecond = meterPerSeconds / 1000;
+        int secondsPerKm = (int)(1 / kmPerSecond);
+        int minutes = secondsPerKm / 60;
+        int seconds = secondsPerKm % 60;
+
+        return context.getString(R.string.distance_with_unit, context.getString(R.string.time, minutes, seconds), context.getString(R.string.unit_minute_per_kilometer));
     }
 
     private static String formatDecimal(double value) {

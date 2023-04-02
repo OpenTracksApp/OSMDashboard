@@ -19,6 +19,13 @@ import de.storchp.opentracks.osmplugin.R;
 public class PreferencesUtils {
 
     private final static String TAG = PreferencesUtils.class.getSimpleName();
+    private static final Set<String> DEFAULT_STATISTIC_ELEMENTS = Set.of(
+            StatisticElement.CATEGORY.name(),
+            StatisticElement.TOTAL_TIME.name(),
+            StatisticElement.DISTANCE.name(),
+            StatisticElement.ELEVATION_GAIN_METER.name(),
+            StatisticElement.PACE_MIN_KM.name());
+
     private static SharedPreferences sharedPrefs;
     private static Resources mRes;
 
@@ -134,6 +141,10 @@ public class PreferencesUtils {
                 .apply();
     }
 
+    private static Set<String> getStringSet(int keyId, Set<String> defaultValue) {
+        return sharedPrefs.getStringSet(getKey(keyId), defaultValue);
+    }
+
     private static boolean getBoolean(int keyId, boolean defaultValue) {
         return sharedPrefs.getBoolean(getKey(keyId), defaultValue);
     }
@@ -242,6 +253,14 @@ public class PreferencesUtils {
 
     public static void setTileCacheCapacityFactor(float tileCacheCapacityFactor) {
         setFloat(R.string.MAP_TILE_CACHE_CAPACITY_FACTOR, tileCacheCapacityFactor);
+    }
+
+    public static void setStatisticElements(Set<StatisticElement> statisticElements) {
+        setStringSet(R.string.STATISTIC_ELEMENTS, statisticElements.stream().map(StatisticElement::name).collect(Collectors.toSet()));
+    }
+
+    public static Set<StatisticElement> getStatisticElements() {
+        return getStringSet(R.string.STATISTIC_ELEMENTS, DEFAULT_STATISTIC_ELEMENTS).stream().map(StatisticElement::valueOf).collect(Collectors.toSet());
     }
 
 }

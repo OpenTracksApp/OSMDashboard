@@ -19,6 +19,7 @@
     <string name="MAP_PERSISTENT_TILECACHE" translatable="false">APP_PREF_MAP_PERSISTENT_TILECACHE</string>
     <string name="MAP_OVERDRAW_FACTOR" translatable="false">APP_PREF_MAP_OVERDRAW_FACTOR</string>
     <string name="MAP_TILE_CACHE_CAPACITY_FACTOR" translatable="false">APP_MAP_TILE_CACHE_CAPACITY_FACTOR</string>
+    <string name="STATISTIC_ELEMENTS" translatable="false">APP_PREF_STATISTIC_ELEMENTS</string>
     <string name="osm_mapnik" translatable="false">OSM: Mapnik</string>
     <string name="offline_maps" translatable="false"><b>- <a href="http://download.mapsforge.org/">Mapsforge</a></b>
         \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
@@ -26,6 +27,7 @@
 
     <string name="distance_with_unit" translatable="false">%1$s %2$s</string>
     <string name="altitude_with_unit" translatable="false">%1$s %2$s</string>
+    <string name="time" translatable="false">%1$d:%2$02d</string>
 
     <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
 

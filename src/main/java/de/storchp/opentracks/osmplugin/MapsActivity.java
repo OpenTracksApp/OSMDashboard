@@ -86,6 +86,7 @@ import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.StatisticElement;
 import de.storchp.opentracks.osmplugin.utils.StringUtils;
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 
@@ -740,10 +741,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         var tracks = Track.readTracks(getContentResolver(), data);
         if (!tracks.isEmpty()) {
             var statistics = new TrackStatistics(tracks);
-            addStatisticElement(statistics.getCategory());
-            addStatisticElement(StringUtils.formatElapsedTimeWithHour(statistics.getTotalTimeMillis()));
-            addStatisticElement(StringUtils.formatDistance(this, statistics.getTotalDistanceMeter()));
-            addStatisticElement(StringUtils.formatAltitudeChange(this, statistics.getElevationGainMeter()));
+            PreferencesUtils.getStatisticElements().forEach(se -> addStatisticElement(se.getText(this, statistics)));
         }
     }
 

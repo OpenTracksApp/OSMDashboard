@@ -63,9 +63,15 @@
     <string name="no_file_manager_found">No file manager found</string>
     <string name="error_reg_content_observer">Error on registering OpenTracksContentObserver</string>
 
-    <string name="unit_meter">m</string>
-    <string name="unit_kilometer">km</string>
     <string name="unit_feet">ft</string>
+    <string name="unit_kilometer">km</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="unit_meter">m</string>
+    <string name="unit_mile">mi</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+
     <string name="share">Share</string>
     <string name="toggle_full_screen_mode">Toggle fullscreen mode</string>
     <string name="zoom_in">Zoom in</string>
