@@ -1,135 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainView"
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
 
-        <org.mapsforge.map.android.rotation.RotateView
-            android:id="@+id/rotateView"
+    <org.mapsforge.map.android.rotation.RotateView
+        android:id="@+id/rotateView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <de.storchp.opentracks.osmplugin.maps.MapsforgeMapView
+            android:id="@+id/mapView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true" />
 
-                <de.storchp.opentracks.osmplugin.maps.MapsforgeMapView
-                    android:id="@+id/mapView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"/>
+    </org.mapsforge.map.android.rotation.RotateView>
 
-        </org.mapsforge.map.android.rotation.RotateView>
+    <TextView
+        android:id="@+id/share_picture_title"
+        android:layout_width="match_parent"
+        android:layout_height="20pt"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="16pt"
+        tools:text="OpenTracks" />
 
-        <TextView
-            android:id="@+id/share_picture_title"
-            android:layout_width="match_parent"
-            android:layout_height="20pt"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="16pt"
-            tools:text="OpenTracks" />
+    <LinearLayout
+        android:id="@+id/controls"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/statistics_layout"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp">
 
-        <LinearLayout
-            android:id="@+id/controls"
-            android:orientation="vertical"
+        <ImageButton
+            android:id="@+id/fullscreenButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@id/statistics"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            >
-                <ImageButton
-                    android:id="@+id/fullscreenButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_baseline_fullscreen_48"
-                    android:contentDescription="@string/toggle_full_screen_mode" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_fullscreen_48"
+            android:contentDescription="@string/toggle_full_screen_mode" />
 
-                <ImageButton
-                    android:id="@+id/zoomInButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_baseline_zoom_in_48"
-                    android:contentDescription="@string/zoom_in" />
+        <ImageButton
+            android:id="@+id/zoomInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_zoom_in_48"
+            android:contentDescription="@string/zoom_in" />
 
-                <ImageButton
-                    android:id="@+id/zoomOutButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_baseline_zoom_out_48"
-                    android:contentDescription="@string/zoom_out" />
+        <ImageButton
+            android:id="@+id/zoomOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_zoom_out_48"
+            android:contentDescription="@string/zoom_out" />
 
-        </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/statistics_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/attribution"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/statistics"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="20dp"
-            android:layout_above="@+id/attribution"
-            >
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
-                    tools:text="CATEGORY" />
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:flow_wrapMode="chain">
 
-                <TextView
-                    android:id="@+id/total_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
-                    tools:text="00:10:10" />
+        </androidx.constraintlayout.helper.widget.Flow>
 
-                <TextView
-                    android:id="@+id/total_distance"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
-                    tools:text="135km" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/gain"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
-                    tools:text="214m" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/attribution"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rotateView"
-            android:layout_marginBottom="@dimen/attribution_margin"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/copyright_osm"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/attribution_size" />
+    <TextView
+        android:id="@+id/attribution"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rotateView"
+        android:layout_marginBottom="@dimen/attribution_margin"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/copyright_osm"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/attribution_size" />
 
 </RelativeLayout>

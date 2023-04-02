@@ -117,12 +117,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private int trackColor;
     private Polyline polyline;
     private RotatableMarker endMarker = null;
-
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
     private boolean fullscreenMode = false;
-
     private Compass compass;
     private MovementDirection movementDirection = new MovementDirection();
     private ArrowMode arrowMode;
