@@ -1,6 +1,8 @@
 package de.storchp.opentracks.osmplugin;
 
 
+import static android.util.TypedValue.COMPLEX_UNIT_PT;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -9,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -83,46 +86,37 @@ import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.StatisticElement;
 import de.storchp.opentracks.osmplugin.utils.StringUtils;
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 
 public class MapsActivity extends BaseActivity implements SensorListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
-
     public static final String EXTRA_MARKER_ID = "marker_id";
-
     private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
-
     private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
     private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
     private static final String EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN";
-
     private boolean isOpenTracksRecordingThisTrack;
-
     private ActivityMapsBinding binding;
-
     private Layer tileLayer;
     private TileCache tileCache;
-
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
     private GroupLayer waypointsLayer;
-
     private long lastWaypointId = 0;
     private long lastTrackPointId = 0;
     private long lastTrackId = 0;
     private int trackColor;
     private Polyline polyline;
     private RotatableMarker endMarker = null;
-
     private StyleColorCreator colorCreator = null;
     private LatLong startPos;
     private LatLong endPos;
     private boolean fullscreenMode = false;
-
     private Compass compass;
     private MovementDirection movementDirection = new MovementDirection();
     private ArrowMode arrowMode;
@@ -747,11 +741,19 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         var tracks = Track.readTracks(getContentResolver(), data);
         if (!tracks.isEmpty()) {
             var statistics = new TrackStatistics(tracks);
-            binding.map.category.setText(statistics.getCategory());
-            binding.map.totalTime.setText(StringUtils.formatElapsedTimeWithHour(statistics.getTotalTimeMillis()));
-            binding.map.totalDistance.setText(StringUtils.formatDistance(this, statistics.getTotalDistanceMeter()));
-            binding.map.gain.setText(StringUtils.formatAltitudeChange(this, statistics.getElevationGainMeter()));
+            PreferencesUtils.getStatisticElements().forEach(se -> addStatisticElement(se.getText(this, statistics)));
         }
+    }
+
+    private void addStatisticElement(String text) {
+        var textView = new TextView(this);
+        textView.setId(View.generateViewId());
+        textView.setText(text);
+        textView.setTextColor(getColor(R.color.track_statistic));
+        textView.setTextSize(COMPLEX_UNIT_PT, 10);
+        textView.setTypeface(Typeface.DEFAULT_BOLD);
+        binding.map.statisticsLayout.addView(textView);
+        binding.map.statistics.addView(textView);
     }
 
     @Override
