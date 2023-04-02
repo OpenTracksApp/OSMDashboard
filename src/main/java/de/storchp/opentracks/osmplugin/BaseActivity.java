@@ -2,12 +2,14 @@ package de.storchp.opentracks.osmplugin;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +24,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.OverdrawFactorDialogBinding;
@@ -32,6 +37,7 @@ import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+import de.storchp.opentracks.osmplugin.utils.StatisticElement;
 
 abstract class BaseActivity extends AppCompatActivity {
 
@@ -86,6 +92,8 @@ abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.color_by_speed) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setColorBySpeed(item.isChecked());
+        } else if (itemId == R.id.configure_statistic) {
+            showConfigureStatisticDialog();
         } else if (itemId == R.id.track_smoothing) {
             showTrackSmoothingDialog();
         } else if (itemId == R.id.compass_smoothing) {
@@ -130,6 +138,30 @@ abstract class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showConfigureStatisticDialog() {
+        var availableStatisticElements = StatisticElement.values();
+        var selectedStatisticElements = PreferencesUtils.getStatisticElements();
+        var selected = new boolean[availableStatisticElements.length];
+        for (int i = 0; i < selected.length; i++) {
+            selected[i] = selectedStatisticElements.contains(availableStatisticElements[i]);
+        }
+
+        new android.app.AlertDialog.Builder(this)
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(R.string.configure_statistic)
+                .setMultiChoiceItems(Arrays.stream(availableStatisticElements).map(se -> getString(se.getLabelResId())).toArray(String[]::new),
+                        selected,
+                        (dialog, which, isChecked) -> {
+                    if (isChecked) {
+                        selectedStatisticElements.add(availableStatisticElements[which]);
+                    } else {
+                        selectedStatisticElements.remove(availableStatisticElements[which]);
+                    }
+                    PreferencesUtils.setStatisticElements(selectedStatisticElements);
+                })
+                .create().show();
     }
 
     protected abstract void changeMapMode(MapMode mapMode);

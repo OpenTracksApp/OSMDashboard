@@ -23,9 +23,7 @@ public class StringUtils {
      * Formats the elapsed time in the form "H:MM".
      */
     public static String formatElapsedTimeHoursMinutes(int millis) {
-        var value = DateUtils.formatElapsedTime(millis / 1000);
-        value = value.substring(0, value.lastIndexOf(':'));
-        return TextUtils.split(value, ":").length == 1 ? "0:" + value : value;
+        return DateUtils.formatElapsedTime(millis / 1000);
     }
 
     public static String formatDistanceInKm(Context context, float distanceMeter) {

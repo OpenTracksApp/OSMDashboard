@@ -40,6 +40,10 @@
         android:title="@string/color_by_speed"/>
 
     <item
+        android:id="@+id/configure_statistic"
+        android:title="@string/configure_statistic"/>
+
+    <item
         android:id="@+id/submenu_advanced"
         android:title="@string/menu_advanced">
         <menu>

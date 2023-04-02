@@ -21,9 +21,8 @@ public class PreferencesUtils {
     private final static String TAG = PreferencesUtils.class.getSimpleName();
     private static final Set<String> DEFAULT_STATISTIC_ELEMENTS = Set.of(
             StatisticElement.CATEGORY.name(),
-            StatisticElement.TOTAL_TIME.name(),
+            StatisticElement.MOVING_TIME.name(),
             StatisticElement.DISTANCE.name(),
-            StatisticElement.ELEVATION_GAIN_METER.name(),
             StatisticElement.PACE_MIN_KM.name());
 
     private static SharedPreferences sharedPrefs;
