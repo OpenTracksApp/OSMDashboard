@@ -22,7 +22,7 @@ public class PreferencesUtils {
     private static final Set<String> DEFAULT_STATISTIC_ELEMENTS = Set.of(
             StatisticElement.CATEGORY.name(),
             StatisticElement.MOVING_TIME.name(),
-            StatisticElement.DISTANCE.name(),
+            StatisticElement.DISTANCE_KM.name(),
             StatisticElement.PACE_MIN_KM.name());
 
     private static SharedPreferences sharedPrefs;
@@ -259,7 +259,10 @@ public class PreferencesUtils {
     }
 
     public static Set<StatisticElement> getStatisticElements() {
-        return getStringSet(R.string.STATISTIC_ELEMENTS, DEFAULT_STATISTIC_ELEMENTS).stream().map(StatisticElement::valueOf).collect(Collectors.toSet());
+        return getStringSet(R.string.STATISTIC_ELEMENTS, DEFAULT_STATISTIC_ELEMENTS).stream()
+                .map(StatisticElement::of)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
 }

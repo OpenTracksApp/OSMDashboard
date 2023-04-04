@@ -161,6 +161,7 @@ abstract class BaseActivity extends AppCompatActivity {
                     }
                     PreferencesUtils.setStatisticElements(selectedStatisticElements);
                 })
+                .setOnDismissListener(dialog -> this.recreate())
                 .create().show();
     }
 
@@ -187,6 +188,7 @@ abstract class BaseActivity extends AppCompatActivity {
             if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
                 PreferencesUtils.setTrackSmoothingTolerance(Integer.parseInt(newTolerance));
                 alertDialog.dismiss();
+                this.recreate();
             } else {
                 Toast.makeText(BaseActivity.this, R.string.only_digits, Toast.LENGTH_LONG).show();
             }
@@ -364,6 +366,7 @@ abstract class BaseActivity extends AppCompatActivity {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             PreferencesUtils.setStrokeWidth(binding.sbStrokeWidth.getProgress());
             alertDialog.dismiss();
+            this.recreate();
         });
     }
 

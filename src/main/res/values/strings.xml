@@ -93,5 +93,9 @@
     <string name="elevation_meter">Elevation gain in meter</string>
     <string name="speed_km_h">Speed in km/h</string>
     <string name="pace_min_km">Pace in min/km</string>
+    <string name="speed_mi_h">Speed in mi/h</string>
+    <string name="pace_min_mi">Pace in min/mi</string>
+    <string name="elevation_feet">Elevation gain in feet</string>
+    <string name="distance_mi">Distance in miles</string>
 
 </resources>

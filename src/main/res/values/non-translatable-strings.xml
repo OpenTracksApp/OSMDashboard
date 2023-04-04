@@ -25,9 +25,11 @@
         \n<b>- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a></b>
         \n<b>- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a></b></string>
 
-    <string name="distance_with_unit" translatable="false">%1$s %2$s</string>
-    <string name="altitude_with_unit" translatable="false">%1$s %2$s</string>
-    <string name="time" translatable="false">%1$d:%2$02d</string>
+    <string name="stat_distance_with_unit" translatable="false"><![CDATA[<b>%1$s</b> <small>%2$s</small>]]></string>
+    <string name="stat_altitude_with_unit" translatable="false"><![CDATA[<b>%1$s</b> <small>%2$s</small>]]></string>
+    <string name="stat_minute_seconds" translatable="false"><![CDATA[<b>%1$d:%2$02d</b>]]></string>
+    <string name="stat_category" translatable="false"><![CDATA[<b>%1$s</b>]]></string>
+    <string name="stat_time" translatable="false"><![CDATA[<b>%1$s</b>]]></string>
 
     <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
 

@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -748,10 +749,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void addStatisticElement(String text) {
         var textView = new TextView(this);
         textView.setId(View.generateViewId());
-        textView.setText(text);
+        textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
         textView.setTextColor(getColor(R.color.track_statistic));
         textView.setTextSize(COMPLEX_UNIT_PT, 10);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
         binding.map.statisticsLayout.addView(textView);
         binding.map.statistics.addView(textView);
     }
