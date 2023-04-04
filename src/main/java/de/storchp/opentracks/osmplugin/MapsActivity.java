@@ -866,7 +866,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void rotateMap() {
         float mapHeading = mapMode.getHeading(movementDirection, compass);
         if (Math.abs(currentMapHeading - mapHeading) > 1) {
-            // only rotate map if it is at lease on degree different than before
+            // only rotate map if it is at lease one degree different than before
             Log.d(TAG, "CurrentMapHeading=" + currentMapHeading + ", mapHeading=" + mapHeading);
             binding.map.rotateView.setHeading(mapHeading);
             binding.map.rotateView.postInvalidate();
