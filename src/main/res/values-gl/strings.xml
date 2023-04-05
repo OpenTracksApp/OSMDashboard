@@ -92,4 +92,8 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="elevation_meter">Desnivel positivo en metros</string>
     <string name="speed_km_h">Velocidade en km/h</string>
+    <string name="elevation_feet">Desnivel positivo en pés</string>
+    <string name="distance_mi">Distancia en millas</string>
+    <string name="speed_mi_h">Velocidade en mi/h</string>
+    <string name="pace_min_mi">Ritmo en min/mi</string>
 </resources>
