@@ -92,6 +92,7 @@ abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.color_by_speed) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setColorBySpeed(item.isChecked());
+            this.recreate();
         } else if (itemId == R.id.configure_statistic) {
             showConfigureStatisticDialog();
         } else if (itemId == R.id.track_smoothing) {
