@@ -542,118 +542,120 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
         Log.i(TAG, "Loading trackpoints from " + data);
 
-        var layers = binding.map.mapView.getLayerManager().getLayers();
-        if (!update) { // reset data
-            if (polylinesLayer != null) {
-                layers.remove(polylinesLayer);
+        synchronized (binding.map.mapView.getLayerManager().getLayers()) {
+            var layers = binding.map.mapView.getLayerManager().getLayers();
+            if (!update) { // reset data
+                if (polylinesLayer != null) {
+                    layers.remove(polylinesLayer);
+                }
+                polylinesLayer = new GroupLayer();
+                lastTrackId = 0;
+                lastTrackPointId = 0;
+                colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
+                trackColor = colorCreator.nextColor();
+                polyline = null;
+                startPos = null;
+                endPos = null;
+                endMarker = null;
+                boundingBox = null;
+                movementDirection = new MovementDirection();
             }
-            polylinesLayer = new GroupLayer();
-            lastTrackId = 0;
-            lastTrackPointId = 0;
-            colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
-            trackColor = colorCreator.nextColor();
-            polyline = null;
-            startPos = null;
-            endPos = null;
-            endMarker = null;
-            boundingBox = null;
-            movementDirection = new MovementDirection();
-        }
 
-        var latLongs = new ArrayList<LatLong>();
-        int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
+            var latLongs = new ArrayList<LatLong>();
+            int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
-        try {
-            var segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
-            if (segments.isEmpty()) {
-                Log.d(TAG, "No new trackpoints received");
+            try {
+                var segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
+                if (segments.isEmpty()) {
+                    Log.d(TAG, "No new trackpoints received");
+                    return;
+                }
+
+                double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
+                double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
+                double averageToMaxSpeed = maxSpeed - average;
+                var colorBySpeed = !isOpenTracksRecordingThisTrack && PreferencesUtils.getColorBySpeed();
+
+                for (var trackPoints : segments) {
+                    if (!update) {
+                        polyline = null; // cut polyline on new segment
+                        if (tolerance > 0) { // smooth track
+                            trackPoints = MapUtils.decimate(tolerance, trackPoints);
+                        }
+                    }
+                    for (var trackPoint : trackPoints) {
+                        lastTrackPointId = trackPoint.getTrackPointId();
+
+                        if (trackPoint.getTrackId() != lastTrackId) {
+                            trackColor = colorCreator.nextColor();
+                            lastTrackId = trackPoint.getTrackId();
+                            polyline = null; // reset current polyline when trackId changes
+                            startPos = null;
+                            endPos = null;
+                        }
+
+                        if (colorBySpeed) {
+                            trackColor = getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
+                            polyline = addNewPolyline(trackColor);
+                            if (endPos != null) {
+                                polyline.addPoint(endPos);
+                            } else if (startPos != null) {
+                                polyline.addPoint(startPos);
+                            }
+                        } else {
+                            if (polyline == null) {
+                                Log.d(TAG, "Continue new segment.");
+                                polyline = addNewPolyline(trackColor);
+                            }
+                        }
+
+                        endPos = trackPoint.getLatLong();
+                        polyline.addPoint(endPos);
+                        movementDirection.updatePos(endPos);
+
+                        if (!update) {
+                            latLongs.add(endPos);
+                        }
+
+                        if (startPos == null) {
+                            startPos = endPos;
+                        }
+                    }
+                }
+            } catch (SecurityException e) {
+                Log.w(TAG, "No permission to read trackpoints");
+                return;
+            } catch (Exception e) {
+                Log.e(TAG, "Reading trackpoints failed", e);
                 return;
             }
 
-            double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
-            double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
-            double averageToMaxSpeed = maxSpeed - average;
-            var colorBySpeed = !isOpenTracksRecordingThisTrack && PreferencesUtils.getColorBySpeed();
+            Log.d(TAG, "Last trackpointId=" + lastTrackPointId);
 
-            for (var trackPoints : segments) {
-                if (!update) {
-                    polyline = null; // cut polyline on new segment
-                    if (tolerance > 0) { // smooth track
-                        trackPoints = MapUtils.decimate(tolerance, trackPoints);
-                    }
+            if (endPos != null) {
+                setEndMarker(endPos);
+            }
+
+            LatLong myPos = null;
+            if (update && endPos != null) {
+                myPos = endPos;
+            } else if (!latLongs.isEmpty()) {
+                boundingBox = new BoundingBox(latLongs);
+                myPos = boundingBox.getCenterPoint();
+            }
+
+            if (myPos != null) {
+                if (update) {
+                    binding.map.mapView.getModel().mapViewPosition.animateTo(myPos);
+                } else {
+                    binding.map.mapView.setCenter(myPos);
                 }
-                for (var trackPoint : trackPoints) {
-                    lastTrackPointId = trackPoint.getTrackPointId();
-
-                    if (trackPoint.getTrackId() != lastTrackId) {
-                        trackColor = colorCreator.nextColor();
-                        lastTrackId = trackPoint.getTrackId();
-                        polyline = null; // reset current polyline when trackId changes
-                        startPos = null;
-                        endPos = null;
-                    }
-
-                    if (colorBySpeed) {
-                        trackColor = getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
-                        polyline = addNewPolyline(trackColor);
-                        if (endPos != null) {
-                            polyline.addPoint(endPos);
-                        } else if (startPos != null) {
-                            polyline.addPoint(startPos);
-                        }
-                    } else {
-                        if (polyline == null) {
-                            Log.d(TAG, "Continue new segment.");
-                            polyline = addNewPolyline(trackColor);
-                        }
-                    }
-
-                    endPos = trackPoint.getLatLong();
-                    polyline.addPoint(endPos);
-                    movementDirection.updatePos(endPos);
-
-                    if (!update) {
-                        latLongs.add(endPos);
-                    }
-
-                    if (startPos == null) {
-                        startPos = endPos;
-                    }
+                if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
+                    layers.add(polylinesLayer);
                 }
+            } else if (!update) {
+                Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
             }
-        } catch (SecurityException e) {
-            Log.w(TAG, "No permission to read trackpoints");
-            return;
-        } catch (Exception e) {
-            Log.e(TAG, "Reading trackpoints failed", e);
-            return;
-        }
-
-        Log.d(TAG, "Last trackpointId=" + lastTrackPointId);
-
-        if (endPos != null) {
-            setEndMarker(endPos);
-        }
-
-        LatLong myPos = null;
-        if (update && endPos != null) {
-            myPos = endPos;
-        } else if (!latLongs.isEmpty()) {
-            boundingBox = new BoundingBox(latLongs);
-            myPos = boundingBox.getCenterPoint();
-        }
-
-        if (myPos != null) {
-            if (update) {
-                binding.map.mapView.getModel().mapViewPosition.animateTo(myPos);
-            } else {
-                binding.map.mapView.setCenter(myPos);
-            }
-            if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
-                layers.add(polylinesLayer);
-            }
-        } else if (!update) {
-            Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
         }
     }
 
