@@ -742,8 +742,23 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         var tracks = Track.readTracks(getContentResolver(), data);
         if (!tracks.isEmpty()) {
             var statistics = new TrackStatistics(tracks);
+            removeStatisticElements();
             PreferencesUtils.getStatisticElements().forEach(se -> addStatisticElement(se.getText(this, statistics)));
         }
+    }
+
+    private void removeStatisticElements() {
+        var childsToRemove = new ArrayList<View>();
+        for (int i = 0; i < binding.map.statisticsLayout.getChildCount(); i++) {
+            var childView = binding.map.statisticsLayout.getChildAt(i);
+            if (childView instanceof TextView) {
+                childsToRemove.add(childView);
+            }
+        }
+        childsToRemove.forEach((view -> {
+            binding.map.statisticsLayout.removeView(view);
+            binding.map.statistics.removeView(view);
+        }));
     }
 
     private void addStatisticElement(String text) {
