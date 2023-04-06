@@ -35,18 +35,6 @@ public enum StatisticElement {
             return StringUtils.formatDistanceInMi(context, statistics.getTotalDistanceMeter());
         }
     },
-    ELEVATION_GAIN_METER(R.string.elevation_meter) {
-        @Override
-        public String getText(Context context, TrackStatistics statistics) {
-            return StringUtils.formatAltitudeChangeInMeter(context, statistics.getElevationGainMeter());
-        }
-    },
-    ELEVATION_GAIN_FEET(R.string.elevation_feet) {
-        @Override
-        public String getText(Context context, TrackStatistics statistics) {
-            return StringUtils.formatAltitudeChangeInFeet(context, statistics.getElevationGainMeter());
-        }
-    },
     SPEED_KM_H(R.string.speed_km_h) {
         @Override
         public String getText(Context context, TrackStatistics statistics) {
@@ -69,6 +57,18 @@ public enum StatisticElement {
         @Override
         public String getText(Context context, TrackStatistics statistics) {
             return StringUtils.formatPaceMinPerMi(context, statistics.getAvgMovingSpeedMeterPerSecond());
+        }
+    },
+    ELEVATION_GAIN_METER(R.string.elevation_meter) {
+        @Override
+        public String getText(Context context, TrackStatistics statistics) {
+            return StringUtils.formatAltitudeChangeInMeter(context, statistics.getElevationGainMeter());
+        }
+    },
+    ELEVATION_GAIN_FEET(R.string.elevation_feet) {
+        @Override
+        public String getText(Context context, TrackStatistics statistics) {
+            return StringUtils.formatAltitudeChangeInFeet(context, statistics.getElevationGainMeter());
         }
     };
 

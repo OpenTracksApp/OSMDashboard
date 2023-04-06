@@ -3,6 +3,8 @@ package de.storchp.opentracks.osmplugin;
 
 import static android.util.TypedValue.COMPLEX_UNIT_PT;
 
+import static java.util.Comparator.comparingInt;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -67,6 +69,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -743,7 +746,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         if (!tracks.isEmpty()) {
             var statistics = new TrackStatistics(tracks);
             removeStatisticElements();
-            PreferencesUtils.getStatisticElements().forEach(se -> addStatisticElement(se.getText(this, statistics)));
+            PreferencesUtils.getStatisticElements()
+                    .stream()
+                    .sorted(comparingInt(StatisticElement::ordinal))
+                    .forEach(se -> addStatisticElement(se.getText(this, statistics)));
         }
     }
 
