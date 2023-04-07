@@ -97,6 +97,12 @@
             android:text="@string/manual_offline_map_info"/>
 
         <TextView
+            android:id="@+id/version_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp" />
+
+        <TextView
             android:id="@+id/extra_map_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

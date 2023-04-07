@@ -97,5 +97,6 @@
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="elevation_feet">Elevation gain in feet</string>
     <string name="distance_mi">Distance in miles</string>
+    <string name="version_info"><![CDATA[<b>Version:</b> %s - %s (%d)]]></string>
 
 </resources>

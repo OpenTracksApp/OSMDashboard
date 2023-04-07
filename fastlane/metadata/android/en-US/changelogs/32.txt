@@ -1,3 +1,5 @@
 - New: color by speed
+- New: configurable statistic overlay
+- New: version information in about screen
 - Updated translations
 - Updated dependencies
