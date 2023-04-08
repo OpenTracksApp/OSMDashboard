@@ -1,0 +1,5 @@
+- Neu: Track einfärben nach Geschwindigkeit
+- Neu: konfigurierbare Statistik
+- New: Versionsinformationen auf der "Über"-Seite
+- Aktualisierte Übersetzungen
+- Aktualisierte Abhängigkeiten
