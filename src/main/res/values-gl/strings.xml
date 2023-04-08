@@ -96,4 +96,5 @@
     <string name="distance_mi">Distancia en millas</string>
     <string name="speed_mi_h">Velocidade en mi/h</string>
     <string name="pace_min_mi">Ritmo en min/mi</string>
+    <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
 </resources>
