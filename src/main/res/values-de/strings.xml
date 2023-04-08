@@ -77,4 +77,23 @@
     <string name="overdraw_factor">Überzeichnungsfaktor der Karte</string>
     <string name="tilecache_capacity_factor_info">Definiere den TileCache-Nutzungsgrad</string>
     <string name="tilecache_capacity_factor">TileCache-Nutzungsgrad</string>
+    <string name="color_by_speed">Nach Geschwindigkeit einfärben</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="configure_statistic">Statistik konfigurieren</string>
+    <string name="category">Kategorie</string>
+    <string name="total_time">Gesamtzeit</string>
+    <string name="moving_time">Zeit in Bewegung</string>
+    <string name="distance_km">Entfernung in km</string>
+    <string name="speed_km_h">Geschwindigkeit in km/h</string>
+    <string name="pace_min_km">Tempo in min/km</string>
+    <string name="speed_mi_h">Geschwindigkeit in Meilen/h</string>
+    <string name="elevation_feet">Höhendifferenz in Fuß</string>
+    <string name="distance_mi">Distanz in Meilen</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="unit_mile">mi</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="elevation_meter">Höhendifferenz in m</string>
+    <string name="pace_min_mi">Tempo in min/Meile</string>
+    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
 </resources>
