@@ -79,4 +79,22 @@
     <string name="tilecache_capacity_factor">Fator de capacidade TileCache</string>
     <string name="persistent_tilecache">Cache de Telha Persistente</string>
     <string name="purge_tilecache">TileCache de purga</string>
+    <string name="color_by_speed">cor por velocidade</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="unit_mile">mi</string>
+    <string name="unit_mile_per_hour">mi/h</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="configure_statistic">Configurar estatísticas</string>
+    <string name="category">Categoria</string>
+    <string name="total_time">Total de tempo</string>
+    <string name="moving_time">Tempo em movimento</string>
+    <string name="distance_km">Distância em km</string>
+    <string name="elevation_meter">Ganho de elevação em metros</string>
+    <string name="speed_km_h">Velocidade em km/h</string>
+    <string name="pace_min_mi">Pace em min/mi</string>
+    <string name="elevation_feet">Ganho de elevação em pés</string>
+    <string name="distance_mi">Distância em milhas</string>
+    <string name="pace_min_km">Pace em min/km</string>
+    <string name="speed_mi_h">Velocidade em mi/h</string>
 </resources>
