@@ -79,4 +79,16 @@
     <string name="overdraw_factor">Faktor for å tegne over kart</string>
     <string name="tilecache_capacity_factor_info">Bestem kapasitetsfaktor for TileCache</string>
     <string name="tilecache_capacity_factor">Kapasitetsfaktor for TileCache</string>
+    <string name="color_by_speed">Farge etter hastighet</string>
+    <string name="category">Kategori</string>
+    <string name="total_time">Total tid</string>
+    <string name="moving_time">Forflytningstid</string>
+    <string name="distance_km">Distanse i km</string>
+    <string name="speed_km_h">Hastighet i km/t</string>
+    <string name="pace_min_km">Tempo i min/km</string>
+    <string name="version_info"><b>Versjon:</b> %s - %s (%d)</string>
+    <string name="unit_kilometer_per_hour">km/t</string>
+    <string name="configure_statistic">Still inn statistikk</string>
+    <string name="elevation_meter">Total stigning i meter</string>
+    <string name="elevation_feet">Total stigning i fot</string>
 </resources>
