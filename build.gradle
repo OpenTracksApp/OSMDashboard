@@ -85,12 +85,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions {
-        disable 'MissingTranslation'
-    }
     buildFeatures {
         viewBinding true
     }
+    lint {
+        disable 'MissingTranslation'
+    }
+    namespace 'de.storchp.opentracks.osmplugin'
     applicationVariants.all { variant ->
         variant.resValue "string", "applicationId", variant.applicationId
 
