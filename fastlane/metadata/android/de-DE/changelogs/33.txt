@@ -1,0 +1,3 @@
+- Upgrade auf AGP 8.0 und Java 17
+- Abhängigkeiten aktualisiert
+- Übersetzungen aktualisiert

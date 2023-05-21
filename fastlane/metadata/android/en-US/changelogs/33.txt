@@ -1,1 +1,3 @@
 - Upgrade to AGP 8.0 and Java 17
+- Update dependencies
+- Updated translations
