@@ -1,7 +1,7 @@
 package de.storchp.opentracks.osmplugin.compass;
 
 /**
- * Derived from https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/domain/Vector3.kt
+ * Derived from <a href="https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/domain/Vector3.kt">...</a>
  */
 public class Vector3 {
 

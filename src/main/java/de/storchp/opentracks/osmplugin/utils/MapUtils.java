@@ -21,8 +21,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 
 /**
  * Utility class for decimating tracks at a given level of precision.
- *
- * Derived from: https://github.com/OpenTracksApp/OpenTracks/blob/23f47f10f8cd0f8b30bd6fcdccb1987008eaa07e/src/main/java/de/dennisguse/opentracks/util/LocationUtils.java
+ * Derived from: <a href="https://github.com/OpenTracksApp/OpenTracks/blob/23f47f10f8cd0f8b30bd6fcdccb1987008eaa07e/src/main/java/de/dennisguse/opentracks/util/LocationUtils.java">...</a>
  */
 public class MapUtils {
 

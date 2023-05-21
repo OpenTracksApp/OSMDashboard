@@ -2,14 +2,12 @@ package de.storchp.opentracks.osmplugin;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +24,6 @@ import androidx.core.view.MenuCompat;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.OverdrawFactorDialogBinding;
@@ -373,14 +369,14 @@ abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onOnlineMapConsentChanged(boolean consent);
 
-    protected ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected final ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeMapDirectory(result.getData().getData(), result.getData());
                 }
             });
 
-    protected ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    protected final ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     changeThemeDirectory(result.getData().getData(), result.getData());

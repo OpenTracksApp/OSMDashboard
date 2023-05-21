@@ -4,8 +4,8 @@ import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 
 /**
  * Creates continues distinguished colors via golden ration.
- * Adapted from: https://github.com/dennisguse/TheKarte/blob/master/src/StyleColorCreator.js
- * Code for color generation was taken partly from https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+ * Adapted from: <a href="https://github.com/dennisguse/TheKarte/blob/master/src/StyleColorCreator.js">...</a>
+ * Code for color generation was taken partly from <a href="https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/">...</a>
  */
 public class StyleColorCreator {
 

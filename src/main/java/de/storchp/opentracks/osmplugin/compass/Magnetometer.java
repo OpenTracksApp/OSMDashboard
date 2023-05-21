@@ -5,7 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
 /**
- * Derived from https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/sensors/Magnetometer.kt
+ * Derived from <a href="https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/sensors/Magnetometer.kt">...</a>
  */
 public class Magnetometer extends AbstractLowPassSensor {
 
