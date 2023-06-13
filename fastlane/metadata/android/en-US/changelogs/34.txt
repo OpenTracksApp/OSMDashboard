@@ -1,0 +1,2 @@
+- Update dependencies
+- Add debug information and fail on reading trackpoints errors

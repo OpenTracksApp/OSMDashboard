@@ -98,5 +98,7 @@
     <string name="elevation_feet">Elevation gain in feet</string>
     <string name="distance_mi">Distance in miles</string>
     <string name="version_info"><![CDATA[<b>Version:</b> %s - %s (%d)]]></string>
+    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
+    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
 
 </resources>

@@ -619,11 +619,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                     }
                 }
             } catch (SecurityException e) {
-                Log.w(TAG, "No permission to read trackpoints");
+                Toast.makeText(MapsActivity.this, getString(R.string.error_reading_trackpoints, e.getMessage()), Toast.LENGTH_LONG).show();
                 return;
             } catch (Exception e) {
-                Log.e(TAG, "Reading trackpoints failed", e);
-                return;
+                throw new RuntimeException("Error reading trackpoints", e);
             }
 
             Log.d(TAG, "Last trackpointId=" + lastTrackPointId);
@@ -638,6 +637,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             } else if (!latLongs.isEmpty()) {
                 boundingBox = new BoundingBox(latLongs);
                 myPos = boundingBox.getCenterPoint();
+                Toast.makeText(MapsActivity.this, getString(R.string.read_number_of_trackpoints, latLongs.size()), Toast.LENGTH_LONG).show();
             }
 
             if (myPos != null) {
