@@ -1,0 +1,1 @@
+Panel de OpenStreetMap para OpenTracks
