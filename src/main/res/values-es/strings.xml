@@ -79,4 +79,25 @@
     <string name="tilecache_capacity_factor_info">Definir el factor de capacidad del TileCache</string>
     <string name="tilecache_capacity_factor">Factor de capacidad de TileCache</string>
     <string name="overdraw_factor_info">Definir el factor de sobredimensión del mapa</string>
+    <string name="color_by_speed">Color según la velocidad</string>
+    <string name="error_reading_trackpoints">Error al leer los puntos de la ruta: %s</string>
+    <string name="read_number_of_trackpoints">Leer %d puntos de la ruta</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="unit_mile">mi</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="category">Categoría</string>
+    <string name="total_time">Tiempo Total</string>
+    <string name="moving_time">Tiempo en movimiento</string>
+    <string name="elevation_meter">Ascenso en metros</string>
+    <string name="speed_km_h">Velocidad en km/h</string>
+    <string name="pace_min_km">Ritmo en min/km</string>
+    <string name="configure_statistic">Configurar las estadísticas</string>
+    <string name="distance_km">Distancia en km</string>
+    <string name="speed_mi_h">Velocidad en mi/h</string>
+    <string name="pace_min_mi">Ritmo en min/mi</string>
+    <string name="elevation_feet">Desnivel en pies</string>
+    <string name="distance_mi">Distancia en millas</string>
+    <string name="version_info"><b>Versión:</b> %s - %s (%d)</string>
 </resources>
