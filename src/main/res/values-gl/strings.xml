@@ -97,4 +97,6 @@
     <string name="speed_mi_h">Velocidade en mi/h</string>
     <string name="pace_min_mi">Ritmo en min/mi</string>
     <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
+    <string name="read_number_of_trackpoints">Lidos %d puntos da ruta</string>
+    <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
 </resources>
