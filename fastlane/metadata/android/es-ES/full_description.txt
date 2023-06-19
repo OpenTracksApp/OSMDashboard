@@ -1,0 +1,18 @@
+Panel de OpenStreetMap para <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Muestra la ruta seleccionada con puntos de inicio y final en el mapa <a href="https://openstreetmap.org">OpenStreetMap</a> basado en la librería de <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> .
+El mapa en línea está configurado como la opción predeterminada, pero también se admiten los mapas sin conexión. Con los mapas sin conexión, no hay necesidad de usar datos móviles.
+
+El mapa predeterminado lo proporciona <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Únete a la comunidad y ayuda a mejorar el mapa, consulta <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Considera descargar el mapa sin conexión para reducir la carga del servidor y ahorrar en el uso de datos móviles.
+Algunos mapas sin conexión se pueden encontrar aquí:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+¡Algunos mapas requieren temas especiales para renderizarse correctamente! Estos deben descargarse y configurarse en consecuencia.
+
+Los mapas sin conexión se pueden descargar a través del menú "Descargar los mapas" o visitando la página web mencionada anteriormente y haciendo clic en los enlaces de la descarga. Algunos navegadores (p. ej., Firefox) requieren un clic prolongado en el enlace y "Abrir enlace en una aplicación externa", luego seleccione OSMDashboard.
+
+Los mapas sin conexión descargados manualmente o los mapas compartidos con otras aplicaciones se pueden abrir en tu dispositivo Android. Selecciona un directorio en el menú "Mapa de directorio".
