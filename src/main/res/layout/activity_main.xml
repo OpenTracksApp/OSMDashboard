@@ -3,111 +3,118 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="30sp"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginEnd="20sp"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_logo_color_24dp"
-        android:contentDescription="@string/app_logo_description" />
+        android:contentDescription="@string/app_logo_description"
+        android:src="@drawable/ic_logo_color_24dp" />
 
     <TextView
         android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_toEndOf="@+id/app_logo"
-        android:layout_marginTop="30sp"
         android:layout_marginStart="10sp"
+        android:layout_marginTop="30sp"
         android:layout_marginEnd="10sp"
+        android:layout_toEndOf="@+id/app_logo"
         android:linksClickable="true"
-        android:textStyle="bold"
+        android:text="@string/app_name_info_screen"
         android:textSize="22sp"
-        android:text="@string/app_name_info_screen"/>
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
-        android:layout_marginStart="20sp"
-        android:layout_marginEnd="20sp"
         android:layout_below="@+id/app_logo"
-        android:orientation="vertical">
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="20sp">
 
-        <TextView
-            android:id="@+id/usage_info"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:linksClickable="true"
-            android:text="@string/usage_info"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/osm_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/osm_info"/>
+            <TextView
+                android:id="@+id/usage_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:linksClickable="true"
+                android:text="@string/usage_info" />
 
-        <TextView
-            android:id="@+id/consider_offline_maps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/consider_offline_maps"/>
+            <TextView
+                android:id="@+id/osm_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/osm_info" />
 
-        <TextView
-            android:id="@+id/offline_maps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/offline_maps"/>
+            <TextView
+                android:id="@+id/consider_offline_maps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/consider_offline_maps" />
 
-        <TextView
-            android:id="@+id/map_theme_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/map_theme_info"/>
+            <TextView
+                android:id="@+id/offline_maps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/offline_maps" />
 
-        <TextView
-            android:id="@+id/offline_map_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/offline_map_info"/>
+            <TextView
+                android:id="@+id/map_theme_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/map_theme_info" />
 
-        <TextView
-            android:id="@+id/manual_offline_map_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:linksClickable="true"
-            android:text="@string/manual_offline_map_info"/>
+            <TextView
+                android:id="@+id/offline_map_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/offline_map_info" />
 
-        <TextView
-            android:id="@+id/version_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp" />
+            <TextView
+                android:id="@+id/manual_offline_map_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:linksClickable="true"
+                android:text="@string/manual_offline_map_info" />
 
-        <TextView
-            android:id="@+id/extra_map_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp" />
+            <TextView
+                android:id="@+id/version_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/extra_map_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
