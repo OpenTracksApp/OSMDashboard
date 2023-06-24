@@ -40,9 +40,6 @@ abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     protected MenuItem mapConsent;
-    protected MenuItem pipMode;
-    protected MenuItem multiThreadMapRendering;
-    protected MenuItem persistentTileCache;
 
     public boolean onCreateOptionsMenu(Menu menu, boolean showInfo) {
         super.onCreateOptionsMenu(menu);
@@ -63,14 +60,18 @@ abstract class BaseActivity extends AppCompatActivity {
             menu.findItem(R.id.download_map).setVisible(false);
         }
 
-        multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
+        var multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
         multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering());
 
-        persistentTileCache = menu.findItem(R.id.persistent_tilecache);
+        var persistentTileCache = menu.findItem(R.id.persistent_tilecache);
         persistentTileCache.setChecked(PreferencesUtils.getPersistentTileCache());
 
-        pipMode = menu.findItem(R.id.pip_mode);
+        var pipMode = menu.findItem(R.id.pip_mode);
         pipMode.setChecked(PreferencesUtils.isPipEnabled());
+
+        var debugTrackPoints = menu.findItem(R.id.debug_trackpoints);
+        debugTrackPoints.setChecked(PreferencesUtils.isDebugTrackPoints());
+
 
         menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode().getMessageId());
         menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode().getMessageId());
@@ -132,7 +133,11 @@ abstract class BaseActivity extends AppCompatActivity {
             showOverdrawFactorDialog();
         } else if (itemId == R.id.tilecache_capacity_factor) {
             showTileCacheCapacityFactorDialog();
-        }
+        } else if (itemId == R.id.debug_trackpoints) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setDebugTrackPoints(item.isChecked());
+            updateDebugTrackPoints();
+         }
 
         return super.onOptionsItemSelected(item);
     }
@@ -163,6 +168,10 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract void changeMapMode(MapMode mapMode);
+
+    public void updateDebugTrackPoints() {
+        // override in subclasses
+    }
 
     protected abstract void changeArrowMode(ArrowMode arrowMode);
 

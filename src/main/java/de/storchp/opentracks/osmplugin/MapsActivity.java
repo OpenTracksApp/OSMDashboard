@@ -67,7 +67,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -88,6 +87,7 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.StatisticElement;
+import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 
 public class MapsActivity extends BaseActivity implements SensorListener {
@@ -130,6 +130,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private int protocolVersion = 1;
     private Set<Uri> mapFiles;
     private Uri mapTheme;
+    private TrackPointsDebug trackPointsDebug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -555,24 +556,25 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 endMarker = null;
                 boundingBox = null;
                 movementDirection = new MovementDirection();
+                trackPointsDebug = new TrackPointsDebug();
             }
 
             var latLongs = new ArrayList<LatLong>();
             int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
             try {
-                var segments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
-                if (segments.isEmpty()) {
+                var trackpointsBySegments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
+                if (trackpointsBySegments.isEmpty()) {
                     Log.d(TAG, "No new trackpoints received");
                     return;
                 }
 
-                double average = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).average().orElse(0.0);
-                double maxSpeed = segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0).max().orElse(0.0);
+                double average = trackpointsBySegments.calcAverageSpeed();
+                double maxSpeed = trackpointsBySegments.calcMaxSpeed();
                 double averageToMaxSpeed = maxSpeed - average;
                 var colorBySpeed = !isOpenTracksRecordingThisTrack && PreferencesUtils.getColorBySpeed();
 
-                for (var trackPoints : segments) {
+                for (var trackPoints : trackpointsBySegments.getSegments()) {
                     if (!update) {
                         polyline = null; // cut polyline on new segment
                         if (tolerance > 0) { // smooth track
@@ -617,7 +619,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                             startPos = endPos;
                         }
                     }
+                    trackpointsBySegments.getDebug().trackpointsDrawn += trackPoints.size();
                 }
+                trackPointsDebug.add(trackpointsBySegments.getDebug());
             } catch (SecurityException e) {
                 Toast.makeText(MapsActivity.this, getString(R.string.error_reading_trackpoints, e.getMessage()), Toast.LENGTH_LONG).show();
                 return;
@@ -637,7 +641,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             } else if (!latLongs.isEmpty()) {
                 boundingBox = new BoundingBox(latLongs);
                 myPos = boundingBox.getCenterPoint();
-                Toast.makeText(MapsActivity.this, getString(R.string.read_number_of_trackpoints, latLongs.size()), Toast.LENGTH_LONG).show();
             }
 
             if (myPos != null) {
@@ -649,9 +652,25 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
                     layers.add(polylinesLayer);
                 }
-            } else if (!update) {
-                Toast.makeText(MapsActivity.this, R.string.no_data, Toast.LENGTH_LONG).show();
             }
+            updateDebugTrackPoints();
+        }
+    }
+
+
+    @Override
+    public void updateDebugTrackPoints() {
+        if (PreferencesUtils.isDebugTrackPoints()) {
+            binding.map.trackpointsDebugInfo.setText(
+             getString(R.string.debug_trackpoints_info,
+                    trackPointsDebug.trackpointsReceived,
+                    trackPointsDebug.trackpointsInvalid,
+                    trackPointsDebug.trackpointsDrawn,
+                    trackPointsDebug.trackpointsPause,
+                    trackPointsDebug.segments
+            ));
+        } else {
+            binding.map.trackpointsDebugInfo.setText("");
         }
     }
 

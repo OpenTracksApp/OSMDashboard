@@ -1,3 +1,4 @@
 - Update dependencies
+- Update translations
 - Add debug information and fail on reading trackpoints errors
 - Fix #241: add scrolling to the main screen

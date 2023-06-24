@@ -318,7 +318,7 @@ public class DownloadActivity extends BaseActivity {
         // nothing to do
     }
 
-    @Override
+   @Override
     protected void changeArrowMode(ArrowMode arrowMode) {
         // nothing to do
     }

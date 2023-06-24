@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
+import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
 
 public class TrackPoint {
 
@@ -73,13 +74,15 @@ public class TrackPoint {
      * Reads the TrackPoints from the Content Uri and split by segments.
      * Pause TrackPoints and different Track IDs split the segments.
      */
-    public static List<List<TrackPoint>> readTrackPointsBySegments(ContentResolver resolver, Uri data, long lastTrackPointId, int protocolVersion) {
+    public static TrackPointsBySegments readTrackPointsBySegments(ContentResolver resolver, Uri data, long lastTrackPointId, int protocolVersion) {
+        var debug = new TrackPointsDebug();
         var segments = new ArrayList<List<TrackPoint>>();
         var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
         try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {
+                debug.trackpointsReceived++;
                 var trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint._ID));
                 var trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TrackPoint.TRACKID));
                 var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(TrackPoint.LATITUDE)) / LAT_LON_FACTOR;
@@ -100,14 +103,18 @@ public class TrackPoint {
                 lastTrackPoint = new TrackPoint(trackId, trackPointId, latitude, longitude, type, speed);
                 if (lastTrackPoint.hasValidLocation()) {
                     segment.add(lastTrackPoint);
+                } else {
+                    debug.trackpointsInvalid++;
                 }
                 if (lastTrackPoint.isPause()) {
+                    debug.trackpointsPause++;
                     lastTrackPoint = null;
                 }
             }
         }
+        debug.segments = segments.size();
 
-        return segments;
+        return new TrackPointsBySegments(segments, debug);
     }
 
     public long getTrackPointId() {

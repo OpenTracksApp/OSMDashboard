@@ -92,6 +92,10 @@
                 android:checkable="true"
                 android:title="@string/pip_mode"/>
 
+            <item
+                android:id="@+id/debug_trackpoints"
+                android:checkable="true"
+                android:title="@string/debug_trackpoints"/>
         </menu>
     </item>
 

@@ -265,4 +265,12 @@ public class PreferencesUtils {
                 .collect(Collectors.toSet());
     }
 
+    public static boolean isDebugTrackPoints() {
+        return getBoolean(R.string.DEBUG_TRACKPOINTS, false);
+    }
+
+    public static void setDebugTrackPoints(boolean enabled) {
+        setBoolean(R.string.DEBUG_TRACKPOINTS, enabled);
+    }
+
 }

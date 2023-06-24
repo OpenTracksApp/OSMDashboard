@@ -13,6 +13,7 @@
     <string name="COMPASS_SMOOTHING" translatable="false">APP_PREF_COMPASS_SMOOTHING</string>
     <string name="STROKE_WIDTH" translatable="false">APP_PREF_STROKE_WIDTH</string>
     <string name="PIP_ENABLED" translatable="false">APP_PREF_PIP_ENABLED</string>
+    <string name="DEBUG_TRACKPOINTS" translatable="false">APP_PREF_DEBUG_TRACKPOPINTS</string>
     <string name="ARROW_MODE" translatable="false">APP_PREF_ARROW_MODE</string>
     <string name="MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
     <string name="MAP_MULTI_THREAD_RENDERING" translatable="false">APP_PREF_MAP_MULTI_THREAD_RENDERING</string>

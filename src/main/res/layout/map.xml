@@ -32,6 +32,18 @@
         android:textSize="16pt"
         tools:text="OpenTracks" />
 
+    <TextView
+        android:id="@+id/trackpoints_debug_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/black"
+        android:textSize="8pt" />
+
     <LinearLayout
         android:id="@+id/controls"
         android:orientation="vertical"
