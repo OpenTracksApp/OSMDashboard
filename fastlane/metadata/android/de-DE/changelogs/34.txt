@@ -1,0 +1,4 @@
+- Abhängigkeiten aktualisiert
+- Übersetzungen aktualisiert
+- Debug Informationen für das Einlesen von Wegpunkten
+- Fix #241: Scrolling auf der Startseite hinzugefügt
