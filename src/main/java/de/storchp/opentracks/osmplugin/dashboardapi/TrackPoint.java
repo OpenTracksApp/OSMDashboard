@@ -77,8 +77,13 @@ public class TrackPoint {
     public static TrackPointsBySegments readTrackPointsBySegments(ContentResolver resolver, Uri data, long lastTrackPointId, int protocolVersion) {
         var debug = new TrackPointsDebug();
         var segments = new ArrayList<List<TrackPoint>>();
-        var projection = protocolVersion < 2 ? PROJECTION_V1 : PROJECTION_V2;
-        try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ? AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)", new String[]{Long.toString(lastTrackPointId)}, null)) {
+        var projection = PROJECTION_V2;
+        var typeQuery = " AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)";
+        if (protocolVersion < 2) { // fallback to old Dashboard API
+            projection = PROJECTION_V1;
+            typeQuery = "";
+        }
+        try (Cursor cursor = resolver.query(data, projection, TrackPoint._ID + "> ?" + typeQuery, new String[]{Long.toString(lastTrackPointId)}, null)) {
             TrackPoint lastTrackPoint = null;
             List<TrackPoint> segment = null;
             while (cursor.moveToNext()) {

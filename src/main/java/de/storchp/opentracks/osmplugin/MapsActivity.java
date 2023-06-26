@@ -667,7 +667,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                     trackPointsDebug.trackpointsInvalid,
                     trackPointsDebug.trackpointsDrawn,
                     trackPointsDebug.trackpointsPause,
-                    trackPointsDebug.segments
+                    trackPointsDebug.segments,
+                    protocolVersion
             ));
         } else {
             binding.map.trackpointsDebugInfo.setText("");

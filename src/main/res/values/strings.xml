@@ -101,6 +101,6 @@
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="debug_trackpoints_info">Trackpoints received: %1$d\nTrackpoints invalid: %2$d\nTrackpoints drawn: %3$d\nTrackpoints pause: %4$d\nSegments: %5$d</string>
+    <string name="debug_trackpoints_info">Trackpoints received: %1$d\nTrackpoints invalid: %2$d\nTrackpoints drawn: %3$d\nTrackpoints pause: %4$d\nSegments: %5$d\nProtocol version: %6$d</string>
 
 </resources>
