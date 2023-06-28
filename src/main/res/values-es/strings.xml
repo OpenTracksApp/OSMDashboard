@@ -101,9 +101,4 @@
     <string name="distance_mi">Distancia en millas</string>
     <string name="version_info"><b>Versión:</b> %s - %s (%d)</string>
     <string name="debug_trackpoints">Depurar los puntos de seguimiento</string>
-    <string name="debug_trackpoints_info">Puntos de seguimiento recibidos: %1$d
-\nPuntos de seguimiento no válidos: %2$d
-\nPuntos de seguimiento mostrados: %3$d
-\nPausa de puntos de seguimiento: %4$d
-\nSegmentos: %5$d</string>
 </resources>
