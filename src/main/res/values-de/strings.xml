@@ -96,4 +96,13 @@
     <string name="elevation_meter">Höhendifferenz in m</string>
     <string name="pace_min_mi">Tempo in min/Meile</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
+    <string name="debug_trackpoints">Debug Wegpunkte</string>
+    <string name="debug_trackpoints_info">Wegpunkte empfangen: %1$d
+\nWegpunkte ungültig: %2$d
+\nWegpunkte gezeichnet: %3$d
+\nWegpunkte Pause: %4$d
+\nSegmente: %5$d
+\nProtokolversion: %6$d</string>
+    <string name="read_number_of_trackpoints">%d Wegpunkte eingelesen</string>
+    <string name="error_reading_trackpoints">Fehler beim lesen der Wegpunkte: %s</string>
 </resources>
