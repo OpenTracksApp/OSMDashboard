@@ -77,14 +77,6 @@ public class PreferencesUtils {
         setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
-    public static boolean getColorBySpeed() {
-        return getBoolean(R.string.COLOR_BY_SPEED, false);
-    }
-
-    public static void setColorBySpeed(boolean colorBySpeed) {
-        setBoolean(R.string.COLOR_BY_SPEED, colorBySpeed);
-    }
-
     public static String getLastDownloadUrl(String defaultDownloadUrl) {
         return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
@@ -271,6 +263,25 @@ public class PreferencesUtils {
 
     public static void setDebugTrackPoints(boolean enabled) {
         setBoolean(R.string.DEBUG_TRACKPOINTS, enabled);
+    }
+
+    public static TrackColorMode getTrackColorMode() {
+        var trackColorMode = getString(R.string.TRACK_COLOR_MODE, null);
+        if (trackColorMode != null) {
+            return TrackColorMode.valueOf(trackColorMode);
+        }
+        if (getColorBySpeed()) {
+            return TrackColorMode.BY_SPEED;
+        }
+        return TrackColorMode.BY_TRACK;
+    }
+
+    private static boolean getColorBySpeed() {
+        return getBoolean(R.string.COLOR_BY_SPEED, false);
+    }
+
+    public static void setTrackColorMode(TrackColorMode trackColorMode) {
+        setString(R.string.TRACK_COLOR_MODE, trackColorMode.name());
     }
 
 }

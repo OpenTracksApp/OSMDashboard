@@ -87,6 +87,7 @@ import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.StatisticElement;
+import de.storchp.opentracks.osmplugin.utils.TrackColorMode;
 import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 
@@ -570,7 +571,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 double average = trackpointsBySegments.calcAverageSpeed();
                 double maxSpeed = trackpointsBySegments.calcMaxSpeed();
                 double averageToMaxSpeed = maxSpeed - average;
-                var colorBySpeed = !isOpenTracksRecordingThisTrack && PreferencesUtils.getColorBySpeed();
+                var trackColorMode = PreferencesUtils.getTrackColorMode();
+                if (isOpenTracksRecordingThisTrack && !trackColorMode.isSupportsLiveTrack()) {
+                    trackColorMode = TrackColorMode.DEFAULT;
+                }
 
                 for (var trackPoints : trackpointsBySegments.getSegments()) {
                     if (!update) {
@@ -583,14 +587,16 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                         lastTrackPointId = trackPoint.getTrackPointId();
 
                         if (trackPoint.getTrackId() != lastTrackId) {
-                            trackColor = colorCreator.nextColor();
+                            if (trackColorMode == TrackColorMode.BY_TRACK) {
+                                trackColor = colorCreator.nextColor();
+                            }
                             lastTrackId = trackPoint.getTrackId();
                             polyline = null; // reset current polyline when trackId changes
                             startPos = null;
                             endPos = null;
                         }
 
-                        if (colorBySpeed) {
+                        if (trackColorMode == TrackColorMode.BY_SPEED) {
                             trackColor = getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
                             polyline = addNewPolyline(trackColor);
                             if (endPos != null) {

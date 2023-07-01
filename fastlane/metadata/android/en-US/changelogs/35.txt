@@ -1,3 +1,4 @@
 - Upgrade targetSdk to 34
 - Improve compatibility with older OpenTracks dashboard API
 - New: receive geo locations and show marker on map (e.g. track markers from OpenTracks)
+- New: configurable track color mode (unicolor, by track, by speed)

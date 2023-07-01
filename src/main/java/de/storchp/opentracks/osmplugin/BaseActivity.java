@@ -34,6 +34,7 @@ import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.StatisticElement;
+import de.storchp.opentracks.osmplugin.utils.TrackColorMode;
 
 abstract class BaseActivity extends AppCompatActivity {
 
@@ -51,9 +52,6 @@ abstract class BaseActivity extends AppCompatActivity {
 
         mapConsent = menu.findItem(R.id.map_online_consent);
         mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
-
-        var colorBySpeed = menu.findItem(R.id.color_by_speed);
-        colorBySpeed.setChecked(PreferencesUtils.getColorBySpeed());
 
         if (BuildConfig.offline) {
             mapConsent.setVisible(false);
@@ -86,10 +84,8 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(item.isChecked());
             onOnlineMapConsentChanged(item.isChecked());
-        } else if (itemId == R.id.color_by_speed) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setColorBySpeed(item.isChecked());
-            this.recreate();
+        } else if (itemId == R.id.track_color) {
+            showTrackColorDialog();
         } else if (itemId == R.id.configure_statistic) {
             showConfigureStatisticDialog();
         } else if (itemId == R.id.track_smoothing) {
@@ -137,9 +133,26 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setDebugTrackPoints(item.isChecked());
             updateDebugTrackPoints();
-         }
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showTrackColorDialog() {
+        var trackColorModes = TrackColorMode.values();
+        var currentTrackColorMode = PreferencesUtils.getTrackColorMode();
+
+        new android.app.AlertDialog.Builder(this)
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(R.string.track_color)
+                .setSingleChoiceItems(Arrays.stream(trackColorModes).map(trackColorMode -> getString(trackColorMode.getLabelResId())).toArray(String[]::new),
+                        currentTrackColorMode.ordinal(),
+                        (dialog, which) -> {
+                            PreferencesUtils.setTrackColorMode(trackColorModes[which]);
+                            dialog.dismiss();
+                            recreate();
+                        })
+                .create().show();
     }
 
     private void showConfigureStatisticDialog() {
@@ -156,13 +169,13 @@ abstract class BaseActivity extends AppCompatActivity {
                 .setMultiChoiceItems(Arrays.stream(availableStatisticElements).map(se -> getString(se.getLabelResId())).toArray(String[]::new),
                         selected,
                         (dialog, which, isChecked) -> {
-                    if (isChecked) {
-                        selectedStatisticElements.add(availableStatisticElements[which]);
-                    } else {
-                        selectedStatisticElements.remove(availableStatisticElements[which]);
-                    }
-                    PreferencesUtils.setStatisticElements(selectedStatisticElements);
-                })
+                            if (isChecked) {
+                                selectedStatisticElements.add(availableStatisticElements[which]);
+                            } else {
+                                selectedStatisticElements.remove(availableStatisticElements[which]);
+                            }
+                            PreferencesUtils.setStatisticElements(selectedStatisticElements);
+                        })
                 .setOnDismissListener(dialog -> this.recreate())
                 .create().show();
     }

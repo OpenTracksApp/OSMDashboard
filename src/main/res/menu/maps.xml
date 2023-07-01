@@ -35,9 +35,8 @@
         android:title="@string/arrow_mode_direction"/>
 
     <item
-        android:id="@+id/color_by_speed"
-        android:checkable="true"
-        android:title="@string/color_by_speed"/>
+        android:id="@+id/track_color"
+        android:title="@string/track_color"/>
 
     <item
         android:id="@+id/configure_statistic"
