@@ -8,8 +8,11 @@ import android.net.Uri;
 
 import org.mapsforge.core.model.LatLong;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 
@@ -36,15 +39,19 @@ public class Waypoint {
             LONGITUDE,
             PHOTOURL
     };
+    public static final Pattern NAME_PATTERN = Pattern.compile("[+\\s]*\\((.*)\\)[+\\s]*$");
+    public static final Pattern POSITION_PATTERN = Pattern.compile(
+            "([+-]?\\d+(?:\\.\\d+)?),\\s?([+-]?\\d+(?:\\.\\d+)?)");
+    public static final Pattern QUERY_POSITION_PATTERN = Pattern.compile("q=([+-]?\\d+(?:\\.\\d+)?),\\s?([+-]?\\d+(?:\\.\\d+)?)");
 
-    private final long id;
+    private long id;
     private final String name;
-    private final String description;
-    private final String category;
-    private final String icon;
-    private final long trackId;
+    private String description;
+    private String category;
+    private String icon;
+    private long trackId;
     private final LatLong latLong;
-    private final String photoUrl;
+    private String photoUrl;
 
     public Waypoint(long id, String name, String description, String category, String icon, long trackId, LatLong latLong, String photoUrl) {
         this.id = id;
@@ -55,6 +62,52 @@ public class Waypoint {
         this.trackId = trackId;
         this.latLong = latLong;
         this.photoUrl = photoUrl;
+    }
+
+    public Waypoint(final LatLong latLong, final String name) {
+        this.latLong = latLong;
+        this.name = name;
+    }
+
+    public static Optional<Waypoint> fromGeoUri(String uri) {
+        if (uri == null) {
+            return Optional.empty();
+        }
+
+        var schemeSpecific = uri.substring(uri.indexOf(":") + 1);
+
+        String name = null;
+        var nameMatcher = NAME_PATTERN.matcher(schemeSpecific);
+        if (nameMatcher.find()) {
+            name = URLDecoder.decode(nameMatcher.group(1));
+            if (name != null) {
+                schemeSpecific = schemeSpecific.substring(0, nameMatcher.start());
+            }
+        }
+
+        var positionPart = schemeSpecific;
+        var queryPart = "";
+        int queryStartIndex = schemeSpecific.indexOf('?');
+        if (queryStartIndex != -1) {
+            positionPart = schemeSpecific.substring(0, queryStartIndex);
+            queryPart = schemeSpecific.substring(queryStartIndex + 1);
+        }
+
+        var positionMatcher = POSITION_PATTERN.matcher(positionPart);
+        double lat = 0.0;
+        double lon = 0.0;
+        if (positionMatcher.find()) {
+            lat = Double.parseDouble(positionMatcher.group(1));
+            lon = Double.parseDouble(positionMatcher.group(2));
+        }
+
+        var queryPositionMatcher = QUERY_POSITION_PATTERN.matcher(queryPart);
+        if (queryPositionMatcher.find()) {
+            lat = Double.parseDouble(queryPositionMatcher.group(1));
+            lon = Double.parseDouble(queryPositionMatcher.group(2));
+        }
+
+        return Optional.of(new Waypoint(new LatLong(lat, lon), name));
     }
 
     /**

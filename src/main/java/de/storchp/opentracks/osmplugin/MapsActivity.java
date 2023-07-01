@@ -179,20 +179,33 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        resetMapData();
 
-        ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
-        protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
-        tracksUri = APIConstants.getTracksUri(uris);
-        trackPointsUri = APIConstants.getTrackPointsUri(uris);
-        waypointsUri = APIConstants.getWaypointsUri(uris);
-        keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
-        showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
-        showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
-        isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+        if (intent.getAction().equals(APIConstants.ACTION_DASHBOARD)) {
+            ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
+            protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
+            tracksUri = APIConstants.getTracksUri(uris);
+            trackPointsUri = APIConstants.getTrackPointsUri(uris);
+            waypointsUri = APIConstants.getWaypointsUri(uris);
+            keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
+            showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
+            showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
+            isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
 
-        readTrackpoints(trackPointsUri, false, protocolVersion);
-        readTracks(tracksUri);
-        readWaypoints(waypointsUri, false);
+            readTrackpoints(trackPointsUri, false, protocolVersion);
+            readTracks(tracksUri);
+            readWaypoints(waypointsUri, false);
+        } else if (intent.getScheme().equals("geo")) {
+            Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
+                if (waypointsLayer == null) {
+                    waypointsLayer = new GroupLayer();
+                }
+                waypointsLayer.layers.add(createMarker(waypoint.getLatLong()));
+                var layers = binding.map.mapView.getLayerManager().getLayers();
+                layers.add(waypointsLayer);
+                binding.map.mapView.setCenter(waypoint.getLatLong());
+            });
+        }
     }
 
     private class OpenTracksContentObserver extends ContentObserver {
@@ -540,23 +553,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         Log.i(TAG, "Loading trackpoints from " + data);
 
         synchronized (binding.map.mapView.getLayerManager().getLayers()) {
-            var layers = binding.map.mapView.getLayerManager().getLayers();
             if (!update) { // reset data
-                if (polylinesLayer != null) {
-                    layers.remove(polylinesLayer);
-                }
-                polylinesLayer = new GroupLayer();
-                lastTrackId = 0;
-                lastTrackPointId = 0;
-                colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
-                trackColor = colorCreator.nextColor();
-                polyline = null;
-                startPos = null;
-                endPos = null;
-                endMarker = null;
-                boundingBox = null;
-                movementDirection = new MovementDirection();
-                trackPointsDebug = new TrackPointsDebug();
+                resetMapData();
             }
 
             var latLongs = new ArrayList<LatLong>();
@@ -649,12 +647,47 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 } else {
                     binding.map.mapView.setCenter(myPos);
                 }
+                var layers = binding.map.mapView.getLayerManager().getLayers();
                 if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
                     layers.add(polylinesLayer);
                 }
             }
             updateDebugTrackPoints();
         }
+    }
+
+    private void resetMapData() {
+        stopCompass();
+        unregisterContentObserver();
+
+        tracksUri = null;
+        trackPointsUri = null;
+        waypointsUri = null;
+  
+        var layers = binding.map.mapView.getLayerManager().getLayers();
+
+        // tracks
+        if (polylinesLayer != null) {
+            layers.remove(polylinesLayer);
+        }
+        polylinesLayer = new GroupLayer();
+        lastTrackId = 0;
+        lastTrackPointId = 0;
+        colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
+        trackColor = colorCreator.nextColor();
+        polyline = null;
+        startPos = null;
+        endPos = null;
+        endMarker = null;
+        boundingBox = null;
+        movementDirection = new MovementDirection();
+        trackPointsDebug = new TrackPointsDebug();
+
+        // waypoints
+        if (waypointsLayer != null) {
+            layers.remove(waypointsLayer);
+        }
+        lastWaypointId = 0;
     }
 
 
@@ -713,14 +746,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readWaypoints(Uri data, boolean update) {
         Log.i(TAG, "Loading waypoints from " + data);
 
-        var layers = binding.map.mapView.getLayerManager().getLayers();
-        if (waypointsLayer != null) {
-            layers.remove(waypointsLayer);
-        }
-        if (!update) { // reset data
-            lastWaypointId = 0;
-        }
-
         try {
             for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
@@ -730,6 +755,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 waypointsLayer.layers.add(createTappableMarker(waypoint));
             }
             if (waypointsLayer != null) {
+                var layers = binding.map.mapView.getLayerManager().getLayers();
                 layers.add(waypointsLayer);
             }
         } catch (SecurityException e) {
@@ -737,6 +763,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         } catch (Exception e) {
             Log.e(TAG, "Reading waypoints failed", e);
         }
+    }
+
+    private Marker createMarker(LatLong latLong) {
+        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
+        assert drawable != null;
+        var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        bitmap.incrementRefCount();
+        return new Marker(latLong, bitmap, 0, -bitmap.getHeight() / 2);
     }
 
     private Marker createTappableMarker(Waypoint waypoint) {
@@ -878,28 +912,38 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onStart();
 
         Log.d(TAG, "register content observer");
-        contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri, protocolVersion);
-        try {
-            getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
-            getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
-            if (waypointsUri != null) {
-                getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+        if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
+            contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri, protocolVersion);
+            try {
+                getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
+                getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
+                if (waypointsUri != null) {
+                    getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+                }
+            } catch (SecurityException se) {
+                Log.e(TAG, "Error on registering OpenTracksContentObserver", se);
+                Toast.makeText(this, R.string.error_reg_content_observer, Toast.LENGTH_LONG).show();
             }
-        } catch (SecurityException se) {
-            Log.e(TAG, "Error on registering OpenTracksContentObserver", se);
-            Toast.makeText(this, R.string.error_reg_content_observer, Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     protected void onStop() {
+        stopCompass();
+        unregisterContentObserver();
+        super.onStop();
+    }
+
+    private void stopCompass() {
         compass.stop(this);
+    }
+
+    private void unregisterContentObserver() {
         if (contentObserver != null) {
             Log.d(TAG, "unregister content observer");
             getContentResolver().unregisterContentObserver(contentObserver);
             contentObserver = null;
         }
-        super.onStop();
     }
 
     private void rotateMap() {
