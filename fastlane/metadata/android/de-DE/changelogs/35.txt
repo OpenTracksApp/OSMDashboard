@@ -1,0 +1,4 @@
+- Upgrade ZielSDK auf 34
+- Verbesserung der Kompatibilität mit der älteren OpenTracks Dashboard API
+- Neu: Empfang und Darstellung von Wegpunkten (z.B. Marker von OpenTracks)
+- Neu: Weitere Trackfärbung einstellbar (einfarbig, pro Track, nach Geschwindigkeit)
