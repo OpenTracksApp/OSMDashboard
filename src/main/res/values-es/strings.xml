@@ -101,4 +101,14 @@
     <string name="distance_mi">Distancia en millas</string>
     <string name="version_info"><b>Versión:</b> %s - %s (%d)</string>
     <string name="debug_trackpoints">Depurar los puntos de seguimiento</string>
+    <string name="debug_trackpoints_info">Trackpoints recibidos: %1$d
+\nTrackpoints inválidos: %2$d
+\nTrackpoints dibujados: %3$d
+\nTrackpoints en pausa: %4$d
+\nSegmentos: %5$d
+\nVersión del protocolo: %6$d</string>
+    <string name="track_color_mode_by_track">Color por pista</string>
+    <string name="track_color_mode_by_speed">Color por velocidad</string>
+    <string name="track_color">Color de la pista</string>
+    <string name="track_color_mode_uni">Unicolor</string>
 </resources>
