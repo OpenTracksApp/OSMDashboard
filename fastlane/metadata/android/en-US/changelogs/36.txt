@@ -1,0 +1,3 @@
+- Fix: track markers were missing
+- New: marker icon by khao-soi
+- Updated translations

@@ -34,8 +34,8 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 35
-        versionName "2.21.0"
+        versionCode 36
+        versionName "2.22.0"
 
         testInstrumentationRunnerArguments runnerBuilder: 'de.mannodermaus.junit5.AndroidJUnit5Builder'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

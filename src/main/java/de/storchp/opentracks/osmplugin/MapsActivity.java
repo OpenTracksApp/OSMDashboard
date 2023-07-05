@@ -195,7 +195,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
             readTrackpoints(trackPointsUri, false, protocolVersion);
             readTracks(tracksUri);
-            readWaypoints(waypointsUri, false);
+            readWaypoints(waypointsUri);
         } else if (intent.getScheme().equals("geo")) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
                 if (waypointsLayer == null) {
@@ -205,6 +205,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 var layers = binding.map.mapView.getLayerManager().getLayers();
                 layers.add(waypointsLayer);
                 binding.map.mapView.setCenter(waypoint.getLatLong());
+                binding.map.mapView.setZoomLevel(binding.map.mapView.getMapZoomControls().getZoomLevelMax());
             });
         }
     }
@@ -234,7 +235,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             } else if (trackpointsUri.toString().startsWith(uri.toString())) {
                 readTrackpoints(trackpointsUri, true, protocolVersion);
             } else if (waypointsUri.toString().startsWith(uri.toString())) {
-                readWaypoints(waypointsUri, true);
+                readWaypoints(waypointsUri);
             }
         }
     }
@@ -554,10 +555,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         Log.i(TAG, "Loading trackpoints from " + data);
 
         synchronized (binding.map.mapView.getLayerManager().getLayers()) {
-            if (!update) { // reset data
-                resetMapData();
-            }
-
             var latLongs = new ArrayList<LatLong>();
             int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
@@ -749,10 +746,15 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         return this.polyline;
     }
 
-    private void readWaypoints(Uri data, boolean update) {
+    private void readWaypoints(Uri data) {
         Log.i(TAG, "Loading waypoints from " + data);
 
         try {
+            var layers = binding.map.mapView.getLayerManager().getLayers();
+            if (waypointsLayer != null) {
+                layers.remove(waypointsLayer);
+            }
+
             for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
                 if (waypointsLayer == null) {
@@ -761,7 +763,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 waypointsLayer.layers.add(createTappableMarker(waypoint));
             }
             if (waypointsLayer != null) {
-                var layers = binding.map.mapView.getLayerManager().getLayers();
                 layers.add(waypointsLayer);
             }
         } catch (SecurityException e) {
