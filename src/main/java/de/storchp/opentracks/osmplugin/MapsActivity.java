@@ -772,7 +772,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Marker createMarker(LatLong latLong) {
-        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
+        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_modern);
         assert drawable != null;
         var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
@@ -780,7 +780,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     private Marker createTappableMarker(Waypoint waypoint) {
-        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_with_shadow);
+        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_modern);
         assert drawable != null;
         var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();
