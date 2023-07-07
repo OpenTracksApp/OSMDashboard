@@ -1,0 +1,4 @@
+- Fix: Track Marker wurden nicht mehr dargestellt
+- Neues Marker Icon von khao-soi
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

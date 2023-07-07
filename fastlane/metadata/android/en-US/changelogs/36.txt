@@ -1,3 +1,4 @@
 - Fix: track markers were missing
-- New: marker icon by khao-soi
+- New marker icon by khao-soi
 - Updated translations
+- Updated dependencies
