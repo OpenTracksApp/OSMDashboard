@@ -110,5 +110,5 @@
     <string name="track_color_mode_by_track">Color por pista</string>
     <string name="track_color_mode_by_speed">Color por velocidad</string>
     <string name="track_color">Color de la pista</string>
-    <string name="track_color_mode_uni">Unicolor</string>
+    <string name="track_color_mode_uni">Un solo color</string>
 </resources>
