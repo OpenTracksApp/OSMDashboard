@@ -98,4 +98,17 @@
     <string name="elevation_feet">Przyrost wysokości w stopach</string>
     <string name="distance_mi">Dystans w milach</string>
     <string name="version_info"><b>Wersja:</b> %s - %s (%d)</string>
+    <string name="track_color">Kolor ścieżki</string>
+    <string name="debug_trackpoints">Debuguj punkty trasy</string>
+    <string name="debug_trackpoints_info">Otrzymane punkty trasy: %1$d
+\nNieprawidłowe punkty trasy: %2$d
+\nNarysowane punkty trasy: %3$d
+\nZatrzymane punkty trasy: %4$d
+\nSegmenty: %5$d
+\nWersja protokołu: %6$d</string>
+    <string name="error_reading_trackpoints">Błąd podczas odczytu punktu trasy: %s</string>
+    <string name="read_number_of_trackpoints">Odczytaj %d punktów trasy</string>
+    <string name="track_color_mode_uni">Unikolor</string>
+    <string name="track_color_mode_by_track">Kolor według ścieżki</string>
+    <string name="track_color_mode_by_speed">Kolor według prędkości</string>
 </resources>
