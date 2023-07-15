@@ -91,4 +91,21 @@
     <string name="configure_statistic">Still inn statistikk</string>
     <string name="elevation_meter">Total stigning i meter</string>
     <string name="elevation_feet">Total stigning i fot</string>
+    <string name="debug_trackpoints">Feilsøk sporpunkter</string>
+    <string name="debug_trackpoints_info">Sporpunkter mottatt: %1$d
+\nSporpunkter ugyldig: %2$d
+\nSporpunkter tegnet: %3$d
+\nSporpunkter pause: %4$d
+\nSegmenter %5$d
+\nProtokollversjon: %6$d</string>
+    <string name="error_reading_trackpoints">Feil under lesing av sporpunkter: %s</string>
+    <string name="read_number_of_trackpoints">Les %d sporpunkter</string>
+    <string name="track_color">Sporfarge</string>
+    <string name="track_color_mode_uni">Ensfarget</string>
+    <string name="track_color_mode_by_track">Farge etter spor</string>
+    <string name="track_color_mode_by_speed">Farge etter hastighet</string>
+    <string name="pace_min_mi">Tempo i min/mi</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="speed_mi_h">Hastighet i mi/h</string>
+    <string name="distance_mi">Distanse i miles</string>
 </resources>
