@@ -79,4 +79,36 @@
     <string name="persistent_tilecache">TileCache persistent</string>
     <string name="overdraw_factor">Factorul de supraîncărcare a hărții</string>
     <string name="tilecache_capacity_factor">Factor de capacitate TileCache</string>
+    <string name="color_by_speed">Culoare în funcție de viteză</string>
+    <string name="debug_trackpoints">Depanați punctele de pe rută</string>
+    <string name="error_reading_trackpoints">Eroare la citirea punctelor rutei: %s</string>
+    <string name="read_number_of_trackpoints">Citiți %d puncte ale rutei</string>
+    <string name="unit_mile">mi</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="category">Categorie</string>
+    <string name="total_time">Timp total</string>
+    <string name="moving_time">Timp de mișcare</string>
+    <string name="distance_km">Distanță în km</string>
+    <string name="elevation_meter">Creșterea elevației în metru</string>
+    <string name="speed_km_h">Viteză în km/h</string>
+    <string name="pace_min_km">Ritm în min/km</string>
+    <string name="track_color">Culoare rută</string>
+    <string name="track_color_mode_by_track">Culoare în funcție de pistă</string>
+    <string name="track_color_mode_by_speed">Culoare în funcție de viteză</string>
+    <string name="elevation_feet">Creșterea elevației în picioare</string>
+    <string name="distance_mi">Distanță în mile</string>
+    <string name="version_info"><b>Versiune:</b> %s - %s (%d)</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="configure_statistic">Configurați statisticile</string>
+    <string name="speed_mi_h">Viteză în mi/h</string>
+    <string name="pace_min_mi">Ritm în min/mi</string>
+    <string name="debug_trackpoints_info">Puncte de rută primite: %1$d
+\nPuncte de rută invalide: %2$d
+\nPuncte de rută trase: %3$d
+\nPuncte de rută în pauză: %4$d
+\nSegmente: %5$d
+\nVersiune protocol: %6$d</string>
+    <string name="track_color_mode_uni">Unicolor</string>
 </resources>
