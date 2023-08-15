@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="map_selection">地图列表。</string>
+    <string name="startDownload">开始下载</string>
+    <string name="moving_time">运动时间</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="unit_mile_per_hour">英里每小时</string>
+    <string name="no_data">未收到轨迹数据</string>
+    <string name="copyright_osm">地图数据由©OpenStreetMap提供</string>
+    <string name="maps">地图</string>
+    <string name="map_themes">地图主题</string>
+    <string name="default_theme">默认主题</string>
+    <string name="map_info_menu">关于</string>
+    <string name="map_folder">离线地图路径</string>
+    <string name="theme_folder">地图主题路径</string>
+    <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, 选择一条路径并点击地图图标以在此地图中显示。</string>
+    <string name="osm_info">默认地图由 <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>提供。如果想加入社区并帮助改进地图，请点击 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="consider_offline_maps">请优先考虑下载一份离线地图以降低服务器负载，同时保存好您的轨迹数据。以下是是一些地区的离线数据：</string>
+    <string name="app_name_info_screen">OSM仪表盘
+\n用于OpenTracks</string>
+    <string name="map_online_consent_menu">同意使用在线地图</string>
+    <string name="manual_offline_map_info">手动下载离线地图可与您的安卓设备上其他应用共享。通过 <b>地图路径</b>按钮选择 下载好的离线地图数据存放的路径。</string>
+    <string name="app_logo_description">应用图标</string>
+    <string name="download_map">地图下载</string>
+    <string name="download_theme">主题下载</string>
+    <string name="choose_map_to_download">选择一个地图以下载</string>
+    <string name="download_instruction">您查看的内容来自https://ftp-stud.hs-esslingen.de。</string>
+    <string name="download_map_question">是否下载 %s的地图\?</string>
+    <string name="download_in_progress">已经存在 一个下载中的任务！</string>
+    <string name="download_success">地图下载成功</string>
+    <string name="download_failed">地图下载失败</string>
+    <string name="download_theme_failed">主题下载失败</string>
+    <string name="online_osm_mapnick">在线地图OSM:Mapnik</string>
+    <string name="delete_map_question">是否删除\"%s\"的地图\?</string>
+    <string name="delete_map_error">地图删除失败</string>
+    <string name="theme_selection">地图主题</string>
+    <string name="delete_theme_question">是否删除主题 \"%s\"\?</string>
+    <string name="delete_theme_error">主题删除失败</string>
+    <string name="overwrite_theme_question">主题 \"%s\" 已存在!！是否删除并重新下载？</string>
+    <string name="cancel_download_question">取消当前下载？</string>
+    <string name="error_loading_offline_map">读取配置的在线地图失败</string>
+    <string name="track_smoothing_menu">轨迹平滑</string>
+    <string name="track_smoothing_hint">轨迹平滑公差（以米为单位）</string>
+    <string name="only_digits">填入的值必须仅包含数字</string>
+    <string name="pip_mode">画中画模式</string>
+    <string name="arrow_mode_north">箭头朝北</string>
+    <string name="arrow_mode_direction">箭头跟随指向</string>
+    <string name="arrow_mode_compass">箭头指北（指南针）</string>
+    <string name="map_mode_north_top">地图上方为北</string>
+    <string name="map_mode_direction">地图跟随方向</string>
+    <string name="map_mode_compass">地图为罗盘</string>
+    <string name="compass_smoothing_menu">指南针指向平滑</string>
+    <string name="compass_smoothing_info">高度数据降噪</string>
+    <string name="menu_advanced">高级选项</string>
+    <string name="multi_thread_map_rendering">多线程地图渲染</string>
+    <string name="persistent_tilecache">保存缓存数据</string>
+    <string name="purge_tilecache">清除缓存数据</string>
+    <string name="stroke_width_info">定义轨迹的描边宽度</string>
+    <string name="stroke_width_menu">轨道描边宽度</string>
+    <string name="no_download_uri_found">没有找到URI下载链接</string>
+    <string name="unit_feet">英尺</string>
+    <string name="unit_kilometer">千米</string>
+    <string name="unit_kilometer_per_hour">km/h.</string>
+    <string name="unit_meter">m</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="share">分享</string>
+    <string name="toggle_full_screen_mode">切换全屏模式</string>
+    <string name="zoom_in">放大</string>
+    <string name="zoom_out">缩小</string>
+    <string name="error_crash_title">%1$s 崩溃</string>
+    <string name="no_browser_available">没有可用的浏览器</string>
+    <string name="bug_report">报告问题</string>
+    <string name="overdraw_factor_info">定义地图过度绘制因数</string>
+    <string name="tilecache_capacity_factor_info">定义瓦片地图缓存保存因数</string>
+    <string name="tilecache_capacity_factor">瓦片地图缓存保存因数</string>
+    <string name="color_by_speed">颜色关联速度</string>
+    <string name="configure_statistic">配置统计信息</string>
+    <string name="category">类别</string>
+    <string name="total_time">总时间</string>
+    <string name="distance_km">距离（千米）</string>
+    <string name="elevation_meter">海拔增益（以米为单位）</string>
+    <string name="speed_km_h">速度（km/h）</string>
+    <string name="pace_min_km">配速（分钟/公里）</string>
+    <string name="speed_mi_h">速度（英里/小时）</string>
+    <string name="pace_min_mi">配速（分钟/英里）</string>
+    <string name="elevation_feet">海拔增益（以英尺为单位）</string>
+    <string name="distance_mi">距离（英里）</string>
+    <string name="version_info"><b>版本:</b> %s - %s (%d)</string>
+    <string name="read_number_of_trackpoints">读取 %d 轨迹点</string>
+    <string name="debug_trackpoints">调试轨迹点</string>
+    <string name="track_color">轨迹颜色</string>
+    <string name="track_color_mode_uni">单色</string>
+    <string name="track_color_mode_by_track">颜色关联轨迹</string>
+    <string name="track_color_mode_by_speed">颜色关联速度</string>
+    <string name="unit_mile">英里</string>
+    <string name="map_theme_info"><b>有些地图需要特定主题才能正确渲染！</b> 因此需要下载完这些数据并配置完成才能正常运行。</string>
+    <string name="offline_map_info">离线地图可通过以下列表下载<b>地图下载</b> 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。</string>
+    <string name="online_map_consent">还没有配置离线地图。请允许应用使用OpenStreet提供的在线地图。这可能泄露您当前的地理位置信息。点击链接https://operations.osmfoundation.org/policies/tiles/ 查看相关隐私政策。</string>
+    <string name="download_theme_success">主题下载成功</string>
+    <string name="overwrite_map_question">地图 \"%s\" 已存在!！是否删除并重新下载？</string>
+    <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。输入 0 以禁用轨迹平滑。
+\n更改在重新加载轨迹后生效。</string>
+    <string name="no_map_configured">您还没有配置离线地图。</string>
+    <string name="no_file_manager_found">没有找到文件管理器</string>
+    <string name="error_reg_content_observer">注册OpenTracksContentObserver失败</string>
+    <string name="overdraw_factor">地图过度绘制因数</string>
+    <string name="error_reading_trackpoints">加载轨迹点错误: %s</string>
+    <string name="debug_trackpoints_info">轨迹点接收: %1$d
+\n轨迹点无效: %2$d
+\n轨迹点绘制: %3$d
+\n轨迹点暂停: %4$d
+\n分段: %5$d
+\n协议版本: %6$d</string>
+</resources>
