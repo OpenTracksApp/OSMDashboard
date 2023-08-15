@@ -1,0 +1,18 @@
+一个OpneStreetMap用于 <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+在地图 <a href="https://openstreetmap.org">OpenStreetMap</a> 上显示轨迹的起点和终点，基于 <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> 开源库。
+默认使用了在线地图，同时也支持离线地图。如果使用离线地图，则不需要使用额外的流量数据。
+
+默认地图由<a href="https://openstreetmap.org">OpenStreetMap.org</a>提供。
+加入社区并帮助改进地图，请点击<a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+请考虑下载离线地图以减轻服务器负载并节省您的流量使用费用。
+以下是一些离线地图:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+有些地图需要特定主题才能正确渲染！因此需要下载完这些数据并配置完成才能正常运行。
+
+离线地图可通过以下列表下载【地图下载】 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。
+
+手动下载离线地图可与您的安卓设备上其他应用共享。通过 【地图路径】按钮选择 下载好的离线地图数据存放的路径。
