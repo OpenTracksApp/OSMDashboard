@@ -112,7 +112,7 @@ android {
 }
 
 ext {
-    mapsforgeVersion = '0.19.0'
+    mapsforgeVersion = '0.20.0'
     lifecycle_version = '2.6.1'
     junitVersion = '5.10.0'
     assertJVersion = '3.24.2'
