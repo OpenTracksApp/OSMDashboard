@@ -29,13 +29,13 @@ def getVersionCode = { ->
 }
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "30.0.3"
     defaultConfig {
+        compileSdk 34
+        buildToolsVersion = "30.0.3"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 36
-        versionName "2.22.0"
+        versionCode 37
+        versionName "2.22.1"
 
         testInstrumentationRunnerArguments runnerBuilder: 'de.mannodermaus.junit5.AndroidJUnit5Builder'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,15 +59,15 @@ android {
         full {
             applicationId "de.storchp.opentracks.osmplugin"
             buildConfigField "boolean", "offline", "false"
-            flavorDimensions "default"
+            flavorDimensions = ["default"]
         }
         offline {
             applicationId "de.storchp.opentracks.osmplugin.offline"
             buildConfigField "boolean", "offline", "true"
-            flavorDimensions "default"
+            flavorDimensions = ["default"]
         }
     }
-    flavorDimensions "default"
+    flavorDimensions = ["default"]
     sourceSets {
         full {
             manifest.srcFile "src/full/AndroidManifest.xml"
@@ -96,16 +96,16 @@ android {
         disable 'MissingTranslation'
     }
     namespace 'de.storchp.opentracks.osmplugin'
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         variant.resValue "string", "applicationId", variant.applicationId
 
         if (variant.buildType.name == 'nightly') {
-            variant.outputs.all {
+            variant.outputs.configureEach {
                 setVersionCodeOverride(getVersionCode())
                 setVersionNameOverride(versionName + "-" + versionCode)
             }
         }
-        variant.outputs.all {
+        variant.outputs.configureEach {
             outputFileName = "${applicationId}_${variant.versionCode}.apk"
         }
     }
@@ -124,11 +124,10 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // AndroidX
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.documentfile:documentfile:1.0.1'
-    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.9.0'
 
