@@ -34,8 +34,8 @@ android {
         buildToolsVersion = "30.0.3"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 37
-        versionName "2.22.1"
+        versionCode 38
+        versionName "2.22.2"
 
         testInstrumentationRunnerArguments runnerBuilder: 'de.mannodermaus.junit5.AndroidJUnit5Builder'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

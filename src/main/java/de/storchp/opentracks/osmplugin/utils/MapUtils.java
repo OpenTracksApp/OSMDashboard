@@ -138,7 +138,7 @@ public class MapUtils {
      * @return true if the location is a valid location.
      */
     public static boolean isValid(double latitude, double longitude) {
-        return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
+        return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180 && (latitude != 0 || longitude != 0);
     }
 
     public static float bearing(LatLong src, LatLong dest) {
