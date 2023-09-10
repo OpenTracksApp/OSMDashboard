@@ -1,1 +1,2 @@
 - fix #269 ignore null coordinates from OpenTracks
+- Update dependencies

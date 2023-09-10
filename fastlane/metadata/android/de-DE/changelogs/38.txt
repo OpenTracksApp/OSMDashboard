@@ -1,1 +1,2 @@
 - Fix #269 ignoriere Null-Koordinaten von OpenTracks
+- Abhängigkeiten aktualisiert
