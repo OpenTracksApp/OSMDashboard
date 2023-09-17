@@ -198,10 +198,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             readWaypoints(waypointsUri);
         } else if (intent.getScheme().equals("geo")) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                if (waypointsLayer == null) {
-                    waypointsLayer = new GroupLayer();
-                }
-                waypointsLayer.layers.add(createMarker(waypoint.getLatLong()));
+                addWaypointMarker(createMarker(waypoint.getLatLong()));
                 var layers = binding.map.mapView.getLayerManager().getLayers();
                 layers.add(waypointsLayer);
                 binding.map.mapView.setCenter(waypoint.getLatLong());
@@ -612,6 +609,10 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                         polyline.addPoint(endPos);
                         movementDirection.updatePos(endPos);
 
+                        if (trackPoint.isPause()) {
+                            addWaypointMarker(createPauseMarker(trackPoint.getLatLong()));
+                        }
+
                         if (!update) {
                             latLongs.add(endPos);
                         }
@@ -757,10 +758,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
             for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
-                if (waypointsLayer == null) {
-                    waypointsLayer = new GroupLayer();
-                }
-                waypointsLayer.layers.add(createTappableMarker(waypoint));
+                addWaypointMarker(createTappableMarker(waypoint));
             }
             if (waypointsLayer != null) {
                 layers.add(waypointsLayer);
@@ -772,8 +770,23 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
     }
 
+    private void addWaypointMarker(final Marker marker) {
+        if (waypointsLayer == null) {
+            waypointsLayer = new GroupLayer();
+        }
+        waypointsLayer.layers.add(marker);
+    }
+
     private Marker createMarker(LatLong latLong) {
         var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_modern);
+        assert drawable != null;
+        var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        bitmap.incrementRefCount();
+        return new Marker(latLong, bitmap, 0, -bitmap.getHeight() / 2);
+    }
+
+    private Marker createPauseMarker(LatLong latLong) {
+        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_pause_34);
         assert drawable != null;
         var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.incrementRefCount();

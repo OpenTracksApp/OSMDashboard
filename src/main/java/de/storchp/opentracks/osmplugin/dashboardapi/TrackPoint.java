@@ -58,12 +58,12 @@ public class TrackPoint {
         } else {
             latLong = null;
         }
-        this.pause = type != null ? type != 0 : latitude == PAUSE_LATITUDE;
+        this.pause = type != null ? type == 3 : latitude == PAUSE_LATITUDE;
         this.speed = speed;
     }
 
     public boolean hasValidLocation() {
-        return latLong != null && !isPause();
+        return latLong != null;
     }
 
     public boolean isPause() {
@@ -78,7 +78,7 @@ public class TrackPoint {
         var debug = new TrackPointsDebug();
         var segments = new ArrayList<List<TrackPoint>>();
         var projection = PROJECTION_V2;
-        var typeQuery = " AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1)";
+        var typeQuery = " AND " + TrackPoint.TYPE + " IN (-2, -1, 0, 1, 3)";
         if (protocolVersion < 2) { // fallback to old Dashboard API
             projection = PROJECTION_V1;
             typeQuery = "";
@@ -113,6 +113,14 @@ public class TrackPoint {
                 }
                 if (lastTrackPoint.isPause()) {
                     debug.trackpointsPause++;
+                    if (!lastTrackPoint.hasValidLocation()) {
+                       if (segment.size() > 0) {
+                           var previousTrackpoint = segment.get(segment.size() - 1);
+                           if (previousTrackpoint.hasValidLocation()) {
+                               segment.add(new TrackPoint(trackId, trackPointId, previousTrackpoint.getLatLong().latitude, previousTrackpoint.getLatLong().longitude, type, speed));
+                           }
+                       }
+                    }
                     lastTrackPoint = null;
                 }
             }
