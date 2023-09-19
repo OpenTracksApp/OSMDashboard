@@ -58,6 +58,9 @@ abstract class BaseActivity extends AppCompatActivity {
             menu.findItem(R.id.download_map).setVisible(false);
         }
 
+        var showPauseMarkers = menu.findItem(R.id.show_pause_markers);
+        showPauseMarkers.setChecked(PreferencesUtils.isShowPauseMarkers());
+
         var multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
         multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering());
 
@@ -84,6 +87,10 @@ abstract class BaseActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(item.isChecked());
             onOnlineMapConsentChanged(item.isChecked());
+        } else if (itemId == R.id.show_pause_markers) {
+            item.setChecked(!item.isChecked());
+            PreferencesUtils.setShowPauseMarkers(item.isChecked());
+            recreate();
         } else if (itemId == R.id.track_color) {
             showTrackColorDialog();
         } else if (itemId == R.id.configure_statistic) {

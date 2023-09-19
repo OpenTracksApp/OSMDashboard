@@ -39,6 +39,11 @@
         android:title="@string/track_color"/>
 
     <item
+        android:id="@+id/show_pause_markers"
+        android:checkable="true"
+        android:title="@string/show_pause_markers"/>
+
+    <item
         android:id="@+id/configure_statistic"
         android:title="@string/configure_statistic"/>
 

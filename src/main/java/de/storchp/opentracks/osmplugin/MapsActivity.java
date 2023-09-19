@@ -552,6 +552,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         Log.i(TAG, "Loading trackpoints from " + data);
 
         synchronized (binding.map.mapView.getLayerManager().getLayers()) {
+            var showPauseMarkers = PreferencesUtils.isShowPauseMarkers();
             var latLongs = new ArrayList<LatLong>();
             int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
@@ -609,7 +610,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                         polyline.addPoint(endPos);
                         movementDirection.updatePos(endPos);
 
-                        if (trackPoint.isPause()) {
+                        if (trackPoint.isPause() && showPauseMarkers) {
                             addWaypointMarker(createPauseMarker(trackPoint.getLatLong()));
                         }
 

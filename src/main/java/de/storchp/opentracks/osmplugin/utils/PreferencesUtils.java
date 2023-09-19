@@ -77,6 +77,14 @@ public class PreferencesUtils {
         setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
+    public static boolean isShowPauseMarkers() {
+        return getBoolean(R.string.SHOW_PAUSE_MARKERS, true);
+    }
+
+    public static void setShowPauseMarkers(boolean showPauseMarkers) {
+        setBoolean(R.string.SHOW_PAUSE_MARKERS, showPauseMarkers);
+    }
+
     public static String getLastDownloadUrl(String defaultDownloadUrl) {
         return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
