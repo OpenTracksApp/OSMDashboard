@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/general_settings_category_title">
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_SHOW_PAUSE_MARKERS"
+            app:defaultValue="true"
+            app:title="@string/show_pause_markers" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

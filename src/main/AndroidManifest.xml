@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".MapsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"

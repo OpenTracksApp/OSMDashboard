@@ -5,7 +5,7 @@
     <item
         android:id="@+id/share"
         android:title="@string/share"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:visible="false"
         android:icon="@drawable/ic_baseline_share_24"
         />
@@ -102,6 +102,12 @@
                 android:title="@string/debug_trackpoints"/>
         </menu>
     </item>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/map_info"

@@ -38,59 +38,59 @@ public class PreferencesUtils {
     }
 
     public static Set<Uri> getMapUris() {
-        return getUris(getKey(R.string.MAP_FILES));
+        return getUris(getKey(R.string.APP_PREF_MAP_FILES));
     }
 
     public static void setMapUris(Set<Uri> mapUris) {
-        setUris(R.string.MAP_FILES, mapUris);
+        setUris(R.string.APP_PREF_MAP_FILES, mapUris);
     }
 
     public static Uri getMapDirectoryUri() {
-        return getUri(getKey(R.string.MAP_DIRECTORY));
+        return getUri(getKey(R.string.APP_PREF_MAP_DIRECTORY));
     }
 
     public static void setMapDirectoryUri(Uri mapDirectory) {
-        setUri(R.string.MAP_DIRECTORY, mapDirectory);
+        setUri(R.string.APP_PREF_MAP_DIRECTORY, mapDirectory);
     }
 
     public static Uri getMapThemeDirectoryUri() {
-        return getUri(getKey(R.string.MAP_THEME_DIRECTORY));
+        return getUri(getKey(R.string.APP_PREF_MAP_THEME_DIRECTORY));
     }
 
     public static void setMapThemeDirectoryUri(Uri mapThemeDirectory) {
-        setUri(R.string.MAP_THEME_DIRECTORY, mapThemeDirectory);
+        setUri(R.string.APP_PREF_MAP_THEME_DIRECTORY, mapThemeDirectory);
     }
 
     public static Uri getMapThemeUri() {
-        return getUri(getKey(R.string.MAP_THEME));
+        return getUri(getKey(R.string.APP_PREF_MAP_THEME));
     }
 
     public static void setMapThemeUri(Uri mapTheme) {
-        setUri(R.string.MAP_THEME, mapTheme);
+        setUri(R.string.APP_PREF_MAP_THEME, mapTheme);
     }
 
     public static boolean getOnlineMapConsent() {
-        return getBoolean(R.string.ONLINE_MAP_CONSENT, false);
+        return getBoolean(R.string.APP_PREF_ONLINE_MAP_CONSENT, false);
     }
 
     public static void setOnlineMapConsent(boolean onlineMapConsent) {
-        setBoolean(R.string.ONLINE_MAP_CONSENT, onlineMapConsent);
+        setBoolean(R.string.APP_PREF_ONLINE_MAP_CONSENT, onlineMapConsent);
     }
 
     public static boolean isShowPauseMarkers() {
-        return getBoolean(R.string.SHOW_PAUSE_MARKERS, true);
+        return getBoolean(R.string.APP_PREF_SHOW_PAUSE_MARKERS, true);
     }
 
     public static void setShowPauseMarkers(boolean showPauseMarkers) {
-        setBoolean(R.string.SHOW_PAUSE_MARKERS, showPauseMarkers);
+        setBoolean(R.string.APP_PREF_SHOW_PAUSE_MARKERS, showPauseMarkers);
     }
 
     public static String getLastDownloadUrl(String defaultDownloadUrl) {
-        return getString(R.string.LAST_DOWNLOAD_URL, defaultDownloadUrl);
+        return getString(R.string.APP_PREF_LAST_DOWNLOAD_URL, defaultDownloadUrl);
     }
 
     public static void setLastDownloadUrl(String lastDownloadUrl) {
-        setString(R.string.LAST_DOWNLOAD_URL, lastDownloadUrl);
+        setString(R.string.APP_PREF_LAST_DOWNLOAD_URL, lastDownloadUrl);
     }
 
     private static Set<Uri> getUris(String keyId) {
@@ -175,106 +175,106 @@ public class PreferencesUtils {
     }
 
     public static int getTrackSmoothingTolerance() {
-        return getInt(R.string.TRACK_SMOOTHING_TOLERANCE, 10);
+        return getInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, 10);
     }
 
     public static void setTrackSmoothingTolerance(int value) {
-        setInt(R.string.TRACK_SMOOTHING_TOLERANCE, value);
+        setInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, value);
     }
 
     public static boolean isPipEnabled() {
-        return getBoolean(R.string.PIP_ENABLED, true);
+        return getBoolean(R.string.APP_PREF_PIP_ENABLED, true);
     }
 
     public static void setPipEnabled(boolean enabled) {
-        setBoolean(R.string.PIP_ENABLED, enabled);
+        setBoolean(R.string.APP_PREF_PIP_ENABLED, enabled);
     }
 
     public static ArrowMode getArrowMode() {
-        return ArrowMode.valueOf(getString(R.string.ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
+        return ArrowMode.valueOf(getString(R.string.APP_PREF_ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
     }
 
     public static void setArrowMode(ArrowMode arrowMode) {
-        setString(R.string.ARROW_MODE, arrowMode.name());
+        setString(R.string.APP_PREF_ARROW_MODE, arrowMode.name());
     }
 
     public static MapMode getMapMode() {
-        return MapMode.valueOf(getString(R.string.MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
+        return MapMode.valueOf(getString(R.string.APP_PREF_MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
     }
 
     public static void setMapMode(MapMode mapMode) {
-        setString(R.string.MAP_MODE, mapMode.name());
+        setString(R.string.APP_PREF_MAP_MODE, mapMode.name());
     }
 
     public static int getCompassSmoothing() {
-        return getInt(R.string.COMPASS_SMOOTHING, 2);
+        return getInt(R.string.APP_PREF_COMPASS_SMOOTHING, 2);
     }
 
     public static void setCompassSmoothing(int value) {
-        setInt(R.string.COMPASS_SMOOTHING, value);
+        setInt(R.string.APP_PREF_COMPASS_SMOOTHING, value);
     }
 
     public static boolean getMultiThreadMapRendering() {
-        return getBoolean(R.string.MAP_MULTI_THREAD_RENDERING, true);
+        return getBoolean(R.string.APP_PREF_MAP_MULTI_THREAD_RENDERING, true);
     }
 
     public static void setMultiThreadMapRendering(boolean multiThread) {
-        setBoolean(R.string.MAP_MULTI_THREAD_RENDERING, multiThread);
+        setBoolean(R.string.APP_PREF_MAP_MULTI_THREAD_RENDERING, multiThread);
     }
 
     public static boolean getPersistentTileCache() {
-        return getBoolean(R.string.MAP_PERSISTENT_TILECACHE, true);
+        return getBoolean(R.string.APP_PREF_MAP_PERSISTENT_TILECACHE, true);
     }
 
     public static void setPersistentTileCache(boolean persistentTileCache) {
-        setBoolean(R.string.MAP_PERSISTENT_TILECACHE, persistentTileCache);
+        setBoolean(R.string.APP_PREF_MAP_PERSISTENT_TILECACHE, persistentTileCache);
     }
 
     public static int getStrokeWidth() {
-        return getInt(R.string.STROKE_WIDTH, 4);
+        return getInt(R.string.APP_PREF_STROKE_WIDTH, 4);
     }
 
     public static void setStrokeWidth(int value) {
-        setInt(R.string.STROKE_WIDTH, value);
+        setInt(R.string.APP_PREF_STROKE_WIDTH, value);
     }
 
     public static double getOverdrawFactor() {
-        return getFloat(R.string.MAP_OVERDRAW_FACTOR, 1.2f);
+        return getFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, 1.2f);
     }
 
     public static void setOverdrawFactor(double overdrawFactor) {
-        setFloat(R.string.MAP_OVERDRAW_FACTOR, (float) overdrawFactor);
+        setFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, (float) overdrawFactor);
     }
 
     public static float getTileCacheCapacityFactor() {
-        return getFloat(R.string.MAP_TILE_CACHE_CAPACITY_FACTOR, 2f);
+        return getFloat(R.string.APP_MAP_TILE_CACHE_CAPACITY_FACTOR, 2f);
     }
 
     public static void setTileCacheCapacityFactor(float tileCacheCapacityFactor) {
-        setFloat(R.string.MAP_TILE_CACHE_CAPACITY_FACTOR, tileCacheCapacityFactor);
+        setFloat(R.string.APP_MAP_TILE_CACHE_CAPACITY_FACTOR, tileCacheCapacityFactor);
     }
 
     public static void setStatisticElements(Set<StatisticElement> statisticElements) {
-        setStringSet(R.string.STATISTIC_ELEMENTS, statisticElements.stream().map(StatisticElement::name).collect(Collectors.toSet()));
+        setStringSet(R.string.APP_PREF_STATISTIC_ELEMENTS, statisticElements.stream().map(StatisticElement::name).collect(Collectors.toSet()));
     }
 
     public static Set<StatisticElement> getStatisticElements() {
-        return getStringSet(R.string.STATISTIC_ELEMENTS, DEFAULT_STATISTIC_ELEMENTS).stream()
+        return getStringSet(R.string.APP_PREF_STATISTIC_ELEMENTS, DEFAULT_STATISTIC_ELEMENTS).stream()
                 .map(StatisticElement::of)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
 
     public static boolean isDebugTrackPoints() {
-        return getBoolean(R.string.DEBUG_TRACKPOINTS, false);
+        return getBoolean(R.string.APP_PREF_DEBUG_TRACKPOPINTS, false);
     }
 
     public static void setDebugTrackPoints(boolean enabled) {
-        setBoolean(R.string.DEBUG_TRACKPOINTS, enabled);
+        setBoolean(R.string.APP_PREF_DEBUG_TRACKPOPINTS, enabled);
     }
 
     public static TrackColorMode getTrackColorMode() {
-        var trackColorMode = getString(R.string.TRACK_COLOR_MODE, null);
+        var trackColorMode = getString(R.string.APP_PREF_TRACK_COLOR_MODE, null);
         if (trackColorMode != null) {
             return TrackColorMode.valueOf(trackColorMode);
         }
@@ -285,11 +285,11 @@ public class PreferencesUtils {
     }
 
     private static boolean getColorBySpeed() {
-        return getBoolean(R.string.COLOR_BY_SPEED, false);
+        return getBoolean(R.string.APP_PREF_COLOR_BY_SPEED, false);
     }
 
     public static void setTrackColorMode(TrackColorMode trackColorMode) {
-        setString(R.string.TRACK_COLOR_MODE, trackColorMode.name());
+        setString(R.string.APP_PREF_TRACK_COLOR_MODE, trackColorMode.name());
     }
 
 }

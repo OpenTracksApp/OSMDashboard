@@ -80,10 +80,17 @@ abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> recreate());
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.map_online_consent) {
+        if (itemId == R.id.action_settings) {
+            settingsActivityResultLauncher.launch(new Intent(this, SettingsActivity.class));
+            return true;
+        } else if (itemId == R.id.map_online_consent) {
             item.setChecked(!item.isChecked());
             PreferencesUtils.setOnlineMapConsent(item.isChecked());
             onOnlineMapConsentChanged(item.isChecked());
