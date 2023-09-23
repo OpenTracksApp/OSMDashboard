@@ -269,7 +269,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         super.onCreateOptionsMenu(menu, true);
         menu.findItem(R.id.share).setVisible(true);
-        menu.findItem(R.id.purge_tilecache).setVisible(true);
         return true;
     }
 
@@ -467,9 +466,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         } else if (item.getItemId() == R.id.share) {
             sharePicture();
             return true;
-        } else if (item.getItemId() == R.id.purge_tilecache) {
-            purgeTileCaches();
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -515,20 +511,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.controls.setVisibility(View.VISIBLE);
         binding.map.attribution.setVisibility(View.VISIBLE);
         binding.map.sharePictureTitle.setText("");
-    }
-
-    @Override
-    protected void changeMapMode(MapMode mapMode) {
-        this.mapMode = mapMode;
-        rotateMap();
-    }
-
-    @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        this.arrowMode = arrowMode;
-        if (endMarker != null && endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
-            binding.map.mapView.getLayerManager().redrawLayers();
-        }
     }
 
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {

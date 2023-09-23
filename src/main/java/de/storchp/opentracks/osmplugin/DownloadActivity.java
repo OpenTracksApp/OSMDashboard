@@ -21,9 +21,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadActivity extends BaseActivity {
@@ -306,16 +304,6 @@ public class DownloadActivity extends BaseActivity {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void changeMapMode(MapMode mapMode) {
-        // nothing to do
-    }
-
-   @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        // nothing to do
     }
 
     @Override

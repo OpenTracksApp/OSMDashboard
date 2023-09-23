@@ -22,18 +22,6 @@
     </group>
 
     <item
-        android:id="@+id/map_mode"
-        android:title="@string/map_mode_north_top"/>
-
-    <item
-        android:id="@+id/arrow_mode"
-        android:title="@string/arrow_mode_direction"/>
-
-    <item
-        android:id="@+id/track_color"
-        android:title="@string/track_color"/>
-
-    <item
         android:id="@+id/configure_statistic"
         android:title="@string/configure_statistic"/>
 
@@ -62,13 +50,6 @@
                 android:id="@+id/tilecache_capacity_factor"
                 android:title="@string/tilecache_capacity_factor"
                 />
-
-           <item
-                android:id="@+id/purge_tilecache"
-                android:title="@string/purge_tilecache"
-                android:visible="false"
-                />
-
 
         </menu>
     </item>

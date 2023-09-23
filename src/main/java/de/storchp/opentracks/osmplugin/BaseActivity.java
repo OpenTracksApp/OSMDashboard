@@ -30,11 +30,8 @@ import de.storchp.opentracks.osmplugin.databinding.OverdrawFactorDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.StrokeWidthDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TilecacheCapacityFactorDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 import de.storchp.opentracks.osmplugin.utils.StatisticElement;
-import de.storchp.opentracks.osmplugin.utils.TrackColorMode;
 
 abstract class BaseActivity extends AppCompatActivity {
 
@@ -51,9 +48,6 @@ abstract class BaseActivity extends AppCompatActivity {
         if (BuildConfig.offline) {
             menu.findItem(R.id.download_map).setVisible(false);
         }
-
-        menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode().getMessageId());
-        menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode().getMessageId());
     }
 
     ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
@@ -66,8 +60,6 @@ abstract class BaseActivity extends AppCompatActivity {
         if (itemId == R.id.action_settings) {
             settingsActivityResultLauncher.launch(new Intent(this, SettingsActivity.class));
             return true;
-        } else if (itemId == R.id.track_color) {
-            showTrackColorDialog();
         } else if (itemId == R.id.configure_statistic) {
             showConfigureStatisticDialog();
         } else if (itemId == R.id.track_smoothing) {
@@ -86,18 +78,6 @@ abstract class BaseActivity extends AppCompatActivity {
             openDirectory(themeDirectoryLauncher);
         } else if (itemId == R.id.download_map) {
             startActivity(new Intent(this, DownloadMapSelectionActivity.class));
-        } else if (itemId == R.id.arrow_mode) {
-            var arrowMode = PreferencesUtils.getArrowMode();
-            arrowMode = arrowMode.next();
-            item.setTitle(arrowMode.getMessageId());
-            PreferencesUtils.setArrowMode(arrowMode);
-            changeArrowMode(arrowMode);
-        } else if (itemId == R.id.map_mode) {
-            var mapMode = PreferencesUtils.getMapMode();
-            mapMode = mapMode.next();
-            item.setTitle(mapMode.getMessageId());
-            PreferencesUtils.setMapMode(mapMode);
-            changeMapMode(mapMode);
         } else if (itemId == R.id.overdraw_factor) {
             showOverdrawFactorDialog();
         } else if (itemId == R.id.tilecache_capacity_factor) {
@@ -105,23 +85,6 @@ abstract class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showTrackColorDialog() {
-        var trackColorModes = TrackColorMode.values();
-        var currentTrackColorMode = PreferencesUtils.getTrackColorMode();
-
-        new android.app.AlertDialog.Builder(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(R.string.track_color)
-                .setSingleChoiceItems(Arrays.stream(trackColorModes).map(trackColorMode -> getString(trackColorMode.getLabelResId())).toArray(String[]::new),
-                        currentTrackColorMode.ordinal(),
-                        (dialog, which) -> {
-                            PreferencesUtils.setTrackColorMode(trackColorModes[which]);
-                            dialog.dismiss();
-                            recreate();
-                        })
-                .create().show();
     }
 
     private void showConfigureStatisticDialog() {
@@ -149,13 +112,9 @@ abstract class BaseActivity extends AppCompatActivity {
                 .create().show();
     }
 
-    protected abstract void changeMapMode(MapMode mapMode);
-
     public void updateDebugTrackPoints() {
         // override in subclasses
     }
-
-    protected abstract void changeArrowMode(ArrowMode arrowMode);
 
     private void showTrackSmoothingDialog() {
         var binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));

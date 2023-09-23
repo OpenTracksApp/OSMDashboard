@@ -6,6 +6,30 @@
             app:defaultValue="true"
             app:title="@string/show_pause_markers" />
 
+        <ListPreference
+            app:defaultValue="BY_SPEED"
+            app:entries="@array/track_color_types"
+            app:entryValues="@array/track_color_type_values"
+            app:key="APP_PREF_TRACK_COLOR_MODE"
+            app:title="@string/track_color"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="NORTH"
+            app:entries="@array/map_mode_types"
+            app:entryValues="@array/map_mode_type_values"
+            app:key="APP_PREF_MAP_MODE"
+            app:title="@string/map_mode"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="DIRECTION"
+            app:entries="@array/arrow_mode_types"
+            app:entryValues="@array/arrow_mode_type_values"
+            app:key="APP_PREF_ARROW_MODE"
+            app:title="@string/arrow_mode"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/map_settings">
