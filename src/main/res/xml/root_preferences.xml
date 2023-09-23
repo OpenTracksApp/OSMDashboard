@@ -8,4 +8,34 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/map_settings">
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_ONLINE_MAP_CONSENT"
+            app:defaultValue="true"
+            app:title="@string/map_online_consent_menu" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/menu_advanced">
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_DEBUG_TRACKPOPINTS"
+            app:defaultValue="true"
+            app:title="@string/debug_trackpoints" />
+
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_PIP_ENABLED"
+            app:defaultValue="true"
+            app:title="@string/pip_mode" />
+
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_MAP_PERSISTENT_TILECACHE"
+            app:defaultValue="true"
+            app:title="@string/persistent_tilecache" />
+
+        <SwitchPreferenceCompat
+            app:key="APP_PREF_MAP_MULTI_THREAD_RENDERING"
+            app:defaultValue="true"
+            app:title="@string/multi_thread_map_rendering" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

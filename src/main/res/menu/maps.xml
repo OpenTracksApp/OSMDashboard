@@ -22,11 +22,6 @@
     </group>
 
     <item
-        android:id="@+id/map_online_consent"
-        android:checkable="true"
-        android:title="@string/map_online_consent_menu"/>
-
-    <item
         android:id="@+id/map_mode"
         android:title="@string/map_mode_north_top"/>
 
@@ -37,11 +32,6 @@
     <item
         android:id="@+id/track_color"
         android:title="@string/track_color"/>
-
-    <item
-        android:id="@+id/show_pause_markers"
-        android:checkable="true"
-        android:title="@string/show_pause_markers"/>
 
     <item
         android:id="@+id/configure_statistic"
@@ -63,13 +53,7 @@
                 android:id="@+id/stroke_width"
                 android:title="@string/stroke_width_menu"/>
 
-            <item
-                android:id="@+id/multi_thread_map_rendering"
-                android:title="@string/multi_thread_map_rendering"
-                android:checkable="true"
-                />
-
-            <item
+           <item
                 android:id="@+id/overdraw_factor"
                 android:title="@string/overdraw_factor"
                 />
@@ -79,27 +63,13 @@
                 android:title="@string/tilecache_capacity_factor"
                 />
 
-            <item
-                android:id="@+id/persistent_tilecache"
-                android:title="@string/persistent_tilecache"
-                android:checkable="true"
-                />
-
-            <item
+           <item
                 android:id="@+id/purge_tilecache"
                 android:title="@string/purge_tilecache"
                 android:visible="false"
                 />
 
-            <item
-                android:id="@+id/pip_mode"
-                android:checkable="true"
-                android:title="@string/pip_mode"/>
 
-            <item
-                android:id="@+id/debug_trackpoints"
-                android:checkable="true"
-                android:title="@string/debug_trackpoints"/>
         </menu>
     </item>
 

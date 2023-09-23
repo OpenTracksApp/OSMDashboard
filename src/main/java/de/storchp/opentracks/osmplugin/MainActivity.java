@@ -40,7 +40,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        return super.onCreateOptionsMenu(menu, false);
+        super.onCreateOptionsMenu(menu, false);
+        return true;
     }
 
     @Override
@@ -50,11 +51,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void changeArrowMode(ArrowMode arrowMode) {
-        // nothing to do
-    }
-
-    @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
         // nothing to do
     }
 

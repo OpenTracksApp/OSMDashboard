@@ -40,9 +40,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
-    protected MenuItem mapConsent;
-
-    public boolean onCreateOptionsMenu(Menu menu, boolean showInfo) {
+    public void onCreateOptionsMenu(Menu menu, boolean showInfo) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.maps, menu);
 
@@ -50,34 +48,12 @@ abstract class BaseActivity extends AppCompatActivity {
 
         menu.findItem(R.id.map_info).setVisible(showInfo);
 
-        mapConsent = menu.findItem(R.id.map_online_consent);
-        mapConsent.setChecked(PreferencesUtils.getOnlineMapConsent());
-
         if (BuildConfig.offline) {
-            mapConsent.setVisible(false);
             menu.findItem(R.id.download_map).setVisible(false);
         }
 
-        var showPauseMarkers = menu.findItem(R.id.show_pause_markers);
-        showPauseMarkers.setChecked(PreferencesUtils.isShowPauseMarkers());
-
-        var multiThreadMapRendering = menu.findItem(R.id.multi_thread_map_rendering);
-        multiThreadMapRendering.setChecked(PreferencesUtils.getMultiThreadMapRendering());
-
-        var persistentTileCache = menu.findItem(R.id.persistent_tilecache);
-        persistentTileCache.setChecked(PreferencesUtils.getPersistentTileCache());
-
-        var pipMode = menu.findItem(R.id.pip_mode);
-        pipMode.setChecked(PreferencesUtils.isPipEnabled());
-
-        var debugTrackPoints = menu.findItem(R.id.debug_trackpoints);
-        debugTrackPoints.setChecked(PreferencesUtils.isDebugTrackPoints());
-
-
         menu.findItem(R.id.arrow_mode).setTitle(PreferencesUtils.getArrowMode().getMessageId());
         menu.findItem(R.id.map_mode).setTitle(PreferencesUtils.getMapMode().getMessageId());
-
-        return true;
     }
 
     ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
@@ -90,14 +66,6 @@ abstract class BaseActivity extends AppCompatActivity {
         if (itemId == R.id.action_settings) {
             settingsActivityResultLauncher.launch(new Intent(this, SettingsActivity.class));
             return true;
-        } else if (itemId == R.id.map_online_consent) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setOnlineMapConsent(item.isChecked());
-            onOnlineMapConsentChanged(item.isChecked());
-        } else if (itemId == R.id.show_pause_markers) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setShowPauseMarkers(item.isChecked());
-            recreate();
         } else if (itemId == R.id.track_color) {
             showTrackColorDialog();
         } else if (itemId == R.id.configure_statistic) {
@@ -108,15 +76,6 @@ abstract class BaseActivity extends AppCompatActivity {
             showCompassSmoothingDialog();
         } else if (itemId == R.id.stroke_width) {
             showStrokeWidthDialog();
-        } else if (itemId == R.id.multi_thread_map_rendering) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setMultiThreadMapRendering(item.isChecked());
-        } else if (itemId == R.id.persistent_tilecache) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setPersistentTileCache(item.isChecked());
-        } else if (itemId == R.id.pip_mode) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setPipEnabled(item.isChecked());
         } else if (itemId == R.id.map_selection) {
             startActivity(new Intent(this, MapSelectionActivity.class));
         } else if (itemId == R.id.theme_selection) {
@@ -143,10 +102,6 @@ abstract class BaseActivity extends AppCompatActivity {
             showOverdrawFactorDialog();
         } else if (itemId == R.id.tilecache_capacity_factor) {
             showTileCacheCapacityFactorDialog();
-        } else if (itemId == R.id.debug_trackpoints) {
-            item.setChecked(!item.isChecked());
-            PreferencesUtils.setDebugTrackPoints(item.isChecked());
-            updateDebugTrackPoints();
         }
 
         return super.onOptionsItemSelected(item);
@@ -402,8 +357,6 @@ abstract class BaseActivity extends AppCompatActivity {
             this.recreate();
         });
     }
-
-    protected abstract void onOnlineMapConsentChanged(boolean consent);
 
     protected final ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {

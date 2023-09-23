@@ -184,11 +184,6 @@ public class DownloadActivity extends BaseActivity {
         startDownload();
     }
 
-    @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
-        // nothing to do
-    }
-
     private static class DownloadTask extends Thread {
         private final WeakReference<DownloadActivity> ref;
         private final Uri downloadUri;

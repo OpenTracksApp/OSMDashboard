@@ -110,5 +110,6 @@
     <string name="general_settings_category_title">General</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="map_settings">Map</string>
 
 </resources>
