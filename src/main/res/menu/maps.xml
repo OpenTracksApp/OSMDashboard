@@ -10,17 +10,6 @@
         android:icon="@drawable/ic_baseline_share_24"
         />
 
-    <group android:id="@+id/map_grp">
-        <item android:id="@+id/map_selection" android:title="@string/map_selection"/>
-        <item android:id="@+id/map_folder" android:title="@string/map_folder"/>
-        <item android:id="@+id/download_map" android:title="@string/download_map"/>
-    </group>
-
-    <group android:id="@+id/theme_grp">
-        <item android:id="@+id/theme_selection" android:title="@string/theme_selection"/>
-        <item android:id="@+id/theme_folder" android:title="@string/theme_folder"/>
-    </group>
-
     <item
         android:id="@+id/configure_statistic"
         android:title="@string/configure_statistic"/>

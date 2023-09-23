@@ -112,13 +112,13 @@ public class DownloadActivity extends BaseActivity {
     public void startDownload() {
         var directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
-            openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            // TODO: openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
 
         var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
-            openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            // TODO: openDirectory(downloadType.getLauncher(DownloadActivity.this));
             return;
         }
 
@@ -170,6 +170,7 @@ public class DownloadActivity extends BaseActivity {
         }
     }
 
+    /* TODO
     @Override
     protected void changeMapDirectory(Uri uri, Intent resultData) {
         super.changeMapDirectory(uri, resultData);
@@ -181,6 +182,8 @@ public class DownloadActivity extends BaseActivity {
         super.changeThemeDirectory(uri, resultData);
         startDownload();
     }
+
+     */
 
     private static class DownloadTask extends Thread {
         private final WeakReference<DownloadActivity> ref;
@@ -331,7 +334,7 @@ public class DownloadActivity extends BaseActivity {
 
             @Override
             public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.mapDirectoryLauncher;
+                return null; // TODO: activity.mapDirectoryLauncher;
             }
         },
         MAP_ZIP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
@@ -341,7 +344,7 @@ public class DownloadActivity extends BaseActivity {
             }
             @Override
             public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.mapDirectoryLauncher;
+                return null; // TODO: activity.mapDirectoryLauncher;
             }
         },
         THEME(R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
@@ -351,7 +354,7 @@ public class DownloadActivity extends BaseActivity {
             }
             @Override
             public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.themeDirectoryLauncher;
+                return null; // TODO: activity.themeDirectoryLauncher;
             }
         };
 
@@ -385,6 +388,7 @@ public class DownloadActivity extends BaseActivity {
             return extractMapFromZIP;
         }
 
+        // TODO: check if this is still needed after refactoring
         public abstract ActivityResultLauncher<Intent> getLauncher(BaseActivity activity);
     }
 

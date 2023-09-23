@@ -1,8 +1,9 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/general_settings_category_title">
         <SwitchPreferenceCompat
-            app:key="APP_PREF_SHOW_PAUSE_MARKERS"
+            app:key="@string/APP_PREF_SHOW_PAUSE_MARKERS"
             app:defaultValue="true"
             app:title="@string/show_pause_markers" />
 
@@ -10,7 +11,7 @@
             app:defaultValue="BY_SPEED"
             app:entries="@array/track_color_types"
             app:entryValues="@array/track_color_type_values"
-            app:key="APP_PREF_TRACK_COLOR_MODE"
+            app:key="@string/APP_PREF_TRACK_COLOR_MODE"
             app:title="@string/track_color"
             app:useSimpleSummaryProvider="true" />
 
@@ -18,7 +19,7 @@
             app:defaultValue="NORTH"
             app:entries="@array/map_mode_types"
             app:entryValues="@array/map_mode_type_values"
-            app:key="APP_PREF_MAP_MODE"
+            app:key="@string/APP_PREF_MAP_MODE"
             app:title="@string/map_mode"
             app:useSimpleSummaryProvider="true" />
 
@@ -26,7 +27,7 @@
             app:defaultValue="DIRECTION"
             app:entries="@array/arrow_mode_types"
             app:entryValues="@array/arrow_mode_type_values"
-            app:key="APP_PREF_ARROW_MODE"
+            app:key="@string/APP_PREF_ARROW_MODE"
             app:title="@string/arrow_mode"
             app:useSimpleSummaryProvider="true" />
 
@@ -34,29 +35,66 @@
 
     <PreferenceCategory app:title="@string/map_settings">
         <SwitchPreferenceCompat
-            app:key="APP_PREF_ONLINE_MAP_CONSENT"
+            app:key="@string/APP_PREF_ONLINE_MAP_CONSENT"
             app:defaultValue="true"
             app:title="@string/map_online_consent_menu" />
+        <Preference
+            app:key="@string/APP_PREF_MAP_SELECTION"
+            app:title="@string/map_selection">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.MapSelectionActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+        <Preference
+            app:key="@string/APP_PREF_MAP_DIRECTORY"
+            app:title="@string/map_folder">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.DirectoryChooserActivity$MapDirectoryChooserActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+        <Preference
+            app:key="@string/APP_PREF_MAP_DOWNLOAD"
+            app:title="@string/download_map">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.DownloadMapSelectionActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+
+        <Preference
+            app:key="@string/APP_PREF_MAP_THEME"
+            app:title="@string/theme_selection">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.ThemeSelectionActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+        <Preference
+            app:key="@string/APP_PREF_MAP_THEME_DIRECTORY"
+            app:title="@string/theme_folder">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.DirectoryChooserActivity$ThemeDirectoryChooserActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/menu_advanced">
         <SwitchPreferenceCompat
-            app:key="APP_PREF_DEBUG_TRACKPOPINTS"
+            app:key="@string/APP_PREF_DEBUG_TRACKPOPINTS"
             app:defaultValue="true"
             app:title="@string/debug_trackpoints" />
 
         <SwitchPreferenceCompat
-            app:key="APP_PREF_PIP_ENABLED"
+            app:key="@string/APP_PREF_PIP_ENABLED"
             app:defaultValue="true"
             app:title="@string/pip_mode" />
 
         <SwitchPreferenceCompat
-            app:key="APP_PREF_MAP_PERSISTENT_TILECACHE"
+            app:key="@string/APP_PREF_MAP_PERSISTENT_TILECACHE"
             app:defaultValue="true"
             app:title="@string/persistent_tilecache" />
 
         <SwitchPreferenceCompat
-            app:key="APP_PREF_MAP_MULTI_THREAD_RENDERING"
+            app:key="@string/APP_PREF_MAP_MULTI_THREAD_RENDERING"
             app:defaultValue="true"
             app:title="@string/multi_thread_map_rendering" />
 

@@ -1,10 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.UriPermission;
-import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
@@ -42,12 +37,7 @@ abstract class BaseActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.maps, menu);
 
         MenuCompat.setGroupDividerEnabled(menu, true);
-
         menu.findItem(R.id.map_info).setVisible(showInfo);
-
-        if (BuildConfig.offline) {
-            menu.findItem(R.id.download_map).setVisible(false);
-        }
     }
 
     ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
@@ -68,16 +58,6 @@ abstract class BaseActivity extends AppCompatActivity {
             showCompassSmoothingDialog();
         } else if (itemId == R.id.stroke_width) {
             showStrokeWidthDialog();
-        } else if (itemId == R.id.map_selection) {
-            startActivity(new Intent(this, MapSelectionActivity.class));
-        } else if (itemId == R.id.theme_selection) {
-            startActivity(new Intent(this, ThemeSelectionActivity.class));
-        } else if (itemId == R.id.map_folder) {
-            openDirectory(mapDirectoryLauncher);
-        } else if (itemId == R.id.theme_folder) {
-            openDirectory(themeDirectoryLauncher);
-        } else if (itemId == R.id.download_map) {
-            startActivity(new Intent(this, DownloadMapSelectionActivity.class));
         } else if (itemId == R.id.overdraw_factor) {
             showOverdrawFactorDialog();
         } else if (itemId == R.id.tilecache_capacity_factor) {
@@ -315,61 +295,6 @@ abstract class BaseActivity extends AppCompatActivity {
             alertDialog.dismiss();
             this.recreate();
         });
-    }
-
-    protected final ActivityResultLauncher<Intent> mapDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    changeMapDirectory(result.getData().getData(), result.getData());
-                }
-            });
-
-    protected final ActivityResultLauncher<Intent> themeDirectoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    changeThemeDirectory(result.getData().getData(), result.getData());
-                }
-            });
-
-    protected void openDirectory(ActivityResultLauncher<Intent> launcher) {
-        try {
-            launcher.launch(createOpenDocumentIntent());
-        } catch (ActivityNotFoundException exception) {
-            Toast.makeText(BaseActivity.this, R.string.no_file_manager_found, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @NonNull
-    private Intent createOpenDocumentIntent() {
-        var intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-        return intent;
-    }
-
-    private void releaseOldPermissions() {
-        getContentResolver().getPersistedUriPermissions().stream()
-                .map(UriPermission::getUri)
-                .filter(uri -> !uri.equals(PreferencesUtils.getMapDirectoryUri())
-                        && !uri.equals(PreferencesUtils.getMapThemeDirectoryUri()))
-                .forEach(uri -> getContentResolver().releasePersistableUriPermission(uri, 0));
-    }
-
-    protected void changeThemeDirectory(Uri uri, Intent resultData) {
-        takePersistableUriPermission(uri, resultData);
-        PreferencesUtils.setMapThemeDirectoryUri(uri);
-        releaseOldPermissions();
-    }
-
-    protected void changeMapDirectory(Uri uri, Intent resultData) {
-        takePersistableUriPermission(uri, resultData);
-        PreferencesUtils.setMapDirectoryUri(uri);
-        releaseOldPermissions();
-    }
-
-    private void takePersistableUriPermission(Uri uri, Intent intent) {
-        int takeFlags = intent.getFlags();
-        takeFlags &= (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        getContentResolver().takePersistableUriPermission(uri, takeFlags);
     }
 
     protected void keepScreenOn(boolean keepScreenOn) {
