@@ -660,8 +660,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         lastWaypointId = 0;
     }
 
-
-    @Override
     public void updateDebugTrackPoints() {
         if (PreferencesUtils.isDebugTrackPoints()) {
             binding.map.trackpointsDebugInfo.setText(

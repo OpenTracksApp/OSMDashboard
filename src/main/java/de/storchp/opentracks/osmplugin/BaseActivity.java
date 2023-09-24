@@ -2,14 +2,12 @@ package de.storchp.opentracks.osmplugin;
 
 import android.content.Intent;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -17,16 +15,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
-import java.util.Arrays;
 import java.util.Locale;
 
-import de.storchp.opentracks.osmplugin.databinding.CompassSmoothingDialogBinding;
-import de.storchp.opentracks.osmplugin.databinding.OverdrawFactorDialogBinding;
-import de.storchp.opentracks.osmplugin.databinding.StrokeWidthDialogBinding;
 import de.storchp.opentracks.osmplugin.databinding.TilecacheCapacityFactorDialogBinding;
-import de.storchp.opentracks.osmplugin.databinding.TrackSmoothingDialogBinding;
+import de.storchp.opentracks.osmplugin.settings.SettingsActivity;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
-import de.storchp.opentracks.osmplugin.utils.StatisticElement;
 
 abstract class BaseActivity extends AppCompatActivity {
 
@@ -50,163 +43,11 @@ abstract class BaseActivity extends AppCompatActivity {
         if (itemId == R.id.action_settings) {
             settingsActivityResultLauncher.launch(new Intent(this, SettingsActivity.class));
             return true;
-        } else if (itemId == R.id.configure_statistic) {
-            showConfigureStatisticDialog();
-        } else if (itemId == R.id.track_smoothing) {
-            showTrackSmoothingDialog();
-        } else if (itemId == R.id.compass_smoothing) {
-            showCompassSmoothingDialog();
-        } else if (itemId == R.id.stroke_width) {
-            showStrokeWidthDialog();
-        } else if (itemId == R.id.overdraw_factor) {
-            showOverdrawFactorDialog();
         } else if (itemId == R.id.tilecache_capacity_factor) {
             showTileCacheCapacityFactorDialog();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showConfigureStatisticDialog() {
-        var availableStatisticElements = StatisticElement.values();
-        var selectedStatisticElements = PreferencesUtils.getStatisticElements();
-        var selected = new boolean[availableStatisticElements.length];
-        for (int i = 0; i < selected.length; i++) {
-            selected[i] = selectedStatisticElements.contains(availableStatisticElements[i]);
-        }
-
-        new android.app.AlertDialog.Builder(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(R.string.configure_statistic)
-                .setMultiChoiceItems(Arrays.stream(availableStatisticElements).map(se -> getString(se.getLabelResId())).toArray(String[]::new),
-                        selected,
-                        (dialog, which, isChecked) -> {
-                            if (isChecked) {
-                                selectedStatisticElements.add(availableStatisticElements[which]);
-                            } else {
-                                selectedStatisticElements.remove(availableStatisticElements[which]);
-                            }
-                            PreferencesUtils.setStatisticElements(selectedStatisticElements);
-                        })
-                .setOnDismissListener(dialog -> this.recreate())
-                .create().show();
-    }
-
-    public void updateDebugTrackPoints() {
-        // override in subclasses
-    }
-
-    private void showTrackSmoothingDialog() {
-        var binding = TrackSmoothingDialogBinding.inflate(LayoutInflater.from(this));
-        binding.etTolerance.setText(String.valueOf(PreferencesUtils.getTrackSmoothingTolerance()));
-
-        var alertDialog = new AlertDialog.Builder(this)
-                .setView(binding.getRoot())
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        alertDialog.show();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            var newTolerance = binding.etTolerance.getText().toString().trim();
-            if (newTolerance.length() > 0 && TextUtils.isDigitsOnly(newTolerance)) {
-                PreferencesUtils.setTrackSmoothingTolerance(Integer.parseInt(newTolerance));
-                alertDialog.dismiss();
-                this.recreate();
-            } else {
-                Toast.makeText(BaseActivity.this, R.string.only_digits, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void showCompassSmoothingDialog() {
-        var binding = CompassSmoothingDialogBinding.inflate(LayoutInflater.from(this));
-        int smoothing = PreferencesUtils.getCompassSmoothing();
-        binding.tvCompassSmoothing.setText(String.valueOf(smoothing));
-        binding.sbCompassSmoothing.setProgress(smoothing);
-        binding.sbCompassSmoothing.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.tvCompassSmoothing.setText(String.valueOf(Math.max(binding.sbCompassSmoothing.getProgress(), 1)));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        var alertDialog = new AlertDialog.Builder(this)
-                .setView(binding.getRoot())
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        alertDialog.show();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            PreferencesUtils.setCompassSmoothing(binding.sbCompassSmoothing.getProgress());
-            alertDialog.dismiss();
-        });
-    }
-
-    private void showOverdrawFactorDialog() {
-        OverdrawFactorDialogBinding binding = OverdrawFactorDialogBinding.inflate(LayoutInflater.from(this));
-        double currentOverdrawFactor = PreferencesUtils.getOverdrawFactor();
-
-        binding.tvOverdrawFactor.setText(String.format(Locale.getDefault(), "%.2f", currentOverdrawFactor));
-        binding.sbOverdrawFactor.setProgress((int) (100 * currentOverdrawFactor) - 100);
-        binding.sbOverdrawFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.tvOverdrawFactor.setText(String.format(Locale.getDefault(), "%.2f", getOverdrawFactorFromProgress(binding)));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        var alertDialog = new AlertDialog.Builder(this)
-                .setView(binding.getRoot())
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        alertDialog.show();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            double overdrawFactor = getOverdrawFactorFromProgress(binding);
-            PreferencesUtils.setOverdrawFactor(overdrawFactor);
-            Log.i(TAG, "New overdrawFactor: " + overdrawFactor);
-            alertDialog.dismiss();
-        });
-    }
-
-    private double getOverdrawFactorFromProgress(final OverdrawFactorDialogBinding binding) {
-        int progress = binding.sbOverdrawFactor.getProgress();
-        if (progress == 0) {
-            return 1;
-        }
-        return (progress / (double) 100) + 1;
     }
 
     private void showTileCacheCapacityFactorDialog() {
@@ -256,45 +97,6 @@ abstract class BaseActivity extends AppCompatActivity {
             return 1;
         }
         return (progress * 3 / (float) 100) + 1;
-    }
-
-    private void showStrokeWidthDialog() {
-        StrokeWidthDialogBinding binding = StrokeWidthDialogBinding.inflate(LayoutInflater.from(this));
-        int currentStrokeWidth = PreferencesUtils.getStrokeWidth();
-        binding.tvStrokeWidth.setText(String.valueOf(currentStrokeWidth));
-        binding.sbStrokeWidth.setProgress(currentStrokeWidth);
-        binding.sbStrokeWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.tvStrokeWidth.setText(String.valueOf(Math.max(binding.sbStrokeWidth.getProgress(), 1)));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        var alertDialog = new AlertDialog.Builder(this)
-                .setView(binding.getRoot())
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        alertDialog.show();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            PreferencesUtils.setStrokeWidth(binding.sbStrokeWidth.getProgress());
-            alertDialog.dismiss();
-            this.recreate();
-        });
     }
 
     protected void keepScreenOn(boolean keepScreenOn) {

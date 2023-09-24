@@ -32,4 +32,37 @@
         <item>BY_TRACK</item>
         <item>BY_SPEED</item>
     </string-array>
+
+    <string-array name="statistic_elements">
+        <item>@string/category</item>
+        <item>@string/total_time</item>
+        <item>@string/moving_time</item>
+        <item>@string/distance_km</item>
+        <item>@string/distance_mi</item>
+        <item>@string/speed_km_h</item>
+        <item>@string/pace_min_km</item>
+        <item>@string/speed_mi_h</item>
+        <item>@string/pace_min_mi</item>
+        <item>@string/elevation_meter</item>
+        <item>@string/elevation_feet</item>
+    </string-array>
+    <string-array name="statistic_elements_values">
+        <item>CATEGORY</item>
+        <item>TOTAL_TIME</item>
+        <item>MOVING_TIME</item>
+        <item>DISTANCE_KM</item>
+        <item>DISTANCE_MI</item>
+        <item>SPEED_KM_H</item>
+        <item>PACE_MIN_KM</item>
+        <item>SPEED_MI_H</item>
+        <item>PACE_MIN_MI</item>
+        <item>ELEVATION_GAIN_METER</item>
+        <item>ELEVATION_GAIN_FEET</item>
+    </string-array>
+    <string-array name="statistic_elements_defaults">
+        <item>CATEGORY</item>
+        <item>MOVING_TIME</item>
+        <item>DISTANCE_KM</item>
+        <item>PACE_MIN_KM</item>
+    </string-array>
 </resources>

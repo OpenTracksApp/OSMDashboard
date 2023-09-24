@@ -12,24 +12,28 @@
             app:entries="@array/track_color_types"
             app:entryValues="@array/track_color_type_values"
             app:key="@string/APP_PREF_TRACK_COLOR_MODE"
-            app:title="@string/track_color"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/track_color"/>
 
         <ListPreference
             app:defaultValue="NORTH"
             app:entries="@array/map_mode_types"
             app:entryValues="@array/map_mode_type_values"
             app:key="@string/APP_PREF_MAP_MODE"
-            app:title="@string/map_mode"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/map_mode"/>
 
         <ListPreference
             app:defaultValue="DIRECTION"
             app:entries="@array/arrow_mode_types"
             app:entryValues="@array/arrow_mode_type_values"
             app:key="@string/APP_PREF_ARROW_MODE"
-            app:title="@string/arrow_mode"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/arrow_mode"/>
+
+        <MultiSelectListPreference
+            app:defaultValue="@array/statistic_elements_defaults"
+            app:entries="@array/statistic_elements"
+            app:entryValues="@array/statistic_elements_values"
+            app:key="@string/APP_PREF_STATISTIC_ELEMENTS"
+            app:title="@string/configure_statistic"/>
 
     </PreferenceCategory>
 
@@ -98,6 +102,40 @@
             app:defaultValue="true"
             app:title="@string/multi_thread_map_rendering" />
 
+        <SeekBarPreference
+            app:key="@string/APP_PREF_TRACK_SMOOTHING_TOLERANCE"
+            app:title="@string/track_smoothing_menu"
+            app:showSeekBarValue="true"
+            app:defaultValue="10"
+            app:min="0"
+            android:max="100"
+            app:summary="@string/track_smoothing_info"
+            />
+
+        <SeekBarPreference
+            app:key="@string/APP_PREF_COMPASS_SMOOTHING"
+            app:title="@string/compass_smoothing_menu"
+            app:showSeekBarValue="true"
+            app:defaultValue="2"
+            app:min="1"
+            android:max="100"
+            app:summary="@string/compass_smoothing_info"
+            />
+
+        <SeekBarPreference
+            app:key="@string/APP_PREF_STROKE_WIDTH"
+            app:title="@string/stroke_width_menu"
+            app:showSeekBarValue="true"
+            app:defaultValue="4"
+            app:min="1"
+            android:max="20"
+            app:summary="@string/stroke_width_info"
+            />
+
+        <de.storchp.opentracks.osmplugin.settings.MapOverdrawFactorPreference
+            app:key="@string/APP_PREF_MAP_OVERDRAW_FACTOR"
+            app:title="@string/overdraw_factor"
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>

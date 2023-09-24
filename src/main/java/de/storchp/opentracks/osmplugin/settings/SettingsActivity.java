@@ -1,16 +1,20 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.settings;
 
 import static java.util.stream.Collectors.joining;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import java.util.Objects;
 
+import de.storchp.opentracks.osmplugin.BuildConfig;
+import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -37,14 +41,16 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
-            var onlineMapConsentPreference = findPreference(getString(R.string.APP_PREF_ONLINE_MAP_CONSENT));
-            if (onlineMapConsentPreference != null && BuildConfig.offline) {
-                onlineMapConsentPreference.setVisible(false);
-            }
+            if (BuildConfig.offline) {
+                var onlineMapConsentPreference = findPreference(getString(R.string.APP_PREF_ONLINE_MAP_CONSENT));
+                if (onlineMapConsentPreference != null) {
+                    onlineMapConsentPreference.setVisible(false);
+                }
 
-            var mapDownloadPreference = findPreference(getString(R.string.APP_PREF_MAP_DOWNLOAD));
-            if (mapDownloadPreference != null && BuildConfig.offline) {
-                mapDownloadPreference.setVisible(false);
+                var mapDownloadPreference = findPreference(getString(R.string.APP_PREF_MAP_DOWNLOAD));
+                if (mapDownloadPreference != null) {
+                    mapDownloadPreference.setVisible(false);
+                }
             }
 
             setSummaries();
@@ -102,6 +108,22 @@ public class SettingsActivity extends AppCompatActivity {
                     return uri != null ? uri.getLastPathSegment() : null;
                 });
             }
+        }
+
+        @Override
+        public void onDisplayPreferenceDialog(@NonNull Preference preference) {
+            DialogFragment dialogFragment = null;
+            if (preference instanceof MapOverdrawFactorPreference) {
+                dialogFragment = MapOverdrawFactorPreference.MapOverdrawFactorPreferenceDialog.newInstance(preference.getKey());
+            }
+
+            if (dialogFragment != null) {
+                dialogFragment.setTargetFragment(this, 0);
+                dialogFragment.show(getParentFragmentManager(), getClass().getSimpleName());
+                return;
+            }
+
+            super.onDisplayPreferenceDialog(preference);
         }
 
     }
