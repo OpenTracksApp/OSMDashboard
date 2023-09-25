@@ -1,1 +1,2 @@
 - Add pause markers
+- New: settings screen
