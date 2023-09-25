@@ -16,6 +16,7 @@
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared with other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="app_logo_description">App logo</string>
     <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy.</string>
+    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
     <string name="map_online_consent_menu">Online map consent</string>
     <string name="download_map">Map download</string>
     <string name="download_theme">Theme download</string>
@@ -39,13 +40,15 @@
     <string name="cancel_download_question">Cancel current download?</string>
     <string name="error_loading_offline_map">Error reading configured offline map</string>
     <string name="track_smoothing_menu">Track smoothing</string>
-    <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Enter 0 to disable track smoothing.\nChange come into effect after reloading the track.</string>
+    <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
     <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
     <string name="only_digits">Value must contain only digits</string>
     <string name="pip_mode">Picture in picture mode</string>
+    <string name="arrow_mode">Arrow orientation</string>
     <string name="arrow_mode_north">Arrow points to north</string>
     <string name="arrow_mode_direction">Arrow moving direction</string>
     <string name="arrow_mode_compass">Arrow as compass</string>
+    <string name="map_mode">Map orientation</string>
     <string name="map_mode_north_top">Map north on top</string>
     <string name="map_mode_direction">Map moving direction</string>
     <string name="map_mode_compass">Map as compass</string>
@@ -107,5 +110,9 @@
     <string name="track_color_mode_by_track">Color by track</string>
     <string name="track_color_mode_by_speed">Color by speed</string>
     <string name="show_pause_markers">Show pause markers</string>
+    <string name="general_settings_category_title">General</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="map_settings">Map</string>
 
 </resources>

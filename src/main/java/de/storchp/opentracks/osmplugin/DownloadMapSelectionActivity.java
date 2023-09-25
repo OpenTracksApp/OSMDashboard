@@ -9,8 +9,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionBinding;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadMapSelectionActivity extends BaseActivity {
@@ -52,27 +50,12 @@ public class DownloadMapSelectionActivity extends BaseActivity {
     }
 
     @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
-        // nothing to do
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void changeMapMode(MapMode mapMode) {
-        // nothing to do
-    }
-
-    @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        // nothing to do
     }
 
 }

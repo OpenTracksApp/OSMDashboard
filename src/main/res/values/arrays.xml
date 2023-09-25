@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="map_mode_types">
+        <item>@string/map_mode_north_top</item>
+        <item>@string/map_mode_direction</item>
+        <item>@string/map_mode_compass</item>
+    </string-array>
+    <string-array name="map_mode_type_values">
+        <item>NORTH</item>
+        <item>DIRECTION</item>
+        <item>COMPASS</item>
+    </string-array>
+
+    <string-array name="arrow_mode_types">
+        <item>@string/arrow_mode_direction</item>
+        <item>@string/arrow_mode_compass</item>
+        <item>@string/arrow_mode_north</item>
+    </string-array>
+    <string-array name="arrow_mode_type_values">
+        <item>DIRECTION</item>
+        <item>COMPASS</item>
+        <item>NORTH</item>
+    </string-array>
+
+    <string-array name="track_color_types">
+        <item>@string/track_color_mode_uni</item>
+        <item>@string/track_color_mode_by_track</item>
+        <item>@string/track_color_mode_by_speed</item>
+    </string-array>
+    <string-array name="track_color_type_values">
+        <item>UNI</item>
+        <item>BY_TRACK</item>
+        <item>BY_SPEED</item>
+    </string-array>
+
+    <string-array name="statistic_elements">
+        <item>@string/category</item>
+        <item>@string/total_time</item>
+        <item>@string/moving_time</item>
+        <item>@string/distance_km</item>
+        <item>@string/distance_mi</item>
+        <item>@string/speed_km_h</item>
+        <item>@string/pace_min_km</item>
+        <item>@string/speed_mi_h</item>
+        <item>@string/pace_min_mi</item>
+        <item>@string/elevation_meter</item>
+        <item>@string/elevation_feet</item>
+    </string-array>
+    <string-array name="statistic_elements_values">
+        <item>CATEGORY</item>
+        <item>TOTAL_TIME</item>
+        <item>MOVING_TIME</item>
+        <item>DISTANCE_KM</item>
+        <item>DISTANCE_MI</item>
+        <item>SPEED_KM_H</item>
+        <item>PACE_MIN_KM</item>
+        <item>SPEED_MI_H</item>
+        <item>PACE_MIN_MI</item>
+        <item>ELEVATION_GAIN_METER</item>
+        <item>ELEVATION_GAIN_FEET</item>
+    </string-array>
+    <string-array name="statistic_elements_defaults">
+        <item>CATEGORY</item>
+        <item>MOVING_TIME</item>
+        <item>DISTANCE_KM</item>
+        <item>PACE_MIN_KM</item>
+    </string-array>
+</resources>

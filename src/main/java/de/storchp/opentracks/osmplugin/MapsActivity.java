@@ -129,8 +129,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private float currentMapHeading = 0;
     private int strokeWidth;
     private int protocolVersion = 1;
-    private Set<Uri> mapFiles;
-    private Uri mapTheme;
     private TrackPointsDebug trackPointsDebug;
 
     @Override
@@ -182,7 +180,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         super.onNewIntent(intent);
         resetMapData();
 
-        if (intent.getAction().equals(APIConstants.ACTION_DASHBOARD)) {
+        if (APIConstants.ACTION_DASHBOARD.equals(intent.getAction())) {
             ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
             protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
             tracksUri = APIConstants.getTracksUri(uris);
@@ -196,7 +194,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             readTrackpoints(trackPointsUri, false, protocolVersion);
             readTracks(tracksUri);
             readWaypoints(waypointsUri);
-        } else if (intent.getScheme().equals("geo")) {
+        } else if ("geo".equals(intent.getScheme())) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
                 addWaypointMarker(createMarker(waypoint.getLatLong()));
                 var layers = binding.map.mapView.getLayerManager().getLayers();
@@ -271,7 +269,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         super.onCreateOptionsMenu(menu, true);
         menu.findItem(R.id.share).setVisible(true);
-        menu.findItem(R.id.purge_tilecache).setVisible(true);
         return true;
     }
 
@@ -334,7 +331,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     }
 
     protected XmlRenderTheme getRenderTheme() {
-        mapTheme = PreferencesUtils.getMapThemeUri();
+        Uri mapTheme = PreferencesUtils.getMapThemeUri();
         if (mapTheme == null) {
             return InternalRenderTheme.DEFAULT;
         }
@@ -360,7 +357,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
 
     protected MapDataStore getMapFile() {
         var mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
-        mapFiles = PreferencesUtils.getMapUris();
+        Set<Uri> mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
         }
@@ -437,7 +434,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                     PreferencesUtils.setOnlineMapConsent(true);
                     setOnlineTileLayer();
                     ((TileDownloadLayer) tileLayer).onResume();
-                    mapConsent.setChecked(true);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
@@ -469,9 +465,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             return true;
         } else if (item.getItemId() == R.id.share) {
             sharePicture();
-            return true;
-        } else if (item.getItemId() == R.id.purge_tilecache) {
-            purgeTileCaches();
             return true;
         }
 
@@ -518,34 +511,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.controls.setVisibility(View.VISIBLE);
         binding.map.attribution.setVisibility(View.VISIBLE);
         binding.map.sharePictureTitle.setText("");
-    }
-
-    @Override
-    protected void changeMapMode(MapMode mapMode) {
-        this.mapMode = mapMode;
-        rotateMap();
-    }
-
-    @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        this.arrowMode = arrowMode;
-        if (endMarker != null && endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
-            binding.map.mapView.getLayerManager().redrawLayers();
-        }
-    }
-
-    @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
-        if (consent) {
-            if (this.tileLayer == null) {
-                setOnlineTileLayer();
-                ((TileDownloadLayer) this.tileLayer).onResume();
-            }
-        } else if (this.tileLayer != null && this.tileLayer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer) this.tileLayer).onPause();
-            binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
-            this.tileLayer = null;
-        }
     }
 
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
@@ -695,8 +660,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         lastWaypointId = 0;
     }
 
-
-    @Override
     public void updateDebugTrackPoints() {
         if (PreferencesUtils.isDebugTrackPoints()) {
             binding.map.trackpointsDebugInfo.setText(
@@ -853,21 +816,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public void onResume() {
         super.onResume();
-
-        // if map or theme changed, recreate layers
-        if (!Objects.equals(mapTheme, PreferencesUtils.getMapThemeUri())
-                || !Objects.equals(mapFiles, PreferencesUtils.getMapUris())) {
-            if (this.tileLayer != null) {
-                if (this.tileLayer instanceof TileDownloadLayer) {
-                    ((TileDownloadLayer) this.tileLayer).onPause();
-                }
-                binding.map.mapView.getLayerManager().getLayers().remove(tileLayer, true);
-                this.tileLayer = null;
-            }
-            this.purgeTileCaches();
-            createTileCaches();
-            createLayers();
-        }
 
         if (this.tileLayer instanceof TileDownloadLayer) {
             ((TileDownloadLayer) this.tileLayer).onResume();

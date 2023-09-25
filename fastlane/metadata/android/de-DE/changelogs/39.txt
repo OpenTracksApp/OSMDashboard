@@ -1,1 +1,3 @@
 - Pause Markierung hinzugefügt
+- Neu: Einstellungsseite
+

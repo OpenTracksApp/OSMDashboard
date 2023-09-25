@@ -26,13 +26,6 @@ public class UnitConversions {
     public static final long S_TO_MS = 1000;
 
     // Time
-    // 1 second in milliseconds
-    public static final long ONE_SECOND_MS = UnitConversions.S_TO_MS;
-    public static final long ONE_MINUTE_MS = (long) (UnitConversions.MIN_TO_S * UnitConversions.S_TO_MS);
-    public static final long ONE_HOUR_MS = 60 * ONE_MINUTE_MS;
-    public static final long ONE_DAY_MS = 24 * ONE_HOUR_MS;
-    public static final long ONE_WEEK_MS = 7 * ONE_DAY_MS;
-
     // multiplication factor to convert milliseconds to seconds
     public static final double MS_TO_S = 1d / S_TO_MS;
     // multiplication factor to convert minutes to seconds
@@ -46,13 +39,9 @@ public class UnitConversions {
     // multiplication factor to convert kilometers to miles
     public static final double KM_TO_MI = 0.621371192;
 
-    public static final double MM_TO_M = 0.001;
-
     // Distance
     // multiplication factor to convert miles to feet
     public static final double MI_TO_FT = 5280.0;
-    // multiplication factor to convert feet to miles
-    public static final double FT_TO_MI = 1 / MI_TO_FT;
     // multiplication factor to covert kilometers to meters
     public static final double KM_TO_M = 1000.0;
     // multiplication factor to convert meters to kilometers

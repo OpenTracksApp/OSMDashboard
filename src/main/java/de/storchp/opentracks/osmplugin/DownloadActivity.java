@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -21,9 +23,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadActivity extends BaseActivity {
@@ -111,16 +111,23 @@ public class DownloadActivity extends BaseActivity {
         return downloadTask != null;
     }
 
+    protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    startDownload();
+                }
+            });
+
     public void startDownload() {
         var directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
-            openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
             return;
         }
 
         var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
-            openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
             return;
         }
 
@@ -170,23 +177,6 @@ public class DownloadActivity extends BaseActivity {
         } else {
             Toast.makeText(this, downloadType.getFailedMessageId(), Toast.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    protected void changeMapDirectory(Uri uri, Intent resultData) {
-        super.changeMapDirectory(uri, resultData);
-        startDownload();
-    }
-
-    @Override
-    protected void changeThemeDirectory(Uri uri, Intent resultData) {
-        super.changeThemeDirectory(uri, resultData);
-        startDownload();
-    }
-
-    @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
-        // nothing to do
     }
 
     private static class DownloadTask extends Thread {
@@ -314,16 +304,6 @@ public class DownloadActivity extends BaseActivity {
     }
 
     @Override
-    protected void changeMapMode(MapMode mapMode) {
-        // nothing to do
-    }
-
-   @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        // nothing to do
-    }
-
-    @Override
     public void onBackPressed() {
         if (isDownloadInProgress()) {
             new AlertDialog.Builder(DownloadActivity.this)
@@ -347,8 +327,8 @@ public class DownloadActivity extends BaseActivity {
             }
 
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.mapDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
         MAP_ZIP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
@@ -357,8 +337,8 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.mapDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
         THEME(R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
@@ -367,8 +347,8 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapThemeDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return activity.themeDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.ThemeDirectoryChooserActivity.class;
             }
         };
 
@@ -402,7 +382,7 @@ public class DownloadActivity extends BaseActivity {
             return extractMapFromZIP;
         }
 
-        public abstract ActivityResultLauncher<Intent> getLauncher(BaseActivity activity);
+        public abstract Class<? extends DirectoryChooserActivity> getDirectoryChooser();
     }
 
 }

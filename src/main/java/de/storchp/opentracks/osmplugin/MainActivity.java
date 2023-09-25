@@ -9,8 +9,6 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
 
 public class MainActivity extends BaseActivity {
 
@@ -40,22 +38,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        return super.onCreateOptionsMenu(menu, false);
-    }
-
-    @Override
-    protected void changeMapMode(MapMode mapMode) {
-        // nothing to do
-    }
-
-    @Override
-    protected void changeArrowMode(ArrowMode arrowMode) {
-        // nothing to do
-    }
-
-    @Override
-    protected void onOnlineMapConsentChanged(boolean consent) {
-        // nothing to do
+        super.onCreateOptionsMenu(menu, false);
+        return true;
     }
 
 }

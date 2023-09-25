@@ -5,103 +5,15 @@
     <item
         android:id="@+id/share"
         android:title="@string/share"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:visible="false"
         android:icon="@drawable/ic_baseline_share_24"
         />
 
-    <group android:id="@+id/map_grp">
-        <item android:id="@+id/map_selection" android:title="@string/map_selection"/>
-        <item android:id="@+id/map_folder" android:title="@string/map_folder"/>
-        <item android:id="@+id/download_map" android:title="@string/download_map"/>
-    </group>
-
-    <group android:id="@+id/theme_grp">
-        <item android:id="@+id/theme_selection" android:title="@string/theme_selection"/>
-        <item android:id="@+id/theme_folder" android:title="@string/theme_folder"/>
-    </group>
-
     <item
-        android:id="@+id/map_online_consent"
-        android:checkable="true"
-        android:title="@string/map_online_consent_menu"/>
-
-    <item
-        android:id="@+id/map_mode"
-        android:title="@string/map_mode_north_top"/>
-
-    <item
-        android:id="@+id/arrow_mode"
-        android:title="@string/arrow_mode_direction"/>
-
-    <item
-        android:id="@+id/track_color"
-        android:title="@string/track_color"/>
-
-    <item
-        android:id="@+id/show_pause_markers"
-        android:checkable="true"
-        android:title="@string/show_pause_markers"/>
-
-    <item
-        android:id="@+id/configure_statistic"
-        android:title="@string/configure_statistic"/>
-
-    <item
-        android:id="@+id/submenu_advanced"
-        android:title="@string/menu_advanced">
-        <menu>
-            <item
-                android:id="@+id/track_smoothing"
-                android:title="@string/track_smoothing_menu"/>
-
-            <item
-                android:id="@+id/compass_smoothing"
-                android:title="@string/compass_smoothing_menu"/>
-
-            <item
-                android:id="@+id/stroke_width"
-                android:title="@string/stroke_width_menu"/>
-
-            <item
-                android:id="@+id/multi_thread_map_rendering"
-                android:title="@string/multi_thread_map_rendering"
-                android:checkable="true"
-                />
-
-            <item
-                android:id="@+id/overdraw_factor"
-                android:title="@string/overdraw_factor"
-                />
-
-            <item
-                android:id="@+id/tilecache_capacity_factor"
-                android:title="@string/tilecache_capacity_factor"
-                />
-
-            <item
-                android:id="@+id/persistent_tilecache"
-                android:title="@string/persistent_tilecache"
-                android:checkable="true"
-                />
-
-            <item
-                android:id="@+id/purge_tilecache"
-                android:title="@string/purge_tilecache"
-                android:visible="false"
-                />
-
-            <item
-                android:id="@+id/pip_mode"
-                android:checkable="true"
-                android:title="@string/pip_mode"/>
-
-            <item
-                android:id="@+id/debug_trackpoints"
-                android:checkable="true"
-                android:title="@string/debug_trackpoints"/>
-        </menu>
-    </item>
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/map_info"
