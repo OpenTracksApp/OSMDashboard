@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -109,16 +111,23 @@ public class DownloadActivity extends BaseActivity {
         return downloadTask != null;
     }
 
+    protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    startDownload();
+                }
+            });
+
     public void startDownload() {
         var directoryUri = downloadType.getDirectoryUri();
         if (directoryUri == null) {
-            // TODO: openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
             return;
         }
 
         var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
         if (directoryFile == null || !directoryFile.canWrite()) {
-            // TODO: openDirectory(downloadType.getLauncher(DownloadActivity.this));
+            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
             return;
         }
 
@@ -169,21 +178,6 @@ public class DownloadActivity extends BaseActivity {
             Toast.makeText(this, downloadType.getFailedMessageId(), Toast.LENGTH_LONG).show();
         }
     }
-
-    /* TODO
-    @Override
-    protected void changeMapDirectory(Uri uri, Intent resultData) {
-        super.changeMapDirectory(uri, resultData);
-        startDownload();
-    }
-
-    @Override
-    protected void changeThemeDirectory(Uri uri, Intent resultData) {
-        super.changeThemeDirectory(uri, resultData);
-        startDownload();
-    }
-
-     */
 
     private static class DownloadTask extends Thread {
         private final WeakReference<DownloadActivity> ref;
@@ -333,8 +327,8 @@ public class DownloadActivity extends BaseActivity {
             }
 
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return null; // TODO: activity.mapDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
         MAP_ZIP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
@@ -343,8 +337,8 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return null; // TODO: activity.mapDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
         THEME(R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
@@ -353,8 +347,8 @@ public class DownloadActivity extends BaseActivity {
                 return  PreferencesUtils.getMapThemeDirectoryUri();
             }
             @Override
-            public ActivityResultLauncher<Intent> getLauncher(BaseActivity activity) {
-                return null; // TODO: activity.themeDirectoryLauncher;
+            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
+                return DirectoryChooserActivity.ThemeDirectoryChooserActivity.class;
             }
         };
 
@@ -388,8 +382,7 @@ public class DownloadActivity extends BaseActivity {
             return extractMapFromZIP;
         }
 
-        // TODO: check if this is still needed after refactoring
-        public abstract ActivityResultLauncher<Intent> getLauncher(BaseActivity activity);
+        public abstract Class<? extends DirectoryChooserActivity> getDirectoryChooser();
     }
 
 }
