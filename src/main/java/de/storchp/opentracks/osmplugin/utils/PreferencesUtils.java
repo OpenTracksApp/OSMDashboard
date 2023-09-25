@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.StringRes;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 
 import java.util.Collections;
@@ -15,7 +16,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.settings.MapOverdrawFactorPreference;
 
 public class PreferencesUtils {
 
@@ -65,7 +65,7 @@ public class PreferencesUtils {
     }
 
     public static boolean getOnlineMapConsent() {
-        return getBoolean(R.string.APP_PREF_ONLINE_MAP_CONSENT, false);
+        return getBoolean(R.string.APP_PREF_ONLINE_MAP_CONSENT, resources.getBoolean(R.bool.online_map_consent_default));
     }
 
     public static void setOnlineMapConsent(boolean onlineMapConsent) {
@@ -73,7 +73,7 @@ public class PreferencesUtils {
     }
 
     public static boolean isShowPauseMarkers() {
-        return getBoolean(R.string.APP_PREF_SHOW_PAUSE_MARKERS, true);
+        return getBoolean(R.string.APP_PREF_SHOW_PAUSE_MARKERS, resources.getBoolean(R.bool.show_pause_markers_default));
     }
 
     public static String getLastDownloadUrl(String defaultDownloadUrl) {
@@ -160,39 +160,39 @@ public class PreferencesUtils {
     }
 
     public static int getTrackSmoothingTolerance() {
-        return getInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, 10);
+        return getInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, resources.getInteger(R.integer.track_smoothing_tolerance_default));
     }
 
     public static boolean isPipEnabled() {
-        return getBoolean(R.string.APP_PREF_PIP_ENABLED, true);
+        return getBoolean(R.string.APP_PREF_PIP_ENABLED, resources.getBoolean(R.bool.pip_enabled_default));
     }
 
     public static ArrowMode getArrowMode() {
-        return ArrowMode.valueOf(getString(R.string.APP_PREF_ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.DIRECTION);
+        return ArrowMode.valueOf(getString(R.string.APP_PREF_ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.valueOf(resources.getString(R.string.arrow_mode_default)));
     }
 
     public static MapMode getMapMode() {
-        return MapMode.valueOf(getString(R.string.APP_PREF_MAP_MODE, MapMode.NORTH.name()), MapMode.NORTH);
+        return MapMode.valueOf(getString(R.string.APP_PREF_MAP_MODE, MapMode.NORTH.name()), MapMode.valueOf(resources.getString(R.string.map_mode_default)));
     }
 
     public static int getCompassSmoothing() {
-        return getInt(R.string.APP_PREF_COMPASS_SMOOTHING, 2);
+        return getInt(R.string.APP_PREF_COMPASS_SMOOTHING, resources.getInteger(R.integer.compass_smoothing_default));
     }
 
     public static boolean getMultiThreadMapRendering() {
-        return getBoolean(R.string.APP_PREF_MAP_MULTI_THREAD_RENDERING, true);
+        return getBoolean(R.string.APP_PREF_MAP_MULTI_THREAD_RENDERING, resources.getBoolean(R.bool.map_multi_thread_rendering_default));
     }
 
     public static boolean getPersistentTileCache() {
-        return getBoolean(R.string.APP_PREF_MAP_PERSISTENT_TILECACHE, true);
+        return getBoolean(R.string.APP_PREF_MAP_PERSISTENT_TILECACHE, resources.getBoolean(R.bool.map_persistent_tilecache_default));
     }
 
     public static int getStrokeWidth() {
-        return getInt(R.string.APP_PREF_STROKE_WIDTH, 4);
+        return getInt(R.string.APP_PREF_STROKE_WIDTH, resources.getInteger(R.integer.stroke_width_default));
     }
 
     public static double getOverdrawFactor() {
-        return getFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, MapOverdrawFactorPreference.DEFAULT_VALUE);
+        return getFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, ResourcesCompat.getFloat(resources, R.dimen.map_overdraw_factor_default));
     }
 
     public static void setOverdrawFactor(double overdrawFactor) {
@@ -200,7 +200,7 @@ public class PreferencesUtils {
     }
 
     public static float getTileCacheCapacityFactor() {
-        return getFloat(R.string.APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR, 2f);
+        return getFloat(R.string.APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR, ResourcesCompat.getFloat(resources, R.dimen.tile_cache_capacity_factor_default));
     }
 
     public static void setTileCacheCapacityFactor(float tileCacheCapacityFactor) {
@@ -215,22 +215,12 @@ public class PreferencesUtils {
     }
 
     public static boolean isDebugTrackPoints() {
-        return getBoolean(R.string.APP_PREF_DEBUG_TRACKPOPINTS, false);
+        return getBoolean(R.string.APP_PREF_DEBUG_TRACKPOPINTS, resources.getBoolean(R.bool.debug_trackpoints_default));
     }
 
     public static TrackColorMode getTrackColorMode() {
-        var trackColorMode = getString(R.string.APP_PREF_TRACK_COLOR_MODE, null);
-        if (trackColorMode != null) {
-            return TrackColorMode.valueOf(trackColorMode);
-        }
-        if (getColorBySpeed()) {
-            return TrackColorMode.BY_SPEED;
-        }
-        return TrackColorMode.BY_TRACK;
-    }
-
-    private static boolean getColorBySpeed() {
-        return getBoolean(R.string.APP_PREF_COLOR_BY_SPEED, false);
+        var trackColorMode = getString(R.string.APP_PREF_TRACK_COLOR_MODE, resources.getString(R.string.track_color_mode_default));
+        return TrackColorMode.valueOf(trackColorMode);
     }
 
 }

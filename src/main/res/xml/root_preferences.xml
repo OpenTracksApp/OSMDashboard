@@ -4,35 +4,38 @@
     <PreferenceCategory app:title="@string/general_settings_category_title">
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_SHOW_PAUSE_MARKERS"
-            app:defaultValue="true"
+            app:defaultValue="@bool/show_pause_markers_default"
             app:title="@string/show_pause_markers" />
 
         <ListPreference
-            app:defaultValue="BY_SPEED"
+            app:key="@string/APP_PREF_TRACK_COLOR_MODE"
+            app:defaultValue="@string/track_color_mode_default"
             app:entries="@array/track_color_types"
             app:entryValues="@array/track_color_type_values"
-            app:key="@string/APP_PREF_TRACK_COLOR_MODE"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/track_color"/>
 
         <ListPreference
-            app:defaultValue="NORTH"
+            app:key="@string/APP_PREF_MAP_MODE"
+            app:defaultValue="@string/map_mode_default"
             app:entries="@array/map_mode_types"
             app:entryValues="@array/map_mode_type_values"
-            app:key="@string/APP_PREF_MAP_MODE"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/map_mode"/>
 
         <ListPreference
-            app:defaultValue="DIRECTION"
+            app:key="@string/APP_PREF_ARROW_MODE"
+            app:defaultValue="@string/arrow_mode_default"
             app:entries="@array/arrow_mode_types"
             app:entryValues="@array/arrow_mode_type_values"
-            app:key="@string/APP_PREF_ARROW_MODE"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/arrow_mode"/>
 
         <MultiSelectListPreference
+            app:key="@string/APP_PREF_STATISTIC_ELEMENTS"
             app:defaultValue="@array/statistic_elements_defaults"
             app:entries="@array/statistic_elements"
             app:entryValues="@array/statistic_elements_values"
-            app:key="@string/APP_PREF_STATISTIC_ELEMENTS"
             app:title="@string/configure_statistic"/>
 
     </PreferenceCategory>
@@ -40,7 +43,8 @@
     <PreferenceCategory app:title="@string/map_settings">
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_ONLINE_MAP_CONSENT"
-            app:defaultValue="true"
+            app:summary="@string/online_map_consent_info"
+            app:defaultValue="@bool/online_map_consent_default"
             app:title="@string/map_online_consent_menu" />
         <Preference
             app:key="@string/APP_PREF_MAP_SELECTION"
@@ -84,29 +88,29 @@
     <PreferenceCategory app:title="@string/menu_advanced">
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_DEBUG_TRACKPOPINTS"
-            app:defaultValue="true"
+            app:defaultValue="@bool/debug_trackpoints_default"
             app:title="@string/debug_trackpoints" />
 
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_PIP_ENABLED"
-            app:defaultValue="true"
+            app:defaultValue="@bool/pip_enabled_default"
             app:title="@string/pip_mode" />
 
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_MAP_PERSISTENT_TILECACHE"
-            app:defaultValue="true"
+            app:defaultValue="@bool/map_persistent_tilecache_default"
             app:title="@string/persistent_tilecache" />
 
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_MAP_MULTI_THREAD_RENDERING"
-            app:defaultValue="true"
+            app:defaultValue="@bool/map_multi_thread_rendering_default"
             app:title="@string/multi_thread_map_rendering" />
 
         <SeekBarPreference
             app:key="@string/APP_PREF_TRACK_SMOOTHING_TOLERANCE"
             app:title="@string/track_smoothing_menu"
             app:showSeekBarValue="true"
-            app:defaultValue="10"
+            app:defaultValue="@integer/track_smoothing_tolerance_default"
             app:min="0"
             android:max="100"
             app:summary="@string/track_smoothing_info"
@@ -116,7 +120,7 @@
             app:key="@string/APP_PREF_COMPASS_SMOOTHING"
             app:title="@string/compass_smoothing_menu"
             app:showSeekBarValue="true"
-            app:defaultValue="2"
+            app:defaultValue="@integer/compass_smoothing_default"
             app:min="1"
             android:max="100"
             app:summary="@string/compass_smoothing_info"
@@ -126,7 +130,7 @@
             app:key="@string/APP_PREF_STROKE_WIDTH"
             app:title="@string/stroke_width_menu"
             app:showSeekBarValue="true"
-            app:defaultValue="4"
+            app:defaultValue="@integer/stroke_width_default"
             app:min="1"
             android:max="20"
             app:summary="@string/stroke_width_info"
@@ -135,6 +139,10 @@
         <de.storchp.opentracks.osmplugin.settings.MapOverdrawFactorPreference
             app:key="@string/APP_PREF_MAP_OVERDRAW_FACTOR"
             app:title="@string/overdraw_factor"
+            />
+        <de.storchp.opentracks.osmplugin.settings.TilecacheCapacityFactorPreference
+            app:key="@string/APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR"
+            app:title="@string/tilecache_capacity_factor"
             />
     </PreferenceCategory>
 

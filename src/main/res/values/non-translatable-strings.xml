@@ -8,7 +8,6 @@
     <string name="APP_PREF_MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
     <string name="APP_PREF_ONLINE_MAP_CONSENT" translatable="false">APP_PREF_ONLINE_MAP_CONSENT</string>
     <string name="APP_PREF_SHOW_PAUSE_MARKERS" translatable="false">APP_PREF_SHOW_PAUSE_MARKERS</string>
-    <string name="APP_PREF_COLOR_BY_SPEED" translatable="false">APP_PREF_COLOR_BY_SPEED</string>
     <string name="APP_PREF_LAST_DOWNLOAD_URL" translatable="false">APP_PREF_LAST_DOWNLOAD_URL</string>
     <string name="APP_PREF_TRACK_SMOOTHING_TOLERANCE" translatable="false">APP_PREF_TRACK_SMOOTHING_TOLERANCE</string>
     <string name="APP_PREF_COMPASS_SMOOTHING" translatable="false">APP_PREF_COMPASS_SMOOTHING</string>
@@ -37,5 +36,9 @@
     <string name="stat_time" translatable="false"><![CDATA[<b>%1$s</b>]]></string>
 
     <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
+
+    <string name="track_color_mode_default">BY_SPEED</string>
+    <string name="map_mode_default">NORTH</string>
+    <string name="arrow_mode_default">DIRECTION</string>
 
 </resources>

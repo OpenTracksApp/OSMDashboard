@@ -16,17 +16,17 @@ import java.util.Locale;
 import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
-public class MapOverdrawFactorPreference extends DialogPreference {
+public class TilecacheCapacityFactorPreference extends DialogPreference {
 
-    public MapOverdrawFactorPreference(Context context, AttributeSet attrs) {
+    public TilecacheCapacityFactorPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.overdraw_factor_dialog);
+        setDialogLayoutResource(R.layout.tilecache_capacity_factor_dialog);
 
-        setDialogTitle(R.string.overdraw_factor);
+        setDialogTitle(R.string.tilecache_capacity_factor);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
 
-        SummaryProvider<DialogPreference> summaryProvider = preference -> format(PreferencesUtils.getOverdrawFactor());
+        SummaryProvider<DialogPreference> summaryProvider = preference -> format(PreferencesUtils.getTileCacheCapacityFactor());
         setSummaryProvider(summaryProvider);
     }
 
@@ -35,14 +35,14 @@ public class MapOverdrawFactorPreference extends DialogPreference {
         return String.format(Locale.getDefault(), "%.2f", factor);
     }
 
-    public static class MapOverdrawFactorPreferenceDialog extends PreferenceDialogFragmentCompat {
+    public static class TilecacheCapacityFactorPreferenceDialog extends PreferenceDialogFragmentCompat {
 
-        TextView tvOverdrawFactor;
+        TextView tvTilecacheCapacityFactor;
 
-        SeekBar sbOverdrawFactor;
+        SeekBar sbTilecacheCapacityFactor;
 
-        static MapOverdrawFactorPreferenceDialog newInstance(String preferenceKey) {
-            var dialog = new MapOverdrawFactorPreferenceDialog();
+        static TilecacheCapacityFactorPreferenceDialog newInstance(String preferenceKey) {
+            var dialog = new TilecacheCapacityFactorPreferenceDialog();
             var bundle = new Bundle(1);
             bundle.putString(PreferenceDialogFragmentCompat.ARG_KEY, preferenceKey);
             dialog.setArguments(bundle);
@@ -52,17 +52,18 @@ public class MapOverdrawFactorPreference extends DialogPreference {
         @Override
         protected void onBindDialogView(@NonNull View view) {
             super.onBindDialogView(view);
-            var currentOverdrawFactor = PreferencesUtils.getOverdrawFactor();
+            var tileCacheCapacityFactor = PreferencesUtils.getTileCacheCapacityFactor();
 
-            tvOverdrawFactor = view.findViewById(R.id.tv_overdraw_factor);
-            tvOverdrawFactor.setText(format(currentOverdrawFactor));
+            tvTilecacheCapacityFactor = view.findViewById(R.id.tv_tilecache_capacity_factor);
+            tvTilecacheCapacityFactor.setText(format(tileCacheCapacityFactor));
 
-            sbOverdrawFactor = view.findViewById(R.id.sb_overdraw_factor);
-            sbOverdrawFactor.setProgress((int) (100 * currentOverdrawFactor) - 100);
-            sbOverdrawFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            sbTilecacheCapacityFactor = view.findViewById(R.id.sb_tilecache_capacity_factor);
+            sbTilecacheCapacityFactor.setProgress(((int) (100 * tileCacheCapacityFactor) - 100) / 3);
+
+            sbTilecacheCapacityFactor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    tvOverdrawFactor.setText(format(getOverdrawFactorFromProgress()));
+                    tvTilecacheCapacityFactor.setText(format(getTilecacheCapacityFactorFromProgress()));
                 }
 
                 @Override
@@ -80,20 +81,20 @@ public class MapOverdrawFactorPreference extends DialogPreference {
         @Override
         public void onDialogClosed(boolean positiveResult) {
             if (positiveResult) {
-                var newOverdrawFactor = getOverdrawFactorFromProgress();
-                if (getPreference().callChangeListener(newOverdrawFactor)) {
-                    PreferencesUtils.setOverdrawFactor(newOverdrawFactor);
+                var newTilecacheCapacityFactor = getTilecacheCapacityFactorFromProgress();
+                if (getPreference().callChangeListener(newTilecacheCapacityFactor)) {
+                    PreferencesUtils.setTileCacheCapacityFactor(newTilecacheCapacityFactor);
                     HackUtils.invalidatePreference(getPreference());
                 }
             }
         }
 
-        private double getOverdrawFactorFromProgress() {
-            int progress = sbOverdrawFactor.getProgress();
+        private float getTilecacheCapacityFactorFromProgress() {
+            int progress = sbTilecacheCapacityFactor.getProgress();
             if (progress == 0) {
                 return 1;
             }
-            return (progress / (double) 100) + 1;
+            return (progress * 3 / (float) 100) + 1;
         }
     }
 }

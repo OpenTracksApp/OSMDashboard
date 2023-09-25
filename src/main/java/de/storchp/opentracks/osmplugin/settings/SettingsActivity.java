@@ -115,6 +115,8 @@ public class SettingsActivity extends AppCompatActivity {
             DialogFragment dialogFragment = null;
             if (preference instanceof MapOverdrawFactorPreference) {
                 dialogFragment = MapOverdrawFactorPreference.MapOverdrawFactorPreferenceDialog.newInstance(preference.getKey());
+            } else if (preference instanceof TilecacheCapacityFactorPreference) {
+                dialogFragment = TilecacheCapacityFactorPreference.TilecacheCapacityFactorPreferenceDialog.newInstance(preference.getKey());
             }
 
             if (dialogFragment != null) {
