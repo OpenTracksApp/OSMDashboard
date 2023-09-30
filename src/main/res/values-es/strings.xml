@@ -36,8 +36,7 @@
     <string name="map_theme_info"><b>¡Algunos mapas necesitan temas especiales para que se puedan mostrar correctamente!</b> Estos necesitan ser descargados y configurados adecuadamente.</string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Carpeta de mapas</b>.</string>
     <string name="track_smoothing_menu">Suavizado de pista</string>
-    <string name="track_smoothing_info">Defina la tolerancia en metros para el algoritmo de suavizado de pistas. Introduzca 0 para deshabilitar el suavizado de pistas.
-\nEl cambio entrará en vigor después de volver a cargar la pista.</string>
+    <string name="track_smoothing_info">Define la tolerancia en metros para el algoritmo de suavizado de la pista. Ajústalo a 0 para desactivar el suavizado de la pista.</string>
     <string name="pip_mode">Imagen en modo de imagen</string>
     <string name="arrow_mode_north">Flecha apunta hacia el norte</string>
     <string name="arrow_mode_direction">Dirección de movimiento de flecha</string>
@@ -111,4 +110,12 @@
     <string name="track_color_mode_by_speed">Color por velocidad</string>
     <string name="track_color">Color de la pista</string>
     <string name="track_color_mode_uni">Un solo color</string>
+    <string name="show_pause_markers">Mostrar marcadores de haz una pausa</string>
+    <string name="arrow_mode">Orientación de las flechas</string>
+    <string name="map_settings">Mapa</string>
+    <string name="online_map_consent_info">El uso del mapa en línea de openstreetmap.org podría filtrar tu ubicación actual. Debes dar tu consentimiento antes de utilizarlo.</string>
+    <string name="map_mode">Orientación del mapa</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="general_settings_category_title">General</string>
 </resources>
