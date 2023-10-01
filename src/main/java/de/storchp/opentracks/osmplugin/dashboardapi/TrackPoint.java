@@ -108,7 +108,7 @@ public class TrackPoint {
                 lastTrackPoint = new TrackPoint(trackId, trackPointId, latitude, longitude, type, speed);
                 if (lastTrackPoint.hasValidLocation()) {
                     segment.add(lastTrackPoint);
-                } else {
+                } else if (!lastTrackPoint.isPause()) {
                     debug.trackpointsInvalid++;
                 }
                 if (lastTrackPoint.isPause()) {
