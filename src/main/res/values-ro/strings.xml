@@ -45,8 +45,7 @@
     <string name="pip_mode">Imagine în modul imagine</string>
     <string name="only_digits">Valoarea trebuie să conțină numai cifre</string>
     <string name="track_smoothing_hint">Toleranța de netezire a pistei în metri</string>
-    <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Introduceți 0 pentru a dezactiva netezirea pistei.
-\nModificarea intră în vigoare după reîncărcarea pistei.</string>
+    <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Setați la 0 pentru a dezactiva netezirea pistei.</string>
     <string name="track_smoothing_menu">Netezirea liniei</string>
     <string name="error_loading_offline_map">Eroare la citirea hărții configurate offline</string>
     <string name="cancel_download_question">Anulează descărcarea curentă\?</string>
@@ -111,4 +110,12 @@
 \nSegmente: %5$d
 \nVersiune protocol: %6$d</string>
     <string name="track_color_mode_uni">Unicolor</string>
+    <string name="show_pause_markers">Afișați marcatori de pauză</string>
+    <string name="arrow_mode">Orientarea săgeții</string>
+    <string name="map_settings">Hartă</string>
+    <string name="online_map_consent_info">Utilizarea hărții online de la openstreetmap.org ar putea duce la descoperirea locației dvs. curentă. Trebuie să dați consimțământ înainte de utilizare.</string>
+    <string name="map_mode">Orientarea hărții</string>
+    <string name="title_activity_settings">Setări</string>
+    <string name="action_settings">Setări</string>
+    <string name="general_settings_category_title">General</string>
 </resources>
