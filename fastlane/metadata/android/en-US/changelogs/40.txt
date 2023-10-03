@@ -1,1 +1,2 @@
 - don't treat pause trackpoints as invalid
+- add monochrome launcher icon

@@ -1,0 +1,2 @@
+- Werte Pause Trackpoints nicht als ungültig im Debug Screen
+- Monochromes Launcher Icon hinzugefügt
