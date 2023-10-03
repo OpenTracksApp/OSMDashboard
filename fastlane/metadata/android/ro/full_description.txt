@@ -1,0 +1,18 @@
+Un tablou de bord OpenStreetMap pentru <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Arată un traseu selectat cu puncte de start și capăt pe o hartă de la <a href="https://openstreetmap.org">OpenStreetMap</a> bazată pe librăria <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Implicit este o hartă online, dar hărțile offline sunt de asemenea suportate. Cu hărțile offline, nu există necesitatea pentru un plan de date mobile.
+
+Harta implicită este furnizată de <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Vă rugăm să luați în considerare descărcarea unei hărți offline pentru a reduce încărcătura serverului și pentru a vă salva planul de date mobile.
+Unele hărți offline pot fi găsite aici:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Unele hărți necesită teme speciale pentru a fi redate corect! Acestea trebuie descărcate și configurate în consecință.
+
+Hărțile offline pot fi descărcate prin meniul "Descărcare hărți" sau prin vizitarea site-urilor web menționate mai sus și apăsarea link-urilor de descărcare. Unele browsere (ex: Firefox) necesită un clic lung pe link și apăsată opțiunea 'Deschideți într-o aplicație externă', apoi alegeți OSMDashboard.
+
+Hărțile offline descărcate manual sau hărțile partajate cu alte aplicații pot fi deschise de pe dispozitivul dvs. Android. Selectați dosarul în meniul 'Dosar hărți'.
