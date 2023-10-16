@@ -1,4 +1,3 @@
 - Pause Markierung hinzugefügt
 - Neu: Einstellungsseite
 - Übersetzungen aktualisiert
-
