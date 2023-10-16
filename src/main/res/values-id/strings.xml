@@ -15,7 +15,7 @@
     <string name="track_smoothing_info">Definisikan toleransi dalam meter untuk algoritma pembuka trek. Enter 0 untuk menonaktifkan berciuman trek.
 \nUbah datang ke efek setelah memuat ulang trek.</string>
     <string name="overwrite_map_question">Peta \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
-    <string name="usage_info">Gunakan &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\"&gt;OpenTracks&lt;/a&gt;&lt;/b&gt;, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.</string>
+    <string name="usage_info">Gunakan <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.</string>
     <string name="osm_info">Peta Baku disediakan oleh <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bergabung dengan komunitas dan membantu untuk memperbaiki peta, lihat <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Mohon pertimbangkan mengunduh peta luring untuk menurunkan beban server dan menyimpan rencana data mobile Anda. Beberapa peta luring dapat ditemukan di sini:</string>
     <string name="map_theme_info"><b>Beberapa peta membutuhkan tema khusus untuk membuat dengan benar!</b> Ini perlu diunduh dan diatur sesuai.</string>
@@ -79,4 +79,39 @@
     <string name="tilecache_capacity_factor">Faktor kapasitas TileCache</string>
     <string name="persistent_tilecache">TileCache Persisten</string>
     <string name="overdraw_factor">Faktor overdraw peta</string>
+    <string name="unit_minute_per_mile"></string>
+    <string name="track_color"></string>
+    <string name="read_number_of_trackpoints"></string>
+    <string name="pace_min_km"></string>
+    <string name="error_reading_trackpoints"></string>
+    <string name="show_pause_markers"></string>
+    <string name="pace_min_mi"></string>
+    <string name="speed_mi_h"></string>
+    <string name="arrow_mode"></string>
+    <string name="track_color_mode_uni"></string>
+    <string name="map_settings"></string>
+    <string name="color_by_speed"></string>
+    <string name="version_info"></string>
+    <string name="distance_km"></string>
+    <string name="unit_mile_per_hour"></string>
+    <string name="elevation_feet"></string>
+    <string name="speed_km_h"></string>
+    <string name="configure_statistic"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="total_time"></string>
+    <string name="unit_mile"></string>
+    <string name="debug_trackpoints_info"></string>
+    <string name="elevation_meter"></string>
+    <string name="unit_kilometer_per_hour"></string>
+    <string name="map_mode"></string>
+    <string name="track_color_mode_by_speed"></string>
+    <string name="title_activity_settings"></string>
+    <string name="distance_mi"></string>
+    <string name="unit_minute_per_kilometer"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
+    <string name="category"></string>
+    <string name="track_color_mode_by_track"></string>
+    <string name="debug_trackpoints"></string>
+    <string name="moving_time"></string>
 </resources>
