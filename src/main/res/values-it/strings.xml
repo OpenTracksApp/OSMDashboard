@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_info_screen">Cruscotto OSM 
+    <string name="app_name_info_screen">Cruscotto OSM
 \nper OpenTracks</string>
     <string name="no_data">Nessun dato sulla traccia ricevuto</string>
     <string name="maps">Mappe</string>
@@ -13,7 +13,7 @@
     <string name="download_map">Scarica la mappa</string>
     <string name="choose_map_to_download">Scegli una mappa da scaricare</string>
     <string name="download_instruction">Stai vedendo il contenuto di https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Scaricare la mappa %s?</string>
+    <string name="download_map_question">Scaricare la mappa %s\?</string>
     <string name="download_in_progress">C\'è già uno scaricamento in corso!</string>
     <string name="download_success">La mappa è stata scaricata con successo</string>
     <string name="map_online_consent_menu">Consenso per l\' utilizzo della mappa online</string>
@@ -22,9 +22,9 @@
     <string name="online_osm_mapnick">Mappa OSM Online:Mapnik</string>
     <string name="delete_map_question">Eliminare la mappa \"%s\"\?</string>
     <string name="theme_selection">Temi mappe</string>
-    <string name="delete_theme_question">Eliminare il tema \"%s\"?</string>
+    <string name="delete_theme_question">Eliminare il tema \"%s\"\?</string>
     <string name="delete_theme_error">Cancellazione del tema non riuscita</string>
-    <string name="cancel_download_question">Vuoi annullare lo scaricamento?</string>
+    <string name="cancel_download_question">Vuoi annullare lo scaricamento\?</string>
     <string name="track_smoothing_hint">Tolleranza dell\' arrotondamento del percorso in metri</string>
     <string name="only_digits">Inserire un numero intero</string>
     <string name="pip_mode">Modalità PiP</string>
@@ -41,14 +41,14 @@
     <string name="map_mode_direction">Direzione di movimento della mappa</string>
     <string name="map_mode_compass">Movimento della mappa come una bussola</string>
     <string name="copyright_osm">Dati cartografici © Collaboratori di OpenStreetMap</string>
-    <string name="usage_info">Utilizzo di &lt;b&gt;&lt;a href=\"https://f-droid.org/packages/de.dennisguse.opentracks\"&gt;OpenTracks&lt;/a&gt;&lt;/b&gt;: selezionare una traccia e cliccare sull\'icona della mappa per mostrare la traccia sulla mappa.</string>
+    <string name="usage_info">Utilizzo di <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>: selezionare una traccia e cliccare sull\'icona della mappa per mostrare la traccia sulla mappa.</string>
     <string name="osm_info">La mappa predefinita è fornita da <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Unisciti alla community e aiuta a migliorare la mappa su <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Considera la possibilità di scaricare una mappa offline per diminuire il carico del server e risparmiare traffico dati. Alcune mappe offline possono essere trovate qui:</string>
     <string name="map_theme_info"><b>Alcune mappe richiedono temi speciali per il rendering corretto!</b> Questi devono essere scaricati e configurati di conseguenza.</string>
     <string name="manual_offline_map_info">Le mappe offline scaricate manualmente o mappe condivise con altre app possono essere aperte dal tuo dispositivo Android. Seleziona la cartella nel menu <b>cartella Mappe</b>.</string>
     <string name="download_failed">Scaricamento della mappa non riuscito</string>
     <string name="delete_map_error">Cancellazione della mappa non riuscita</string>
-    <string name="overwrite_map_question">La mappa \"%s\" esiste già! Cancellarla e scaricarla di nuovo?</string>
+    <string name="overwrite_map_question">La mappa \"%s\" esiste già! Cancellarla e scaricarla di nuovo\?</string>
     <string name="error_loading_offline_map">Errore nella lettura della mappa offline configurata</string>
     <string name="track_smoothing_info">Definire la tolleranza in metri per l\'algoritmo di perfezionamento delle tracce. Immettere 0 per disattivare il perfezionamento delle tracce.
 \nIl cambiamento entrerà in vigore dopo aver aperto di nuovo la traccia.</string>
@@ -79,4 +79,39 @@
     <string name="tilecache_capacity_factor_info">Definire il fattore di capacità di TileCache</string>
     <string name="tilecache_capacity_factor">Fattore di capacità TileCache</string>
     <string name="overdraw_factor_info">Definire il fattore di sovradimensionamento della mappa</string>
+    <string name="unit_minute_per_mile"></string>
+    <string name="track_color"></string>
+    <string name="read_number_of_trackpoints"></string>
+    <string name="pace_min_km"></string>
+    <string name="error_reading_trackpoints"></string>
+    <string name="show_pause_markers"></string>
+    <string name="pace_min_mi"></string>
+    <string name="speed_mi_h"></string>
+    <string name="arrow_mode"></string>
+    <string name="track_color_mode_uni"></string>
+    <string name="map_settings"></string>
+    <string name="color_by_speed"></string>
+    <string name="version_info"></string>
+    <string name="distance_km"></string>
+    <string name="unit_mile_per_hour"></string>
+    <string name="elevation_feet"></string>
+    <string name="speed_km_h"></string>
+    <string name="configure_statistic"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="total_time"></string>
+    <string name="unit_mile"></string>
+    <string name="debug_trackpoints_info"></string>
+    <string name="elevation_meter"></string>
+    <string name="unit_kilometer_per_hour"></string>
+    <string name="map_mode"></string>
+    <string name="track_color_mode_by_speed"></string>
+    <string name="title_activity_settings"></string>
+    <string name="distance_mi"></string>
+    <string name="unit_minute_per_kilometer"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
+    <string name="category"></string>
+    <string name="track_color_mode_by_track"></string>
+    <string name="debug_trackpoints"></string>
+    <string name="moving_time"></string>
 </resources>
