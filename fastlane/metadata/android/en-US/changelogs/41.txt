@@ -1,0 +1,3 @@
+- Updated translations
+- Updated dependencies
+- Update description on how to download maps

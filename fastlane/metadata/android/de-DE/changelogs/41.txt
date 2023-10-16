@@ -1,0 +1,3 @@
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert
+- Beschreibung zum Download von Offline Maps aktualisiert
