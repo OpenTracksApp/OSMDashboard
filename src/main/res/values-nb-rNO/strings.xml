@@ -10,13 +10,13 @@
     <string name="theme_folder">Karttema-mappe</string>
     <string name="app_logo_description">App-logo</string>
     <string name="map_selection">Kart</string>
-    <string name="delete_map_question">Vil du slette kart \"%s\"?</string>
+    <string name="delete_map_question">Vil du slette kart \"%s\"\?</string>
     <string name="delete_map_error">Kartsletting feilet</string>
-    <string name="delete_theme_question">Vil du slette tema \"%s\"?</string>
+    <string name="delete_theme_question">Vil du slette tema \"%s\"\?</string>
     <string name="default_theme">Standardtema</string>
     <string name="theme_selection">Karttemaer</string>
     <string name="delete_theme_error">Temasletting feilet</string>
-    <string name="overwrite_map_question">Kartet \"%s\" finnes allerede! Vil du slette og laste ned igjen?</string>
+    <string name="overwrite_map_question">Kartet \"%s\" finnes allerede! Vil du slette og laste ned igjen\?</string>
     <string name="error_loading_offline_map">Feil ved lesing av innstilt offline-kart</string>
     <string name="track_smoothing_menu">Sporutjevning</string>
     <string name="track_smoothing_hint">Sporutjevningstoleranse i meter</string>
@@ -108,4 +108,15 @@
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="speed_mi_h">Hastighet i mi/h</string>
     <string name="distance_mi">Distanse i miles</string>
+    <string name="unit_minute_per_mile"></string>
+    <string name="show_pause_markers"></string>
+    <string name="arrow_mode"></string>
+    <string name="map_settings"></string>
+    <string name="unit_mile_per_hour"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="unit_mile"></string>
+    <string name="map_mode"></string>
+    <string name="title_activity_settings"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
 </resources>

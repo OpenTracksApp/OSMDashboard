@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_info_screen">OSM Dashboard\n voor OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\n voor OpenTracks</string>
     <string name="no_data">Geen trackgegevens ontvangen</string>
     <string name="copyright_osm">Kaartgegevens © OpenStreetMap contribuanten</string>
     <string name="maps">Kaarten</string>
@@ -20,22 +21,23 @@
     <string name="download_map">Kaart downloaden</string>
     <string name="choose_map_to_download">Kies een kaart om te downloaden</string>
     <string name="download_instruction">U bekijkt de inhoud van https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Kaart %s downloaden?</string>
+    <string name="download_map_question">Kaart %s downloaden\?</string>
     <string name="download_in_progress">Er is al een download gaande!</string>
     <string name="download_success">Kaart succesvol gedownload</string>
     <string name="download_failed">Het downloaden van de kaart is mislukt</string>
     <string name="map_selection">Kaarten</string>
     <string name="online_osm_mapnick">Online kaart OSM:Mapnik</string>
-    <string name="delete_map_question">Map \"%s\" verwijderen?</string>
+    <string name="delete_map_question">Map \"%s\" verwijderen\?</string>
     <string name="delete_map_error">Verwijdering van de kaart is mislukt</string>
     <string name="theme_selection">Kaart themas</string>
-    <string name="delete_theme_question">Thema \"%s\" verwijderen?</string>
+    <string name="delete_theme_question">Thema \"%s\" verwijderen\?</string>
     <string name="delete_theme_error">Themaverwijdering mislukt</string>
-    <string name="overwrite_map_question">De kaart \"%s\" bestaat al! Opnieuw verwijderen en downloaden?</string>
-    <string name="cancel_download_question">Huidige download annuleren?</string>
+    <string name="overwrite_map_question">De kaart \"%s\" bestaat al! Opnieuw verwijderen en downloaden\?</string>
+    <string name="cancel_download_question">Huidige download annuleren\?</string>
     <string name="error_loading_offline_map">Foutieve uitlezing geconfigureerd offline kaart</string>
     <string name="track_smoothing_menu">Spoorafvlakking</string>
-    <string name="track_smoothing_info">Definieer de tolerantie in meters voor het spoorverzachtingsalgoritme. Voer 0 in om spoorverzachter uit te schakelen.\nChange treedt in werking na het opnieuw laden van het spoor.</string>
+    <string name="track_smoothing_info">Definieer de tolerantie in meters voor het spoorverzachtingsalgoritme. Voer 0 in om spoorverzachter uit te schakelen.
+\nChange treedt in werking na het opnieuw laden van het spoor.</string>
     <string name="track_smoothing_hint">Spoorafvlakkingstolerantie in meters</string>
     <string name="only_digits">De waarde mag alleen cijfers bevatten</string>
     <string name="pip_mode">Beeld in beeldmodus</string>
@@ -77,4 +79,39 @@
     <string name="tilecache_capacity_factor_info">Definieer TileCache-capaciteitsfactor</string>
     <string name="tilecache_capacity_factor">TileCache capaciteitsfactor</string>
     <string name="overdraw_factor">Kaart overdraaifactor</string>
+    <string name="unit_minute_per_mile"></string>
+    <string name="track_color"></string>
+    <string name="read_number_of_trackpoints"></string>
+    <string name="pace_min_km"></string>
+    <string name="error_reading_trackpoints"></string>
+    <string name="show_pause_markers"></string>
+    <string name="pace_min_mi"></string>
+    <string name="speed_mi_h"></string>
+    <string name="arrow_mode"></string>
+    <string name="track_color_mode_uni"></string>
+    <string name="map_settings"></string>
+    <string name="color_by_speed"></string>
+    <string name="version_info"></string>
+    <string name="distance_km"></string>
+    <string name="unit_mile_per_hour"></string>
+    <string name="elevation_feet"></string>
+    <string name="speed_km_h"></string>
+    <string name="configure_statistic"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="total_time"></string>
+    <string name="unit_mile"></string>
+    <string name="debug_trackpoints_info"></string>
+    <string name="elevation_meter"></string>
+    <string name="unit_kilometer_per_hour"></string>
+    <string name="map_mode"></string>
+    <string name="track_color_mode_by_speed"></string>
+    <string name="title_activity_settings"></string>
+    <string name="distance_mi"></string>
+    <string name="unit_minute_per_kilometer"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
+    <string name="category"></string>
+    <string name="track_color_mode_by_track"></string>
+    <string name="debug_trackpoints"></string>
+    <string name="moving_time"></string>
 </resources>

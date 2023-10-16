@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_info_screen">OSM Dashboard 
+    <string name="app_name_info_screen">OSM Dashboard
 \npentru OpenTracks</string>
     <string name="no_data">Nu se primesc date de cale</string>
     <string name="maps">Hărți</string>
