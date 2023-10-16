@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_info_screen">OSM Dashboard\npara OpenTracks</string>
+    <string name="app_name_info_screen">OSM Dashboard
+\npara OpenTracks</string>
     <string name="no_data">Non se recibiron datos da ruta</string>
     <string name="copyright_osm">© dos datos do mapa: contribuíntes a OpenStreetMap</string>
     <string name="maps">Mapas</string>
@@ -20,18 +21,18 @@
     <string name="download_map">Descargar mapa</string>
     <string name="choose_map_to_download">Escolle o mapa a descargar</string>
     <string name="download_instruction">Estás a ver o contido de https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">¿Descargar o mapa %s?</string>
+    <string name="download_map_question">¿Descargar o mapa %s\?</string>
     <string name="download_in_progress">Xa hai unha descarga en curso!</string>
     <string name="download_success">Mapa descargado correctamente</string>
     <string name="download_failed">Fallou a descarga do mapa</string>
     <string name="map_selection">Mapas</string>
     <string name="online_osm_mapnick">Mapa en liña OSM:Mapnik</string>
-    <string name="delete_map_question">¿Eliminar mapa \"%s\"?</string>
+    <string name="delete_map_question">¿Eliminar mapa \"%s\"\?</string>
     <string name="delete_map_error">Fallo a eliminación do mapa</string>
     <string name="theme_selection">Estilos do mapa</string>
-    <string name="delete_theme_question">¿Eliminar estilo \"%s\"?</string>
+    <string name="delete_theme_question">¿Eliminar estilo \"%s\"\?</string>
     <string name="delete_theme_error">Fallou a eliminación do estilo</string>
-    <string name="cancel_download_question">Cancelar a descarga actual?</string>
+    <string name="cancel_download_question">Cancelar a descarga actual\?</string>
     <string name="error_loading_offline_map">Erro ó ler o mapa sen conexión configurado</string>
     <string name="track_smoothing_menu">Suavizado da ruta</string>
     <string name="track_smoothing_hint">Tolerancia do suavizado da ruta en metros</string>
@@ -48,7 +49,7 @@
     <string name="menu_advanced">Avanzado</string>
     <string name="multi_thread_map_rendering">Presentación multitema do mapa</string>
     <string name="stroke_width_info">Define o ancho do trazo nas rutas</string>
-    <string name="overwrite_map_question">O mapa \"%s\" xa existe! Eliminar e descargar de novo?</string>
+    <string name="overwrite_map_question">O mapa \"%s\" xa existe! Eliminar e descargar de novo\?</string>
     <string name="track_smoothing_info">Definir a tolerancia en metros para o algoritmo de suavizado da ruta. Escribe 0 para desactivalo.
 \nOs cambios teñen efectos tras recargar a ruta.</string>
     <string name="no_map_configured">Non tes configurado un mapa para visualizar sen conexión.</string>
@@ -99,4 +100,18 @@
     <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
     <string name="read_number_of_trackpoints">Lidos %d puntos da ruta</string>
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
+    <string name="track_color"></string>
+    <string name="show_pause_markers"></string>
+    <string name="arrow_mode"></string>
+    <string name="track_color_mode_uni"></string>
+    <string name="map_settings"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="debug_trackpoints_info"></string>
+    <string name="map_mode"></string>
+    <string name="track_color_mode_by_speed"></string>
+    <string name="title_activity_settings"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
+    <string name="track_color_mode_by_track"></string>
+    <string name="debug_trackpoints"></string>
 </resources>
