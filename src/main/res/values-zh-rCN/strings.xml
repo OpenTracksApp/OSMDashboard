@@ -111,4 +111,12 @@
 \n轨迹点暂停: %4$d
 \n分段: %5$d
 \n协议版本: %6$d</string>
+    <string name="show_pause_markers"></string>
+    <string name="arrow_mode"></string>
+    <string name="map_settings"></string>
+    <string name="online_map_consent_info"></string>
+    <string name="map_mode"></string>
+    <string name="title_activity_settings"></string>
+    <string name="action_settings"></string>
+    <string name="general_settings_category_title"></string>
 </resources>
