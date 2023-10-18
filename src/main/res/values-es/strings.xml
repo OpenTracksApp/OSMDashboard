@@ -34,7 +34,7 @@
     <string name="osm_info">El mapa por defecto es proporcionado por <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Únete a la comunidad y ayuda a mejorar el mapa, ver <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Por favor, considera descargar un mapa offline para no sobrecargar el servidor y ahorrar datos. Algunos mapas offline los puedes encontrar y descargar aquí:</string>
     <string name="map_theme_info"><b>¡Algunos mapas necesitan temas especiales para que se puedan mostrar correctamente!</b> Estos necesitan ser descargados y configurados adecuadamente.</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Carpeta de mapas</b>.</string>
+    <string name="manual_offline_map_info">Los mapas offline descargados manualmente o los mapas compartidos por otras aplicaciones se pueden abrir desde tu dispositivo Android. Selecciona el directorio en el menú <b>Carpeta de mapas</b>.</string>
     <string name="track_smoothing_menu">Suavizado de pista</string>
     <string name="track_smoothing_info">Define la tolerancia en metros para el algoritmo de suavizado de la pista. Ajústalo a 0 para desactivar el suavizado de la pista.</string>
     <string name="pip_mode">Imagen en modo de imagen</string>
@@ -53,7 +53,7 @@
     <string name="only_digits">El valor debe contener solo dígitos</string>
     <string name="map_mode_direction">Mapa de dirección de movimiento</string>
     <string name="no_map_configured">Todavía no tiene ningún mapa sin conexión configurado.</string>
-    <string name="offline_map_info">Los mapas sin conexión pueden descargarse a través del menú <b>Descarga de mapas</b> o visitando los sitios web mencionados anteriormente y haciendo clic en los enlaces de descarga. Algunos navegadores (por ejemplo, Firefox) requieren un clic largo en el enlace y Abrir enlace en la aplicación externa y luego elegir OSMDashboard.</string>
+    <string name="offline_map_info">Los mapas sin conexión pueden descargarse desde la aplicación. Vaya a los ajustes y elija <b>Descarga de mapas</b> o visitando los sitios web mencionados anteriormente y haciendo clic en los enlaces de descarga. Algunos navegadores (por ejemplo, Firefox) requieren un clic largo en el enlace y Abrir enlace en la aplicación externa y luego elegir OSMDashboard.</string>
     <string name="download_theme">Descargar el tema</string>
     <string name="download_theme_success">Tema descargado con éxito</string>
     <string name="download_theme_failed">Fallo en la descarga del tema</string>
