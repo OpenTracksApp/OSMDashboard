@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -28,6 +29,10 @@ public class MainActivity extends BaseActivity {
         binding.osmInfo.setMovementMethod(LinkMovementMethod.getInstance());
         binding.offlineMaps.setMovementMethod(LinkMovementMethod.getInstance());
         binding.versionInfo.setText(Html.fromHtml(getString(R.string.version_info, BuildConfig.BUILD_TYPE, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE), Html.FROM_HTML_MODE_COMPACT));
+
+        if (BuildConfig.offline) {
+            binding.offlineMapInfo.setVisibility(View.GONE);
+        }
     }
 
     @Override
