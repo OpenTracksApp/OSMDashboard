@@ -100,18 +100,4 @@
     <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
     <string name="read_number_of_trackpoints">Lidos %d puntos da ruta</string>
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
-    <string name="track_color"></string>
-    <string name="show_pause_markers"></string>
-    <string name="arrow_mode"></string>
-    <string name="track_color_mode_uni"></string>
-    <string name="map_settings"></string>
-    <string name="online_map_consent_info"></string>
-    <string name="debug_trackpoints_info"></string>
-    <string name="map_mode"></string>
-    <string name="track_color_mode_by_speed"></string>
-    <string name="title_activity_settings"></string>
-    <string name="action_settings"></string>
-    <string name="general_settings_category_title"></string>
-    <string name="track_color_mode_by_track"></string>
-    <string name="debug_trackpoints"></string>
 </resources>

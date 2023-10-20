@@ -108,15 +108,4 @@
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="speed_mi_h">Hastighet i mi/h</string>
     <string name="distance_mi">Distanse i miles</string>
-    <string name="unit_minute_per_mile"></string>
-    <string name="show_pause_markers"></string>
-    <string name="arrow_mode"></string>
-    <string name="map_settings"></string>
-    <string name="unit_mile_per_hour"></string>
-    <string name="online_map_consent_info"></string>
-    <string name="unit_mile"></string>
-    <string name="map_mode"></string>
-    <string name="title_activity_settings"></string>
-    <string name="action_settings"></string>
-    <string name="general_settings_category_title"></string>
 </resources>

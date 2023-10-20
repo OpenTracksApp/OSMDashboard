@@ -111,12 +111,4 @@
     <string name="track_color_mode_uni">Unikolor</string>
     <string name="track_color_mode_by_track">Kolor według ścieżki</string>
     <string name="track_color_mode_by_speed">Kolor według prędkości</string>
-    <string name="show_pause_markers"></string>
-    <string name="arrow_mode"></string>
-    <string name="map_settings"></string>
-    <string name="online_map_consent_info"></string>
-    <string name="map_mode"></string>
-    <string name="title_activity_settings"></string>
-    <string name="action_settings"></string>
-    <string name="general_settings_category_title"></string>
 </resources>
