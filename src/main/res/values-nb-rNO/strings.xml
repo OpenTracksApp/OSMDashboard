@@ -108,4 +108,15 @@
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="speed_mi_h">Hastighet i mi/h</string>
     <string name="distance_mi">Distanse i miles</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="show_pause_markers">Show pause markers</string>
+    <string name="arrow_mode">Arrow orientation</string>
+    <string name="map_settings">Map</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="unit_mile">mi</string>
+    <string name="map_mode">Map orientation</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="general_settings_category_title">General</string>
 </resources>

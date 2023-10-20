@@ -100,4 +100,23 @@
     <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
     <string name="read_number_of_trackpoints">Lidos %d puntos da ruta</string>
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
+    <string name="track_color">Track color</string>
+    <string name="show_pause_markers">Show pause markers</string>
+    <string name="arrow_mode">Arrow orientation</string>
+    <string name="track_color_mode_uni">Unicolor</string>
+    <string name="map_settings">Map</string>
+    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="debug_trackpoints_info">Trackpoints received: %1$d
+\nTrackpoints invalid: %2$d
+\nTrackpoints drawn: %3$d
+\nTrackpoints pause: %4$d
+\nSegments: %5$d
+\nProtocol version: %6$d</string>
+    <string name="map_mode">Map orientation</string>
+    <string name="track_color_mode_by_speed">Color by speed</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="general_settings_category_title">General</string>
+    <string name="track_color_mode_by_track">Color by track</string>
+    <string name="debug_trackpoints">Debug trackpoints</string>
 </resources>

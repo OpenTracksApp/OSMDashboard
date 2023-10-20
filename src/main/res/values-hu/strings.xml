@@ -79,4 +79,44 @@
     <string name="tilecache_capacity_factor_info">TileCache kapacitástényező meghatározása</string>
     <string name="tilecache_capacity_factor">TileCache kapacitási tényező</string>
     <string name="overdraw_factor_info">Térkép túlhúzási tényező meghatározása</string>
+    <string name="unit_minute_per_mile">min/mi</string>
+    <string name="track_color">Track color</string>
+    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
+    <string name="pace_min_km">Pace in min/km</string>
+    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
+    <string name="show_pause_markers">Show pause markers</string>
+    <string name="pace_min_mi">Pace in min/mi</string>
+    <string name="speed_mi_h">Speed in mi/h</string>
+    <string name="arrow_mode">Arrow orientation</string>
+    <string name="track_color_mode_uni">Unicolor</string>
+    <string name="map_settings">Map</string>
+    <string name="color_by_speed">Color by speed</string>
+    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
+    <string name="distance_km">Distance in km</string>
+    <string name="unit_mile_per_hour">mph</string>
+    <string name="elevation_feet">Elevation gain in feet</string>
+    <string name="speed_km_h">Speed in km/h</string>
+    <string name="configure_statistic">Configure statistic</string>
+    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="total_time">Total time</string>
+    <string name="unit_mile">mi</string>
+    <string name="debug_trackpoints_info">Trackpoints received: %1$d
+\nTrackpoints invalid: %2$d
+\nTrackpoints drawn: %3$d
+\nTrackpoints pause: %4$d
+\nSegments: %5$d
+\nProtocol version: %6$d</string>
+    <string name="elevation_meter">Elevation gain in meter</string>
+    <string name="unit_kilometer_per_hour">km/h</string>
+    <string name="map_mode">Map orientation</string>
+    <string name="track_color_mode_by_speed">Color by speed</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="distance_mi">Distance in miles</string>
+    <string name="unit_minute_per_kilometer">min/km</string>
+    <string name="action_settings">Settings</string>
+    <string name="general_settings_category_title">General</string>
+    <string name="category">Category</string>
+    <string name="track_color_mode_by_track">Color by track</string>
+    <string name="debug_trackpoints">Debug trackpoints</string>
+    <string name="moving_time">Moving time</string>
 </resources>
