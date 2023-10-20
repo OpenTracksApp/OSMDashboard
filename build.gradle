@@ -31,7 +31,6 @@ def getVersionCode = { ->
 android {
     defaultConfig {
         compileSdk 34
-        buildToolsVersion = "30.0.3"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 41
