@@ -1,3 +1,4 @@
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert
 - Beschreibung zum Download von Offline Maps aktualisiert
+- Beschreibung zum Download von Offline Maps innerhalb der App in der Offline Variante entfernt

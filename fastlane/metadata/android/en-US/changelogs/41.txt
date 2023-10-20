@@ -1,3 +1,4 @@
 - Updated translations
 - Updated dependencies
 - Update description on how to download maps
+- Remove in app map download description from offline version
