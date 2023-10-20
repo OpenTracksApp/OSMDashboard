@@ -111,4 +111,12 @@
 \n轨迹点暂停: %4$d
 \n分段: %5$d
 \n协议版本: %6$d</string>
+    <string name="show_pause_markers">Show pause markers</string>
+    <string name="arrow_mode">Arrow orientation</string>
+    <string name="map_settings">Map</string>
+    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="map_mode">Map orientation</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="general_settings_category_title">General</string>
 </resources>
