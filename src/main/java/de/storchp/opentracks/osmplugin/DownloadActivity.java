@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
@@ -105,6 +106,11 @@ public class DownloadActivity extends BaseActivity {
             binding.startDownloadButton.setEnabled(false);
         }
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            public void handleOnBackPressed() {
+                navigateUp();
+            }
+        });
     }
 
     private boolean isDownloadInProgress() {
@@ -169,7 +175,7 @@ public class DownloadActivity extends BaseActivity {
                     documentFile.delete();
                 }
             }
-            onBackPressed();
+            navigateUp();
             return;
         }
         if (success) {
@@ -297,14 +303,13 @@ public class DownloadActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            navigateUp();
             return true;
         }
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
+    public void navigateUp() {
         if (isDownloadInProgress()) {
             new AlertDialog.Builder(DownloadActivity.this)
                 .setIcon(R.drawable.ic_logo_color_24dp)
@@ -314,7 +319,7 @@ public class DownloadActivity extends BaseActivity {
                 .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
@@ -85,6 +86,12 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                     .create().show();
             return false;
         });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            public void handleOnBackPressed() {
+                navigateUp();
+            }
+        });
     }
 
     private static class MapThemeDirScanner implements Runnable {
@@ -143,16 +150,15 @@ public class ThemeSelectionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            navigateUp();
             return true;
         }
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
+    public void navigateUp() {
         PreferencesUtils.setMapThemeUri(adapter.getSelectedUri());
-        super.onBackPressed();
+        finish();
     }
 
 }

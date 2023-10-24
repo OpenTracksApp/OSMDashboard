@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -164,6 +165,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         binding.map.zoomOutButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomOut());
         binding.map.fullscreenButton.setOnClickListener(v -> switchFullscreen());
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            public void handleOnBackPressed() {
+                navigateUp();
+            }
+        });
+
         // Get the intent that started this activity
         var intent = getIntent();
         if (intent != null) {
@@ -254,14 +261,13 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         decorView.setSystemUiVisibility(uiOptions);
     }
 
-    @Override
-    public void onBackPressed() {
+    public void navigateUp() {
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
                 && isOpenTracksRecordingThisTrack
                 && PreferencesUtils.isPipEnabled()) {
             enterPictureInPictureMode();
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 

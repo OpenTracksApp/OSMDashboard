@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -82,22 +83,26 @@ public class MapSelectionActivity extends AppCompatActivity {
                 .create().show();
             return false;
         });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            public void handleOnBackPressed() {
+                navigateUp();
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            navigateUp();
             return true;
         }
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
+    public void navigateUp() {
         PreferencesUtils.setMapUris(adapter.getSelectedUris());
-
-        super.onBackPressed();
+        finish();
     }
 
 }
