@@ -15,4 +15,4 @@ Certaines cartes nécessitent des thèmes spéciaux pour s’afficher correcteme
 
 Les cartes hors-ligne sont accessibles via le menu « Téléchargement de carte » ou en visitant un des liens sus-mentionnés et d’ouvrir un lien de téléchargement. Certains navigateurs (ex : Firefox) nécessitent un appui long sur le lien, « Ouvrir le lien dans une application externe » puis de choisir OSMDashboard.
 
-Les cartes téléchargées manuellement ou partagées avec d’autres applications peuvent être ouvertes sur votre appareil Android. Sélectionnez  un dossier dans le menu « Dossier de cartes ».
+Les cartes téléchargées manuellement ou partagées avec d’autres applications peuvent être ouvertes sur votre appareil Android. Sélectionnez un dossier dans le menu « Dossier de cartes ».
