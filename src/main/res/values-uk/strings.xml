@@ -74,10 +74,10 @@
     <string name="bug_report">Повідомити про помилку</string>
     <string name="persistent_tilecache">Постійний кеш TileCache</string>
     <string name="purge_tilecache">Очистити TileCache</string>
-    <string name="overdraw_factor">Коефіцієнт овердрафту карти</string>
+    <string name="overdraw_factor">Коефіцієнт перерисовки мапи</string>
     <string name="tilecache_capacity_factor_info">Визначення коефіцієнту ємності TileCache</string>
     <string name="tilecache_capacity_factor">Коефіцієнт ємності TileCache</string>
-    <string name="overdraw_factor_info">Визначте коефіцієнт перевитрати за карткою</string>
+    <string name="overdraw_factor_info">Визначте коефіцієнт перерисовки мапи</string>
     <string name="unit_minute_per_mile">хв/милю</string>
     <string name="pace_min_km">Темп у хв/км</string>
     <string name="pace_min_mi">Темп у хв/милю</string>
