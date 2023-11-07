@@ -52,9 +52,9 @@ OSM Dashboard updates the provided data from OpenTracks in real-time.
 ## Features:
 * _Online map data_: download map data on-demand
 * _Offline map data_: use on-device stored map data
-* _In app download of offline maps_: download offline maps from withing the app, from [https://ftp-stud.hs-esslingen.de](https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/)
-* _Map themes_: support of custom map themes for offline maps
-    
+* _In app download of offline maps_: download offline maps from within the app, from [https://ftp-stud.hs-esslingen.de](https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/)
+* _Map themes_: support for custom map themes for offline maps
+
 __Required permissions:__
 * _INTERNET_: required for online maps (only required for the full version, the pure offline version doesn't need any permission)
 
@@ -65,7 +65,7 @@ The map implementation is based on the [Mapsforge](https://github.com/mapsforge/
 The default online map is provided by [OpenStreetMap.org](https://openstreetmap.org).
 Join the community and help to improve the map, see [www.openstreetmap.org/fixthemap](https://www.openstreetmap.org/fixthemap).
 
-Please consider downloading an offline map to decrease the server load and save your mobile data plan.Some offline maps can be found here:
+Please consider downloading an offline map to decrease the server load and save your mobile data plan. Some offline maps can be found here:
 
 - [Mapsforge](http://download.mapsforge.org/)
 - [Freizeitkarte Android](https://www.freizeitkarte-osm.de/android/en/)
@@ -73,9 +73,9 @@ Please consider downloading an offline map to decrease the server load and save 
 
 **Some maps require special themes to render correctly!** These need to be downloaded and configured accordingly.
 
-Offline maps can be downloaded via the menu `Map download` or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.
+Offline maps can be downloaded via the menu `Map download` or by visiting the above mentioned websites and clicking the download links. Some browsers (e.g. Firefox) require a long click on the link and "Open link in external app" and then choose OSMDashboard.
 
-Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu `Map directory`.
+Manually downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu `Map directory`.
 
 ## Screenshots
 <div>
