@@ -25,7 +25,7 @@
     <string name="download_map">Descarcă harta</string>
     <string name="download_theme">Descărcare temă</string>
     <string name="map_theme_info"><b>Câteva hărți necesită teme speciale pentru a fi redate corect!</b> Acestea trebuie descărcate și configurate corespunzător.</string>
-    <string name="manual_offline_map_info">Hărțile offline descărcate manual sau hărțile partajate cu alte aplicații pot fi deschise de pe dispozitivul Android. Selectați directorul în meniul <b>Director de hărți</b>.</string>
+    <string name="manual_offline_map_info">Hărțile offline descărcate manual sau hărțile partajate cu alte aplicații pot fi deschise de pe dispozitivul Android. Selectați directorul în setările <b>Registrului de hărți</b>.</string>
     <string name="usage_info">Utilizați <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selectați un traseu și faceți clic pe pictograma de hartă pentru a afișa traseul pe hartă.</string>
     <string name="startDownload">Start Descărcare</string>
     <string name="no_download_uri_found">Nu s-a găsit niciun URI de descărcat</string>
@@ -57,7 +57,7 @@
     <string name="delete_map_error">Ștergerea hărților a eșuat</string>
     <string name="copyright_osm">Date de pe hartă © OpenStreetMap contributori</string>
     <string name="consider_offline_maps">Vă rugăm să luați în considerare descărcarea unei hărți offline pentru a reduce încărcarea serverului și pentru a economisi planul de date mobile. Unele hărți offline pot fi găsite aici:</string>
-    <string name="offline_map_info">Hărțile offline pot fi descărcate prin intermediul meniului <b>Descărcare hărți</b> sau vizitând site-urile web menționate mai sus și făcând clic pe link-urile de descărcare. Unele browsere (de exemplu, Firefox) necesită un clic lung pe link și Open link in external app (Deschidere link în aplicație externă) și apoi alegeți OSMDashboard.</string>
+    <string name="offline_map_info">Hărțile offline pot fi descărcate prin aplicație. Navigați la setări și selectați <b>Descărcare hărți</b> sau vizitând site-urile web menționate mai sus și făcând clic pe link-urile de descărcare. Unele browsere (de exemplu, Firefox) necesită un clic lung pe link și Open link in external app (Deschidere link în aplicație externă) și apoi alegeți OSMDashboard.</string>
     <string name="online_map_consent">Nu este configurată nicio hartă offline. Vă rugăm să acceptați să utilizați harta online de pe openstreetmap.org. Este posibil ca aceasta să vă scurgă locația actuală. Consultați https://operations.osmfoundation.org/policies/tiles/ pentru politica de utilizare a plăcilor și de confidențialitate.</string>
     <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="no_file_manager_found">Nu s-a găsit niciun manager de fișiere</string>
