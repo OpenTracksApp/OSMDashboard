@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 
@@ -221,6 +222,45 @@ public class PreferencesUtils {
     public static TrackColorMode getTrackColorMode() {
         var trackColorMode = getString(R.string.APP_PREF_TRACK_COLOR_MODE, resources.getString(R.string.track_color_mode_default));
         return TrackColorMode.valueOf(trackColorMode);
+    }
+
+    public static void registerOnSharedPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener changeListener) {
+        sharedPrefs.registerOnSharedPreferenceChangeListener(changeListener);
+        changeListener.onSharedPreferenceChanged(sharedPrefs, null);
+    }
+
+    public static void unregisterOnSharedPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener changeListener) {
+        sharedPrefs.unregisterOnSharedPreferenceChangeListener(changeListener);
+    }
+
+    /**
+     * Compares if keyId and key belong to the same shared preference key.
+     *
+     * @param keyId The resource id of the key
+     * @param key   The key of the preference
+     * @return true if key == null or key belongs to keyId
+     */
+    public static boolean isKey(int keyId, String key) {
+        return key == null || key.equals(getKey(keyId));
+    }
+
+    public static boolean shouldUseDynamicColors() {
+        final boolean DEFAULT = resources.getBoolean(R.bool.settings_ui_dynamic_colors_default);
+        return getBoolean(R.string.settings_ui_dynamic_colors_key, DEFAULT);
+    }
+
+    /**
+     * @return {@link androidx.appcompat.app.AppCompatDelegate}.MODE_*
+     */
+    public static int getDefaultNightMode() {
+        final String defaultValue = getKey(R.string.night_mode_default);
+        final String value = getString(R.string.night_mode_key, defaultValue);
+
+        return Integer.parseInt(value);
+    }
+
+    public static void applyNightMode() {
+        AppCompatDelegate.setDefaultNightMode(PreferencesUtils.getDefaultNightMode());
     }
 
 }

@@ -2,6 +2,8 @@ package de.storchp.opentracks.osmplugin.settings;
 
 import static java.util.stream.Collectors.joining;
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+        private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+            if (PreferencesUtils.isKey(R.string.night_mode_key, key)) {
+                getActivity().runOnUiThread(PreferencesUtils::applyNightMode);
+            }
+        };
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -53,6 +60,9 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
 
+            Preference dynamicColors = findPreference(getString(R.string.settings_ui_dynamic_colors_key));
+            dynamicColors.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU);
+
             setSummaries();
         }
 
@@ -60,6 +70,13 @@ public class SettingsActivity extends AppCompatActivity {
         public void onResume() {
             super.onResume();
             setSummaries();
+            PreferencesUtils.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            PreferencesUtils.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
         }
 
         private void setSummaries() {
