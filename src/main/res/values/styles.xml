@@ -1,45 +1,14 @@
 <resources>
 
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="ThemeCustom" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/opentracks</item>
+        <item name="colorSecondary">@color/opentracks</item>
 
-        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_dark</item>
-        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewCustom</item>
-        <item name="android:dropDownSpinnerStyle">@style/SpinnerCustom</item>
-        <item name="android:editTextBackground">@drawable/edit_text_holo_dark</item>
-        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_dark</item>
-        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_holo_dark</item>
-        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_dark</item>
-        <item name="android:progressBarStyleHorizontal">@style/ProgressBarCustom</item>
+        <item name="android:statusBarColor">?attr/colorSurfaceBright</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
 
-        <item name="colorAccent">@color/holo_orange_dark</item>
-        <item name="android:colorAccent">@color/holo_orange_dark</item>
         <item name="windowActionModeOverlay">true</item>
-    </style>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorAccent">@color/holo_orange_dark</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AutoCompleteTextViewCustom" parent="android:Widget.Holo.AutoCompleteTextView">
-        <item name="android:dropDownSelector">@drawable/list_selector_holo_dark</item>
-        <item name="android:background">@drawable/edit_text_holo_dark</item>
-    </style>
-
-    <style name="SpinnerCustom" parent="android:Widget.Holo.Spinner">
-        <item name="android:background">@drawable/spinner_background_holo_dark</item>
-        <item name="android:dropDownSelector">@drawable/list_selector_holo_dark</item>
-    </style>
-
-    <style name="ProgressBarCustom" parent="android:Widget.Holo.ProgressBar.Horizontal">
-        <item name="android:progressTint">@color/holo_orange_dark</item>
-        <item name="android:indeterminateTint">@color/holo_orange_dark</item>
-        <item name="android:indeterminateTintMode">src_in</item>
     </style>
 
 </resources>
