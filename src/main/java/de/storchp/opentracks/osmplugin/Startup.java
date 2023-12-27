@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.google.android.material.color.DynamicColors;
+
 import de.storchp.opentracks.osmplugin.utils.ExceptionHandler;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -28,6 +30,11 @@ public class Startup extends Application {
         Log.i(TAG, BuildConfig.APPLICATION_ID + "; BuildType: " + BuildConfig.BUILD_TYPE + "; VersionName: " + BuildConfig.VERSION_NAME + "/" + " VersionCode: " + BuildConfig.VERSION_CODE);
 
         PreferencesUtils.initPreferences(this);
+        PreferencesUtils.applyNightMode();
+        if (PreferencesUtils.shouldUseDynamicColors()) {
+            DynamicColors.applyToActivitiesIfAvailable(this);
+        }
+
         //In debug builds: show thread and VM warnings.
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Enabling strict mode");

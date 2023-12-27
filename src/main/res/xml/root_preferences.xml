@@ -2,6 +2,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/general_settings_category_title">
+        <ListPreference
+            android:defaultValue="@string/night_mode_default"
+            android:entries="@array/night_mode_options"
+            android:entryValues="@array/night_mode_values"
+            android:key="@string/night_mode_key"
+            android:title="@string/settings_night_mode_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/settings_ui_dynamic_colors_default"
+            android:key="@string/settings_ui_dynamic_colors_key"
+            android:summary="@string/settings_ui_dynamic_colors_summary"
+            android:title="@string/settings_ui_dynamic_colors_title" />
+
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_SHOW_PAUSE_MARKERS"
             app:defaultValue="@bool/show_pause_markers_default"

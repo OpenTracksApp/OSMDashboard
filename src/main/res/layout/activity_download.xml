@@ -12,7 +12,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:background="#f0f0f0"
         android:layout_below="@id/toolbar"
         style="?android:attr/progressBarStyleHorizontal"/>
 
@@ -25,7 +24,7 @@
         android:layout_below="@id/progressBar"
         />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/download_info"

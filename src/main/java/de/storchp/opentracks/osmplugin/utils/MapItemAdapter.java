@@ -29,6 +29,7 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
         this.selected = selected;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         var rowView = convertView;

@@ -14,10 +14,7 @@
         android:textStyle="bold"
         android:padding="20sp"
         android:linksClickable="true"
-        android:textColorLink="?attr/colorPrimaryDark"
-        android:textColor="?attr/colorPrimaryDark"
         android:autoLink="web"
-        android:background="?attr/colorAccent"
         android:layout_below="@id/toolbar"
         />
 

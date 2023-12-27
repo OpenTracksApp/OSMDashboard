@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Brand colors -->
+    <color name="opentracks">#FF6D00</color>
+
     <color name="chart_cadence_border">#FFF128F3</color> <!-- pink -->
     <color name="chart_cadence_fill">#40F128F3</color> <!-- transparent pink -->
     <color name="chart_elevation_border">#FF339933</color> <!-- green -->
@@ -12,7 +15,6 @@
     <color name="chart_power_fill">#40401465</color> <!-- transparent purple -->
     <color name="chart_speed_border">#FF0066FF</color> <!-- blue -->
     <color name="chart_speed_fill">#40C8E0FF</color> <!-- transparent blue -->
-    <color name="holo_orange_dark">#FFFF8800</color>
     <color name="list_empty_text">#FFCCCCCC</color>
     <color name="recording_text">#FFBE161B</color> <!-- red -->
     <color name="stats_large_label">#FFFAAD2C</color> <!-- orange -->
