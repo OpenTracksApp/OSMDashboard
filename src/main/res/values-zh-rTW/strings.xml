@@ -118,4 +118,10 @@
     <string name="consider_offline_maps">請考慮下載一個離線地圖以減少伺服器負載並節省您的行動數據。一些離線地圖可以在這裡找到：</string>
     <string name="moving_time">移動時間</string>
     <string name="no_map_configured">您還沒有離線地圖組態。</string>
+    <string name="settings_night_mode_option_day">Day</string>
+    <string name="settings_night_mode_title">UI Theme</string>
+    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
+    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
+    <string name="settings_night_mode_option_night">Night</string>
+    <string name="settings_night_mode_option_system">System</string>
 </resources>
