@@ -4,6 +4,11 @@
         <item name="colorPrimary">@color/opentracks</item>
         <item name="colorSecondary">@color/opentracks</item>
 
+
+        <!-- Material3 https://github.com/material-components/material-components-android/issues/2828#issuecomment-1187563903 -->
+        <item name="switchPreferenceCompatStyle">@style/MaterialSwitchPreferenceCompat</item>
+
+
         <item name="android:statusBarColor">?attr/colorSurfaceBright</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
@@ -11,4 +16,7 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
+    <style name="MaterialSwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/view_preference_switch</item>
+    </style>
 </resources>
