@@ -3,6 +3,7 @@ package de.storchp.opentracks.osmplugin;
 
 import static android.util.TypedValue.COMPLEX_UNIT_PT;
 import static java.util.Comparator.comparingInt;
+import static de.storchp.opentracks.osmplugin.utils.MapUtils.getBitmapFromVectorDrawable;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,38 +37,46 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
-import org.mapsforge.core.model.BoundingBox;
-import org.mapsforge.core.model.Dimension;
-import org.mapsforge.core.model.LatLong;
-import org.mapsforge.core.model.MapPosition;
-import org.mapsforge.core.model.Point;
-import org.mapsforge.core.util.LatLongUtils;
-import org.mapsforge.core.util.Parameters;
-import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
-import org.mapsforge.map.android.util.AndroidUtil;
-import org.mapsforge.map.datastore.MapDataStore;
-import org.mapsforge.map.datastore.MultiMapDataStore;
-import org.mapsforge.map.layer.GroupLayer;
-import org.mapsforge.map.layer.Layer;
-import org.mapsforge.map.layer.cache.TileCache;
-import org.mapsforge.map.layer.download.TileDownloadLayer;
-import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
-import org.mapsforge.map.layer.overlay.Marker;
-import org.mapsforge.map.layer.overlay.Polyline;
-import org.mapsforge.map.layer.renderer.TileRendererLayer;
-import org.mapsforge.map.model.Model;
-import org.mapsforge.map.reader.MapFile;
-import org.mapsforge.map.rendertheme.InternalRenderTheme;
-import org.mapsforge.map.rendertheme.StreamRenderTheme;
-import org.mapsforge.map.rendertheme.XmlRenderTheme;
-import org.mapsforge.map.rendertheme.ZipRenderTheme;
-import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
+import org.oscim.android.MapPreferences;
+import org.oscim.android.canvas.AndroidBitmap;
+import org.oscim.backend.CanvasAdapter;
+import org.oscim.core.BoundingBox;
+import org.oscim.core.GeoPoint;
+import org.oscim.layers.GroupLayer;
+import org.oscim.layers.PathLayer;
+import org.oscim.layers.marker.ItemizedLayer;
+import org.oscim.layers.marker.MarkerInterface;
+import org.oscim.layers.marker.MarkerItem;
+import org.oscim.layers.marker.MarkerSymbol;
+import org.oscim.layers.tile.bitmap.BitmapTileLayer;
+import org.oscim.layers.tile.buildings.BuildingLayer;
+import org.oscim.layers.tile.vector.VectorTileLayer;
+import org.oscim.layers.tile.vector.labeling.LabelLayer;
+import org.oscim.map.Map;
+import org.oscim.renderer.BitmapRenderer;
+import org.oscim.renderer.GLViewport;
+import org.oscim.scalebar.DefaultMapScaleBar;
+import org.oscim.scalebar.ImperialUnitAdapter;
+import org.oscim.scalebar.MapScaleBar;
+import org.oscim.scalebar.MapScaleBarLayer;
+import org.oscim.scalebar.MetricUnitAdapter;
+import org.oscim.theme.IRenderTheme;
+import org.oscim.theme.StreamRenderTheme;
+import org.oscim.theme.ThemeFile;
+import org.oscim.theme.VtmThemes;
+import org.oscim.theme.ZipRenderTheme;
+import org.oscim.theme.ZipXmlThemeResourceProvider;
+import org.oscim.tiling.source.OkHttpEngine;
+import org.oscim.tiling.source.bitmap.DefaultSources;
+import org.oscim.tiling.source.mapfile.MapFileTileSource;
+import org.oscim.tiling.source.mapfile.MultiMapFileTileSource;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -81,7 +90,6 @@ import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
-import de.storchp.opentracks.osmplugin.maps.RotatableMarker;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
 import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
@@ -91,8 +99,10 @@ import de.storchp.opentracks.osmplugin.utils.StatisticElement;
 import de.storchp.opentracks.osmplugin.utils.TrackColorMode;
 import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
 
-public class MapsActivity extends BaseActivity implements SensorListener {
+public class MapsActivity extends BaseActivity implements SensorListener, ItemizedLayer.OnItemGestureListener<MarkerInterface> {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static final String EXTRA_MARKER_ID = "marker_id";
@@ -104,20 +114,21 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private static final String EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN";
     private boolean isOpenTracksRecordingThisTrack;
     private ActivityMapsBinding binding;
-    private Layer tileLayer;
-    private TileCache tileCache;
+    private Map map;
+    private MapPreferences mapPreferences;
+    private IRenderTheme renderTheme;
     private BoundingBox boundingBox;
     private GroupLayer polylinesLayer;
-    private GroupLayer waypointsLayer;
+    private ItemizedLayer waypointsLayer;
     private long lastWaypointId = 0;
     private long lastTrackPointId = 0;
     private long lastTrackId = 0;
     private int trackColor;
-    private Polyline polyline;
-    private RotatableMarker endMarker = null;
+    private PathLayer polyline;
+    private MarkerItem endMarker = null;
     private StyleColorCreator colorCreator = null;
-    private LatLong startPos;
-    private LatLong endPos;
+    private GeoPoint startPos;
+    private GeoPoint endPos;
     private boolean fullscreenMode = false;
     private Compass compass;
     private MovementDirection movementDirection = new MovementDirection();
@@ -135,34 +146,27 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidGraphicFactory.createInstance(this.getApplication());
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if (PreferencesUtils.getMultiThreadMapRendering()) {
-            Parameters.NUMBER_OF_THREADS = Math.max(Runtime.getRuntime().availableProcessors() - 1, 1);
-        } else {
-            Parameters.NUMBER_OF_THREADS = 1;
-        }
-
         strokeWidth = PreferencesUtils.getStrokeWidth();
         arrowMode = PreferencesUtils.getArrowMode();
         mapMode = PreferencesUtils.getMapMode();
+
+        map = binding.map.mapView.map();
+        mapPreferences = new MapPreferences(MapsActivity.class.getName(), this);
 
         compass = new Compass(this);
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
         createMapViews();
-        createTileCaches();
         createLayers();
-        binding.map.mapView.setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
+        map.getMapPosition().setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
 
-        binding.map.zoomInButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomIn());
-        binding.map.zoomOutButton.setOnClickListener(v -> binding.map.mapView.getModel().mapViewPosition.zoomOut());
         binding.map.fullscreenButton.setOnClickListener(v -> switchFullscreen());
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -203,11 +207,11 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             readWaypoints(waypointsUri);
         } else if ("geo".equals(intent.getScheme())) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                addWaypointMarker(createMarker(waypoint.getLatLong()));
-                var layers = binding.map.mapView.getLayerManager().getLayers();
+                addWaypointMarker(createMarker(waypoint.getLatLong(), waypoint.getId(), true));
+                var layers = map.layers();
                 layers.add(waypointsLayer);
-                binding.map.mapView.setCenter(waypoint.getLatLong());
-                binding.map.mapView.setZoomLevel(binding.map.mapView.getMapZoomControls().getZoomLevelMax());
+                map.getMapPosition().setPosition(waypoint.getLatLong());
+                map.getMapPosition().setZoomLevel(map.viewport().getMaxZoomLevel());
             });
         }
     }
@@ -278,68 +282,17 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         return true;
     }
 
-    protected void createTileCaches() {
-        this.tileCache = AndroidUtil.createTileCache(this, getPersistableId(),
-                this.binding.map.mapView.getModel().displayModel.getTileSize(), this.getScreenRatio() * PreferencesUtils.getTileCacheCapacityFactor(),
-                this.binding.map.mapView.getModel().frameBufferModel.getOverdrawFactor(), PreferencesUtils.getPersistentTileCache());
-    }
-
-    /**
-     * The persistable ID is used to store settings information, like the center of the last view
-     * and the zoomlevel. By default the simple name of the class is used. The value is not user
-     * visibile.
-     *
-     * @return the id that is used to save this mapview.
-     */
-    protected String getPersistableId() {
-        return this.getClass().getSimpleName();
-    }
-
-    /**
-     * Returns the relative size of a map view in relation to the screen size of the device. This
-     * is used for cache size calculations.
-     * By default this returns 1.0, for a full size map view.
-     *
-     * @return the screen ratio of the mapview
-     */
-    protected float getScreenRatio() {
-        return 1.0f;
-    }
-
     /**
      * Template method to create the map views.
      */
     protected void createMapViews() {
         binding.map.mapView.setClickable(true);
-        binding.map.mapView.getModel().frameBufferModel.setOverdrawFactor(PreferencesUtils.getOverdrawFactor());
-        binding.map.mapView.getMapScaleBar().setVisible(false);
-        binding.map.mapView.setBuiltInZoomControls(false);
-        binding.map.mapView.getMapZoomControls().setZoomLevelMin(getZoomLevelMin());
-        binding.map.mapView.getMapZoomControls().setZoomLevelMax(getZoomLevelMax());
     }
 
-    protected byte getZoomLevelMax() {
-        return (byte) Math.min(binding.map.mapView.getModel().mapViewPosition.getZoomLevelMax(), 20);
-    }
-
-    protected byte getZoomLevelMin() {
-        return binding.map.mapView.getModel().mapViewPosition.getZoomLevelMin();
-    }
-
-    /**
-     * Hook to purge tile caches.
-     * By default we purge every tile cache that has been added to the tileCaches list.
-     */
-    protected void purgeTileCaches() {
-        if (tileCache != null) {
-            tileCache.purge();
-        }
-    }
-
-    protected XmlRenderTheme getRenderTheme() {
+    protected ThemeFile getRenderTheme() {
         Uri mapTheme = PreferencesUtils.getMapThemeUri();
         if (mapTheme == null) {
-            return InternalRenderTheme.DEFAULT;
+            return VtmThemes.DEFAULT;
         }
         try {
             var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
@@ -357,12 +310,12 @@ public class MapsActivity extends BaseActivity implements SensorListener {
             return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
         } catch (Exception e) {
             Log.e(TAG, "Error loading theme " + mapTheme, e);
-            return InternalRenderTheme.DEFAULT;
+            return VtmThemes.DEFAULT;
         }
     }
 
-    protected MapDataStore getMapFile() {
-        var mapDataStore = new MultiMapDataStore(MultiMapDataStore.DataPolicy.RETURN_ALL);
+    protected MultiMapFileTileSource getMapFile() {
+        MultiMapFileTileSource tileSource = new MultiMapFileTileSource();
         Set<Uri> mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
@@ -372,34 +325,57 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 .filter(uri -> DocumentFile.isDocumentUri(this, uri))
                 .map(uri -> DocumentFile.fromSingleUri(this, uri))
                 .filter(documentFile -> documentFile != null && documentFile.canRead())
-                .forEach(documentFile -> readMapFile(mapDataStore, mapsCount, documentFile));
+                .forEach(documentFile -> readMapFile(tileSource, mapsCount, documentFile));
 
         if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
             Toast.makeText(this, R.string.error_loading_offline_map, Toast.LENGTH_LONG).show();
         }
 
-        return mapsCount.get() > 0 ? mapDataStore : null;
+        return mapsCount.get() > 0 ? tileSource : null;
     }
 
-    private void readMapFile(MultiMapDataStore mapDataStore, AtomicInteger mapsCount, DocumentFile documentFile) {
+    private void readMapFile(MultiMapFileTileSource mapDataStore, AtomicInteger mapsCount, DocumentFile documentFile) {
         try {
             var inputStream = (FileInputStream) getContentResolver().openInputStream(documentFile.getUri());
-            mapDataStore.addMapDataStore(new MapFile(inputStream, 0, null), false, false);
+            MapFileTileSource tileSource = new MapFileTileSource();
+            tileSource.setMapFileInputStream(inputStream);
+            mapDataStore.add(tileSource);
             mapsCount.getAndIncrement();
         } catch (Exception e) {
             Log.e(TAG, "Can't open mapFile", e);
         }
     }
 
+    protected void loadTheme() {
+        if (renderTheme != null)
+            renderTheme.dispose();
+        renderTheme = map.setTheme(VtmThemes.DEFAULT);
+    }
+
     protected void createLayers() {
         var mapFile = getMapFile();
 
         if (mapFile != null) {
-            var rendererLayer = new TileRendererLayer(this.tileCache, mapFile,
-                    this.binding.map.mapView.getModel().mapViewPosition, false, true, false, AndroidGraphicFactory.INSTANCE);
-            rendererLayer.setXmlRenderTheme(getRenderTheme());
-            this.tileLayer = rendererLayer;
-            binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+            VectorTileLayer tileLayer = map.setBaseMap(mapFile);
+            loadTheme();
+
+            map.layers().add(new BuildingLayer(map, tileLayer));
+            map.layers().add(new LabelLayer(map, tileLayer));
+
+            DefaultMapScaleBar mapScaleBar = new DefaultMapScaleBar(map);
+            mapScaleBar.setScaleBarMode(DefaultMapScaleBar.ScaleBarMode.BOTH);
+            mapScaleBar.setDistanceUnitAdapter(MetricUnitAdapter.INSTANCE);
+            mapScaleBar.setSecondaryDistanceUnitAdapter(ImperialUnitAdapter.INSTANCE);
+            mapScaleBar.setScaleBarPosition(MapScaleBar.ScaleBarPosition.BOTTOM_LEFT);
+
+            MapScaleBarLayer mapScaleBarLayer = new MapScaleBarLayer(map, mapScaleBar);
+            BitmapRenderer renderer = mapScaleBarLayer.getRenderer();
+            renderer.setPosition(GLViewport.Position.BOTTOM_LEFT);
+            renderer.setOffset(5 * CanvasAdapter.getScale(), 0);
+            map.layers().add(mapScaleBarLayer);
+
+            map.setTheme(getRenderTheme());
+
         } else if (BuildConfig.offline) {
             new AlertDialog.Builder(this)
                     .setIcon(R.drawable.ic_logo_color_24dp)
@@ -412,20 +388,22 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         } else {
             showOnlineMapConsent();
         }
-
-        binding.map.mapView.getModel().mapViewPosition.setZoomLevelMax(getZoomLevelMax());
-        binding.map.mapView.getModel().mapViewPosition.setZoomLevelMin(getZoomLevelMin());
     }
 
     private void setOnlineTileLayer() {
-        var tileSource = OpenStreetMapMapnik.INSTANCE;
-        tileSource.setUserAgent(getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID);
-        this.tileLayer = new TileDownloadLayer(this.tileCache, this.binding.map.mapView.getModel().mapViewPosition,
-                tileSource, AndroidGraphicFactory.INSTANCE);
-        binding.map.mapView.getLayerManager().getLayers().add(0, this.tileLayer);
+        var tileSource = DefaultSources.OPENSTREETMAP.build();
 
-        binding.map.mapView.setZoomLevelMin(tileSource.getZoomLevelMin());
-        binding.map.mapView.setZoomLevelMax(tileSource.getZoomLevelMax());
+        var builder = new OkHttpClient.Builder();
+        var cacheDirectory = new File(getExternalCacheDir(), "tiles");
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        var cache = new Cache(cacheDirectory, cacheSize);
+        builder.cache(cache);
+
+        tileSource.setHttpEngine(new OkHttpEngine.OkHttpFactory(builder));
+        tileSource.setHttpRequestHeaders(Collections.singletonMap("User-Agent", getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID));
+
+        BitmapTileLayer bitmapLayer = new BitmapTileLayer(map, tileSource);
+        map.layers().add(bitmapLayer);
     }
 
     private void showOnlineMapConsent() {
@@ -439,7 +417,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
                     PreferencesUtils.setOnlineMapConsent(true);
                     setOnlineTileLayer();
-                    ((TileDownloadLayer) tileLayer).onResume();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
@@ -454,9 +431,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
      */
     @Override
     protected void onDestroy() {
-        binding.map.mapView.destroyAll();
-        AndroidGraphicFactory.clearResourceMemoryCache();
-        purgeTileCaches();
+        binding.map.mapView.onDestroy();
         super.onDestroy();
     }
 
@@ -464,9 +439,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.map_info) {
             var intent = new Intent(this, MainActivity.class);
-            if (tileCache != null) {
-                intent.putExtra(MainActivity.EXTRA_MAP_INFO, "TileCache capacity=" + tileCache.getCapacity() + ", capacityFirstLevel=" + tileCache.getCapacityFirstLevel());
-            }
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.share) {
@@ -522,9 +494,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
         Log.i(TAG, "Loading trackpoints from " + data);
 
-        synchronized (binding.map.mapView.getLayerManager().getLayers()) {
+        synchronized (map.layers()) {
             var showPauseMarkers = PreferencesUtils.isShowPauseMarkers();
-            var latLongs = new ArrayList<LatLong>();
+            var latLongs = new ArrayList<GeoPoint>();
             int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
 
             try {
@@ -609,22 +581,22 @@ public class MapsActivity extends BaseActivity implements SensorListener {
                 setEndMarker(endPos);
             }
 
-            LatLong myPos = null;
+            GeoPoint myPos = null;
             if (update && endPos != null) {
                 myPos = endPos;
             } else if (!latLongs.isEmpty()) {
-                boundingBox = new BoundingBox(latLongs);
+                boundingBox = new BoundingBox(latLongs).extendMargin(1.2f);
                 myPos = boundingBox.getCenterPoint();
             }
 
             if (myPos != null) {
                 if (update) {
-                    binding.map.mapView.getModel().mapViewPosition.animateTo(myPos);
+                    map.animator().animateTo(myPos);
                 } else {
-                    binding.map.mapView.setCenter(myPos);
+                    map.getMapPosition().setPosition(myPos);
                 }
-                var layers = binding.map.mapView.getLayerManager().getLayers();
-                if (layers.indexOf(polylinesLayer) == -1 && polylinesLayer.layers.size() > 0) {
+                var layers = map.layers();
+                if (!layers.contains(polylinesLayer) && polylinesLayer.layers.size() > 0) {
                     layers.add(polylinesLayer);
                 }
             }
@@ -639,14 +611,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         tracksUri = null;
         trackPointsUri = null;
         waypointsUri = null;
-  
-        var layers = binding.map.mapView.getLayerManager().getLayers();
+
+        var layers = map.layers();
 
         // tracks
         if (polylinesLayer != null) {
             layers.remove(polylinesLayer);
         }
-        polylinesLayer = new GroupLayer();
+        polylinesLayer = new GroupLayer(map);
         lastTrackId = 0;
         lastTrackPointId = 0;
         colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
@@ -669,14 +641,14 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public void updateDebugTrackPoints() {
         if (PreferencesUtils.isDebugTrackPoints()) {
             binding.map.trackpointsDebugInfo.setText(
-             getString(R.string.debug_trackpoints_info,
-                    trackPointsDebug.trackpointsReceived,
-                    trackPointsDebug.trackpointsInvalid,
-                    trackPointsDebug.trackpointsDrawn,
-                    trackPointsDebug.trackpointsPause,
-                    trackPointsDebug.segments,
-                    protocolVersion
-            ));
+                    getString(R.string.debug_trackpoints_info,
+                            trackPointsDebug.trackpointsReceived,
+                            trackPointsDebug.trackpointsInvalid,
+                            trackPointsDebug.trackpointsDrawn,
+                            trackPointsDebug.trackpointsPause,
+                            trackPointsDebug.segments,
+                            protocolVersion
+                    ));
         } else {
             binding.map.trackpointsDebugInfo.setText("");
         }
@@ -696,23 +668,39 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         return Color.argb(255, red, green, 0);
     }
 
-    private void setEndMarker(LatLong endPos) {
-        synchronized (binding.map.mapView.getLayerManager().getLayers()) {
+    private void setEndMarker(GeoPoint endPos) {
+        synchronized (map.layers()) {
             if (endMarker != null) {
-                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
-                endMarker.setLatLong(endPos);
+                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                endMarker.geoPoint = endPos;
             } else {
-                endMarker = new RotatableMarker(endPos, RotatableMarker.getBitmapFromVectorDrawable(this, R.drawable.ic_compass));
-                endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass);
-                polylinesLayer.layers.add(endMarker);
+                endMarker = new MarkerItem(endPos.toString(), "", endPos);
+                var symbol = createMarkerSymbol(R.drawable.ic_compass, false);
+                endMarker.setMarker(symbol);
+                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                var markerLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
+                markerLayer.addItem(endMarker);
+                polylinesLayer.layers.add(markerLayer);
             }
         }
         rotateMap();
     }
 
-    private Polyline addNewPolyline(int trackColor) {
-        polyline = MapUtils.createPolyline(binding.map.mapView, trackColor, strokeWidth);
-        polyline.setDisplayModel(binding.map.mapView.getModel().displayModel);
+    public float rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
+        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
+                || arrowMode == ArrowMode.NORTH) {
+            return 0f;
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
+            return mapMode.getHeading(movementDirection, compass);
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
+            return arrowMode.getDegrees(movementDirection, compass);
+        } else {
+            return arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360;
+        }
+    }
+
+    private PathLayer addNewPolyline(int trackColor) {
+        polyline = MapUtils.createPolyline(map, trackColor, strokeWidth);
         polylinesLayer.layers.add(polyline);
         return this.polyline;
     }
@@ -721,7 +709,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         Log.i(TAG, "Loading waypoints from " + data);
 
         try {
-            var layers = binding.map.mapView.getLayerManager().getLayers();
+            var layers = map.layers();
             if (waypointsLayer != null) {
                 layers.remove(waypointsLayer);
             }
@@ -740,47 +728,52 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
     }
 
-    private void addWaypointMarker(final Marker marker) {
+    private void addWaypointMarker(final MarkerItem marker) {
         if (waypointsLayer == null) {
-            waypointsLayer = new GroupLayer();
+            var symbol = createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, true);
+            waypointsLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
+            map.layers().add(waypointsLayer);
         }
-        waypointsLayer.layers.add(marker);
+        waypointsLayer.addItem(marker);
     }
 
-    private Marker createMarker(LatLong latLong) {
-        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_modern);
-        assert drawable != null;
-        var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
-        bitmap.incrementRefCount();
-        return new Marker(latLong, bitmap, 0, -bitmap.getHeight() / 2);
+    @NonNull
+    private MarkerSymbol createMarkerSymbol(int markerResource, boolean billboard) {
+        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(this, markerResource));
+        return new MarkerSymbol(bitmap, MarkerSymbol.HotspotPlace.CENTER, billboard);
     }
 
-    private Marker createPauseMarker(LatLong latLong) {
-        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_pause_34);
-        assert drawable != null;
-        var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
-        bitmap.incrementRefCount();
-        return new Marker(latLong, bitmap, 0, -bitmap.getHeight() / 2);
+    private MarkerItem createMarker(GeoPoint latLong, Long id, boolean billboard) {
+        var symbol = createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, billboard);
+        var marker = new MarkerItem(id, latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
     }
 
-    private Marker createTappableMarker(Waypoint waypoint) {
-        var drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_orange_pushpin_modern);
-        assert drawable != null;
-        var bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
-        bitmap.incrementRefCount();
-        return new Marker(waypoint.getLatLong(), bitmap, 0, -bitmap.getHeight() / 2) {
-            @Override
-            public boolean onTap(LatLong geoPoint, Point viewPosition,
-                                 Point tapPoint) {
-                if (contains(binding.map.mapView.getMapViewProjection().toPixels(getPosition()), tapPoint)) {
-                    var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
-                    intent.putExtra(EXTRA_MARKER_ID, waypoint.getId());
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
-            }
-        };
+    private MarkerItem createPauseMarker(GeoPoint latLong) {
+        var symbol = createMarkerSymbol(R.drawable.ic_marker_pause_34, true);
+        var marker = new MarkerItem(latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
+    }
+
+    private MarkerItem createTappableMarker(Waypoint waypoint) {
+        return createMarker(waypoint.getLatLong(), waypoint.getId(), true);
+    }
+
+    @Override
+    public boolean onItemSingleTapUp(int index, MarkerInterface item) {
+        MarkerItem markerItem = (MarkerItem) item;
+        if (markerItem.uid != null) {
+            var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
+            intent.putExtra(EXTRA_MARKER_ID, (Long) markerItem.getUid());
+            startActivity(intent);
+        }
+        return true;
+    }
+
+    public boolean onItemLongPress(int index, MarkerInterface item) {
+        return false;
     }
 
     private void readTracks(Uri data) {
@@ -823,9 +816,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public void onResume() {
         super.onResume();
 
-        if (this.tileLayer instanceof TileDownloadLayer) {
-            ((TileDownloadLayer) this.tileLayer).onResume();
-        }
+        mapPreferences.load(map);
+        binding.map.mapView.onResume();
         compass.start(this);
     }
 
@@ -833,26 +825,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            var dimension = getScaledDimension(this.binding.map.mapView.getModel());
-            if (dimension != null) {
-                this.binding.map.mapView.getModel().mapViewPosition.setMapPosition(new MapPosition(
-                        boundingBox.getCenterPoint(),
-                        (byte) Math.min(Math.min(LatLongUtils.zoomForBounds(
-                                        dimension,
-                                        boundingBox, this.binding.map.mapView.getModel().displayModel.getTileSize()),
-                                getZoomLevelMax()), 16)));
-                boundingBox = null; // only set the zoomlevel once
-            }
+            map.animator().animateTo(boundingBox);
         }
-    }
-
-    private Dimension getScaledDimension(Model model) {
-        var dimension = model.mapViewDimension.getDimension();
-        if (dimension != null) {
-            float scaleFactor = model.displayModel.getScaleFactor();
-            return new Dimension((int) (dimension.width / scaleFactor), (int) (dimension.height / scaleFactor));
-        }
-        return null;
     }
 
     @Override
@@ -862,8 +836,6 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         }
         int visibility = isInPictureInPictureMode ? View.GONE : View.VISIBLE;
         binding.toolbar.mapsToolbar.setVisibility(visibility);
-        binding.map.zoomInButton.setVisibility(visibility);
-        binding.map.zoomOutButton.setVisibility(visibility);
         binding.map.fullscreenButton.setVisibility(visibility);
         binding.map.statistics.setVisibility(visibility);
     }
@@ -875,9 +847,8 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     protected void onPause() {
         if (!isPiPMode()) {
-            if (tileLayer instanceof TileDownloadLayer) {
-                ((TileDownloadLayer) tileLayer).onPause();
-            }
+            mapPreferences.save(map);
+            binding.map.mapView.onPause();
         }
         super.onPause();
     }
@@ -926,8 +897,7 @@ public class MapsActivity extends BaseActivity implements SensorListener {
         if (Math.abs(currentMapHeading - mapHeading) > 1) {
             // only rotate map if it is at lease one degree different than before
             Log.d(TAG, "CurrentMapHeading=" + currentMapHeading + ", mapHeading=" + mapHeading);
-            binding.map.rotateView.setHeading(mapHeading);
-            binding.map.rotateView.postInvalidate();
+            binding.map.mapView.map().viewport().setRotation(mapHeading);
             currentMapHeading = mapHeading;
         }
     }
@@ -935,9 +905,9 @@ public class MapsActivity extends BaseActivity implements SensorListener {
     @Override
     public boolean updateSensor() {
         if (endMarker != null) {
-            if (endMarker.rotateWith(arrowMode, mapMode, movementDirection, compass)) {
-                binding.map.mapView.getLayerManager().redrawLayers();
-            }
+            /* TODO:
+            endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+             */
         }
 
         rotateMap();

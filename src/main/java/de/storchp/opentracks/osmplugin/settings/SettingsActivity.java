@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
-import androidx.fragment.app.DialogFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -30,9 +28,9 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.settings, new SettingsFragment())
-            .commit();
+                .beginTransaction()
+                .replace(R.id.settings, new SettingsFragment())
+                .commit();
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
     }
@@ -125,24 +123,6 @@ public class SettingsActivity extends AppCompatActivity {
                     return uri != null ? uri.getLastPathSegment() : null;
                 });
             }
-        }
-
-        @Override
-        public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-            DialogFragment dialogFragment = null;
-            if (preference instanceof MapOverdrawFactorPreference) {
-                dialogFragment = MapOverdrawFactorPreference.MapOverdrawFactorPreferenceDialog.newInstance(preference.getKey());
-            } else if (preference instanceof TilecacheCapacityFactorPreference) {
-                dialogFragment = TilecacheCapacityFactorPreference.TilecacheCapacityFactorPreferenceDialog.newInstance(preference.getKey());
-            }
-
-            if (dialogFragment != null) {
-                dialogFragment.setTargetFragment(this, 0);
-                dialogFragment.show(getParentFragmentManager(), getClass().getSimpleName());
-                return;
-            }
-
-            super.onDisplayPreferenceDialog(preference);
         }
 
     }

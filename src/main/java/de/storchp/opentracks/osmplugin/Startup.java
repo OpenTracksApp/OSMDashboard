@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.os.StrictMode;
 import android.util.Log;
 
 import com.google.android.material.color.DynamicColors;
@@ -38,6 +37,7 @@ public class Startup extends Application {
         //In debug builds: show thread and VM warnings.
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Enabling strict mode");
+            /*
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectAll()
                     .penaltyLog()
@@ -46,6 +46,8 @@ public class Startup extends Application {
                     .detectAll()
                     .penaltyLog()
                     .build());
+
+             */
         }
     }
 

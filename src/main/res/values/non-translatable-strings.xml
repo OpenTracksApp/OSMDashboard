@@ -16,10 +16,6 @@
     <string name="APP_PREF_DEBUG_TRACKPOPINTS" translatable="false">APP_PREF_DEBUG_TRACKPOPINTS</string>
     <string name="APP_PREF_ARROW_MODE" translatable="false">APP_PREF_ARROW_MODE</string>
     <string name="APP_PREF_MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
-    <string name="APP_PREF_MAP_MULTI_THREAD_RENDERING" translatable="false">APP_PREF_MAP_MULTI_THREAD_RENDERING</string>
-    <string name="APP_PREF_MAP_PERSISTENT_TILECACHE" translatable="false">APP_PREF_MAP_PERSISTENT_TILECACHE</string>
-    <string name="APP_PREF_MAP_OVERDRAW_FACTOR" translatable="false">APP_PREF_MAP_OVERDRAW_FACTOR</string>
-    <string name="APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR" translatable="false">APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR</string>
     <string name="APP_PREF_STATISTIC_ELEMENTS" translatable="false">APP_PREF_STATISTIC_ELEMENTS</string>
     <string name="APP_PREF_TRACK_COLOR_MODE" translatable="false">APP_PREF_TRACK_COLOR_MODE</string>
     <string name="APP_PREF_MAP_SELECTION" translatable="false">APP_PREF_MAP_SELECTION</string>

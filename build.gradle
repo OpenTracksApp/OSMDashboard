@@ -131,14 +131,17 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.11.0'
 
-    // Other
-    implementation "org.mapsforge:mapsforge-core:$mapsforgeVersion"
-    implementation "org.mapsforge:mapsforge-map:$mapsforgeVersion"
-    implementation "org.mapsforge:mapsforge-map-android:$mapsforgeVersion"
-    implementation "org.mapsforge:mapsforge-map-reader:$mapsforgeVersion"
-    implementation "org.mapsforge:mapsforge-themes:$mapsforgeVersion"
-    implementation 'net.sf.kxml:kxml2:2.3.0'
-    implementation 'com.caverock:androidsvg:1.4'
+    // VTM
+    implementation "org.mapsforge:vtm:$mapsforgeVersion"
+    implementation "org.mapsforge:vtm-themes:$mapsforgeVersion"
+    implementation "org.mapsforge:vtm-http:$mapsforgeVersion"
+    implementation "org.slf4j:slf4j-api:2.0.9"
+    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-armeabi-v7a"
+    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-arm64-v8a"
+    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-x86"
+    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-x86_64"
+    implementation "org.mapsforge:vtm-android:$mapsforgeVersion"
+    implementation "com.caverock:androidsvg:1.4"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testImplementation "org.assertj:assertj-core:$assertJVersion"

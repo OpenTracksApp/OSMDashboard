@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
-import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
+import org.oscim.theme.ZipXmlThemeResourceProvider;
 
 import java.io.BufferedInputStream;
 import java.lang.ref.WeakReference;

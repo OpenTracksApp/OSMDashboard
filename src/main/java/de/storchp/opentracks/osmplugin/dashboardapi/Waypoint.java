@@ -6,7 +6,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
-import org.mapsforge.core.model.LatLong;
+import org.oscim.core.GeoPoint;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -50,10 +50,10 @@ public class Waypoint {
     private String category;
     private String icon;
     private long trackId;
-    private final LatLong latLong;
+    private final GeoPoint latLong;
     private String photoUrl;
 
-    public Waypoint(long id, String name, String description, String category, String icon, long trackId, LatLong latLong, String photoUrl) {
+    public Waypoint(long id, String name, String description, String category, String icon, long trackId, GeoPoint latLong, String photoUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -64,7 +64,7 @@ public class Waypoint {
         this.photoUrl = photoUrl;
     }
 
-    public Waypoint(final LatLong latLong, final String name) {
+    public Waypoint(final GeoPoint latLong, final String name) {
         this.latLong = latLong;
         this.name = name;
     }
@@ -107,7 +107,7 @@ public class Waypoint {
             lon = Double.parseDouble(queryPositionMatcher.group(2));
         }
 
-        return Optional.of(new Waypoint(new LatLong(lat, lon), name));
+        return Optional.of(new Waypoint(new GeoPoint(lat, lon), name));
     }
 
     /**
@@ -129,7 +129,7 @@ public class Waypoint {
                 var latitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LATITUDE)) / LAT_LON_FACTOR;
                 var longitude = cursor.getInt(cursor.getColumnIndexOrThrow(Waypoint.LONGITUDE)) / LAT_LON_FACTOR;
                 if (MapUtils.isValid(latitude, longitude)) {
-                    var latLong = new LatLong(latitude, longitude);
+                    var latLong = new GeoPoint(latitude, longitude);
                     var photoUrl = cursor.getString(cursor.getColumnIndexOrThrow(Waypoint.PHOTOURL));
                     waypoints.add(new Waypoint(waypointId, name, description, category, icon, trackId, latLong, photoUrl));
                 }
@@ -163,7 +163,7 @@ public class Waypoint {
         return trackId;
     }
 
-    public LatLong getLatLong() {
+    public GeoPoint getLatLong() {
         return latLong;
     }
 
