@@ -418,7 +418,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
                     PreferencesUtils.setOnlineMapConsent(true);
-                    setOnlineTileLayer();
+                    MapsActivity.this.recreate();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
