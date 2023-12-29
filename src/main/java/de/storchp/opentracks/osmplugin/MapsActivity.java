@@ -671,14 +671,17 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     private void setEndMarker(GeoPoint endPos) {
         synchronized (map.layers()) {
             if (endMarker != null) {
-                waypointsLayer.removeItem(endMarker);
+                endMarker.geoPoint = endPos;
+                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                waypointsLayer.update();
+                map.render();
+            } else {
+                endMarker = new MarkerItem(endPos.toString(), "", endPos);
+                var symbol = createMarkerSymbol(R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
+                endMarker.setMarker(symbol);
+                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                addWaypointMarker(endMarker);
             }
-
-            endMarker = new MarkerItem(endPos.toString(), "", endPos);
-            var symbol = createMarkerSymbol(R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
-            endMarker.setMarker(symbol);
-            endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
-            addWaypointMarker(endMarker);
         }
         rotateMap();
     }
@@ -906,10 +909,8 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     @Override
     public boolean updateSensor() {
-        if (endMarker != null) {
-            /* TODO:
-            endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
-             */
+        if (endPos != null) {
+            setEndMarker(endPos);
         }
 
         rotateMap();
