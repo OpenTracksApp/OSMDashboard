@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="debug_trackpoints_default">false</bool>
-    <bool name="map_persistent_tilecache_default">true</bool>
-    <bool name="map_multi_thread_rendering_default">true</bool>
     <bool name="pip_enabled_default">true</bool>
     <bool name="show_pause_markers_default">true</bool>
     <bool name="online_map_consent_default">false</bool>

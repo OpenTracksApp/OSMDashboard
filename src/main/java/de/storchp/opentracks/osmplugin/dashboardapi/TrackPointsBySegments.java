@@ -7,14 +7,7 @@ import java.util.stream.DoubleStream;
 
 import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
 
-public class TrackPointsBySegments{
-    private final List<List<TrackPoint>> segments;
-    private final TrackPointsDebug debug;
-
-    public TrackPointsBySegments(final List<List<TrackPoint>> segments, final TrackPointsDebug debug) {
-        this.segments = segments;
-        this.debug = debug;
-    }
+public record TrackPointsBySegments(List<List<TrackPoint>> segments, TrackPointsDebug debug) {
 
     public boolean isEmpty() {
         return segments.isEmpty();
@@ -31,13 +24,5 @@ public class TrackPointsBySegments{
     @NonNull
     private DoubleStream streamTrackPointsWithSpeed() {
         return segments.stream().flatMap(List::stream).mapToDouble(TrackPoint::getSpeed).filter(speed -> speed > 0);
-    }
-
-    public TrackPointsDebug getDebug() {
-        return debug;
-    }
-
-    public List<List<TrackPoint>> getSegments() {
-        return segments;
     }
 }

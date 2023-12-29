@@ -30,7 +30,7 @@ public class Compass extends AbstractSensor {
 
     private void updateBearing(float newBearing) {
         bearing += MapUtils.deltaAngle(bearing, newBearing);
-        filteredBearing = (float)filter.filter(bearing);
+        filteredBearing = (float) filter.filter(bearing);
     }
 
     public Bearing getBearing() {
@@ -47,8 +47,8 @@ public class Compass extends AbstractSensor {
         var normMagField = magnetometer.getValue().normalize();
 
         // East vector
-        var  east = normMagField.cross(normGravity);
-        var  normEast = east.normalize();
+        var east = normMagField.cross(normGravity);
+        var normEast = east.normalize();
 
         // Magnitude check
         float eastMagnitude = east.magnitude();
@@ -64,11 +64,11 @@ public class Compass extends AbstractSensor {
 
         // Azimuth
         // NB: see https://math.stackexchange.com/questions/381649/whats-the-best-3d-angular-co-ordinate-system-for-working-with-smartfone-apps
-        float sin = normEast.getY() - normNorth.getX();
-        float cos = normEast.getX() + normNorth.getY();
+        float sin = normEast.y() - normNorth.x();
+        float cos = normEast.x() + normNorth.y();
         float azimuth = (sin != 0f && cos != 0f) ? (float) Math.atan2(sin, cos) : 0f;
 
-        if (Float.isNaN(azimuth)){
+        if (Float.isNaN(azimuth)) {
             return true;
         }
 

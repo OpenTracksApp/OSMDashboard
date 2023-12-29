@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
-import org.mapsforge.map.rendertheme.ZipXmlThemeResourceProvider;
+import org.oscim.theme.ZipXmlThemeResourceProvider;
 
 import java.io.BufferedInputStream;
 import java.lang.ref.WeakReference;
@@ -60,7 +60,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         });
         binding.themeList.setOnItemLongClickListener((parent, view, position, id) -> {
             var fileItem = adapter.getItem(position);
-            var uri = fileItem.getUri();
+            var uri = fileItem.uri();
             if (uri == null) {
                 // online theme can't be deleted
                 return false;
@@ -68,9 +68,9 @@ public class ThemeSelectionActivity extends AppCompatActivity {
             new AlertDialog.Builder(ThemeSelectionActivity.this)
                     .setIcon(R.drawable.ic_logo_color_24dp)
                     .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.delete_theme_question, fileItem.getName()))
+                    .setMessage(getString(R.string.delete_theme_question, fileItem.name()))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        Log.d(TAG, "Delete " + fileItem.getName());
+                        Log.d(TAG, "Delete " + fileItem.name());
                         var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, uri);
                         assert file != null;
                         boolean deleted = file.delete();

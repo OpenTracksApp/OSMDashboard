@@ -37,6 +37,7 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         return !onlineMapSelected || position == 0;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         var rowView = convertView;
@@ -50,9 +51,9 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         // fill data
         var binding = (ThemeItemBinding) rowView.getTag();
         var item = this.items.get(position);
-        binding.name.setText(item.getName());
+        binding.name.setText(item.name());
         binding.name.setEnabled(isEnabled(position));
-        binding.radiobutton.setChecked(position == 0 ? selected == null : item.getUri() != null && item.getUri().equals(selected));
+        binding.radiobutton.setChecked(position == 0 ? selected == null : item.uri() != null && item.uri().equals(selected));
         binding.radiobutton.setOnClickListener(onStateChangedListener(binding.radiobutton, position));
         binding.radiobutton.setEnabled(isEnabled(position));
 
@@ -63,13 +64,13 @@ public class ThemeItemAdapter extends ArrayAdapter<FileItem> {
         return v -> {
             var fileItem = items.get(position);
             if (radioButton.isChecked()) {
-                if (fileItem.getUri() == null) { // default theme
+                if (fileItem.uri() == null) { // default theme
                     selected = null;
                 } else {
-                    selected = fileItem.getUri();
+                    selected = fileItem.uri();
                 }
             } else {
-                if (fileItem.getUri() != null) { // offline theme
+                if (fileItem.uri() != null) { // offline theme
                     selected = null;
                 }
             }

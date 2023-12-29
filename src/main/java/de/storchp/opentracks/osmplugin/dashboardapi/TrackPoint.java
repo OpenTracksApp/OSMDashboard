@@ -6,7 +6,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
-import org.mapsforge.core.model.LatLong;
+import org.oscim.core.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class TrackPoint {
 
     private final long trackPointId;
     private final long trackId;
-    private final LatLong latLong;
+    private final GeoPoint latLong;
     private final boolean pause;
     private final double speed;
 
@@ -54,7 +54,7 @@ public class TrackPoint {
         this.trackId = trackId;
         this.trackPointId = trackPointId;
         if (MapUtils.isValid(latitude, longitude)) {
-            this.latLong = new LatLong(latitude, longitude);
+            this.latLong = new GeoPoint(latitude, longitude);
         } else {
             latLong = null;
         }
@@ -117,7 +117,7 @@ public class TrackPoint {
                        if (segment.size() > 0) {
                            var previousTrackpoint = segment.get(segment.size() - 1);
                            if (previousTrackpoint.hasValidLocation()) {
-                               segment.add(new TrackPoint(trackId, trackPointId, previousTrackpoint.getLatLong().latitude, previousTrackpoint.getLatLong().longitude, type, speed));
+                               segment.add(new TrackPoint(trackId, trackPointId, previousTrackpoint.getLatLong().getLatitude(), previousTrackpoint.getLatLong().getLongitude(), type, speed));
                            }
                        }
                     }
@@ -138,7 +138,7 @@ public class TrackPoint {
         return trackId;
     }
 
-    public LatLong getLatLong() {
+    public GeoPoint getLatLong() {
         return latLong;
     }
 

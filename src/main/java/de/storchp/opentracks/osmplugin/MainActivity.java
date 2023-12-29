@@ -13,14 +13,10 @@ import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
 
-    public static final String EXTRA_MAP_INFO = "EXTRA_MAP_INFO";
-
-    private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
@@ -38,7 +34,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        binding.extraMapInfo.setText(intent.getStringExtra(EXTRA_MAP_INFO));
     }
 
     @Override

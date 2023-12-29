@@ -1,23 +1,31 @@
 package de.storchp.opentracks.osmplugin.utils;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
-import org.mapsforge.core.graphics.Paint;
-import org.mapsforge.core.graphics.Style;
-import org.mapsforge.core.model.LatLong;
-import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
-import org.mapsforge.map.layer.overlay.Polyline;
-import org.mapsforge.map.view.MapView;
+import org.oscim.android.canvas.AndroidBitmap;
+import org.oscim.core.GeoPoint;
+import org.oscim.layers.marker.MarkerItem;
+import org.oscim.layers.marker.MarkerSymbol;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import de.storchp.opentracks.osmplugin.R;
+import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
+import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
+import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 
 /**
  * Utility class for decimating tracks at a given level of precision.
@@ -38,7 +46,7 @@ public class MapUtils {
      * @param c2 the end of the lone segment
      * @return the distance in m (assuming spherical earth)
      */
-    private static double distance(LatLong c0, LatLong c1, LatLong c2) {
+    private static double distance(GeoPoint c0, GeoPoint c1, GeoPoint c2) {
         if (c1.equals(c2)) {
             return c2.sphericalDistance(c0);
         }
@@ -63,8 +71,8 @@ public class MapUtils {
             return c0.sphericalDistance(c2);
         }
 
-        var sa = new LatLong(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
-        var sb = new LatLong(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
+        var sa = new GeoPoint(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
+        var sb = new GeoPoint(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
 
         return sa.sphericalDistance(sb);
     }
@@ -73,7 +81,7 @@ public class MapUtils {
      * Decimates the given trackPoints for a given zoom level.
      * This uses a Douglas-Peucker decimation algorithm.
      *
-     * @param tolerance in meters
+     * @param tolerance   in meters
      * @param trackPoints input
      */
     public static List<TrackPoint> decimate(int tolerance, List<TrackPoint> trackPoints) {
@@ -141,26 +149,27 @@ public class MapUtils {
         return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180 && (latitude != 0 || longitude != 0);
     }
 
-    public static float bearing(LatLong src, LatLong dest) {
+    public static float bearing(GeoPoint src, GeoPoint dest) {
         if (src == null || dest == null) {
             return 0;
         }
         return toLocation(src).bearingTo(toLocation(dest));
     }
 
-    public static Location toLocation(LatLong latLong) {
+    public static Location toLocation(GeoPoint latLong) {
         var location = new Location("");
-        location.setLatitude(latLong.latitude);
-        location.setLongitude(latLong.longitude);
+        location.setLatitude(latLong.getLatitude());
+        location.setLongitude(latLong.getLongitude());
         return location;
     }
 
-    public static float bearingInDegrees(LatLong secondToLastPos, LatLong endPos) {
+    public static float bearingInDegrees(GeoPoint secondToLastPos, GeoPoint endPos) {
         return normalizeAngle(bearing(secondToLastPos, endPos));
     }
 
     /**
      * Converts an angle to between 0 and 360
+     *
      * @param angle the angle in degrees
      * @return the normalized angle
      */
@@ -170,6 +179,18 @@ public class MapUtils {
             outputAngle += 360;
         }
         return outputAngle % 360;
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     public static float deltaAngle(float angle1, float angle2) {
@@ -183,19 +204,60 @@ public class MapUtils {
         return delta;
     }
 
-    public static Paint createPaint(int color, int strokeWidth) {
-        var paint = AndroidGraphicFactory.INSTANCE.createPaint();
-        paint.setColor(color);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setStyle(Style.STROKE);
-        return paint;
+
+    public static int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
+        double speed = trackPoint.getSpeed();
+        int red = 255;
+        int green = 255;
+        if (speed == 0.0) {
+            green = 0;
+        } else if (trackPoint.getSpeed() < average) {
+            green = (int) (255 * speed / average);
+        } else {
+            red = 255 - (int) (255 * (speed - average) / averageToMaxSpeed);
+        }
+        return Color.argb(255, red, green, 0);
     }
 
-    public static Polyline createPolyline(MapView mapView, int trackColor, int strokeWidth) {
-        return new Polyline(MapUtils.createPaint(trackColor,
-                (int) (strokeWidth * mapView.getModel().displayModel.getScaleFactor())
-        ), AndroidGraphicFactory.INSTANCE);
+    public static float rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
+        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
+                || arrowMode == ArrowMode.NORTH) {
+            return 0f;
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
+            return mapMode.getHeading(movementDirection, compass);
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
+            return arrowMode.getDegrees(movementDirection, compass);
+        } else {
+            return arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360;
+        }
     }
 
+    @NonNull
+    public static MarkerSymbol createMarkerSymbol(Context context, int markerResource, boolean billboard, MarkerSymbol.HotspotPlace hotspot) {
+        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(context, markerResource));
+        return new MarkerSymbol(bitmap, hotspot, billboard);
+    }
 
+    @NonNull
+    public static MarkerSymbol createPushpinSymbol(Context context) {
+        return createMarkerSymbol(context, R.drawable.ic_marker_orange_pushpin_modern, true, MarkerSymbol.HotspotPlace.BOTTOM_CENTER);
+    }
+
+    public static MarkerItem createPushpinMarker(Context context, GeoPoint latLong, Long id) {
+        var symbol = createPushpinSymbol(context);
+        var marker = new MarkerItem(id, latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
+    }
+
+    public static MarkerItem createPauseMarker(Context context, GeoPoint latLong) {
+        var symbol = createMarkerSymbol(context, R.drawable.ic_marker_pause_34, true, MarkerSymbol.HotspotPlace.CENTER);
+        var marker = new MarkerItem(latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
+    }
+
+    public static MarkerItem createTappableMarker(final Context context, Waypoint waypoint) {
+        return createPushpinMarker(context, waypoint.getLatLong(), waypoint.getId());
+    }
 }

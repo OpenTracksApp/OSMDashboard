@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.os.StrictMode;
 import android.util.Log;
 
 import com.google.android.material.color.DynamicColors;
@@ -33,19 +32,6 @@ public class Startup extends Application {
         PreferencesUtils.applyNightMode();
         if (PreferencesUtils.shouldUseDynamicColors()) {
             DynamicColors.applyToActivitiesIfAvailable(this);
-        }
-
-        //In debug builds: show thread and VM warnings.
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Enabling strict mode");
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .build());
         }
     }
 

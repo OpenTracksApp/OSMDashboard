@@ -2,5 +2,5 @@
 <resources>
     <integer name="track_smoothing_tolerance_default">10</integer>
     <integer name="compass_smoothing_default">2</integer>
-    <integer name="stroke_width_default">4</integer>
+    <integer name="stroke_width_default">10</integer>
 </resources>

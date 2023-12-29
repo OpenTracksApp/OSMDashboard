@@ -1,6 +1,6 @@
 package de.storchp.opentracks.osmplugin.maps;
 
-import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+import org.oscim.backend.canvas.Color;
 
 /**
  * Creates continues distinguished colors via golden ration.
@@ -16,7 +16,7 @@ public class StyleColorCreator {
         this.h = start;
     }
 
-    private int convertHSVtoColorRGB(int alpha, double hue, double saturation, double value) {
+    private int convertHSVtoColorRGB(double hue, double saturation, double value) {
         double i = Math.floor(hue * 6);
         double f = hue * 6 - i;
         double p = value * (1 - saturation);
@@ -26,52 +26,39 @@ public class StyleColorCreator {
         double green = 0;
         double blue = 0;
         switch ((int) (i % 6)) {
-            case 0:
+            case 0 -> {
                 red = value;
                 green = t;
                 blue = p;
-                break;
-            case 1:
+            }
+            case 1 -> {
                 red = q;
                 green = value;
                 blue = p;
-                break;
-            case 2:
+            }
+            case 2 -> {
                 red = p;
                 green = value;
                 blue = t;
-                break;
-            case 3:
+            }
+            case 3 -> {
                 red = p;
                 green = q;
                 blue = value;
-                break;
-            case 4:
+            }
+            case 4 -> {
                 red = t;
                 green = p;
                 blue = value;
-                break;
-            case 5:
+            }
+            case 5 -> {
                 red = value;
                 green = p;
                 blue = q;
-                break;
+            }
         }
 
-        return AndroidGraphicFactory.INSTANCE.createColor(alpha, (int) (red * 255), (int) (green * 255), (int) (blue * 255));
-    }
-
-    /**
-     * Go to next color.
-     *
-     * @param alpha The opacity (alpha channel) of the color.
-     * @return The color.
-     */
-    public int nextColor(int alpha) {
-        this.h += GOLDEN_RATIO_CONJUGATE;
-        this.h %= 1;
-
-        return convertHSVtoColorRGB(alpha, this.h, 0.99, 0.99);
+        return Color.get((int) (red * 255), (int) (green * 255), (int) (blue * 255));
     }
 
     /**
@@ -80,7 +67,10 @@ public class StyleColorCreator {
      * @return The color.
      */
     public int nextColor() {
-        return nextColor(255);
+        this.h += GOLDEN_RATIO_CONJUGATE;
+        this.h %= 1;
+
+        return convertHSVtoColorRGB(this.h, 0.99, 0.99);
     }
 
 }

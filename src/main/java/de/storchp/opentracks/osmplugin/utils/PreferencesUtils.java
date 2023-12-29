@@ -8,7 +8,6 @@ import android.util.Log;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 
 import java.util.Collections;
@@ -150,16 +149,6 @@ public class PreferencesUtils {
         return sharedPrefs.getInt(getKey(keyId), defaultValue);
     }
 
-    private static float getFloat(int keyId, float defaultValue) {
-        return sharedPrefs.getFloat(getKey(keyId), defaultValue);
-    }
-
-    private static void setFloat(int keyId, float value) {
-        sharedPrefs.edit()
-                .putFloat(getKey(keyId), value)
-                .apply();
-    }
-
     public static int getTrackSmoothingTolerance() {
         return getInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, resources.getInteger(R.integer.track_smoothing_tolerance_default));
     }
@@ -180,32 +169,8 @@ public class PreferencesUtils {
         return getInt(R.string.APP_PREF_COMPASS_SMOOTHING, resources.getInteger(R.integer.compass_smoothing_default));
     }
 
-    public static boolean getMultiThreadMapRendering() {
-        return getBoolean(R.string.APP_PREF_MAP_MULTI_THREAD_RENDERING, resources.getBoolean(R.bool.map_multi_thread_rendering_default));
-    }
-
-    public static boolean getPersistentTileCache() {
-        return getBoolean(R.string.APP_PREF_MAP_PERSISTENT_TILECACHE, resources.getBoolean(R.bool.map_persistent_tilecache_default));
-    }
-
     public static int getStrokeWidth() {
         return getInt(R.string.APP_PREF_STROKE_WIDTH, resources.getInteger(R.integer.stroke_width_default));
-    }
-
-    public static double getOverdrawFactor() {
-        return getFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, ResourcesCompat.getFloat(resources, R.dimen.map_overdraw_factor_default));
-    }
-
-    public static void setOverdrawFactor(double overdrawFactor) {
-        setFloat(R.string.APP_PREF_MAP_OVERDRAW_FACTOR, (float) overdrawFactor);
-    }
-
-    public static float getTileCacheCapacityFactor() {
-        return getFloat(R.string.APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR, ResourcesCompat.getFloat(resources, R.dimen.tile_cache_capacity_factor_default));
-    }
-
-    public static void setTileCacheCapacityFactor(float tileCacheCapacityFactor) {
-        setFloat(R.string.APP_PREF_MAP_TILE_CACHE_CAPACITY_FACTOR, tileCacheCapacityFactor);
     }
 
     public static Set<StatisticElement> getStatisticElements() {

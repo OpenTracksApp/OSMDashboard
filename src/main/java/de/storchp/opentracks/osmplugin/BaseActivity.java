@@ -23,7 +23,7 @@ abstract class BaseActivity extends AppCompatActivity {
         menu.findItem(R.id.map_info).setVisible(showInfo);
     }
 
-    ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
+    final ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> recreate());
 
