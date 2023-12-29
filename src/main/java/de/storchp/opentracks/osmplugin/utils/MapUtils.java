@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.oscim.core.GeoPoint;
-import org.oscim.layers.PathLayer;
-import org.oscim.map.Map;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -196,10 +194,6 @@ public class MapUtils {
             delta = 180f;
         }
         return delta;
-    }
-
-    public static PathLayer createPolyline(Map map, int trackColor, int strokeWidth) {
-        return new PathLayer(map, trackColor, strokeWidth);
     }
 
 

@@ -700,7 +700,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     }
 
     private PathLayer addNewPolyline(int trackColor) {
-        polyline = MapUtils.createPolyline(map, trackColor, strokeWidth);
+        polyline = new PathLayer(map, trackColor, strokeWidth);
         polylinesLayer.layers.add(polyline);
         return this.polyline;
     }
