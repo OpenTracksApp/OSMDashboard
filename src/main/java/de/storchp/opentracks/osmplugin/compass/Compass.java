@@ -39,7 +39,7 @@ public class Compass extends AbstractSensor {
 
     private boolean updateSensor() {
         if (!gotAccel || !gotMag) {
-            return false;
+            return true;
         }
 
         // Gravity
