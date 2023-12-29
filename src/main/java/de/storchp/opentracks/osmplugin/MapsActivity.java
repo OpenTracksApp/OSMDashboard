@@ -207,7 +207,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
             readWaypoints(waypointsUri);
         } else if ("geo".equals(intent.getScheme())) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                addWaypointMarker(createMarker(waypoint.getLatLong(), waypoint.getId(), true));
+                addWaypointMarker(createPushpinMarker(waypoint.getLatLong(), waypoint.getId()));
                 var layers = map.layers();
                 layers.add(waypointsLayer);
                 map.getMapPosition().setPosition(waypoint.getLatLong());
@@ -675,7 +675,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                 endMarker.geoPoint = endPos;
             } else {
                 endMarker = new MarkerItem(endPos.toString(), "", endPos);
-                var symbol = createMarkerSymbol(R.drawable.ic_compass, false);
+                var symbol = createMarkerSymbol(R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
                 endMarker.setMarker(symbol);
                 endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
                 var markerLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
@@ -730,7 +730,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     private void addWaypointMarker(final MarkerItem marker) {
         if (waypointsLayer == null) {
-            var symbol = createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, true);
+            var symbol = createPushpinSymbol();
             waypointsLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
             map.layers().add(waypointsLayer);
         }
@@ -738,27 +738,32 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     }
 
     @NonNull
-    private MarkerSymbol createMarkerSymbol(int markerResource, boolean billboard) {
-        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(this, markerResource));
-        return new MarkerSymbol(bitmap, MarkerSymbol.HotspotPlace.CENTER, billboard);
+    private MarkerSymbol createPushpinSymbol() {
+        return createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, true, MarkerSymbol.HotspotPlace.BOTTOM_CENTER);
     }
 
-    private MarkerItem createMarker(GeoPoint latLong, Long id, boolean billboard) {
-        var symbol = createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, billboard);
+    @NonNull
+    private MarkerSymbol createMarkerSymbol(int markerResource, boolean billboard, final MarkerSymbol.HotspotPlace hotspot) {
+        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(this, markerResource));
+        return new MarkerSymbol(bitmap, hotspot, billboard);
+    }
+
+    private MarkerItem createPushpinMarker(GeoPoint latLong, Long id) {
+        var symbol = createPushpinSymbol();
         var marker = new MarkerItem(id, latLong.toString(), "", latLong);
         marker.setMarker(symbol);
         return marker;
     }
 
     private MarkerItem createPauseMarker(GeoPoint latLong) {
-        var symbol = createMarkerSymbol(R.drawable.ic_marker_pause_34, true);
+        var symbol = createMarkerSymbol(R.drawable.ic_marker_pause_34, true, MarkerSymbol.HotspotPlace.CENTER);
         var marker = new MarkerItem(latLong.toString(), "", latLong);
         marker.setMarker(symbol);
         return marker;
     }
 
     private MarkerItem createTappableMarker(Waypoint waypoint) {
-        return createMarker(waypoint.getLatLong(), waypoint.getId(), true);
+        return createPushpinMarker(waypoint.getLatLong(), waypoint.getId());
     }
 
     @Override
