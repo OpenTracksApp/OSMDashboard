@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.opengl.GLException;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -71,12 +73,17 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipInputStream;
+
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.opengles.GL10;
 
 import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.compass.SensorListener;
@@ -273,7 +280,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         super.onCreateOptionsMenu(menu, true);
-        menu.findItem(R.id.share).setVisible(true);
+        // TODO: menu.findItem(R.id.share).setVisible(true);
         return true;
     }
 
@@ -447,6 +454,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     private void sharePicture() {
         // prepare rendering
         var view = binding.map.mainView;
+        glSurfaceView = binding.map.mapView;
 
         binding.map.sharePictureTitle.setText(R.string.share_picture_title);
         binding.map.controls.setVisibility(View.INVISIBLE);
@@ -455,7 +463,9 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         // draw
         var canvas = new Canvas();
         var toBeCropped = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(toBeCropped);
+        //canvas.setBitmap(toBeCropped);
+
+        captureBitmap(canvas::setBitmap);
         view.draw(canvas);
 
         var bitmapOptions = new BitmapFactory.Options();
@@ -484,6 +494,51 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         binding.map.controls.setVisibility(View.VISIBLE);
         binding.map.attribution.setVisibility(View.VISIBLE);
         binding.map.sharePictureTitle.setText("");
+    }
+
+    private GLSurfaceView glSurfaceView;
+    private Bitmap snapshotBitmap;
+
+    private interface BitmapReadyCallbacks {
+        void onBitmapReady(Bitmap bitmap);
+    }
+
+    private void captureBitmap(final BitmapReadyCallbacks bitmapReadyCallbacks) {
+        glSurfaceView.queueEvent(() -> {
+            EGL10 egl = (EGL10) EGLContext.getEGL();
+            GL10 gl = (GL10) egl.eglGetCurrentContext().getGL();
+            snapshotBitmap = createBitmapFromGLSurface(0, 0, glSurfaceView.getWidth(), glSurfaceView.getHeight(), gl);
+            runOnUiThread(() -> bitmapReadyCallbacks.onBitmapReady(snapshotBitmap));
+        });
+
+    }
+
+    private Bitmap createBitmapFromGLSurface(int x, int y, int w, int h, GL10 gl) {
+        int[] bitmapBuffer = new int[w * h];
+        int[] bitmapSource = new int[w * h];
+        IntBuffer intBuffer = IntBuffer.wrap(bitmapBuffer);
+        intBuffer.position(0);
+
+        try {
+            gl.glReadPixels(x, y, w, h, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer);
+            int offset1, offset2;
+            for (int i = 0; i < h; i++) {
+                offset1 = i * w;
+                offset2 = (h - i - 1) * w;
+                for (int j = 0; j < w; j++) {
+                    int texturePixel = bitmapBuffer[offset1 + j];
+                    int blue = (texturePixel >> 16) & 0xff;
+                    int red = (texturePixel << 16) & 0x00ff0000;
+                    int pixel = (texturePixel & 0xff00ff00) | red | blue;
+                    bitmapSource[offset2 + j] = pixel;
+                }
+            }
+        } catch (GLException e) {
+            Log.e(TAG, "createBitmapFromGLSurface: " + e.getMessage(), e);
+            return null;
+        }
+
+        return Bitmap.createBitmap(bitmapSource, w, h, Bitmap.Config.ARGB_8888);
     }
 
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
