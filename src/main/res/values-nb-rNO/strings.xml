@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nfor OpenTracks</string>
-    <string name="no_data">Ingen spor-data mottatt</string>
-    <string name="maps">Kart</string>
-    <string name="map_themes">Karttemaer</string>
     <string name="map_info_menu">Om</string>
     <string name="map_folder">Kartmappe</string>
     <string name="theme_folder">Karttema-mappe</string>
@@ -19,8 +16,6 @@
     <string name="overwrite_map_question">Kartet \"%s\" finnes allerede! Vil du slette og laste ned igjen\?</string>
     <string name="error_loading_offline_map">Feil ved lesing av innstilt offline-kart</string>
     <string name="track_smoothing_menu">Sporutjevning</string>
-    <string name="track_smoothing_hint">Sporutjevningstoleranse i meter</string>
-    <string name="only_digits">Verdi må kun inneholde sifre</string>
     <string name="pip_mode">Bilde-i-bilde-modus</string>
     <string name="arrow_mode_north">Pil peker mot nord</string>
     <string name="arrow_mode_direction">Pil i bevegelsesretning</string>
@@ -31,7 +26,6 @@
     <string name="compass_smoothing_menu">Kompassutjevning</string>
     <string name="compass_smoothing_info">Høyere verdier reduserer støy</string>
     <string name="menu_advanced">Avansert</string>
-    <string name="multi_thread_map_rendering">Flertrådet kartgjengivelse</string>
     <string name="no_map_configured">Du har ikke satt opp noe frakoblet kart ennå.</string>
     <string name="stroke_width_info">Definer strekbredden til sporene</string>
     <string name="stroke_width_menu">Sporstrekbredde</string>
@@ -48,8 +42,6 @@
     <string name="download_map">Last ned kart</string>
     <string name="choose_map_to_download">Velg et kart for å laste ned</string>
     <string name="download_instruction">Du ser innholdet fra https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Laste ned kart %s\?</string>
-    <string name="download_in_progress">Det pågår allerede en nedlasting!</string>
     <string name="download_success">Kart lastet ned</string>
     <string name="download_failed">Kartnedlasting mislyktes</string>
     <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
@@ -63,23 +55,13 @@
     <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
     <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>
-    <string name="zoom_in">Zoom inn</string>
     <string name="toggle_full_screen_mode">Fullskjermmodus av/på</string>
     <string name="share">Del</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="zoom_out">Zoom ut</string>
     <string name="error_crash_title">%1$s krasjet</string>
-    <string name="no_browser_available">Ingen nettleser tilgjengelig</string>
     <string name="bug_report">Rapporter feil</string>
-    <string name="persistent_tilecache">Vedvarende TileCache</string>
-    <string name="purge_tilecache">Tøm TileCache</string>
-    <string name="overdraw_factor_info">Bestem faktor for å tegne over kart</string>
-    <string name="overdraw_factor">Faktor for å tegne over kart</string>
-    <string name="tilecache_capacity_factor_info">Bestem kapasitetsfaktor for TileCache</string>
-    <string name="tilecache_capacity_factor">Kapasitetsfaktor for TileCache</string>
-    <string name="color_by_speed">Farge etter hastighet</string>
     <string name="category">Kategori</string>
     <string name="total_time">Total tid</string>
     <string name="moving_time">Forflytningstid</string>
@@ -99,7 +81,6 @@
 \nSegmenter %5$d
 \nProtokollversjon: %6$d</string>
     <string name="error_reading_trackpoints">Feil under lesing av sporpunkter: %s</string>
-    <string name="read_number_of_trackpoints">Les %d sporpunkter</string>
     <string name="track_color">Sporfarge</string>
     <string name="track_color_mode_uni">Ensfarget</string>
     <string name="track_color_mode_by_track">Farge etter spor</string>

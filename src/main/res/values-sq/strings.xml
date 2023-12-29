@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Nuk ka të dhëna të pista të marra</string>
     <string name="copyright_osm">Të dhënat e hartës © kontribuesit E OpenStreetMap</string>
-    <string name="maps">Hartat</string>
-    <string name="map_themes">Temat e hartave</string>
     <string name="map_info_menu">Rreth</string>
     <string name="map_folder">Drejtoria e hartave</string>
     <string name="theme_folder">Drejtoria e temave të hartave</string>
@@ -16,8 +13,6 @@
     <string name="download_theme">Shkarkimi i temës</string>
     <string name="choose_map_to_download">Zgjidhni një hartë për ta shkarkuar</string>
     <string name="download_instruction">Jeni duke parë përmbajtje të https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Shkarkoni hartën %s\?</string>
-    <string name="download_in_progress">Tashmë ka një shkarkim në progres!</string>
     <string name="download_success">Harta shkarkohet me sukses</string>
     <string name="download_failed">Shkarkimi i hartës dështoi</string>
     <string name="download_theme_success">Tema shkarkohet me sukses</string>
@@ -28,13 +23,8 @@
     <string name="theme_selection">Temat e hartave</string>
     <string name="delete_theme_question">Fshi temën \"%s\"\?</string>
     <string name="delete_theme_error">Fshirja e temës dështoi</string>
-    <string name="tilecache_capacity_factor">Faktori i kapacitetit TileCache</string>
-    <string name="overdraw_factor_info">Përcaktoni faktorin e mbitërheqjes së hartës</string>
-    <string name="overdraw_factor">Faktori i mbitërheqjes së hartës</string>
     <string name="bug_report">Raporti bug</string>
-    <string name="no_browser_available">Asnjë shfletues në dispozicion</string>
     <string name="error_crash_title">%1$s u rrëzua</string>
-    <string name="zoom_out">Zmadhoni</string>
     <string name="share">Ndaj</string>
     <string name="error_reg_content_observer">Gabim në regjistrimin OpenTracksContentObserver</string>
     <string name="no_file_manager_found">Asnjë menaxher skedarësh nuk u gjet</string>
@@ -44,8 +34,6 @@
     <string name="cancel_download_question">Anuloni shkarkimin aktual\?</string>
     <string name="error_loading_offline_map">Gabim leximi konfiguruar offline hartë</string>
     <string name="track_smoothing_menu">Zbutja e gjurmëve</string>
-    <string name="track_smoothing_hint">Ndiqni tolerancën e zbutjes në metra</string>
-    <string name="only_digits">Vlera duhet të përmbajë vetëm shifra</string>
     <string name="pip_mode">Foto në modalitetin e figurës</string>
     <string name="arrow_mode_north">Shigjeta tregon në veri</string>
     <string name="arrow_mode_direction">Drejtimi i lëvizjes së shigjetës</string>
@@ -56,15 +44,10 @@
     <string name="compass_smoothing_menu">Zbutja e busullës</string>
     <string name="compass_smoothing_info">Vlerat më të larta zvogëlojnë zhurmën</string>
     <string name="menu_advanced">Avancuar</string>
-    <string name="multi_thread_map_rendering">Multithread hartë pasqyrim</string>
-    <string name="persistent_tilecache">TileCache E Vazhdueshme</string>
-    <string name="purge_tilecache">Spastrim Cache E Pllakave</string>
     <string name="stroke_width_info">Përcaktoni gjerësinë e goditjes së gjurmëve</string>
-    <string name="zoom_in">Zoom në</string>
     <string name="unit_meter">m</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_feet">ft</string>
-    <string name="tilecache_capacity_factor_info">Përcaktoni Faktorin E kapacitetit TileCache</string>
     <string name="toggle_full_screen_mode">Ndryshoni modalitetin e ekranit të plotë</string>
     <string name="stroke_width_menu">Gjerësia e goditjes së gjurmës</string>
     <string name="app_name_info_screen">Osm Pult
@@ -81,7 +64,6 @@
     <string name="no_map_configured">Ju ende nuk keni konfiguruar hartën offline.</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

@@ -4,9 +4,6 @@
     <string name="online_map_consent">Não há mapa offline configurado. Concorde em usar o mapa online de openstreetmap.org. Isso pode vazar sua localização atual. Consulte https://operations.osmfoundation.org/policies/tiles/ para uso de blocos e política de privacidade.</string>
     <string name="app_name_info_screen">OSM Dashboard
 \npara OpenTracks</string>
-    <string name="no_data">Nenhum dado de trilha recebido</string>
-    <string name="maps">Mapas</string>
-    <string name="map_themes">Temas de mapas</string>
     <string name="default_theme">Tema Padrão</string>
     <string name="map_info_menu">Sobre</string>
     <string name="map_folder">Diretório de mapas</string>
@@ -15,8 +12,6 @@
     <string name="download_map">Download do mapa</string>
     <string name="choose_map_to_download">Escolha um mapa para fazer o download</string>
     <string name="download_instruction">Você está visualizando o conteúdo de https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Fazer o download do mapa %s\?</string>
-    <string name="download_in_progress">Já existe um download em andamento!</string>
     <string name="app_logo_description">Logo do aplicativo</string>
     <string name="map_online_consent_menu">Autorização do mapa online</string>
     <string name="download_success">Mapa baixado com sucesso</string>
@@ -33,8 +28,6 @@
     <string name="track_smoothing_menu">Suavização de trilha</string>
     <string name="track_smoothing_info">Defina a tolerância em metros para o algoritmo de suavização da trilha. Insira 0 para desativar a suavização da trilha.
 \nA mudança entra em vigor após recarregar a trilha.</string>
-    <string name="track_smoothing_hint">Tolerância de suavização da trilha em metros</string>
-    <string name="only_digits">O valor deve conter apenas dígitos</string>
     <string name="pip_mode">Modo picture in picture</string>
     <string name="arrow_mode_north">A seta aponta para o norte</string>
     <string name="arrow_mode_direction">Direção do movimento da seta</string>
@@ -45,7 +38,6 @@
     <string name="compass_smoothing_menu">Suavização da bússola</string>
     <string name="compass_smoothing_info">Valores mais altos reduzem o ruído</string>
     <string name="menu_advanced">Avançado</string>
-    <string name="multi_thread_map_rendering">Renderização de mapa multithread</string>
     <string name="no_map_configured">Você ainda não configurou um mapa offline.</string>
     <string name="stroke_width_info">Defina a largura do traço das trilhas</string>
     <string name="stroke_width_menu">Largura do traço da trilha</string>
@@ -63,23 +55,13 @@
     <string name="download_theme_success">Tema descarregado com sucesso</string>
     <string name="no_file_manager_found">Nenhum gerente de arquivo encontrado</string>
     <string name="error_reg_content_observer">Erro no registro do OpenTracksContentObserver</string>
-    <string name="zoom_out">Ampliar</string>
-    <string name="zoom_in">Aumentar</string>
     <string name="toggle_full_screen_mode">Alternar o modo tela cheia</string>
     <string name="share">Compartilhe</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s falharam</string>
-    <string name="no_browser_available">Sem navegador disponível</string>
     <string name="bug_report">Reportar erro</string>
-    <string name="overdraw_factor">Fator de sobre-esboço do mapa</string>
-    <string name="overdraw_factor_info">Definir fator de sobredesenho do mapa</string>
-    <string name="tilecache_capacity_factor_info">Definir fator de capacidade TileCache</string>
-    <string name="tilecache_capacity_factor">Fator de capacidade TileCache</string>
-    <string name="persistent_tilecache">Cache de Telha Persistente</string>
-    <string name="purge_tilecache">TileCache de purga</string>
-    <string name="color_by_speed">cor por velocidade</string>
     <string name="unit_kilometer_per_hour">km/h</string>
     <string name="unit_mile">mi</string>
     <string name="unit_mile_per_hour">mi/h</string>
@@ -98,7 +80,6 @@
     <string name="pace_min_km">Pace em min/km</string>
     <string name="speed_mi_h">Velocidade em mi/h</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="arrow_mode">Arrow orientation</string>

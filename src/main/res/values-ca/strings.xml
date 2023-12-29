@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nper OpenTracks</string>
-    <string name="no_data">No seguiment de les dades rebudes</string>
     <string name="copyright_osm">Mapa de dades © OpenStreetMap col·laboradors</string>
-    <string name="maps">Mapes</string>
-    <string name="map_themes">Mapa temes</string>
     <string name="map_info_menu">Sobre</string>
     <string name="map_folder">Mapa directori</string>
     <string name="theme_folder">Mapa tema directori</string>
@@ -16,8 +13,6 @@
     <string name="map_online_consent_menu">Mapa en línia consentiment</string>
     <string name="download_map">Descarregar mapa</string>
     <string name="download_theme">Tema descarregar</string>
-    <string name="download_map_question">Descarregar plànol %s\?</string>
-    <string name="download_in_progress">Ja hi ha una baixada en curs!</string>
     <string name="download_success">Mapa descarregat amb èxit</string>
     <string name="download_failed">Mapa de descàrrega ha fallat</string>
     <string name="download_theme_success">Tema descarregat amb èxit</string>
@@ -32,7 +27,6 @@
     <string name="cancel_download_question">Cancel·la la baixada actual\?</string>
     <string name="error_loading_offline_map">Error de lectura configurat els mapes fora de línia</string>
     <string name="track_smoothing_menu">Pista suavitzat</string>
-    <string name="track_smoothing_hint">Pista suavitzat la tolerància en metres</string>
     <string name="pip_mode">Imatge en mode d\'imatge</string>
     <string name="arrow_mode_direction">Tecles de moviment direcció</string>
     <string name="arrow_mode_compass">Tecles com la brúixola</string>
@@ -52,36 +46,24 @@
     <string name="choose_map_to_download">Triar un mapa per a descarregar</string>
     <string name="download_instruction">Esteu visualitzant el contingut de https://ftp-stud.hs-esslingen.de.</string>
     <string name="delete_map_error">Mapa de la supressió fallat</string>
-    <string name="only_digits">Valor ha de contenir només dígits</string>
     <string name="overwrite_theme_question">El tema \"%s\" ja existeix! Suprimir i descarregar de nou\?</string>
     <string name="arrow_mode_north">La fletxa assenyala el nord</string>
     <string name="track_smoothing_info">Definir la tolerància en metres per la pista suavitzat algorisme. Introduïu 0 a desactivar el seguiment regulador.
 \nCanviar entra en vigor després de tornar a carregar la pista.</string>
     <string name="map_mode_direction">Mapa del moviment de direcció</string>
     <string name="compass_smoothing_info">Els valors més alts reduir el soroll</string>
-    <string name="multi_thread_map_rendering">Multithread mapa de renderització</string>
     <string name="no_map_configured">No teniu els mapes fora de línia encara no s\'ha configurat.</string>
     <string name="startDownload">Inicia La Baixada</string>
     <string name="error_reg_content_observer">Error en el registre OpenTracksContentObserver</string>
-    <string name="zoom_out">Disminuir el zoom</string>
-    <string name="zoom_in">Apropar</string>
     <string name="toggle_full_screen_mode">Canvia el mode de pantalla completa</string>
     <string name="share">Compartir</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="no_browser_available">No hi ha navegador disponible</string>
     <string name="error_crash_title">%1$s ha fallat</string>
     <string name="bug_report">Informe d \' error</string>
-    <string name="purge_tilecache">Purga TileCache</string>
-    <string name="overdraw_factor">Factor de sobreescriptura del mapa</string>
-    <string name="overdraw_factor_info">Defineix el factor de sobreescriptura del mapa</string>
-    <string name="tilecache_capacity_factor">Factor de capacitat de TileCache</string>
-    <string name="persistent_tilecache">TileCache Seasmhach</string>
-    <string name="tilecache_capacity_factor_info">Defineix El factor de Capacitat De TileCache</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

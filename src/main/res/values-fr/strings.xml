@@ -4,16 +4,11 @@
     <string name="delete_map_error">La suppression de la carte a échoué</string>
     <string name="app_name_info_screen">Tableau de bord OSM
 \npour OpenTracks</string>
-    <string name="no_data">Aucune donnée de suivi reçue</string>
     <string name="copyright_osm">Données cartographiques © contributeurs OpenStreetMap</string>
-    <string name="maps">Cartes</string>
-    <string name="map_themes">Thèmes de la carte</string>
     <string name="online_osm_mapnick">Carte en ligne OSM:Mapnik</string>
     <string name="map_selection">Cartes</string>
     <string name="download_failed">Le téléchargement des cartes a échoué</string>
     <string name="download_success">Carte téléchargée avec succès</string>
-    <string name="download_in_progress">Il y a déjà un téléchargement en cours !</string>
-    <string name="download_map_question">Télécharger la carte %s \?</string>
     <string name="download_instruction">Vous consultez le contenu du site https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Choisissez une carte à télécharger</string>
     <string name="download_map">Télécharger la carte</string>
@@ -27,7 +22,6 @@
     <string name="stroke_width_menu">Largeur du trait de piste</string>
     <string name="stroke_width_info">Définir la largeur des traces</string>
     <string name="no_map_configured">Vous n\'avez pas encore configuré de carte hors ligne.</string>
-    <string name="multi_thread_map_rendering">Rendu cartographique multithread</string>
     <string name="menu_advanced">Avancé</string>
     <string name="compass_smoothing_info">Des valeurs plus élevées réduisent le bruit</string>
     <string name="compass_smoothing_menu">Lissage du compas</string>
@@ -36,8 +30,6 @@
     <string name="arrow_mode_compass">Flèche comme boussole</string>
     <string name="arrow_mode_direction">Flèche de direction</string>
     <string name="arrow_mode_north">La flèche indique le nord</string>
-    <string name="only_digits">La valeur doit contenir uniquement des chiffres</string>
-    <string name="track_smoothing_hint">Tolérance de lissage des traces en mètres</string>
     <string name="track_smoothing_menu">Lissage des traces</string>
     <string name="error_loading_offline_map">Erreur de lecture d\'une carte hors ligne configurée</string>
     <string name="cancel_download_question">Annuler le téléchargement en cours \?</string>
@@ -63,25 +55,15 @@
     <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées via le menu <b>Téléchargement de cartes</b> ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
     <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
-    <string name="zoom_out">Zoom arrière</string>
-    <string name="zoom_in">Zoom avant</string>
     <string name="toggle_full_screen_mode">Basculer le mode plein écran</string>
     <string name="share">Partager</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s s\'est écrasé</string>
-    <string name="no_browser_available">Pas de navigateur disponible</string>
     <string name="bug_report">Signaler un bogue</string>
-    <string name="persistent_tilecache">Cache de tuiles persistant</string>
-    <string name="purge_tilecache">Purger TileCache</string>
-    <string name="overdraw_factor_info">Définir le facteur de surimpression de la carte</string>
-    <string name="tilecache_capacity_factor_info">Définir le facteur de capacité du TileCache</string>
-    <string name="tilecache_capacity_factor">Facteur de capacité de TileCache</string>
-    <string name="overdraw_factor">Facteur de surimpression de la carte</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

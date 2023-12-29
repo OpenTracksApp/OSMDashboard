@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="maps">සිතියම්</string>
     <string name="map_info_menu">පිළිබඳව</string>
     <string name="download_success">සිතියම සාර්ථකව බාගත කර ඇත</string>
     <string name="download_failed">සිතියම් බාගත කිරීම අසාර්ථක විය</string>
     <string name="map_selection">සිතියම්</string>
     <string name="online_osm_mapnick">මාර්ගගත සිතියම OSM: Mapnik</string>
     <string name="delete_map_error">සිතියම් මකාදැමීම අසාර්ථක විය</string>
-    <string name="no_data">ධාවන දත්ත නොමැත</string>
     <string name="copyright_osm">සිතියම් දත්ත © OpenStreetMap දායකයින්</string>
-    <string name="map_themes">සිතියම් තේමාවන්</string>
     <string name="default_theme">පෙරනිමි තේමාව</string>
     <string name="map_folder">සිතියම් නාමාවලිය</string>
     <string name="theme_folder">සිතියම් තේමා නාමාවලිය</string>
-    <string name="download_in_progress">බාගැනීමක් දැනටමත් සිදු වෙමින් පවතී!</string>
-    <string name="download_map_question">සිතියම බාගන්නද %s\?</string>
     <string name="download_instruction">ඔබ https://ftp-stud.hs-esslingen.de හි අන්තර්ගතය නරඹමින් සිටී.</string>
     <string name="track_smoothing_menu">සුමටනය ලුහුබඳින්න</string>
     <string name="error_loading_offline_map">වින්‍යාසගත නොබැඳි සිතියම කියවීමේ දෝෂයකි</string>
     <string name="cancel_download_question">වත්මන් බාගත කිරීම අවලංගු කරනවාද\?</string>
     <string name="delete_theme_error">තේමාව මකාදැමීම අසාර්ථක විය</string>
-    <string name="multi_thread_map_rendering">බහු තෙරපුම් සිතියම් විදැහුම්කරණය</string>
     <string name="menu_advanced">උසස්</string>
     <string name="compass_smoothing_info">ඉහළ අගයන් ශබ්දය අඩු කරයි</string>
     <string name="compass_smoothing_menu">මාලිමා සුමටනය</string>
@@ -35,8 +29,6 @@
     <string name="map_mode_compass">මාලිමා යන්ත්‍රයක් ලෙස සිතියම</string>
     <string name="arrow_mode_direction">ඊතලය චලනය වන දිශාව</string>
     <string name="no_map_configured">ඔබට තවමත් නොබැඳි සිතියමක් වින්‍යාස කර නොමැත.</string>
-    <string name="only_digits">අගය අඩංගු විය යුත්තේ ඉලක්කම් පමණි</string>
-    <string name="track_smoothing_hint">මීටර වලින් සුමට ඉවසීම නිරීක්ෂණය කරන්න</string>
     <string name="track_smoothing_info">ධාවන සුමට ඇල්ගොරිතම සඳහා මීටර වලින් ඉවසීම නිර්වචනය කරන්න. ධාවන සුමටනය අක්‍රිය කිරීමට 0 ඇතුලත් කරන්න.
 \nධාවන පථය නැවත පූරණය කිරීමෙන් පසුව වෙනස් කිරීම බලාත්මක වේ.</string>
     <string name="usage_info">භාවිත <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> භාවිතා කරන්න, ධාවන පථයක් තෝරාගෙන ධාවන පථය පෙන්වීමට සිතියම් නිරූපකය ක්ලික් කරන්න සිතියමේ.</string>
@@ -63,25 +55,15 @@
     <string name="offline_map_info">නොබැඳි සිතියම් <b> සිතියම් බාගැනීම </b> මෙනු හරහා හෝ ඉහත සඳහන් වෙබ් අඩවි වලට පිවිස බාගැනීම් සම්බන්ධක ක්ලික් කිරීමෙන් බාගත හැකිය. සමහර බ්‍රව්සර් (උදා. ෆයර්ෆොක්ස්) සඳහා සම්බන්ධකය මත දිගු ක්ලික් කිරීමක් අවශ්‍ය වන අතර බාහිර යෙදුමේ සම්බන්ධකය විවෘත කර OSMDashboard තෝරා ගන්න.</string>
     <string name="no_file_manager_found">කිසිදු ගොනුව කළමනාකරු සොයාගෙන ඇත</string>
     <string name="error_reg_content_observer">දෝෂයක් මත ලියාපදිංචි OpenTracksContentObserver</string>
-    <string name="zoom_out">විශාලනය කරන්න</string>
-    <string name="zoom_in">විශාලනය කරන්න</string>
     <string name="toggle_full_screen_mode">සම්පූර්ණ තිර මාදිලිය ටොගල් කරන්න</string>
     <string name="share">බෙදාගන්න</string>
     <string name="unit_feet">අඩි</string>
     <string name="unit_kilometer">කි.මී</string>
     <string name="unit_meter">එම්</string>
     <string name="error_crash_title">%1$s බිඳ වැටිණි</string>
-    <string name="no_browser_available">බ්‍රවුසරයක් නොමැත</string>
     <string name="bug_report">දෝෂය වාර්තා කරන්න</string>
-    <string name="persistent_tilecache">නොනැසී පවතින TileCache</string>
-    <string name="purge_tilecache">TileCache පිරිසිදු කරන්න</string>
-    <string name="overdraw_factor">සිතියම අතික්‍රමණය කිරීමේ සාධකය</string>
-    <string name="tilecache_capacity_factor">TileCache ධාරිතාව සාධකය</string>
-    <string name="tilecache_capacity_factor_info">TileCache ධාරිතාව සාධකය නිර්වචනය කරන්න</string>
-    <string name="overdraw_factor_info">සිතියම ඉක්මවා යන සාධකය නිර්වචනය කරන්න</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

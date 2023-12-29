@@ -3,15 +3,12 @@
     <string name="app_name_info_screen">OSM Dashboard
 \nza OpenTracks</string>
     <string name="copyright_osm">Podatki na zemljevidu © sodelavci OpenStreetMap</string>
-    <string name="maps">Zemljevidi</string>
-    <string name="map_themes">Teme zemljevida</string>
     <string name="default_theme">Privzeta tema</string>
     <string name="map_info_menu">O aplikaciji</string>
     <string name="map_folder">Mapa imenik</string>
     <string name="theme_folder">Mapa imenik teme</string>
     <string name="consider_offline_maps">Razmislite o prenosu zemljevida brez povezave, da zmanjšate obremenitev strežnika in prihranite svoj mobilni podatkovni načrt. Nekaj zemljevidov brez povezave je na voljo tukaj:</string>
     <string name="map_theme_info"><b>Nekateri zemljevidi za pravilno prikazovanje potrebujejo posebne teme!</b> Te je treba prenesti in ustrezno konfigurirati.</string>
-    <string name="download_map_question">Prenesite zemljevid %s\?</string>
     <string name="download_instruction">Ogledate si vsebino https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Izberite zemljevid za prenos</string>
     <string name="download_theme">Prenos teme</string>
@@ -31,8 +28,6 @@
     <string name="arrow_mode_compass">Puščica kot kompas</string>
     <string name="arrow_mode_north">Puščica kaže proti severu</string>
     <string name="pip_mode">Slika v načinu slike</string>
-    <string name="only_digits">Vrednost mora vsebovati samo številke</string>
-    <string name="track_smoothing_hint">Toleranca glajenja sledi v metrih</string>
     <string name="track_smoothing_menu">Glajenje tirov</string>
     <string name="error_loading_offline_map">Napaka pri branju konfiguriranega zemljevida brez povezave</string>
     <string name="cancel_download_question">Prekliči trenutni prenos\?</string>
@@ -47,15 +42,12 @@
     <string name="stroke_width_menu">Širina poteze sledi</string>
     <string name="stroke_width_info">Določite širino črtkanja sledi</string>
     <string name="no_map_configured">Zemljevid brez povezave še ni konfiguriran.</string>
-    <string name="multi_thread_map_rendering">Večnitno upodabljanje zemljevidov</string>
     <string name="menu_advanced">Napredni</string>
     <string name="compass_smoothing_info">Višje vrednosti zmanjšajo hrup</string>
     <string name="compass_smoothing_menu">Glajenje kompasa</string>
     <string name="arrow_mode_direction">Smer gibanja puščice</string>
     <string name="track_smoothing_info">Določite toleranco v metrih za algoritem glajenja sledi. Če želite onemogočiti glajenje sledi, vnesite 0.
 \nSprememba začne veljati po ponovnem nalaganju steze.</string>
-    <string name="no_data">Ni prejetih podatkov o tirnici</string>
-    <string name="download_in_progress">Prenos je že v teku!</string>
     <string name="map_online_consent_menu">Soglasje za spletni zemljevid</string>
     <string name="online_map_consent">Zemljevid brez povezave ni konfiguriran. Strinjajte se z uporabo spletnega zemljevida s spletne strani openstreetmap.org. To lahko povzroči, da vaša trenutna lokacija uide. Oglejte si https://operations.osmfoundation.org/policies/tiles/ za uporabo ploščic in politiko zasebnosti.</string>
     <string name="usage_info">Uporabite <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, izberite progo in kliknite ikono zemljevida za prikaz proge na zemljevidu.</string>
@@ -63,25 +55,15 @@
     <string name="offline_map_info">Zemljevide brez povezave lahko prenesete prek menija <b>Prenos zemljevidov</b> ali tako, da obiščete zgoraj navedene spletne strani in kliknete povezave za prenos. V nekaterih brskalnikih (npr. Firefox) je potreben dolg klik na povezavo in Odprite povezavo v zunanji aplikaciji ter nato izberite OSMDashboard.</string>
     <string name="no_file_manager_found">Upravitelj datotek ni bil najden</string>
     <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
-    <string name="zoom_out">Pomanjšanje slike</string>
-    <string name="zoom_in">Povečanje slike</string>
     <string name="toggle_full_screen_mode">Preklapljanje celozaslonskega načina</string>
     <string name="share">Delite</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="no_browser_available">Brskalnik ni na voljo</string>
     <string name="error_crash_title">%1$s se je zrušilo</string>
     <string name="bug_report">Prijava hrošča</string>
-    <string name="tilecache_capacity_factor">Faktor zmogljivosti TileCache</string>
-    <string name="persistent_tilecache">Trajni predpomnilnik TileCache</string>
-    <string name="purge_tilecache">Izčisti predpomnilnik TileCache</string>
-    <string name="overdraw_factor">Faktor prekrivanja zemljevida</string>
-    <string name="tilecache_capacity_factor_info">Opredelitev faktorja zmogljivosti predpomnilnika TileCache</string>
-    <string name="overdraw_factor_info">Opredelitev faktorja prekrivanja karte</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

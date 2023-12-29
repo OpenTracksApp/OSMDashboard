@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Nie odebrano danych o trasie</string>
     <string name="copyright_osm">Dane mapowe © OpenStreetMap contributors</string>
-    <string name="maps">Mapy</string>
-    <string name="map_themes">Tematy map</string>
     <string name="default_theme">Domyślny motyw</string>
     <string name="map_info_menu">O</string>
     <string name="map_folder">Katalog map</string>
     <string name="app_name_info_screen">OSM Dashboard
 \ndla OpenTracks</string>
-    <string name="download_map_question">Ściągnąć mapę %s\?</string>
     <string name="download_instruction">Przeglądasz zawartość strony https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Wybierz mapę do pobrania</string>
     <string name="download_map">Pobieranie mapy</string>
@@ -25,7 +21,6 @@
     <string name="arrow_mode_compass">Strzałka jako kompas</string>
     <string name="arrow_mode_north">Strzałka wskazuje północ</string>
     <string name="pip_mode">Obraz w trybie zdjęć</string>
-    <string name="only_digits">Wartość musi zawierać tylko cyfry</string>
     <string name="track_smoothing_menu">Wygładzanie toru jazdy</string>
     <string name="error_loading_offline_map">Błąd odczytu skonfigurowanej mapy offline</string>
     <string name="cancel_download_question">Anulować bieżące pobieranie\?</string>
@@ -39,11 +34,8 @@
     <string name="map_selection">Mapy</string>
     <string name="download_failed">Pobieranie mapy nie powiodło się</string>
     <string name="download_success">Mapa została pomyślnie pobrana</string>
-    <string name="download_in_progress">Pobieranie jest już w toku!</string>
     <string name="stroke_width_menu">Szerokość skoku ścieżki</string>
-    <string name="multi_thread_map_rendering">Wielowątkowy rendering map</string>
     <string name="arrow_mode_direction">Strzałka kierunku ruchu</string>
-    <string name="track_smoothing_hint">Tolerancja wygładzania ścieżki w metrach</string>
     <string name="track_smoothing_info">Określić tolerancję w metrach dla algorytmu wygładzania ścieżek. Wprowadź 0, aby wyłączyć wygładzanie ścieżki.
 \nZmiana wejdzie w życie po ponownym załadowaniu ścieżki.</string>
     <string name="theme_folder">Katalog tematyczny map</string>
@@ -63,23 +55,13 @@
     <string name="offline_map_info">Mapy offline można pobrać poprzez menu <b>Pobieranie map</b> lub odwiedzając wyżej wymienione strony internetowe i klikając na linki do pobrania. Niektóre przeglądarki (np. Firefox) wymagają długiego kliknięcia na link i polecenia Otwórz link w zewnętrznej aplikacji, a następnie wybrania OSMDashboard.</string>
     <string name="no_file_manager_found">Nie znaleziono menedżera plików</string>
     <string name="error_reg_content_observer">Błąd przy rejestracji OpenTracksContentObserver</string>
-    <string name="zoom_out">Powiększenie</string>
-    <string name="zoom_in">Powiększanie</string>
     <string name="toggle_full_screen_mode">Włącz tryb pełnoekranowy</string>
     <string name="share">Udostępnij</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s się zepsuł</string>
-    <string name="no_browser_available">Przeglądarka nie jest dostępna</string>
     <string name="bug_report">Zgłoś problem</string>
-    <string name="persistent_tilecache">Trwały TileCache</string>
-    <string name="purge_tilecache">Wyczyść TileCache</string>
-    <string name="overdraw_factor">Współczynnik przekroczenia mapy</string>
-    <string name="tilecache_capacity_factor_info">Określenie współczynnika pojemności TileCache</string>
-    <string name="tilecache_capacity_factor">Współczynnik pojemności TileCache</string>
-    <string name="overdraw_factor_info">Określanie współczynnika przerysowania mapy</string>
-    <string name="color_by_speed">Kolor zależny od prędkości</string>
     <string name="unit_kilometer_per_hour">km/h</string>
     <string name="unit_mile">mi</string>
     <string name="unit_mile_per_hour">mi/h</string>
@@ -107,7 +89,6 @@
 \nSegmenty: %5$d
 \nWersja protokołu: %6$d</string>
     <string name="error_reading_trackpoints">Błąd podczas odczytu punktu trasy: %s</string>
-    <string name="read_number_of_trackpoints">Odczytaj %d punktów trasy</string>
     <string name="track_color_mode_uni">Unikolor</string>
     <string name="track_color_mode_by_track">Kolor według ścieżki</string>
     <string name="track_color_mode_by_speed">Kolor według prędkości</string>

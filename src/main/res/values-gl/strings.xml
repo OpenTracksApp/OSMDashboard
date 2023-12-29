@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \npara OpenTracks</string>
-    <string name="no_data">Non se recibiron datos da ruta</string>
     <string name="copyright_osm">© dos datos do mapa: contribuíntes a OpenStreetMap</string>
-    <string name="maps">Mapas</string>
-    <string name="map_themes">Estilo do mapa</string>
     <string name="default_theme">Estilo por omisión</string>
     <string name="map_info_menu">Acerca de</string>
     <string name="map_folder">Directorio de mapas</string>
@@ -21,8 +18,6 @@
     <string name="download_map">Descargar mapa</string>
     <string name="choose_map_to_download">Escolle o mapa a descargar</string>
     <string name="download_instruction">Estás a ver o contido de https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">¿Descargar o mapa %s\?</string>
-    <string name="download_in_progress">Xa hai unha descarga en curso!</string>
     <string name="download_success">Mapa descargado correctamente</string>
     <string name="download_failed">Fallou a descarga do mapa</string>
     <string name="map_selection">Mapas</string>
@@ -35,8 +30,6 @@
     <string name="cancel_download_question">Cancelar a descarga actual\?</string>
     <string name="error_loading_offline_map">Erro ó ler o mapa sen conexión configurado</string>
     <string name="track_smoothing_menu">Suavizado da ruta</string>
-    <string name="track_smoothing_hint">Tolerancia do suavizado da ruta en metros</string>
-    <string name="only_digits">O valor só pode conter díxitos</string>
     <string name="pip_mode">Modo imaxe en imaxe</string>
     <string name="arrow_mode_north">Frecha apunta ó norte</string>
     <string name="arrow_mode_direction">Frecha na dirección do movemento</string>
@@ -47,7 +40,6 @@
     <string name="compass_smoothing_menu">Suavizado do compás</string>
     <string name="compass_smoothing_info">Valores máis altos diminúen o ruido</string>
     <string name="menu_advanced">Avanzado</string>
-    <string name="multi_thread_map_rendering">Presentación multitema do mapa</string>
     <string name="stroke_width_info">Define o ancho do trazo nas rutas</string>
     <string name="overwrite_map_question">O mapa \"%s\" xa existe! Eliminar e descargar de novo\?</string>
     <string name="track_smoothing_info">Definir a tolerancia en metros para o algoritmo de suavizado da ruta. Escribe 0 para desactivalo.
@@ -68,18 +60,8 @@
     <string name="unit_feet">ft</string>
     <string name="share">Compartir</string>
     <string name="toggle_full_screen_mode">Activar modo pantalla completa</string>
-    <string name="zoom_in">Aumentar</string>
-    <string name="zoom_out">Diminuír</string>
     <string name="error_crash_title">%1$s caeu</string>
-    <string name="no_browser_available">Non navegador dispoñible</string>
     <string name="bug_report">Informe de erro</string>
-    <string name="purge_tilecache">Limpar TileCache</string>
-    <string name="persistent_tilecache">TileCache persistente</string>
-    <string name="overdraw_factor">Factor de sobrescritura do mapa</string>
-    <string name="overdraw_factor_info">Definir o factor de sobrescritura do mapa</string>
-    <string name="tilecache_capacity_factor_info">Definir a capacidade do factor TileCache</string>
-    <string name="tilecache_capacity_factor">Factor de capacidade de TileCache</string>
-    <string name="color_by_speed">Cor por vel.</string>
     <string name="unit_mile">mi</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="unit_minute_per_kilometer">min/km</string>
@@ -98,7 +80,6 @@
     <string name="speed_mi_h">Velocidade en mi/h</string>
     <string name="pace_min_mi">Ritmo en min/mi</string>
     <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
-    <string name="read_number_of_trackpoints">Lidos %d puntos da ruta</string>
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
     <string name="track_color">Track color</string>
     <string name="show_pause_markers">Show pause markers</string>

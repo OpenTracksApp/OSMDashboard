@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \npro OpenTracks</string>
-    <string name="no_data">Neobdržena žádna data tras</string>
-    <string name="maps">Mapy</string>
-    <string name="map_themes">Vzhledy map</string>
     <string name="default_theme">Výchozí vzhled</string>
     <string name="map_info_menu">O aplikaci</string>
     <string name="map_folder">Adresář map</string>
@@ -12,8 +9,6 @@
     <string name="app_logo_description">Logo aplikace</string>
     <string name="download_map">Stažení map</string>
     <string name="download_instruction">Zobrazujete obsah z https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Stáhnout mapu %s\?</string>
-    <string name="download_in_progress">Již probíhá jiné stahování!</string>
     <string name="download_success">Mapa úspěšně stažena</string>
     <string name="map_selection">Mapy</string>
     <string name="online_osm_mapnick">Online mapa OSM:Mapnik</string>
@@ -25,7 +20,6 @@
     <string name="overwrite_map_question">Mapa \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
     <string name="cancel_download_question">Přerušit aktuální stahování\?</string>
     <string name="error_loading_offline_map">Chyba načítání vybrané offline mapy</string>
-    <string name="only_digits">Hodnota může obsahovat pouze číslice</string>
     <string name="pip_mode">Mód obraz v obraze</string>
     <string name="arrow_mode_north">Šipka ukazuje k severu</string>
     <string name="arrow_mode_direction">Šipka ukazuje ve směru pohybu</string>
@@ -34,7 +28,6 @@
     <string name="map_mode_direction">Mapa dle směru pohybu</string>
     <string name="map_mode_compass">Mapa jako kompas</string>
     <string name="menu_advanced">Rozšířené</string>
-    <string name="multi_thread_map_rendering">Vícevláknové renderování mapy</string>
     <string name="no_map_configured">Zatím není nakonfigurována žádná offline mapa.</string>
     <string name="copyright_osm">Mapová data © přispěvatelé OpenStreetMap</string>
     <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
@@ -42,7 +35,6 @@
     <string name="compass_smoothing_info">Vyšší hodnoty snižují šum</string>
     <string name="stroke_width_info">Definujte šířku zdvihu Stop</string>
     <string name="compass_smoothing_menu">Kompas vyhlazování</string>
-    <string name="track_smoothing_hint">Tolerance vyhlazení stopy v metrech</string>
     <string name="track_smoothing_menu">Vyhlazení stopy</string>
     <string name="stroke_width_menu">Šířka zdvihu dráhy</string>
     <string name="map_online_consent_menu">Souhlas s mapou Online</string>
@@ -63,25 +55,15 @@
     <string name="overwrite_theme_question">Téma \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
     <string name="no_file_manager_found">Nebyl nalezen správce souborů</string>
     <string name="error_reg_content_observer">Chyba při registraci OpenTracksContentObserver</string>
-    <string name="zoom_out">Zvětšení</string>
-    <string name="zoom_in">Přiblížení</string>
     <string name="toggle_full_screen_mode">Přepnutí režimu celé obrazovky</string>
     <string name="share">Sdílet</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s havarovalo</string>
-    <string name="no_browser_available">Prohlížeč není k dispozici</string>
     <string name="bug_report">Nahlásit chybu</string>
-    <string name="persistent_tilecache">Trvalá mezipaměť TileCache</string>
-    <string name="purge_tilecache">Vyčistit TileCache</string>
-    <string name="overdraw_factor">Faktor překreslení mapy</string>
-    <string name="tilecache_capacity_factor_info">Definice kapacitního faktoru mezipaměti TileCache</string>
-    <string name="tilecache_capacity_factor">Kapacitní faktor TileCache</string>
-    <string name="overdraw_factor_info">Definice faktoru překreslení mapy</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

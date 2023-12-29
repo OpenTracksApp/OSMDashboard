@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nfyrir OpenTracks</string>
-    <string name="no_data">Enginn að fylgjast með gögn fengið</string>
-    <string name="maps">Kort</string>
-    <string name="map_themes">Kort þemum</string>
     <string name="default_theme">Vanræksla þema</string>
     <string name="map_info_menu">Um</string>
     <string name="map_folder">Kort möppu</string>
@@ -17,8 +14,6 @@
     <string name="download_theme">Þema sækja</string>
     <string name="choose_map_to_download">Velja kort til að sækja</string>
     <string name="download_instruction">Þú ert að skoða efni https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Sæktu kort %s\?</string>
-    <string name="download_in_progress">Það er nú þegar sótt í gangi!</string>
     <string name="download_success">Kort tókst að sækja</string>
     <string name="download_failed">Kort sækja mistókst</string>
     <string name="download_theme_success">Þema tókst að sækja</string>
@@ -35,8 +30,6 @@
     <string name="cancel_download_question">Hætta núverandi sækja\?</string>
     <string name="error_loading_offline_map">Villa að lesa stillt ótengdur kort</string>
     <string name="track_smoothing_menu">Fylgjast refur</string>
-    <string name="track_smoothing_hint">Fylgjast refur umburðarlyndi í metra</string>
-    <string name="only_digits">Gildi verður að innihalda aðeins tölustafir</string>
     <string name="pip_mode">Mynd í mynd ham</string>
     <string name="arrow_mode_north">Arrow stig til norður</string>
     <string name="arrow_mode_direction">Arrow átt að flytja</string>
@@ -47,7 +40,6 @@
     <string name="compass_smoothing_menu">Áttavita refur</string>
     <string name="compass_smoothing_info">Hærra gildi draga úr hávaða</string>
     <string name="menu_advanced">Háþróaður</string>
-    <string name="multi_thread_map_rendering">Multithread kort flutningur</string>
     <string name="stroke_width_info">Skilgreina heilablóðfall breidd lögin</string>
     <string name="stroke_width_menu">Fylgjast heilablóðfall breidd</string>
     <string name="no_download_uri_found">Nei URI að sækja komist</string>
@@ -63,25 +55,15 @@
 \nBreytingar koma inn áhrif eftir að endurhlaða brautinni.</string>
     <string name="no_map_configured">Þú hefur ekki ótengdur kort stillt enn.</string>
     <string name="error_reg_content_observer">Villa á skrá OpenTracksContentObserver</string>
-    <string name="zoom_out">Zoom út</string>
-    <string name="zoom_in">Stækka</string>
     <string name="toggle_full_screen_mode">Að skipta á öllum skjánum ham</string>
     <string name="share">Deila</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s hrundi</string>
-    <string name="no_browser_available">Enginn vafri tiltækur</string>
     <string name="bug_report">Tilkynna villu</string>
-    <string name="persistent_tilecache">Viðvarandi</string>
-    <string name="purge_tilecache">Eyða</string>
-    <string name="overdraw_factor">Kort yfirdráttarstuðull</string>
-    <string name="tilecache_capacity_factor_info">Skilgreina Getu þáttur</string>
-    <string name="tilecache_capacity_factor">Getu þáttur</string>
-    <string name="overdraw_factor_info">Skilgreina kort yfirdráttar þáttur</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

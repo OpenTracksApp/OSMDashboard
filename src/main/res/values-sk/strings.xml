@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \npre OpenTracks</string>
-    <string name="no_data">Neprijaté žiadne údaje o trati</string>
     <string name="copyright_osm">Mapové údaje © OpenStreetMap</string>
-    <string name="maps">Mapy</string>
-    <string name="map_themes">Témy mapy</string>
     <string name="default_theme">Východzia téma</string>
     <string name="map_info_menu">O</string>
     <string name="map_folder">Adresár máp</string>
@@ -19,8 +16,6 @@
     <string name="download_theme">Stiahnutie témy</string>
     <string name="choose_map_to_download">Vyberte mapu na prevzatie</string>
     <string name="download_instruction">Prezeráte si obsah stránky https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Prevziať mapu %s\?</string>
-    <string name="download_in_progress">Už sa uskutočňuje sťahovanie!</string>
     <string name="download_success">Úspešné stiahnutie mapy</string>
     <string name="download_failed">Stiahnutie mapy zlyhalo</string>
     <string name="download_theme_success">Téma úspešne stiahnutá</string>
@@ -36,8 +31,6 @@
     <string name="track_smoothing_menu">Vyhladzovanie koľají</string>
     <string name="track_smoothing_info">Definujte toleranciu v metroch pre algoritmus vyhladzovania stopy. Zadaním hodnoty 0 vypnete vyhladzovanie stopy.
 \nZmena sa prejaví po opätovnom načítaní stopy.</string>
-    <string name="track_smoothing_hint">Tolerancia vyhladzovania stopy v metroch</string>
-    <string name="only_digits">Hodnota musí obsahovať iba číslice</string>
     <string name="pip_mode">Obrázok v režime obrazu</string>
     <string name="arrow_mode_north">Šípka ukazuje na sever</string>
     <string name="arrow_mode_direction">Smer pohybu šípok</string>
@@ -48,7 +41,6 @@
     <string name="compass_smoothing_menu">Vyhladenie kompasu</string>
     <string name="compass_smoothing_info">Vyššie hodnoty znižujú šum</string>
     <string name="menu_advanced">Pokročilý</string>
-    <string name="multi_thread_map_rendering">Viacvláknové renderovanie mapy</string>
     <string name="no_map_configured">Zatiaľ nemáte nakonfigurovanú žiadnu offline mapu.</string>
     <string name="stroke_width_info">Definujte šírku ťahu stopy</string>
     <string name="stroke_width_menu">Šírka dráhy</string>
@@ -63,25 +55,15 @@
     <string name="overwrite_theme_question">Téma \"%s\" už existuje! Vymazať a stiahnuť znova\?</string>
     <string name="no_file_manager_found">Nenašiel sa správca súborov</string>
     <string name="error_reg_content_observer">Chyba pri registrácii OpenTracksContentObserver</string>
-    <string name="zoom_out">Zväčšenie</string>
-    <string name="zoom_in">Priblíženie</string>
     <string name="toggle_full_screen_mode">Prepínanie režimu celej obrazovky</string>
     <string name="share">Zdieľať</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="no_browser_available">Prehliadač nie je k dispozícii</string>
     <string name="error_crash_title">%1$s havaroval</string>
     <string name="bug_report">Nahlásiť chybu</string>
-    <string name="persistent_tilecache">Trvalá medzipamäť TileCache</string>
-    <string name="purge_tilecache">Vyčistiť medzipamäť TileCache</string>
-    <string name="overdraw_factor">Faktor prekreslenia mapy</string>
-    <string name="tilecache_capacity_factor_info">Definovanie kapacitného faktora TileCache</string>
-    <string name="tilecache_capacity_factor">Faktor kapacity pamäte TileCache</string>
-    <string name="overdraw_factor_info">Definovať faktor prekreslenia mapy</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

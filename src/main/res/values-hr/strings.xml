@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Podaci o stazi nisu primljeni</string>
     <string name="copyright_osm">Podaci o karti © članovi OpenStreetMap</string>
-    <string name="maps">Karte</string>
-    <string name="map_themes">Teme karata</string>
     <string name="default_theme">Zadana tema</string>
     <string name="map_info_menu">Oh</string>
     <string name="map_folder">Katalog karata</string>
@@ -16,8 +13,6 @@
     <string name="download_theme">Preuzmite temu</string>
     <string name="choose_map_to_download">Odaberite karticu za preuzimanje</string>
     <string name="download_instruction">Pregledavate sadržaj https://ftp-stud.hs-esslingen.de hej.</string>
-    <string name="download_map_question">Preuzimanje karte %s\?</string>
-    <string name="download_in_progress">Preuzimanje je već u tijeku!</string>
     <string name="download_success">Kartica je uspješno učitana</string>
     <string name="download_theme_success">Tema je uspješno preuzeta</string>
     <string name="download_theme_failed">Nije moguće učitati temu</string>
@@ -32,8 +27,6 @@
     <string name="track_smoothing_menu">Izglađivanje staze</string>
     <string name="track_smoothing_info">Odredite toleranciju u metrima za algoritam za izravnavanje staze. Unesite 0 da biste onemogućili zaglađivanje staze.
 \nPromjene stupaju na snagu nakon ponovnog pokretanja staze.</string>
-    <string name="track_smoothing_hint">Tolerancija izglađivanja staze u metrima</string>
-    <string name="only_digits">Vrijednost mora sadržavati samo brojeve</string>
     <string name="pip_mode">Slika u načinu slike</string>
     <string name="arrow_mode_north">Strelica pokazuje prema sjeveru</string>
     <string name="arrow_mode_direction">Smjer kretanja strelice</string>
@@ -44,7 +37,6 @@
     <string name="compass_smoothing_menu">Izglađivanje preko kompasa</string>
     <string name="compass_smoothing_info">Veće vrijednosti smanjuju razinu buke</string>
     <string name="menu_advanced">Napredno</string>
-    <string name="multi_thread_map_rendering">Multithreaded renderiranje kartice</string>
     <string name="no_map_configured">Još niste postavili izvanmrežnu kartu.</string>
     <string name="stroke_width_info">Odredite širinu trake</string>
     <string name="stroke_width_menu">Širina hoda gusjenice</string>
@@ -63,25 +55,15 @@
     <string name="delete_theme_error">Nije moguće ukloniti temu</string>
     <string name="overwrite_theme_question">Tema\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
     <string name="error_reg_content_observer">Greška prilikom registracije OpenTracksContentObserver</string>
-    <string name="zoom_out">Smanjivanje</string>
-    <string name="zoom_in">Povećaj</string>
     <string name="toggle_full_screen_mode">Prebacivanje cijelog zaslona</string>
     <string name="share">Podijeli</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s srušen</string>
-    <string name="no_browser_available">Nema dostupnog preglednika</string>
     <string name="bug_report">Prijavi pogrešku</string>
-    <string name="persistent_tilecache">Trajna predmemorija pločica</string>
-    <string name="purge_tilecache">Očistite predmemoriju pločica</string>
-    <string name="overdraw_factor">Faktor ponovnog crtanja karte</string>
-    <string name="tilecache_capacity_factor_info">Odredite faktor kapaciteta predmemorije pločica</string>
-    <string name="tilecache_capacity_factor">Faktor kapaciteta predmemorije pločica</string>
-    <string name="overdraw_factor_info">Odredite faktor ponovnog crtanja karte</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="zoom_in">縮小</string>
-    <string name="tilecache_capacity_factor_info">定義 TileCache 容量係數</string>
-    <string name="maps">地圖</string>
     <string name="download_instruction">您正在檢視 https://ftp-stud.hs-esslingen.de 的內容。</string>
     <string name="pip_mode">子母畫面</string>
     <string name="unit_minute_per_mile">分鐘/英里</string>
@@ -11,9 +8,7 @@
     <string name="track_color">蹤跡色彩</string>
     <string name="map_online_consent_menu">同意使用線上地圖</string>
     <string name="unit_meter">公尺</string>
-    <string name="read_number_of_trackpoints">讀取 %d 蹤跡點</string>
     <string name="default_theme">預設主題</string>
-    <string name="overdraw_factor_info">定義地圖過度繪製係數</string>
     <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>,，選擇一個蹤跡並點擊地圖圖示以在地圖上顯示蹤跡。</string>
     <string name="overwrite_map_question">\"%s\" 地圖已經存在！是否刪除並再次下載？</string>
     <string name="error_reg_content_observer">在註冊 OpenTracksContentObserver 時發生錯誤</string>
@@ -22,19 +17,15 @@
     <string name="show_pause_markers">顯示暫停標誌</string>
     <string name="pace_min_mi">配速（分鐘/英里）</string>
     <string name="speed_mi_h">速度（英里/小時）</string>
-    <string name="tilecache_capacity_factor">TileCache 容量係數</string>
     <string name="arrow_mode">箭頭方向</string>
     <string name="map_info_menu">關於</string>
     <string name="track_color_mode_uni">單色</string>
     <string name="map_settings">地圖</string>
-    <string name="only_digits">值必須僅包含數字</string>
     <string name="online_osm_mapnick">線上地圖 OSM:Mapnik</string>
-    <string name="color_by_speed">根據速度上色</string>
     <string name="stroke_width_info">定義蹤跡的筆畫寬度</string>
     <string name="osm_info">預設的地圖由 <b><a href="https://openstreetmap.org">OpenStreetMap.org 提供</a></b>。加入社群並幫助改善該地圖，請見 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>。</string>
     <string name="map_mode_north_top">地圖北方朝上</string>
     <string name="track_smoothing_menu">蹤跡平滑化</string>
-    <string name="track_smoothing_hint">蹤跡平滑化公差（公尺）</string>
     <string name="arrow_mode_compass">箭頭作為羅盤</string>
     <string name="cancel_download_question">是否要取消目前的下載？</string>
     <string name="version_info"><b>版本：</b> %s - %s (%d)</string>
@@ -44,13 +35,10 @@
     <string name="arrow_mode_direction">箭頭指向移動方向</string>
     <string name="delete_theme_question">是否刪除 \"%s\" 主題？</string>
     <string name="unit_feet">英尺</string>
-    <string name="overdraw_factor">地圖過度繪製係數</string>
     <string name="elevation_feet">海拔提升（英尺）</string>
     <string name="map_folder">地圖目錄</string>
     <string name="no_file_manager_found">沒有發現檔案管理器</string>
     <string name="speed_km_h">速度（公里/小時）</string>
-    <string name="download_in_progress">已經有一個下載正在進行中！</string>
-    <string name="persistent_tilecache">持久 TileCache</string>
     <string name="configure_statistic">組態統計資料</string>
     <string name="online_map_consent_info">使用來自 openstreetmap.org 可能會洩漏您目前的位置。在使用前您需要同意。</string>
     <string name="total_time">總時間</string>
@@ -81,10 +69,6 @@
     <string name="online_map_consent">沒有配置離線組態。請同意使用來自 openstreetmap.org 的離線地圖。這可能會洩漏您目前的位置。請見 https://operations.osmfoundation.org/policies/tiles/ 對於圖磚使用與隱私權政策。</string>
     <string name="toggle_full_screen_mode">切換全螢幕模式</string>
     <string name="arrow_mode_north">箭頭指向北方</string>
-    <string name="zoom_out">放大</string>
-    <string name="multi_thread_map_rendering">多執行緒地圖渲染</string>
-    <string name="no_data">沒有接收到蹤跡資料</string>
-    <string name="map_themes">地圖主題</string>
     <string name="title_activity_settings">設定</string>
     <string name="theme_selection">地圖主題</string>
     <string name="compass_smoothing_menu">羅盤指向平順</string>
@@ -93,7 +77,6 @@
     <string name="delete_map_error">地圖刪除失敗</string>
     <string name="distance_mi">距離（英里）</string>
     <string name="unit_minute_per_kilometer">分鐘/公里</string>
-    <string name="download_map_question">是否下載 %s 地圖？</string>
     <string name="map_mode_direction">地圖朝向移動方向</string>
     <string name="download_failed">地圖下載失敗</string>
     <string name="track_smoothing_info">以公尺為單位定義蹤跡平滑演算法的公差。設定為 0 以禁用蹤跡平滑化。</string>
@@ -103,10 +86,8 @@
     <string name="app_logo_description">應用程式圖示</string>
     <string name="download_theme">主題下載</string>
     <string name="overwrite_theme_question">\"%s\" 主題已經存在！是否刪除並再次下載？</string>
-    <string name="purge_tilecache">清除 TileCache</string>
     <string name="download_map">地圖下載</string>
     <string name="general_settings_category_title">一般</string>
-    <string name="no_browser_available">沒有可用的瀏覽器</string>
     <string name="category">類別</string>
     <string name="track_color_mode_by_track">根據蹤跡上色</string>
     <string name="share">分享</string>

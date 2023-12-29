@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nдля OpenTracks</string>
-    <string name="no_data">Дані треку не отримані</string>
-    <string name="maps">Мапи</string>
     <string name="default_theme">Тема за замовчуванням</string>
-    <string name="map_themes">Тема мапи</string>
     <string name="map_info_menu">Про додаток</string>
     <string name="map_folder">Тека з мапами</string>
     <string name="theme_folder">Тека з темами мап</string>
@@ -14,7 +11,6 @@
     <string name="map_online_consent_menu">Погодитися на онлайн-карту</string>
     <string name="download_map">Завантажити мапу</string>
     <string name="choose_map_to_download">Виберіть мапу для завантаження</string>
-    <string name="download_in_progress">Завантаження вже триває!</string>
     <string name="online_osm_mapnick">Онлайн мапа OSM:Mapnik</string>
     <string name="delete_map_question">Видалити мапу \"%s\"\?</string>
     <string name="delete_map_error">Не вдалося видалити мапу</string>
@@ -23,11 +19,8 @@
     <string name="cancel_download_question">Скасувати поточне завантаження\?</string>
     <string name="error_loading_offline_map">Помилка читання налаштованої офлайн-мапи</string>
     <string name="track_smoothing_menu">Згладжування треків</string>
-    <string name="download_map_question">Завантажити мапу %s\?</string>
     <string name="download_success">Мапа успішно завантажена</string>
     <string name="map_selection">Мапи</string>
-    <string name="track_smoothing_hint">Допуск на згладжування треків у метрах</string>
-    <string name="only_digits">Значення має містити лише цифри</string>
     <string name="pip_mode">Режим «Картинка в картинці»</string>
     <string name="arrow_mode_north">Стрілка вказує на північ</string>
     <string name="arrow_mode_compass">Стрілка як компас</string>
@@ -36,7 +29,6 @@
     <string name="compass_smoothing_menu">Згладжування компаса</string>
     <string name="compass_smoothing_info">Більш високі значення зменшують шум</string>
     <string name="menu_advanced">Розширені</string>
-    <string name="multi_thread_map_rendering">Мультипотоковий рендер мапи</string>
     <string name="no_map_configured">У вас ще не налаштовано офлайн-мапи.</string>
     <string name="stroke_width_info">Вкажіть товщину лінії треку</string>
     <string name="stroke_width_menu">Товщина лінії</string>
@@ -63,21 +55,12 @@
     <string name="no_file_manager_found">Файловий менеджер не знайдено</string>
     <string name="error_reg_content_observer">Помилка при реєстрації OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Перемикання повноекранного режиму</string>
-    <string name="zoom_out">Зменшити</string>
-    <string name="zoom_in">Збільшити</string>
     <string name="share">Ділитися</string>
     <string name="unit_feet">фут</string>
     <string name="unit_kilometer">км</string>
     <string name="unit_meter">м</string>
     <string name="error_crash_title">%1$s зазнав краху</string>
-    <string name="no_browser_available">Немає доступного браузера</string>
     <string name="bug_report">Повідомити про помилку</string>
-    <string name="persistent_tilecache">Постійний кеш TileCache</string>
-    <string name="purge_tilecache">Очистити TileCache</string>
-    <string name="overdraw_factor">Коефіцієнт перерисовки мапи</string>
-    <string name="tilecache_capacity_factor_info">Визначення коефіцієнту ємності TileCache</string>
-    <string name="tilecache_capacity_factor">Коефіцієнт ємності TileCache</string>
-    <string name="overdraw_factor_info">Визначте коефіцієнт перерисовки мапи</string>
     <string name="unit_minute_per_mile">хв/милю</string>
     <string name="pace_min_km">Темп у хв/км</string>
     <string name="pace_min_mi">Темп у хв/милю</string>
@@ -100,11 +83,9 @@
     <string name="category">Категорія</string>
     <string name="moving_time">Час у дорозі</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="track_color_mode_uni">Unicolor</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="elevation_feet">Elevation gain in feet</string>
     <string name="configure_statistic">Configure statistic</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>

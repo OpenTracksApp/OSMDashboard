@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \npara OpenTracks</string>
-    <string name="no_data">No se ha recibido ninguna pista</string>
-    <string name="maps">Mapas</string>
-    <string name="map_themes">Temas de mapa</string>
     <string name="default_theme">Tema por defecto</string>
     <string name="map_info_menu">Acerca de</string>
     <string name="map_folder">Carpeta de mapas</string>
@@ -15,8 +12,6 @@
     <string name="download_map">Mapa descargado</string>
     <string name="choose_map_to_download">Elige un mapa para descargar</string>
     <string name="download_instruction">Estás viendo contenido de https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">¿Descargar mapa %s\?</string>
-    <string name="download_in_progress">¡Ya hay una descarga en proceso!</string>
     <string name="download_success">Mapa descargado correctamente</string>
     <string name="download_failed">Falló la descarga del mapa</string>
     <string name="map_selection">Mapas</string>
@@ -46,11 +41,8 @@
     <string name="compass_smoothing_menu">Suavizado de brújula</string>
     <string name="compass_smoothing_info">Valores más altos reducen el ruido</string>
     <string name="menu_advanced">Avanzado</string>
-    <string name="multi_thread_map_rendering">Representación de mapas multiproceso</string>
     <string name="stroke_width_info">Definir el ancho de trazo de las pistas</string>
     <string name="stroke_width_menu">Anchura del movimiento de la pista</string>
-    <string name="track_smoothing_hint">Tolerancia de suavizado de pista en metros</string>
-    <string name="only_digits">El valor debe contener solo dígitos</string>
     <string name="map_mode_direction">Mapa de dirección de movimiento</string>
     <string name="no_map_configured">Todavía no tiene ningún mapa sin conexión configurado.</string>
     <string name="offline_map_info">Los mapas sin conexión pueden descargarse desde la aplicación. Vaya a los ajustes y elija <b>Descarga de mapas</b> o visitando los sitios web mencionados anteriormente y haciendo clic en los enlaces de descarga. Algunos navegadores (por ejemplo, Firefox) requieren un clic largo en el enlace y Abrir enlace en la aplicación externa y luego elegir OSMDashboard.</string>
@@ -62,25 +54,14 @@
     <string name="startDownload">Empezar a descargar</string>
     <string name="no_file_manager_found">No se ha encontrado ningún gestor de archivos</string>
     <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
-    <string name="zoom_out">Alejar el zoom</string>
-    <string name="zoom_in">Ampliar la imagen</string>
     <string name="toggle_full_screen_mode">Activar el modo de pantalla completa</string>
     <string name="share">Compartir</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s se estrelló</string>
-    <string name="no_browser_available">No hay navegador disponible</string>
     <string name="bug_report">Informar de un error</string>
-    <string name="persistent_tilecache">TileCache persistente</string>
-    <string name="purge_tilecache">Purga de TileCache</string>
-    <string name="overdraw_factor">Factor de sobretrazado del mapa</string>
-    <string name="tilecache_capacity_factor_info">Definir el factor de capacidad del TileCache</string>
-    <string name="tilecache_capacity_factor">Factor de capacidad de TileCache</string>
-    <string name="overdraw_factor_info">Definir el factor de sobredimensión del mapa</string>
-    <string name="color_by_speed">Color según la velocidad</string>
     <string name="error_reading_trackpoints">Error al leer los puntos de la ruta: %s</string>
-    <string name="read_number_of_trackpoints">Leer %d puntos de la ruta</string>
     <string name="unit_kilometer_per_hour">km/h</string>
     <string name="unit_mile">mi</string>
     <string name="unit_mile_per_hour">mph</string>

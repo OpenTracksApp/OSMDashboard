@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nfür OpenTracks</string>
-    <string name="no_data">Keine Track-Daten empfangen</string>
     <string name="copyright_osm">Kartendaten © OpenStreetMap Mitwirkende</string>
-    <string name="maps">Karten</string>
-    <string name="map_themes">Kartendesigns</string>
     <string name="default_theme">Standarddesign</string>
     <string name="map_info_menu">Über</string>
     <string name="map_folder">Karten-Verzeichnis</string>
@@ -22,8 +19,6 @@
     <string name="download_map">Karten herunterladen</string>
     <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
     <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Karte %s herunterladen\?</string>
-    <string name="download_in_progress">Ein Download läuft bereits!</string>
     <string name="download_success">Karte erfolgreich heruntergeladen</string>
     <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
     <string name="map_selection">Karten</string>
@@ -38,8 +33,6 @@
     <string name="error_loading_offline_map">Fehler beim Lesen der konfigurierten Offline-Karte</string>
     <string name="track_smoothing_menu">Tracks glätten</string>
     <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.</string>
-    <string name="track_smoothing_hint">Toleranz der Track-Glättung in Meter</string>
-    <string name="only_digits">Der Wert darf nur aus Ziffern bestehen</string>
     <string name="pip_mode">Bild in Bild Modus</string>
     <string name="arrow_mode_north">Pfeil zeigt nach Norden</string>
     <string name="arrow_mode_direction">Pfeil in Bewegungsrichtung</string>
@@ -50,7 +43,6 @@
     <string name="compass_smoothing_menu">Kompass Glättung</string>
     <string name="compass_smoothing_info">Höhere Werte reduzieren das Rauschen</string>
     <string name="menu_advanced">Erweitert</string>
-    <string name="multi_thread_map_rendering">Multithread Karten-Rendering</string>
     <string name="no_map_configured">Du hast noch keine Offline-Karte konfiguriert.</string>
     <string name="stroke_width_info">Definiere die Strichbreite der Tracks</string>
     <string name="stroke_width_menu">Strichbreite der Tracks</string>
@@ -64,21 +56,11 @@
     <string name="error_reg_content_observer">Fehler bei der Registrierung von OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Vollbildmodus einschalten</string>
     <string name="share">Teilen</string>
-    <string name="zoom_in">Vergrößern</string>
-    <string name="zoom_out">Verkleinern</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s ist abgestürzt</string>
-    <string name="no_browser_available">Kein Browser vorhanden</string>
     <string name="bug_report">Fehler melden</string>
-    <string name="purge_tilecache">TileCache säubern</string>
-    <string name="persistent_tilecache">Persistenter TileCache</string>
-    <string name="overdraw_factor_info">Überzeichnungsfaktor der Karte definieren</string>
-    <string name="overdraw_factor">Überzeichnungsfaktor der Karte</string>
-    <string name="tilecache_capacity_factor_info">Definiere den TileCache-Nutzungsgrad</string>
-    <string name="tilecache_capacity_factor">TileCache-Nutzungsgrad</string>
-    <string name="color_by_speed">Nach Geschwindigkeit einfärben</string>
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="configure_statistic">Statistik konfigurieren</string>
@@ -104,7 +86,6 @@
 \nWegpunkte Pause: %4$d
 \nSegmente: %5$d
 \nProtokolversion: %6$d</string>
-    <string name="read_number_of_trackpoints">%d Wegpunkte eingelesen</string>
     <string name="error_reading_trackpoints">Fehler beim lesen der Wegpunkte: %s</string>
     <string name="track_color">Trackfarbe</string>
     <string name="show_pause_markers">Pause Markierungen anzeigen</string>

@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \nvietnē OpenTracks</string>
-    <string name="no_data">Nav saņemti ceļa dati</string>
-    <string name="maps">Kartes</string>
-    <string name="map_themes">Kartes tēmas</string>
     <string name="default_theme">Noklusējuma temats</string>
     <string name="map_info_menu">Par</string>
     <string name="map_folder">Karšu katalogs</string>
@@ -17,12 +14,9 @@
     <string name="download_theme">Tēmas lejupielāde</string>
     <string name="choose_map_to_download">Izvēlieties karti lejupielādei</string>
     <string name="download_instruction">Jūs skatāties https://ftp-stud.hs-esslingen.de saturu.</string>
-    <string name="download_map_question">Lejuplādēt karti %s\?</string>
-    <string name="download_in_progress">Lejupielāde jau notiek!</string>
     <string name="download_success">Veiksmīgi lejupielādēta karte</string>
     <string name="download_failed">Kartes lejupielāde neizdevās</string>
     <string name="app_logo_description">Aplikācijas logotips</string>
-    <string name="track_smoothing_hint">Trases izlīdzināšanas pielaide metros</string>
     <string name="track_smoothing_info">Noteikt pielaidi metros trases izlīdzināšanas algoritmam. Ievadiet 0, lai atspējotu sliežu izlīdzināšanu.
 \nIzmaiņas stājas spēkā pēc celiņa ielādēšanas.</string>
     <string name="track_smoothing_menu">Trases izlīdzināšana</string>
@@ -36,7 +30,6 @@
     <string name="stroke_width_menu">Sliedes gājiena platums</string>
     <string name="stroke_width_info">Definēt sliedes svītru platumu</string>
     <string name="no_map_configured">Jums vēl nav konfigurēta bezsaistes karte.</string>
-    <string name="multi_thread_map_rendering">Daudzpavedienu karšu atveidošana</string>
     <string name="compass_smoothing_info">Lielākas vērtības samazina troksni</string>
     <string name="download_theme_success">Tēma veiksmīgi lejupielādēta</string>
     <string name="download_theme_failed">Tēmas lejupielāde neizdevās</string>
@@ -46,7 +39,6 @@
     <string name="delete_map_error">Kartes dzēšana nav izdevusies</string>
     <string name="theme_selection">Kartes tēmas</string>
     <string name="delete_theme_question">Dzēst tēmu \"%s\"\?</string>
-    <string name="only_digits">Vērtībā jābūt tikai cipariem</string>
     <string name="pip_mode">Attēla attēla režīmā</string>
     <string name="arrow_mode_north">Bulta norāda uz ziemeļiem</string>
     <string name="arrow_mode_direction">Bultu kustības virziens</string>
@@ -63,25 +55,15 @@
     <string name="online_map_consent">Nav konfigurēta bezsaistes karte. Lūdzu, piekrītiet izmantot tiešsaistes karti no openstreetmap.org. Tas var noplūdināt jūsu pašreizējo atrašanās vietu. Skatiet https://operations.osmfoundation.org/policies/tiles/ par flīžu lietošanu un privātuma politiku.</string>
     <string name="no_file_manager_found">Failu pārvaldnieks nav atrasts</string>
     <string name="error_reg_content_observer">Kļūda, reģistrējot OpenTracksContentObserver</string>
-    <string name="zoom_out">Palielināt attālumu</string>
-    <string name="zoom_in">Pietuvināt attēlu</string>
     <string name="toggle_full_screen_mode">Pārslēgt pilnekrāna režīmu</string>
     <string name="share">Dalīties</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s avārija</string>
-    <string name="no_browser_available">Nav pieejams pārlūks</string>
     <string name="bug_report">Paziņot par kļūdu</string>
-    <string name="persistent_tilecache">Pastāvīgā TileCache</string>
-    <string name="purge_tilecache">TileCache tīrīšana</string>
-    <string name="overdraw_factor">Kartes pārvilkšanas koeficients</string>
-    <string name="tilecache_capacity_factor">TileCache jaudas koeficients</string>
-    <string name="overdraw_factor_info">Definēt kartes pārvilkšanas koeficientu</string>
-    <string name="tilecache_capacity_factor_info">Definēt TileCache jaudas koeficientu</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

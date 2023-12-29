@@ -5,10 +5,7 @@
     <string name="moving_time">运动时间</string>
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="unit_mile_per_hour">英里每小时</string>
-    <string name="no_data">未收到轨迹数据</string>
     <string name="copyright_osm">地图数据由©OpenStreetMap提供</string>
-    <string name="maps">地图</string>
-    <string name="map_themes">地图主题</string>
     <string name="default_theme">默认主题</string>
     <string name="map_info_menu">关于</string>
     <string name="map_folder">离线地图路径</string>
@@ -25,8 +22,6 @@
     <string name="download_theme">主题下载</string>
     <string name="choose_map_to_download">选择一个地图以下载</string>
     <string name="download_instruction">您查看的内容来自https://ftp-stud.hs-esslingen.de。</string>
-    <string name="download_map_question">是否下载 %s的地图\?</string>
-    <string name="download_in_progress">已经存在 一个下载中的任务！</string>
     <string name="download_success">地图下载成功</string>
     <string name="download_failed">地图下载失败</string>
     <string name="download_theme_failed">主题下载失败</string>
@@ -40,8 +35,6 @@
     <string name="cancel_download_question">取消当前下载？</string>
     <string name="error_loading_offline_map">读取配置的在线地图失败</string>
     <string name="track_smoothing_menu">轨迹平滑</string>
-    <string name="track_smoothing_hint">轨迹平滑公差（以米为单位）</string>
-    <string name="only_digits">填入的值必须仅包含数字</string>
     <string name="pip_mode">画中画模式</string>
     <string name="arrow_mode_north">箭头朝北</string>
     <string name="arrow_mode_direction">箭头跟随指向</string>
@@ -52,9 +45,6 @@
     <string name="compass_smoothing_menu">指南针指向平滑</string>
     <string name="compass_smoothing_info">高度数据降噪</string>
     <string name="menu_advanced">高级选项</string>
-    <string name="multi_thread_map_rendering">多线程地图渲染</string>
-    <string name="persistent_tilecache">保存缓存数据</string>
-    <string name="purge_tilecache">清除缓存数据</string>
     <string name="stroke_width_info">定义轨迹的描边宽度</string>
     <string name="stroke_width_menu">轨道描边宽度</string>
     <string name="no_download_uri_found">没有找到URI下载链接</string>
@@ -65,15 +55,8 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="share">分享</string>
     <string name="toggle_full_screen_mode">切换全屏模式</string>
-    <string name="zoom_in">放大</string>
-    <string name="zoom_out">缩小</string>
     <string name="error_crash_title">%1$s 崩溃</string>
-    <string name="no_browser_available">没有可用的浏览器</string>
     <string name="bug_report">报告问题</string>
-    <string name="overdraw_factor_info">定义地图过度绘制因数</string>
-    <string name="tilecache_capacity_factor_info">定义瓦片地图缓存保存因数</string>
-    <string name="tilecache_capacity_factor">瓦片地图缓存保存因数</string>
-    <string name="color_by_speed">颜色关联速度</string>
     <string name="configure_statistic">配置统计信息</string>
     <string name="category">类别</string>
     <string name="total_time">总时间</string>
@@ -86,7 +69,6 @@
     <string name="elevation_feet">海拔增益（以英尺为单位）</string>
     <string name="distance_mi">距离（英里）</string>
     <string name="version_info"><b>版本:</b> %s - %s (%d)</string>
-    <string name="read_number_of_trackpoints">读取 %d 轨迹点</string>
     <string name="debug_trackpoints">调试轨迹点</string>
     <string name="track_color">轨迹颜色</string>
     <string name="track_color_mode_uni">单色</string>
@@ -103,7 +85,6 @@
     <string name="no_map_configured">您还没有配置离线地图。</string>
     <string name="no_file_manager_found">没有找到文件管理器</string>
     <string name="error_reg_content_observer">注册OpenTracksContentObserver失败</string>
-    <string name="overdraw_factor">地图过度绘制因数</string>
     <string name="error_reading_trackpoints">加载轨迹点错误: %s</string>
     <string name="debug_trackpoints_info">轨迹点接收: %1$d
 \n轨迹点无效: %2$d

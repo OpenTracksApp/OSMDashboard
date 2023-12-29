@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \ntil OpenTracks</string>
-    <string name="no_data">Ingen spor data modtaget</string>
     <string name="copyright_osm">Kortdata © OpenStreetMap contributors</string>
-    <string name="maps">Kortlægge</string>
-    <string name="map_themes">Kort temaer</string>
     <string name="default_theme">Standard tema</string>
     <string name="map_info_menu">Om</string>
     <string name="map_folder">Kort oversigt</string>
@@ -21,8 +18,6 @@
     <string name="download_map">Kort do downloadnload</string>
     <string name="choose_map_to_download">Vælg et kort, der skal do mapnloades</string>
     <string name="download_instruction">Du ser indholdet af https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Hent kort %s\?</string>
-    <string name="download_in_progress">Der er allerede en Do !nload i gang!</string>
     <string name="download_success">Kort med succes do successfullynloadet</string>
     <string name="download_failed">Kort do downloadnload mislykkedes</string>
     <string name="map_selection">Kortlægge</string>
@@ -36,8 +31,6 @@
     <string name="cancel_download_question">Annuller nuværende download\?</string>
     <string name="error_loading_offline_map">Fejl læsning konfigureret offline kort</string>
     <string name="track_smoothing_menu">Spor udjævning</string>
-    <string name="track_smoothing_hint">Spor udjævningstolerance i meter</string>
-    <string name="only_digits">Værdien må kun indeholde cifre</string>
     <string name="pip_mode">Billede i billedtilstand</string>
     <string name="arrow_mode_north">Pilen peger mod nord</string>
     <string name="arrow_mode_direction">Pil bevægende retning</string>
@@ -47,7 +40,6 @@
     <string name="compass_smoothing_menu">Kompas udjævning</string>
     <string name="compass_smoothing_info">Højere værdier reducerer støj</string>
     <string name="menu_advanced">Avanceret</string>
-    <string name="multi_thread_map_rendering">Multithread kort rendering</string>
     <string name="stroke_width_info">Definer stregbredden af sporene</string>
     <string name="stroke_width_menu">Spor slagtilfælde bredde</string>
     <string name="track_smoothing_info">Definer tolerancen i meter for sporudjævningsalgoritmen. Indtast 0 for at deaktivere sporudjævning.
@@ -63,25 +55,15 @@
     <string name="offline_map_info">Offlinekort kan downloades via menuen <b>Kort download</b> eller ved at besøge de ovennævnte websteder og klikke på downloadlinks. Nogle browsere (f.eks. Firefox) kræver et langt klik på linket og Open link in external app og vælg derefter OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhåndtering fundet</string>
     <string name="error_reg_content_observer">Fejl ved registrering af OpenTracksContentObserver</string>
-    <string name="zoom_in">Zoom ind</string>
     <string name="toggle_full_screen_mode">Slå fuldskærmstilstand fra</string>
     <string name="share">Del</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="zoom_out">Zoome ud</string>
     <string name="bug_report">Rapportere fejl</string>
     <string name="error_crash_title">%1$s gik ned</string>
-    <string name="no_browser_available">Ingen browser tilgængelig</string>
-    <string name="overdraw_factor">Overtrækningsfaktor for kort</string>
-    <string name="tilecache_capacity_factor_info">Definer TileCache-kapacitetsfaktor</string>
-    <string name="tilecache_capacity_factor">TileCache-kapacitetsfaktor</string>
-    <string name="persistent_tilecache">Vedvarende TileCache</string>
-    <string name="purge_tilecache">Rens TileCache</string>
-    <string name="overdraw_factor_info">Definer overtrækningsfaktor for kort</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

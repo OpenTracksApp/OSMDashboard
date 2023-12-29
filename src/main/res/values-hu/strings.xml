@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
 \naz OpenTracks</string>
-    <string name="no_data">Nem érkezett pályaadat</string>
     <string name="copyright_osm">Térképadatok © OpenStreetMap contributors</string>
-    <string name="maps">Térképek</string>
-    <string name="map_themes">Térkép témák</string>
     <string name="map_info_menu">Ról ről</string>
     <string name="map_folder">Térkép könyvtár</string>
     <string name="theme_folder">Térkép téma könyvtár</string>
@@ -14,7 +11,6 @@
     <string name="map_online_consent_menu">Online térkép hozzájárulás</string>
     <string name="app_logo_description">Alkalmazás logó</string>
     <string name="stroke_width_info">Határozza meg a sávok szélességét</string>
-    <string name="multi_thread_map_rendering">Többszálú térkép renderelés</string>
     <string name="menu_advanced">Haladó</string>
     <string name="compass_smoothing_info">A magasabb értékek csökkentik a zajt</string>
     <string name="compass_smoothing_menu">Iránytű simítás</string>
@@ -24,7 +20,6 @@
     <string name="arrow_mode_compass">Nyíl, mint iránytű</string>
     <string name="arrow_mode_north">A nyíl észak felé mutat</string>
     <string name="pip_mode">Kép kép módban</string>
-    <string name="only_digits">Az értéknek csak számjegyeket kell tartalmaznia</string>
     <string name="track_smoothing_menu">Pálya simítás</string>
     <string name="error_loading_offline_map">Hiba a konfigurált offline térkép olvasásakor</string>
     <string name="cancel_download_question">Törölje az aktuális letöltést\?</string>
@@ -38,13 +33,11 @@
     <string name="map_selection">Térképek</string>
     <string name="download_failed">A térkép letöltése sikertelen</string>
     <string name="download_success">Térkép sikeresen letöltött</string>
-    <string name="download_map_question">Térkép letöltése %s\?</string>
     <string name="download_instruction">Ön a tartalom megtekintése https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Válasszon egy térképet a letöltéshez</string>
     <string name="stroke_width_menu">A pálya szélessége</string>
     <string name="no_map_configured">Még nincs konfigurálva offline térkép.</string>
     <string name="arrow_mode_direction">Nyíl mozgó irány</string>
-    <string name="track_smoothing_hint">Pálya simító tolerancia méterben</string>
     <string name="track_smoothing_info">Adja meg a tűréshatárt méterben a sávsimító algoritmus számára. Írja be a 0-t a sávsimítás letiltásához.
 \nA változás a pálya újratöltése után lép hatályba.</string>
     <string name="default_theme">Alapértelmezett téma</string>
@@ -53,7 +46,6 @@
     <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését a szerver terhelésének csökkentése és a mobil adatcsomag mentése érdekében. Néhány offline térkép megtalálható itt:</string>
     <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez!</b> Ezeket le kell tölteni és ennek megfelelően kell konfigurálni.</string>
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
-    <string name="download_in_progress">Már folyamatban van egy letöltés!</string>
     <string name="startDownload">Letöltés indítása</string>
     <string name="no_download_uri_found">Nincs letölthető URI</string>
     <string name="overwrite_theme_question">A \"%s\" téma már létezik! Törölje és töltse le újra\?</string>
@@ -63,25 +55,15 @@
     <string name="offline_map_info">Az offline térképek letölthetők a <b>Térkép letöltése</b> menüponton keresztül, vagy a fent említett weboldalakon a letöltési linkekre kattintva. Egyes böngészőkben (pl. Firefox) hosszan kell kattintani a linkre és a Link megnyitása külső alkalmazásban, majd az OSMDashboard.</string>
     <string name="no_file_manager_found">Nem talált fájlkezelőt</string>
     <string name="error_reg_content_observer">Hiba az OpenTracksContentObserver regisztrálásakor</string>
-    <string name="zoom_out">Kicsinyítés</string>
-    <string name="zoom_in">Nagyítás</string>
     <string name="toggle_full_screen_mode">Teljes képernyős mód váltása</string>
     <string name="share">Megosztás</string>
     <string name="unit_feet">ft</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s lezuhant</string>
-    <string name="no_browser_available">Nincs elérhető böngésző</string>
     <string name="bug_report">Hiba jelentése</string>
-    <string name="persistent_tilecache">Tartós TileCache</string>
-    <string name="purge_tilecache">TileCache törlése</string>
-    <string name="overdraw_factor">Térkép túlhúzási tényező</string>
-    <string name="tilecache_capacity_factor_info">TileCache kapacitástényező meghatározása</string>
-    <string name="tilecache_capacity_factor">TileCache kapacitási tényező</string>
-    <string name="overdraw_factor_info">Térkép túlhúzási tényező meghatározása</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
@@ -90,7 +72,6 @@
     <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
     <string name="distance_km">Distance in km</string>
     <string name="unit_mile_per_hour">mph</string>

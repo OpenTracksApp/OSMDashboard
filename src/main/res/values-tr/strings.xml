@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="toggle_full_screen_mode">Tam ekran modunu değiştir</string>
-    <string name="no_data">Parça verisi alınmadı</string>
     <string name="copyright_osm">Harita verileri © OpenStreetMap katkıda bulunanlar</string>
-    <string name="maps">Haritalar</string>
-    <string name="map_themes">Harita temaları</string>
     <string name="default_theme">Varsayılan tema</string>
     <string name="map_folder">Harita dizini</string>
     <string name="theme_folder">Harita teması dizini</string>
@@ -15,8 +12,6 @@
     <string name="download_map">Harita indir</string>
     <string name="download_theme">Tema indir</string>
     <string name="download_instruction">https://ftp-stud.hs-esslingen.de adresinin içeriğini görüntülüyorsunuz.</string>
-    <string name="download_map_question">%s haritası indirilsin mi\?</string>
-    <string name="download_in_progress">Halihazırda devam eden bir indirme var!</string>
     <string name="download_failed">Harita indirilemedi</string>
     <string name="download_theme_success">Tema başarıyla indirildi</string>
     <string name="download_theme_failed">Tema indirilemedi</string>
@@ -31,8 +26,6 @@
     <string name="track_smoothing_menu">Parça yumuşat</string>
     <string name="track_smoothing_info">Parça yumuşatma algoritması için toleransı metre cinsinden tanımlayın. Parça yumuşatmayı devre dışı bırakmak için 0 girin.
 \nParça yeniden yüklendikten sonra değişiklik yürürlüğe girer.</string>
-    <string name="track_smoothing_hint">Metre cinsinden parça yumuşatma toleransı</string>
-    <string name="only_digits">Değer yalnızca rakam içermelidir</string>
     <string name="pip_mode">Resim içinde resim modu</string>
     <string name="arrow_mode_north">Ok kuzeyi gösteriyor</string>
     <string name="arrow_mode_compass">Pusula olarak ok</string>
@@ -48,8 +41,6 @@
     <string name="error_reg_content_observer">OpenTracksContentObserver kaydında hata</string>
     <string name="unit_meter">m</string>
     <string name="unit_kilometer">km</string>
-    <string name="zoom_in">Yakınlaştır</string>
-    <string name="zoom_out">Uzaklaştır</string>
     <string name="unit_feet">ft</string>
     <string name="share">Paylaş</string>
     <string name="app_name_info_screen">OpenTracks için
@@ -67,22 +58,12 @@
     <string name="overwrite_map_question">\"%s\" haritası zaten var! Silinip tekrar indirilsin mi\?</string>
     <string name="arrow_mode_direction">Okun hareket yönü</string>
     <string name="map_mode_north_top">Kuzey haritası üstte</string>
-    <string name="multi_thread_map_rendering">Çok iş parçacıklı harita oluştur</string>
     <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
     <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
     <string name="error_crash_title">%1$s çöktü</string>
-    <string name="no_browser_available">Kullanılabilir tarayıcı yok</string>
     <string name="bug_report">Hata bildir</string>
-    <string name="overdraw_factor">Harita fazla çizim faktörü</string>
-    <string name="tilecache_capacity_factor_info">TileCache kapasite faktörünü tanımlayın</string>
-    <string name="tilecache_capacity_factor">TileCache kapasite faktörü</string>
-    <string name="purge_tilecache">TileCache\'i temizle</string>
-    <string name="persistent_tilecache">Kalıcı TileCache</string>
-    <string name="overdraw_factor_info">Harita fazla çizim faktörünü tanımlayın</string>
-    <string name="color_by_speed">Hıza göre renklendir</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="pace_min_km">Pace in min/km</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
