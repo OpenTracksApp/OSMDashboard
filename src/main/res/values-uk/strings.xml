@@ -118,10 +118,10 @@
     <string name="track_color_mode_by_speed">Color by speed</string>
     <string name="track_color_mode_by_track">Color by track</string>
     <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="settings_night_mode_option_day">День</string>
+    <string name="settings_night_mode_title">Тема інтерфейсу</string>
+    <string name="settings_ui_dynamic_colors_title">Динамічні кольори</string>
+    <string name="settings_ui_dynamic_colors_summary">Використовувати визначені користувачем динамічні кольори (тільки для Android 12+; потрібне перезавантаження вручну)</string>
+    <string name="settings_night_mode_option_night">Ніч</string>
+    <string name="settings_night_mode_option_system">Системна</string>
 </resources>
