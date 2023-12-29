@@ -43,8 +43,8 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
         // fill data
         var binding = (MapItemBinding) rowView.getTag();
         var item = this.items.get(position);
-        binding.name.setText(item.getName());
-        binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.getUri()));
+        binding.name.setText(item.name());
+        binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.uri()));
         binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position));
 
         return rowView;
@@ -54,14 +54,14 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
         return v -> {
             var fileItem = items.get(position);
             if (checkBox.isChecked()) {
-                if (fileItem.getUri() == null) { // online map
+                if (fileItem.uri() == null) { // online map
                     selected.clear();
                 } else {
-                    selected.add(fileItem.getUri());
+                    selected.add(fileItem.uri());
                 }
             } else {
-                if (fileItem.getUri() != null) { // offline map
-                    selected.remove(fileItem.getUri());
+                if (fileItem.uri() != null) { // offline map
+                    selected.remove(fileItem.uri());
                 }
             }
             notifyDataSetChanged();

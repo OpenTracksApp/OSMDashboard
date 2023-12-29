@@ -24,37 +24,37 @@ public class TrackStatistics {
             return;
         }
         var first = tracks.get(0);
-        category = first.getCategory();
-        startTimeEpochMillis = first.getStartTimeEpochMillis();
-        stopTimeEpochMillis = first.getStopTimeEpochMillis();
-        totalDistanceMeter = first.getTotalDistanceMeter();
-        totalTimeMillis = first.getTotalTimeMillis();
-        movingTimeMillis = first.getMovingTimeMillis();
-        avgSpeedMeterPerSecond = first.getAvgSpeedMeterPerSecond();
-        avgMovingSpeedMeterPerSecond = first.getAvgMovingSpeedMeterPerSecond();
-        maxSpeedMeterPerSecond = first.getMaxSpeedMeterPerSecond();
-        minElevationMeter = first.getMinElevationMeter();
-        maxElevationMeter = first.getMaxElevationMeter();
-        elevationGainMeter = first.getElevationGainMeter();
+        category = first.category();
+        startTimeEpochMillis = first.startTimeEpochMillis();
+        stopTimeEpochMillis = first.stopTimeEpochMillis();
+        totalDistanceMeter = first.totalDistanceMeter();
+        totalTimeMillis = first.totalTimeMillis();
+        movingTimeMillis = first.movingTimeMillis();
+        avgSpeedMeterPerSecond = first.avgSpeedMeterPerSecond();
+        avgMovingSpeedMeterPerSecond = first.avgMovingSpeedMeterPerSecond();
+        maxSpeedMeterPerSecond = first.maxSpeedMeterPerSecond();
+        minElevationMeter = first.minElevationMeter();
+        maxElevationMeter = first.maxElevationMeter();
+        elevationGainMeter = first.elevationGainMeter();
 
         if (tracks.size() > 1) {
             float totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond;
             float totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond;
             for (var track : tracks.subList(1, tracks.size())) {
-                if (!category.equals(track.getCategory())) {
+                if (!category.equals(track.category())) {
                     category = "mixed";
                 }
-                startTimeEpochMillis = Math.min(startTimeEpochMillis, track.getStartTimeEpochMillis());
-                stopTimeEpochMillis = Math.max(stopTimeEpochMillis, track.getStopTimeEpochMillis());
-                totalDistanceMeter += track.getTotalDistanceMeter();
-                totalTimeMillis += track.getTotalTimeMillis();
-                movingTimeMillis += track.getMovingTimeMillis();
-                totalAvgSpeedMeterPerSecond += track.getAvgSpeedMeterPerSecond();
-                totalAvgMovingSpeedMeterPerSecond += track.getAvgMovingSpeedMeterPerSecond();
-                maxSpeedMeterPerSecond = Math.max(maxSpeedMeterPerSecond, track.getMaxSpeedMeterPerSecond());
-                minElevationMeter = Math.min(minElevationMeter, track.getMinElevationMeter());
-                maxElevationMeter = Math.max(maxElevationMeter, track.getMaxElevationMeter());
-                elevationGainMeter += track.getElevationGainMeter();
+                startTimeEpochMillis = Math.min(startTimeEpochMillis, track.startTimeEpochMillis());
+                stopTimeEpochMillis = Math.max(stopTimeEpochMillis, track.stopTimeEpochMillis());
+                totalDistanceMeter += track.totalDistanceMeter();
+                totalTimeMillis += track.totalTimeMillis();
+                movingTimeMillis += track.movingTimeMillis();
+                totalAvgSpeedMeterPerSecond += track.avgSpeedMeterPerSecond();
+                totalAvgMovingSpeedMeterPerSecond += track.avgMovingSpeedMeterPerSecond();
+                maxSpeedMeterPerSecond = Math.max(maxSpeedMeterPerSecond, track.maxSpeedMeterPerSecond());
+                minElevationMeter = Math.min(minElevationMeter, track.minElevationMeter());
+                maxElevationMeter = Math.max(maxElevationMeter, track.maxElevationMeter());
+                elevationGainMeter += track.elevationGainMeter();
             }
 
             avgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond / tracks.size();

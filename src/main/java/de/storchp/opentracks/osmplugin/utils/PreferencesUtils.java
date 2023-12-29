@@ -149,16 +149,6 @@ public class PreferencesUtils {
         return sharedPrefs.getInt(getKey(keyId), defaultValue);
     }
 
-    private static float getFloat(int keyId, float defaultValue) {
-        return sharedPrefs.getFloat(getKey(keyId), defaultValue);
-    }
-
-    private static void setFloat(int keyId, float value) {
-        sharedPrefs.edit()
-                .putFloat(getKey(keyId), value)
-                .apply();
-    }
-
     public static int getTrackSmoothingTolerance() {
         return getInt(R.string.APP_PREF_TRACK_SMOOTHING_TOLERANCE, resources.getInteger(R.integer.track_smoothing_tolerance_default));
     }

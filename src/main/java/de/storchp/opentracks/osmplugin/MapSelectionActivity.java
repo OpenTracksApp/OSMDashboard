@@ -57,30 +57,30 @@ public class MapSelectionActivity extends AppCompatActivity {
         });
         binding.mapList.setOnItemLongClickListener((parent, view, position, id) -> {
             var fileItem = items.get(position);
-            var uri = fileItem.getUri();
+            var uri = fileItem.uri();
             if (uri == null) {
                 // online map can't be deleted
                 return false;
             }
             new AlertDialog.Builder(MapSelectionActivity.this)
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setMessage(getString(R.string.delete_map_question, fileItem.getName()))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    Log.d(TAG, "Delete " + fileItem.getName());
-                    var file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.getUri());
-                    assert file != null;
-                    boolean deleted = file.delete();
-                    if (deleted) {
-                        items.remove(position);
-                        PreferencesUtils.getMapUris().remove(uri);
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show();
+                    .setIcon(R.drawable.ic_logo_color_24dp)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(R.string.delete_map_question, fileItem.name()))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        Log.d(TAG, "Delete " + fileItem.name());
+                        var file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.uri());
+                        assert file != null;
+                        boolean deleted = file.delete();
+                        if (deleted) {
+                            items.remove(position);
+                            PreferencesUtils.getMapUris().remove(uri);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create().show();
             return false;
         });
 

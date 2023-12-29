@@ -14,7 +14,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -514,7 +513,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                     trackColorMode = TrackColorMode.DEFAULT;
                 }
 
-                for (var trackPoints : trackpointsBySegments.getSegments()) {
+                for (var trackPoints : trackpointsBySegments.segments()) {
                     if (!update) {
                         polyline = null; // cut polyline on new segment
                         if (tolerance > 0) { // smooth track
@@ -565,9 +564,9 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                             startPos = endPos;
                         }
                     }
-                    trackpointsBySegments.getDebug().trackpointsDrawn += trackPoints.size();
+                    trackpointsBySegments.debug().trackpointsDrawn += trackPoints.size();
                 }
-                trackPointsDebug.add(trackpointsBySegments.getDebug());
+                trackPointsDebug.add(trackpointsBySegments.debug());
             } catch (SecurityException e) {
                 Toast.makeText(MapsActivity.this, getString(R.string.error_reading_trackpoints, e.getMessage()), Toast.LENGTH_LONG).show();
                 return;
@@ -836,9 +835,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, @NonNull Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
-        }
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         int visibility = isInPictureInPictureMode ? View.GONE : View.VISIBLE;
         binding.toolbar.mapsToolbar.setVisibility(visibility);
         binding.map.fullscreenButton.setVisibility(visibility);

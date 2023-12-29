@@ -2,9 +2,6 @@
     <!-- mapsforge dimensions -->
     <dimen name="attribution_margin">1dp</dimen>
     <dimen name="attribution_size">4pt</dimen>
-    <dimen name="controls_margin">8dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
-    <item name="tile_cache_capacity_factor_default" type="dimen" format="float">2.0</item>
-    <item name="map_overdraw_factor_default" type="dimen" format="float">1.2</item>
 </resources>

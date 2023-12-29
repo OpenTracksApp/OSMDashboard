@@ -8,7 +8,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Track {
+public record Track(long id, String trackname, String description, String category,
+                    int startTimeEpochMillis, int stopTimeEpochMillis, float totalDistanceMeter,
+                    int totalTimeMillis, int movingTimeMillis, float avgSpeedMeterPerSecond,
+                    float avgMovingSpeedMeterPerSecond, float maxSpeedMeterPerSecond,
+                    float minElevationMeter, float maxElevationMeter, float elevationGainMeter) {
 
     private static final String TAG = Track.class.getSimpleName();
 
@@ -46,40 +50,6 @@ public class Track {
             ELEVATIONGAIN
     };
 
-    private final long id;
-    private final String trackname;
-    private final String description;
-    private final String category;
-    private final int startTimeEpochMillis;
-    private final int stopTimeEpochMillis;
-    private final float totalDistanceMeter;
-    private final int totalTimeMillis;
-    private final int movingTimeMillis;
-    private final float avgSpeedMeterPerSecond;
-    private final float avgMovingSpeedMeterPerSecond;
-    private final float maxSpeedMeterPerSecond;
-    private final float minElevationMeter;
-    private final float maxElevationMeter;
-    private final float elevationGainMeter;
-
-    public Track(long id, String trackname, String description, String category, int startTimeEpochMillis, int stopTimeEpochMillis, float totalDistanceMeter, int totalTimeMillis, int movingTimeMillis, float avgSpeedMeterPerSecond, float avgMovingSpeedMeterPerSecond, float maxSpeedMeterPerSecond, float minElevationMeter, float maxElevationMeter, float elevationGainMeter) {
-        this.id = id;
-        this.trackname = trackname;
-        this.description = description;
-        this.category = category;
-        this.startTimeEpochMillis = startTimeEpochMillis;
-        this.stopTimeEpochMillis = stopTimeEpochMillis;
-        this.totalDistanceMeter = totalDistanceMeter;
-        this.totalTimeMillis = totalTimeMillis;
-        this.movingTimeMillis = movingTimeMillis;
-        this.avgSpeedMeterPerSecond = avgSpeedMeterPerSecond;
-        this.avgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond;
-        this.maxSpeedMeterPerSecond = maxSpeedMeterPerSecond;
-        this.minElevationMeter = minElevationMeter;
-        this.maxElevationMeter = maxElevationMeter;
-        this.elevationGainMeter = elevationGainMeter;
-    }
-
     /**
      * Reads the Tracks from the Content Uri
      */
@@ -115,65 +85,5 @@ public class Track {
             Log.e(TAG, "Reading track failed", e);
         }
         return tracks;
-    }
-
-    public float getElevationGainMeter() {
-        return elevationGainMeter;
-    }
-
-    public float getMaxElevationMeter() {
-        return maxElevationMeter;
-    }
-
-    public float getMinElevationMeter() {
-        return minElevationMeter;
-    }
-
-    public float getMaxSpeedMeterPerSecond() {
-        return maxSpeedMeterPerSecond;
-    }
-
-    public float getAvgMovingSpeedMeterPerSecond() {
-        return avgMovingSpeedMeterPerSecond;
-    }
-
-    public float getAvgSpeedMeterPerSecond() {
-        return avgSpeedMeterPerSecond;
-    }
-
-    public int getMovingTimeMillis() {
-        return movingTimeMillis;
-    }
-
-    public int getTotalTimeMillis() {
-        return totalTimeMillis;
-    }
-
-    public float getTotalDistanceMeter() {
-        return totalDistanceMeter;
-    }
-
-    public int getStopTimeEpochMillis() {
-        return stopTimeEpochMillis;
-    }
-
-    public int getStartTimeEpochMillis() {
-        return startTimeEpochMillis;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getTrackname() {
-        return trackname;
-    }
-
-    public long getId() {
-        return id;
     }
 }

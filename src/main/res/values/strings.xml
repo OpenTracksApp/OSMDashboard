@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name_info_screen">OSM Dashboard\nfor OpenTracks</string>
-    <string name="no_data">No track data received</string>
     <string name="copyright_osm">Map data © OpenStreetMap contributors</string>
-    <string name="maps">Maps</string>
-    <string name="map_themes">Map themes</string>
     <string name="default_theme">Default theme</string>
     <string name="map_info_menu">About</string>
     <string name="map_folder">Map directory</string>
@@ -22,8 +19,6 @@
     <string name="download_theme">Theme download</string>
     <string name="choose_map_to_download">Choose a map to download</string>
     <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
-    <string name="download_map_question">Download map %s?</string>
-    <string name="download_in_progress">There is already a download in progress!</string>
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
     <string name="download_theme_success">Theme successfully downloaded</string>
@@ -41,8 +36,6 @@
     <string name="error_loading_offline_map">Error reading configured offline map</string>
     <string name="track_smoothing_menu">Track smoothing</string>
     <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
-    <string name="track_smoothing_hint">Track smoothing tolerance in meters</string>
-    <string name="only_digits">Value must contain only digits</string>
     <string name="pip_mode">Picture in picture mode</string>
     <string name="arrow_mode">Arrow orientation</string>
     <string name="arrow_mode_north">Arrow points to north</string>
@@ -55,9 +48,6 @@
     <string name="compass_smoothing_menu">Compass smoothing</string>
     <string name="compass_smoothing_info">Higher values reduce noise</string>
     <string name="menu_advanced">Advanced</string>
-    <string name="multi_thread_map_rendering">Multithread map rendering</string>
-    <string name="persistent_tilecache">Persistent TileCache</string>
-    <string name="purge_tilecache">Purge TileCache</string>
     <string name="no_map_configured">You have no offline map configured yet.</string>
     <string name="stroke_width_info">Define the stroke width of the tracks</string>
     <string name="stroke_width_menu">Track stroke width</string>
@@ -77,17 +67,9 @@
 
     <string name="share">Share</string>
     <string name="toggle_full_screen_mode">Toggle fullscreen mode</string>
-    <string name="zoom_in">Zoom in</string>
-    <string name="zoom_out">Zoom out</string>
 
     <string name="error_crash_title">%1$s crashed</string>
-    <string name="no_browser_available">No browser available</string>
     <string name="bug_report">Report bug</string>
-    <string name="overdraw_factor">Map overdraw factor</string>
-    <string name="overdraw_factor_info">Define map overdraw factor</string>
-    <string name="tilecache_capacity_factor_info">Define TileCache capacity factor</string>
-    <string name="tilecache_capacity_factor">TileCache capacity factor</string>
-    <string name="color_by_speed">Color by speed</string>
     <string name="configure_statistic">Configure statistic</string>
     <string name="category">Category</string>
     <string name="total_time">Total time</string>
@@ -102,7 +84,6 @@
     <string name="distance_mi">Distance in miles</string>
     <string name="version_info"><![CDATA[<b>Version:</b> %s - %s (%d)]]></string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
-    <string name="read_number_of_trackpoints">Read %d trackpoints</string>
     <string name="debug_trackpoints">Debug trackpoints</string>
     <string name="debug_trackpoints_info">Trackpoints received: %1$d\nTrackpoints invalid: %2$d\nTrackpoints drawn: %3$d\nTrackpoints pause: %4$d\nSegments: %5$d\nProtocol version: %6$d</string>
     <string name="track_color">Track color</string>

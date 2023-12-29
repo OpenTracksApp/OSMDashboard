@@ -3,19 +3,9 @@ package de.storchp.opentracks.osmplugin.compass;
 /**
  * Derived from <a href="https://github.com/kylecorry31/Trail-Sense/blob/master/app/src/main/java/com/kylecorry/trail_sense/shared/domain/Vector3.kt">...</a>
  */
-public class Vector3 {
+public record Vector3(float x, float y, float z) {
 
     public static final Vector3 ZERO = new Vector3(0f, 0f, 0f);
-
-    private final float y;
-    private final float z;
-    private final float x;
-
-    public Vector3(float x, float y, float z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 
     public Vector3 cross(Vector3 other) {
         return new Vector3(
@@ -33,24 +23,12 @@ public class Vector3 {
         );
     }
 
-    public Vector3 plus(Vector3 other) {
-        return new Vector3(
-                x + other.x,
-                y + other.y,
-                z + other.z
-        );
-    }
-
     public Vector3 times(float factor) {
         return new Vector3(
                 x * factor,
                 y * factor,
                 z * factor
         );
-    }
-
-    public float[] toFloatArray() {
-        return new float[]{x, y, z};
     }
 
     public float dot(Vector3 other) {
@@ -68,18 +46,6 @@ public class Vector3 {
                 y / mag,
                 z / mag
         );
-    }
-
-    public float getX() {
-        return this.x;
-    }
-
-    public float getY() {
-        return this.y;
-    }
-
-    public float getZ() {
-        return this.z;
     }
 
 }
