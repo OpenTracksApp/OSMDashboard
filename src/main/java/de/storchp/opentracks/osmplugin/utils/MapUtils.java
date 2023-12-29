@@ -3,6 +3,7 @@ package de.storchp.opentracks.osmplugin.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Log;
@@ -10,14 +11,21 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import org.oscim.android.canvas.AndroidBitmap;
 import org.oscim.core.GeoPoint;
+import org.oscim.layers.marker.MarkerItem;
+import org.oscim.layers.marker.MarkerSymbol;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import de.storchp.opentracks.osmplugin.R;
+import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
+import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
+import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 
 /**
  * Utility class for decimating tracks at a given level of precision.
@@ -197,4 +205,59 @@ public class MapUtils {
     }
 
 
+    public static int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
+        double speed = trackPoint.getSpeed();
+        int red = 255;
+        int green = 255;
+        if (speed == 0.0) {
+            green = 0;
+        } else if (trackPoint.getSpeed() < average) {
+            green = (int) (255 * speed / average);
+        } else {
+            red = 255 - (int) (255 * (speed - average) / averageToMaxSpeed);
+        }
+        return Color.argb(255, red, green, 0);
+    }
+
+    public static float rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
+        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
+                || arrowMode == ArrowMode.NORTH) {
+            return 0f;
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
+            return mapMode.getHeading(movementDirection, compass);
+        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
+            return arrowMode.getDegrees(movementDirection, compass);
+        } else {
+            return arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360;
+        }
+    }
+
+    @NonNull
+    public static MarkerSymbol createMarkerSymbol(Context context, int markerResource, boolean billboard, MarkerSymbol.HotspotPlace hotspot) {
+        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(context, markerResource));
+        return new MarkerSymbol(bitmap, hotspot, billboard);
+    }
+
+    @NonNull
+    public static MarkerSymbol createPushpinSymbol(Context context) {
+        return createMarkerSymbol(context, R.drawable.ic_marker_orange_pushpin_modern, true, MarkerSymbol.HotspotPlace.BOTTOM_CENTER);
+    }
+
+    public static MarkerItem createPushpinMarker(Context context, GeoPoint latLong, Long id) {
+        var symbol = createPushpinSymbol(context);
+        var marker = new MarkerItem(id, latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
+    }
+
+    public static MarkerItem createPauseMarker(Context context, GeoPoint latLong) {
+        var symbol = createMarkerSymbol(context, R.drawable.ic_marker_pause_34, true, MarkerSymbol.HotspotPlace.CENTER);
+        var marker = new MarkerItem(latLong.toString(), "", latLong);
+        marker.setMarker(symbol);
+        return marker;
+    }
+
+    public static MarkerItem createTappableMarker(final Context context, Waypoint waypoint) {
+        return createPushpinMarker(context, waypoint.getLatLong(), waypoint.getId());
+    }
 }

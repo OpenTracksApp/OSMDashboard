@@ -3,7 +3,6 @@ package de.storchp.opentracks.osmplugin;
 
 import static android.util.TypedValue.COMPLEX_UNIT_PT;
 import static java.util.Comparator.comparingInt;
-import static de.storchp.opentracks.osmplugin.utils.MapUtils.getBitmapFromVectorDrawable;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +11,6 @@ import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,7 +35,6 @@ import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.oscim.android.MapPreferences;
-import org.oscim.android.canvas.AndroidBitmap;
 import org.oscim.backend.CanvasAdapter;
 import org.oscim.core.BoundingBox;
 import org.oscim.core.GeoPoint;
@@ -105,7 +102,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static final String EXTRA_MARKER_ID = "marker_id";
-    private static final byte MAP_DEFAULT_ZOOM_LEVEL = (byte) 12;
+    private static final int MAP_DEFAULT_ZOOM_LEVEL = 12;
     private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
     private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
     private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
@@ -206,9 +203,8 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
             readWaypoints(waypointsUri);
         } else if ("geo".equals(intent.getScheme())) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                addWaypointMarker(createPushpinMarker(waypoint.getLatLong(), waypoint.getId()));
-                var layers = map.layers();
-                layers.add(waypointsLayer);
+                addWaypointMarker(MapUtils.createTappableMarker(this, waypoint));
+                map.layers().add(waypointsLayer);
                 map.getMapPosition().setPosition(waypoint.getLatLong());
                 map.getMapPosition().setZoomLevel(map.viewport().getMaxZoomLevel());
             });
@@ -346,8 +342,9 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     }
 
     protected void loadTheme() {
-        if (renderTheme != null)
+        if (renderTheme != null) {
             renderTheme.dispose();
+        }
         renderTheme = map.setTheme(VtmThemes.DEFAULT);
     }
 
@@ -391,7 +388,6 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     private void setOnlineTileLayer() {
         var tileSource = DefaultSources.OPENSTREETMAP.build();
-
         var builder = new OkHttpClient.Builder();
         var cacheDirectory = new File(getExternalCacheDir(), "tiles");
         int cacheSize = 10 * 1024 * 1024; // 10 MB
@@ -534,7 +530,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                         }
 
                         if (trackColorMode == TrackColorMode.BY_SPEED) {
-                            trackColor = getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
+                            trackColor = MapUtils.getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
                             polyline = addNewPolyline(trackColor);
                             if (endPos != null) {
                                 polyline.addPoint(endPos);
@@ -553,7 +549,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
                         movementDirection.updatePos(endPos);
 
                         if (trackPoint.isPause() && showPauseMarkers) {
-                            addWaypointMarker(createPauseMarker(trackPoint.getLatLong()));
+                            addWaypointMarker(MapUtils.createPauseMarker(this, trackPoint.getLatLong()));
                         }
 
                         if (!update) {
@@ -653,49 +649,22 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         }
     }
 
-    private int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
-        double speed = trackPoint.getSpeed();
-        int red = 255;
-        int green = 255;
-        if (speed == 0.0) {
-            green = 0;
-        } else if (trackPoint.getSpeed() < average) {
-            green = (int) (255 * speed / average);
-        } else {
-            red = 255 - (int) (255 * (speed - average) / averageToMaxSpeed);
-        }
-        return Color.argb(255, red, green, 0);
-    }
-
     private void setEndMarker(GeoPoint endPos) {
         synchronized (map.layers()) {
             if (endMarker != null) {
                 endMarker.geoPoint = endPos;
-                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                endMarker.setRotation(MapUtils.rotateWith(arrowMode, mapMode, movementDirection, compass));
                 waypointsLayer.update();
                 map.render();
             } else {
                 endMarker = new MarkerItem(endPos.toString(), "", endPos);
-                var symbol = createMarkerSymbol(R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
+                var symbol = MapUtils.createMarkerSymbol(this, R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
                 endMarker.setMarker(symbol);
-                endMarker.setRotation(rotateWith(arrowMode, mapMode, movementDirection, compass));
+                endMarker.setRotation(MapUtils.rotateWith(arrowMode, mapMode, movementDirection, compass));
                 addWaypointMarker(endMarker);
             }
         }
         rotateMap();
-    }
-
-    public float rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
-        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
-                || arrowMode == ArrowMode.NORTH) {
-            return 0f;
-        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
-            return mapMode.getHeading(movementDirection, compass);
-        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
-            return arrowMode.getDegrees(movementDirection, compass);
-        } else {
-            return arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360;
-        }
     }
 
     private PathLayer addNewPolyline(int trackColor) {
@@ -715,7 +684,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
             for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
-                addWaypointMarker(createTappableMarker(waypoint));
+                addWaypointMarker(MapUtils.createTappableMarker(this, waypoint));
             }
             if (waypointsLayer != null) {
                 layers.add(waypointsLayer);
@@ -729,40 +698,11 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     private void addWaypointMarker(final MarkerItem marker) {
         if (waypointsLayer == null) {
-            var symbol = createPushpinSymbol();
+            var symbol = MapUtils.createPushpinSymbol(this);
             waypointsLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
             map.layers().add(waypointsLayer);
         }
         waypointsLayer.addItem(marker);
-    }
-
-    @NonNull
-    private MarkerSymbol createPushpinSymbol() {
-        return createMarkerSymbol(R.drawable.ic_marker_orange_pushpin_modern, true, MarkerSymbol.HotspotPlace.BOTTOM_CENTER);
-    }
-
-    @NonNull
-    private MarkerSymbol createMarkerSymbol(int markerResource, boolean billboard, final MarkerSymbol.HotspotPlace hotspot) {
-        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(this, markerResource));
-        return new MarkerSymbol(bitmap, hotspot, billboard);
-    }
-
-    private MarkerItem createPushpinMarker(GeoPoint latLong, Long id) {
-        var symbol = createPushpinSymbol();
-        var marker = new MarkerItem(id, latLong.toString(), "", latLong);
-        marker.setMarker(symbol);
-        return marker;
-    }
-
-    private MarkerItem createPauseMarker(GeoPoint latLong) {
-        var symbol = createMarkerSymbol(R.drawable.ic_marker_pause_34, true, MarkerSymbol.HotspotPlace.CENTER);
-        var marker = new MarkerItem(latLong.toString(), "", latLong);
-        marker.setMarker(symbol);
-        return marker;
-    }
-
-    private MarkerItem createTappableMarker(Waypoint waypoint) {
-        return createPushpinMarker(waypoint.getLatLong(), waypoint.getId());
     }
 
     @Override
@@ -776,6 +716,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         return true;
     }
 
+    @Override
     public boolean onItemLongPress(int index, MarkerInterface item) {
         return false;
     }
