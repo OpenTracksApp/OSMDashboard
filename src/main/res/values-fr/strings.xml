@@ -23,19 +23,13 @@
     <string name="stroke_width_info">Définir la largeur des traces</string>
     <string name="no_map_configured">Vous n\'avez pas encore configuré de carte hors ligne.</string>
     <string name="menu_advanced">Avancé</string>
-    <string name="compass_smoothing_info">Des valeurs plus élevées réduisent le bruit</string>
-    <string name="compass_smoothing_menu">Lissage du compas</string>
     <string name="map_mode_direction">Direction de la carte</string>
     <string name="map_mode_north_top">Carte du nord en haut</string>
-    <string name="arrow_mode_compass">Flèche comme boussole</string>
-    <string name="arrow_mode_direction">Flèche de direction</string>
-    <string name="arrow_mode_north">La flèche indique le nord</string>
     <string name="track_smoothing_menu">Lissage des traces</string>
     <string name="error_loading_offline_map">Erreur de lecture d\'une carte hors ligne configurée</string>
     <string name="cancel_download_question">Annuler le téléchargement en cours \?</string>
     <string name="overwrite_map_question">La carte \"%s\" existe déjà ! Effacer et télécharger à nouveau \?</string>
     <string name="delete_theme_error">La suppression du thème a échoué</string>
-    <string name="map_mode_compass">La carte comme compas</string>
     <string name="pip_mode">Mode incrustration</string>
     <string name="track_smoothing_info">Définir la tolérance en mètres pour l\'algorithme de lissage des traces. Entrez 0 pour désactiver le lissage de la piste.
 \nLa modification entre en vigueur après le rechargement de la piste.</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

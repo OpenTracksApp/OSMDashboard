@@ -12,13 +12,8 @@
     <string name="app_logo_description">Alkalmazás logó</string>
     <string name="stroke_width_info">Határozza meg a sávok szélességét</string>
     <string name="menu_advanced">Haladó</string>
-    <string name="compass_smoothing_info">A magasabb értékek csökkentik a zajt</string>
-    <string name="compass_smoothing_menu">Iránytű simítás</string>
-    <string name="map_mode_compass">Térkép mint iránytű</string>
     <string name="map_mode_direction">Térkép mozgó irány</string>
     <string name="map_mode_north_top">Térkép észak tetején</string>
-    <string name="arrow_mode_compass">Nyíl, mint iránytű</string>
-    <string name="arrow_mode_north">A nyíl észak felé mutat</string>
     <string name="pip_mode">Kép kép módban</string>
     <string name="track_smoothing_menu">Pálya simítás</string>
     <string name="error_loading_offline_map">Hiba a konfigurált offline térkép olvasásakor</string>
@@ -37,7 +32,6 @@
     <string name="choose_map_to_download">Válasszon egy térképet a letöltéshez</string>
     <string name="stroke_width_menu">A pálya szélessége</string>
     <string name="no_map_configured">Még nincs konfigurálva offline térkép.</string>
-    <string name="arrow_mode_direction">Nyíl mozgó irány</string>
     <string name="track_smoothing_info">Adja meg a tűréshatárt méterben a sávsimító algoritmus számára. Írja be a 0-t a sávsimítás letiltásához.
 \nA változás a pálya újratöltése után lép hatályba.</string>
     <string name="default_theme">Alapértelmezett téma</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

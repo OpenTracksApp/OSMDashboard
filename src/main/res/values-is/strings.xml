@@ -31,14 +31,8 @@
     <string name="error_loading_offline_map">Villa að lesa stillt ótengdur kort</string>
     <string name="track_smoothing_menu">Fylgjast refur</string>
     <string name="pip_mode">Mynd í mynd ham</string>
-    <string name="arrow_mode_north">Arrow stig til norður</string>
-    <string name="arrow_mode_direction">Arrow átt að flytja</string>
-    <string name="arrow_mode_compass">Arrow eins og áttavita</string>
     <string name="map_mode_north_top">Kort norður á efstu</string>
     <string name="map_mode_direction">Kort átt að flytja</string>
-    <string name="map_mode_compass">Kort eins og áttavita</string>
-    <string name="compass_smoothing_menu">Áttavita refur</string>
-    <string name="compass_smoothing_info">Hærra gildi draga úr hávaða</string>
     <string name="menu_advanced">Háþróaður</string>
     <string name="stroke_width_info">Skilgreina heilablóðfall breidd lögin</string>
     <string name="stroke_width_menu">Fylgjast heilablóðfall breidd</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

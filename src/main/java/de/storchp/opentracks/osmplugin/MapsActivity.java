@@ -85,8 +85,6 @@ import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 
-import de.storchp.opentracks.osmplugin.compass.Compass;
-import de.storchp.opentracks.osmplugin.compass.SensorListener;
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.Track;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
@@ -94,7 +92,6 @@ import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
-import de.storchp.opentracks.osmplugin.utils.ArrowMode;
 import de.storchp.opentracks.osmplugin.utils.MapMode;
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
@@ -105,7 +102,7 @@ import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 
-public class MapsActivity extends BaseActivity implements SensorListener, ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGestureListener<MarkerInterface> {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static final String EXTRA_MARKER_ID = "marker_id";
@@ -133,15 +130,12 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     private GeoPoint startPos;
     private GeoPoint endPos;
     private boolean fullscreenMode = false;
-    private Compass compass;
     private MovementDirection movementDirection = new MovementDirection();
-    private ArrowMode arrowMode;
     private MapMode mapMode;
     private OpenTracksContentObserver contentObserver;
     private Uri tracksUri;
     private Uri trackPointsUri;
     private Uri waypointsUri;
-    private float currentMapHeading = 0;
     private int strokeWidth;
     private int protocolVersion = 1;
     private TrackPointsDebug trackPointsDebug;
@@ -156,13 +150,10 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         strokeWidth = PreferencesUtils.getStrokeWidth();
-        arrowMode = PreferencesUtils.getArrowMode();
         mapMode = PreferencesUtils.getMapMode();
 
         map = binding.map.mapView.map();
         mapPreferences = new MapPreferences(MapsActivity.class.getName(), this);
-
-        compass = new Compass(this);
 
         setSupportActionBar(binding.toolbar.mapsToolbar);
 
@@ -640,11 +631,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
             }
 
             if (myPos != null) {
-                if (update) {
-                    map.animator().animateTo(myPos);
-                } else {
-                    map.getMapPosition().setPosition(myPos);
-                }
+                updateMapPositionAndRotation(myPos);
                 var layers = map.layers();
                 if (!layers.contains(polylinesLayer) && polylinesLayer.layers.size() > 0) {
                     layers.add(polylinesLayer);
@@ -655,7 +642,6 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
     }
 
     private void resetMapData() {
-        stopCompass();
         unregisterContentObserver();
 
         tracksUri = null;
@@ -708,18 +694,17 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         synchronized (map.layers()) {
             if (endMarker != null) {
                 endMarker.geoPoint = endPos;
-                endMarker.setRotation(MapUtils.rotateWith(arrowMode, mapMode, movementDirection, compass));
+                endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
                 waypointsLayer.update();
                 map.render();
             } else {
                 endMarker = new MarkerItem(endPos.toString(), "", endPos);
                 var symbol = MapUtils.createMarkerSymbol(this, R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
                 endMarker.setMarker(symbol);
-                endMarker.setRotation(MapUtils.rotateWith(arrowMode, mapMode, movementDirection, compass));
+                endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
                 addWaypointMarker(endMarker);
             }
         }
-        rotateMap();
     }
 
     private PathLayer addNewPolyline(int trackColor) {
@@ -818,7 +803,6 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
         mapPreferences.load(map);
         binding.map.mapView.onResume();
-        compass.start(this);
     }
 
     @Override
@@ -826,6 +810,7 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
             map.animator().animateTo(boundingBox);
+            map.animator().animateTo(map.getMapPosition().setBearing(mapMode.getHeading(movementDirection)));
         }
     }
 
@@ -873,14 +858,10 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
 
     @Override
     protected void onStop() {
-        stopCompass();
         unregisterContentObserver();
         super.onStop();
     }
 
-    private void stopCompass() {
-        compass.stop(this);
-    }
 
     private void unregisterContentObserver() {
         if (contentObserver != null) {
@@ -890,25 +871,10 @@ public class MapsActivity extends BaseActivity implements SensorListener, Itemiz
         }
     }
 
-    private void rotateMap() {
-        float mapHeading = mapMode.getHeading(movementDirection, compass);
-        if (Math.abs(currentMapHeading - mapHeading) > 1) {
-            // only rotate map if it is at lease one degree different than before
-            Log.d(TAG, "CurrentMapHeading=" + currentMapHeading + ", mapHeading=" + mapHeading);
-            binding.map.mapView.map().viewport().setRotation(mapHeading);
-            currentMapHeading = mapHeading;
-        }
-    }
-
-    @Override
-    public boolean updateSensor() {
-        if (endPos != null) {
-            setEndMarker(endPos);
-        }
-
-        rotateMap();
-
-        return true;
+    private void updateMapPositionAndRotation(final GeoPoint myPos) {
+        map.layers().updateLayers();
+        var newPos = map.getMapPosition().setPosition(myPos).setBearing(mapMode.getHeading(movementDirection));
+        map.animator().animateTo(newPos);
     }
 
 }

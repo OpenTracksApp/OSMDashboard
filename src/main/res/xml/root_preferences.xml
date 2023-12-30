@@ -37,14 +37,6 @@
             app:useSimpleSummaryProvider="true"
             app:title="@string/map_mode" />
 
-        <ListPreference
-            app:key="@string/APP_PREF_ARROW_MODE"
-            app:defaultValue="@string/arrow_mode_default"
-            app:entries="@array/arrow_mode_types"
-            app:entryValues="@array/arrow_mode_type_values"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/arrow_mode" />
-
         <MultiSelectListPreference
             app:key="@string/APP_PREF_STATISTIC_ELEMENTS"
             app:defaultValue="@array/statistic_elements_defaults"
@@ -118,15 +110,6 @@
             app:min="0"
             android:max="100"
             app:summary="@string/track_smoothing_info" />
-
-        <SeekBarPreference
-            app:key="@string/APP_PREF_COMPASS_SMOOTHING"
-            app:title="@string/compass_smoothing_menu"
-            app:showSeekBarValue="true"
-            app:defaultValue="@integer/compass_smoothing_default"
-            app:min="1"
-            android:max="100"
-            app:summary="@string/compass_smoothing_info" />
 
         <SeekBarPreference
             app:key="@string/APP_PREF_STROKE_WIDTH"

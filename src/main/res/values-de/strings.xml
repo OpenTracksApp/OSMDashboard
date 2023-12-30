@@ -34,14 +34,8 @@
     <string name="track_smoothing_menu">Tracks glätten</string>
     <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.</string>
     <string name="pip_mode">Bild in Bild Modus</string>
-    <string name="arrow_mode_north">Pfeil zeigt nach Norden</string>
-    <string name="arrow_mode_direction">Pfeil in Bewegungsrichtung</string>
-    <string name="arrow_mode_compass">Pfeil als Kompass</string>
     <string name="map_mode_north_top">Karte zeigt Norden oben</string>
     <string name="map_mode_direction">Karte in Bewegungsrichtung</string>
-    <string name="map_mode_compass">Karte als Kompass</string>
-    <string name="compass_smoothing_menu">Kompass Glättung</string>
-    <string name="compass_smoothing_info">Höhere Werte reduzieren das Rauschen</string>
     <string name="menu_advanced">Erweitert</string>
     <string name="no_map_configured">Du hast noch keine Offline-Karte konfiguriert.</string>
     <string name="stroke_width_info">Definiere die Strichbreite der Tracks</string>
@@ -89,7 +83,6 @@
     <string name="error_reading_trackpoints">Fehler beim lesen der Wegpunkte: %s</string>
     <string name="track_color">Trackfarbe</string>
     <string name="show_pause_markers">Pause Markierungen anzeigen</string>
-    <string name="arrow_mode">Pfeilausrichtung</string>
     <string name="track_color_mode_uni">Einfarbig</string>
     <string name="map_settings">Karte</string>
     <string name="online_map_consent_info">Bei der Verwendung der Online-Karte von openstreetmap.org kann dein ungefährer Standort an OpenStreetMap gesendet werden. Bitte stimme der Verwendung zu.</string>

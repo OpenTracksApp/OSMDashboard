@@ -9,7 +9,6 @@
     <string name="default_theme">Tema default</string>
     <string name="app_logo_description">Logo aplikasi</string>
     <string name="online_map_consent">Tidak ada peta luring yang dikonfigurasi. Harap setujui untuk menggunakan peta online dari openstreetmap.org ini mungkin akan membocorkan lokasimu saat ini. Lihat https://operations.osmfoundation.org/policies/tiles / untuk kebijakan penggunaan ubin dan privasi.</string>
-    <string name="compass_smoothing_info">Nilai yang lebih tinggi kurangi derau</string>
     <string name="track_smoothing_info">Definisikan toleransi dalam meter untuk algoritma pembuka trek. Enter 0 untuk menonaktifkan berciuman trek.
 \nUbah datang ke efek setelah memuat ulang trek.</string>
     <string name="overwrite_map_question">Peta \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
@@ -26,16 +25,11 @@
     <string name="stroke_width_info">Tentukan lebar sapuan trek</string>
     <string name="no_map_configured">Anda tidak memiliki peta luring belum dikonfigurasi.</string>
     <string name="menu_advanced">Tingkat lanjut</string>
-    <string name="compass_smoothing_menu">Kecupan Kompas</string>
-    <string name="map_mode_compass">Peta sebagai kompas</string>
     <string name="map_mode_direction">Peta arah perpindahan</string>
     <string name="track_smoothing_menu">Penghalusan trek</string>
     <string name="error_loading_offline_map">Galat saat membaca peta yang dikonfigurasi luring</string>
     <string name="cancel_download_question">Batalkan unduhan saat ini\?</string>
     <string name="map_mode_north_top">Peta Utara Di Atas</string>
-    <string name="arrow_mode_compass">Panah sebagai kompas</string>
-    <string name="arrow_mode_direction">Arah perpindahan panah</string>
-    <string name="arrow_mode_north">Panah menunjuk ke utara</string>
     <string name="pip_mode">Gambar pada mode gambar</string>
     <string name="delete_theme_error">Penghapusan tema gagal</string>
     <string name="delete_theme_question">Hapus tema \"%s\"\?</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

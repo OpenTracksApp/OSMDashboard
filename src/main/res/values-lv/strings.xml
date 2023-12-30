@@ -30,7 +30,6 @@
     <string name="stroke_width_menu">Sliedes gājiena platums</string>
     <string name="stroke_width_info">Definēt sliedes svītru platumu</string>
     <string name="no_map_configured">Jums vēl nav konfigurēta bezsaistes karte.</string>
-    <string name="compass_smoothing_info">Lielākas vērtības samazina troksni</string>
     <string name="download_theme_success">Tēma veiksmīgi lejupielādēta</string>
     <string name="download_theme_failed">Tēmas lejupielāde neizdevās</string>
     <string name="map_selection">Kartes</string>
@@ -40,13 +39,8 @@
     <string name="theme_selection">Kartes tēmas</string>
     <string name="delete_theme_question">Dzēst tēmu \"%s\"\?</string>
     <string name="pip_mode">Attēla attēla režīmā</string>
-    <string name="arrow_mode_north">Bulta norāda uz ziemeļiem</string>
-    <string name="arrow_mode_direction">Bultu kustības virziens</string>
-    <string name="arrow_mode_compass">Bulta kā kompass</string>
     <string name="map_mode_north_top">Karte uz ziemeļiem augšā</string>
     <string name="map_mode_direction">Kartes virziena maiņa</string>
-    <string name="map_mode_compass">Kartes kā kompasa attēls</string>
-    <string name="compass_smoothing_menu">Kompasu izlīdzināšana</string>
     <string name="menu_advanced">Uzlabotas</string>
     <string name="copyright_osm">Kartes dati © OpenStreetMap</string>
     <string name="usage_info">Izmantojiet <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, izvēlieties trasi un noklikšķiniet uz kartes ikonas, lai parādītu trasi kartē.</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

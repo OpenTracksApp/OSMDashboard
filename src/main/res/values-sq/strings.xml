@@ -35,14 +35,8 @@
     <string name="error_loading_offline_map">Gabim leximi konfiguruar offline hartë</string>
     <string name="track_smoothing_menu">Zbutja e gjurmëve</string>
     <string name="pip_mode">Foto në modalitetin e figurës</string>
-    <string name="arrow_mode_north">Shigjeta tregon në veri</string>
-    <string name="arrow_mode_direction">Drejtimi i lëvizjes së shigjetës</string>
-    <string name="arrow_mode_compass">Shigjeta si busull</string>
     <string name="map_mode_north_top">Harta në veri në krye</string>
     <string name="map_mode_direction">Drejtimi i lëvizjes së hartës</string>
-    <string name="map_mode_compass">Harta si busull</string>
-    <string name="compass_smoothing_menu">Zbutja e busullës</string>
-    <string name="compass_smoothing_info">Vlerat më të larta zvogëlojnë zhurmën</string>
     <string name="menu_advanced">Avancuar</string>
     <string name="stroke_width_info">Përcaktoni gjerësinë e goditjes së gjurmëve</string>
     <string name="unit_meter">m</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="arrow_mode_compass">Flecha como bússola</string>
     <string name="track_smoothing_menu">Suavização de rastos</string>
     <string name="cancel_download_question">Cancelar o download actual\?</string>
     <string name="delete_theme_error">A eliminação de temas falhou</string>
@@ -31,14 +30,9 @@
     <string name="stroke_width_info">Definir a largura do traçado das pistas</string>
     <string name="no_map_configured">Ainda não tem o mapa offline configurado.</string>
     <string name="menu_advanced">Avançado</string>
-    <string name="compass_smoothing_info">Valores mais altos reduzem o ruído</string>
-    <string name="compass_smoothing_menu">Suavização da bússola</string>
-    <string name="map_mode_compass">Mapa como bússola</string>
     <string name="map_mode_direction">Mapa em movimento</string>
     <string name="map_mode_north_top">Mapa norte no topo</string>
     <string name="stroke_width_menu">Largura do traçado</string>
-    <string name="arrow_mode_direction">Seta movendo-se na direcção</string>
-    <string name="arrow_mode_north">Pontos de flecha a norte</string>
     <string name="pip_mode">Imagem em modo de imagem</string>
     <string name="error_loading_offline_map">Leitura de erros configurados no mapa offline</string>
     <string name="usage_info">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, seleccione uma pista e clique no ícone do mapa para mostrar a pista no mapa.</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

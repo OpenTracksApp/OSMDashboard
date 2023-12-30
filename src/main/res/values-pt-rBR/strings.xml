@@ -29,14 +29,8 @@
     <string name="track_smoothing_info">Defina a tolerância em metros para o algoritmo de suavização da trilha. Insira 0 para desativar a suavização da trilha.
 \nA mudança entra em vigor após recarregar a trilha.</string>
     <string name="pip_mode">Modo picture in picture</string>
-    <string name="arrow_mode_north">A seta aponta para o norte</string>
-    <string name="arrow_mode_direction">Direção do movimento da seta</string>
-    <string name="arrow_mode_compass">Seta é como bússola</string>
     <string name="map_mode_north_top">Mapa do norte no topo</string>
     <string name="map_mode_direction">Direção do movimento do mapa</string>
-    <string name="map_mode_compass">Mapa é como bússola</string>
-    <string name="compass_smoothing_menu">Suavização da bússola</string>
-    <string name="compass_smoothing_info">Valores mais altos reduzem o ruído</string>
     <string name="menu_advanced">Avançado</string>
     <string name="no_map_configured">Você ainda não configurou um mapa offline.</string>
     <string name="stroke_width_info">Defina a largura do traço das trilhas</string>
@@ -82,7 +76,6 @@
     <string name="track_color">Track color</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

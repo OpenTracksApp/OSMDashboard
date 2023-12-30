@@ -36,14 +36,8 @@
     <string name="error_loading_offline_map">读取配置的在线地图失败</string>
     <string name="track_smoothing_menu">轨迹平滑</string>
     <string name="pip_mode">画中画模式</string>
-    <string name="arrow_mode_north">箭头朝北</string>
-    <string name="arrow_mode_direction">箭头跟随指向</string>
-    <string name="arrow_mode_compass">箭头指北（指南针）</string>
     <string name="map_mode_north_top">地图上方为北</string>
     <string name="map_mode_direction">地图跟随方向</string>
-    <string name="map_mode_compass">地图为罗盘</string>
-    <string name="compass_smoothing_menu">指南针指向平滑</string>
-    <string name="compass_smoothing_info">高度数据降噪</string>
     <string name="menu_advanced">高级选项</string>
     <string name="stroke_width_info">定义轨迹的描边宽度</string>
     <string name="stroke_width_menu">轨道描边宽度</string>
@@ -93,7 +87,6 @@
 \n分段: %5$d
 \n协议版本: %6$d</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="map_settings">Map</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
     <string name="map_mode">Map orientation</string>

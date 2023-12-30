@@ -17,14 +17,8 @@
     <string name="error_loading_offline_map">Feil ved lesing av innstilt offline-kart</string>
     <string name="track_smoothing_menu">Sporutjevning</string>
     <string name="pip_mode">Bilde-i-bilde-modus</string>
-    <string name="arrow_mode_north">Pil peker mot nord</string>
-    <string name="arrow_mode_direction">Pil i bevegelsesretning</string>
-    <string name="arrow_mode_compass">Pil som kompass</string>
     <string name="map_mode_north_top">Kart viser nord opp</string>
     <string name="map_mode_direction">Kart i bevegelsesretning</string>
-    <string name="map_mode_compass">Kart som kompass</string>
-    <string name="compass_smoothing_menu">Kompassutjevning</string>
-    <string name="compass_smoothing_info">Høyere verdier reduserer støy</string>
     <string name="menu_advanced">Avansert</string>
     <string name="no_map_configured">Du har ikke satt opp noe frakoblet kart ennå.</string>
     <string name="stroke_width_info">Definer strekbredden til sporene</string>
@@ -91,7 +85,6 @@
     <string name="distance_mi">Distanse i miles</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="map_settings">Map</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>

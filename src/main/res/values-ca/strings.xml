@@ -28,11 +28,7 @@
     <string name="error_loading_offline_map">Error de lectura configurat els mapes fora de línia</string>
     <string name="track_smoothing_menu">Pista suavitzat</string>
     <string name="pip_mode">Imatge en mode d\'imatge</string>
-    <string name="arrow_mode_direction">Tecles de moviment direcció</string>
-    <string name="arrow_mode_compass">Tecles com la brúixola</string>
     <string name="map_mode_north_top">Mapa de nord a la part superior</string>
-    <string name="map_mode_compass">Mapa amb la brúixola</string>
-    <string name="compass_smoothing_menu">Brúixola suavitzat</string>
     <string name="menu_advanced">Avançat</string>
     <string name="stroke_width_info">Definir el contorn amplada de les pistes</string>
     <string name="stroke_width_menu">Pista traç ample</string>
@@ -47,11 +43,9 @@
     <string name="download_instruction">Esteu visualitzant el contingut de https://ftp-stud.hs-esslingen.de.</string>
     <string name="delete_map_error">Mapa de la supressió fallat</string>
     <string name="overwrite_theme_question">El tema \"%s\" ja existeix! Suprimir i descarregar de nou\?</string>
-    <string name="arrow_mode_north">La fletxa assenyala el nord</string>
     <string name="track_smoothing_info">Definir la tolerància en metres per la pista suavitzat algorisme. Introduïu 0 a desactivar el seguiment regulador.
 \nCanviar entra en vigor després de tornar a carregar la pista.</string>
     <string name="map_mode_direction">Mapa del moviment de direcció</string>
-    <string name="compass_smoothing_info">Els valors més alts reduir el soroll</string>
     <string name="no_map_configured">No teniu els mapes fora de línia encara no s\'ha configurat.</string>
     <string name="startDownload">Inicia La Baixada</string>
     <string name="error_reg_content_observer">Error en el registre OpenTracksContentObserver</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

@@ -31,14 +31,8 @@
     <string name="error_loading_offline_map">Erro ó ler o mapa sen conexión configurado</string>
     <string name="track_smoothing_menu">Suavizado da ruta</string>
     <string name="pip_mode">Modo imaxe en imaxe</string>
-    <string name="arrow_mode_north">Frecha apunta ó norte</string>
-    <string name="arrow_mode_direction">Frecha na dirección do movemento</string>
-    <string name="arrow_mode_compass">Frecha como compás</string>
     <string name="map_mode_north_top">Norte do mapa arriba</string>
     <string name="map_mode_direction">Mapa na dirección de movemento</string>
-    <string name="map_mode_compass">Mapa como compás</string>
-    <string name="compass_smoothing_menu">Suavizado do compás</string>
-    <string name="compass_smoothing_info">Valores máis altos diminúen o ruido</string>
     <string name="menu_advanced">Avanzado</string>
     <string name="stroke_width_info">Define o ancho do trazo nas rutas</string>
     <string name="overwrite_map_question">O mapa \"%s\" xa existe! Eliminar e descargar de novo\?</string>
@@ -83,7 +77,6 @@
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
     <string name="track_color">Track color</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>

@@ -28,14 +28,8 @@
     <string name="stroke_width_info">Definirea lățimii de trasare a benzilor</string>
     <string name="no_map_configured">Nu aveți încă configurată nicio hartă offline.</string>
     <string name="menu_advanced">Avansată</string>
-    <string name="compass_smoothing_info">Valori mai mari reduc zgomotul</string>
-    <string name="compass_smoothing_menu">Netezirea compasului</string>
-    <string name="map_mode_compass">Harta ca busola</string>
     <string name="map_mode_direction">Direcție de deplasare a hărții</string>
     <string name="map_mode_north_top">Harta nord pe partea de sus</string>
-    <string name="arrow_mode_compass">Săgeata ca o busolă</string>
-    <string name="arrow_mode_direction">Săgeată direcție de mișcare</string>
-    <string name="arrow_mode_north">Săgeata indică nordul</string>
     <string name="pip_mode">Imagine în modul imagine</string>
     <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Setați la 0 pentru a dezactiva netezirea pistei.</string>
     <string name="track_smoothing_menu">Netezirea liniei</string>
@@ -92,7 +86,6 @@
 \nVersiune protocol: %6$d</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="show_pause_markers">Afișați marcatori de pauză</string>
-    <string name="arrow_mode">Orientarea săgeții</string>
     <string name="map_settings">Hartă</string>
     <string name="online_map_consent_info">Utilizarea hărții online de la openstreetmap.org ar putea duce la descoperirea locației dvs. curentă. Trebuie să dați consimțământ înainte de utilizare.</string>
     <string name="map_mode">Orientarea hărții</string>

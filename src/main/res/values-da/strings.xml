@@ -32,13 +32,7 @@
     <string name="error_loading_offline_map">Fejl læsning konfigureret offline kort</string>
     <string name="track_smoothing_menu">Spor udjævning</string>
     <string name="pip_mode">Billede i billedtilstand</string>
-    <string name="arrow_mode_north">Pilen peger mod nord</string>
-    <string name="arrow_mode_direction">Pil bevægende retning</string>
-    <string name="arrow_mode_compass">Pil som kompas</string>
     <string name="map_mode_north_top">Kort nord på toppen</string>
-    <string name="map_mode_compass">Kort som kompas</string>
-    <string name="compass_smoothing_menu">Kompas udjævning</string>
-    <string name="compass_smoothing_info">Højere værdier reducerer støj</string>
     <string name="menu_advanced">Avanceret</string>
     <string name="stroke_width_info">Definer stregbredden af sporene</string>
     <string name="stroke_width_menu">Spor slagtilfælde bredde</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

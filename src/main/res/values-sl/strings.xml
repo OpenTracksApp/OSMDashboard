@@ -22,11 +22,8 @@
     <string name="download_failed">Prenos zemljevida ni uspešen</string>
     <string name="delete_map_question">Izbriši zemljevid \"%s\"\?</string>
     <string name="map_selection">Zemljevidi</string>
-    <string name="map_mode_compass">Zemljevid kot kompas</string>
     <string name="map_mode_direction">Smer gibanja zemljevida</string>
     <string name="map_mode_north_top">Zemljevid severa na vrhu</string>
-    <string name="arrow_mode_compass">Puščica kot kompas</string>
-    <string name="arrow_mode_north">Puščica kaže proti severu</string>
     <string name="pip_mode">Slika v načinu slike</string>
     <string name="track_smoothing_menu">Glajenje tirov</string>
     <string name="error_loading_offline_map">Napaka pri branju konfiguriranega zemljevida brez povezave</string>
@@ -43,9 +40,6 @@
     <string name="stroke_width_info">Določite širino črtkanja sledi</string>
     <string name="no_map_configured">Zemljevid brez povezave še ni konfiguriran.</string>
     <string name="menu_advanced">Napredni</string>
-    <string name="compass_smoothing_info">Višje vrednosti zmanjšajo hrup</string>
-    <string name="compass_smoothing_menu">Glajenje kompasa</string>
-    <string name="arrow_mode_direction">Smer gibanja puščice</string>
     <string name="track_smoothing_info">Določite toleranco v metrih za algoritem glajenja sledi. Če želite onemogočiti glajenje sledi, vnesite 0.
 \nSprememba začne veljati po ponovnem nalaganju steze.</string>
     <string name="map_online_consent_menu">Soglasje za spletni zemljevid</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

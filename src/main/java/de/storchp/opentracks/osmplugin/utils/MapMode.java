@@ -1,27 +1,21 @@
 package de.storchp.opentracks.osmplugin.utils;
 
-import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
 
 public enum MapMode {
 
     NORTH() {
-        public float getHeading(MovementDirection movementDirection, Compass compass) {
+        public float getHeading(MovementDirection movementDirection) {
             return 0;
         }
     },
     DIRECTION() {
-        public float getHeading(MovementDirection movementDirection, Compass compass) {
-            return movementDirection.getCurrentDegrees();
-        }
-    },
-    COMPASS() {
-        public float getHeading(MovementDirection movementDirection, Compass compass) {
-            return compass.getBearing().getValue();
+        public float getHeading(MovementDirection movementDirection) {
+            return -1 * movementDirection.getCurrentDegrees();
         }
     };
 
-    public abstract float getHeading(MovementDirection movementDirection, Compass compass);
+    public abstract float getHeading(MovementDirection movementDirection);
 
     public static MapMode valueOf(String name, MapMode defaultValue) {
         try {

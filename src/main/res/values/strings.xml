@@ -37,16 +37,9 @@
     <string name="track_smoothing_menu">Track smoothing</string>
     <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
     <string name="pip_mode">Picture in picture mode</string>
-    <string name="arrow_mode">Arrow orientation</string>
-    <string name="arrow_mode_north">Arrow points to north</string>
-    <string name="arrow_mode_direction">Arrow moving direction</string>
-    <string name="arrow_mode_compass">Arrow as compass</string>
     <string name="map_mode">Map orientation</string>
     <string name="map_mode_north_top">Map north on top</string>
     <string name="map_mode_direction">Map moving direction</string>
-    <string name="map_mode_compass">Map as compass</string>
-    <string name="compass_smoothing_menu">Compass smoothing</string>
-    <string name="compass_smoothing_info">Higher values reduce noise</string>
     <string name="menu_advanced">Advanced</string>
     <string name="no_map_configured">You have no offline map configured yet.</string>
     <string name="stroke_width_info">Define the stroke width of the tracks</string>

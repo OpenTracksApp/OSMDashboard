@@ -27,12 +27,7 @@
     <string name="track_smoothing_info">Parça yumuşatma algoritması için toleransı metre cinsinden tanımlayın. Parça yumuşatmayı devre dışı bırakmak için 0 girin.
 \nParça yeniden yüklendikten sonra değişiklik yürürlüğe girer.</string>
     <string name="pip_mode">Resim içinde resim modu</string>
-    <string name="arrow_mode_north">Ok kuzeyi gösteriyor</string>
-    <string name="arrow_mode_compass">Pusula olarak ok</string>
     <string name="map_mode_direction">Haritanın hareket yönü</string>
-    <string name="map_mode_compass">Pusula olarak harita</string>
-    <string name="compass_smoothing_menu">Pusula yumuşat</string>
-    <string name="compass_smoothing_info">Daha yüksek değerler gürültüyü azaltır</string>
     <string name="menu_advanced">Gelişmiş</string>
     <string name="no_map_configured">Henüz ayarlanmış bir çevrimdışı haritanız yok.</string>
     <string name="stroke_width_menu">Kontur genişliğini takip et</string>
@@ -56,7 +51,6 @@
     <string name="map_selection">Haritalar</string>
     <string name="theme_selection">Harita temaları</string>
     <string name="overwrite_map_question">\"%s\" haritası zaten var! Silinip tekrar indirilsin mi\?</string>
-    <string name="arrow_mode_direction">Okun hareket yönü</string>
     <string name="map_mode_north_top">Kuzey haritası üstte</string>
     <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
     <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

@@ -157,16 +157,8 @@ public class PreferencesUtils {
         return getBoolean(R.string.APP_PREF_PIP_ENABLED, resources.getBoolean(R.bool.pip_enabled_default));
     }
 
-    public static ArrowMode getArrowMode() {
-        return ArrowMode.valueOf(getString(R.string.APP_PREF_ARROW_MODE, ArrowMode.DIRECTION.name()), ArrowMode.valueOf(resources.getString(R.string.arrow_mode_default)));
-    }
-
     public static MapMode getMapMode() {
         return MapMode.valueOf(getString(R.string.APP_PREF_MAP_MODE, MapMode.NORTH.name()), MapMode.valueOf(resources.getString(R.string.map_mode_default)));
-    }
-
-    public static int getCompassSmoothing() {
-        return getInt(R.string.APP_PREF_COMPASS_SMOOTHING, resources.getInteger(R.integer.compass_smoothing_default));
     }
 
     public static int getStrokeWidth() {

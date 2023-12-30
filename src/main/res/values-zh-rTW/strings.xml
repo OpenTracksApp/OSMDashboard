@@ -17,7 +17,6 @@
     <string name="show_pause_markers">顯示暫停標誌</string>
     <string name="pace_min_mi">配速（分鐘/英里）</string>
     <string name="speed_mi_h">速度（英里/小時）</string>
-    <string name="arrow_mode">箭頭方向</string>
     <string name="map_info_menu">關於</string>
     <string name="track_color_mode_uni">單色</string>
     <string name="map_settings">地圖</string>
@@ -26,13 +25,11 @@
     <string name="osm_info">預設的地圖由 <b><a href="https://openstreetmap.org">OpenStreetMap.org 提供</a></b>。加入社群並幫助改善該地圖，請見 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>。</string>
     <string name="map_mode_north_top">地圖北方朝上</string>
     <string name="track_smoothing_menu">蹤跡平滑化</string>
-    <string name="arrow_mode_compass">箭頭作為羅盤</string>
     <string name="cancel_download_question">是否要取消目前的下載？</string>
     <string name="version_info"><b>版本：</b> %s - %s (%d)</string>
     <string name="distance_km">距離（公里）</string>
     <string name="startDownload">開始下載</string>
     <string name="unit_mile_per_hour">英里每小時</string>
-    <string name="arrow_mode_direction">箭頭指向移動方向</string>
     <string name="delete_theme_question">是否刪除 \"%s\" 主題？</string>
     <string name="unit_feet">英尺</string>
     <string name="elevation_feet">海拔提升（英尺）</string>
@@ -45,7 +42,6 @@
     <string name="unit_mile">英里</string>
     <string name="app_name_info_screen">OSM Dashboard
 \n用於 OpenTracks</string>
-    <string name="map_mode_compass">地圖作為羅盤</string>
     <string name="offline_map_info">離線地圖可以通過<b>地圖下載</b>選單，或者造訪以上提及的網站並點擊下載連結。一些瀏覽器（例如 Firefox）需要長按連結並 在外部應用程式開啟 再選擇 OSMDashboard。</string>
     <string name="download_success">地圖下載成功</string>
     <string name="debug_trackpoints_info">收到的蹤跡點：%1$d
@@ -68,10 +64,8 @@
     <string name="download_theme_success">主題下載成功</string>
     <string name="online_map_consent">沒有配置離線組態。請同意使用來自 openstreetmap.org 的離線地圖。這可能會洩漏您目前的位置。請見 https://operations.osmfoundation.org/policies/tiles/ 對於圖磚使用與隱私權政策。</string>
     <string name="toggle_full_screen_mode">切換全螢幕模式</string>
-    <string name="arrow_mode_north">箭頭指向北方</string>
     <string name="title_activity_settings">設定</string>
     <string name="theme_selection">地圖主題</string>
-    <string name="compass_smoothing_menu">羅盤指向平順</string>
     <string name="bug_report">回報 Bug</string>
     <string name="error_crash_title">%1$s 崩潰</string>
     <string name="delete_map_error">地圖刪除失敗</string>
@@ -92,7 +86,6 @@
     <string name="track_color_mode_by_track">根據蹤跡上色</string>
     <string name="share">分享</string>
     <string name="debug_trackpoints">除錯縱基點</string>
-    <string name="compass_smoothing_info">較高的值可減少雜訊</string>
     <string name="map_theme_info"><b>一些地圖需要特定的主題才能正確地渲染！</b>因此這些都需要下載並組態。</string>
     <string name="map_selection">地圖</string>
     <string name="error_loading_offline_map">讀取組態的離線地圖時發生錯誤</string>

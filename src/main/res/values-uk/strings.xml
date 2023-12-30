@@ -22,12 +22,8 @@
     <string name="download_success">Мапа успішно завантажена</string>
     <string name="map_selection">Мапи</string>
     <string name="pip_mode">Режим «Картинка в картинці»</string>
-    <string name="arrow_mode_north">Стрілка вказує на північ</string>
-    <string name="arrow_mode_compass">Стрілка як компас</string>
     <string name="map_mode_north_top">Північ мапи зверху</string>
     <string name="map_mode_direction">Мапа рухається за напрямком</string>
-    <string name="compass_smoothing_menu">Згладжування компаса</string>
-    <string name="compass_smoothing_info">Більш високі значення зменшують шум</string>
     <string name="menu_advanced">Розширені</string>
     <string name="no_map_configured">У вас ще не налаштовано офлайн-мапи.</string>
     <string name="stroke_width_info">Вкажіть товщину лінії треку</string>
@@ -43,8 +39,6 @@
     <string name="delete_theme_question">Видалити тему \"%s\"\?</string>
     <string name="overwrite_map_question">Мапа \"%s\" вже існує! Видалити та завантажити знову\?</string>
     <string name="track_smoothing_info">Визначте допуск у метрах для алгоритму згладжування треку. Введіть 0, щоб вимкнути згладжування треку.</string>
-    <string name="arrow_mode_direction">Стрілка рухається в напрямку</string>
-    <string name="map_mode_compass">Мапа як компас</string>
     <string name="download_theme">Завантажити тему</string>
     <string name="download_theme_success">Тема успішно завантажена</string>
     <string name="download_theme_failed">Не вдалося завантажити тему</string>
@@ -65,7 +59,6 @@
     <string name="pace_min_km">Темп у хв/км</string>
     <string name="pace_min_mi">Темп у хв/милю</string>
     <string name="speed_mi_h">Швидкість у миль/год</string>
-    <string name="arrow_mode">Орієнтування стрілки</string>
     <string name="map_settings">Мапа</string>
     <string name="version_info"><b>Версія:</b> %s - %s (%d)</string>
     <string name="distance_km">Відстань у км</string>

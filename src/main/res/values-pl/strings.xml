@@ -13,13 +13,8 @@
     <string name="stroke_width_info">Zdefiniuj szerokość obrysu ścieżek</string>
     <string name="no_map_configured">Nie masz jeszcze skonfigurowanej mapy offline.</string>
     <string name="menu_advanced">Zaawansowane</string>
-    <string name="compass_smoothing_info">Wyższe wartości redukują hałas</string>
-    <string name="compass_smoothing_menu">Wygładzanie kompasu</string>
-    <string name="map_mode_compass">Mapa jako kompas</string>
     <string name="map_mode_direction">Kierunek ruchu mapy</string>
     <string name="map_mode_north_top">Mapa północna na górze</string>
-    <string name="arrow_mode_compass">Strzałka jako kompas</string>
-    <string name="arrow_mode_north">Strzałka wskazuje północ</string>
     <string name="pip_mode">Obraz w trybie zdjęć</string>
     <string name="track_smoothing_menu">Wygładzanie toru jazdy</string>
     <string name="error_loading_offline_map">Błąd odczytu skonfigurowanej mapy offline</string>
@@ -35,7 +30,6 @@
     <string name="download_failed">Pobieranie mapy nie powiodło się</string>
     <string name="download_success">Mapa została pomyślnie pobrana</string>
     <string name="stroke_width_menu">Szerokość skoku ścieżki</string>
-    <string name="arrow_mode_direction">Strzałka kierunku ruchu</string>
     <string name="track_smoothing_info">Określić tolerancję w metrach dla algorytmu wygładzania ścieżek. Wprowadź 0, aby wyłączyć wygładzanie ścieżki.
 \nZmiana wejdzie w życie po ponownym załadowaniu ścieżki.</string>
     <string name="theme_folder">Katalog tematyczny map</string>
@@ -93,7 +87,6 @@
     <string name="track_color_mode_by_track">Kolor według ścieżki</string>
     <string name="track_color_mode_by_speed">Kolor według prędkości</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="map_settings">Map</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
     <string name="map_mode">Map orientation</string>

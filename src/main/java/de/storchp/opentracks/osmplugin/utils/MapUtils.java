@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Log;
 
@@ -22,7 +21,6 @@ import java.util.List;
 import java.util.Stack;
 
 import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.compass.Compass;
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
 import de.storchp.opentracks.osmplugin.maps.MovementDirection;
@@ -182,26 +180,14 @@ public class MapUtils {
     }
 
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+        var drawable = ContextCompat.getDrawable(context, drawableId);
+        var bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
+        var canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
 
         return bitmap;
-    }
-
-    public static float deltaAngle(float angle1, float angle2) {
-        float delta = angle2 - angle1;
-        delta += 180;
-        delta -= Math.floor(delta / 360) * 360;
-        delta -= 180;
-        if (Math.abs(Math.abs(delta) - 180) <= Float.MIN_VALUE) {
-            delta = 180f;
-        }
-        return delta;
     }
 
 
@@ -219,16 +205,11 @@ public class MapUtils {
         return Color.argb(255, red, green, 0);
     }
 
-    public static float rotateWith(ArrowMode arrowMode, MapMode mapMode, MovementDirection movementDirection, Compass compass) {
-        if ((arrowMode == ArrowMode.COMPASS && mapMode == MapMode.COMPASS)
-                || arrowMode == ArrowMode.NORTH) {
-            return 0f;
-        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.DIRECTION) {
-            return mapMode.getHeading(movementDirection, compass);
-        } else if (arrowMode == ArrowMode.DIRECTION && mapMode == MapMode.COMPASS) {
-            return arrowMode.getDegrees(movementDirection, compass);
+    public static float rotateWith(MapMode mapMode, MovementDirection movementDirection) {
+        if (mapMode == MapMode.DIRECTION) {
+            return -1 * mapMode.getHeading(movementDirection);
         } else {
-            return arrowMode.getDegrees(movementDirection, compass) + mapMode.getHeading(movementDirection, compass) % 360;
+            return movementDirection.getCurrentDegrees() + mapMode.getHeading(movementDirection) % 360;
         }
     }
 

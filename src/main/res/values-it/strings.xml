@@ -21,18 +21,12 @@
     <string name="delete_theme_error">Cancellazione del tema non riuscita</string>
     <string name="cancel_download_question">Vuoi annullare lo scaricamento\?</string>
     <string name="pip_mode">Modalità PiP</string>
-    <string name="arrow_mode_north">La freccia punta verso Nord</string>
-    <string name="arrow_mode_direction">Direzione di movimento della freccia</string>
-    <string name="arrow_mode_compass">Utilizza la freccia come una bussola</string>
     <string name="map_mode_north_top">Mappa con il Nord in alto</string>
-    <string name="compass_smoothing_menu">Arrotondamento della direzione della bussola</string>
-    <string name="compass_smoothing_info">Valori più alti riducono le imprecisioni</string>
     <string name="menu_advanced">Modalità avanzata</string>
     <string name="no_map_configured">Non hai ancora configurato una mappa offline.</string>
     <string name="stroke_width_info">Inserisci la larghezza del tratto del percorso</string>
     <string name="stroke_width_menu">Larghezza del tratto del percorso</string>
     <string name="map_mode_direction">Direzione di movimento della mappa</string>
-    <string name="map_mode_compass">Movimento della mappa come una bussola</string>
     <string name="copyright_osm">Dati cartografici © Collaboratori di OpenStreetMap</string>
     <string name="usage_info">Utilizzo di <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>: selezionare una traccia e cliccare sull\'icona della mappa per mostrare la traccia sulla mappa.</string>
     <string name="osm_info">La mappa predefinita è fornita da <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Unisciti alla community e aiuta a migliorare la mappa su <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

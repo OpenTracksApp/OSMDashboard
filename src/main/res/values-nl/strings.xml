@@ -34,14 +34,8 @@
     <string name="track_smoothing_info">Definieer de tolerantie in meters voor het spoorverzachtingsalgoritme. Voer 0 in om spoorverzachter uit te schakelen.
 \nChange treedt in werking na het opnieuw laden van het spoor.</string>
     <string name="pip_mode">Beeld in beeldmodus</string>
-    <string name="arrow_mode_north">Pijlpunten naar het noorden</string>
-    <string name="arrow_mode_direction">Pijlbewegingsrichting</string>
-    <string name="arrow_mode_compass">Pijl als kompas</string>
     <string name="map_mode_north_top">Kaart noordelijker gelegen</string>
     <string name="map_mode_direction">Kaart bewegende richting</string>
-    <string name="map_mode_compass">Kaart als kompas</string>
-    <string name="compass_smoothing_menu">Kompasafvlakking</string>
-    <string name="compass_smoothing_info">Hogere waarden verminderen het geluid</string>
     <string name="menu_advanced">Gevorderde</string>
     <string name="no_map_configured">U hebt nog geen offline kaart geconfigureerd.</string>
     <string name="stroke_width_info">Definieer de slagbreedte van de sporen</string>
@@ -69,7 +63,6 @@
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="arrow_mode">Arrow orientation</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="map_settings">Map</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>

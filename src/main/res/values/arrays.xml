@@ -3,23 +3,10 @@
     <string-array name="map_mode_types">
         <item>@string/map_mode_north_top</item>
         <item>@string/map_mode_direction</item>
-        <item>@string/map_mode_compass</item>
     </string-array>
     <string-array name="map_mode_type_values">
         <item>NORTH</item>
         <item>DIRECTION</item>
-        <item>COMPASS</item>
-    </string-array>
-
-    <string-array name="arrow_mode_types">
-        <item>@string/arrow_mode_direction</item>
-        <item>@string/arrow_mode_compass</item>
-        <item>@string/arrow_mode_north</item>
-    </string-array>
-    <string-array name="arrow_mode_type_values">
-        <item>DIRECTION</item>
-        <item>COMPASS</item>
-        <item>NORTH</item>
     </string-array>
 
     <string-array name="track_color_types">
