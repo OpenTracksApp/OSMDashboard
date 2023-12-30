@@ -201,8 +201,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             readWaypoints(waypointsUri);
         } else if ("geo".equals(intent.getScheme())) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                addWaypointMarker(MapUtils.createTappableMarker(this, waypoint));
-                map.layers().add(waypointsLayer);
+                final MarkerItem marker = MapUtils.createTappableMarker(this, waypoint);
+                waypointsLayer.addItem(marker);
                 map.getMapPosition().setPosition(waypoint.getLatLong());
                 map.getMapPosition().setZoomLevel(map.viewport().getMaxZoomLevel());
             });
@@ -595,7 +595,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
                         movementDirection.updatePos(endPos);
 
                         if (trackPoint.isPause() && showPauseMarkers) {
-                            addWaypointMarker(MapUtils.createPauseMarker(this, trackPoint.getLatLong()));
+                            var marker = MapUtils.createPauseMarker(this, trackPoint.getLatLong());
+                            waypointsLayer.addItem(marker);
                         }
 
                         if (!update) {
@@ -625,6 +626,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             GeoPoint myPos = null;
             if (update && endPos != null) {
                 myPos = endPos;
+                map.render();
             } else if (!latLongs.isEmpty()) {
                 boundingBox = new BoundingBox(latLongs).extendMargin(1.2f);
                 myPos = boundingBox.getCenterPoint();
@@ -632,10 +634,6 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
 
             if (myPos != null) {
                 updateMapPositionAndRotation(myPos);
-                var layers = map.layers();
-                if (!layers.contains(polylinesLayer) && polylinesLayer.layers.size() > 0) {
-                    layers.add(polylinesLayer);
-                }
             }
             updateDebugTrackPoints();
         }
@@ -650,11 +648,14 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
 
         var layers = map.layers();
 
-        // tracks
+        // polylines
         if (polylinesLayer != null) {
             layers.remove(polylinesLayer);
         }
         polylinesLayer = new GroupLayer(map);
+        layers.add(polylinesLayer);
+
+        // tracks
         lastTrackId = 0;
         lastTrackPointId = 0;
         colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
@@ -671,6 +672,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         if (waypointsLayer != null) {
             layers.remove(waypointsLayer);
         }
+        waypointsLayer = createWaypointsLayer();
+        map.layers().add(waypointsLayer);
         lastWaypointId = 0;
     }
 
@@ -695,14 +698,14 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             if (endMarker != null) {
                 endMarker.geoPoint = endPos;
                 endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
-                waypointsLayer.update();
+                waypointsLayer.populate();
                 map.render();
             } else {
                 endMarker = new MarkerItem(endPos.toString(), "", endPos);
                 var symbol = MapUtils.createMarkerSymbol(this, R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
                 endMarker.setMarker(symbol);
                 endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
-                addWaypointMarker(endMarker);
+                waypointsLayer.addItem(endMarker);
             }
         }
     }
@@ -717,17 +720,10 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         Log.i(TAG, "Loading waypoints from " + data);
 
         try {
-            var layers = map.layers();
-            if (waypointsLayer != null) {
-                layers.remove(waypointsLayer);
-            }
-
             for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
                 lastWaypointId = waypoint.getId();
-                addWaypointMarker(MapUtils.createTappableMarker(this, waypoint));
-            }
-            if (waypointsLayer != null) {
-                layers.add(waypointsLayer);
+                final MarkerItem marker = MapUtils.createTappableMarker(this, waypoint);
+                waypointsLayer.addItem(marker);
             }
         } catch (SecurityException e) {
             Log.w(TAG, "No permission to read waypoints");
@@ -736,13 +732,9 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         }
     }
 
-    private void addWaypointMarker(final MarkerItem marker) {
-        if (waypointsLayer == null) {
-            var symbol = MapUtils.createPushpinSymbol(this);
-            waypointsLayer = new ItemizedLayer(map, new ArrayList<>(), symbol, this);
-            map.layers().add(waypointsLayer);
-        }
-        waypointsLayer.addItem(marker);
+    private ItemizedLayer createWaypointsLayer() {
+        var symbol = MapUtils.createPushpinSymbol(this);
+        return new ItemizedLayer(map, new ArrayList<>(), symbol, this);
     }
 
     @Override
@@ -809,8 +801,10 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && boundingBox != null) {
-            map.animator().animateTo(boundingBox);
-            map.animator().animateTo(map.getMapPosition().setBearing(mapMode.getHeading(movementDirection)));
+            var mapPos = map.getMapPosition();
+            mapPos.setByBoundingBox(boundingBox, map.getWidth(), map.getHeight());
+            mapPos.setBearing(mapMode.getHeading(movementDirection));
+            map.animator().animateTo(mapPos);
         }
     }
 
@@ -872,7 +866,6 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     }
 
     private void updateMapPositionAndRotation(final GeoPoint myPos) {
-        map.layers().updateLayers();
         var newPos = map.getMapPosition().setPosition(myPos).setBearing(mapMode.getHeading(movementDirection));
         map.animator().animateTo(newPos);
     }
