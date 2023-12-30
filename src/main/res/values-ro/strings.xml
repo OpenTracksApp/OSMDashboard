@@ -92,10 +92,10 @@
     <string name="title_activity_settings">Setări</string>
     <string name="action_settings">Setări</string>
     <string name="general_settings_category_title">General</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="settings_night_mode_option_day">Zi</string>
+    <string name="settings_night_mode_title">Temă UI</string>
+    <string name="settings_ui_dynamic_colors_title">Culori Dinamice</string>
+    <string name="settings_ui_dynamic_colors_summary">Folosiți culori dinamice definite de utilizator (doar Android 12+; necesită un restart manual)</string>
+    <string name="settings_night_mode_option_night">Noapte</string>
+    <string name="settings_night_mode_option_system">Sistem</string>
 </resources>
