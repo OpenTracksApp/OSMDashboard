@@ -60,7 +60,7 @@ __Required permissions:__
 
 ## Maps
 
-The map implementation is based on the [Mapsforge](https://github.com/mapsforge/mapsforge) library. This also defines the types of offline maps which can be used.
+The map implementation is based on the [Mapsforge VTM](https://github.com/mapsforge/vtm) library. This also defines the types of offline maps which can be used.
 
 The default online map is provided by [OpenStreetMap.org](https://openstreetmap.org).
 Join the community and help to improve the map, see [www.openstreetmap.org/fixthemap](https://www.openstreetmap.org/fixthemap).
@@ -85,4 +85,5 @@ Manually downloaded offline maps or maps shared by other apps can be opened from
     <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4-simple-theme-map-view.png">
     <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5-map-download-view.png">
     <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6-map-selection-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/7-map-3d.png">
 </div>
