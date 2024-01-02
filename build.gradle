@@ -115,7 +115,7 @@ ext {
     mapsforgeVersion = '0.20.0'
     lifecycle_version = '2.6.2'
     junitVersion = '5.10.1'
-    assertJVersion = '3.24.2'
+    assertJVersion = '3.25.0'
 }
 
 dependencies {
