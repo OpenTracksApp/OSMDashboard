@@ -42,7 +42,7 @@
     <string name="unit_mile">英里</string>
     <string name="app_name_info_screen">OSM Dashboard
 \n用於 OpenTracks</string>
-    <string name="offline_map_info">離線地圖可以通過<b>地圖下載</b>選單，或者造訪以上提及的網站並點擊下載連結。一些瀏覽器（例如 Firefox）需要長按連結並 在外部應用程式開啟 再選擇 OSMDashboard。</string>
+    <string name="offline_map_info">離線地圖可以通過應用程式內的選項來下載。前往設定並且選擇<b>地圖下載</b>，或者造訪以上提及的網站並點擊下載連結。一些瀏覽器（例如 Firefox）需要長按連結並 在外部應用程式開啟 再選擇 OSMDashboard。</string>
     <string name="download_success">地圖下載成功</string>
     <string name="debug_trackpoints_info">收到的蹤跡點：%1$d
 \n無效的蹤跡點：%2$d
@@ -58,11 +58,11 @@
     <string name="unit_kilometer_per_hour">公里/小時</string>
     <string name="map_mode">地圖方向</string>
     <string name="track_color_mode_by_speed">根據速度上色</string>
-    <string name="manual_offline_map_info">手動下載的離線地圖或與其他應用程式共用的地圖可以從您的 Android 設備開啟。在<b>地圖目錄</b>選單中選擇目錄。</string>
+    <string name="manual_offline_map_info">手動下載的離線地圖或與其他應用程式共用的地圖可以從您的 Android 設備開啟。在<b>地圖目錄</b>設定中選擇目錄。</string>
     <string name="unit_kilometer">公里</string>
     <string name="download_theme_failed">主題下載失敗</string>
     <string name="download_theme_success">主題下載成功</string>
-    <string name="online_map_consent">沒有配置離線組態。請同意使用來自 openstreetmap.org 的離線地圖。這可能會洩漏您目前的位置。請見 https://operations.osmfoundation.org/policies/tiles/ 對於圖磚使用與隱私權政策。</string>
+    <string name="online_map_consent">沒有離線地圖組態。請同意使用來自 openstreetmap.org 的離線地圖。這可能會洩漏您目前的位置。請見 https://operations.osmfoundation.org/policies/tiles/ 對於圖磚使用與隱私權政策。</string>
     <string name="toggle_full_screen_mode">切換全螢幕模式</string>
     <string name="title_activity_settings">設定</string>
     <string name="theme_selection">地圖主題</string>
@@ -85,17 +85,17 @@
     <string name="category">類別</string>
     <string name="track_color_mode_by_track">根據蹤跡上色</string>
     <string name="share">分享</string>
-    <string name="debug_trackpoints">除錯縱基點</string>
+    <string name="debug_trackpoints">除錯蹤跡點</string>
     <string name="map_theme_info"><b>一些地圖需要特定的主題才能正確地渲染！</b>因此這些都需要下載並組態。</string>
     <string name="map_selection">地圖</string>
     <string name="error_loading_offline_map">讀取組態的離線地圖時發生錯誤</string>
     <string name="consider_offline_maps">請考慮下載一個離線地圖以減少伺服器負載並節省您的行動數據。一些離線地圖可以在這裡找到：</string>
     <string name="moving_time">移動時間</string>
     <string name="no_map_configured">您還沒有離線地圖組態。</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="settings_night_mode_option_day">日間</string>
+    <string name="settings_night_mode_title">使用者介面主題</string>
+    <string name="settings_ui_dynamic_colors_title">動態色彩</string>
+    <string name="settings_ui_dynamic_colors_summary">使用使用者定義的動態色彩（僅限 Android 12+；需要手動重新啟動）</string>
+    <string name="settings_night_mode_option_night">夜間</string>
+    <string name="settings_night_mode_option_system">系統</string>
 </resources>
