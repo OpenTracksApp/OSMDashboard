@@ -7,7 +7,7 @@
     <string name="map_folder">Adresář map</string>
     <string name="theme_folder">Adresář vzhledů map</string>
     <string name="app_logo_description">Logo aplikace</string>
-    <string name="download_map">Stažení map</string>
+    <string name="download_map">Stáhnout mapy</string>
     <string name="download_instruction">Zobrazujete obsah z https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Mapa úspěšně stažena</string>
     <string name="map_selection">Mapy</string>
@@ -20,7 +20,7 @@
     <string name="overwrite_map_question">Mapa \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
     <string name="cancel_download_question">Přerušit aktuální stahování\?</string>
     <string name="error_loading_offline_map">Chyba načítání vybrané offline mapy</string>
-    <string name="pip_mode">Mód obraz v obraze</string>
+    <string name="pip_mode">Režim obrazu v obraze</string>
     <string name="map_mode_north_top">Sever na mapě nahoře</string>
     <string name="map_mode_direction">Mapa dle směru pohybu</string>
     <string name="menu_advanced">Rozšířené</string>
@@ -28,24 +28,23 @@
     <string name="copyright_osm">Mapová data © přispěvatelé OpenStreetMap</string>
     <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
     <string name="download_failed">Stažení mapy selhalo</string>
-    <string name="stroke_width_info">Definujte šířku zdvihu Stop</string>
+    <string name="stroke_width_info">Nastavte šířku stopy</string>
     <string name="track_smoothing_menu">Vyhlazení stopy</string>
-    <string name="stroke_width_menu">Šířka zdvihu dráhy</string>
-    <string name="map_online_consent_menu">Souhlas s mapou Online</string>
-    <string name="track_smoothing_info">Definujte toleranci v metrech pro algoritmus vyhlazení stopy. Zadejte 0 zakázat vyhlazení stopy.
-\nZměna vstoupí v platnost po opětovném načtení stopy.</string>
+    <string name="stroke_width_menu">Šířka stopy</string>
+    <string name="map_online_consent_menu">Souhlas s online mapami</string>
+    <string name="track_smoothing_info">Nastavte toleranci v metrech pro algoritmus vyhlazování stopy. Nastavte na 0 pro zakázání vyhlazování.</string>
     <string name="online_map_consent">Neexistuje žádná offline mapa nakonfigurována. Prosím, souhlasíte s tím, používat on-line mapy z openstreetmap.org. to by mohlo uniknout vaší aktuální poloze. Viz https://operations.osmfoundation.org/policies/tiles / pro použití dlaždic a Zásady ochrany osobních údajů.</string>
-    <string name="usage_info">Použijte <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, vyberte trasu a kliknutím na ikonu mapy ji zobrazte na mapě.</string>
+    <string name="usage_info">Použijte <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, vyberte trasu a klepnutím na ikonu mapy ji zobrazte na mapě.</string>
     <string name="osm_info">Výchozí mapu poskytuje <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Připojte se ke komunitě a pomozte vylepšit mapu, viz <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="consider_offline_maps">Zvažte stažení offline mapy, abyste snížili zatížení serveru a uložili svůj mobilní datový plán. Některé offline mapy najdete zde:</string>
+    <string name="consider_offline_maps">Zvažte stažení offline mapy, abyste snížili zatížení serveru a uspořili svá mobilní data. Některé offline mapy najdete zde:</string>
     <string name="map_theme_info"><b>Některé mapy vyžadují ke správnému vykreslení speciální motivy!</b> Je třeba je stáhnout a podle toho nakonfigurovat.</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
+    <string name="manual_offline_map_info">Ručně stažené offline mapy nebo mapy sdílené s ostatními aplikacemi lze otevřít z vašeho zařízení Android. Vyberte adresář v nastavení <b>Adresář map</b>.</string>
     <string name="download_theme_failed">Stažení tématu se nezdařilo</string>
     <string name="download_theme_success">Téma bylo úspěšně staženo</string>
     <string name="download_theme">Téma ke stažení</string>
     <string name="startDownload">Začít stahovat</string>
     <string name="no_download_uri_found">Nebyl nalezen URI ke stažení</string>
-    <string name="offline_map_info">Offline mapy lze stáhnout prostřednictvím nabídky <b>Mapy ke stažení</b> nebo navštívením výše uvedených webových stránek a kliknutím na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují dlouhé kliknutí na odkaz a Otevřít odkaz v externí aplikaci a poté zvolit OSMDashboard.</string>
+    <string name="offline_map_info">Offline mapy lze stáhnout v aplikaci. Přejděte do nastavení a klikněte na <b>Stáhnout mapy</b> nebo navštivte výše uvedené webové stránky a klepněte na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují klepnutí a podržení na odkazu, klepnutí na Otevřít odkaz v externí aplikaci a výběrem OSM Dashboard.</string>
     <string name="overwrite_theme_question">Téma \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
     <string name="no_file_manager_found">Nebyl nalezen správce souborů</string>
     <string name="error_reg_content_observer">Chyba při registraci OpenTracksContentObserver</string>
@@ -57,46 +56,46 @@
     <string name="error_crash_title">%1$s havarovalo</string>
     <string name="bug_report">Nahlásit chybu</string>
     <string name="unit_minute_per_mile">min/mi</string>
-    <string name="track_color">Track color</string>
-    <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
-    <string name="show_pause_markers">Show pause markers</string>
-    <string name="pace_min_mi">Pace in min/mi</string>
-    <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="track_color_mode_uni">Unicolor</string>
-    <string name="map_settings">Map</string>
-    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
-    <string name="distance_km">Distance in km</string>
+    <string name="track_color">Barva stopy</string>
+    <string name="pace_min_km">Tempo v min/km</string>
+    <string name="error_reading_trackpoints">Chyba při čtení bodů stopy: %s</string>
+    <string name="show_pause_markers">Zobrazit značky zastavení</string>
+    <string name="pace_min_mi">Tempo v min/mi</string>
+    <string name="speed_mi_h">Rychlost v mi/h</string>
+    <string name="track_color_mode_uni">Jednobarevná</string>
+    <string name="map_settings">Mapa</string>
+    <string name="version_info"><b>Verze:</b> %s - %s (%d)</string>
+    <string name="distance_km">Vzdálenost v km</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="elevation_feet">Elevation gain in feet</string>
-    <string name="speed_km_h">Speed in km/h</string>
-    <string name="configure_statistic">Configure statistic</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
-    <string name="total_time">Total time</string>
+    <string name="elevation_feet">Převýšení ve stopách</string>
+    <string name="speed_km_h">Rychlost v km/h</string>
+    <string name="configure_statistic">Nastavit statistiky</string>
+    <string name="online_map_consent_info">Použití online mapy z openstreetmap.org může vést k úniku vaší polohy. Před použitím musíte udělit souhlas.</string>
+    <string name="total_time">Celkový čas</string>
     <string name="unit_mile">mi</string>
-    <string name="debug_trackpoints_info">Trackpoints received: %1$d
-\nTrackpoints invalid: %2$d
-\nTrackpoints drawn: %3$d
-\nTrackpoints pause: %4$d
-\nSegments: %5$d
-\nProtocol version: %6$d</string>
-    <string name="elevation_meter">Elevation gain in meter</string>
+    <string name="debug_trackpoints_info">Získaných bodů: %1$d
+\nNeplatných bodů: %2$d
+\nVykreslených bodů: %3$d
+\nPozastavených bodů: %4$d
+\nSegmentů: %5$d
+\nVerze protokolu: %6$d</string>
+    <string name="elevation_meter">Převýšení v metrech</string>
     <string name="unit_kilometer_per_hour">km/h</string>
-    <string name="map_mode">Map orientation</string>
-    <string name="track_color_mode_by_speed">Color by speed</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="distance_mi">Distance in miles</string>
+    <string name="map_mode">Orientace mapy</string>
+    <string name="track_color_mode_by_speed">Barva podle rychlosti</string>
+    <string name="title_activity_settings">Nastavení</string>
+    <string name="distance_mi">Vzdálenost v mílích</string>
     <string name="unit_minute_per_kilometer">min/km</string>
-    <string name="action_settings">Settings</string>
-    <string name="general_settings_category_title">General</string>
-    <string name="category">Category</string>
-    <string name="track_color_mode_by_track">Color by track</string>
-    <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="moving_time">Moving time</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="general_settings_category_title">Obecné</string>
+    <string name="category">Kategorie</string>
+    <string name="track_color_mode_by_track">Barva podle stopy</string>
+    <string name="debug_trackpoints">Ladění bodů stopy</string>
+    <string name="moving_time">Čas pohybu</string>
+    <string name="settings_night_mode_option_day">Denní</string>
+    <string name="settings_night_mode_title">Motiv rozhraní</string>
+    <string name="settings_ui_dynamic_colors_title">Dynamické barvy</string>
+    <string name="settings_ui_dynamic_colors_summary">Uživatelsky definované dynamické barvy (pouze Android 12+; vyžaduje ruční restart)</string>
+    <string name="settings_night_mode_option_night">Noční</string>
+    <string name="settings_night_mode_option_system">Systémový</string>
 </resources>
