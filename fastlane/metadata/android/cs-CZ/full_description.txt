@@ -1,0 +1,18 @@
+OpenStreetMap přehled pro <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Zobrazuje vybranou stopu s počátečním a konečným bodem na mapě z <a href="https://openstreetmap.org">OpenStreetMap</a> založené na knihovně <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Výchozí je online mapa, jsou ale podporovány i offline mapy. Pro offline mapy nejsou vyžadována žádná mobilní data.
+
+Výchozí mapa je poskytovaná projektem <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+Připojte se ke komunitě a pomozte vylepšit mapu, více info viz <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Zvažte prosím stažení offline mapy pro snížení zatížení serveru a ušetření vašich mobilních dat.
+Některé offline mapy naleznete zde:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Některé mapy vyžadují pro správné vykreslení speciální vzhledy! Ty je potřeba stáhnout a správně nastavit.
+
+Offline mapy lze stáhnout z nabídky „Stáhnout mapy“ nebo navštívením výše zmíněných webů a kliknutím na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují klepnutí a dlouhé podržení na odkazu, klepnutí na „Otevřít odkaz v externí aplikaci“ a vybrání OSM Dashboard.
+
+Ručně stažené mapy nebo mapy sdílené s ostatními aplikacemi lze otevřít z vašeho zařízení Android. Vyberte adresář v nabídce „Adresář map“.
