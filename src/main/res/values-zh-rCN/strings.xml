@@ -16,7 +16,7 @@
     <string name="app_name_info_screen">OSM仪表盘
 \n用于OpenTracks</string>
     <string name="map_online_consent_menu">同意使用在线地图</string>
-    <string name="manual_offline_map_info">手动下载离线地图可与您的安卓设备上其他应用共享。通过 <b>地图路径</b>按钮选择 下载好的离线地图数据存放的路径。</string>
+    <string name="manual_offline_map_info">手动下载离线地图可与您的安卓设备上其他应用共享。通过 <b>地图路径</b>设置选择 下载好的离线地图数据存放的路径。</string>
     <string name="app_logo_description">应用图标</string>
     <string name="download_map">地图下载</string>
     <string name="download_theme">主题下载</string>
@@ -70,12 +70,11 @@
     <string name="track_color_mode_by_speed">颜色关联速度</string>
     <string name="unit_mile">英里</string>
     <string name="map_theme_info"><b>有些地图需要特定主题才能正确渲染！</b> 因此需要下载完这些数据并配置完成才能正常运行。</string>
-    <string name="offline_map_info">离线地图可通过以下列表下载<b>地图下载</b> 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。</string>
+    <string name="offline_map_info">离线地图可在App中下载，进入应用设置并通过选择列表下载<b>地图下载</b> 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。</string>
     <string name="online_map_consent">还没有配置离线地图。请允许应用使用OpenStreet提供的在线地图。这可能泄露您当前的地理位置信息。点击链接https://operations.osmfoundation.org/policies/tiles/ 查看相关隐私政策。</string>
     <string name="download_theme_success">主题下载成功</string>
     <string name="overwrite_map_question">地图 \"%s\" 已存在!！是否删除并重新下载？</string>
-    <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。输入 0 以禁用轨迹平滑。
-\n更改在重新加载轨迹后生效。</string>
+    <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。设置为 0 则禁用轨迹平滑。</string>
     <string name="no_map_configured">您还没有配置离线地图。</string>
     <string name="no_file_manager_found">没有找到文件管理器</string>
     <string name="error_reg_content_observer">注册OpenTracksContentObserver失败</string>
@@ -86,17 +85,17 @@
 \n轨迹点暂停: %4$d
 \n分段: %5$d
 \n协议版本: %6$d</string>
-    <string name="show_pause_markers">Show pause markers</string>
-    <string name="map_settings">Map</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
-    <string name="map_mode">Map orientation</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="action_settings">Settings</string>
-    <string name="general_settings_category_title">General</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="show_pause_markers">显示暂停标记</string>
+    <string name="map_settings">地图</string>
+    <string name="online_map_consent_info">使用 openstreetmap.org 的在线地图可能会泄露你的当前位置。使用前需征得你的同意。</string>
+    <string name="map_mode">地图方向</string>
+    <string name="title_activity_settings">设置页面</string>
+    <string name="action_settings">设置</string>
+    <string name="general_settings_category_title">通用设置</string>
+    <string name="settings_night_mode_option_day">白天</string>
+    <string name="settings_night_mode_title">UI主题</string>
+    <string name="settings_ui_dynamic_colors_title">动态颜色</string>
+    <string name="settings_ui_dynamic_colors_summary">使用用户定义的动态色彩（仅限 Android 12 以上版本；需要手动重启）</string>
+    <string name="settings_night_mode_option_night">夜晚</string>
+    <string name="settings_night_mode_option_system">系统</string>
 </resources>
