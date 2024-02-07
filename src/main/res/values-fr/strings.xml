@@ -31,22 +31,21 @@
     <string name="overwrite_map_question">La carte \"%s\" existe déjà ! Effacer et télécharger à nouveau \?</string>
     <string name="delete_theme_error">La suppression du thème a échoué</string>
     <string name="pip_mode">Mode incrustration</string>
-    <string name="track_smoothing_info">Définir la tolérance en mètres pour l\'algorithme de lissage des traces. Entrez 0 pour désactiver le lissage de la piste.
-\nLa modification entre en vigueur après le rechargement de la piste.</string>
+    <string name="track_smoothing_info">Définir la tolérance en mètres pour l\'algorithme de lissage des traces. Entrez 0 pour désactiver le lissage de la piste.</string>
     <string name="online_map_consent">Il n\'y a pas de carte configurée hors ligne. Veuillez accepter d\'utiliser la carte en ligne de openstreetmap.org. Cela pourrait entraîner une fuite de votre position actuelle. Voir https://operations.osmfoundation.org/policies/tiles/ pour l\'utilisation des tuiles et la politique de confidentialité.</string>
     <string name="delete_theme_question">Supprimer le thème \"%s\" \?</string>
     <string name="usage_info">Utilisez <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, sélectionnez une piste et cliquez sur l\'icône de la carte pour afficher la piste Sur la carte.</string>
     <string name="osm_info">La carte par défaut est fournie par <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Rejoignez la communauté et aidez à améliorer la carte, voir <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Veuillez envisager de télécharger une carte hors ligne pour réduire la charge du serveur et économiser votre forfait de données mobiles. Certaines cartes hors ligne peuvent être trouvées ici :</string>
     <string name="map_theme_info"><b>Certaines cartes nécessitent des thèmes spéciaux pour un rendu correct !</b> Ceux-ci doivent être téléchargés et configurés en conséquence.</string>
-    <string name="manual_offline_map_info">Les cartes hors ligne téléchargées manuellement ou les cartes partagées avec d\'autres applications peuvent être ouvertes à partir de votre appareil Android. Sélectionnez le répertoire dans le menu <b>Répertoire de la carte</b>.</string>
+    <string name="manual_offline_map_info">Les cartes hors ligne téléchargées manuellement ou les cartes partagées avec d\'autres applications peuvent être ouvertes à partir de votre appareil Android. Sélectionnez le répertoire dans les réglages <b>Répertoire de la carte</b>.</string>
     <string name="download_theme">Télécharger le thème</string>
     <string name="download_theme_success">Thème téléchargé avec succès</string>
     <string name="download_theme_failed">Le téléchargement du thème a échoué</string>
     <string name="overwrite_theme_question">Le thème \"%s\" existe déjà ! Supprimer et télécharger à nouveau \?</string>
     <string name="no_download_uri_found">Pas d\'URI à télécharger trouvé</string>
     <string name="startDownload">Démarrer le téléchargement</string>
-    <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées via le menu <b>Téléchargement de cartes</b> ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
+    <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées depuis l\'application en allant dans les préférences et en choisissant <b>Téléchargement de cartes</b>, ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
     <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Basculer le mode plein écran</string>
@@ -57,22 +56,22 @@
     <string name="error_crash_title">%1$s s\'est écrasé</string>
     <string name="bug_report">Signaler un bogue</string>
     <string name="unit_minute_per_mile">min/mi</string>
-    <string name="track_color">Track color</string>
-    <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
+    <string name="track_color">Couleur de la trace</string>
+    <string name="pace_min_km">Allure en min/km</string>
+    <string name="error_reading_trackpoints">Erreur de lecture de la trace : %s</string>
     <string name="show_pause_markers">Show pause markers</string>
-    <string name="pace_min_mi">Pace in min/mi</string>
-    <string name="speed_mi_h">Speed in mi/h</string>
+    <string name="pace_min_mi">Allure en min/mi</string>
+    <string name="speed_mi_h">Vitesse en mi/h</string>
     <string name="track_color_mode_uni">Unicolor</string>
-    <string name="map_settings">Map</string>
-    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
-    <string name="distance_km">Distance in km</string>
+    <string name="map_settings">Carte</string>
+    <string name="version_info"><b>Version :</b> %s - %s (%d)</string>
+    <string name="distance_km">Distance en km</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="elevation_feet">Elevation gain in feet</string>
-    <string name="speed_km_h">Speed in km/h</string>
+    <string name="elevation_feet">Dénivelé positif en feet</string>
+    <string name="speed_km_h">Vitesse en km/h</string>
     <string name="configure_statistic">Configure statistic</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
-    <string name="total_time">Total time</string>
+    <string name="online_map_consent_info">L\'utilisation de la cartographie en ligne d\'openstreetmap.org peut divulguer votre géolocalisation. Vous devez donner votre consentement pour avant son utilisation.</string>
+    <string name="total_time">Durée totale</string>
     <string name="unit_mile">mi</string>
     <string name="debug_trackpoints_info">Trackpoints received: %1$d
 \nTrackpoints invalid: %2$d
@@ -80,23 +79,23 @@
 \nTrackpoints pause: %4$d
 \nSegments: %5$d
 \nProtocol version: %6$d</string>
-    <string name="elevation_meter">Elevation gain in meter</string>
+    <string name="elevation_meter">Dénivelé positif en mètres</string>
     <string name="unit_kilometer_per_hour">km/h</string>
-    <string name="map_mode">Map orientation</string>
+    <string name="map_mode">Orientation de la carte</string>
     <string name="track_color_mode_by_speed">Color by speed</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="distance_mi">Distance in miles</string>
+    <string name="title_activity_settings">Réglages</string>
+    <string name="distance_mi">Distance en miles</string>
     <string name="unit_minute_per_kilometer">min/km</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Réglages</string>
     <string name="general_settings_category_title">General</string>
-    <string name="category">Category</string>
+    <string name="category">Catégorie</string>
     <string name="track_color_mode_by_track">Color by track</string>
     <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="moving_time">Moving time</string>
-    <string name="settings_night_mode_option_day">Day</string>
+    <string name="moving_time">Durée de déplacement</string>
+    <string name="settings_night_mode_option_day">Jour</string>
     <string name="settings_night_mode_title">UI Theme</string>
     <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
     <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="settings_night_mode_option_system">System</string>
+    <string name="settings_night_mode_option_night">Nuit</string>
+    <string name="settings_night_mode_option_system">Système</string>
 </resources>
