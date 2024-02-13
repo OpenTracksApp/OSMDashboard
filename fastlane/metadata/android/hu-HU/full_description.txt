@@ -1,0 +1,18 @@
+OpenStreetMap irányítópult az <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a> számára.
+Megjelenít egy kiválasztott nyomvonalat kezdő- és végpontokkal az <a href="https://openstreetmap.org">OpenStreetMap</a> térképén a <a href="https://github.com/mapsforge alapján /mapsforge">Mapsforge</a> könyvtár.
+Az alapértelmezett egy online térkép, de az offline térképek is támogatottak. Az offline térképekkel nincs szükség mobil adatcsomagra.
+
+Az alapértelmezett térképet az <a href="https://openstreetmap.org">OpenStreetMap.org</a> biztosítja.
+Csatlakozzon a közösséghez, és segítsen a térkép fejlesztésében, lásd: <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+Kérjük, fontolja meg egy offline térkép letöltését, hogy ezáltal csökkentse a szerverterhelést és mobiladat forgalmát.
+Néhány offline térkép itt található meg:
+- <a href="http://download.mapsforge.org/">Mapsforge</a>
+- <a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+- <a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+Egyes térképek speciális témákat igényelnek a helyes megjelenítéshez! Ezeket le kell tölteni, és ennek megfelelően be kell állítani.
+
+Az offline térképek letölthetők a "Térkép letöltése" menüből, vagy a fent említett webhelyek felkeresésével és a letöltési linkekre kattintva. Egyes böngészők (például a Firefox) hosszú kattintást igényelnek a hivatkozásra, majd a „Link megnyitása külső alkalmazásban” lehetőséget, majd válassza az OSMDashboard lehetőséget.
+
+A manuálisan letöltött offline vagy más alkalmazásokkal megosztott térképek megnyithatók Android-eszközéről. Válassza ki a könyvtárat a "Map directory" menüben.
