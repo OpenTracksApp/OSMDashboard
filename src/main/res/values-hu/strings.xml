@@ -5,12 +5,12 @@
     <string name="copyright_osm">Térképadatok © OpenStreetMap közreműködők</string>
     <string name="map_info_menu">Ról ről</string>
     <string name="map_folder">Térkép könyvtár</string>
-    <string name="theme_folder">Térkép témakönyvtára</string>
+    <string name="theme_folder">Térkép téma könyvtár</string>
     <string name="online_map_consent">Nincs offline térkép konfigurálva. Kérjük, fogadja el, hogy használja az online térképet openstreetmap.org. ez kiszivárogtathatja az aktuális tartózkodási helyét. Lásd https://operations.osmfoundation.org/policies/tiles / a csempék használatához és az adatvédelmi irányelvekhez.</string>
     <string name="download_map">Térkép letöltése</string>
-    <string name="map_online_consent_menu">Online térképes beleegyezés</string>
+    <string name="map_online_consent_menu">Online térkép hozzájárulás</string>
     <string name="app_logo_description">Alkalmazás logó</string>
-    <string name="stroke_width_info">Határozza meg a nyomvonalak szélességét</string>
+    <string name="stroke_width_info">Határozza meg a sávok szélességét</string>
     <string name="menu_advanced">Haladó</string>
     <string name="map_mode_direction">A térkép mozgási iránya szerint</string>
     <string name="map_mode_north_top">Térkép északi iránnyal a legtetején</string>
@@ -27,7 +27,7 @@
     <string name="online_osm_mapnick">Online térkép OSM: Mapnik</string>
     <string name="map_selection">Térképek</string>
     <string name="download_failed">A térkép letöltése sikertelen</string>
-    <string name="download_success">Térkép sikeresen letöltött</string>
+    <string name="download_success">Térkép sikeresen letöltve</string>
     <string name="download_instruction">Ön a https://ftp-stud.hs-esslingen.de webhely tartalmát látja.</string>
     <string name="choose_map_to_download">Válasszon egy térképet a letöltéshez</string>
     <string name="stroke_width_menu">Nyomvonal löketszélesség</string>
@@ -36,7 +36,7 @@
     <string name="default_theme">Alapértelmezett téma</string>
     <string name="usage_info">Használja az <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> alkalmazást, válasszon ki egy nyomvonalat, és kattintson a térkép ikonra a nyomvonal megjelenítéséhez a térképen.</string>
     <string name="osm_info">Az alapértelmezett térképet a <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> szolgáltatja. Csatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését a szerver terhelésének csökkentése és a mobil adatcsomag mentése érdekében. Néhány offline térkép megtalálható itt:</string>
+    <string name="consider_offline_maps">Kérjük, fontolja meg egy offline térkép letöltését, hogy csökkentse a szerverterhelést és kímélje a mobil adatforgalmi keretét. Néhány offline térkép megtalálható itt:</string>
     <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez!</b> Ezeket le kell tölteni és ennek megfelelően kell konfigurálni.</string>
     <string name="manual_offline_map_info">A manuálisan letöltött offline vagy más alkalmazásokkal megosztott térképek megnyithatók az Android-eszközéről. Válassza ki a könyvtárat a beállításokban <b>Térképkönyvtár</b>.</string>
     <string name="startDownload">Letöltés indítása</string>
@@ -45,12 +45,12 @@
     <string name="download_theme_failed">A téma letöltése sikertelen</string>
     <string name="download_theme_success">Téma sikeresen letöltve</string>
     <string name="download_theme">Téma letöltése</string>
-    <string name="offline_map_info">Az offline térképek letölthetők az alkalmazásból. Nyissa meg a beállításokat, és válassza a <b>Térkép letöltése</b> lehetőséget, vagy keresse fel a fent említett webhelyeket, és kattintson a letöltési linkekre. Egyes böngészők (például Firefox) hosszú kattintást igényelnek a hivatkozásra, majd a hivatkozás megnyitása külső alkalmazásban lehetőséget, majd az OSMDashboard lehetőséget.</string>
-    <string name="no_file_manager_found">Nem talált fájlkezelőt</string>
+    <string name="offline_map_info">Az offline térképek letölthetők az alkalmazásból. Nyissa meg a beállításokat, és válassza a <b>Térkép letöltése</b> lehetőséget, vagy keresse fel a fent említett webhelyeket, és kattintson a letöltési linkekre. Egyes böngészőkben (pl. Firefox) hosszan kell kattintani a linkre és a Linkek megnyitása külső alkalmazásban, majd az OSMDashboardot választani.</string>
+    <string name="no_file_manager_found">Nem található fájlkezelő</string>
     <string name="error_reg_content_observer">Hiba az OpenTracksContentObserver regisztrálásakor</string>
     <string name="toggle_full_screen_mode">Teljes képernyős mód váltása</string>
     <string name="share">Megosztás</string>
-    <string name="unit_feet">ft</string>
+    <string name="unit_feet">láb</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
     <string name="error_crash_title">%1$s lezuhant</string>
@@ -93,9 +93,9 @@
     <string name="debug_trackpoints">Nyomvonalpontok hibakeresése</string>
     <string name="moving_time">Mozgási idő</string>
     <string name="settings_night_mode_option_day">Nappali</string>
-    <string name="settings_night_mode_title">UI téma</string>
-    <string name="settings_ui_dynamic_colors_title">Dinamikus színek</string>
-    <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott dinamikus színek használata (csak Android 12+ felett; manuális újraindítást igényel)</string>
+    <string name="settings_night_mode_title">UI Téma</string>
+    <string name="settings_ui_dynamic_colors_title">Dinamikus Színek</string>
+    <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott Dinamikus Színek használata (csak Android 12+; manuális újraindítást igényel)</string>
     <string name="settings_night_mode_option_night">Éjszakai</string>
     <string name="settings_night_mode_option_system">Rendszer alapértelmezett</string>
 </resources>
