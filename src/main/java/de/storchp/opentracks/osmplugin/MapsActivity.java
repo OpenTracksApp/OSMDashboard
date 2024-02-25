@@ -341,7 +341,6 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         if (renderTheme != null) {
             renderTheme.dispose();
         }
-        //renderTheme = map.setTheme(new AssetsRenderTheme(getAssets(), "", "vtm/vtmstyle.xml"));
         renderTheme = map.setTheme(new StreamRenderTheme("", AssetAdapter.readFileAsStream("vtm/vtmstyle.xml")));
     }
 
