@@ -1,0 +1,3 @@
+- Mapstyle adjustments to show labels for paths
+- Updated translations
+- Updated dependencies

@@ -1,0 +1,3 @@
+- Kartenstil angepasst, so dass Beschriftungen für Wanderwege angezeigt werden
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

@@ -37,6 +37,7 @@ import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.oscim.android.MapPreferences;
+import org.oscim.backend.AssetAdapter;
 import org.oscim.backend.CanvasAdapter;
 import org.oscim.core.BoundingBox;
 import org.oscim.core.GeoPoint;
@@ -48,10 +49,8 @@ import org.oscim.layers.marker.MarkerItem;
 import org.oscim.layers.marker.MarkerSymbol;
 import org.oscim.layers.tile.bitmap.BitmapTileLayer;
 import org.oscim.layers.tile.buildings.BuildingLayer;
-import org.oscim.layers.tile.vector.VectorTileLayer;
 import org.oscim.layers.tile.vector.labeling.LabelLayer;
 import org.oscim.map.Map;
-import org.oscim.renderer.BitmapRenderer;
 import org.oscim.renderer.GLViewport;
 import org.oscim.scalebar.DefaultMapScaleBar;
 import org.oscim.scalebar.ImperialUnitAdapter;
@@ -61,7 +60,6 @@ import org.oscim.scalebar.MetricUnitAdapter;
 import org.oscim.theme.IRenderTheme;
 import org.oscim.theme.StreamRenderTheme;
 import org.oscim.theme.ThemeFile;
-import org.oscim.theme.VtmThemes;
 import org.oscim.theme.ZipRenderTheme;
 import org.oscim.theme.ZipXmlThemeResourceProvider;
 import org.oscim.tiling.source.OkHttpEngine;
@@ -285,7 +283,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     protected ThemeFile getRenderTheme() {
         Uri mapTheme = PreferencesUtils.getMapThemeUri();
         if (mapTheme == null) {
-            return VtmThemes.DEFAULT;
+            return null;
         }
         try {
             var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
@@ -303,8 +301,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
         } catch (Exception e) {
             Log.e(TAG, "Error loading theme " + mapTheme, e);
-            return VtmThemes.DEFAULT;
         }
+        return null;
     }
 
     protected MultiMapFileTileSource getMapFile() {
@@ -330,7 +328,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     private void readMapFile(MultiMapFileTileSource mapDataStore, AtomicInteger mapsCount, DocumentFile documentFile) {
         try {
             var inputStream = (FileInputStream) getContentResolver().openInputStream(documentFile.getUri());
-            MapFileTileSource tileSource = new MapFileTileSource();
+            var tileSource = new MapFileTileSource();
             tileSource.setMapFileInputStream(inputStream);
             mapDataStore.add(tileSource);
             mapsCount.getAndIncrement();
@@ -343,33 +341,36 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         if (renderTheme != null) {
             renderTheme.dispose();
         }
-        renderTheme = map.setTheme(VtmThemes.DEFAULT);
+        //renderTheme = map.setTheme(new AssetsRenderTheme(getAssets(), "", "vtm/vtmstyle.xml"));
+        renderTheme = map.setTheme(new StreamRenderTheme("", AssetAdapter.readFileAsStream("vtm/vtmstyle.xml")));
     }
 
     protected void createLayers() {
         var mapFile = getMapFile();
 
         if (mapFile != null) {
-            VectorTileLayer tileLayer = map.setBaseMap(mapFile);
+            var tileLayer = map.setBaseMap(mapFile);
             loadTheme();
 
             map.layers().add(new BuildingLayer(map, tileLayer));
             map.layers().add(new LabelLayer(map, tileLayer));
 
-            DefaultMapScaleBar mapScaleBar = new DefaultMapScaleBar(map);
+            var mapScaleBar = new DefaultMapScaleBar(map);
             mapScaleBar.setScaleBarMode(DefaultMapScaleBar.ScaleBarMode.BOTH);
             mapScaleBar.setDistanceUnitAdapter(MetricUnitAdapter.INSTANCE);
             mapScaleBar.setSecondaryDistanceUnitAdapter(ImperialUnitAdapter.INSTANCE);
             mapScaleBar.setScaleBarPosition(MapScaleBar.ScaleBarPosition.BOTTOM_LEFT);
 
-            MapScaleBarLayer mapScaleBarLayer = new MapScaleBarLayer(map, mapScaleBar);
-            BitmapRenderer renderer = mapScaleBarLayer.getRenderer();
+            var mapScaleBarLayer = new MapScaleBarLayer(map, mapScaleBar);
+            var renderer = mapScaleBarLayer.getRenderer();
             renderer.setPosition(GLViewport.Position.BOTTOM_LEFT);
             renderer.setOffset(5 * CanvasAdapter.getScale(), 0);
             map.layers().add(mapScaleBarLayer);
 
-            map.setTheme(getRenderTheme());
-
+            var themeFile = getRenderTheme();
+            if (themeFile != null) {
+                map.setTheme(themeFile);
+            }
         } else if (BuildConfig.offline) {
             new AlertDialog.Builder(this)
                     .setIcon(R.drawable.ic_logo_color_24dp)
