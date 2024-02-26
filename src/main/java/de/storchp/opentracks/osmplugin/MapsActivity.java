@@ -197,12 +197,14 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             readTrackpoints(trackPointsUri, false, protocolVersion);
             readTracks(tracksUri);
             readWaypoints(waypointsUri);
-        } else if ("geo".equals(intent.getScheme())) {
+        } else if ("geo".equals(intent.getScheme()) && intent.getData() != null) {
             Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                final MarkerItem marker = MapUtils.createTappableMarker(this, waypoint);
+                var marker = MapUtils.createTappableMarker(this, waypoint);
                 waypointsLayer.addItem(marker);
-                map.getMapPosition().setPosition(waypoint.getLatLong());
-                map.getMapPosition().setZoomLevel(map.viewport().getMaxZoomLevel());
+                var pos = map.getMapPosition()
+                        .setPosition(waypoint.getLatLong())
+                        .setZoomLevel(15);
+                map.animator().animateTo(pos);
             });
         }
     }
@@ -675,6 +677,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         waypointsLayer = createWaypointsLayer();
         map.layers().add(waypointsLayer);
         lastWaypointId = 0;
+        mapPreferences.clear();
     }
 
     public void updateDebugTrackPoints() {
