@@ -1,3 +1,4 @@
 - Kartenstil angepasst, so dass Beschriftungen für Wanderwege angezeigt werden
+- Kartenposition korrigiert, wenn ein Wegpunkt über eine geo URL angezeigt wird
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert

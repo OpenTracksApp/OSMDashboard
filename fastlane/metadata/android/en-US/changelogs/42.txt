@@ -1,3 +1,4 @@
 - Mapstyle adjustments to show labels for paths
+- Fix geo URL map position
 - Updated translations
 - Updated dependencies
