@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name_info_screen">OSM Dashboard
-\naz OpenTracks-hez</string>
+\naz OpenTrackshez</string>
     <string name="copyright_osm">Térképadatok © OpenStreetMap közreműködők</string>
     <string name="map_info_menu">Az OSM Dashboard névjegye</string>
-    <string name="map_folder">Térkép könyvtár</string>
-    <string name="theme_folder">Térkép téma könyvtár</string>
-    <string name="online_map_consent">Nincs offline térkép konfigurálva. Kérjük, fogadja el, hogy használja az online térképet openstreetmap.org. ez kiszivárogtathatja az aktuális tartózkodási helyét. Lásd https://operations.osmfoundation.org/policies/tiles / a csempék használatához és az adatvédelmi irányelvekhez.</string>
+    <string name="map_folder">Térképkönyvtár</string>
+    <string name="theme_folder">Térképtémakönyvtár</string>
+    <string name="online_map_consent">Nincs offline térkép beállítva. Fogadja el, hogy az openstreetmap.org online térképét használja. Ez kiszivárogtathatja a jelenlegi tartózkodási helyét. Lásd a https://operations.osmfoundation.org/policies/tiles/ webhelyet a csempék használatához és az adatvédelmi irányelvekhez.</string>
     <string name="download_map">Térkép letöltése</string>
-    <string name="map_online_consent_menu">Online térkép hozzájárulás</string>
+    <string name="map_online_consent_menu">Hozzájárulás az online térképhez</string>
     <string name="app_logo_description">Alkalmazás logó</string>
-    <string name="stroke_width_info">Határozza meg a nyomvonalak löketszélességét</string>
+    <string name="stroke_width_info">Határozza meg a nyomvonalak vonalvastagságát</string>
     <string name="menu_advanced">Speciális</string>
-    <string name="map_mode_direction">A térkép mozgási iránya szerint</string>
-    <string name="map_mode_north_top">Térkép északi iránnyal a legtetején</string>
+    <string name="map_mode_direction">Mozgás iránya szerint</string>
+    <string name="map_mode_north_top">Északi irány fent</string>
     <string name="pip_mode">Kép a képben mód</string>
-    <string name="track_smoothing_menu">Nyomvonal simítás</string>
-    <string name="error_loading_offline_map">Hiba a konfigurált offline térkép olvasásakor</string>
-    <string name="cancel_download_question">Törölje az aktuális letöltést\?</string>
-    <string name="overwrite_map_question">A \"%s \" térkép már létezik! Törölje és töltse le újra\?</string>
+    <string name="track_smoothing_menu">Nyomvonal simítása</string>
+    <string name="error_loading_offline_map">Hiba a beállított offline térkép olvasásakor</string>
+    <string name="cancel_download_question">Megszakítja a jelenlegi letöltést?</string>
+    <string name="overwrite_map_question">A(z) „%s” térkép már létezik. Törli és újból letölti?</string>
     <string name="delete_theme_error">A téma törlése sikertelen</string>
-    <string name="theme_selection">Térkép témák</string>
-    <string name="delete_theme_question">Téma törlése \"%s\"\?</string>
+    <string name="theme_selection">Térképtémák</string>
+    <string name="delete_theme_question">Törli a témát: „%s”?</string>
     <string name="delete_map_error">A térkép törlése sikertelen</string>
-    <string name="delete_map_question">Térkép törlése \"%s\"\?</string>
+    <string name="delete_map_question">Törli a térképet: „%s”?</string>
     <string name="online_osm_mapnick">Online térkép OSM: Mapnik</string>
     <string name="map_selection">Térképek</string>
     <string name="download_failed">A térkép letöltése sikertelen</string>
-    <string name="download_success">Térkép sikeresen letöltve</string>
-    <string name="download_instruction">Ön a https://ftp-stud.hs-esslingen.de webhely tartalmát látja.</string>
+    <string name="download_success">A térkép sikeresen letöltve</string>
+    <string name="download_instruction">A https://ftp-stud.hs-esslingen.de webhely tartalmát látja.</string>
     <string name="choose_map_to_download">Válasszon egy térképet a letöltéshez</string>
-    <string name="stroke_width_menu">Nyomvonal löketszélesség</string>
-    <string name="no_map_configured">Még nincs konfigurálva offline térkép.</string>
-    <string name="track_smoothing_info">Adja meg a tűréshatárt méterben a nyomvonal simító algoritmus számára. Írja be a 0-t a nyomvonal simítás letiltásához.</string>
+    <string name="stroke_width_menu">Nyomvonal vonalvastagság</string>
+    <string name="no_map_configured">Még nincs beállítva offline térkép.</string>
+    <string name="track_smoothing_info">Adja meg a tűréshatárt méterben a nyomvonalsimító algoritmus számára. Állítsa 0-ra a nyomvonalsimítás letiltásához.</string>
     <string name="default_theme">Alapértelmezett téma</string>
     <string name="usage_info">Használja az <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b> alkalmazást, válasszon ki egy nyomvonalat, és kattintson a térkép ikonra a nyomvonal megjelenítéséhez a térképen.</string>
     <string name="osm_info">Az alapértelmezett térképet a <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> szolgáltatja. Csatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="consider_offline_maps">Kérjük, fontolja meg egy offline térkép letöltését, hogy csökkentse a szerverterhelést és kímélje a mobil adatforgalmi keretét. Néhány offline térkép megtalálható itt:</string>
-    <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez!</b> Ezeket le kell tölteni és ennek megfelelően kell konfigurálni.</string>
-    <string name="manual_offline_map_info">A manuálisan letöltött offline vagy más alkalmazásokkal megosztott térképek megnyithatók az Android-eszközéről. Válassza ki a könyvtárat a beállításokban <b>Térképkönyvtár</b>.</string>
+    <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését, hogy csökkentse a kiszolgálóterhelést és kímélje a mobil adatforgalmi keretét. Néhány offline térkép megtalálható itt:</string>
+    <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez.</b> Ezeket le kell tölteni, és ennek megfelelően kell beállítani.</string>
+    <string name="manual_offline_map_info">A kézileg letöltött offline térképek vagy a más alkalmazásokkal megosztott térképek megnyithatók az androidos eszközéről. Válassza ki a könyvtárat a <b>Térképkönyvtár</b> beállításban.</string>
     <string name="startDownload">Letöltés indítása</string>
     <string name="no_download_uri_found">Nincs letölthető URI</string>
-    <string name="overwrite_theme_question">A \"%s\" téma már létezik! Törölje és töltse le újra\?</string>
+    <string name="overwrite_theme_question">A(z) „%s” téma már létezik. Törli és újból letölti?</string>
     <string name="download_theme_failed">A téma letöltése sikertelen</string>
-    <string name="download_theme_success">Téma sikeresen letöltve</string>
+    <string name="download_theme_success">A téma sikeresen letöltve</string>
     <string name="download_theme">Téma letöltése</string>
-    <string name="offline_map_info">Az offline térképek letölthetők az alkalmazásból. Nyissa meg a beállításokat, és válassza a <b>Térkép letöltése</b> lehetőséget, vagy keresse fel a fent említett webhelyeket, és kattintson a letöltési linkekre. Egyes böngészőkben (pl. Firefox) hosszan kell kattintani a linkre és a Linkek megnyitása külső alkalmazásban, majd az OSMDashboardot választani.</string>
+    <string name="offline_map_info">Az offline térképek letölthetők az alkalmazásból. Nyissa meg a beállításokat, és válassza a <b>Térkép letöltése</b> lehetőséget, vagy keresse fel a fent említett webhelyeket, és kattintson a letöltési hivatkozásokra. Egyes böngészőkben (például Firefoxban) hosszan kell kattintani a hivatkozásra, majd a hivatkozást külső alkalmazásban kell megnyitni, az OSMDashboardot választva.</string>
     <string name="no_file_manager_found">Nem található fájlkezelő</string>
     <string name="error_reg_content_observer">Hiba az OpenTracksContentObserver regisztrálásakor</string>
-    <string name="toggle_full_screen_mode">Teljes képernyős mód váltása</string>
+    <string name="toggle_full_screen_mode">Teljes képernyős mód be/ki</string>
     <string name="share">Megosztás</string>
     <string name="unit_feet">láb</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_meter">m</string>
-    <string name="error_crash_title">%1$s lezuhant</string>
-    <string name="bug_report">Hiba jelentése</string>
+    <string name="error_crash_title">Az %1$s összeomlott</string>
+    <string name="bug_report">Hibajelentés</string>
     <string name="unit_minute_per_mile">min/mérföld</string>
     <string name="track_color">Nyomvonal színe</string>
     <string name="pace_min_km">Tempó perc/km-ben</string>
@@ -69,19 +69,19 @@
     <string name="unit_mile_per_hour">mérföld/óra</string>
     <string name="elevation_feet">Szintemelkedés lábban</string>
     <string name="speed_km_h">Sebesség km/h-ban</string>
-    <string name="configure_statistic">Statisztikák konfigurálása</string>
-    <string name="online_map_consent_info">Az openstreetmap.org online térképének használatakor kiszivároghat az Ön jelenlegi tartózkodási helye. A használata előtt hozzájárulás megadása szükséges.</string>
+    <string name="configure_statistic">Statisztikák beállítása</string>
+    <string name="online_map_consent_info">Az openstreetmap.org online térképének használatakor kiszivároghat a jelenlegi tartózkodási helye. A használata előtt hozzájárulás szükséges.</string>
     <string name="total_time">Teljes idő</string>
     <string name="unit_mile">mérföld</string>
     <string name="debug_trackpoints_info">Fogadott nyomvonalpontok: %1$d
 \nÉrvénytelen nyomvonalpontok: %2$d
 \nRajzolt nyomvonalpontok: %3$d
 \nSzüneteltetett nyomvonalpontok: %4$d
-\nSzegmensek: %5$d
-\nProtokoll verzió: %6$d</string>
+\nSzakaszok: %5$d
+\nProtokollverzió: %6$d</string>
     <string name="elevation_meter">Szintemelkedés méterben</string>
     <string name="unit_kilometer_per_hour">km/óra</string>
-    <string name="map_mode">Térkép tájolás</string>
+    <string name="map_mode">Térkép tájolása</string>
     <string name="track_color_mode_by_speed">Színezés sebesség szerint</string>
     <string name="title_activity_settings">Beállítások</string>
     <string name="distance_mi">Távolság mérföldben</string>
@@ -93,9 +93,9 @@
     <string name="debug_trackpoints">Nyomvonalpontok hibakeresése</string>
     <string name="moving_time">Mozgási idő</string>
     <string name="settings_night_mode_option_day">Nappali</string>
-    <string name="settings_night_mode_title">UI Téma</string>
-    <string name="settings_ui_dynamic_colors_title">Dinamikus Színek</string>
-    <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott Dinamikus Színek használata (csak Android 12+; manuális újraindítást igényel)</string>
+    <string name="settings_night_mode_title">Felületi téma</string>
+    <string name="settings_ui_dynamic_colors_title">Dinamikus színek</string>
+    <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott dinamikus színek használata (csak Android 12+ esetén; kézi újraindítást igényel)</string>
     <string name="settings_night_mode_option_night">Éjszakai</string>
-    <string name="settings_night_mode_option_system">Rendszer alapértelmezett</string>
+    <string name="settings_night_mode_option_system">Rendszer</string>
 </resources>
