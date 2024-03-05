@@ -3,15 +3,15 @@
     <string name="app_name_info_screen">OSM Dashboard
 \naz OpenTracks-hez</string>
     <string name="copyright_osm">Térképadatok © OpenStreetMap közreműködők</string>
-    <string name="map_info_menu">Ról ről</string>
+    <string name="map_info_menu">Az OSM Dashboard névjegye</string>
     <string name="map_folder">Térkép könyvtár</string>
     <string name="theme_folder">Térkép téma könyvtár</string>
     <string name="online_map_consent">Nincs offline térkép konfigurálva. Kérjük, fogadja el, hogy használja az online térképet openstreetmap.org. ez kiszivárogtathatja az aktuális tartózkodási helyét. Lásd https://operations.osmfoundation.org/policies/tiles / a csempék használatához és az adatvédelmi irányelvekhez.</string>
     <string name="download_map">Térkép letöltése</string>
     <string name="map_online_consent_menu">Online térkép hozzájárulás</string>
     <string name="app_logo_description">Alkalmazás logó</string>
-    <string name="stroke_width_info">Határozza meg a sávok szélességét</string>
-    <string name="menu_advanced">Haladó</string>
+    <string name="stroke_width_info">Határozza meg a nyomvonalak löketszélességét</string>
+    <string name="menu_advanced">Speciális</string>
     <string name="map_mode_direction">A térkép mozgási iránya szerint</string>
     <string name="map_mode_north_top">Térkép északi iránnyal a legtetején</string>
     <string name="pip_mode">Kép a képben mód</string>
