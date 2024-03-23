@@ -5,14 +5,14 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.1'
+        classpath libs.gradle
     }
 }
 
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'de.mannodermaus.android-junit5'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.android.junit5)
 }
 
 def getVersionCode = { ->
@@ -91,6 +91,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     lint {
         disable 'MissingTranslation'
@@ -111,46 +112,55 @@ android {
     }
 }
 
-ext {
-    mapsforgeVersion = '0.21.0'
-    lifecycle_version = '2.7.0'
-    junitVersion = '5.10.2'
-    assertJVersion = '3.25.3'
-}
-
 dependencies {
 
     // Desugaring
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+    coreLibraryDesugaring libs.desugar.jdk.libs
 
     // AndroidX
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.documentfile:documentfile:1.0.1'
-    implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.appcompat
+    implementation libs.documentfile
+    implementation libs.preference.ktx
+    implementation libs.constraintlayout
+    implementation libs.material
 
     // VTM
-    implementation "org.mapsforge:vtm:$mapsforgeVersion"
-    implementation "org.mapsforge:vtm-themes:$mapsforgeVersion"
-    implementation "org.mapsforge:vtm-http:$mapsforgeVersion"
-    implementation "org.slf4j:slf4j-api:2.0.12"
-    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-armeabi-v7a"
-    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-arm64-v8a"
-    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-x86"
-    runtimeOnly "org.mapsforge:vtm-android:$mapsforgeVersion:natives-x86_64"
-    implementation "org.mapsforge:vtm-android:$mapsforgeVersion"
-    implementation "com.caverock:androidsvg:1.4"
+    implementation libs.vtm
+    implementation libs.vtm.themes
+    implementation libs.vtm.http
+    implementation libs.slf4j.api
+    runtimeOnly(libs.vtm.android) {
+        artifact {
+            classifier = "natives-armeabi-v7a"
+        }
+    }
+    runtimeOnly(libs.vtm.android) {
+        artifact {
+            classifier = "natives-arm64-v8a"
+        }
+    }
+    runtimeOnly(libs.vtm.android) {
+        artifact {
+            classifier = "natives-x86"
+        }
+    }
+    runtimeOnly(libs.vtm.android) {
+        artifact {
+            classifier = "natives-x86_64"
+        }
+    }
+    implementation libs.vtm.android
+    implementation libs.androidsvg
 
-    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertJVersion"
+    testImplementation libs.junit.jupiter
+    testImplementation libs.assertj.core
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
 
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.4.0")
+    androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.junit.jupiter.api)
+    androidTestImplementation(libs.android.test.core)
 
-    androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.4.0")
+    androidTestRuntimeOnly(libs.android.test.runner)
 }

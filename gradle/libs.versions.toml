@@ -1,0 +1,46 @@
+[versions]
+androidGradlePlugin = "8.3.1"
+androidJunit5 = "1.8.2.1"
+androidsvg = "1.4"
+androidTest = "1.4.0"
+appcompat = "1.6.1"
+assertJ = "3.25.3"
+constraintlayout = "2.1.4"
+desugar_jdk_libs = "2.0.4"
+documentfile = "1.0.1"
+junitJupiter = "5.10.2"
+kotlin = "1.9.23"
+lifecycleViewmodelKtx = "2.7.0"
+mapsforge = "0.21.0"
+material = "1.11.0"
+preferenceKtx = "1.2.1"
+runner = "1.5.2"
+slf4jApi = "2.0.12"
+
+[libraries]
+android-test-runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidTest" }
+android-test-core = { module = "de.mannodermaus.junit5:android-test-core", version.ref = "androidTest" }
+androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvg" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+runner = { module = "androidx.test:runner", version.ref = "runner" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }
+vtm = { module = "org.mapsforge:vtm", version.ref = "mapsforge" }
+vtm-android = { module = "org.mapsforge:vtm-android", version.ref = "mapsforge" }
+vtm-http = { module = "org.mapsforge:vtm-http", version.ref = "mapsforge" }
+vtm-themes = { module = "org.mapsforge:vtm-themes", version.ref = "mapsforge" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "androidJunit5" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
