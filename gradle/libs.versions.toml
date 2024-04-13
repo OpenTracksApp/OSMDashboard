@@ -15,7 +15,7 @@ mapsforge = "0.21.0"
 material = "1.11.0"
 preferenceKtx = "1.2.1"
 runner = "1.5.2"
-slf4jApi = "2.0.12"
+slf4jApi = "2.0.13"
 
 [libraries]
 android-test-runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidTest" }
