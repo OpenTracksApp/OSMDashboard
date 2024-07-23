@@ -108,7 +108,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static final String EXTRA_MARKER_ID = "marker_id";
-    public static final String EXTRA_TRACK_ID = "track_id_long";
+    public static final String EXTRA_TRACK_ID = "track_id";
     public static final String EXTRA_LOCATION = "location";
     private static final int MAP_DEFAULT_ZOOM_LEVEL = 12;
     private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
@@ -204,7 +204,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     private void startOpenTracksToAddNewMarker(MotionEvent event) {
         try {
             var geoPoint = map.viewport().fromScreenPoint(event.getX(), event.getY());
-            var intent = new Intent("de.dennisguse.opentracks.MarkerEdit");
+            var intent = new Intent("de.dennisguse.opentracks.CreateMarker");
             intent.putExtra(EXTRA_TRACK_ID, lastTrackId);
             intent.putExtra(EXTRA_LOCATION, MapUtils.toLocation(geoPoint));
             startActivity(intent);
