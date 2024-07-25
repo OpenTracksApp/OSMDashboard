@@ -2,7 +2,7 @@
 androidGradlePlugin = "8.5.1"
 androidJunit5 = "1.10.0.0"
 androidsvg = "1.4"
-androidTest = "1.4.0"
+androidTest = "1.5.0"
 appcompat = "1.7.0"
 assertJ = "3.26.3"
 constraintlayout = "2.1.4"
