@@ -98,4 +98,5 @@
     <string name="settings_ui_dynamic_colors_summary">使用使用者定義的動態色彩（僅限 Android 12+；需要手動重新啟動）</string>
     <string name="settings_night_mode_option_night">夜間</string>
     <string name="settings_night_mode_option_system">系統</string>
+    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
 </resources>

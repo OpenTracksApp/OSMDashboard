@@ -98,4 +98,5 @@
     <string name="settings_ui_dynamic_colors_summary">Використовувати визначені користувачем динамічні кольори (тільки для Android 12+; потрібне перезавантаження вручну)</string>
     <string name="settings_night_mode_option_night">Ніч</string>
     <string name="settings_night_mode_option_system">Системна</string>
+    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
 </resources>

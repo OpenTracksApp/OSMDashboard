@@ -98,4 +98,5 @@
     <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott dinamikus színek használata (csak Android 12+ esetén; kézi újraindítást igényel)</string>
     <string name="settings_night_mode_option_night">Éjszakai</string>
     <string name="settings_night_mode_option_system">Rendszer</string>
+    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
 </resources>

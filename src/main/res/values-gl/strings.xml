@@ -98,4 +98,5 @@
     <string name="settings_ui_dynamic_colors_summary">Usar Cores Dinámicas definidas pola usuaria (Android 12+; require reiniciar)</string>
     <string name="settings_night_mode_option_night">Noite</string>
     <string name="settings_night_mode_option_system">Sistema</string>
+    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
 </resources>
