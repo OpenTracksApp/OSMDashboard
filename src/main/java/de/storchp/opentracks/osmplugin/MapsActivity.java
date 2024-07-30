@@ -41,7 +41,11 @@ import org.oscim.backend.AssetAdapter;
 import org.oscim.backend.CanvasAdapter;
 import org.oscim.core.BoundingBox;
 import org.oscim.core.GeoPoint;
+import org.oscim.event.Gesture;
+import org.oscim.event.GestureListener;
+import org.oscim.event.MotionEvent;
 import org.oscim.layers.GroupLayer;
+import org.oscim.layers.Layer;
 import org.oscim.layers.PathLayer;
 import org.oscim.layers.marker.ItemizedLayer;
 import org.oscim.layers.marker.MarkerInterface;
@@ -104,6 +108,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static final String EXTRA_MARKER_ID = "marker_id";
+    public static final String EXTRA_TRACK_ID = "track_id";
+    public static final String EXTRA_LOCATION = "location";
     private static final int MAP_DEFAULT_ZOOM_LEVEL = 12;
     private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
     private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
@@ -171,6 +177,39 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
         var intent = getIntent();
         if (intent != null) {
             onNewIntent(intent);
+        }
+    }
+
+    private class MapEventsReceiver extends Layer implements GestureListener {
+        MapEventsReceiver(Map map) {
+            super(map);
+        }
+
+        @Override
+        public boolean onGesture(Gesture g, MotionEvent e) {
+            if (g instanceof Gesture.LongPress && lastTrackId > 0) {
+                new AlertDialog.Builder(MapsActivity.this)
+                        .setIcon(R.drawable.ic_logo_color_24dp)
+                        .setTitle(R.string.app_name)
+                        .setMessage(R.string.add_marker_to_open_tracks)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startOpenTracksToAddNewMarker(e))
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .create().show();
+            }
+
+            return false;
+        }
+    }
+
+    private void startOpenTracksToAddNewMarker(MotionEvent event) {
+        try {
+            var geoPoint = map.viewport().fromScreenPoint(event.getX(), event.getY());
+            var intent = new Intent("de.dennisguse.opentracks.CreateMarker");
+            intent.putExtra(EXTRA_TRACK_ID, lastTrackId);
+            intent.putExtra(EXTRA_LOCATION, MapUtils.toLocation(geoPoint));
+            startActivity(intent);
+        } catch (Exception ex) {
+            Log.e(TAG, "Can't send trackpoint to OpenTracks", ex);
         }
     }
 
@@ -348,6 +387,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
 
     protected void createLayers() {
         var mapFile = getMapFile();
+        map.layers().add(new MapEventsReceiver(map));
 
         if (mapFile != null) {
             var tileLayer = map.setBaseMap(mapFile);
@@ -744,9 +784,13 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     public boolean onItemSingleTapUp(int index, MarkerInterface item) {
         MarkerItem markerItem = (MarkerItem) item;
         if (markerItem.uid != null) {
-            var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
-            intent.putExtra(EXTRA_MARKER_ID, (Long) markerItem.getUid());
-            startActivity(intent);
+            try {
+                var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
+                intent.putExtra(EXTRA_MARKER_ID, (Long) markerItem.getUid());
+                startActivity(intent);
+            } catch (Exception ex) {
+                Log.e(TAG, "Can't open OpenTracks MarkerDetails for marker " + markerItem.uid, ex);
+            }
         }
         return true;
     }
