@@ -1,0 +1,3 @@
+- Neue Marker können per langem Klick auf eine Position auf der Karte zu OpenTracks hinzugefügt werden (benötigt OpenTracks 4.13.0)
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

@@ -1,0 +1,3 @@
+- Add marker to OpenTracks via long click on a map location (requires OpenTracks 4.13.0)
+- Updated translations
+- Updated dependencies
