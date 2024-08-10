@@ -98,5 +98,5 @@
     <string name="settings_ui_dynamic_colors_summary">Uživatelsky definované dynamické barvy (pouze Android 12+; vyžaduje ruční restart)</string>
     <string name="settings_night_mode_option_night">Noční</string>
     <string name="settings_night_mode_option_system">Systémový</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
+    <string name="add_marker_to_open_tracks">Přidat značku do OpenTracks?</string>
 </resources>
