@@ -23,14 +23,13 @@
     <string name="no_map_configured">Du har ikke satt opp noe frakoblet kart ennå.</string>
     <string name="stroke_width_info">Definer strekbredden til sporene</string>
     <string name="stroke_width_menu">Sporstrekbredde</string>
-    <string name="track_smoothing_info">Definer toleransen i meter for sporutjevningsalgoritmen. Angi 0 for å slå av sporutjevning.
-\nEndring trer i kraft etter at du har lastet sporet på nytt.</string>
+    <string name="track_smoothing_info">Definer toleransen i meter for sporutjevningsalgoritmen. Sett til 0 for å slå av sporutjevning.</string>
     <string name="copyright_osm">Kartdata © OpenStreetMap-bidragsytere</string>
     <string name="usage_info">Bruk <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velg et spor og trykk på kartikonet for å vise sporet på kartet.</string>
     <string name="osm_info">Standardkartet er levert av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bli med i fellesskapet og bidra til å forbedre kartet, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Vurder å laste ned et offline-kart for å redusere belastningen på serveren og spare på din mobildatabruk. Noen offline-kart finner du her:</string>
     <string name="map_theme_info"><b>Noen kart krever spesielle temaer for å gjengis riktig!</b> Disse må lastes ned og stilles inn.</string>
-    <string name="manual_offline_map_info">Manuelt nedlastede offline-kart eller kart delt med andre apper kan åpnes fra Android-enheten din. Velg mappen i menyen <b>Kartmappe</b>.</string>
+    <string name="manual_offline_map_info">Manuelt nedlastede offline-kart eller kart delt med andre apper kan åpnes fra Android-enheten din. Velg mappen i innstillingen <b>Kartmappe</b>.</string>
     <string name="online_map_consent">Ingen offline-kart er stilt inn. Godta å bruke online-kartet fra openstreetmap.org. Dette kan lekke din gjeldende posisjon. Se https://operations.osmfoundation.org/policies/tiles/ for bruk av kartfliser og personvern.</string>
     <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>
@@ -46,7 +45,7 @@
     <string name="overwrite_theme_question">Temaet \"%s\" finnes allerede! Slette og laste ned på nytt\?</string>
     <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
     <string name="startDownload">Start nedlasting</string>
-    <string name="offline_map_info">Offline-kart kan lastes ned via menyen <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
+    <string name="offline_map_info">Offline-kart kan lastes ned fra inne i appen. Gå til innstillingene og velg <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
     <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Fullskjermmodus av/på</string>
@@ -84,20 +83,20 @@
     <string name="speed_mi_h">Hastighet i mi/h</string>
     <string name="distance_mi">Distanse i miles</string>
     <string name="unit_minute_per_mile">min/mi</string>
-    <string name="show_pause_markers">Show pause markers</string>
-    <string name="map_settings">Map</string>
+    <string name="show_pause_markers">Vis pausemarkører</string>
+    <string name="map_settings">Kart</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
     <string name="unit_mile">mi</string>
-    <string name="map_mode">Map orientation</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="action_settings">Settings</string>
-    <string name="general_settings_category_title">General</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
+    <string name="map_mode">Kartorientering</string>
+    <string name="title_activity_settings">Innstillinger</string>
+    <string name="action_settings">Innstillinger</string>
+    <string name="general_settings_category_title">Generelt</string>
+    <string name="settings_night_mode_option_day">Dag</string>
+    <string name="settings_night_mode_title">Brukerflatetema</string>
+    <string name="settings_ui_dynamic_colors_title">Dynamiske farger</string>
+    <string name="settings_ui_dynamic_colors_summary">Bruk brukerdefinerte dynamiske farger (kun Android 12+; krever manuell omstart)</string>
+    <string name="settings_night_mode_option_night">Natt</string>
     <string name="settings_night_mode_option_system">System</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
+    <string name="add_marker_to_open_tracks">Legge til markør i OpenTracks?</string>
 </resources>
