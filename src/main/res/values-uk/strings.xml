@@ -53,7 +53,7 @@
     <string name="unit_feet">фут</string>
     <string name="unit_kilometer">км</string>
     <string name="unit_meter">м</string>
-    <string name="error_crash_title">%1$s зазнав краху</string>
+    <string name="error_crash_title">%1$s аварійно завершив роботу</string>
     <string name="bug_report">Повідомити про помилку</string>
     <string name="unit_minute_per_mile">хв/милю</string>
     <string name="pace_min_km">Темп у хв/км</string>
