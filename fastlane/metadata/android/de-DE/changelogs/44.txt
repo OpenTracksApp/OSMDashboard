@@ -1,0 +1,3 @@
+- Beschreibung für die Offline-Version geändert
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

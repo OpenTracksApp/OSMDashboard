@@ -1,0 +1,3 @@
+- Change description for offline version
+- Updated translations
+- Updated dependencies
