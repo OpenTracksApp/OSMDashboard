@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
         binding.versionInfo.setText(Html.fromHtml(getString(R.string.version_info, BuildConfig.BUILD_TYPE, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE), Html.FROM_HTML_MODE_COMPACT));
 
         if (BuildConfig.offline) {
+            binding.offlineVersionInfo.setVisibility(View.VISIBLE);
             binding.offlineMapInfo.setVisibility(View.GONE);
         }
     }

@@ -1,1 +1,1 @@
-Offline Variante des OpenStreetMap Dashboards für OpenTracks
+OpenStreetMap Dashboards für OpenTracks ohne Internet-Berechtigung

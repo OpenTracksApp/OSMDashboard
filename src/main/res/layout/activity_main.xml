@@ -48,9 +48,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/offline_version_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:visibility="gone"
+                android:text="@string/offline_version_info" />
+
+            <TextView
                 android:id="@+id/usage_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
                 android:linksClickable="true"
                 android:text="@string/usage_info" />
 
