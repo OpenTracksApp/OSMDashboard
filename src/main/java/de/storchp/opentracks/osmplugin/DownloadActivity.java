@@ -1,8 +1,13 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -10,21 +15,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
-import androidx.documentfile.provider.DocumentFile;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadActivity extends BaseActivity {
@@ -42,9 +35,11 @@ public class DownloadActivity extends BaseActivity {
 
     private Uri downloadUri;
     private DownloadType downloadType = DownloadType.MAP;
-    private DownloadTask downloadTask;
     private ActivityDownloadBinding binding;
+    private long downloadID;
+    private DownloadBroadcastReceiver downloadBroadcastReceiver;
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +48,6 @@ public class DownloadActivity extends BaseActivity {
 
         binding.toolbar.mapsToolbar.setTitle(R.string.download_map);
         setSupportActionBar(binding.toolbar.mapsToolbar);
-
-        binding.progressBar.setIndeterminate(true);
 
         var uri = getIntent().getData();
         if (uri != null) {
@@ -100,7 +93,9 @@ public class DownloadActivity extends BaseActivity {
             Log.i(TAG, "downloadUri=" + downloadUri + ", downloadType=" + downloadType);
 
             binding.downloadInfo.setText(downloadUri.toString());
-            binding.startDownloadButton.setOnClickListener((view) -> startDownload());
+            binding.startDownloadButton.setOnClickListener((view) -> {
+                startDownload();
+            });
         } else {
             binding.downloadInfo.setText(R.string.no_download_uri_found);
             binding.startDownloadButton.setEnabled(false);
@@ -111,192 +106,107 @@ public class DownloadActivity extends BaseActivity {
                 navigateUp();
             }
         });
-    }
 
-    private boolean isDownloadInProgress() {
-        return downloadTask != null;
+        downloadBroadcastReceiver = new DownloadBroadcastReceiver();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        }
     }
-
-    protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    startDownload();
-                }
-            });
 
     public void startDownload() {
-        var directoryUri = downloadType.getDirectoryUri();
-        if (directoryUri == null) {
-            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
-            return;
-        }
-
-        var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
-        if (directoryFile == null || !directoryFile.canWrite()) {
-            directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
-            return;
-        }
-
-        var fileName = downloadUri.getLastPathSegment();
-        var file = directoryFile.findFile(fileName);
-        if (file != null) {
+        var filesDir = getFilesDir().toPath();
+        var downloadDir = filesDir.resolve(downloadType.subdir);
+        downloadDir.toFile().mkdir();
+        var filename = downloadUri.getLastPathSegment();
+        var file = downloadDir.resolve(filename);
+        if (file.toFile().exists()) {
             new AlertDialog.Builder(DownloadActivity.this)
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setMessage(getString(downloadType.getOverwriteMessageId(), fileName))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    file.delete();
-                    startDownload();
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show();
+                    .setIcon(R.drawable.ic_logo_color_24dp)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(downloadType.getOverwriteMessageId(), filename))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        file.toFile().delete();
+                        startDownload();
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create().show();
             return;
         }
 
-        binding.progressBar.setVisibility(View.VISIBLE);
-        binding.progressBar.setIndeterminate(true);
-
-        keepScreenOn(true);
-        downloadTask = new DownloadTask(this, downloadUri, directoryFile, fileName, downloadType);
-        downloadTask.start();
-
-        Log.d(TAG, "Started download of '" + fileName + "'");
+        var request = new DownloadManager.Request(downloadUri)
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDestinationInExternalFilesDir(this, null, downloadType.subdir + "/" + filename)
+                .setTitle(filename)
+                .setDescription(getString(downloadType.downloadMessageId))
+                .setRequiresCharging(false)
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true);
+        var downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadID = downloadManager.enqueue(request);
+        observeProgress(downloadManager, downloadID);
     }
 
-    private void downloadEnded(boolean success, boolean canceled) {
-        binding.progressBar.setVisibility(View.GONE);
-        keepScreenOn(false);
-        Uri targetUri = downloadTask != null ? downloadTask.targetUri : null;
-        downloadTask = null;
-        if (canceled) {
-            if (targetUri != null) {
-                var documentFile = FileUtil.getDocumentFileFromTreeUri(this, targetUri);
-                if (documentFile != null) {
-                    documentFile.delete();
+    private void observeProgress(DownloadManager downloadManager, long downloadId) {
+        var query = new DownloadManager.Query().setFilterById(downloadId);
+        var downloading = true;
+        binding.progressBar.setIndeterminate(false);
+        binding.progressBar.setMax(100);
+
+        while (downloading) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            try (var cursor = downloadManager.query(query)) {
+                if (cursor.moveToFirst()) {
+                    var statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                    var progressIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+                    var totalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+
+                    int status = cursor.getInt(statusIndex);
+                    long downloaded = cursor.getLong(progressIndex);
+                    long total = cursor.getLong(totalIndex);
+                    int progress = (int) ((downloaded * 100L) / total);
+
+                    if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
+                        downloading = false;
+                    }
+
+                    if (total >= 0) {
+                        binding.progressBar.setProgress(progress);
+                    }
                 }
             }
-            navigateUp();
-            return;
-        }
-        if (success) {
-            Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, downloadType.getFailedMessageId(), Toast.LENGTH_LONG).show();
-        }
-    }
 
-    private static class DownloadTask extends Thread {
-        private final WeakReference<DownloadActivity> ref;
-        private final Uri downloadUri;
-        private final DocumentFile directoryFile;
-        private final DownloadType downloadType;
-        private final String filename;
-        private Uri targetUri;
-        private int contentLength = -1;
-        private boolean success = false;
-        private boolean canceled = false;
-
-        public DownloadTask(DownloadActivity activity, Uri downloadUri, DocumentFile directoryFile, String filename, DownloadType downloadType) {
-            ref = new WeakReference<>(activity);
-            this.downloadUri = downloadUri;
-            this.directoryFile = directoryFile;
-            this.downloadType = downloadType;
-            this.filename = filename;
-        }
-
-        protected void publishProgress(int progress) {
-            var activity = ref.get();
-            if (activity != null) {
-                activity.runOnUiThread(() -> activity.updateProgress(contentLength, progress));
-            }
-        }
-
-        protected void end() {
-            var activity = ref.get();
-            if (activity != null) {
-                activity.runOnUiThread(() -> activity.downloadEnded(success, canceled));
-            }
-        }
-
-        @Override
-        public void run() {
-            InputStream input = null;
-            HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL(downloadUri.toString()).openConnection();
-                connection.connect();
-                contentLength = connection.getContentLength();
+                Thread.sleep(1000); // Wait for 1 second before querying again
+            } catch (InterruptedException ignored) {
 
-                input = connection.getInputStream();
-                if (downloadType.isExtractMapFromZIP()) {
-                    var zis = new ZipInputStream(input);
-                    ZipEntry ze;
-                    boolean foundMapInZip = false;
-                    while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
-                        if (ze.getName().endsWith(".map")) {
-                            contentLength = (int) ze.getSize();
-                            copy(zis, ze.getName(), directoryFile);
-                            foundMapInZip = true;
-                        }
-                    }
-                } else {
-                    copy(input, filename, directoryFile);
-                }
-
-                success = true;
-            } catch (Exception e) {
-                Log.e(TAG, "Download failed", e);
-            } finally {
-                try {
-                    if (input != null) {
-                        input.close();
-                    }
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null) {
-                    connection.disconnect();
-                }
             }
-            end();
         }
+        binding.progressBar.setVisibility(View.GONE);
+    }
 
-        private void copy(InputStream input, String filename, DocumentFile directoryFile) throws IOException {
-            var file = directoryFile.createFile("application/binary", filename);
-            if (file == null) {
-                throw new IOException("Unable to create file: " + filename);
+    private void downloadEnded() {
+        binding.progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
+        // TODO: unzip if necessary
+    }
+
+    private class DownloadBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (downloadID == id) {
+                downloadEnded();
             }
-            targetUri = file.getUri();
-            var output = ref.get().getContentResolver().openOutputStream(targetUri);
-
-            var data = new byte[4096];
-            int count;
-            int bytesWritten = 0;
-            while ((count = input.read(data)) != -1) {
-                if (canceled) {
-                    input.close();
-                    output.close();
-                    end();
-                    return;
-                }
-                output.write(data, 0, count);
-                bytesWritten += count;
-                publishProgress(bytesWritten);
-            }
-            output.close();
-        }
-
-        public void cancelDownload() {
-            canceled = true;
         }
     }
 
-    private void updateProgress(int contentLength, int progress) {
-        binding.progressBar.setProgress(progress);
-        if (contentLength > 0 && binding.progressBar.isIndeterminate()) {
-            // we have a content length, so switch to determinate progress
-            binding.progressBar.setIndeterminate(false);
-            binding.progressBar.setMax(contentLength);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (downloadBroadcastReceiver != null) {
+            unregisterReceiver(downloadBroadcastReceiver);
         }
     }
 
@@ -310,25 +220,15 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void navigateUp() {
-        if (isDownloadInProgress()) {
-            new AlertDialog.Builder(DownloadActivity.this)
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setMessage(getString(R.string.cancel_download_question))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> downloadTask.cancelDownload())
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show();
-        } else {
-            finish();
-        }
+        finish();
     }
 
     private enum DownloadType {
 
-        MAP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false) {
+        MAP(R.string.download_map, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false, "maps") {
             @Override
             public Uri getDirectoryUri() {
-                return  PreferencesUtils.getMapDirectoryUri();
+                return PreferencesUtils.getMapDirectoryUri();
             }
 
             @Override
@@ -336,37 +236,43 @@ public class DownloadActivity extends BaseActivity {
                 return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
-        MAP_ZIP(R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true) {
+        MAP_ZIP(R.string.download_map, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true, "maps") {
             @Override
             public Uri getDirectoryUri() {
-                return  PreferencesUtils.getMapDirectoryUri();
+                return PreferencesUtils.getMapDirectoryUri();
             }
+
             @Override
             public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
                 return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
             }
         },
-        THEME(R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false) {
+        THEME(R.string.download_theme, R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false, "themes") {
             @Override
             public Uri getDirectoryUri() {
-                return  PreferencesUtils.getMapThemeDirectoryUri();
+                return PreferencesUtils.getMapThemeDirectoryUri();
             }
+
             @Override
             public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
                 return DirectoryChooserActivity.ThemeDirectoryChooserActivity.class;
             }
         };
 
+        private final int downloadMessageId;
         private final int overwriteMessageId;
         private final int successMessageId;
         private final int failedMessageId;
         private final boolean extractMapFromZIP;
+        private final String subdir;
 
-        DownloadType(int overwriteMessageId, int successMessageId, int failedMessageId, boolean extractMapFromZIP) {
+        DownloadType(int downloadMessageId, int overwriteMessageId, int successMessageId, int failedMessageId, boolean extractMapFromZIP, String subdir) {
+            this.downloadMessageId = downloadMessageId;
             this.overwriteMessageId = overwriteMessageId;
             this.successMessageId = successMessageId;
             this.failedMessageId = failedMessageId;
             this.extractMapFromZIP = extractMapFromZIP;
+            this.subdir = subdir;
         }
 
         abstract public Uri getDirectoryUri();
@@ -388,6 +294,14 @@ public class DownloadActivity extends BaseActivity {
         }
 
         public abstract Class<? extends DirectoryChooserActivity> getDirectoryChooser();
+
+        public int getDownloadMessageId() {
+            return downloadMessageId;
+        }
+
+        public String getSubdir() {
+            return subdir;
+        }
     }
 
 }
