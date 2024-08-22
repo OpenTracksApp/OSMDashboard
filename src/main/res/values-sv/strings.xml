@@ -33,13 +33,12 @@
     <string name="stroke_width_menu">Spår slagbredd</string>
     <string name="no_map_configured">Du har ingen offline karta konfigurerad ännu.</string>
     <string name="pip_mode">Bild i bildläge</string>
-    <string name="track_smoothing_info">Definiera toleransen i meter för spårutjämningsalgoritmen. Ange 0 för att inaktivera spår utjämning.
-\nFörändring träder i kraft efter omlastning av spåret.</string>
+    <string name="track_smoothing_info"></string>
     <string name="usage_info">Använd <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, välj ett spår och klicka på kartikonen för att visa spåret på kartan.</string>
     <string name="osm_info">Standardkartan tillhandahålls av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Gå med i communityn och hjälp med att förbättra kartan, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Överväg att ladda ner en offline-karta för att minska serverbelastningen och spara din mobildataplan. Några offline-kartor finns här:</string>
     <string name="map_theme_info"><b>Vissa kartor kräver speciella teman för att återges korrekt!</b> Dessa måste laddas ner och konfigureras därefter.</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
+    <string name="manual_offline_map_info">Manuellt hämtade ej uppkopplade kartor eller kartor som delas med andra appar kan öppnas från din Android-enhet. Välj katalogen i inställningarna. <b>Kart-katalog</b>.</string>
     <string name="download_theme">Ladda ner tema</string>
     <string name="download_theme_success">Tema har laddats ner framgångsrikt</string>
     <string name="download_theme_failed">Hämtning av tema misslyckades</string>
@@ -57,48 +56,48 @@
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="bug_report">Rapportera fel</string>
     <string name="unit_minute_per_mile">min/mi</string>
-    <string name="track_color">Track color</string>
-    <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
-    <string name="show_pause_markers">Show pause markers</string>
-    <string name="pace_min_mi">Pace in min/mi</string>
-    <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="track_color_mode_uni">Unicolor</string>
-    <string name="map_settings">Map</string>
+    <string name="track_color">Färg på spåret</string>
+    <string name="pace_min_km">Tempo i min/km</string>
+    <string name="error_reading_trackpoints">Fel uppstod vid läsningen av spårpunkter: %s</string>
+    <string name="show_pause_markers">Visa paus-markörer</string>
+    <string name="pace_min_mi">Tempo i min/mi</string>
+    <string name="speed_mi_h">Hastighet in mi/h</string>
+    <string name="track_color_mode_uni">Unifärger</string>
+    <string name="map_settings">Karta</string>
     <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
-    <string name="distance_km">Distance in km</string>
+    <string name="distance_km">Avstånd i kilometer</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="elevation_feet">Elevation gain in feet</string>
-    <string name="speed_km_h">Speed in km/h</string>
-    <string name="configure_statistic">Configure statistic</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
-    <string name="total_time">Total time</string>
+    <string name="elevation_feet">Höjdökning i fot</string>
+    <string name="speed_km_h">Hastighet i km/h</string>
+    <string name="configure_statistic">Konfigurera statistik</string>
+    <string name="online_map_consent_info">Att använda en uppkopplad karta från openstreetmap.org kan läcka din nuvarande position. Du måste ge ditt samtycke före användning.</string>
+    <string name="total_time">Tid totalt</string>
     <string name="unit_mile">mi</string>
-    <string name="debug_trackpoints_info">Trackpoints received: %1$d
-\nTrackpoints invalid: %2$d
-\nTrackpoints drawn: %3$d
-\nTrackpoints pause: %4$d
-\nSegments: %5$d
-\nProtocol version: %6$d</string>
-    <string name="elevation_meter">Elevation gain in meter</string>
+    <string name="debug_trackpoints_info">Mottagna spårpunkter: %1$d
+\nOgiltiga spårpunkter: %2$d
+\nRitade spårpunkter: %3$d
+\nPausade spårpunkter: %4$d
+\nSegment: %5$d
+\nVersion för protokollet: %6$d</string>
+    <string name="elevation_meter">Höjdökning i meter</string>
     <string name="unit_kilometer_per_hour">km/h</string>
-    <string name="map_mode">Map orientation</string>
-    <string name="track_color_mode_by_speed">Color by speed</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="distance_mi">Distance in miles</string>
+    <string name="map_mode">Kartorientering</string>
+    <string name="track_color_mode_by_speed">Färg efter hastighet</string>
+    <string name="title_activity_settings">Inställningar</string>
+    <string name="distance_mi">Avstånd i mil</string>
     <string name="unit_minute_per_kilometer">min/km</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Inställningar</string>
     <string name="general_settings_category_title">General</string>
-    <string name="category">Category</string>
-    <string name="track_color_mode_by_track">Color by track</string>
-    <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="moving_time">Moving time</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="settings_night_mode_option_night">Night</string>
+    <string name="category">Kategori</string>
+    <string name="track_color_mode_by_track">Färg efter spår</string>
+    <string name="debug_trackpoints">Avlusa spårpunkter</string>
+    <string name="moving_time">Flytt-tid</string>
+    <string name="settings_night_mode_option_day">Dag</string>
+    <string name="settings_night_mode_title">Tema för användargränssnittet</string>
+    <string name="settings_ui_dynamic_colors_title">Dynamiska färger</string>
+    <string name="settings_ui_dynamic_colors_summary">Använd användar-definerade Dynamiska färger (Endast Android 12+; kräver en manuell omstart)</string>
+    <string name="settings_night_mode_option_night">Natt</string>
     <string name="settings_night_mode_option_system">System</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
+    <string name="add_marker_to_open_tracks">Lägg till markörer till OpenTracks?</string>
+    <string name="offline_version_info">OBSERVERA FÖLJANDE: Det här är den ej uppkopplade versionen för att maximalt skydda privatlivet. Det har ingen behörighet till internet och kan inte läcka din position. Som en konsekvens så kan den inte visa uppkopplade kartor ej heller hämta ej uppkopplade kartor. Ej uppkopplade kartor måste hämtas manuellt, se nedan.</string>
 </resources>
