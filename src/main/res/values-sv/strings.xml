@@ -33,7 +33,7 @@
     <string name="stroke_width_menu">Spår slagbredd</string>
     <string name="no_map_configured">Du har ingen offline karta konfigurerad ännu.</string>
     <string name="pip_mode">Bild i bildläge</string>
-    <string name="track_smoothing_info"></string>
+    <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
     <string name="usage_info">Använd <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, välj ett spår och klicka på kartikonen för att visa spåret på kartan.</string>
     <string name="osm_info">Standardkartan tillhandahålls av <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Gå med i communityn och hjälp med att förbättra kartan, se <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Överväg att ladda ner en offline-karta för att minska serverbelastningen och spara din mobildataplan. Några offline-kartor finns här:</string>
