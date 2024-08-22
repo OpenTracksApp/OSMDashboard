@@ -45,7 +45,7 @@
     <string name="overwrite_theme_question">O tema \"%s\" xa existe! Eliminar e baixar de novo\?</string>
     <string name="no_download_uri_found">Non URI para descargar atopado</string>
     <string name="startDownload">Comezar A Descargar</string>
-    <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elexir OSMDashboard.</string>
+    <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elixir OSMDashboard.</string>
     <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
     <string name="error_reg_content_observer">Erro ao rexistrar OpenTracksContentObserver</string>
     <string name="unit_meter">m</string>
