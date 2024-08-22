@@ -11,7 +11,7 @@
     <string name="map_online_consent_menu">Погодитися на онлайн-карту</string>
     <string name="download_map">Завантажити мапу</string>
     <string name="choose_map_to_download">Виберіть мапу для завантаження</string>
-    <string name="online_osm_mapnick">Онлайн мапа OSM:Mapnik</string>
+    <string name="online_osm_mapnick">Онлайн-мапа OSM:Mapnik</string>
     <string name="delete_map_question">Видалити мапу \"%s\"\?</string>
     <string name="delete_map_error">Не вдалося видалити мапу</string>
     <string name="theme_selection">Тема мапи</string>
@@ -31,7 +31,7 @@
     <string name="copyright_osm">Картографічні дані © Учасники OpenStreetMap</string>
     <string name="usage_info">Використовуйте <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, виберіть записаний або розпочатий трек та натисніть піктограму мапи, щоб побачити на ній трек.</string>
     <string name="osm_info">Мапа за замовчуванням надається <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Приєднуйтесь до спільноти та допомагайте покращувати карту, див. <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="consider_offline_maps">Будь ласка, розгляньте можливість завантаження офлайн-карту, щоб зменшити навантаження на сервер і зберегти ваш план мобільних даних. Деякі офлайн-карти можна знайти тут:</string>
+    <string name="consider_offline_maps">Будь ласка, розгляньте можливість завантаження офлайн-карти, щоб зменшити навантаження на сервер і заощадити мобільні дані. Деякі офлайн-карти можна знайти тут:</string>
     <string name="map_theme_info"><b>Деякі карти вимагають спеціальних тем для правильного відображення для них!</b> Їх потрібно завантажити та налаштувати відповідно.</string>
     <string name="manual_offline_map_info">Завантажені вручну офлайн-мапи або мапи, надані іншим програмам, можна відкрити на Вашому пристрої Android. Виберіть каталог у налаштуваннях <b>Тека з мапами</b>.</string>
     <string name="download_instruction">Ви переглядаєте вміст https://ftp-stud.hs-esslingen.de.</string>
@@ -77,11 +77,11 @@
     <string name="moving_time">Час у дорозі</string>
     <string name="track_color">Track color</string>
     <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
-    <string name="show_pause_markers">Show pause markers</string>
+    <string name="show_pause_markers">Показувати маркери пауз</string>
     <string name="track_color_mode_uni">Unicolor</string>
     <string name="elevation_feet">Elevation gain in feet</string>
-    <string name="configure_statistic">Configure statistic</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="configure_statistic">Налаштувати статистику</string>
+    <string name="online_map_consent_info">Використання онлайн-карти з openstreetmap.org може призвести до витоку вашого поточного місцезнаходження. Необхідно дати згоду перед використанням.</string>
     <string name="debug_trackpoints_info">Trackpoints received: %1$d
 \nTrackpoints invalid: %2$d
 \nTrackpoints drawn: %3$d
@@ -98,6 +98,6 @@
     <string name="settings_ui_dynamic_colors_summary">Використовувати визначені користувачем динамічні кольори (тільки для Android 12+; потрібне перезавантаження вручну)</string>
     <string name="settings_night_mode_option_night">Ніч</string>
     <string name="settings_night_mode_option_system">Системна</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
+    <string name="add_marker_to_open_tracks">Додати маркер в OpenTracks?</string>
+    <string name="offline_version_info">УВАГА: Це офлайн-версія для максимального захисту конфіденційності. Вона не має дозволу на доступ до Інтернету і не розголошує ваше місцезнаходження. Як наслідок, вона не може показувати онлайн-карти або завантажувати офлайн-карти. Офлайн-карти потрібно завантажувати вручну, див. нижче.</string>
 </resources>
