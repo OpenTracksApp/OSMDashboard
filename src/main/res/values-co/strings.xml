@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_theme">Default theme</string>
-    <string name="map_info_menu">About</string>
-    <string name="map_folder">Map directory</string>
-    <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
-    <string name="error_reg_content_observer">Error on registering OpenTracksContentObserver</string>
-    <string name="settings_night_mode_title">UI Theme</string>
-    <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
-    <string name="show_pause_markers">Show pause markers</string>
-    <string name="pace_min_mi">Pace in min/mi</string>
-    <string name="speed_mi_h">Speed in mi/h</string>
-    <string name="settings_ui_dynamic_colors_title">Dynamic Colors</string>
-    <string name="track_color_mode_uni">Unicolor</string>
-    <string name="map_settings">Map</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
-    <string name="online_osm_mapnick">Online map OSM:Mapnik</string>
-    <string name="stroke_width_info">Define the stroke width of the tracks</string>
-    <string name="osm_info">The default map is provided by <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Join the community and help to improve the map, see <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="map_mode_north_top">Map north on top</string>
-    <string name="track_smoothing_menu">Track smoothing</string>
-    <string name="settings_ui_dynamic_colors_summary">Use user-defined Dynamic Colors (Android 12+ only; requires a manual restart)</string>
-    <string name="cancel_download_question">Cancel current download?</string>
-    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
-    <string name="distance_km">Distance in km</string>
-    <string name="startDownload">Start Download</string>
+    <string name="default_theme">Tema predefinitu</string>
+    <string name="map_info_menu">Apprupositu</string>
+    <string name="map_folder">Cartulare di e carte</string>
+    <string name="overwrite_map_question">A carta « %s » esiste dighjà ! Squassalla è scaricalla torna ?</string>
+    <string name="error_reg_content_observer">Sbagliu durante l’arregistramentu di OpenTracksContentObserver</string>
+    <string name="settings_night_mode_title">Tema di l’interfaccia di l’utilizatore</string>
+    <string name="pace_min_km">Andatura in min/km</string>
+    <string name="error_reading_trackpoints">Sbagliu di lettura di i punti di tracciatu : %s</string>
+    <string name="show_pause_markers">Affissà e stantelle di pausa</string>
+    <string name="pace_min_mi">Andatura in min/mi</string>
+    <string name="speed_mi_h">Vitezza in mi/h</string>
+    <string name="settings_ui_dynamic_colors_title">Culori dinamichi</string>
+    <string name="track_color_mode_uni">Culore unicu</string>
+    <string name="map_settings">Carta</string>
+    <string name="offline_version_info">FATE CASU : Què hè a versione fora di linea per una prutezzione massima di a cunfidenzialità. Ùn hà nisunu permessu internet è ùn pò micca palisà a vostra pusizione. In cunsequenza, ùn pò nè affissà e carte in linea, nè scaricà e carte fora di linea. E carte fora di linea devenu esse scaricate manualmente, fighjate quì sottu.</string>
+    <string name="online_osm_mapnick">Carta in linea OSM:Mapnik</string>
+    <string name="stroke_width_info">Definisce a larghezza di u trattu di i tracciati</string>
+    <string name="osm_info">A carta predefinita hè pruvista da <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Righjunghjite a cumunità è aiutate à amendà a carta, fighjate <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
+    <string name="map_mode_north_top">Piazzà u nordu insù</string>
+    <string name="track_smoothing_menu">Allisciata di u tracciatu</string>
+    <string name="settings_ui_dynamic_colors_summary">Impiegà i culori dinamichi definiti da l’utilizatore (solu Android 12è più ; richiede un rilanciu manuale)</string>
+    <string name="cancel_download_question">Abbandunà u scaricamentu attuale ?</string>
+    <string name="version_info"><b>Versione :</b> %s - %s (%d)</string>
+    <string name="distance_km">Distanza in km</string>
+    <string name="startDownload">Lancià u scaricamentu</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="delete_theme_question">Delete theme \"%s\"?</string>
+    <string name="delete_theme_question">Squassà u tema « %s » ?</string>
     <string name="unit_feet">ft</string>
-    <string name="elevation_feet">Elevation gain in feet</string>
-    <string name="no_file_manager_found">No file manager found</string>
-    <string name="speed_km_h">Speed in km/h</string>
-    <string name="configure_statistic">Configure statistic</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
-    <string name="total_time">Total time</string>
+    <string name="elevation_feet">Dislivellu in pedi (ft)</string>
+    <string name="no_file_manager_found">Ùn si trova alcunu ghjestiunariu di schedarii</string>
+    <string name="speed_km_h">Vitezza in km/o</string>
+    <string name="configure_statistic">Cunfigurà e statistiche</string>
+    <string name="online_map_consent_info">L’aghjovu di a carta in linea da openstreetmap.org puderia palisà a vostra pusizione attuale. Ci vole à dà u vostru accunsentu nanzu l’aghjovu.</string>
+    <string name="total_time">Durata tutale</string>
     <string name="unit_mile">mi</string>
     <string name="app_name_info_screen">OSM Dashboard
-\nfor OpenTracks</string>
-    <string name="offline_map_info">Offline maps can be downloaded from within the app. Go to the settings and choose <b>Map download</b> or by visiting the above mentioned websites and click the download links. Some browsers (e.g. Firefox) require a long click on the link and Open link in external app and then choose OSMDashboard.</string>
-    <string name="download_success">Map successfully downloaded</string>
-    <string name="debug_trackpoints_info">Trackpoints received: %1$d
-\nTrackpoints invalid: %2$d
-\nTrackpoints drawn: %3$d
-\nTrackpoints pause: %4$d
-\nSegments: %5$d
-\nProtocol version: %6$d</string>
-    <string name="delete_theme_error">Theme deletion failed</string>
-    <string name="elevation_meter">Elevation gain in meter</string>
-    <string name="no_download_uri_found">No URI to download found</string>
-    <string name="choose_map_to_download">Choose a map to download</string>
-    <string name="copyright_osm">Map data © OpenStreetMap contributors</string>
-    <string name="unit_kilometer_per_hour">km/h</string>
-    <string name="online_map_consent">There is no offline map configured. Please agree to use the online map from openstreetmap.org. This might leak your current location. See https://operations.osmfoundation.org/policies/tiles/ for tile usage and privacy policy.</string>
-    <string name="settings_night_mode_option_system">System</string>
-    <string name="toggle_full_screen_mode">Toggle fullscreen mode</string>
-    <string name="map_mode">Map orientation</string>
-    <string name="track_color_mode_by_speed">Color by speed</string>
-    <string name="settings_night_mode_option_night">Night</string>
-    <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared with other apps can be opened from your Android device. Select the directory in the settings <b>Map directory</b>.</string>
+\nper OpenTracks</string>
+    <string name="offline_map_info">E carte fora di linea ponu esse scaricate dentru l’appiecazione. Andate in i parametri è sciglite « <b>Scaricamentu di carta</b> », osinnò visitate i siti web mintulati insù è fate un cliccu nant’à i liami di scaricamentu. Certi navigatori (p.i. Firefox) richiede un cliccu longu nant’à u liame, tandu Apre u liame in un’appiecazione esterna eppò sciglite OSMDashboard.</string>
+    <string name="download_success">Carta scaricata currettamente</string>
+    <string name="debug_trackpoints_info">Punti di tracciatu ricevuti : %1$d
+\nPunti di tracciatu inaccettevule : %2$d
+\nPunti di tracciatu disegnati : %3$d
+\nPausa di punti di tracciatu : %4$d
+\nSegmenti : %5$d
+\nVersione di protocollu : %6$d</string>
+    <string name="delete_theme_error">Fiascu di a squassatura di tema</string>
+    <string name="elevation_meter">Dislivellu in metru</string>
+    <string name="no_download_uri_found">Ùn si trova alcuna risorza URI à scaricà</string>
+    <string name="choose_map_to_download">Siglite una carta à scaricà</string>
+    <string name="copyright_osm">Dati di cartugrafia © cuntribuenti d’OpenStreetMap</string>
+    <string name="unit_kilometer_per_hour">km/o</string>
+    <string name="online_map_consent">Ùn hè cunfiguratu nisuna carta fora di linea. Ci vole à cunsente d’impiegà a carta in linea da openstreetmap.org. Què puderia palisà a vostra pusizione attuale. Fighjate https://operations.osmfoundation.org/policies/tiles/ per cunnosce a strategia d’aghjovu di e musaiche cartugrafiche è a pulitica di cunfidenzialità.</string>
+    <string name="settings_night_mode_option_system">Sistema</string>
+    <string name="toggle_full_screen_mode">Attivà o disattivà u modu screnu sanu</string>
+    <string name="map_mode">Orientazione di a carta</string>
+    <string name="track_color_mode_by_speed">Culore à a vitezza</string>
+    <string name="settings_night_mode_option_night">Notte</string>
+    <string name="manual_offline_map_info">E carte fora di linea scaricate manualmente o quelle sparte cù d’altre appiecazioni ponu esse aperte cù u vostru apparechju Android. Selezziunate u cartulare in i parametri « <b>Cartulare di e carte</b> ».</string>
     <string name="unit_kilometer">km</string>
-    <string name="download_theme_failed">Theme download failed</string>
-    <string name="download_theme_success">Theme successfully downloaded</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="theme_selection">Map themes</string>
-    <string name="bug_report">Report bug</string>
-    <string name="error_crash_title">%1$s crashed</string>
-    <string name="delete_map_error">Map deletion failed</string>
-    <string name="distance_mi">Distance in miles</string>
+    <string name="download_theme_failed">Fiascu di u scaricamentu di tema</string>
+    <string name="download_theme_success">Tema scaricatu currettamente</string>
+    <string name="title_activity_settings">Parametri</string>
+    <string name="theme_selection">Temi di carta</string>
+    <string name="bug_report">Signalà un prublema</string>
+    <string name="error_crash_title">%1$s s‘hè lampatu</string>
+    <string name="delete_map_error">Fiascu di a squassatura di carta</string>
+    <string name="distance_mi">Distanza in mile</string>
     <string name="unit_minute_per_kilometer">min/km</string>
-    <string name="map_mode_direction">Map moving direction</string>
-    <string name="download_failed">Map download failed</string>
-    <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
-    <string name="stroke_width_menu">Track stroke width</string>
-    <string name="action_settings">Settings</string>
-    <string name="theme_folder">Map theme directory</string>
-    <string name="app_logo_description">App logo</string>
-    <string name="download_theme">Theme download</string>
-    <string name="overwrite_theme_question">The theme \"%s\" already exists! Delete and download again?</string>
-    <string name="download_map">Map download</string>
-    <string name="general_settings_category_title">General</string>
-    <string name="category">Category</string>
-    <string name="track_color_mode_by_track">Color by track</string>
-    <string name="share">Share</string>
-    <string name="debug_trackpoints">Debug trackpoints</string>
-    <string name="menu_advanced">Advanced</string>
-    <string name="track_color">Track color</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
-    <string name="delete_map_question">Delete map \"%s\"?</string>
-    <string name="map_online_consent_menu">Online map consent</string>
+    <string name="map_mode_direction">Direzzione di a mossa di a carta</string>
+    <string name="download_failed">Fiascu di u scaricamentu di carta</string>
+    <string name="track_smoothing_info">Definisce a tulleranza in metri per a cudificazione d’allisciata di u tracciatu. Definisce à 0 per disattivà l’allisciata di u tracciatu.</string>
+    <string name="stroke_width_menu">Larghezza di trattu di u tracciatu</string>
+    <string name="action_settings">Parametri</string>
+    <string name="theme_folder">Cartulare di i temi di carta</string>
+    <string name="app_logo_description">Logo di l’appiecazione</string>
+    <string name="download_theme">Scaricamentu di tema</string>
+    <string name="overwrite_theme_question">U tema « %s » esiste dighjà ! Squassallu è scaricallu torna ?</string>
+    <string name="download_map">Scaricamentu di carta</string>
+    <string name="general_settings_category_title">Generale</string>
+    <string name="category">Categuria</string>
+    <string name="track_color_mode_by_track">Culore à u tracciatu</string>
+    <string name="share">Sparte</string>
+    <string name="debug_trackpoints">Spannatura di i punti di tracciatu</string>
+    <string name="menu_advanced">Espertu</string>
+    <string name="track_color">Culore di u tracciatu</string>
+    <string name="add_marker_to_open_tracks">Aghjunghje una stantella à OpenTracks ?</string>
+    <string name="delete_map_question">Squassà a carta « %s » ?</string>
+    <string name="map_online_consent_menu">Accunsentu per a carta in linea</string>
     <string name="unit_meter">m</string>
-    <string name="settings_night_mode_option_day">Day</string>
-    <string name="usage_info">Use <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, select a track and click the map icon to show the track on the map.</string>
-    <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
-    <string name="pip_mode">Picture in picture mode</string>
+    <string name="settings_night_mode_option_day">Ghjornu</string>
+    <string name="usage_info">Impiegate <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selezziunate un tracciatu è fate un cliccu nant’à l’icona di carta per affissà u tracciatu nant’à a carta.</string>
+    <string name="download_instruction">Eccu a lista di u cuntenutu di u situ https://ftp-stud.hs-esslingen.de.</string>
+    <string name="pip_mode">Mode fiura-nant’à-fiura (intarsiatura PIP)</string>
     <string name="unit_minute_per_mile">min/mi</string>
-    <string name="map_theme_info"><b>Some maps require special themes to render correctly!</b> These need to be downloaded and configured accordingly.</string>
-    <string name="map_selection">Maps</string>
-    <string name="error_loading_offline_map">Error reading configured offline map</string>
-    <string name="consider_offline_maps">Please consider downloading an offline map to decrease the server load and save your mobile data plan. Some offline maps can be found here:</string>
-    <string name="moving_time">Moving time</string>
-    <string name="no_map_configured">You have no offline map configured yet.</string>
+    <string name="map_theme_info"><b>Certe carte richiedenu temi speziali per una restituzione curretta !</b> Quelli temi devenu esse scaricati è cunfigurati in cunsequenza.</string>
+    <string name="map_selection">Carte</string>
+    <string name="error_loading_offline_map">Sbagliu durante a lettura di a carta fora di linea cunfigurata</string>
+    <string name="consider_offline_maps">Sapiate ch’ella hè pussibule di scaricà una carta fora di linea per riduce a carica di u servitore è risparmià i dati muvibule di u vostru cuntrattu di telefuninu. Parechje carte fora di linea si trovanu quì :</string>
+    <string name="moving_time">Durata in mossa</string>
+    <string name="no_map_configured">Ùn avete ancu cunfiguratu nisuna carta fora di linea.</string>
 </resources>
