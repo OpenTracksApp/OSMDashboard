@@ -99,5 +99,5 @@
     <string name="settings_night_mode_option_night">Natt</string>
     <string name="settings_night_mode_option_system">System</string>
     <string name="add_marker_to_open_tracks">Legge til markør i OpenTracks?</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
+    <string name="offline_version_info">OBS: Dette er offline-versjonen for maksimal personvernbeskyttelse. Den har ingen internettillatelse og kan ikke avsløre posisjonen din. Som en konsekvens av dette kan den ikke vise nettbaserte kart eller laste ned offline-kart. Offline-kart må lastes ned manuelt, se nedenfor.</string>
 </resources>
