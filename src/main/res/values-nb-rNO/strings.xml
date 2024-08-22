@@ -86,7 +86,7 @@
     <string name="show_pause_markers">Vis pausemarkører</string>
     <string name="map_settings">Kart</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="online_map_consent_info">Usage of the online map from openstreetmap.org might leak your current location. You need to give consent before usage.</string>
+    <string name="online_map_consent_info">Bruk av det nettbaserte kartet fra openstreetmap.org kan avsløre din nåværende posisjon. Du må gi samtykke før bruk.</string>
     <string name="unit_mile">mi</string>
     <string name="map_mode">Kartorientering</string>
     <string name="title_activity_settings">Innstillinger</string>
