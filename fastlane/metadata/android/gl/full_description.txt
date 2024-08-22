@@ -13,6 +13,6 @@ Podes atopar aquí mapas sen conexión:
 
 Algúns mapas requiren decorados específicos para verse ben! Hai que descargalos e configuralos correctamente! 
 
-Os mapas sen conexión descárganse desde o menú "Descargar Mapa" ou visitando as webs indicadas arriba e premendo nas ligazóns de descarga. Algúns navegadores (ex. Firefox) requiren unha pulsación prolongada na ligazón e "Abrir ligazón en app externa" para despois elexir OSMDashboard.
+Os mapas sen conexión descárganse desde o menú "Descargar Mapa" ou visitando as webs indicadas arriba e premendo nas ligazóns de descarga. Algúns navegadores (ex. Firefox) requiren unha pulsación prolongada na ligazón e "Abrir ligazón en app externa" para despois elixir OSMDashboard.
 
 Os mapas se conexión descargados manualmente ou mapas compartidos con outras aplicacións pódense abrir co teu dispositivo Android. Elixe o directorio no menú "Directorio do mapa".
