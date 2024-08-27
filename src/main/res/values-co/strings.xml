@@ -97,7 +97,7 @@
     <string name="map_theme_info"><b>Certe carte richiedenu temi speziali per una restituzione curretta !</b> Quelli temi devenu esse scaricati è cunfigurati in cunsequenza.</string>
     <string name="map_selection">Carte</string>
     <string name="error_loading_offline_map">Sbagliu durante a lettura di a carta fora di linea cunfigurata</string>
-    <string name="consider_offline_maps">Sapiate ch’ella hè pussibule di scaricà una carta fora di linea per riduce a carica di u servitore è risparmià i dati muvibule di u vostru cuntrattu di telefuninu. Parechje carte fora di linea si trovanu quì :</string>
+    <string name="consider_offline_maps">Sappiate ch’ella hè pussibule di scaricà una carta fora di linea per riduce a carica di u servitore è risparmià i dati muvibule di u vostru cuntrattu di telefuninu. Parechje carte fora di linea si trovanu quì :</string>
     <string name="moving_time">Durata in mossa</string>
     <string name="no_map_configured">Ùn avete ancu cunfiguratu nisuna carta fora di linea.</string>
 </resources>
