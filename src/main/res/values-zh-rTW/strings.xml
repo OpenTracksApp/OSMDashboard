@@ -98,5 +98,6 @@
     <string name="settings_ui_dynamic_colors_summary">使用使用者定義的動態色彩（僅限 Android 12+；需要手動重新啟動）</string>
     <string name="settings_night_mode_option_night">夜間</string>
     <string name="settings_night_mode_option_system">系統</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
+    <string name="add_marker_to_open_tracks">新增標記至 OpenTracks？</string>
+    <string name="offline_version_info">注意：這是離線版本，可以最大程度地保護隱私。它沒有網路權限，無法洩露你的位置。因此，它無法顯示線上地圖，也無法下載離線地圖。離線地圖必須手動下載，請參見下文。</string>
 </resources>

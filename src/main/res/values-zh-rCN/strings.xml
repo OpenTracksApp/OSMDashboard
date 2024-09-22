@@ -99,4 +99,5 @@
     <string name="settings_night_mode_option_night">夜晚</string>
     <string name="settings_night_mode_option_system">系统</string>
     <string name="add_marker_to_open_tracks">是否将标记添加到 OpenTracks？</string>
+    <string name="offline_version_info">注意：这是离线版本，可最大限度地保护隐私。它没有互联网权限，无法泄露您的位置。因此，它既不能显示在线地图，也不能下载离线地图。离线地图必须手动下载，见下文。</string>
 </resources>

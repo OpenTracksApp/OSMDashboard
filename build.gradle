@@ -96,6 +96,9 @@ android {
     lint {
         disable 'MissingTranslation'
     }
+    androidResources {
+        generateLocaleConfig = true
+    }
     namespace 'de.storchp.opentracks.osmplugin'
     applicationVariants.configureEach { variant ->
         variant.resValue "string", "applicationId", variant.applicationId

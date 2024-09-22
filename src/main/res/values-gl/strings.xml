@@ -45,7 +45,7 @@
     <string name="overwrite_theme_question">O tema \"%s\" xa existe! Eliminar e baixar de novo\?</string>
     <string name="no_download_uri_found">Non URI para descargar atopado</string>
     <string name="startDownload">Comezar A Descargar</string>
-    <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elexir OSMDashboard.</string>
+    <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elixir OSMDashboard.</string>
     <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
     <string name="error_reg_content_observer">Erro ao rexistrar OpenTracksContentObserver</string>
     <string name="unit_meter">m</string>
@@ -99,4 +99,5 @@
     <string name="settings_night_mode_option_night">Noite</string>
     <string name="settings_night_mode_option_system">Sistema</string>
     <string name="add_marker_to_open_tracks">Engadir marcador a OpenTracks?</string>
+    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
 </resources>
