@@ -1,7 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,8 +21,6 @@ import de.storchp.opentracks.osmplugin.utils.MapItemAdapter;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class MapSelectionActivity extends AppCompatActivity {
-
-    private static final String TAG = MapSelectionActivity.class.getSimpleName();
 
     private MapItemAdapter adapter;
 
@@ -36,15 +35,23 @@ public class MapSelectionActivity extends AppCompatActivity {
 
         var items = new ArrayList<FileItem>();
         if (!BuildConfig.offline) {
-            items.add(new FileItem(getString(R.string.online_osm_mapnick), null));
+            items.add(new FileItem(getString(R.string.online_osm_mapnick), null, null));
         }
         var mapDirectory = PreferencesUtils.getMapDirectoryUri();
-        if (mapDirectory != null) {
+        if (mapDirectory == null) {
+            var filesDir = getExternalFilesDir(null).toPath();
+            var mapDir = filesDir.resolve(DownloadActivity.DownloadType.MAP.getSubdir());
+            if (Files.exists(mapDir)) {
+                Arrays.stream(mapDir.toFile().listFiles())
+                        .filter(file -> file.isFile() && file.exists() && file.getName().endsWith(".map"))
+                        .forEach(file -> items.add(new FileItem(file.getName(), file, null)));
+            }
+        } else {
             var documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
             if (documentsTree != null) {
                 Arrays.stream(documentsTree.listFiles())
                         .filter(file -> file.isFile() && file.getName().endsWith(".map"))
-                        .forEach(file -> items.add(new FileItem(file.getName(), file.getUri())));
+                        .forEach(file -> items.add(new FileItem(file.getName(), null, file)));
             }
         }
         adapter = new MapItemAdapter(this, items, PreferencesUtils.getMapUris());
@@ -57,8 +64,7 @@ public class MapSelectionActivity extends AppCompatActivity {
         });
         binding.mapList.setOnItemLongClickListener((parent, view, position, id) -> {
             var fileItem = items.get(position);
-            var uri = fileItem.uri();
-            if (uri == null) {
+            if (fileItem.file() == null && fileItem.documentFile() == null) {
                 // online map can't be deleted
                 return false;
             }
@@ -67,13 +73,16 @@ public class MapSelectionActivity extends AppCompatActivity {
                     .setTitle(R.string.app_name)
                     .setMessage(getString(R.string.delete_map_question, fileItem.name()))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        Log.d(TAG, "Delete " + fileItem.name());
-                        var file = FileUtil.getDocumentFileFromTreeUri(MapSelectionActivity.this, fileItem.uri());
-                        assert file != null;
-                        boolean deleted = file.delete();
+                        boolean deleted;
+                        if (fileItem.file() != null) {
+                            deleted = fileItem.file().delete();
+                            PreferencesUtils.getMapUris().remove(Uri.fromFile(fileItem.file()));
+                        } else {
+                            deleted = fileItem.documentFile().delete();
+                            PreferencesUtils.getMapUris().remove(fileItem.documentFile().getUri());
+                        }
                         if (deleted) {
                             items.remove(position);
-                            PreferencesUtils.getMapUris().remove(uri);
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();

@@ -97,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (mapDirectoryPreference != null) {
                 mapDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
                     var uri = PreferencesUtils.getMapDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : null;
+                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
                 });
             }
 
@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (themeDirectoryPreference != null) {
                 themeDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
                     var uri = PreferencesUtils.getMapThemeDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : null;
+                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
                 });
             }
         }

@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,9 +16,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.documentfile.provider.DocumentFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
+import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public class DownloadActivity extends BaseActivity {
@@ -37,6 +51,7 @@ public class DownloadActivity extends BaseActivity {
     private DownloadType downloadType = DownloadType.MAP;
     private ActivityDownloadBinding binding;
     private long downloadID;
+    private DownloadManager downloadManager;
     private DownloadBroadcastReceiver downloadBroadcastReceiver;
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -115,7 +130,23 @@ public class DownloadActivity extends BaseActivity {
         }
     }
 
+    protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    startDownload();
+                }
+            });
+
     public void startDownload() {
+        var directoryUri = downloadType.getDirectoryUri();
+        if (directoryUri != null) {
+            var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
+            if (directoryFile != null && !directoryFile.canWrite()) {
+                directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
+                return;
+            }
+        }
+
         var filesDir = getFilesDir().toPath();
         var downloadDir = filesDir.resolve(downloadType.subdir);
         downloadDir.toFile().mkdir();
@@ -143,7 +174,7 @@ public class DownloadActivity extends BaseActivity {
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true);
-        var downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadID = downloadManager.enqueue(request);
         observeProgress(downloadManager, downloadID);
     }
@@ -186,20 +217,95 @@ public class DownloadActivity extends BaseActivity {
         binding.progressBar.setVisibility(View.GONE);
     }
 
-    private void downloadEnded() {
-        binding.progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
-        // TODO: unzip if necessary
-    }
-
     private class DownloadBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (downloadID == id) {
-                downloadEnded();
+            var id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (downloadID != id) {
+                return;
+            }
+            try (var cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadID))) {
+                if (cursor.moveToFirst()) {
+                    int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        var uri = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI));
+                        downloadEnded(Uri.parse(uri));
+                    }
+                }
             }
         }
+    }
+
+    private void downloadEnded(Uri downloadedUri) {
+        var destinationDir = downloadType.getDirectoryUri();
+        if (destinationDir == null) {
+            if (downloadType.isExtractMapFromZIP()) {
+                try (var inputStream = getContentResolver().openInputStream(downloadedUri)) {
+                    var zis = new ZipInputStream(inputStream);
+                    ZipEntry ze;
+                    boolean foundMapInZip = false;
+                    while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
+                        var filename = ze.getName();
+                        if (filename.endsWith(".map")) {
+                            var downloadedFile = new File(downloadedUri.getPath());
+                            var targetFile = new File(downloadedFile.getParent(), filename);
+                            copy(zis, new FileOutputStream(targetFile));
+                            foundMapInZip = true;
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    new File(downloadedUri.getPath()).delete();
+                }
+            }
+        } else {
+            try (var inputStream = getContentResolver().openInputStream(downloadedUri)) {
+                if (downloadType.isExtractMapFromZIP()) {
+                    var zis = new ZipInputStream(inputStream);
+                    ZipEntry ze;
+                    boolean foundMapInZip = false;
+                    while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
+                        var filename = ze.getName();
+                        if (filename.endsWith(".map")) {
+                            var targetFile = createBinaryDocumentFile(destinationDir, filename);
+                            copy(zis, getContentResolver().openOutputStream(targetFile.getUri(), "wt"));
+                            foundMapInZip = true;
+                        }
+                    }
+                } else {
+                    var filename = downloadedUri.getLastPathSegment();
+                    var targetFile = createBinaryDocumentFile(destinationDir, filename);
+                    copy(inputStream, getContentResolver().openOutputStream(targetFile.getUri(), "wt"));
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                new File(downloadedUri.getPath()).delete();
+            }
+        }
+
+        binding.progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
+    }
+
+    private @NonNull DocumentFile createBinaryDocumentFile(Uri destinationDir, String filename) {
+        var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, destinationDir);
+        var targetFile = directoryFile.createFile("application/binary", filename);
+        if (targetFile == null) {
+            throw new RuntimeException("Unable to create file: " + filename);
+        }
+        return targetFile;
+    }
+
+    private void copy(InputStream input, OutputStream output) throws IOException {
+        var data = new byte[4096];
+        int count;
+        while ((count = input.read(data)) != -1) {
+            output.write(data, 0, count);
+        }
+        input.close();
+        output.close();
     }
 
     @Override
@@ -223,7 +329,7 @@ public class DownloadActivity extends BaseActivity {
         finish();
     }
 
-    private enum DownloadType {
+    public enum DownloadType {
 
         MAP(R.string.download_map, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false, "maps") {
             @Override
