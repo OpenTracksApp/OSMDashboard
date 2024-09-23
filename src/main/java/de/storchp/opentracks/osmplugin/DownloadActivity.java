@@ -7,9 +7,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -37,6 +43,7 @@ import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 public class DownloadActivity extends BaseActivity {
 
     private static final String TAG = DownloadActivity.class.getSimpleName();
+    private static final int UPDATE_DOWNLOAD_PROGRESS = 1;
 
     private static final String OPENANDROMAPS_MAP_HOST = "ftp.gwdg.de";
     private static final String OPENANDROMAPS_THEME_HOST = "www.openandromaps.org";
@@ -50,9 +57,10 @@ public class DownloadActivity extends BaseActivity {
     private Uri downloadUri;
     private DownloadType downloadType = DownloadType.MAP;
     private ActivityDownloadBinding binding;
-    private long downloadID;
+    private Long downloadId = null;
     private DownloadManager downloadManager;
     private DownloadBroadcastReceiver downloadBroadcastReceiver;
+    private final ExecutorService executor = Executors.newFixedThreadPool(1);
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
@@ -109,7 +117,9 @@ public class DownloadActivity extends BaseActivity {
 
             binding.downloadInfo.setText(downloadUri.toString());
             binding.startDownloadButton.setOnClickListener((view) -> {
-                startDownload();
+                if (downloadId == null) {
+                    startDownload();
+                }
             });
         } else {
             binding.downloadInfo.setText(R.string.no_download_uri_found);
@@ -147,7 +157,7 @@ public class DownloadActivity extends BaseActivity {
             }
         }
 
-        var filesDir = getFilesDir().toPath();
+        var filesDir = getExternalFilesDir(null).toPath();
         var downloadDir = filesDir.resolve(downloadType.subdir);
         downloadDir.toFile().mkdir();
         var filename = downloadUri.getLastPathSegment();
@@ -159,6 +169,7 @@ public class DownloadActivity extends BaseActivity {
                     .setMessage(getString(downloadType.getOverwriteMessageId(), filename))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         file.toFile().delete();
+                        dialog.dismiss();
                         startDownload();
                     })
                     .setNegativeButton(android.R.string.cancel, null)
@@ -175,56 +186,72 @@ public class DownloadActivity extends BaseActivity {
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true);
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        downloadID = downloadManager.enqueue(request);
-        observeProgress(downloadManager, downloadID);
+        downloadId = downloadManager.enqueue(request);
+        observeDownload();
     }
 
-    private void observeProgress(DownloadManager downloadManager, long downloadId) {
-        var query = new DownloadManager.Query().setFilterById(downloadId);
-        var downloading = true;
+    private void observeDownload() {
+        binding.progressBar.setVisibility(View.VISIBLE);
         binding.progressBar.setIndeterminate(false);
         binding.progressBar.setMax(100);
+        binding.progressBar.setProgress(0);
 
-        while (downloading) {
-            binding.progressBar.setVisibility(View.VISIBLE);
-            try (var cursor = downloadManager.query(query)) {
-                if (cursor.moveToFirst()) {
-                    var statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                    var progressIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                    var totalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+        executor.execute(() -> {
+            int progress = 0;
+            boolean isDownloadFinished = false;
+            while (!isDownloadFinished) {
+                try (Cursor cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadId))) {
+                    if (cursor.moveToFirst()) {
+                        int downloadStatus = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                        switch (downloadStatus) {
+                            case DownloadManager.STATUS_RUNNING:
+                                long totalBytes = cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                                if (totalBytes > 0) {
+                                    long downloadedBytes = cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                                    progress = (int) (downloadedBytes * 100 / totalBytes);
+                                }
 
-                    int status = cursor.getInt(statusIndex);
-                    long downloaded = cursor.getLong(progressIndex);
-                    long total = cursor.getLong(totalIndex);
-                    int progress = (int) ((downloaded * 100L) / total);
-
-                    if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                        downloading = false;
-                    }
-
-                    if (total >= 0) {
-                        binding.progressBar.setProgress(progress);
+                                break;
+                            case DownloadManager.STATUS_SUCCESSFUL:
+                                progress = 100;
+                                isDownloadFinished = true;
+                                break;
+                            case DownloadManager.STATUS_PAUSED:
+                            case DownloadManager.STATUS_PENDING:
+                                break;
+                            case DownloadManager.STATUS_FAILED:
+                                isDownloadFinished = true;
+                                break;
+                        }
+                        var message = Message.obtain();
+                        message.what = UPDATE_DOWNLOAD_PROGRESS;
+                        message.arg1 = progress;
+                        mainHandler.sendMessage(message);
                     }
                 }
             }
-
-            try {
-                Thread.sleep(1000); // Wait for 1 second before querying again
-            } catch (InterruptedException ignored) {
-
-            }
-        }
-        binding.progressBar.setVisibility(View.GONE);
+        });
     }
+
+    private final Handler mainHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == UPDATE_DOWNLOAD_PROGRESS) {
+                int downloadProgress = msg.arg1;
+                binding.progressBar.setProgress(downloadProgress);
+            }
+            return true;
+        }
+    });
 
     private class DownloadBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             var id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (downloadID != id) {
+            if (downloadId != id) {
                 return;
             }
-            try (var cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadID))) {
+            try (var cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadId))) {
                 if (cursor.moveToFirst()) {
                     int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
@@ -237,6 +264,8 @@ public class DownloadActivity extends BaseActivity {
     }
 
     private void downloadEnded(Uri downloadedUri) {
+        executor.shutdown();
+        mainHandler.removeCallbacksAndMessages(null);
         var destinationDir = downloadType.getDirectoryUri();
         if (destinationDir == null) {
             if (downloadType.isExtractMapFromZIP()) {
@@ -286,6 +315,7 @@ public class DownloadActivity extends BaseActivity {
         }
 
         binding.progressBar.setVisibility(View.GONE);
+        downloadId = null;
         Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
     }
 

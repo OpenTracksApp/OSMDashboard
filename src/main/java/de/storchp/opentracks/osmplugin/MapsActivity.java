@@ -79,7 +79,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipInputStream;
 
@@ -327,19 +326,34 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             return null;
         }
         try {
-            var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
-            assert renderThemeFile != null;
-            var themeFileUri = renderThemeFile.getUri();
-            if (Objects.requireNonNull(renderThemeFile.getName(), "Theme files must have a name").endsWith(".zip")) {
-                var fragment = themeFileUri.getFragment();
-                if (fragment != null) {
-                    themeFileUri = themeFileUri.buildUpon().fragment(null).build();
-                } else {
-                    throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+            if (mapTheme.getScheme().equals("file")) {
+                var themeFile = new File(mapTheme.getPath());
+                if (themeFile.exists() && themeFile.getName().endsWith(".zip")) {
+                    var themeFileUri = Uri.fromFile(themeFile);
+                    var fragment = mapTheme.getFragment();
+                    if (fragment != null) {
+                        themeFileUri = themeFileUri.buildUpon().fragment(null).build();
+                    } else {
+                        throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+                    }
+                    return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
                 }
-                return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
+                return new StreamRenderTheme("/assets/", new FileInputStream(themeFile));
+            } else {
+                var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
+                assert renderThemeFile != null;
+                var themeFileUri = renderThemeFile.getUri();
+                if (Objects.requireNonNull(renderThemeFile.getName(), "Theme files must have a name").endsWith(".zip")) {
+                    var fragment = themeFileUri.getFragment();
+                    if (fragment != null) {
+                        themeFileUri = themeFileUri.buildUpon().fragment(null).build();
+                    } else {
+                        throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+                    }
+                    return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
+                }
+                return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
             }
-            return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
         } catch (Exception e) {
             Log.e(TAG, "Error loading theme " + mapTheme, e);
         }
@@ -347,8 +361,8 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     }
 
     protected MultiMapFileTileSource getMapFile() {
-        MultiMapFileTileSource tileSource = new MultiMapFileTileSource();
-        Set<Uri> mapFiles = PreferencesUtils.getMapUris();
+        var tileSource = new MultiMapFileTileSource();
+        var mapFiles = PreferencesUtils.getMapUris();
         if (mapFiles.isEmpty()) {
             return null;
         }
@@ -358,6 +372,12 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
                 .map(uri -> DocumentFile.fromSingleUri(this, uri))
                 .filter(documentFile -> documentFile != null && documentFile.canRead())
                 .forEach(documentFile -> readMapFile(tileSource, mapsCount, documentFile));
+
+        mapFiles.stream()
+                .filter(uri -> uri.getScheme().equals("file"))
+                .map(uri -> new File(uri.getPath()))
+                .filter(File::exists)
+                .forEach(file -> readMapFile(tileSource, mapsCount, file));
 
         if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
             Toast.makeText(this, R.string.error_loading_offline_map, Toast.LENGTH_LONG).show();
@@ -371,6 +391,17 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             var inputStream = (FileInputStream) getContentResolver().openInputStream(documentFile.getUri());
             var tileSource = new MapFileTileSource();
             tileSource.setMapFileInputStream(inputStream);
+            mapDataStore.add(tileSource);
+            mapsCount.getAndIncrement();
+        } catch (Exception e) {
+            Log.e(TAG, "Can't open mapFile", e);
+        }
+    }
+
+    private void readMapFile(MultiMapFileTileSource mapDataStore, AtomicInteger mapsCount, File file) {
+        try {
+            var tileSource = new MapFileTileSource();
+            tileSource.setMapFile(file.getPath());
             mapDataStore.add(tileSource);
             mapsCount.getAndIncrement();
         } catch (Exception e) {
