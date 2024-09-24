@@ -98,6 +98,6 @@
     <string name="settings_ui_dynamic_colors_summary">Felhasználó által meghatározott dinamikus színek használata (csak Android 12+ esetén; kézi újraindítást igényel)</string>
     <string name="settings_night_mode_option_night">Éjszakai</string>
     <string name="settings_night_mode_option_system">Rendszer</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
+    <string name="add_marker_to_open_tracks">Jelző hozzáadása az OpenTrackshez?</string>
+    <string name="offline_version_info">FIGYELEM: Ez az offline verzió a maximális adatvédelem érdekében. Nincs internet-hozzáférése, és nem tudja kiszivárogtatni a tartózkodási helyét. Ennek következtében nem tud online térképeket megjeleníteni vagy offline térképeket letölteni. Az offline térképeket saját kezűleg kell letöltenie, lásd lentebb.</string>
 </resources>
