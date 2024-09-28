@@ -100,4 +100,5 @@
     <string name="settings_night_mode_option_system">Sistema</string>
     <string name="add_marker_to_open_tracks">¿Añadir un marcador a OpenTracks?</string>
     <string name="offline_version_info">ATENCIÓN: Esta es la versión sin conexión para una máxima protección de la privacidad. No tiene permisos de Internet y no puede filtrar tu ubicación. Como consecuencia, no puede mostrar mapas en línea ni descargar mapas sin conexión. Los mapas sin conexión deben descargarse manualmente, ver más abajo.</string>
+    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
 </resources>
