@@ -100,4 +100,5 @@
     <string name="settings_night_mode_option_system">Rendszer</string>
     <string name="add_marker_to_open_tracks">Jelző hozzáadása az OpenTrackshez?</string>
     <string name="offline_version_info">FIGYELEM: Ez az offline verzió a maximális adatvédelem érdekében. Nincs internet-hozzáférése, és nem tudja kiszivárogtatni a tartózkodási helyét. Ennek következtében nem tud online térképeket megjeleníteni vagy offline térképeket letölteni. Az offline térképeket saját kezűleg kell letöltenie, lásd lentebb.</string>
+    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
 </resources>

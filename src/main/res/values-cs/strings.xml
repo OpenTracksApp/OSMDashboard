@@ -100,4 +100,5 @@
     <string name="settings_night_mode_option_system">Systémový</string>
     <string name="add_marker_to_open_tracks">Přidat značku do OpenTracks?</string>
     <string name="offline_version_info">UPOZORNĚNÍ: Toto je offline verze pro maximální ochranu soukromí. Nemá žádný přístup k internetu a nemůže prozradit vaši polohu. V důsledku toho nemůže zobrazovat online mapy ani stahovat offline mapy. Offline mapy je třeba stáhnout ručně, viz níže.</string>
+    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
 </resources>

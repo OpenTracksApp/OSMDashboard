@@ -100,4 +100,5 @@
     <string name="settings_night_mode_option_system">Системна</string>
     <string name="add_marker_to_open_tracks">Додати маркер в OpenTracks?</string>
     <string name="offline_version_info">УВАГА: Це офлайн-версія для максимального захисту конфіденційності. Вона не має дозволу на доступ до Інтернету і не розголошує ваше місцезнаходження. Як наслідок, вона не може показувати онлайн-карти або завантажувати офлайн-карти. Офлайн-карти потрібно завантажувати вручну, див. нижче.</string>
+    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
 </resources>
