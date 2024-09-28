@@ -1,6 +1,5 @@
 package de.storchp.opentracks.osmplugin;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -76,10 +75,8 @@ public class MapSelectionActivity extends AppCompatActivity {
                         boolean deleted;
                         if (fileItem.file() != null) {
                             deleted = fileItem.file().delete();
-                            PreferencesUtils.getMapUris().remove(Uri.fromFile(fileItem.file()));
                         } else {
                             deleted = fileItem.documentFile().delete();
-                            PreferencesUtils.getMapUris().remove(fileItem.documentFile().getUri());
                         }
                         if (deleted) {
                             items.remove(position);

@@ -74,7 +74,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
                     .setMessage(getString(R.string.delete_theme_question, fileItem.name()))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         boolean deleted;
-                        if (fileItem.uri().getScheme().equals("file")) {
+                        if ("file".equals(fileItem.uri().getScheme())) {
                             deleted = new File(fileItem.uri().toString()).delete();
                         } else {
                             var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, fileItem.uri());

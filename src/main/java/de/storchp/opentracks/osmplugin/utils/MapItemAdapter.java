@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import de.storchp.opentracks.osmplugin.BuildConfig;
 import de.storchp.opentracks.osmplugin.R;
@@ -69,7 +70,7 @@ public class MapItemAdapter extends ArrayAdapter<FileItem> {
     }
 
     public Set<Uri> getSelectedUris() {
-        return selected;
+        return selected.stream().filter(uri -> items.stream().anyMatch(item -> uri.equals(item.uri()))).collect(Collectors.toSet());
     }
 
 }

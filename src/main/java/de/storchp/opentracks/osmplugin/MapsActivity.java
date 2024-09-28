@@ -326,7 +326,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             return null;
         }
         try {
-            if (mapTheme.getScheme().equals("file")) {
+            if ("file".equals(mapTheme.getScheme())) {
                 var themeFile = new File(mapTheme.getPath());
                 if (themeFile.exists() && themeFile.getName().endsWith(".zip")) {
                     var themeFileUri = Uri.fromFile(themeFile);
@@ -374,7 +374,7 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
                 .forEach(documentFile -> readMapFile(tileSource, mapsCount, documentFile));
 
         mapFiles.stream()
-                .filter(uri -> uri.getScheme().equals("file"))
+                .filter(uri -> "file".equals(uri.getScheme()))
                 .map(uri -> new File(uri.getPath()))
                 .filter(File::exists)
                 .forEach(file -> readMapFile(tileSource, mapsCount, file));
