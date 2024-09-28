@@ -7,7 +7,7 @@ import androidx.documentfile.provider.DocumentFile;
 
 import java.io.File;
 
-public record FileItem(String name, File file, DocumentFile documentFile) {
+public record FileItem(String name, Uri uri, File file, DocumentFile documentFile) {
 
     @NonNull
     @Override
@@ -15,7 +15,4 @@ public record FileItem(String name, File file, DocumentFile documentFile) {
         return name();
     }
 
-    public Uri uri() {
-        return file != null ? Uri.fromFile(file) : documentFile != null ? documentFile.getUri() : null;
-    }
 }

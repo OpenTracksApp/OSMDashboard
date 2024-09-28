@@ -107,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
                     if (themeUri == null) {
                         return getString(R.string.default_theme);
                     }
-                    var filename = FileUtil.getFilenameFromUri(getContext(), themeUri);
+                    var filename = FileUtil.getFilenameFromUri(getContext(), themeUri) + (themeUri.getFragment() != null ? "#" + themeUri.getFragment() : "");
                     return Objects.requireNonNullElseGet(filename, () -> getString(R.string.default_theme));
                 });
             }

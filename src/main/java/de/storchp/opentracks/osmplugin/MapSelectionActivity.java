@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class MapSelectionActivity extends AppCompatActivity {
 
         var items = new ArrayList<FileItem>();
         if (!BuildConfig.offline) {
-            items.add(new FileItem(getString(R.string.online_osm_mapnick), null, null));
+            items.add(new FileItem(getString(R.string.online_osm_mapnick), null, null, null));
         }
         var mapDirectory = PreferencesUtils.getMapDirectoryUri();
         if (mapDirectory == null) {
@@ -43,14 +44,14 @@ public class MapSelectionActivity extends AppCompatActivity {
             if (Files.exists(mapDir)) {
                 Arrays.stream(mapDir.toFile().listFiles())
                         .filter(file -> file.isFile() && file.exists() && file.getName().endsWith(".map"))
-                        .forEach(file -> items.add(new FileItem(file.getName(), file, null)));
+                        .forEach(file -> items.add(new FileItem(file.getName(), Uri.fromFile(file), file, null)));
             }
         } else {
             var documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
             if (documentsTree != null) {
                 Arrays.stream(documentsTree.listFiles())
                         .filter(file -> file.isFile() && file.getName().endsWith(".map"))
-                        .forEach(file -> items.add(new FileItem(file.getName(), null, file)));
+                        .forEach(file -> items.add(new FileItem(file.getName(), file.getUri(), null, file)));
             }
         }
         adapter = new MapItemAdapter(this, items, PreferencesUtils.getMapUris());

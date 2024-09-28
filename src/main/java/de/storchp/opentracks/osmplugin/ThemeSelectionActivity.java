@@ -51,7 +51,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         }
 
         adapter = new ThemeItemAdapter(this, new ArrayList<>(), PreferencesUtils.getMapThemeUri(), onlineMapSelected);
-        adapter.add(new FileItem(getString(R.string.default_theme), null, null));
+        adapter.add(new FileItem(getString(R.string.default_theme), null, null, null));
 
         new Thread(new MapThemeDirScanner(this)).start();
 
@@ -144,11 +144,11 @@ public class ThemeSelectionActivity extends AppCompatActivity {
     private void readThemeFile(ArrayList<FileItem> items, DocumentFile file) {
         if (file.isFile() && file.getName() != null) {
             if (file.getName().endsWith(".xml")) {
-                items.add(new FileItem(file.getName(), null, file));
+                items.add(new FileItem(file.getName(), file.getUri(), null, file));
             } else if (file.getName().endsWith(".zip")) {
                 try {
                     var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
-                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, null, file)));
+                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build(), null, file)));
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
                 }
@@ -156,7 +156,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         } else if (file.isDirectory()) {
             var childFile = file.findFile(file.getName() + ".xml");
             if (childFile != null) {
-                items.add(new FileItem(childFile.getName(), null, childFile));
+                items.add(new FileItem(childFile.getName(), childFile.getUri(), null, childFile));
             }
         }
     }
@@ -165,11 +165,11 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         if (file.isFile() && file.exists()) {
             var uri = Uri.fromFile(file);
             if (file.getName().endsWith(".xml")) {
-                items.add(new FileItem(file.getName(), file, null));
+                items.add(new FileItem(file.getName(), uri, file, null));
             } else if (file.getName().endsWith(".zip")) {
                 try {
                     var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(uri))));
-                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, file, null)));
+                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, uri.buildUpon().fragment(xmlTheme).build(), file, null)));
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
                 }
@@ -177,7 +177,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
         } else if (file.isDirectory()) {
             var childFile = new File(file, file.getName() + ".xml");
             if (childFile.exists()) {
-                items.add(new FileItem(childFile.getName(), childFile, null));
+                items.add(new FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null));
             }
         }
     }
