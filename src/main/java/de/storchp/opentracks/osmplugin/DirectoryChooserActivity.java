@@ -20,12 +20,16 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
     protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    onActivityResultCustom(result.getData());
+                    onActivityResultOk(result.getData());
+                } else {
+                    onActivityResultCancel();
                 }
                 finish();
             });
 
-    abstract void onActivityResultCustom(@NonNull Intent resultData);
+    abstract void onActivityResultOk(@NonNull Intent resultData);
+
+    abstract void onActivityResultCancel();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,15 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
     public static class MapDirectoryChooserActivity extends DirectoryChooserActivity {
 
         @Override
-        void onActivityResultCustom(@NonNull final Intent resultData) {
+        void onActivityResultOk(@NonNull final Intent resultData) {
             takePersistableUriPermission(resultData.getData(), resultData);
             PreferencesUtils.setMapDirectoryUri(resultData.getData());
+            releaseOldPermissions();
+        }
+
+        @Override
+        void onActivityResultCancel() {
+            PreferencesUtils.setMapDirectoryUri(null);
             releaseOldPermissions();
         }
     }
@@ -68,9 +78,15 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
     public static class ThemeDirectoryChooserActivity extends DirectoryChooserActivity {
 
         @Override
-        void onActivityResultCustom(@NonNull final Intent resultData) {
+        void onActivityResultOk(@NonNull final Intent resultData) {
             takePersistableUriPermission(resultData.getData(), resultData);
             PreferencesUtils.setMapThemeDirectoryUri(resultData.getData());
+            releaseOldPermissions();
+        }
+
+        @Override
+        void onActivityResultCancel() {
+            PreferencesUtils.setMapThemeDirectoryUri(null);
             releaseOldPermissions();
         }
     }

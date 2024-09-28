@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -58,9 +57,10 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
 
-            Preference dynamicColors = findPreference(getString(R.string.settings_ui_dynamic_colors_key));
-            dynamicColors.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU);
-
+            var dynamicColors = findPreference(getString(R.string.settings_ui_dynamic_colors_key));
+            if (dynamicColors != null) {
+                dynamicColors.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU);
+            }
             setSummaries();
         }
 
@@ -86,9 +86,8 @@ public class SettingsActivity extends AppCompatActivity {
                         return getString(R.string.online_osm_mapnick);
                     }
                     return mapUris.stream()
-                            .map(uri -> FileUtil.getDocumentFileFromTreeUri(getContext(), uri))
+                            .map(uri -> FileUtil.getFilenameFromUri(getContext(), uri))
                             .filter(Objects::nonNull)
-                            .map(DocumentFile::getName)
                             .collect(joining(", "));
                 });
             }
@@ -97,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (mapDirectoryPreference != null) {
                 mapDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
                     var uri = PreferencesUtils.getMapDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : null;
+                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
                 });
             }
 
@@ -108,11 +107,8 @@ public class SettingsActivity extends AppCompatActivity {
                     if (themeUri == null) {
                         return getString(R.string.default_theme);
                     }
-                    var documentFile = FileUtil.getDocumentFileFromTreeUri(getContext(), themeUri);
-                    if (documentFile == null) {
-                        return getString(R.string.default_theme);
-                    }
-                    return documentFile.getName();
+                    var filename = FileUtil.getFilenameFromUri(getContext(), themeUri) + (themeUri.getFragment() != null ? "#" + themeUri.getFragment() : "");
+                    return Objects.requireNonNullElseGet(filename, () -> getString(R.string.default_theme));
                 });
             }
 
@@ -120,7 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (themeDirectoryPreference != null) {
                 themeDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
                     var uri = PreferencesUtils.getMapThemeDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : null;
+                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
                 });
             }
         }

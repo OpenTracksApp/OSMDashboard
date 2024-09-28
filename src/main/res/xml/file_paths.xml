@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <cache-path name="shared_files" path="shared/" />
+    <cache-path
+        name="shared_files"
+        path="shared/" />
+    <files-path
+        name="maps"
+        path="maps/" />
+    <files-path
+        name="themes"
+        path="themes/" />
 </paths>
