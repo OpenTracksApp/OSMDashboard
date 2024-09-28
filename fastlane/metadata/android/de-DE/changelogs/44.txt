@@ -1,3 +1,4 @@
 - Beschreibung für die Offline-Version geändert
+- Neu: Map und Theme Downloads über Android DownloadManager
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert

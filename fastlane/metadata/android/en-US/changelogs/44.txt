@@ -1,3 +1,4 @@
 - Change description for offline version
+- New: map and theme donwloads use now the Android DownloadManager
 - Updated translations
 - Updated dependencies
