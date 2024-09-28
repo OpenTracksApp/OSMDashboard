@@ -8,19 +8,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.net.Uri;
-import android.opengl.GLException;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +27,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.oscim.android.MapPreferences;
@@ -74,17 +67,11 @@ import org.oscim.tiling.source.mapfile.MultiMapFileTileSource;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipInputStream;
-
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.opengles.GL10;
 
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
 import de.storchp.opentracks.osmplugin.dashboardapi.Track;
@@ -309,7 +296,6 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         super.onCreateOptionsMenu(menu, true);
-        // TODO: menu.findItem(R.id.share).setVisible(true);
         return true;
     }
 
@@ -507,102 +493,9 @@ public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGe
             var intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true;
-        } else if (item.getItemId() == R.id.share) {
-            sharePicture();
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void sharePicture() {
-        // prepare rendering
-        var view = binding.map.mainView;
-        glSurfaceView = binding.map.mapView;
-
-        binding.map.sharePictureTitle.setText(R.string.share_picture_title);
-        binding.map.controls.setVisibility(View.INVISIBLE);
-        binding.map.attribution.setVisibility(View.INVISIBLE);
-
-        // draw
-        var canvas = new Canvas();
-        var toBeCropped = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        //canvas.setBitmap(toBeCropped);
-
-        captureBitmap(canvas::setBitmap);
-        view.draw(canvas);
-
-        var bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inTargetDensity = 1;
-        toBeCropped.setDensity(Bitmap.DENSITY_NONE);
-
-        int cropFromTop = (int) (70 * ((float) getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-        int fromHere = toBeCropped.getHeight() - cropFromTop;
-        var croppedBitmap = Bitmap.createBitmap(toBeCropped, 0, cropFromTop, toBeCropped.getWidth(), fromHere);
-
-        try {
-            var sharedFolderPath = new File(this.getCacheDir(), "shared");
-            sharedFolderPath.mkdir();
-            var file = new File(sharedFolderPath, System.currentTimeMillis() + ".png");
-            var out = new FileOutputStream(file);
-            croppedBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.close();
-            var share = new Intent(Intent.ACTION_SEND);
-            share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file));
-            share.setType("image/png");
-            startActivity(Intent.createChooser(share, "send"));
-        } catch (Exception exception) {
-            Log.e(TAG, "Error sharing Bitmap", exception);
-        }
-
-        binding.map.controls.setVisibility(View.VISIBLE);
-        binding.map.attribution.setVisibility(View.VISIBLE);
-        binding.map.sharePictureTitle.setText("");
-    }
-
-    private GLSurfaceView glSurfaceView;
-    private Bitmap snapshotBitmap;
-
-    private interface BitmapReadyCallbacks {
-        void onBitmapReady(Bitmap bitmap);
-    }
-
-    private void captureBitmap(final BitmapReadyCallbacks bitmapReadyCallbacks) {
-        glSurfaceView.queueEvent(() -> {
-            EGL10 egl = (EGL10) EGLContext.getEGL();
-            GL10 gl = (GL10) egl.eglGetCurrentContext().getGL();
-            snapshotBitmap = createBitmapFromGLSurface(0, 0, glSurfaceView.getWidth(), glSurfaceView.getHeight(), gl);
-            runOnUiThread(() -> bitmapReadyCallbacks.onBitmapReady(snapshotBitmap));
-        });
-
-    }
-
-    private Bitmap createBitmapFromGLSurface(int x, int y, int w, int h, GL10 gl) {
-        int[] bitmapBuffer = new int[w * h];
-        int[] bitmapSource = new int[w * h];
-        IntBuffer intBuffer = IntBuffer.wrap(bitmapBuffer);
-        intBuffer.position(0);
-
-        try {
-            gl.glReadPixels(x, y, w, h, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer);
-            int offset1, offset2;
-            for (int i = 0; i < h; i++) {
-                offset1 = i * w;
-                offset2 = (h - i - 1) * w;
-                for (int j = 0; j < w; j++) {
-                    int texturePixel = bitmapBuffer[offset1 + j];
-                    int blue = (texturePixel >> 16) & 0xff;
-                    int red = (texturePixel << 16) & 0x00ff0000;
-                    int pixel = (texturePixel & 0xff00ff00) | red | blue;
-                    bitmapSource[offset2 + j] = pixel;
-                }
-            }
-        } catch (GLException e) {
-            Log.e(TAG, "createBitmapFromGLSurface: " + e.getMessage(), e);
-            return null;
-        }
-
-        return Bitmap.createBitmap(bitmapSource, w, h, Bitmap.Config.ARGB_8888);
     }
 
     private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
