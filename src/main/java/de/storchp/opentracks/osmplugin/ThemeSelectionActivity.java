@@ -2,7 +2,6 @@ package de.storchp.opentracks.osmplugin;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -30,10 +29,7 @@ import de.storchp.opentracks.osmplugin.utils.ThemeItemAdapter;
 
 public class ThemeSelectionActivity extends AppCompatActivity {
 
-    private static final String TAG = ThemeSelectionActivity.class.getSimpleName();
-
     private ThemeItemAdapter adapter;
-
     private ActivityThemeSelectionBinding binding;
 
     @Override
@@ -146,12 +142,7 @@ public class ThemeSelectionActivity extends AppCompatActivity {
             if (file.getName().endsWith(".xml")) {
                 items.add(new FileItem(file.getName(), file.getUri(), null, file));
             } else if (file.getName().endsWith(".zip")) {
-                try {
-                    var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(file.getUri()))));
-                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, file.getUri().buildUpon().fragment(xmlTheme).build(), null, file)));
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
-                }
+                resolveThemesFromZip(items, file.getUri(), file.getName(), file, null);
             }
         } else if (file.isDirectory()) {
             var childFile = file.findFile(file.getName() + ".xml");
@@ -167,18 +158,22 @@ public class ThemeSelectionActivity extends AppCompatActivity {
             if (file.getName().endsWith(".xml")) {
                 items.add(new FileItem(file.getName(), uri, file, null));
             } else if (file.getName().endsWith(".zip")) {
-                try {
-                    var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(uri))));
-                    xmlThemes.forEach(xmlTheme -> items.add(new FileItem(file.getName() + "#" + xmlTheme, uri.buildUpon().fragment(xmlTheme).build(), file, null)));
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to read theme .zip file: " + file.getName(), e);
-                }
+                resolveThemesFromZip(items, uri, file.getName(), null, file);
             }
         } else if (file.isDirectory()) {
             var childFile = new File(file, file.getName() + ".xml");
             if (childFile.exists()) {
                 items.add(new FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null));
             }
+        }
+    }
+
+    private void resolveThemesFromZip(ArrayList<FileItem> items, Uri uri, String filename, DocumentFile documentFile, File file) {
+        try {
+            var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(uri))));
+            xmlThemes.forEach(xmlTheme -> items.add(new FileItem(filename + "#" + xmlTheme, uri.buildUpon().fragment(xmlTheme).build(), file, documentFile)));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read theme .zip file: " + filename, e);
         }
     }
 
