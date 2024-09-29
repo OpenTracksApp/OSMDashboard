@@ -16,6 +16,7 @@ material = "1.12.0"
 preferenceKtx = "1.2.1"
 runner = "1.6.2"
 slf4jApi = "2.0.16"
+jsoup = "1.18.1"
 
 [libraries]
 android-test-runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidTest" }
@@ -27,6 +28,7 @@ constraintlayout = { module = "androidx.constraintlayout:constraintlayout", vers
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+jsoup-jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
