@@ -28,7 +28,7 @@
     <string name="stroke_width_info">Вкажіть товщину лінії треку</string>
     <string name="stroke_width_menu">Товщина лінії</string>
     <string name="copyright_osm">Картографічні дані © Учасники OpenStreetMap</string>
-    <string name="usage_info">Використовуйте <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, виберіть записаний або розпочатий трек та натисніть піктограму мапи, щоб побачити на ній трек.</string>
+    <string name="usage_info">Використовуйте <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, виберіть записаний або розпочатий трек та натисніть значок мапи, щоб побачити на ній трек.</string>
     <string name="osm_info">Мапа за замовчуванням надається <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Приєднуйтесь до спільноти та допомагайте покращувати карту, див. <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Будь ласка, розгляньте можливість завантаження офлайн-карти, щоб зменшити навантаження на сервер і заощадити мобільні дані. Деякі офлайн-карти можна знайти тут:</string>
     <string name="map_theme_info"><b>Деякі карти вимагають спеціальних тем для правильного відображення для них!</b> Їх потрібно завантажити та налаштувати відповідно.</string>
@@ -98,8 +98,8 @@
     <string name="add_marker_to_open_tracks">Додати маркер в OpenTracks?</string>
     <string name="offline_version_info">УВАГА: Це офлайн-версія для максимального захисту конфіденційності. Вона не має дозволу на доступ до Інтернету і не розголошує ваше місцезнаходження. Як наслідок, вона не може показувати онлайн-карти або завантажувати офлайн-карти. Офлайн-карти потрібно завантажувати вручну, див. нижче.</string>
     <string name="INTERNAL_APP_STORAGE">Каталог у внутрішньому сховищі додатка</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Завантажити мапи з %s</string>
+    <string name="download_page_info">Ви переглядаєте вміст %s</string>
+    <string name="theme_icon">Значок теми</string>
+    <string name="map_icon">Значок мапи</string>
 </resources>
