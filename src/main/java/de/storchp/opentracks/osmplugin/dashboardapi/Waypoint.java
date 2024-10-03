@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 
 import de.storchp.opentracks.osmplugin.utils.MapUtils;
 
+/**
+ * @noinspection unused
+ */
 public class Waypoint {
 
     public static final String _ID = "_id";

@@ -19,14 +19,12 @@
     <string name="theme_selection">Žemėlapio temos</string>
     <string name="delete_map_error">Žemėlapio šalinimas nepavyko</string>
     <string name="delete_map_question">Ištrinkite žemėlapį \"%s\"\?</string>
-    <string name="cancel_download_question">Atšaukti esamą atsisiuntimą\?</string>
     <string name="pip_mode">Paveikslėlio režimas</string>
     <string name="map_mode_north_top">Žemėlapio šiaurė viršuje</string>
     <string name="menu_advanced">Išplėstinė</string>
     <string name="stroke_width_info">Nustatykite takelių brūkšnio plotį</string>
     <string name="stroke_width_menu">Bėgio eigos plotis</string>
     <string name="no_download_uri_found">Nerastas atsisiuntimo URI</string>
-    <string name="startDownload">Pradėti atsisiųsti</string>
     <string name="no_file_manager_found">Failų tvarkyklė nerandama</string>
     <string name="app_name_info_screen">OSM Dashboard
 \ndel OpenTracks</string>
@@ -42,7 +40,6 @@
     <string name="error_loading_offline_map">Klaida skaitant sukonfigūruotą neprisijungusį žemėlapį</string>
     <string name="overwrite_theme_question">Tema \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
     <string name="overwrite_map_question">Žemėlapis \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
-    <string name="download_instruction">Jūs peržiūrite https://ftp-stud.hs-esslingen.de turinį.</string>
     <string name="download_theme_failed">Temos atsisiųsti nepavyko</string>
     <string name="track_smoothing_info">Nustatykite takelio išlyginimo algoritmo paklaidą metrais. Įveskite 0, kad išjungtumėte takelio išlyginimą.
 \nPakeitimai įsigalioja įkėlus takelį iš naujo.</string>

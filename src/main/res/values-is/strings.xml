@@ -13,7 +13,6 @@
     <string name="download_map">Kort sækja</string>
     <string name="download_theme">Þema sækja</string>
     <string name="choose_map_to_download">Velja kort til að sækja</string>
-    <string name="download_instruction">Þú ert að skoða efni https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Kort tókst að sækja</string>
     <string name="download_failed">Kort sækja mistókst</string>
     <string name="download_theme_success">Þema tókst að sækja</string>
@@ -27,7 +26,6 @@
     <string name="delete_theme_error">Þema eyðingu mistókst</string>
     <string name="overwrite_map_question">Kort \"%s\" þegar til! Hreinn og sækja aftur\?</string>
     <string name="overwrite_theme_question">Þema \"%s\" þegar til! Hreinn og sækja aftur\?</string>
-    <string name="cancel_download_question">Hætta núverandi sækja\?</string>
     <string name="error_loading_offline_map">Villa að lesa stillt ótengdur kort</string>
     <string name="track_smoothing_menu">Fylgjast refur</string>
     <string name="pip_mode">Mynd í mynd ham</string>
@@ -37,7 +35,6 @@
     <string name="stroke_width_info">Skilgreina heilablóðfall breidd lögin</string>
     <string name="stroke_width_menu">Fylgjast heilablóðfall breidd</string>
     <string name="no_download_uri_found">Nei URI að sækja komist</string>
-    <string name="startDownload">Byrja Niðurhal</string>
     <string name="no_file_manager_found">Nei skráasafn komist</string>
     <string name="copyright_osm">Kort gögn spila Niðurhala framlag</string>
     <string name="usage_info">Nota <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, velja lag og smelltu á kort táknið til að sýna brautinni á kortinu.</string>

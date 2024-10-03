@@ -9,7 +9,6 @@
     <string name="theme_folder">Mapa imenik teme</string>
     <string name="consider_offline_maps">Razmislite o prenosu zemljevida brez povezave, da zmanjšate obremenitev strežnika in prihranite svoj mobilni podatkovni načrt. Nekaj zemljevidov brez povezave je na voljo tukaj:</string>
     <string name="map_theme_info"><b>Nekateri zemljevidi za pravilno prikazovanje potrebujejo posebne teme!</b> Te je treba prenesti in ustrezno konfigurirati.</string>
-    <string name="download_instruction">Ogledate si vsebino https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Izberite zemljevid za prenos</string>
     <string name="download_theme">Prenos teme</string>
     <string name="download_map">Prenos zemljevida</string>
@@ -27,14 +26,12 @@
     <string name="pip_mode">Slika v načinu slike</string>
     <string name="track_smoothing_menu">Glajenje tirov</string>
     <string name="error_loading_offline_map">Napaka pri branju konfiguriranega zemljevida brez povezave</string>
-    <string name="cancel_download_question">Prekliči trenutni prenos\?</string>
     <string name="overwrite_theme_question">Tema \"%s\" že obstaja! Izbriši in prenesi znova\?</string>
     <string name="overwrite_map_question">Zemljevid \"%s\" že obstaja! Izbriši in prenesi znova\?</string>
     <string name="delete_theme_error">Brisanje teme ni uspelo</string>
     <string name="delete_theme_question">Izbriši temo \"%s\"\?</string>
     <string name="delete_map_error">Brisanje zemljevida ni uspelo</string>
     <string name="theme_selection">Teme zemljevida</string>
-    <string name="startDownload">Začetek Prenesi</string>
     <string name="no_download_uri_found">Ni bil najden URI za prenos</string>
     <string name="stroke_width_menu">Širina poteze sledi</string>
     <string name="stroke_width_info">Določite širino črtkanja sledi</string>

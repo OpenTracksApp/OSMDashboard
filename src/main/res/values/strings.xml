@@ -18,7 +18,6 @@
     <string name="download_map">Map download</string>
     <string name="download_theme">Theme download</string>
     <string name="choose_map_to_download">Choose a map to download</string>
-    <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
@@ -33,7 +32,6 @@
     <string name="delete_theme_error">Theme deletion failed</string>
     <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
     <string name="overwrite_theme_question">The theme \"%s\" already exists! Delete and download again?</string>
-    <string name="cancel_download_question">Cancel current download?</string>
     <string name="error_loading_offline_map">Error reading configured offline map</string>
     <string name="track_smoothing_menu">Track smoothing</string>
     <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
@@ -46,7 +44,6 @@
     <string name="stroke_width_info">Define the stroke width of the tracks</string>
     <string name="stroke_width_menu">Track stroke width</string>
     <string name="no_download_uri_found">No URI to download found</string>
-    <string name="startDownload">Start Download</string>
     <string name="no_file_manager_found">No file manager found</string>
     <string name="error_reg_content_observer">Error on registering OpenTracksContentObserver</string>
 

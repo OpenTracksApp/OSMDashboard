@@ -12,7 +12,6 @@
     <string name="download_map">Preuzimanje Karta</string>
     <string name="download_theme">Preuzmite temu</string>
     <string name="choose_map_to_download">Odaberite karticu za preuzimanje</string>
-    <string name="download_instruction">Pregledavate sadržaj https://ftp-stud.hs-esslingen.de hej.</string>
     <string name="download_success">Kartica je uspješno učitana</string>
     <string name="download_theme_success">Tema je uspješno preuzeta</string>
     <string name="download_theme_failed">Nije moguće učitati temu</string>
@@ -22,7 +21,6 @@
     <string name="theme_selection">Teme karata</string>
     <string name="delete_theme_question">Ukloni temu \"%s\"\?</string>
     <string name="overwrite_map_question">Kartica\" %s \" već postoji! Ponovno izbrisati i preuzeti\?</string>
-    <string name="cancel_download_question">Otkazivanje trenutnog preuzimanja\?</string>
     <string name="error_loading_offline_map">Pogreška čitanja prilagođene izvanmrežne kartice</string>
     <string name="track_smoothing_menu">Izglađivanje staze</string>
     <string name="track_smoothing_info">Odredite toleranciju u metrima za algoritam za izravnavanje staze. Unesite 0 da biste onemogućili zaglađivanje staze.
@@ -35,7 +33,6 @@
     <string name="stroke_width_info">Odredite širinu trake</string>
     <string name="stroke_width_menu">Širina hoda gusjenice</string>
     <string name="no_download_uri_found">Nije pronađen URI za preuzimanje</string>
-    <string name="startDownload">Pokreni Preuzimanje</string>
     <string name="no_file_manager_found">Upravitelj datoteka nije pronađen</string>
     <string name="app_name_info_screen">OSM Dashboard
 \nza OpenTracks</string>

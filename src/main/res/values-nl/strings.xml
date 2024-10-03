@@ -17,7 +17,6 @@
     <string name="map_online_consent_menu">Online kaart toestemming</string>
     <string name="download_map">Kaart downloaden</string>
     <string name="choose_map_to_download">Kies een kaart om te downloaden</string>
-    <string name="download_instruction">U bekijkt de inhoud van https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Kaart succesvol gedownload</string>
     <string name="download_failed">Het downloaden van de kaart is mislukt</string>
     <string name="map_selection">Kaarten</string>
@@ -28,7 +27,6 @@
     <string name="delete_theme_question">Thema \"%s\" verwijderen\?</string>
     <string name="delete_theme_error">Themaverwijdering mislukt</string>
     <string name="overwrite_map_question">De kaart \"%s\" bestaat al! Opnieuw verwijderen en downloaden\?</string>
-    <string name="cancel_download_question">Huidige download annuleren\?</string>
     <string name="error_loading_offline_map">Foutieve uitlezing geconfigureerd offline kaart</string>
     <string name="track_smoothing_menu">Spoorafvlakking</string>
     <string name="track_smoothing_info">Definieer de tolerantie in meters voor het spoorverzachtingsalgoritme. Voer 0 in om spoorverzachter uit te schakelen.
@@ -45,7 +43,6 @@
     <string name="download_theme_failed">Thema downloaden mislukt</string>
     <string name="overwrite_theme_question">Het thema \"%s\" bestaat al! Verwijderen en opnieuw downloaden\?</string>
     <string name="no_download_uri_found">Geen URI om te downloaden gevonden</string>
-    <string name="startDownload">Begin met downloaden</string>
     <string name="offline_map_info">Offline kaarten kunnen worden gedownload via het menu <b>Kaarten downloaden</b> of door de hierboven genoemde websites te bezoeken en op de downloadlinks te klikken. Sommige browsers (b.v. Firefox) vereisen een lange klik op de link en Open link in externe app en kies dan OSMDashboard.</string>
     <string name="no_file_manager_found">Geen file manager gevonden</string>
     <string name="error_reg_content_observer">Fout bij het registreren van OpenTracksContentObserver</string>

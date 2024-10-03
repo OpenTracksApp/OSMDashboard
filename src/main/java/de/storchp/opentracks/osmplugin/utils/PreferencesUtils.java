@@ -76,14 +76,6 @@ public class PreferencesUtils {
         return getBoolean(R.string.APP_PREF_SHOW_PAUSE_MARKERS, resources.getBoolean(R.bool.show_pause_markers_default));
     }
 
-    public static String getLastDownloadUrl(String defaultDownloadUrl) {
-        return getString(R.string.APP_PREF_LAST_DOWNLOAD_URL, defaultDownloadUrl);
-    }
-
-    public static void setLastDownloadUrl(String lastDownloadUrl) {
-        setString(R.string.APP_PREF_LAST_DOWNLOAD_URL, lastDownloadUrl);
-    }
-
     private static Set<Uri> getUris(String keyId) {
         return sharedPrefs.getStringSet(keyId, Collections.emptySet()).stream()
                 .map(PreferencesUtils::parseUri)

@@ -49,17 +49,7 @@ public class MapUtils {
             return c2.sphericalDistance(c0);
         }
 
-        double s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD;
-        double s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD;
-        double s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD;
-
-        double s2s1lat = s2lat - s1lat;
-        double s2s1lng = s2lng - s1lng;
-        double u = ((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
-                / (s2s1lat * s2s1lat + s2s1lng * s2s1lng);
+        double u = calcU(c0, c1, c2);
 
         if (u <= 0) {
             return c0.sphericalDistance(c1);
@@ -73,6 +63,20 @@ public class MapUtils {
         var sb = new GeoPoint(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
 
         return sa.sphericalDistance(sb);
+    }
+
+    private static double calcU(GeoPoint c0, GeoPoint c1, GeoPoint c2) {
+        double s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD;
+        double s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD;
+        double s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD;
+        double s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD;
+
+        double s2s1lat = s2lat - s1lat;
+        double s2s1lng = s2lng - s1lng;
+        return ((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
+                / (s2s1lat * s2s1lat + s2s1lng * s2s1lng);
     }
 
     /**
@@ -99,7 +103,7 @@ public class MapUtils {
 
         if (n > 2) {
             stack.push(new int[]{0, (n - 1)});
-            while (stack.size() > 0) {
+            while (!stack.isEmpty()) {
                 current = stack.pop();
                 maxDist = 0;
                 for (idx = current[0] + 1; idx < current[1]; ++idx) {

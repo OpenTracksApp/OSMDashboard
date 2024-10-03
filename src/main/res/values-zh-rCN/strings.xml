@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="map_selection">地图列表。</string>
-    <string name="startDownload">开始下载</string>
     <string name="moving_time">运动时间</string>
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="unit_mile_per_hour">英里每小时</string>
@@ -21,7 +20,6 @@
     <string name="download_map">地图下载</string>
     <string name="download_theme">主题下载</string>
     <string name="choose_map_to_download">选择一个地图以下载</string>
-    <string name="download_instruction">您查看的内容来自https://ftp-stud.hs-esslingen.de。</string>
     <string name="download_success">地图下载成功</string>
     <string name="download_failed">地图下载失败</string>
     <string name="download_theme_failed">主题下载失败</string>
@@ -32,7 +30,6 @@
     <string name="delete_theme_question">是否删除主题 \"%s\"\?</string>
     <string name="delete_theme_error">主题删除失败</string>
     <string name="overwrite_theme_question">主题 \"%s\" 已存在!！是否删除并重新下载？</string>
-    <string name="cancel_download_question">取消当前下载？</string>
     <string name="error_loading_offline_map">读取配置的在线地图失败</string>
     <string name="track_smoothing_menu">轨迹平滑</string>
     <string name="pip_mode">画中画模式</string>

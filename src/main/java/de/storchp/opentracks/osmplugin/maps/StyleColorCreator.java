@@ -16,6 +16,9 @@ public class StyleColorCreator {
         this.h = start;
     }
 
+    /**
+     * @noinspection SameParameterValue
+     */
     private int convertHSVtoColorRGB(double hue, double saturation, double value) {
         double i = Math.floor(hue * 6);
         double f = hue * 6 - i;

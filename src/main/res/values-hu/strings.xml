@@ -17,7 +17,6 @@
     <string name="pip_mode">Kép a képben mód</string>
     <string name="track_smoothing_menu">Nyomvonal simítása</string>
     <string name="error_loading_offline_map">Hiba a beállított offline térkép olvasásakor</string>
-    <string name="cancel_download_question">Megszakítja a jelenlegi letöltést?</string>
     <string name="overwrite_map_question">A(z) „%s” térkép már létezik. Törli és újból letölti?</string>
     <string name="delete_theme_error">A téma törlése sikertelen</string>
     <string name="theme_selection">Térképtémák</string>
@@ -28,7 +27,6 @@
     <string name="map_selection">Térképek</string>
     <string name="download_failed">A térkép letöltése sikertelen</string>
     <string name="download_success">A térkép sikeresen letöltve</string>
-    <string name="download_instruction">A https://ftp-stud.hs-esslingen.de webhely tartalmát látja.</string>
     <string name="choose_map_to_download">Válasszon egy térképet a letöltéshez</string>
     <string name="stroke_width_menu">Nyomvonal vonalvastagság</string>
     <string name="no_map_configured">Még nincs beállítva offline térkép.</string>
@@ -39,7 +37,6 @@
     <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését, hogy csökkentse a kiszolgálóterhelést és kímélje a mobil adatforgalmi keretét. Néhány offline térkép megtalálható itt:</string>
     <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez.</b> Ezeket le kell tölteni, és ennek megfelelően kell beállítani.</string>
     <string name="manual_offline_map_info">A kézileg letöltött offline térképek vagy a más alkalmazásokkal megosztott térképek megnyithatók az androidos eszközéről. Válassza ki a könyvtárat a <b>Térképkönyvtár</b> beállításban.</string>
-    <string name="startDownload">Letöltés indítása</string>
     <string name="no_download_uri_found">Nincs letölthető URI</string>
     <string name="overwrite_theme_question">A(z) „%s” téma már létezik. Törli és újból letölti?</string>
     <string name="download_theme_failed">A téma letöltése sikertelen</string>

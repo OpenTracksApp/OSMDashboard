@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">OSM Dashboard</string>
-    <string name="share_picture_title" translatable="false">OpenTracks</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="APP_PREF_MAP_FILES" translatable="false">APP_PREF_MAP_FILES</string>
     <string name="APP_PREF_MAP_DIRECTORY" translatable="false">APP_PREF_MAP_DIRECTORY</string>
@@ -8,7 +7,6 @@
     <string name="APP_PREF_MAP_THEME" translatable="false">APP_PREF_MAP_THEME</string>
     <string name="APP_PREF_ONLINE_MAP_CONSENT" translatable="false">APP_PREF_ONLINE_MAP_CONSENT</string>
     <string name="APP_PREF_SHOW_PAUSE_MARKERS" translatable="false">APP_PREF_SHOW_PAUSE_MARKERS</string>
-    <string name="APP_PREF_LAST_DOWNLOAD_URL" translatable="false">APP_PREF_LAST_DOWNLOAD_URL</string>
     <string name="APP_PREF_TRACK_SMOOTHING_TOLERANCE" translatable="false">APP_PREF_TRACK_SMOOTHING_TOLERANCE</string>
     <string name="APP_PREF_STROKE_WIDTH" translatable="false">APP_PREF_STROKE_WIDTH</string>
     <string name="APP_PREF_PIP_ENABLED" translatable="false">APP_PREF_PIP_ENABLED</string>

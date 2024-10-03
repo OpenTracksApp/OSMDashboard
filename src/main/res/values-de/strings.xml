@@ -18,7 +18,6 @@
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
     <string name="download_map">Karten herunterladen</string>
     <string name="choose_map_to_download">Wähle eine Karte zum herunterladen</string>
-    <string name="download_instruction">Du siehst Inhalte von https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Karte erfolgreich heruntergeladen</string>
     <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
     <string name="map_selection">Karten</string>
@@ -29,7 +28,6 @@
     <string name="delete_theme_question">Kartendesign \"%s\" löschen\?</string>
     <string name="delete_theme_error">Kartendesign konnte nicht gelöscht werden</string>
     <string name="overwrite_map_question">Die Karte \"%s\" existiert bereits! Löschen und erneut herunterladen\?</string>
-    <string name="cancel_download_question">Aktuellen Download abbrechen\?</string>
     <string name="error_loading_offline_map">Fehler beim Lesen der konfigurierten Offline-Karte</string>
     <string name="track_smoothing_menu">Tracks glätten</string>
     <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.</string>
@@ -44,7 +42,6 @@
     <string name="download_theme_failed">Theme-Download fehlgeschlagen</string>
     <string name="download_theme_success">Thema erfolgreich heruntergeladen</string>
     <string name="download_theme">Thema herunterladen</string>
-    <string name="startDownload">Download beginnen</string>
     <string name="no_download_uri_found">Keine URI zum Download gefunden</string>
     <string name="no_file_manager_found">Kein Dateimanager gefunden</string>
     <string name="error_reg_content_observer">Fehler bei der Registrierung von OpenTracksContentObserver</string>

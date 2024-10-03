@@ -9,7 +9,6 @@
     <string name="online_map_consent">Non è stata configurata alcuna mappa offline. Si prega di accettare di utilizzare la mappa online di openstreetmap.org. Ciò potrebbe far trapelare la tua posizione attuale. Informati su https://operations.osmfoundation.org/policies/tiles/ per l\'uso della griglia e la politica sulla privacy.</string>
     <string name="download_map">Scarica la mappa</string>
     <string name="choose_map_to_download">Scegli una mappa da scaricare</string>
-    <string name="download_instruction">Stai vedendo il contenuto di https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">La mappa è stata scaricata con successo</string>
     <string name="map_online_consent_menu">Consenso per l\' utilizzo della mappa online</string>
     <string name="map_info_menu">Informazioni</string>
@@ -19,7 +18,6 @@
     <string name="theme_selection">Temi mappe</string>
     <string name="delete_theme_question">Eliminare il tema \"%s\"\?</string>
     <string name="delete_theme_error">Cancellazione del tema non riuscita</string>
-    <string name="cancel_download_question">Vuoi annullare lo scaricamento\?</string>
     <string name="pip_mode">Modalità PiP</string>
     <string name="map_mode_north_top">Mappa con il Nord in alto</string>
     <string name="menu_advanced">Modalità avanzata</string>
@@ -45,7 +43,6 @@
     <string name="download_theme_failed">Download del tema non riuscito</string>
     <string name="overwrite_theme_question">Il tema \"%s\" esiste già! Cancellare e scaricare di nuovo\?</string>
     <string name="no_download_uri_found">Nessun URI da scaricare trovato</string>
-    <string name="startDownload">Avviare il download</string>
     <string name="offline_map_info">Le mappe offline possono essere scaricate tramite il menu <b>Scaricamento mappe</b> o visitando i siti web sopra menzionati e cliccando sui link di download. Alcuni browser (ad esempio Firefox) richiedono un clic lungo sul link e Open link in external app e poi scegliere OSMDashboard.</string>
     <string name="no_file_manager_found">Nessun gestore di file trovato</string>
     <string name="error_reg_content_observer">Errore nella registrazione di OpenTracksContentObserver</string>

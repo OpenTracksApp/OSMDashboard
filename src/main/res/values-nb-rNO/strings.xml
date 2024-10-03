@@ -34,17 +34,14 @@
     <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>
     <string name="choose_map_to_download">Velg et kart for å laste ned</string>
-    <string name="download_instruction">Du ser innholdet fra https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Kart lastet ned</string>
     <string name="download_failed">Kartnedlasting mislyktes</string>
     <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
-    <string name="cancel_download_question">Avbryte gjeldende nedlasting\?</string>
     <string name="download_theme">Last ned tema</string>
     <string name="download_theme_success">Tema lastet ned</string>
     <string name="download_theme_failed">Temanedlasting feilet</string>
     <string name="overwrite_theme_question">Temaet \"%s\" finnes allerede! Slette og laste ned på nytt\?</string>
     <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
-    <string name="startDownload">Start nedlasting</string>
     <string name="offline_map_info">Offline-kart kan lastes ned fra inne i appen. Gå til innstillingene og velg <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
     <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>

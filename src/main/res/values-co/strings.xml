@@ -21,10 +21,8 @@
     <string name="map_mode_north_top">Piazzà u nordu insù</string>
     <string name="track_smoothing_menu">Allisciata di u tracciatu</string>
     <string name="settings_ui_dynamic_colors_summary">Impiegà i culori dinamichi definiti da l’utilizatore (solu Android 12è più ; richiede un rilanciu manuale)</string>
-    <string name="cancel_download_question">Abbandunà u scaricamentu attuale ?</string>
     <string name="version_info"><b>Versione :</b> %s - %s (%d)</string>
     <string name="distance_km">Distanza in km</string>
-    <string name="startDownload">Lancià u scaricamentu</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="delete_theme_question">Squassà u tema « %s » ?</string>
     <string name="unit_feet">ft</string>
@@ -91,7 +89,6 @@
     <string name="unit_meter">m</string>
     <string name="settings_night_mode_option_day">Ghjornu</string>
     <string name="usage_info">Impiegate <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selezziunate un tracciatu è fate un cliccu nant’à l’icona di carta per affissà u tracciatu nant’à a carta.</string>
-    <string name="download_instruction">Eccu a lista di u cuntenutu di u situ https://ftp-stud.hs-esslingen.de.</string>
     <string name="pip_mode">Mode fiura-nant’à-fiura (intarsiatura PIP)</string>
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="map_theme_info"><b>Certe carte richiedenu temi speziali per una restituzione curretta !</b> Quelli temi devenu esse scaricati è cunfigurati in cunsequenza.</string>

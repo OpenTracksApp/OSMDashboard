@@ -8,10 +8,8 @@
     <string name="map_info_menu">Sobre</string>
     <string name="map_folder">Diretório de mapas</string>
     <string name="theme_folder">Diretório de temas do mapa</string>
-    <string name="cancel_download_question">Cancelar o download atual\?</string>
     <string name="download_map">Download do mapa</string>
     <string name="choose_map_to_download">Escolha um mapa para fazer o download</string>
-    <string name="download_instruction">Você está visualizando o conteúdo de https://ftp-stud.hs-esslingen.de.</string>
     <string name="app_logo_description">Logo do aplicativo</string>
     <string name="map_online_consent_menu">Autorização do mapa online</string>
     <string name="download_success">Mapa baixado com sucesso</string>
@@ -44,7 +42,6 @@
     <string name="download_theme_failed">Download do tema falhou</string>
     <string name="overwrite_theme_question">O tema \"%s\" já existe! Excluir e baixar novamente\?</string>
     <string name="no_download_uri_found">Não foi encontrado nenhum URI para download</string>
-    <string name="startDownload">Iniciar Download</string>
     <string name="offline_map_info">Os mapas off-line podem ser baixados através do menu <b>Map download</b> ou visitando os sites acima mencionados e clicando nos links de download. Alguns navegadores (por exemplo, Firefox) requerem um clique longo no link e Abrir link em aplicativo externo e depois escolher OSMDashboard.</string>
     <string name="download_theme_success">Tema descarregado com sucesso</string>
     <string name="no_file_manager_found">Nenhum gerente de arquivo encontrado</string>

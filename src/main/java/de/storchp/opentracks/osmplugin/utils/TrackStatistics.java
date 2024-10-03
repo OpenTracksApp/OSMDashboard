@@ -4,6 +4,9 @@ import java.util.List;
 
 import de.storchp.opentracks.osmplugin.dashboardapi.Track;
 
+/**
+ * @noinspection unused
+ */
 public class TrackStatistics {
 
     private String category = "unknown";

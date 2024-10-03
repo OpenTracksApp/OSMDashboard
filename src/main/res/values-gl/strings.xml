@@ -17,7 +17,6 @@
     <string name="map_online_consent_menu">Consentimento para mapas en liña</string>
     <string name="download_map">Descargar mapa</string>
     <string name="choose_map_to_download">Escolle o mapa a descargar</string>
-    <string name="download_instruction">Estás a ver o contido de https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Mapa descargado correctamente</string>
     <string name="download_failed">Fallou a descarga do mapa</string>
     <string name="map_selection">Mapas</string>
@@ -27,7 +26,6 @@
     <string name="theme_selection">Estilos do mapa</string>
     <string name="delete_theme_question">¿Eliminar estilo \"%s\"\?</string>
     <string name="delete_theme_error">Fallou a eliminación do estilo</string>
-    <string name="cancel_download_question">Cancelar a descarga actual\?</string>
     <string name="error_loading_offline_map">Erro ó ler o mapa sen conexión configurado</string>
     <string name="track_smoothing_menu">Suavizado da ruta</string>
     <string name="pip_mode">Modo imaxe en imaxe</string>
@@ -44,7 +42,6 @@
     <string name="download_theme_failed">Tema descargar fallou</string>
     <string name="overwrite_theme_question">O tema \"%s\" xa existe! Eliminar e baixar de novo\?</string>
     <string name="no_download_uri_found">Non URI para descargar atopado</string>
-    <string name="startDownload">Comezar A Descargar</string>
     <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elixir OSMDashboard.</string>
     <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
     <string name="error_reg_content_observer">Erro ao rexistrar OpenTracksContentObserver</string>

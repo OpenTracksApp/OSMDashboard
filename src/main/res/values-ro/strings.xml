@@ -8,7 +8,6 @@
     <string name="theme_folder">Harta directorului tematic</string>
     <string name="app_logo_description">Logoul aplicației</string>
     <string name="choose_map_to_download">Alegeți o hartă pentru a o descărca</string>
-    <string name="download_instruction">Vizualizați conținutul https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Harta descărcată cu succes</string>
     <string name="download_failed">Descărcarea hărții nu a reușit</string>
     <string name="download_theme_success">Tema descărcată cu succes</string>
@@ -22,7 +21,6 @@
     <string name="map_theme_info"><b>Câteva hărți necesită teme speciale pentru a fi redate corect!</b> Acestea trebuie descărcate și configurate corespunzător.</string>
     <string name="manual_offline_map_info">Hărțile offline descărcate manual sau hărțile partajate cu alte aplicații pot fi deschise de pe dispozitivul Android. Selectați directorul în setările <b>Registrului de hărți</b>.</string>
     <string name="usage_info">Utilizați <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selectați un traseu și faceți clic pe pictograma de hartă pentru a afișa traseul pe hartă.</string>
-    <string name="startDownload">Start Descărcare</string>
     <string name="no_download_uri_found">Nu s-a găsit niciun URI de descărcat</string>
     <string name="stroke_width_menu">Lățimea cursei de traseu</string>
     <string name="stroke_width_info">Definirea lățimii de trasare a benzilor</string>
@@ -34,7 +32,6 @@
     <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Setați la 0 pentru a dezactiva netezirea pistei.</string>
     <string name="track_smoothing_menu">Netezirea liniei</string>
     <string name="error_loading_offline_map">Eroare la citirea hărții configurate offline</string>
-    <string name="cancel_download_question">Anulează descărcarea curentă\?</string>
     <string name="overwrite_theme_question">Tema \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
     <string name="overwrite_map_question">Harta \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
     <string name="delete_theme_error">Eliminarea temei a eșuat</string>

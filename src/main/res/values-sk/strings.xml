@@ -15,7 +15,6 @@
     <string name="download_map">Stiahnutie mapy</string>
     <string name="download_theme">Stiahnutie témy</string>
     <string name="choose_map_to_download">Vyberte mapu na prevzatie</string>
-    <string name="download_instruction">Prezeráte si obsah stránky https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Úspešné stiahnutie mapy</string>
     <string name="download_failed">Stiahnutie mapy zlyhalo</string>
     <string name="download_theme_success">Téma úspešne stiahnutá</string>
@@ -26,7 +25,6 @@
     <string name="theme_selection">Témy mapy</string>
     <string name="delete_theme_error">Odstránenie témy zlyhalo</string>
     <string name="overwrite_map_question">Mapa \"%s\" už existuje! Vymazať a stiahnuť znova\?</string>
-    <string name="cancel_download_question">Zrušiť aktuálne sťahovanie\?</string>
     <string name="error_loading_offline_map">Chyba pri čítaní nakonfigurovanej offline mapy</string>
     <string name="track_smoothing_menu">Vyhladzovanie koľají</string>
     <string name="track_smoothing_info">Definujte toleranciu v metroch pre algoritmus vyhladzovania stopy. Zadaním hodnoty 0 vypnete vyhladzovanie stopy.
@@ -39,7 +37,6 @@
     <string name="stroke_width_info">Definujte šírku ťahu stopy</string>
     <string name="stroke_width_menu">Šírka dráhy</string>
     <string name="no_download_uri_found">Nenašiel sa žiadny URI na prevzatie</string>
-    <string name="startDownload">Začať sťahovať</string>
     <string name="usage_info">Použite <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, vyberte trať a kliknite na ikonu mapy, aby sa trať zobrazila na mape.</string>
     <string name="osm_info">Predvolenú mapu poskytuje <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Pripojte sa ku komunite a pomôžte mapu vylepšiť, pozrite si <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="offline_map_info">Offline mapy si môžete stiahnuť prostredníctvom ponuky <b>Mapa na stiahnutie</b> alebo navštívením vyššie uvedených webových stránok a kliknutím na odkazy na stiahnutie. Niektoré prehliadače (napr. Firefox) vyžadujú dlhé kliknutie na odkaz a Otvoriť odkaz v externej aplikácii a potom vybrať OSMDashboard.</string>

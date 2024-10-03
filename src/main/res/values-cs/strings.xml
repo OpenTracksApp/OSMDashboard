@@ -8,7 +8,6 @@
     <string name="theme_folder">Adresář vzhledů map</string>
     <string name="app_logo_description">Logo aplikace</string>
     <string name="download_map">Stáhnout mapy</string>
-    <string name="download_instruction">Zobrazujete obsah z https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Mapa úspěšně stažena</string>
     <string name="map_selection">Mapy</string>
     <string name="online_osm_mapnick">Online mapa OSM:Mapnik</string>
@@ -18,7 +17,6 @@
     <string name="delete_theme_question">Smazat vzhled \"%s\"\?</string>
     <string name="delete_theme_error">Smazání vzhledu selhalo</string>
     <string name="overwrite_map_question">Mapa \"%s\" již existuje! Smazat a stáhnout znovu\?</string>
-    <string name="cancel_download_question">Přerušit aktuální stahování\?</string>
     <string name="error_loading_offline_map">Chyba načítání vybrané offline mapy</string>
     <string name="pip_mode">Režim obrazu v obraze</string>
     <string name="map_mode_north_top">Sever na mapě nahoře</string>
@@ -42,7 +40,6 @@
     <string name="download_theme_failed">Stažení tématu se nezdařilo</string>
     <string name="download_theme_success">Téma bylo úspěšně staženo</string>
     <string name="download_theme">Téma ke stažení</string>
-    <string name="startDownload">Začít stahovat</string>
     <string name="no_download_uri_found">Nebyl nalezen URI ke stažení</string>
     <string name="offline_map_info">Offline mapy lze stáhnout v aplikaci. Přejděte do nastavení a klikněte na <b>Stáhnout mapy</b> nebo navštivte výše uvedené webové stránky a klepněte na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují klepnutí a podržení na odkazu, klepnutí na Otevřít odkaz v externí aplikaci a výběrem OSM Dashboard.</string>
     <string name="overwrite_theme_question">Téma \"%s\" již existuje! Smazat a stáhnout znovu\?</string>

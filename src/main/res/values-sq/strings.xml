@@ -12,7 +12,6 @@
     <string name="download_map">Shkarkimi i hartës</string>
     <string name="download_theme">Shkarkimi i temës</string>
     <string name="choose_map_to_download">Zgjidhni një hartë për ta shkarkuar</string>
-    <string name="download_instruction">Jeni duke parë përmbajtje të https://ftp-stud.hs-esslingen.de.</string>
     <string name="download_success">Harta shkarkohet me sukses</string>
     <string name="download_failed">Shkarkimi i hartës dështoi</string>
     <string name="download_theme_success">Tema shkarkohet me sukses</string>
@@ -28,10 +27,8 @@
     <string name="share">Ndaj</string>
     <string name="error_reg_content_observer">Gabim në regjistrimin OpenTracksContentObserver</string>
     <string name="no_file_manager_found">Asnjë menaxher skedarësh nuk u gjet</string>
-    <string name="startDownload">Filloni Shkarkimin</string>
     <string name="no_download_uri_found">Nuk URI për të shkarkuar gjetur</string>
     <string name="overwrite_map_question">Harta \"%s \" tashmë ekziston! Fshini dhe shkarkoni përsëri\?</string>
-    <string name="cancel_download_question">Anuloni shkarkimin aktual\?</string>
     <string name="error_loading_offline_map">Gabim leximi konfiguruar offline hartë</string>
     <string name="track_smoothing_menu">Zbutja e gjurmëve</string>
     <string name="pip_mode">Foto në modalitetin e figurës</string>

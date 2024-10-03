@@ -13,7 +13,6 @@
     <string name="download_map">Kartes lejupielādēšana</string>
     <string name="download_theme">Tēmas lejupielāde</string>
     <string name="choose_map_to_download">Izvēlieties karti lejupielādei</string>
-    <string name="download_instruction">Jūs skatāties https://ftp-stud.hs-esslingen.de saturu.</string>
     <string name="download_success">Veiksmīgi lejupielādēta karte</string>
     <string name="download_failed">Kartes lejupielāde neizdevās</string>
     <string name="app_logo_description">Aplikācijas logotips</string>
@@ -21,11 +20,9 @@
 \nIzmaiņas stājas spēkā pēc celiņa ielādēšanas.</string>
     <string name="track_smoothing_menu">Trases izlīdzināšana</string>
     <string name="error_loading_offline_map">Kļūda, lasot konfigurēto bezsaistes karti</string>
-    <string name="cancel_download_question">Atcelt pašreizējo lejupielādi\?</string>
     <string name="overwrite_theme_question">Tēma \"%s\" jau eksistē! Dzēst un lejupielādēt vēlreiz\?</string>
     <string name="overwrite_map_question">Karte \"%s\" jau pastāv! Dzēst un lejupielādēt vēlreiz\?</string>
     <string name="delete_theme_error">Tēma dzēšana neizdevās</string>
-    <string name="startDownload">Sākt lejupielādi</string>
     <string name="no_download_uri_found">Nav atrasts URI lejupielādei</string>
     <string name="stroke_width_menu">Sliedes gājiena platums</string>
     <string name="stroke_width_info">Definēt sliedes svītru platumu</string>

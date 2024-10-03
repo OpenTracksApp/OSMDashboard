@@ -6,7 +6,6 @@
     <string name="map_folder">Katalog map</string>
     <string name="app_name_info_screen">OSM Dashboard
 \ndla OpenTracks</string>
-    <string name="download_instruction">Przeglądasz zawartość strony https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Wybierz mapę do pobrania</string>
     <string name="download_map">Pobieranie mapy</string>
     <string name="map_online_consent_menu">Zgoda na mapę online</string>
@@ -18,7 +17,6 @@
     <string name="pip_mode">Obraz w trybie zdjęć</string>
     <string name="track_smoothing_menu">Wygładzanie toru jazdy</string>
     <string name="error_loading_offline_map">Błąd odczytu skonfigurowanej mapy offline</string>
-    <string name="cancel_download_question">Anulować bieżące pobieranie\?</string>
     <string name="delete_theme_error">Usuwanie motywu nie powiodło się</string>
     <string name="theme_selection">Tematy map</string>
     <string name="delete_map_error">Usuwanie map nie powiodło się</string>
@@ -45,7 +43,6 @@
     <string name="download_theme_failed">Nie udało się pobrać motywu</string>
     <string name="overwrite_theme_question">Motyw \"%s\" już istnieje! Usunąć i pobrać ponownie\?</string>
     <string name="no_download_uri_found">Nie znaleziono URI do pobrania</string>
-    <string name="startDownload">Start Pobierz</string>
     <string name="offline_map_info">Mapy offline można pobrać poprzez menu <b>Pobieranie map</b> lub odwiedzając wyżej wymienione strony internetowe i klikając na linki do pobrania. Niektóre przeglądarki (np. Firefox) wymagają długiego kliknięcia na link i polecenia Otwórz link w zewnętrznej aplikacji, a następnie wybrania OSMDashboard.</string>
     <string name="no_file_manager_found">Nie znaleziono menedżera plików</string>
     <string name="error_reg_content_observer">Błąd przy rejestracji OpenTracksContentObserver</string>

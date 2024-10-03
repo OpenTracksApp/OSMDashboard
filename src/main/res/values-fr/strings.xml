@@ -9,7 +9,6 @@
     <string name="map_selection">Cartes</string>
     <string name="download_failed">Le téléchargement des cartes a échoué</string>
     <string name="download_success">Carte téléchargée avec succès</string>
-    <string name="download_instruction">Vous consultez le contenu du site https://ftp-stud.hs-esslingen.de.</string>
     <string name="choose_map_to_download">Choisissez une carte à télécharger</string>
     <string name="download_map">Télécharger la carte</string>
     <string name="map_online_consent_menu">Consentement à la carte en ligne</string>
@@ -27,7 +26,6 @@
     <string name="map_mode_north_top">Carte du nord en haut</string>
     <string name="track_smoothing_menu">Lissage des traces</string>
     <string name="error_loading_offline_map">Erreur de lecture d\'une carte hors ligne configurée</string>
-    <string name="cancel_download_question">Annuler le téléchargement en cours \?</string>
     <string name="overwrite_map_question">La carte \"%s\" existe déjà ! Effacer et télécharger à nouveau \?</string>
     <string name="delete_theme_error">La suppression du thème a échoué</string>
     <string name="pip_mode">Mode incrustration</string>
@@ -44,7 +42,6 @@
     <string name="download_theme_failed">Le téléchargement du thème a échoué</string>
     <string name="overwrite_theme_question">Le thème \"%s\" existe déjà ! Supprimer et télécharger à nouveau \?</string>
     <string name="no_download_uri_found">Pas d\'URI à télécharger trouvé</string>
-    <string name="startDownload">Démarrer le téléchargement</string>
     <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées depuis l\'application en allant dans les préférences et en choisissant <b>Téléchargement de cartes</b>, ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
     <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
