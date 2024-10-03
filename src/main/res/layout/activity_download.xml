@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_below="@id/toolbar"
-        style="?android:attr/progressBarStyleHorizontal"/>
+        style="?android:attr/progressBarStyleHorizontal" />
 
     <TextView
         android:id="@+id/download_info"
@@ -21,16 +23,6 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:padding="20sp"
-        android:layout_below="@id/progressBar"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/download_info"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/startDownloadButton"
-        android:text="@string/startDownload"
-        />
+        android:layout_below="@id/progressBar" />
 
 </RelativeLayout>

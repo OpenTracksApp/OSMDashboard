@@ -119,14 +119,17 @@ public class DownloadActivity extends BaseActivity {
             Log.i(TAG, "downloadUri=" + downloadUri + ", downloadType=" + downloadType);
 
             binding.downloadInfo.setText(downloadUri.toString());
-            binding.startDownloadButton.setOnClickListener((view) -> {
-                if (downloadId == null) {
-                    startDownload();
-                }
-            });
+
+            downloadBroadcastReceiver = new DownloadBroadcastReceiver();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_EXPORTED);
+            } else {
+                registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            }
+
+            startDownload();
         } else {
             binding.downloadInfo.setText(R.string.no_download_uri_found);
-            binding.startDownloadButton.setEnabled(false);
         }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -134,13 +137,6 @@ public class DownloadActivity extends BaseActivity {
                 navigateUp();
             }
         });
-
-        downloadBroadcastReceiver = new DownloadBroadcastReceiver();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_EXPORTED);
-        } else {
-            registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        }
     }
 
     protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
