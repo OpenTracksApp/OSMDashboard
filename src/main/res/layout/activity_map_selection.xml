@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.storchp.opentracks.osmplugin.MapSelectionActivity">
+    tools:context="de.storchp.opentracks.osmplugin.settings.MapSelectionActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar" />
 
     <ListView
         android:id="@+id/map_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        />
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

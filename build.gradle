@@ -155,6 +155,7 @@ dependencies {
     }
     implementation libs.vtm.android
     implementation libs.androidsvg
+    implementation libs.jsoup.jsoup
 
     testImplementation libs.junit.jupiter
     testImplementation libs.assertj.core

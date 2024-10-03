@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.settings;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +13,11 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import de.storchp.opentracks.osmplugin.BuildConfig;
+import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding;
 import de.storchp.opentracks.osmplugin.databinding.MapItemBinding;
+import de.storchp.opentracks.osmplugin.download.DownloadActivity;
 import de.storchp.opentracks.osmplugin.utils.FileItem;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.MapItemAdapter;

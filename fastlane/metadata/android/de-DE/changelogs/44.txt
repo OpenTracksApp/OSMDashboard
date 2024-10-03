@@ -1,4 +1,5 @@
 - Beschreibung für die Offline-Version geändert
 - Neu: Map und Theme Downloads über Android DownloadManager
+- Neu: Map Download über nativen Dialog (ersetzt WebView)
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert

@@ -56,21 +56,21 @@
             app:key="@string/APP_PREF_MAP_SELECTION"
             app:title="@string/map_selection">
             <intent
-                android:targetClass="de.storchp.opentracks.osmplugin.MapSelectionActivity"
+                android:targetClass="de.storchp.opentracks.osmplugin.settings.MapSelectionActivity"
                 android:targetPackage="@string/applicationId" />
         </Preference>
         <Preference
             app:key="@string/APP_PREF_MAP_DIRECTORY"
             app:title="@string/map_folder">
             <intent
-                android:targetClass="de.storchp.opentracks.osmplugin.DirectoryChooserActivity$MapDirectoryChooserActivity"
+                android:targetClass="de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity$MapDirectoryChooserActivity"
                 android:targetPackage="@string/applicationId" />
         </Preference>
         <Preference
             app:key="@string/APP_PREF_MAP_DOWNLOAD"
             app:title="@string/download_map">
             <intent
-                android:targetClass="de.storchp.opentracks.osmplugin.DownloadMapSelectionActivity"
+                android:targetClass="de.storchp.opentracks.osmplugin.download.DownloadMapSelectionActivity"
                 android:targetPackage="@string/applicationId" />
         </Preference>
 
@@ -78,14 +78,14 @@
             app:key="@string/APP_PREF_MAP_THEME"
             app:title="@string/theme_selection">
             <intent
-                android:targetClass="de.storchp.opentracks.osmplugin.ThemeSelectionActivity"
+                android:targetClass="de.storchp.opentracks.osmplugin.settings.ThemeSelectionActivity"
                 android:targetPackage="@string/applicationId" />
         </Preference>
         <Preference
             app:key="@string/APP_PREF_MAP_THEME_DIRECTORY"
             app:title="@string/theme_folder">
             <intent
-                android:targetClass="de.storchp.opentracks.osmplugin.DirectoryChooserActivity$ThemeDirectoryChooserActivity"
+                android:targetClass="de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity$ThemeDirectoryChooserActivity"
                 android:targetPackage="@string/applicationId" />
         </Preference>
 
