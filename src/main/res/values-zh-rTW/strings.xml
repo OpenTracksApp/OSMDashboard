@@ -101,4 +101,8 @@
     <string name="add_marker_to_open_tracks">新增標記至 OpenTracks？</string>
     <string name="offline_version_info">注意：這是離線版本，可以最大程度地保護隱私。它沒有網路權限，無法洩露你的位置。因此，它無法顯示線上地圖，也無法下載離線地圖。離線地圖必須手動下載，請參見下文。</string>
     <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
+    <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="download_page_info">You are viewing content of %s</string>
+    <string name="theme_icon">Theme icon</string>
 </resources>
