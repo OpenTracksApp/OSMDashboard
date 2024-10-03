@@ -101,4 +101,8 @@
     <string name="moving_time">Durata in mossa</string>
     <string name="no_map_configured">Ùn avete ancu cunfiguratu nisuna carta fora di linea.</string>
     <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
+    <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="download_page_info">You are viewing content of %s</string>
+    <string name="theme_icon">Theme icon</string>
 </resources>
