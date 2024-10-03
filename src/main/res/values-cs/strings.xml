@@ -101,4 +101,8 @@
     <string name="add_marker_to_open_tracks">Přidat značku do OpenTracks?</string>
     <string name="offline_version_info">UPOZORNĚNÍ: Toto je offline verze pro maximální ochranu soukromí. Nemá žádný přístup k internetu a nemůže prozradit vaši polohu. V důsledku toho nemůže zobrazovat online mapy ani stahovat offline mapy. Offline mapy je třeba stáhnout ručně, viz níže.</string>
     <string name="INTERNAL_APP_STORAGE">Adresář interního úložiště aplikace</string>
+    <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="download_page_info">You are viewing content of %s</string>
+    <string name="theme_icon">Theme icon</string>
 </resources>
