@@ -92,11 +92,11 @@ device. Select the directory in the menu `Map directory`.
 ## Screenshots
 
 <div>
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1-info-view.png" alt="1-info-view">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2-single-track-map-view.png" alt="2-single-track-map-view">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3-multi-track-map-view.png" alt="3-multi-track-map-view">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4-simple-theme-map-view.png" alt="4-simple-theme-map-view">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5-map-download-view.png" alt="5-map-download-view.png">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6-map-selection-view.png" alt="6-map-selection-view">
-    <img style="max-width: 200px;" src="fastlane/metadata/android/en-US/images/phoneScreenshots/7-map-3d.png" alt="7-map-3d">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1-info-view.png" alt="1-info-view">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2-single-track-map-view.png" alt="2-single-track-map-view">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3-multi-track-map-view.png" alt="3-multi-track-map-view">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4-simple-theme-map-view.png" alt="4-simple-theme-map-view">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5-map-download-view.png" alt="5-map-download-view.png">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6-map-selection-view.png" alt="6-map-selection-view">
+    <img width="15%" src="fastlane/metadata/android/en-US/images/phoneScreenshots/7-map-3d.png" alt="7-map-3d">
 </div>
