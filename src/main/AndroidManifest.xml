@@ -27,8 +27,8 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".DirectoryChooserActivity$MapDirectoryChooserActivity"/>
-        <activity android:name=".DirectoryChooserActivity$ThemeDirectoryChooserActivity"/>
+        <activity android:name=".settings.DirectoryChooserActivity$MapDirectoryChooserActivity" />
+        <activity android:name=".settings.DirectoryChooserActivity$ThemeDirectoryChooserActivity" />
         <activity
             android:name=".MapsActivity"
             android:launchMode="singleTask"
@@ -48,63 +48,73 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DownloadActivity" android:exported="true">
+            android:name=".download.DownloadActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="mf-v4-map" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="mf-theme" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:host="download.mapsforge.org" />
-                <data android:pathPattern=".*\\.map"/>
+                <data android:pathPattern=".*\\.map" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="https" />
                 <data android:host="download.freizeitkarte-osm.de" />
-                <data android:pathPattern="/android/latest/.*\\.map\\.zip"/>
-                <data android:pathPattern="/android/latest/.*\\.zip"/>
+                <data android:pathPattern="/android/latest/.*\\.map\\.zip" />
+                <data android:pathPattern="/android/latest/.*\\.zip" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="https" />
                 <data android:host="ftp.gwdg.de" />
-                <data android:pathPattern="/pub/misc/openstreetmap/openandromaps/mapsV4/.*\\.zip"/>
+                <data android:pathPattern="/pub/misc/openstreetmap/openandromaps/mapsV4/.*\\.zip" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="https" />
                 <data android:host="www.openandromaps.org" />
-                <data android:pathPattern="/wp-content/users/tobias/.*\\.zip"/>
+                <data android:pathPattern="/wp-content/users/tobias/.*\\.zip" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DownloadMapSelectionActivity" />
-        <activity
-            android:name=".MapSelectionActivity"/>
-        <activity
-            android:name=".ThemeSelectionActivity" />
+        <activity android:name=".download.DownloadMapSelectionActivity" />
+        <activity android:name=".settings.MapSelectionActivity" />
+        <activity android:name=".settings.ThemeSelectionActivity" />
         <activity
             android:name=".ShowErrorActivity"
             android:excludeFromRecents="true"

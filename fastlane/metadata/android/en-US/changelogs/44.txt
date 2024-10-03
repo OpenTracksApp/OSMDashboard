@@ -1,4 +1,5 @@
 - Change description for offline version
-- New: map and theme donwloads use now the Android DownloadManager
+- New: map and theme downloads use now the Android DownloadManager
+- New: map download via native dialog (replaces WebView)
 - Updated translations
 - Updated dependencies

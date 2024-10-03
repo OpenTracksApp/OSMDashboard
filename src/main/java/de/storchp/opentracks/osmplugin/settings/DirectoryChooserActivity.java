@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.settings;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
 public abstract class DirectoryChooserActivity extends AppCompatActivity {

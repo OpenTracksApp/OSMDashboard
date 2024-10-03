@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin.download;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -36,7 +36,10 @@ import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import de.storchp.opentracks.osmplugin.BaseActivity;
+import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
+import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 

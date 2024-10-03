@@ -13,7 +13,7 @@ import androidx.core.view.MenuCompat;
 
 import de.storchp.opentracks.osmplugin.settings.SettingsActivity;
 
-abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public void onCreateOptionsMenu(Menu menu, boolean showInfo) {
         super.onCreateOptionsMenu(menu);

@@ -19,6 +19,7 @@
     <string name="download_theme">Theme download</string>
     <string name="choose_map_to_download">Choose a map to download</string>
     <string name="download_instruction">You are viewing content of https://ftp-stud.hs-esslingen.de.</string>
+    <string name="download_page_info">You are viewing content of %s</string>
     <string name="download_success">Map successfully downloaded</string>
     <string name="download_failed">Map download failed</string>
     <string name="download_theme_success">Theme successfully downloaded</string>
@@ -98,5 +99,7 @@
     <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
     <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
     <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="theme_icon">Theme icon</string>
 
 </resources>

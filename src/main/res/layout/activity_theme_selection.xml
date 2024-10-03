@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.storchp.opentracks.osmplugin.ThemeSelectionActivity">
+    tools:context="de.storchp.opentracks.osmplugin.settings.ThemeSelectionActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -16,13 +18,12 @@
         android:indeterminate="true"
         android:background="#f0f0f0"
         android:layout_below="@id/toolbar"
-        style="?android:attr/progressBarStyleHorizontal"/>
+        style="?android:attr/progressBarStyleHorizontal" />
 
     <ListView
         android:id="@+id/theme_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/progressBar"
-        />
+        android:layout_below="@id/progressBar" />
 
 </RelativeLayout>

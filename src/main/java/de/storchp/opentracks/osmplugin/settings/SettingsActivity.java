@@ -15,6 +15,7 @@ import java.util.Objects;
 import de.storchp.opentracks.osmplugin.BuildConfig;
 import de.storchp.opentracks.osmplugin.R;
 import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding;
+import de.storchp.opentracks.osmplugin.download.DownloadMapSelectionActivity;
 import de.storchp.opentracks.osmplugin.utils.FileUtil;
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
 
@@ -90,6 +91,11 @@ public class SettingsActivity extends AppCompatActivity {
                             .filter(Objects::nonNull)
                             .collect(joining(", "));
                 });
+            }
+
+            var mapDownloadPreference = findPreference(getString(R.string.APP_PREF_MAP_DOWNLOAD));
+            if (mapDownloadPreference != null) {
+                mapDownloadPreference.setSummary(getString(R.string.map_download_summary, DownloadMapSelectionActivity.MAPS_V_5));
             }
 
             var mapDirectoryPreference = findPreference(getString(R.string.APP_PREF_MAP_DIRECTORY));
