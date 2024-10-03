@@ -101,4 +101,8 @@
     <string name="add_marker_to_open_tracks">Додати маркер в OpenTracks?</string>
     <string name="offline_version_info">УВАГА: Це офлайн-версія для максимального захисту конфіденційності. Вона не має дозволу на доступ до Інтернету і не розголошує ваше місцезнаходження. Як наслідок, вона не може показувати онлайн-карти або завантажувати офлайн-карти. Офлайн-карти потрібно завантажувати вручну, див. нижче.</string>
     <string name="INTERNAL_APP_STORAGE">Каталог у внутрішньому сховищі додатка</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="download_page_info">You are viewing content of %s</string>
+    <string name="theme_icon">Theme icon</string>
+    <string name="map_icon">Map icon</string>
 </resources>
