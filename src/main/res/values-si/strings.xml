@@ -102,4 +102,8 @@
     <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
     <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
     <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
+    <string name="map_icon">Map icon</string>
+    <string name="map_download_summary">Download maps from %s</string>
+    <string name="theme_icon">Theme icon</string>
+    <string name="download_page_info">You are viewing content of %s</string>
 </resources>
