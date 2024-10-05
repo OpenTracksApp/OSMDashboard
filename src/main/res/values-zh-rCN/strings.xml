@@ -98,8 +98,8 @@
     <string name="add_marker_to_open_tracks">是否将标记添加到 OpenTracks？</string>
     <string name="offline_version_info">注意：这是离线版本，可最大限度地保护隐私。它没有互联网权限，无法泄露您的位置。因此，它既不能显示在线地图，也不能下载离线地图。离线地图必须手动下载，见下文。</string>
     <string name="INTERNAL_APP_STORAGE">内部应用存储目录</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="map_icon">Map icon</string>
+    <string name="download_page_info">您正在查看 %s 的内容</string>
+    <string name="map_download_summary">从 %s 下载地图</string>
+    <string name="theme_icon">主题图标</string>
+    <string name="map_icon">地图图标</string>
 </resources>
