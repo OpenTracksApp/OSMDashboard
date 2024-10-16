@@ -1,37 +1,29 @@
-package de.storchp.opentracks.osmplugin.dashboardapi;
+package de.storchp.opentracks.osmplugin.dashboardapi
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.oscim.core.GeoPoint
 
-import org.junit.jupiter.api.Test;
-import org.oscim.core.GeoPoint;
-
-class WaypointTest {
-
+internal class WaypointTest {
+    
     @Test
-    void fromGeoUriWithName() {
-        var waypoint = Waypoint.fromGeoUri("geo:0,0?q=50.123,-5.456(Marker 0)");
-        assertThat(waypoint).hasValueSatisfying(s -> {
-            assertThat(s.getLatLong()).isEqualTo(new GeoPoint(50.123, -5.456));
-            assertThat(s.getName()).isEqualTo("Marker 0");
-        });
+    fun fromGeoUriWithName() {
+        val waypoint = Waypoint.fromGeoUri("geo:0,0?q=50.123,-5.456(Marker 0)")
+        assertThat(waypoint!!.latLong).isEqualTo(GeoPoint(50.123, -5.456))
+        assertThat(waypoint.name).isEqualTo("Marker 0")
     }
 
     @Test
-    void fromGeoUriWithoutName() {
-        var waypoint = Waypoint.fromGeoUri("geo:0,0?q=50.123,-5.456");
-        assertThat(waypoint).hasValueSatisfying(s -> {
-            assertThat(s.getLatLong()).isEqualTo(new GeoPoint(50.123, -5.456));
-            assertThat(s.getName()).isNull();
-        });
+    fun fromGeoUriWithoutName() {
+        val waypoint = Waypoint.fromGeoUri("geo:0,0?q=50.123,-5.456")
+        assertThat(waypoint!!.latLong).isEqualTo(GeoPoint(50.123, -5.456))
+        assertThat(waypoint.name).isNull()
     }
 
     @Test
-    void fromGeoUriWithoutQueryPart() {
-        var waypoint = Waypoint.fromGeoUri("geo:50.123,-5.456");
-        assertThat(waypoint).hasValueSatisfying(s -> {
-            assertThat(s.getLatLong()).isEqualTo(new GeoPoint(50.123, -5.456));
-            assertThat(s.getName()).isNull();
-        });
+    fun fromGeoUriWithoutQueryPart() {
+        val waypoint = Waypoint.fromGeoUri("geo:50.123,-5.456")
+        assertThat(waypoint!!.latLong).isEqualTo(GeoPoint(50.123, -5.456))
+        assertThat(waypoint.name).isNull()
     }
-
 }

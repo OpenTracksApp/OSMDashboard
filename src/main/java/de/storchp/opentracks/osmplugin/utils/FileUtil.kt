@@ -1,39 +1,41 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
+import android.content.Context
+import android.net.Uri
+import android.util.Log
+import androidx.documentfile.provider.DocumentFile
+import java.io.File
+import java.lang.Exception
 
-import androidx.documentfile.provider.DocumentFile;
+object FileUtil {
+    private val TAG: String = FileUtil::class.java.getSimpleName()
 
-import java.io.File;
-
-public class FileUtil {
-
-    private static final String TAG = FileUtil.class.getSimpleName();
-
-    public static DocumentFile getDocumentFileFromTreeUri(Context context, Uri uri) {
+    fun getDocumentFileFromTreeUri(context: Context, uri: Uri) =
         try {
-            return DocumentFile.fromTreeUri(context, uri);
-        } catch (Exception e) {
-            Log.w(TAG, "Error getting DocumentFile from Uri: " + uri);
+            DocumentFile.fromTreeUri(context, uri)
+        } catch (_: Exception) {
+            Log.w(TAG, "Error getting DocumentFile from Uri: $uri")
+            null
         }
-        return null;
-    }
 
-    public static String getFilenameFromUri(Context context, Uri uri) {
-        if ("file".equals(uri.getScheme())) {
-            var file = new File(uri.getPath());
+    fun getFilenameFromUri(context: Context, uri: Uri): String? {
+        if ("file" == uri.scheme) {
+            val file = File(uri.path!!)
             if (file.exists()) {
-                return file.getName();
+                return file.getName()
             }
         } else {
-            var documentFile = getDocumentFileFromTreeUri(context, uri);
+            val documentFile = getDocumentFileFromTreeUri(context, uri)
             if (documentFile != null && documentFile.exists()) {
-                return documentFile.getName();
+                return documentFile.name
             }
         }
-        return null;
+        return null
     }
+
+    fun createBinaryDocumentFile(context: Context, destinationDir: Uri, filename: String) =
+        getDocumentFileFromTreeUri(context, destinationDir)
+            ?.createFile("application/binary", filename)
+            ?: throw RuntimeException("Unable to create file: $filename")
 
 }

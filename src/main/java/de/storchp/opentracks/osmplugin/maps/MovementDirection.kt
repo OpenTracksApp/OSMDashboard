@@ -1,23 +1,20 @@
-package de.storchp.opentracks.osmplugin.maps;
+package de.storchp.opentracks.osmplugin.maps
 
-import org.oscim.core.GeoPoint;
+import de.storchp.opentracks.osmplugin.utils.MapUtils
+import org.oscim.core.GeoPoint
 
-import de.storchp.opentracks.osmplugin.utils.MapUtils;
+class MovementDirection {
+    private var secondToLastPos: GeoPoint? = null
+    private var currentDegrees = 0f
 
-public class MovementDirection {
-
-    private GeoPoint secondToLastPos;
-    private float currentDegrees = 0;
-
-    public void updatePos(GeoPoint endPos) {
-        if (endPos != null && !endPos.equals(secondToLastPos)) {
-            currentDegrees = MapUtils.bearingInDegrees(secondToLastPos, endPos);
-            secondToLastPos = endPos;
+    fun updatePos(endPos: GeoPoint?) {
+        if (endPos != null && endPos != secondToLastPos) {
+            currentDegrees = MapUtils.bearingInDegrees(secondToLastPos, endPos)
+            secondToLastPos = endPos
         }
     }
 
-    public float getCurrentDegrees() {
-        return currentDegrees;
+    fun getCurrentDegrees(): Float {
+        return currentDegrees
     }
-
 }

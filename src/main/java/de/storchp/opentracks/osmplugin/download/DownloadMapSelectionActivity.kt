@@ -1,95 +1,118 @@
-package de.storchp.opentracks.osmplugin.download;
+package de.storchp.opentracks.osmplugin.download
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import de.storchp.opentracks.osmplugin.BaseActivity
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionBinding
+import org.jsoup.Jsoup
+import java.io.IOException
+import java.lang.RuntimeException
+import java.util.function.Consumer
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+class DownloadMapSelectionActivity : BaseActivity() {
+    private lateinit var adapter: DownloadMapItemAdapter
+    private var pageUri: Uri? = null
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityDownloadMapSelectionBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-import de.storchp.opentracks.osmplugin.BaseActivity;
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionBinding;
-
-public class DownloadMapSelectionActivity extends BaseActivity {
-
-    public static final String MAPS_V_5 = "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/";
-
-    private DownloadMapItemAdapter adapter;
-    private Uri pageUri;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        var binding = ActivityDownloadMapSelectionBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        pageUri = Uri.parse(MAPS_V_5);
-        var intent = getIntent();
+        pageUri = Uri.parse(MAPS_V_5)
+        val intent = getIntent()
         if (intent != null) {
-            var mapDownloadUri = intent.getData();
+            val mapDownloadUri = intent.data
             if (mapDownloadUri != null) {
-                pageUri = mapDownloadUri;
+                pageUri = mapDownloadUri
             }
         }
-        binding.downloadProviderInfo.setText(getString(R.string.download_page_info, pageUri));
+        binding.downloadProviderInfo.text = getString(R.string.download_page_info, pageUri)
 
-        binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download);
-        setSupportActionBar(binding.toolbar.mapsToolbar);
+        binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download)
+        setSupportActionBar(binding.toolbar.mapsToolbar)
 
-        adapter = new DownloadMapItemAdapter(this, new ArrayList<>());
-        binding.mapDownloadList.setAdapter(adapter);
-        binding.mapDownloadList.setOnItemClickListener((listview, view, position, id) -> {
-            var item = adapter.getItem(position);
-            if (item != null) {
-                if (item.downloadItemType() == DownloadItemType.MAP) {
-                    startActivity(new Intent(Intent.ACTION_DEFAULT, item.uri(), DownloadMapSelectionActivity.this, DownloadActivity.class));
-                } else if (item.downloadItemType() == DownloadItemType.SUBDIR) {
-                    startActivity(new Intent(Intent.ACTION_DEFAULT, item.uri(), DownloadMapSelectionActivity.this, DownloadMapSelectionActivity.class));
-                }
-            }
-        });
-
-        new Thread(() -> {
-            try {
-                var doc = Jsoup.connect(pageUri.toString()).get();
-                var rows = doc.select("tr");
-                var items = new ArrayList<DownloadMapItem>();
-                for (Element element : rows) {
-                    Elements cells = element.select("td");
-                    if (cells.size() >= 4) {
-                        String alt = cells.get(0).select("img").get(0).attr("alt");
-                        Element link = cells.get(1).select("a").get(0);
-                        String href = link.attr("href");
-                        String linkText = link.text();
-                        String date = cells.get(2).text();
-                        String size = cells.get(3).text();
-                        DownloadItemType.ofAlt(alt)
-                                .ifPresent(type -> items.add(new DownloadMapItem(type, linkText, date, size, pageUri.buildUpon().appendEncodedPath(href).build())));
+        adapter = DownloadMapItemAdapter(this, emptyList())
+        binding.mapDownloadList.setAdapter(adapter)
+        binding.mapDownloadList.onItemClickListener =
+            OnItemClickListener { listview: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                val item = adapter.getItem(position)
+                if (item != null) {
+                    if (item.downloadItemType == DownloadItemType.MAP) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_DEFAULT,
+                                item.uri,
+                                this@DownloadMapSelectionActivity,
+                                DownloadActivity::class.java
+                            )
+                        )
+                    } else if (item.downloadItemType == DownloadItemType.SUBDIR) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_DEFAULT,
+                                item.uri,
+                                this@DownloadMapSelectionActivity,
+                                DownloadMapSelectionActivity::class.java
+                            )
+                        )
                     }
                 }
-                items.sort(Comparator.naturalOrder());
-                runOnUiThread(() -> adapter.addAll(items));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-        }).start();
 
+        Thread(Runnable {
+            try {
+                val doc = Jsoup.connect(pageUri.toString()).get()
+                val rows = doc.select("tr")
+                val items = buildList {
+                    for (element in rows) {
+                        val cells = element.select("td")
+                        if (cells.size >= 4) {
+                            val alt = cells[0].select("img")[0].attr("alt")
+                            val link = cells[1].select("a")[0]
+                            val href = link.attr("href")
+                            val linkText = link.text()
+                            val date = cells[2].text()
+                            val size = cells[3].text()
+                            DownloadItemType.Companion.ofAlt(alt)
+                                .ifPresent(Consumer { type ->
+                                    add(
+                                        DownloadMapItem(
+                                            downloadItemType = type,
+                                            name = linkText,
+                                            date = date,
+                                            size = size,
+                                            uri = pageUri!!.buildUpon().appendEncodedPath(href)
+                                                .build()
+                                        )
+                                    )
+                                })
+                        }
+                    }
+                }
+                items.sorted()
+                runOnUiThread(Runnable { adapter.addAll(items) })
+            } catch (e: IOException) {
+                throw RuntimeException(e)
+            }
+        }).start()
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
         }
-        return false;
+        return false
     }
 
+    companion object {
+        const val MAPS_V_5: String =
+            "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/"
+    }
 }

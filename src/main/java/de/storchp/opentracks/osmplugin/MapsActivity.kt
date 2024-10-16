@@ -1,844 +1,974 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin
+
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.database.ContentObserver
+import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.text.Html
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
+import android.util.Log
+import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.documentfile.provider.DocumentFile
+import de.storchp.opentracks.osmplugin.MapsActivity.OpenTracksContentObserver
+import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants
+import de.storchp.opentracks.osmplugin.dashboardapi.Track
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsBySegments
+import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
+import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
+import de.storchp.opentracks.osmplugin.maps.MovementDirection
+import de.storchp.opentracks.osmplugin.maps.StyleColorCreator
+import de.storchp.opentracks.osmplugin.utils.MapMode
+import de.storchp.opentracks.osmplugin.utils.MapUtils
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
+import de.storchp.opentracks.osmplugin.utils.StatisticElement
+import de.storchp.opentracks.osmplugin.utils.TrackColorMode
+import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
+import de.storchp.opentracks.osmplugin.utils.TrackStatistics
+import okhttp3.Cache
+import okhttp3.OkHttpClient
+import org.oscim.android.MapPreferences
+import org.oscim.backend.AssetAdapter
+import org.oscim.backend.CanvasAdapter
+import org.oscim.core.BoundingBox
+import org.oscim.core.GeoPoint
+import org.oscim.event.Gesture
+import org.oscim.event.Gesture.LongPress
+import org.oscim.event.GestureListener
+import org.oscim.event.MotionEvent
+import org.oscim.layers.GroupLayer
+import org.oscim.layers.Layer
+import org.oscim.layers.PathLayer
+import org.oscim.layers.marker.ItemizedLayer
+import org.oscim.layers.marker.ItemizedLayer.OnItemGestureListener
+import org.oscim.layers.marker.MarkerInterface
+import org.oscim.layers.marker.MarkerItem
+import org.oscim.layers.marker.MarkerSymbol.HotspotPlace
+import org.oscim.layers.tile.bitmap.BitmapTileLayer
+import org.oscim.layers.tile.buildings.BuildingLayer
+import org.oscim.layers.tile.vector.labeling.LabelLayer
+import org.oscim.map.Map
+import org.oscim.renderer.GLViewport
+import org.oscim.scalebar.DefaultMapScaleBar
+import org.oscim.scalebar.ImperialUnitAdapter
+import org.oscim.scalebar.MapScaleBar
+import org.oscim.scalebar.MapScaleBarLayer
+import org.oscim.scalebar.MetricUnitAdapter
+import org.oscim.theme.IRenderTheme
+import org.oscim.theme.StreamRenderTheme
+import org.oscim.theme.ThemeFile
+import org.oscim.theme.ZipRenderTheme
+import org.oscim.theme.ZipXmlThemeResourceProvider
+import org.oscim.tiling.source.OkHttpEngine.OkHttpFactory
+import org.oscim.tiling.source.bitmap.DefaultSources
+import org.oscim.tiling.source.mapfile.MapFileTileSource
+import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.lang.Exception
+import java.lang.RuntimeException
+import java.util.ArrayList
+import java.util.Collections
+import java.util.Comparator
+import java.util.Objects
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.function.Consumer
+import java.util.function.ToIntFunction
+import java.util.zip.ZipInputStream
 
 
-import static android.util.TypedValue.COMPLEX_UNIT_PT;
-import static java.util.Comparator.comparingInt;
+open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?> {
+    private var isOpenTracksRecordingThisTrack = false
+    private lateinit var binding: ActivityMapsBinding
+    private lateinit var map: Map
+    private var mapPreferences: MapPreferences? = null
+    private var renderTheme: IRenderTheme? = null
+    private var boundingBox: BoundingBox? = null
+    private var polylinesLayer: GroupLayer? = null
+    private var waypointsLayer: ItemizedLayer? = null
+    private var lastWaypointId: Long = 0
+    private var lastTrackPointId: Long = 0
+    private var lastTrackId: Long = 0
+    private var trackColor = 0
+    private var polyline: PathLayer? = null
+    private var endMarker: MarkerItem? = null
+    private var colorCreator: StyleColorCreator? = null
+    private var startPos: GeoPoint? = null
+    private var endPos: GeoPoint? = null
+    private var fullscreenMode = false
+    private var movementDirection = MovementDirection()
+    private var mapMode: MapMode = MapMode.NORTH
+    private var contentObserver: OpenTracksContentObserver? = null
+    private var tracksUri: Uri? = null
+    private var trackPointsUri: Uri? = null
+    private var waypointsUri: Uri? = null
+    private var strokeWidth = 0
+    private var protocolVersion = 1
+    private var trackPointsDebug: TrackPointsDebug? = null
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.database.ContentObserver;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.documentfile.provider.DocumentFile;
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-import org.oscim.android.MapPreferences;
-import org.oscim.backend.AssetAdapter;
-import org.oscim.backend.CanvasAdapter;
-import org.oscim.core.BoundingBox;
-import org.oscim.core.GeoPoint;
-import org.oscim.event.Gesture;
-import org.oscim.event.GestureListener;
-import org.oscim.event.MotionEvent;
-import org.oscim.layers.GroupLayer;
-import org.oscim.layers.Layer;
-import org.oscim.layers.PathLayer;
-import org.oscim.layers.marker.ItemizedLayer;
-import org.oscim.layers.marker.MarkerInterface;
-import org.oscim.layers.marker.MarkerItem;
-import org.oscim.layers.marker.MarkerSymbol;
-import org.oscim.layers.tile.bitmap.BitmapTileLayer;
-import org.oscim.layers.tile.buildings.BuildingLayer;
-import org.oscim.layers.tile.vector.labeling.LabelLayer;
-import org.oscim.map.Map;
-import org.oscim.renderer.GLViewport;
-import org.oscim.scalebar.DefaultMapScaleBar;
-import org.oscim.scalebar.ImperialUnitAdapter;
-import org.oscim.scalebar.MapScaleBar;
-import org.oscim.scalebar.MapScaleBarLayer;
-import org.oscim.scalebar.MetricUnitAdapter;
-import org.oscim.theme.IRenderTheme;
-import org.oscim.theme.StreamRenderTheme;
-import org.oscim.theme.ThemeFile;
-import org.oscim.theme.ZipRenderTheme;
-import org.oscim.theme.ZipXmlThemeResourceProvider;
-import org.oscim.tiling.source.OkHttpEngine;
-import org.oscim.tiling.source.bitmap.DefaultSources;
-import org.oscim.tiling.source.mapfile.MapFileTileSource;
-import org.oscim.tiling.source.mapfile.MultiMapFileTileSource;
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.zip.ZipInputStream;
+        strokeWidth = PreferencesUtils.getStrokeWidth()
+        mapMode = PreferencesUtils.getMapMode()
 
-import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants;
-import de.storchp.opentracks.osmplugin.dashboardapi.Track;
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
-import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding;
-import de.storchp.opentracks.osmplugin.maps.MovementDirection;
-import de.storchp.opentracks.osmplugin.maps.StyleColorCreator;
-import de.storchp.opentracks.osmplugin.utils.MapMode;
-import de.storchp.opentracks.osmplugin.utils.MapUtils;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
-import de.storchp.opentracks.osmplugin.utils.StatisticElement;
-import de.storchp.opentracks.osmplugin.utils.TrackColorMode;
-import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug;
-import de.storchp.opentracks.osmplugin.utils.TrackStatistics;
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
+        map = binding.map.mapView.map()
+        mapPreferences = MapPreferences(MapsActivity::class.java.getName(), this)
 
-public class MapsActivity extends BaseActivity implements ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+        setSupportActionBar(binding.toolbar.mapsToolbar)
 
-    private static final String TAG = MapsActivity.class.getSimpleName();
-    public static final String EXTRA_MARKER_ID = "marker_id";
-    public static final String EXTRA_TRACK_ID = "track_id";
-    public static final String EXTRA_LOCATION = "location";
-    private static final int MAP_DEFAULT_ZOOM_LEVEL = 12;
-    private static final String EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION";
-    private static final String EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK = "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK";
-    private static final String EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
-    private static final String EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON";
-    private static final String EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN";
-    private boolean isOpenTracksRecordingThisTrack;
-    private ActivityMapsBinding binding;
-    private Map map;
-    private MapPreferences mapPreferences;
-    private IRenderTheme renderTheme;
-    private BoundingBox boundingBox;
-    private GroupLayer polylinesLayer;
-    private ItemizedLayer waypointsLayer;
-    private long lastWaypointId = 0;
-    private long lastTrackPointId = 0;
-    private long lastTrackId = 0;
-    private int trackColor;
-    private PathLayer polyline;
-    private MarkerItem endMarker = null;
-    private StyleColorCreator colorCreator = null;
-    private GeoPoint startPos;
-    private GeoPoint endPos;
-    private boolean fullscreenMode = false;
-    private MovementDirection movementDirection = new MovementDirection();
-    private MapMode mapMode;
-    private OpenTracksContentObserver contentObserver;
-    private Uri tracksUri;
-    private Uri trackPointsUri;
-    private Uri waypointsUri;
-    private int strokeWidth;
-    private int protocolVersion = 1;
-    private TrackPointsDebug trackPointsDebug;
+        createMapViews()
+        createLayers()
+        map.getMapPosition().setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        binding.map.fullscreenButton.setOnClickListener(View.OnClickListener { v: View? -> switchFullscreen() })
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        strokeWidth = PreferencesUtils.getStrokeWidth();
-        mapMode = PreferencesUtils.getMapMode();
-
-        map = binding.map.mapView.map();
-        mapPreferences = new MapPreferences(MapsActivity.class.getName(), this);
-
-        setSupportActionBar(binding.toolbar.mapsToolbar);
-
-        createMapViews();
-        createLayers();
-        map.getMapPosition().setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL);
-
-        binding.map.fullscreenButton.setOnClickListener(v -> switchFullscreen());
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            public void handleOnBackPressed() {
-                navigateUp();
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateUp()
             }
-        });
+        })
 
         // Get the intent that started this activity
-        var intent = getIntent();
+        val intent = getIntent()
         if (intent != null) {
-            onNewIntent(intent);
+            onNewIntent(intent)
         }
     }
 
-    private class MapEventsReceiver extends Layer implements GestureListener {
-        MapEventsReceiver(Map map) {
-            super(map);
-        }
-
-        @Override
-        public boolean onGesture(Gesture g, MotionEvent e) {
-            if (g instanceof Gesture.LongPress && lastTrackId > 0) {
-                new AlertDialog.Builder(MapsActivity.this)
-                        .setIcon(R.drawable.ic_logo_color_24dp)
-                        .setTitle(R.string.app_name)
-                        .setMessage(R.string.add_marker_to_open_tracks)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startOpenTracksToAddNewMarker(e))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create().show();
+    private inner class MapEventsReceiver(map: Map?) : Layer(map), GestureListener {
+        override fun onGesture(g: Gesture?, e: MotionEvent): Boolean {
+            if (g is LongPress && lastTrackId > 0) {
+                AlertDialog.Builder(this@MapsActivity)
+                    .setIcon(R.drawable.ic_logo_color_24dp)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.add_marker_to_open_tracks)
+                    .setPositiveButton(
+                        android.R.string.ok,
+                        DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                            startOpenTracksToAddNewMarker(e)
+                        })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create().show()
             }
 
-            return false;
+            return false
         }
     }
 
-    private void startOpenTracksToAddNewMarker(MotionEvent event) {
+    private fun startOpenTracksToAddNewMarker(event: MotionEvent) {
         try {
-            var geoPoint = map.viewport().fromScreenPoint(event.getX(), event.getY());
-            var intent = new Intent("de.dennisguse.opentracks.CreateMarker");
-            intent.putExtra(EXTRA_TRACK_ID, lastTrackId);
-            intent.putExtra(EXTRA_LOCATION, MapUtils.toLocation(geoPoint));
-            startActivity(intent);
-        } catch (Exception ex) {
-            Log.e(TAG, "Can't send trackpoint to OpenTracks", ex);
+            val geoPoint = map.viewport().fromScreenPoint(event.getX(), event.getY())
+            val intent = Intent("de.dennisguse.opentracks.CreateMarker")
+            intent.putExtra(EXTRA_TRACK_ID, lastTrackId)
+            intent.putExtra(EXTRA_LOCATION, MapUtils.toLocation(geoPoint))
+            startActivity(intent)
+        } catch (ex: Exception) {
+            Log.e(TAG, "Can't send trackpoint to OpenTracks", ex)
         }
     }
 
-    private void switchFullscreen() {
-        showFullscreen(!fullscreenMode);
+    private fun switchFullscreen() {
+        showFullscreen(!fullscreenMode)
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        resetMapData();
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        resetMapData()
 
-        if (APIConstants.ACTION_DASHBOARD.equals(intent.getAction())) {
-            ArrayList<Uri> uris = intent.getParcelableArrayListExtra(APIConstants.ACTION_DASHBOARD_PAYLOAD);
-            protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
-            tracksUri = APIConstants.getTracksUri(uris);
-            trackPointsUri = APIConstants.getTrackPointsUri(uris);
-            waypointsUri = APIConstants.getWaypointsUri(uris);
-            keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false));
-            showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false));
-            showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false));
-            isOpenTracksRecordingThisTrack = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false);
+        if (APIConstants.ACTION_DASHBOARD == intent.action) {
+            val uris =
+                intent.getParcelableArrayListExtra<Uri>(APIConstants.ACTION_DASHBOARD_PAYLOAD)!!
+            protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1)
+            tracksUri = APIConstants.getTracksUri(uris)
+            trackPointsUri = APIConstants.getTrackPointsUri(uris)
+            waypointsUri = APIConstants.getWaypointsUri(uris)
+            keepScreenOn(
+                intent.getBooleanExtra(
+                    EXTRAS_SHOULD_KEEP_SCREEN_ON,
+                    false
+                )
+            )
+            showOnLockScreen(
+                intent.getBooleanExtra(
+                    EXTRAS_SHOW_WHEN_LOCKED,
+                    false
+                )
+            )
+            showFullscreen(
+                intent.getBooleanExtra(
+                    EXTRAS_SHOW_FULLSCREEN,
+                    false
+                )
+            )
+            isOpenTracksRecordingThisTrack = intent.getBooleanExtra(
+                EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK,
+                false
+            )
 
-            readTrackpoints(trackPointsUri, false, protocolVersion);
-            readTracks(tracksUri);
-            readWaypoints(waypointsUri);
-        } else if ("geo".equals(intent.getScheme()) && intent.getData() != null) {
-            Waypoint.fromGeoUri(intent.getData().toString()).ifPresent(waypoint -> {
-                var marker = MapUtils.createTappableMarker(this, waypoint);
-                waypointsLayer.addItem(marker);
-                var pos = map.getMapPosition()
-                        .setPosition(waypoint.getLatLong())
-                        .setZoomLevel(15);
-                map.animator().animateTo(pos);
-            });
+            trackPointsUri?.let { readTrackpoints(it, false, protocolVersion) }
+            readTracks(tracksUri!!)
+            waypointsUri?.let { readWaypoints(it) }
+        } else if ("geo" == intent.scheme && intent.data != null) {
+            Waypoint.Companion.fromGeoUri(intent.data.toString())
+                ?.let { waypoint: Waypoint ->
+                    val marker = MapUtils.createTappableMarker(this, waypoint)
+                    waypointsLayer!!.addItem(marker)
+                    val pos = map.getMapPosition()
+                        .setPosition(waypoint.latLong)
+                        .setZoomLevel(15)
+                    map.animator().animateTo(pos)
+                }
         }
     }
 
-    private class OpenTracksContentObserver extends ContentObserver {
+    private inner class OpenTracksContentObserver(
+        private val tracksUri: Uri,
+        private val trackpointsUri: Uri,
+        private val waypointsUri: Uri,
+        private val protocolVersion: Int
+    ) : ContentObserver(Handler()) {
 
-        private final Uri tracksUri;
-        private final Uri trackpointsUri;
-        private final Uri waypointsUri;
-        private final int protocolVersion;
-
-        public OpenTracksContentObserver(Uri tracksUri, Uri trackpointsUri, Uri waypointsUri, int protocolVersion) {
-            super(new Handler());
-            this.tracksUri = tracksUri;
-            this.trackpointsUri = trackpointsUri;
-            this.waypointsUri = waypointsUri;
-            this.protocolVersion = protocolVersion;
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
+        override fun onChange(selfChange: Boolean, uri: Uri?) {
             if (uri == null) {
-                return; // nothing can be done without an uri
+                return  // nothing can be done without an uri
             }
             if (tracksUri.toString().startsWith(uri.toString())) {
-                readTracks(tracksUri);
+                readTracks(tracksUri)
             } else if (trackpointsUri.toString().startsWith(uri.toString())) {
-                readTrackpoints(trackpointsUri, true, protocolVersion);
+                readTrackpoints(trackpointsUri, true, protocolVersion)
             } else if (waypointsUri.toString().startsWith(uri.toString())) {
-                readWaypoints(waypointsUri);
+                readWaypoints(waypointsUri)
             }
         }
     }
 
-    private void showFullscreen(boolean showFullscreen) {
-        this.fullscreenMode = showFullscreen;
-        var decorView = getWindow().getDecorView();
-        int uiOptions = decorView.getSystemUiVisibility();
+    private fun showFullscreen(showFullscreen: Boolean) {
+        this.fullscreenMode = showFullscreen
+        val decorView = window.decorView
+        var uiOptions = decorView.systemUiVisibility
         if (showFullscreen) {
-            uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-            uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
-            uiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            binding.map.fullscreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_exit_48));
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_FULLSCREEN
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            binding.map.fullscreenButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_fullscreen_exit_48
+                )
+            )
         } else {
-            uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
-            uiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
-            uiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            binding.map.fullscreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_48));
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_FULLSCREEN.inv()
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_IMMERSIVE.inv()
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
+            binding.map.fullscreenButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_fullscreen_48
+                )
+            )
         }
-        binding.toolbar.mapsToolbar.setVisibility(showFullscreen ? View.GONE : View.VISIBLE);
-        decorView.setSystemUiVisibility(uiOptions);
+        binding.toolbar.mapsToolbar.visibility = if (showFullscreen) View.GONE else View.VISIBLE
+        decorView.systemUiVisibility = uiOptions
     }
 
-    public void navigateUp() {
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
-                && isOpenTracksRecordingThisTrack
-                && PreferencesUtils.isPipEnabled()) {
-            enterPictureInPictureMode();
+    fun navigateUp() {
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+            && isOpenTracksRecordingThisTrack
+            && PreferencesUtils.isPipEnabled()
+        ) {
+            enterPictureInPictureMode()
         } else {
-            finish();
+            finish()
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        super.onCreateOptionsMenu(menu, true);
-        return true;
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        super.onCreateOptionsMenu(menu, true)
+        return true
     }
 
     /**
      * Template method to create the map views.
      */
-    protected void createMapViews() {
-        binding.map.mapView.setClickable(true);
+    protected fun createMapViews() {
+        binding.map.mapView.isClickable = true
     }
 
-    protected ThemeFile getRenderTheme() {
-        Uri mapTheme = PreferencesUtils.getMapThemeUri();
+    protected fun getRenderTheme(): ThemeFile? {
+        val mapTheme = PreferencesUtils.getMapThemeUri()
         if (mapTheme == null) {
-            return null;
+            return null
         }
         try {
-            if ("file".equals(mapTheme.getScheme())) {
-                var themeFile = new File(mapTheme.getPath());
+            if ("file" == mapTheme.scheme) {
+                val themeFile = File(mapTheme.path!!)
                 if (themeFile.exists() && themeFile.getName().endsWith(".zip")) {
-                    var themeFileUri = Uri.fromFile(themeFile);
-                    var fragment = mapTheme.getFragment();
+                    var themeFileUri = Uri.fromFile(themeFile)
+                    val fragment = mapTheme.fragment
                     if (fragment != null) {
-                        themeFileUri = themeFileUri.buildUpon().fragment(null).build();
+                        themeFileUri = themeFileUri.buildUpon().fragment(null).build()
                     } else {
-                        throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+                        throw RuntimeException("Fragment missing, which indicates the theme inside the zip file")
                     }
-                    return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
+                    return ZipRenderTheme(
+                        fragment,
+                        ZipXmlThemeResourceProvider(
+                            ZipInputStream(
+                                BufferedInputStream(
+                                    contentResolver.openInputStream(themeFileUri)
+                                )
+                            )
+                        )
+                    )
                 }
-                return new StreamRenderTheme("/assets/", new FileInputStream(themeFile));
+                return StreamRenderTheme("/assets/", FileInputStream(themeFile))
             } else {
-                var renderThemeFile = DocumentFile.fromSingleUri(getApplication(), mapTheme);
-                assert renderThemeFile != null;
-                var themeFileUri = renderThemeFile.getUri();
-                if (Objects.requireNonNull(renderThemeFile.getName(), "Theme files must have a name").endsWith(".zip")) {
-                    var fragment = themeFileUri.getFragment();
+                val renderThemeFile: DocumentFile? =
+                    checkNotNull(DocumentFile.fromSingleUri(application, mapTheme))
+                var themeFileUri = renderThemeFile!!.uri
+                if (Objects.requireNonNull<String?>(
+                        renderThemeFile.name,
+                        "Theme files must have a name"
+                    ).endsWith(".zip")
+                ) {
+                    val fragment = themeFileUri.fragment
                     if (fragment != null) {
-                        themeFileUri = themeFileUri.buildUpon().fragment(null).build();
+                        themeFileUri = themeFileUri.buildUpon().fragment(null).build()
                     } else {
-                        throw new RuntimeException("Fragment missing, which indicates the theme inside the zip file");
+                        throw RuntimeException("Fragment missing, which indicates the theme inside the zip file")
                     }
-                    return new ZipRenderTheme(fragment, new ZipXmlThemeResourceProvider(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(themeFileUri)))));
+                    return ZipRenderTheme(
+                        fragment,
+                        ZipXmlThemeResourceProvider(
+                            ZipInputStream(
+                                BufferedInputStream(
+                                    contentResolver.openInputStream(themeFileUri)
+                                )
+                            )
+                        )
+                    )
                 }
-                return new StreamRenderTheme("/assets/", getContentResolver().openInputStream(themeFileUri));
+                return StreamRenderTheme(
+                    "/assets/",
+                    contentResolver.openInputStream(themeFileUri)
+                )
             }
-        } catch (Exception e) {
-            Log.e(TAG, "Error loading theme " + mapTheme, e);
+        } catch (e: Exception) {
+            Log.e(TAG, "Error loading theme $mapTheme", e)
         }
-        return null;
+        return null
     }
 
-    protected MultiMapFileTileSource getMapFile() {
-        var tileSource = new MultiMapFileTileSource();
-        var mapFiles = PreferencesUtils.getMapUris();
+    protected fun getMapFile(): MultiMapFileTileSource? {
+        val tileSource = MultiMapFileTileSource()
+        val mapFiles = PreferencesUtils.getMapUris()
         if (mapFiles.isEmpty()) {
-            return null;
+            return null
         }
-        var mapsCount = new AtomicInteger(0);
-        mapFiles.stream()
-                .filter(uri -> DocumentFile.isDocumentUri(this, uri))
-                .map(uri -> DocumentFile.fromSingleUri(this, uri))
-                .filter(documentFile -> documentFile != null && documentFile.canRead())
-                .forEach(documentFile -> readMapFile(tileSource, mapsCount, documentFile));
+        val mapsCount = AtomicInteger(0)
+        mapFiles
+            .filter { uri -> DocumentFile.isDocumentUri(this, uri) }
+            .mapNotNull { uri -> DocumentFile.fromSingleUri(this, uri) }
+            .filter { documentFile -> documentFile.canRead() }
+            .forEach { documentFile ->
+                readMapFile(
+                    tileSource,
+                    mapsCount,
+                    documentFile
+                )
+            }
 
-        mapFiles.stream()
-                .filter(uri -> "file".equals(uri.getScheme()))
-                .map(uri -> new File(uri.getPath()))
-                .filter(File::exists)
-                .forEach(file -> readMapFile(tileSource, mapsCount, file));
+        mapFiles
+            .filter { uri -> "file" == uri.scheme }
+            .map { uri -> File(uri.path!!) }
+            .filter { file -> file.exists() }
+            .forEach { file: File -> readMapFile(tileSource, mapsCount, file) }
 
         if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
-            Toast.makeText(this, R.string.error_loading_offline_map, Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                this,
+                de.storchp.opentracks.osmplugin.R.string.error_loading_offline_map,
+                Toast.LENGTH_LONG
+            ).show()
         }
 
-        return mapsCount.get() > 0 ? tileSource : null;
+        return if (mapsCount.get() > 0) tileSource else null
     }
 
-    private void readMapFile(MultiMapFileTileSource mapDataStore, AtomicInteger mapsCount, DocumentFile documentFile) {
+    private fun readMapFile(
+        mapDataStore: MultiMapFileTileSource,
+        mapsCount: AtomicInteger,
+        documentFile: DocumentFile
+    ) {
         try {
-            var inputStream = (FileInputStream) getContentResolver().openInputStream(documentFile.getUri());
-            var tileSource = new MapFileTileSource();
-            tileSource.setMapFileInputStream(inputStream);
-            mapDataStore.add(tileSource);
-            mapsCount.getAndIncrement();
-        } catch (Exception e) {
-            Log.e(TAG, "Can't open mapFile", e);
+            val inputStream =
+                contentResolver.openInputStream(documentFile.uri) as FileInputStream?
+            val tileSource = MapFileTileSource()
+            tileSource.setMapFileInputStream(inputStream)
+            mapDataStore.add(tileSource)
+            mapsCount.getAndIncrement()
+        } catch (e: Exception) {
+            Log.e(TAG, "Can't open mapFile", e)
         }
     }
 
-    private void readMapFile(MultiMapFileTileSource mapDataStore, AtomicInteger mapsCount, File file) {
+    private fun readMapFile(
+        mapDataStore: MultiMapFileTileSource,
+        mapsCount: AtomicInteger,
+        file: File
+    ) {
         try {
-            var tileSource = new MapFileTileSource();
-            tileSource.setMapFile(file.getPath());
-            mapDataStore.add(tileSource);
-            mapsCount.getAndIncrement();
-        } catch (Exception e) {
-            Log.e(TAG, "Can't open mapFile", e);
+            val tileSource = MapFileTileSource()
+            tileSource.setMapFile(file.path)
+            mapDataStore.add(tileSource)
+            mapsCount.getAndIncrement()
+        } catch (e: Exception) {
+            Log.e(TAG, "Can't open mapFile", e)
         }
     }
 
-    protected void loadTheme() {
+    protected fun loadTheme() {
         if (renderTheme != null) {
-            renderTheme.dispose();
+            renderTheme!!.dispose()
         }
-        renderTheme = map.setTheme(new StreamRenderTheme("", AssetAdapter.readFileAsStream("vtm/vtmstyle.xml")));
+        renderTheme =
+            map.setTheme(StreamRenderTheme("", AssetAdapter.readFileAsStream("vtm/vtmstyle.xml")))
     }
 
-    protected void createLayers() {
-        var mapFile = getMapFile();
-        map.layers().add(new MapEventsReceiver(map));
+    protected fun createLayers() {
+        val mapFile = getMapFile()
+        map.layers().add(MapEventsReceiver(map))
 
         if (mapFile != null) {
-            var tileLayer = map.setBaseMap(mapFile);
-            loadTheme();
+            val tileLayer = map.setBaseMap(mapFile)
+            loadTheme()
 
-            map.layers().add(new BuildingLayer(map, tileLayer));
-            map.layers().add(new LabelLayer(map, tileLayer));
+            map.layers().add(BuildingLayer(map, tileLayer))
+            map.layers().add(LabelLayer(map, tileLayer))
 
-            var mapScaleBar = new DefaultMapScaleBar(map);
-            mapScaleBar.setScaleBarMode(DefaultMapScaleBar.ScaleBarMode.BOTH);
-            mapScaleBar.setDistanceUnitAdapter(MetricUnitAdapter.INSTANCE);
-            mapScaleBar.setSecondaryDistanceUnitAdapter(ImperialUnitAdapter.INSTANCE);
-            mapScaleBar.setScaleBarPosition(MapScaleBar.ScaleBarPosition.BOTTOM_LEFT);
+            val mapScaleBar = DefaultMapScaleBar(map)
+            mapScaleBar.setScaleBarMode(DefaultMapScaleBar.ScaleBarMode.BOTH)
+            mapScaleBar.setDistanceUnitAdapter(MetricUnitAdapter.INSTANCE)
+            mapScaleBar.setSecondaryDistanceUnitAdapter(ImperialUnitAdapter.INSTANCE)
+            mapScaleBar.setScaleBarPosition(MapScaleBar.ScaleBarPosition.BOTTOM_LEFT)
 
-            var mapScaleBarLayer = new MapScaleBarLayer(map, mapScaleBar);
-            var renderer = mapScaleBarLayer.getRenderer();
-            renderer.setPosition(GLViewport.Position.BOTTOM_LEFT);
-            renderer.setOffset(5 * CanvasAdapter.getScale(), 0);
-            map.layers().add(mapScaleBarLayer);
+            val mapScaleBarLayer = MapScaleBarLayer(map, mapScaleBar)
+            val renderer = mapScaleBarLayer.renderer
+            renderer.setPosition(GLViewport.Position.BOTTOM_LEFT)
+            renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
+            map.layers().add(mapScaleBarLayer)
 
-            var themeFile = getRenderTheme();
+            val themeFile = getRenderTheme()
             if (themeFile != null) {
-                map.setTheme(themeFile);
+                map.setTheme(themeFile)
             }
         } else if (BuildConfig.offline) {
-            new AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_logo_color_24dp)
-                    .setTitle(R.string.app_name)
-                    .setMessage(R.string.no_map_configured)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .create().show();
+            AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(de.storchp.opentracks.osmplugin.R.string.app_name)
+                .setMessage(de.storchp.opentracks.osmplugin.R.string.no_map_configured)
+                .setPositiveButton(android.R.string.ok, null)
+                .create().show()
         } else if (PreferencesUtils.getOnlineMapConsent()) {
-            setOnlineTileLayer();
+            setOnlineTileLayer()
         } else {
-            showOnlineMapConsent();
+            showOnlineMapConsent()
         }
     }
 
-    private void setOnlineTileLayer() {
-        var tileSource = DefaultSources.OPENSTREETMAP.build();
-        var builder = new OkHttpClient.Builder();
-        var cacheDirectory = new File(getExternalCacheDir(), "tiles");
-        int cacheSize = 10 * 1024 * 1024; // 10 MB
-        var cache = new Cache(cacheDirectory, cacheSize);
-        builder.cache(cache);
+    private fun setOnlineTileLayer() {
+        val tileSource = DefaultSources.OPENSTREETMAP.build()
+        val builder = OkHttpClient.Builder()
+        val cacheDirectory = File(externalCacheDir, "tiles")
+        val cacheSize = 10 * 1024 * 1024 // 10 MB
+        val cache = Cache(cacheDirectory, cacheSize.toLong())
+        builder.cache(cache)
 
-        tileSource.setHttpEngine(new OkHttpEngine.OkHttpFactory(builder));
-        tileSource.setHttpRequestHeaders(Collections.singletonMap("User-Agent", getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID));
+        tileSource.setHttpEngine(OkHttpFactory(builder))
+        tileSource.setHttpRequestHeaders(
+            Collections.singletonMap<String?, String?>(
+                "User-Agent",
+                getString(de.storchp.opentracks.osmplugin.R.string.app_name) + ":" + BuildConfig.APPLICATION_ID
+            )
+        )
 
-        BitmapTileLayer bitmapLayer = new BitmapTileLayer(map, tileSource);
-        map.layers().add(bitmapLayer);
+        val bitmapLayer = BitmapTileLayer(map, tileSource)
+        map.layers().add(bitmapLayer)
     }
 
-    private void showOnlineMapConsent() {
-        var message = new SpannableString(getString(R.string.online_map_consent));
-        Linkify.addLinks(message, Linkify.ALL);
+    private fun showOnlineMapConsent() {
+        val message =
+            SpannableString(getString(de.storchp.opentracks.osmplugin.R.string.online_map_consent))
+        Linkify.addLinks(message, Linkify.ALL)
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(R.string.app_name)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
-                    PreferencesUtils.setOnlineMapConsent(true);
-                    MapsActivity.this.recreate();
+        val dialog = AlertDialog.Builder(this)
+            .setIcon(R.drawable.ic_logo_color_24dp)
+            .setTitle(de.storchp.opentracks.osmplugin.R.string.app_name)
+            .setMessage(message)
+            .setPositiveButton(
+                android.R.string.ok,
+                DialogInterface.OnClickListener { dialog1: DialogInterface?, which: Int ->
+                    PreferencesUtils.setOnlineMapConsent(true)
+                    recreate()
                 })
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        dialog.show();
-        ((TextView) Objects.requireNonNull(dialog.findViewById(android.R.id.message),
-                "An AlertDialog must have a TextView with id.message"))
-                .setMovementMethod(LinkMovementMethod.getInstance());
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
+        dialog.show()
+        (Objects.requireNonNull<Any?>(
+            dialog.findViewById<View?>(R.id.message),
+            "An AlertDialog must have a TextView with id.message"
+        ) as TextView).movementMethod = LinkMovementMethod.getInstance()
     }
 
     /**
      * Android Activity life cycle method.
      */
-    @Override
-    protected void onDestroy() {
-        binding.map.mapView.onDestroy();
-        super.onDestroy();
+    override fun onDestroy() {
+        binding.map.mapView.onDestroy()
+        super.onDestroy()
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.map_info) {
-            var intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.map_info) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            return true
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
-    private void readTrackpoints(Uri data, boolean update, int protocolVersion) {
-        Log.i(TAG, "Loading trackpoints from " + data);
+    private fun readTrackpoints(data: Uri, update: Boolean, protocolVersion: Int) {
+        Log.i(TAG, "Loading trackpoints from $data")
 
-        synchronized (map.layers()) {
-            var showPauseMarkers = PreferencesUtils.isShowPauseMarkers();
-            var latLongs = new ArrayList<GeoPoint>();
-            int tolerance = PreferencesUtils.getTrackSmoothingTolerance();
+        synchronized(map.layers()) {
+            val showPauseMarkers = PreferencesUtils.isShowPauseMarkers()
+            val latLongs = mutableListOf<GeoPoint>()
+            val tolerance = PreferencesUtils.getTrackSmoothingTolerance()
 
             try {
-                var trackpointsBySegments = TrackPoint.readTrackPointsBySegments(getContentResolver(), data, lastTrackPointId, protocolVersion);
+                val trackpointsBySegments: TrackPointsBySegments =
+                    TrackPoint.Companion.readTrackPointsBySegments(
+                        contentResolver,
+                        data,
+                        lastTrackPointId,
+                        protocolVersion
+                    )
                 if (trackpointsBySegments.isEmpty()) {
-                    Log.d(TAG, "No new trackpoints received");
-                    return;
+                    Log.d(TAG, "No new trackpoints received")
+                    return
                 }
 
-                double average = trackpointsBySegments.calcAverageSpeed();
-                double maxSpeed = trackpointsBySegments.calcMaxSpeed();
-                double averageToMaxSpeed = maxSpeed - average;
-                var trackColorMode = PreferencesUtils.getTrackColorMode();
+                val average = trackpointsBySegments.calcAverageSpeed()
+                val maxSpeed = trackpointsBySegments.calcMaxSpeed()
+                val averageToMaxSpeed = maxSpeed - average
+                var trackColorMode = PreferencesUtils.getTrackColorMode()
                 if (isOpenTracksRecordingThisTrack && !trackColorMode.isSupportsLiveTrack()) {
-                    trackColorMode = TrackColorMode.DEFAULT;
+                    trackColorMode = TrackColorMode.Companion.DEFAULT
                 }
 
-                for (var trackPoints : trackpointsBySegments.segments()) {
+                for (trackPoints in trackpointsBySegments.segments) {
+                    var trackPoints = trackPoints
                     if (!update) {
-                        polyline = null; // cut polyline on new segment
+                        polyline = null // cut polyline on new segment
                         if (tolerance > 0) { // smooth track
-                            trackPoints = MapUtils.decimate(tolerance, trackPoints);
+                            trackPoints = MapUtils.decimate(tolerance, trackPoints)
                         }
                     }
-                    for (var trackPoint : trackPoints) {
-                        lastTrackPointId = trackPoint.getTrackPointId();
+                    for (trackPoint in trackPoints) {
+                        lastTrackPointId = trackPoint.trackPointId
 
-                        if (trackPoint.getTrackId() != lastTrackId) {
+                        if (trackPoint.trackId != lastTrackId) {
                             if (trackColorMode == TrackColorMode.BY_TRACK) {
-                                trackColor = colorCreator.nextColor();
+                                trackColor = colorCreator!!.nextColor()
                             }
-                            lastTrackId = trackPoint.getTrackId();
-                            polyline = null; // reset current polyline when trackId changes
-                            startPos = null;
-                            endPos = null;
+                            lastTrackId = trackPoint.trackId
+                            polyline = null // reset current polyline when trackId changes
+                            startPos = null
+                            endPos = null
                         }
 
                         if (trackColorMode == TrackColorMode.BY_SPEED) {
-                            trackColor = MapUtils.getTrackColorBySpeed(average, averageToMaxSpeed, trackPoint);
-                            polyline = addNewPolyline(trackColor);
+                            trackColor = MapUtils.getTrackColorBySpeed(
+                                average,
+                                averageToMaxSpeed,
+                                trackPoint
+                            )
+                            polyline = addNewPolyline(trackColor)
                             if (endPos != null) {
-                                polyline.addPoint(endPos);
+                                polyline!!.addPoint(endPos)
                             } else if (startPos != null) {
-                                polyline.addPoint(startPos);
+                                polyline!!.addPoint(startPos)
                             }
                         } else {
                             if (polyline == null) {
-                                Log.d(TAG, "Continue new segment.");
-                                polyline = addNewPolyline(trackColor);
+                                Log.d(TAG, "Continue new segment.")
+                                polyline = addNewPolyline(trackColor)
                             }
                         }
 
-                        endPos = trackPoint.getLatLong();
-                        polyline.addPoint(endPos);
-                        movementDirection.updatePos(endPos);
+                        endPos = trackPoint.latLong
+                        polyline!!.addPoint(endPos)
+                        movementDirection.updatePos(endPos)
 
-                        if (trackPoint.isPause() && showPauseMarkers) {
-                            var marker = MapUtils.createPauseMarker(this, trackPoint.getLatLong());
-                            waypointsLayer.addItem(marker);
+                        if (trackPoint.pause && showPauseMarkers) {
+                            val marker = MapUtils.createPauseMarker(this, trackPoint.latLong)
+                            waypointsLayer!!.addItem(marker)
                         }
 
                         if (!update) {
-                            latLongs.add(endPos);
+                            latLongs.add(endPos!!)
                         }
 
                         if (startPos == null) {
-                            startPos = endPos;
+                            startPos = endPos
                         }
                     }
-                    trackpointsBySegments.debug().trackpointsDrawn += trackPoints.size();
+                    trackpointsBySegments.debug.trackpointsDrawn += trackPoints.size
                 }
-                trackPointsDebug.add(trackpointsBySegments.debug());
-            } catch (SecurityException e) {
-                Toast.makeText(MapsActivity.this, getString(R.string.error_reading_trackpoints, e.getMessage()), Toast.LENGTH_LONG).show();
-                return;
-            } catch (Exception e) {
-                throw new RuntimeException("Error reading trackpoints", e);
+                trackPointsDebug!!.add(trackpointsBySegments.debug)
+            } catch (e: SecurityException) {
+                Toast.makeText(
+                    this@MapsActivity,
+                    getString(
+                        de.storchp.opentracks.osmplugin.R.string.error_reading_trackpoints,
+                        e.message
+                    ),
+                    Toast.LENGTH_LONG
+                ).show()
+                return
+            } catch (e: Exception) {
+                throw RuntimeException("Error reading trackpoints", e)
             }
 
-            Log.d(TAG, "Last trackpointId=" + lastTrackPointId);
+            Log.d(TAG, "Last trackpointId=$lastTrackPointId")
 
             if (endPos != null) {
-                setEndMarker(endPos);
+                setEndMarker(endPos!!)
             }
 
-            GeoPoint myPos = null;
+            var myPos: GeoPoint? = null
             if (update && endPos != null) {
-                myPos = endPos;
-                map.render();
+                myPos = endPos
+                map.render()
             } else if (!latLongs.isEmpty()) {
-                boundingBox = new BoundingBox(latLongs).extendMargin(1.2f);
-                myPos = boundingBox.getCenterPoint();
+                boundingBox = BoundingBox(latLongs).extendMargin(1.2f)
+                myPos = boundingBox!!.getCenterPoint()
             }
 
             if (myPos != null) {
-                updateMapPositionAndRotation(myPos);
+                updateMapPositionAndRotation(myPos)
             }
-            updateDebugTrackPoints();
+            updateDebugTrackPoints()
         }
     }
 
-    private void resetMapData() {
-        unregisterContentObserver();
+    private fun resetMapData() {
+        unregisterContentObserver()
 
-        tracksUri = null;
-        trackPointsUri = null;
-        waypointsUri = null;
+        tracksUri = null
+        trackPointsUri = null
+        waypointsUri = null
 
-        var layers = map.layers();
+        val layers = map.layers()
 
         // polylines
         if (polylinesLayer != null) {
-            layers.remove(polylinesLayer);
+            layers.remove(polylinesLayer)
         }
-        polylinesLayer = new GroupLayer(map);
-        layers.add(polylinesLayer);
+        polylinesLayer = GroupLayer(map)
+        layers.add(polylinesLayer)
 
         // tracks
-        lastTrackId = 0;
-        lastTrackPointId = 0;
-        colorCreator = new StyleColorCreator(StyleColorCreator.GOLDEN_RATIO_CONJUGATE / 2);
-        trackColor = colorCreator.nextColor();
-        polyline = null;
-        startPos = null;
-        endPos = null;
-        endMarker = null;
-        boundingBox = null;
-        movementDirection = new MovementDirection();
-        trackPointsDebug = new TrackPointsDebug();
+        lastTrackId = 0
+        lastTrackPointId = 0
+        colorCreator = StyleColorCreator(StyleColorCreator.Companion.GOLDEN_RATIO_CONJUGATE / 2)
+        trackColor = colorCreator!!.nextColor()
+        polyline = null
+        startPos = null
+        endPos = null
+        endMarker = null
+        boundingBox = null
+        movementDirection = MovementDirection()
+        trackPointsDebug = TrackPointsDebug()
 
         // waypoints
         if (waypointsLayer != null) {
-            layers.remove(waypointsLayer);
+            layers.remove(waypointsLayer)
         }
-        waypointsLayer = createWaypointsLayer();
-        map.layers().add(waypointsLayer);
-        lastWaypointId = 0;
-        mapPreferences.clear();
+        waypointsLayer = createWaypointsLayer()
+        map.layers().add(waypointsLayer)
+        lastWaypointId = 0
+        mapPreferences!!.clear()
     }
 
-    public void updateDebugTrackPoints() {
+    fun updateDebugTrackPoints() {
         if (PreferencesUtils.isDebugTrackPoints()) {
-            binding.map.trackpointsDebugInfo.setText(
-                    getString(R.string.debug_trackpoints_info,
-                            trackPointsDebug.trackpointsReceived,
-                            trackPointsDebug.trackpointsInvalid,
-                            trackPointsDebug.trackpointsDrawn,
-                            trackPointsDebug.trackpointsPause,
-                            trackPointsDebug.segments,
-                            protocolVersion
-                    ));
+            binding.map.trackpointsDebugInfo.text = getString(
+                R.string.debug_trackpoints_info,
+                trackPointsDebug!!.trackpointsReceived,
+                trackPointsDebug!!.trackpointsInvalid,
+                trackPointsDebug!!.trackpointsDrawn,
+                trackPointsDebug!!.trackpointsPause,
+                trackPointsDebug!!.segments,
+                protocolVersion
+            )
         } else {
-            binding.map.trackpointsDebugInfo.setText("");
+            binding.map.trackpointsDebugInfo.text = ""
         }
     }
 
-    private void setEndMarker(GeoPoint endPos) {
-        synchronized (map.layers()) {
-            if (endMarker != null) {
-                endMarker.geoPoint = endPos;
-                endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
-                waypointsLayer.populate();
-                map.render();
-            } else {
-                endMarker = new MarkerItem(endPos.toString(), "", endPos);
-                var symbol = MapUtils.createMarkerSymbol(this, R.drawable.ic_compass, false, MarkerSymbol.HotspotPlace.CENTER);
-                endMarker.setMarker(symbol);
-                endMarker.setRotation(MapUtils.rotateWith(mapMode, movementDirection));
-                waypointsLayer.addItem(endMarker);
+    private fun setEndMarker(endPos: GeoPoint) {
+        synchronized(map.layers()) {
+            endMarker?.let {
+                it.geoPoint = endPos
+                it.setRotation(MapUtils.rotateWith(mapMode, movementDirection))
+                waypointsLayer!!.populate()
+                map.render()
+            } ?: {
+                endMarker = MarkerItem(endPos.toString(), "", endPos)
+                val symbol = MapUtils.createMarkerSymbol(
+                    this,
+                    R.drawable.ic_compass,
+                    false,
+                    HotspotPlace.CENTER
+                )
+                endMarker!!.marker = symbol
+                endMarker!!.setRotation(MapUtils.rotateWith(mapMode, movementDirection))
+                waypointsLayer!!.addItem(endMarker)
             }
         }
     }
 
-    private PathLayer addNewPolyline(int trackColor) {
-        polyline = new PathLayer(map, trackColor, strokeWidth);
-        polylinesLayer.layers.add(polyline);
-        return this.polyline;
+    private fun addNewPolyline(trackColor: Int): PathLayer? {
+        polyline = PathLayer(map, trackColor, strokeWidth.toFloat())
+        polylinesLayer!!.layers.add(polyline)
+        return this.polyline
     }
 
-    private void readWaypoints(Uri data) {
-        Log.i(TAG, "Loading waypoints from " + data);
+    private fun readWaypoints(data: Uri) {
+        Log.i(TAG, "Loading waypoints from $data")
 
         try {
-            for (var waypoint : Waypoint.readWaypoints(getContentResolver(), data, lastWaypointId)) {
-                lastWaypointId = waypoint.getId();
-                final MarkerItem marker = MapUtils.createTappableMarker(this, waypoint);
-                waypointsLayer.addItem(marker);
+            for (waypoint in Waypoint.Companion.readWaypoints(
+                contentResolver,
+                data,
+                lastWaypointId
+            )) {
+                lastWaypointId = waypoint.id
+                val marker = MapUtils.createTappableMarker(this, waypoint)
+                waypointsLayer!!.addItem(marker)
             }
-        } catch (SecurityException e) {
-            Log.w(TAG, "No permission to read waypoints");
-        } catch (Exception e) {
-            Log.e(TAG, "Reading waypoints failed", e);
+        } catch (_: SecurityException) {
+            Log.w(TAG, "No permission to read waypoints")
+        } catch (e: Exception) {
+            Log.e(TAG, "Reading waypoints failed", e)
         }
     }
 
-    private ItemizedLayer createWaypointsLayer() {
-        var symbol = MapUtils.createPushpinSymbol(this);
-        return new ItemizedLayer(map, new ArrayList<>(), symbol, this);
+    private fun createWaypointsLayer(): ItemizedLayer {
+        val symbol = MapUtils.createPushpinSymbol(this)
+        return ItemizedLayer(map, ArrayList<MarkerInterface?>(), symbol, this)
     }
 
-    @Override
-    public boolean onItemSingleTapUp(int index, MarkerInterface item) {
-        MarkerItem markerItem = (MarkerItem) item;
+    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+        val markerItem = item as MarkerItem
         if (markerItem.uid != null) {
             try {
-                var intent = new Intent("de.dennisguse.opentracks.MarkerDetails");
-                intent.putExtra(EXTRA_MARKER_ID, (Long) markerItem.getUid());
-                startActivity(intent);
-            } catch (Exception ex) {
-                Log.e(TAG, "Can't open OpenTracks MarkerDetails for marker " + markerItem.uid, ex);
+                val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
+                intent.putExtra(EXTRA_MARKER_ID, markerItem.getUid() as Long?)
+                startActivity(intent)
+            } catch (ex: Exception) {
+                Log.e(
+                    TAG,
+                    "Can't open OpenTracks MarkerDetails for marker " + markerItem.uid,
+                    ex
+                )
             }
         }
-        return true;
+        return true
     }
 
-    @Override
-    public boolean onItemLongPress(int index, MarkerInterface item) {
-        return false;
+    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+        return false
     }
 
-    private void readTracks(Uri data) {
-        var tracks = Track.readTracks(getContentResolver(), data);
+    private fun readTracks(data: Uri) {
+        val tracks: List<Track> = Track.Companion.readTracks(contentResolver, data)
         if (!tracks.isEmpty()) {
-            var statistics = new TrackStatistics(tracks);
-            removeStatisticElements();
+            val statistics = TrackStatistics(tracks)
+            removeStatisticElements()
             PreferencesUtils.getStatisticElements()
-                    .stream()
-                    .sorted(comparingInt(StatisticElement::ordinal))
-                    .forEach(se -> addStatisticElement(se.getText(this, statistics)));
-        }
-    }
-
-    private void removeStatisticElements() {
-        var childsToRemove = new ArrayList<View>();
-        for (int i = 0; i < binding.map.statisticsLayout.getChildCount(); i++) {
-            var childView = binding.map.statisticsLayout.getChildAt(i);
-            if (childView instanceof TextView) {
-                childsToRemove.add(childView);
-            }
-        }
-        childsToRemove.forEach((view -> {
-            binding.map.statisticsLayout.removeView(view);
-            binding.map.statistics.removeView(view);
-        }));
-    }
-
-    private void addStatisticElement(String text) {
-        var textView = new TextView(this);
-        textView.setId(View.generateViewId());
-        textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
-        textView.setTextColor(getColor(R.color.track_statistic));
-        textView.setTextSize(COMPLEX_UNIT_PT, 10);
-        binding.map.statisticsLayout.addView(textView);
-        binding.map.statistics.addView(textView);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        mapPreferences.load(map);
-        binding.map.mapView.onResume();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus && boundingBox != null) {
-            var mapPos = map.getMapPosition();
-            mapPos.setByBoundingBox(boundingBox, map.getWidth(), map.getHeight());
-            mapPos.setBearing(mapMode.getHeading(movementDirection));
-            map.animator().animateTo(mapPos);
-        }
-    }
-
-    @Override
-    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, @NonNull Configuration newConfig) {
-        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
-        int visibility = isInPictureInPictureMode ? View.GONE : View.VISIBLE;
-        binding.toolbar.mapsToolbar.setVisibility(visibility);
-        binding.map.fullscreenButton.setVisibility(visibility);
-        binding.map.statistics.setVisibility(visibility);
-    }
-
-    private boolean isPiPMode() {
-        return isInPictureInPictureMode();
-    }
-
-    @Override
-    protected void onPause() {
-        if (!isPiPMode()) {
-            mapPreferences.save(map);
-            binding.map.mapView.onPause();
-        }
-        super.onPause();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.d(TAG, "register content observer");
-        if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
-            contentObserver = new OpenTracksContentObserver(tracksUri, trackPointsUri, waypointsUri, protocolVersion);
-            try {
-                getContentResolver().registerContentObserver(tracksUri, false, contentObserver);
-                getContentResolver().registerContentObserver(trackPointsUri, false, contentObserver);
-                if (waypointsUri != null) {
-                    getContentResolver().registerContentObserver(waypointsUri, false, contentObserver);
+                .stream()
+                .sorted(Comparator.comparingInt<StatisticElement?>(ToIntFunction { obj: StatisticElement? -> obj!!.ordinal }))
+                .forEach { se: StatisticElement? ->
+                    addStatisticElement(
+                        se!!.getText(
+                            this,
+                            statistics
+                        )
+                    )
                 }
-            } catch (SecurityException se) {
-                Log.e(TAG, "Error on registering OpenTracksContentObserver", se);
-                Toast.makeText(this, R.string.error_reg_content_observer, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private fun removeStatisticElements() {
+        val childsToRemove = ArrayList<View?>()
+        for (i in 0 until binding!!.map.statisticsLayout.getChildCount()) {
+            val childView = binding!!.map.statisticsLayout.getChildAt(i)
+            if (childView is TextView) {
+                childsToRemove.add(childView)
+            }
+        }
+        childsToRemove.forEach((Consumer { view: View? ->
+            binding!!.map.statisticsLayout.removeView(view)
+            binding!!.map.statistics.removeView(view)
+        }))
+    }
+
+    private fun addStatisticElement(text: String?) {
+        val textView = TextView(this)
+        textView.setId(View.generateViewId())
+        textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
+        textView.setTextColor(getColor(de.storchp.opentracks.osmplugin.R.color.track_statistic))
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 10f)
+        binding!!.map.statisticsLayout.addView(textView)
+        binding!!.map.statistics.addView(textView)
+    }
+
+    public override fun onResume() {
+        super.onResume()
+
+        mapPreferences!!.load(map)
+        binding!!.map.mapView.onResume()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus && boundingBox != null) {
+            val mapPos = map!!.getMapPosition()
+            mapPos.setByBoundingBox(boundingBox, map!!.getWidth(), map!!.getHeight())
+            mapPos.setBearing(mapMode!!.getHeading(movementDirection))
+            map!!.animator().animateTo(mapPos)
+        }
+    }
+
+    override fun onPictureInPictureModeChanged(
+        isInPictureInPictureMode: Boolean,
+        newConfig: Configuration
+    ) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        val visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
+        binding!!.toolbar.mapsToolbar.setVisibility(visibility)
+        binding!!.map.fullscreenButton.setVisibility(visibility)
+        binding!!.map.statistics.setVisibility(visibility)
+    }
+
+    private fun isPiPMode(): Boolean {
+        return isInPictureInPictureMode()
+    }
+
+    override fun onPause() {
+        if (!isPiPMode()) {
+            mapPreferences!!.save(map)
+            binding!!.map.mapView.onPause()
+        }
+        super.onPause()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.d(MapsActivity.Companion.TAG, "register content observer")
+        if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
+            contentObserver = OpenTracksContentObserver(
+                tracksUri!!,
+                trackPointsUri!!,
+                waypointsUri!!,
+                protocolVersion
+            )
+            try {
+                getContentResolver().registerContentObserver(tracksUri!!, false, contentObserver!!)
+                getContentResolver().registerContentObserver(
+                    trackPointsUri!!,
+                    false,
+                    contentObserver!!
+                )
+                if (waypointsUri != null) {
+                    getContentResolver().registerContentObserver(
+                        waypointsUri!!,
+                        false,
+                        contentObserver!!
+                    )
+                }
+            } catch (se: SecurityException) {
+                Log.e(
+                    MapsActivity.Companion.TAG,
+                    "Error on registering OpenTracksContentObserver",
+                    se
+                )
+                Toast.makeText(
+                    this,
+                    de.storchp.opentracks.osmplugin.R.string.error_reg_content_observer,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
-    @Override
-    protected void onStop() {
-        unregisterContentObserver();
-        super.onStop();
+    override fun onStop() {
+        unregisterContentObserver()
+        super.onStop()
     }
 
 
-    private void unregisterContentObserver() {
+    private fun unregisterContentObserver() {
         if (contentObserver != null) {
-            Log.d(TAG, "unregister content observer");
-            getContentResolver().unregisterContentObserver(contentObserver);
-            contentObserver = null;
+            Log.d(MapsActivity.Companion.TAG, "unregister content observer")
+            getContentResolver().unregisterContentObserver(contentObserver!!)
+            contentObserver = null
         }
     }
 
-    private void updateMapPositionAndRotation(final GeoPoint myPos) {
-        var newPos = map.getMapPosition().setPosition(myPos).setBearing(mapMode.getHeading(movementDirection));
-        map.animator().animateTo(newPos);
+    private fun updateMapPositionAndRotation(myPos: GeoPoint?) {
+        val newPos = map!!.getMapPosition().setPosition(myPos)
+            .setBearing(mapMode!!.getHeading(movementDirection))
+        map!!.animator().animateTo(newPos)
     }
 
+    companion object {
+        private val TAG: String = MapsActivity::class.java.getSimpleName()
+        const val EXTRA_MARKER_ID: String = "marker_id"
+        const val EXTRA_TRACK_ID: String = "track_id"
+        const val EXTRA_LOCATION: String = "location"
+        private const val MAP_DEFAULT_ZOOM_LEVEL = 12
+        private const val EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION"
+        private const val EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK =
+            "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK"
+        private const val EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
+        private const val EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
+        private const val EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN"
+    }
 }

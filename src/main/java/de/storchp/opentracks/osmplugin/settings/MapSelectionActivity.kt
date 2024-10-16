@@ -1,118 +1,139 @@
-package de.storchp.opentracks.osmplugin.settings;
+package de.storchp.opentracks.osmplugin.settings
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.content.DialogInterface
+import android.net.Uri
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView.OnItemLongClickListener
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import de.storchp.opentracks.osmplugin.BuildConfig
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding
+import de.storchp.opentracks.osmplugin.databinding.MapItemBinding
+import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
+import de.storchp.opentracks.osmplugin.utils.FileItem
+import de.storchp.opentracks.osmplugin.utils.FileUtil
+import de.storchp.opentracks.osmplugin.utils.MapItemAdapter
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
+import java.io.File
+import java.nio.file.Files
+import java.util.ArrayList
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+class MapSelectionActivity : AppCompatActivity() {
+    private lateinit var adapter: MapItemAdapter
 
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMapSelectionBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-import de.storchp.opentracks.osmplugin.BuildConfig;
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding;
-import de.storchp.opentracks.osmplugin.databinding.MapItemBinding;
-import de.storchp.opentracks.osmplugin.download.DownloadActivity;
-import de.storchp.opentracks.osmplugin.utils.FileItem;
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.MapItemAdapter;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+        binding.toolbar.mapsToolbar.setTitle(R.string.map_selection)
+        setSupportActionBar(binding.toolbar.mapsToolbar)
 
-public class MapSelectionActivity extends AppCompatActivity {
-
-    private MapItemAdapter adapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        var binding = ActivityMapSelectionBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        binding.toolbar.mapsToolbar.setTitle(R.string.map_selection);
-        setSupportActionBar(binding.toolbar.mapsToolbar);
-
-        var items = new ArrayList<FileItem>();
+        val items = ArrayList<FileItem>()
         if (!BuildConfig.offline) {
-            items.add(new FileItem(getString(R.string.online_osm_mapnick), null, null, null));
+            items.add(FileItem(getString(R.string.online_osm_mapnick), null, null, null))
         }
-        var mapDirectory = PreferencesUtils.getMapDirectoryUri();
+        val mapDirectory = PreferencesUtils.getMapDirectoryUri()
         if (mapDirectory == null) {
-            var filesDir = getExternalFilesDir(null).toPath();
-            var mapDir = filesDir.resolve(DownloadActivity.DownloadType.MAP.getSubdir());
+            val filesDir = getExternalFilesDir(null)!!.toPath()
+            val mapDir = filesDir.resolve(DownloadType.MAP.subdir)
             if (Files.exists(mapDir)) {
-                Arrays.stream(mapDir.toFile().listFiles())
-                        .filter(file -> file.isFile() && file.exists() && file.getName().endsWith(".map"))
-                        .forEach(file -> items.add(new FileItem(file.getName(), Uri.fromFile(file), file, null)));
+                mapDir.toFile().listFiles()!!
+                    .filter { file: File? ->
+                        file!!.isFile() && file.exists() && file.getName().endsWith(".map")
+                    }
+                    .forEach { file: File? ->
+                        items.add(
+                            FileItem(
+                                name = file!!.getName(),
+                                uri = Uri.fromFile(file),
+                                file = file,
+                            )
+                        )
+                    }
             }
         } else {
-            var documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory);
-            if (documentsTree != null) {
-                Arrays.stream(documentsTree.listFiles())
-                        .filter(file -> file.isFile() && file.getName().endsWith(".map"))
-                        .forEach(file -> items.add(new FileItem(file.getName(), file.getUri(), null, file)));
+            val documentsTree = FileUtil.getDocumentFileFromTreeUri(this, mapDirectory)
+            documentsTree?.listFiles()?.filter { file ->
+                file.isFile && file.name?.endsWith(".map") == true
+            }?.forEach { file ->
+                items.add(
+                    FileItem(
+                        name = file!!.name.toString(),
+                        uri = file.uri,
+                        documentFile = file
+                    )
+                )
             }
         }
-        adapter = new MapItemAdapter(this, items, PreferencesUtils.getMapUris());
+        adapter = MapItemAdapter(this, items, PreferencesUtils.getMapUris())
 
-        binding.mapList.setAdapter(adapter);
-        binding.mapList.setOnItemClickListener((listview, view, position, id) -> {
-            var itemBinding = (MapItemBinding) view.getTag();
-            itemBinding.checkbox.setChecked(!itemBinding.checkbox.isChecked());
-            itemBinding.checkbox.callOnClick();
-        });
-        binding.mapList.setOnItemLongClickListener((parent, view, position, id) -> {
-            var fileItem = items.get(position);
-            if (fileItem.file() == null && fileItem.documentFile() == null) {
-                // online map can't be deleted
-                return false;
+        binding.mapList.setAdapter(adapter)
+        binding.mapList.onItemClickListener =
+            OnItemClickListener { listview: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                val itemBinding = view!!.tag as MapItemBinding
+                itemBinding.checkbox.setChecked(!itemBinding.checkbox.isChecked)
+                itemBinding.checkbox.callOnClick()
             }
-            new AlertDialog.Builder(MapSelectionActivity.this)
+        binding.mapList.onItemLongClickListener =
+            OnItemLongClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                val fileItem = items[position]
+                if (fileItem.file == null && fileItem.documentFile == null) {
+                    // online map can't be deleted
+                    return@OnItemLongClickListener false
+                }
+                AlertDialog.Builder(this@MapSelectionActivity)
                     .setIcon(R.drawable.ic_logo_color_24dp)
                     .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.delete_map_question, fileItem.name()))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        boolean deleted;
-                        if (fileItem.file() != null) {
-                            deleted = fileItem.file().delete();
-                        } else {
-                            deleted = fileItem.documentFile().delete();
-                        }
-                        if (deleted) {
-                            items.remove(position);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(MapSelectionActivity.this, R.string.delete_map_error, Toast.LENGTH_LONG).show();
-                        }
-                    })
+                    .setMessage(getString(R.string.delete_map_question, fileItem.name))
+                    .setPositiveButton(
+                        android.R.string.ok,
+                        DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                            var deleted: Boolean = if (fileItem.file != null) {
+                                fileItem.file.delete()
+                            } else {
+                                fileItem.documentFile!!.delete()
+                            }
+                            if (deleted) {
+                                items.removeAt(position)
+                                adapter.notifyDataSetChanged()
+                            } else {
+                                Toast.makeText(
+                                    this@MapSelectionActivity,
+                                    R.string.delete_map_error,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        })
                     .setNegativeButton(android.R.string.cancel, null)
-                    .create().show();
-            return false;
-        });
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            public void handleOnBackPressed() {
-                navigateUp();
+                    .create().show()
+                false
             }
-        });
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateUp()
+            }
+        })
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            navigateUp();
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            navigateUp()
+            return true
         }
-        return false;
+        return false
     }
 
-    public void navigateUp() {
-        PreferencesUtils.setMapUris(adapter.getSelectedUris());
-        finish();
+    fun navigateUp() {
+        PreferencesUtils.setMapUris(adapter.getSelectedUris())
+        finish()
     }
-
 }

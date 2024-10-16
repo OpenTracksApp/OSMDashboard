@@ -1,28 +1,27 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import de.storchp.opentracks.osmplugin.maps.MovementDirection;
+import de.storchp.opentracks.osmplugin.maps.MovementDirection
+import java.lang.IllegalArgumentException
 
-public enum MapMode {
-
-    NORTH() {
-        public float getHeading(MovementDirection movementDirection) {
-            return 0;
+enum class MapMode {
+    NORTH {
+        override fun getHeading(movementDirection: MovementDirection): Float {
+            return 0f
         }
     },
-    DIRECTION() {
-        public float getHeading(MovementDirection movementDirection) {
-            return -1 * movementDirection.getCurrentDegrees();
+    DIRECTION {
+        override fun getHeading(movementDirection: MovementDirection): Float {
+            return -1f * movementDirection.getCurrentDegrees()
         }
     };
 
-    public abstract float getHeading(MovementDirection movementDirection);
+    abstract fun getHeading(movementDirection: MovementDirection): Float
 
-    public static MapMode valueOf(String name, MapMode defaultValue) {
-        try {
-            return valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-            return defaultValue;
+    companion object {
+        fun valueOf(name: String?, defaultValue: MapMode) = try {
+            MapMode.valueOf(name!!)
+        } catch (_: IllegalArgumentException) {
+            defaultValue
         }
     }
-
 }

@@ -1,115 +1,118 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import java.util.List;
-
-import de.storchp.opentracks.osmplugin.dashboardapi.Track;
+import de.storchp.opentracks.osmplugin.dashboardapi.Track
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * @noinspection unused
  */
-public class TrackStatistics {
+class TrackStatistics(tracks: List<Track>) {
+    private var category = "unknown"
+    private var startTimeEpochMillis: Int = 0
+    private var stopTimeEpochMillis: Int = 0
+    private var totalDistanceMeter: Float = 0f
+    private var totalTimeMillis: Int = 0
+    private var movingTimeMillis: Int = 0
+    private var avgSpeedMeterPerSecond: Float = 0f
+    private var avgMovingSpeedMeterPerSecond: Float = 0f
+    private var maxSpeedMeterPerSecond: Float = 0f
+    private var minElevationMeter: Float = 0f
+    private var maxElevationMeter: Float = 0f
+    private var elevationGainMeter: Float = 0f
 
-    private String category = "unknown";
-    private int startTimeEpochMillis;
-    private int stopTimeEpochMillis;
-    private float totalDistanceMeter;
-    private int totalTimeMillis;
-    private int movingTimeMillis;
-    private float avgSpeedMeterPerSecond;
-    private float avgMovingSpeedMeterPerSecond;
-    private float maxSpeedMeterPerSecond;
-    private float minElevationMeter;
-    private float maxElevationMeter;
-    private float elevationGainMeter;
+    init {
+        if (!tracks.isEmpty()) {
+            val first = tracks[0]
+            category = first.category.toString()
+            startTimeEpochMillis = first.startTimeEpochMillis
+            stopTimeEpochMillis = first.stopTimeEpochMillis
+            totalDistanceMeter = first.totalDistanceMeter
+            totalTimeMillis = first.totalTimeMillis
+            movingTimeMillis = first.movingTimeMillis
+            avgSpeedMeterPerSecond = first.avgSpeedMeterPerSecond
+            avgMovingSpeedMeterPerSecond = first.avgMovingSpeedMeterPerSecond
+            maxSpeedMeterPerSecond = first.maxSpeedMeterPerSecond
+            minElevationMeter = first.minElevationMeter
+            maxElevationMeter = first.maxElevationMeter
+            elevationGainMeter = first.elevationGainMeter
 
-    public TrackStatistics(List<Track> tracks) {
-        if (tracks.isEmpty()) {
-            return;
-        }
-        var first = tracks.get(0);
-        category = first.category();
-        startTimeEpochMillis = first.startTimeEpochMillis();
-        stopTimeEpochMillis = first.stopTimeEpochMillis();
-        totalDistanceMeter = first.totalDistanceMeter();
-        totalTimeMillis = first.totalTimeMillis();
-        movingTimeMillis = first.movingTimeMillis();
-        avgSpeedMeterPerSecond = first.avgSpeedMeterPerSecond();
-        avgMovingSpeedMeterPerSecond = first.avgMovingSpeedMeterPerSecond();
-        maxSpeedMeterPerSecond = first.maxSpeedMeterPerSecond();
-        minElevationMeter = first.minElevationMeter();
-        maxElevationMeter = first.maxElevationMeter();
-        elevationGainMeter = first.elevationGainMeter();
-
-        if (tracks.size() > 1) {
-            float totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond;
-            float totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond;
-            for (var track : tracks.subList(1, tracks.size())) {
-                if (!category.equals(track.category())) {
-                    category = "mixed";
+            if (tracks.size > 1) {
+                var totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond
+                var totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond
+                for (track in tracks.subList(1, tracks.size)) {
+                    if (category != track.category) {
+                        category = "mixed"
+                    }
+                    startTimeEpochMillis =
+                        min(startTimeEpochMillis, track.startTimeEpochMillis)
+                    stopTimeEpochMillis =
+                        max(stopTimeEpochMillis, track.stopTimeEpochMillis)
+                    totalDistanceMeter += track.totalDistanceMeter
+                    totalTimeMillis += track.totalTimeMillis
+                    movingTimeMillis += track.movingTimeMillis
+                    totalAvgSpeedMeterPerSecond += track.avgSpeedMeterPerSecond
+                    totalAvgMovingSpeedMeterPerSecond += track.avgMovingSpeedMeterPerSecond
+                    maxSpeedMeterPerSecond =
+                        max(maxSpeedMeterPerSecond, track.maxSpeedMeterPerSecond)
+                    minElevationMeter =
+                        min(minElevationMeter, track.minElevationMeter)
+                    maxElevationMeter =
+                        max(maxElevationMeter, track.maxElevationMeter)
+                    elevationGainMeter += track.elevationGainMeter
                 }
-                startTimeEpochMillis = Math.min(startTimeEpochMillis, track.startTimeEpochMillis());
-                stopTimeEpochMillis = Math.max(stopTimeEpochMillis, track.stopTimeEpochMillis());
-                totalDistanceMeter += track.totalDistanceMeter();
-                totalTimeMillis += track.totalTimeMillis();
-                movingTimeMillis += track.movingTimeMillis();
-                totalAvgSpeedMeterPerSecond += track.avgSpeedMeterPerSecond();
-                totalAvgMovingSpeedMeterPerSecond += track.avgMovingSpeedMeterPerSecond();
-                maxSpeedMeterPerSecond = Math.max(maxSpeedMeterPerSecond, track.maxSpeedMeterPerSecond());
-                minElevationMeter = Math.min(minElevationMeter, track.minElevationMeter());
-                maxElevationMeter = Math.max(maxElevationMeter, track.maxElevationMeter());
-                elevationGainMeter += track.elevationGainMeter();
-            }
 
-            avgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond / tracks.size();
-            avgMovingSpeedMeterPerSecond = totalAvgMovingSpeedMeterPerSecond / tracks.size();
+                avgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond / tracks.size
+                avgMovingSpeedMeterPerSecond = totalAvgMovingSpeedMeterPerSecond / tracks.size
+            }
         }
     }
 
-    public String getCategory() {
-        return category;
+    fun getCategory(): String {
+        return category
     }
 
-    public int getStartTimeEpochMillis() {
-        return startTimeEpochMillis;
+    fun getStartTimeEpochMillis(): Int {
+        return startTimeEpochMillis
     }
 
-    public int getStopTimeEpochMillis() {
-        return stopTimeEpochMillis;
+    fun getStopTimeEpochMillis(): Int {
+        return stopTimeEpochMillis
     }
 
-    public float getTotalDistanceMeter() {
-        return totalDistanceMeter;
+    fun getTotalDistanceMeter(): Float {
+        return totalDistanceMeter
     }
 
-    public int getTotalTimeMillis() {
-        return totalTimeMillis;
+    fun getTotalTimeMillis(): Int {
+        return totalTimeMillis
     }
 
-    public int getMovingTimeMillis() {
-        return movingTimeMillis;
+    fun getMovingTimeMillis(): Int {
+        return movingTimeMillis
     }
 
-    public float getAvgSpeedMeterPerSecond() {
-        return avgSpeedMeterPerSecond;
+    fun getAvgSpeedMeterPerSecond(): Float {
+        return avgSpeedMeterPerSecond
     }
 
-    public float getAvgMovingSpeedMeterPerSecond() {
-        return avgMovingSpeedMeterPerSecond;
+    fun getAvgMovingSpeedMeterPerSecond(): Float {
+        return avgMovingSpeedMeterPerSecond
     }
 
-    public float getMaxSpeedMeterPerSecond() {
-        return maxSpeedMeterPerSecond;
+    fun getMaxSpeedMeterPerSecond(): Float {
+        return maxSpeedMeterPerSecond
     }
 
-    public float getMinElevationMeter() {
-        return minElevationMeter;
+    fun getMinElevationMeter(): Float {
+        return minElevationMeter
     }
 
-    public float getMaxElevationMeter() {
-        return maxElevationMeter;
+    fun getMaxElevationMeter(): Float {
+        return maxElevationMeter
     }
 
-    public float getElevationGainMeter() {
-        return elevationGainMeter;
+    fun getElevationGainMeter(): Float {
+        return elevationGainMeter
     }
 }

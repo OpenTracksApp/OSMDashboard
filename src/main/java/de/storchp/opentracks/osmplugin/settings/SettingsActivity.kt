@@ -1,132 +1,127 @@
-package de.storchp.opentracks.osmplugin.settings;
+package de.storchp.opentracks.osmplugin.settings
 
-import static java.util.stream.Collectors.joining;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.os.Build
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
+import androidx.preference.Preference.SummaryProvider
+import androidx.preference.PreferenceFragmentCompat
+import de.storchp.opentracks.osmplugin.BuildConfig
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding
+import de.storchp.opentracks.osmplugin.download.DownloadMapSelectionActivity
+import de.storchp.opentracks.osmplugin.settings.SettingsActivity.SettingsFragment
+import de.storchp.opentracks.osmplugin.utils.FileUtil
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
+class SettingsActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.settings, SettingsFragment())
+            .commit()
 
-import java.util.Objects;
-
-import de.storchp.opentracks.osmplugin.BuildConfig;
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding;
-import de.storchp.opentracks.osmplugin.download.DownloadMapSelectionActivity;
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
-
-public class SettingsActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        var binding = ActivitySettingsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.settings, new SettingsFragment())
-                .commit();
-
-        setSupportActionBar(binding.toolbar.mapsToolbar);
+        setSupportActionBar(binding.toolbar.mapsToolbar)
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
-            if (PreferencesUtils.isKey(R.string.night_mode_key, key)) {
-                getActivity().runOnUiThread(PreferencesUtils::applyNightMode);
+    class SettingsFragment : PreferenceFragmentCompat() {
+        private val sharedPreferenceChangeListener =
+            OnSharedPreferenceChangeListener { sharedPreferences, key ->
+                if (PreferencesUtils.isKey(R.string.night_mode_key, key)) {
+                    requireActivity().runOnUiThread(Runnable { PreferencesUtils.applyNightMode() })
+                }
             }
-        };
 
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             if (BuildConfig.offline) {
-                var onlineMapConsentPreference = findPreference(getString(R.string.APP_PREF_ONLINE_MAP_CONSENT));
+                val onlineMapConsentPreference =
+                    findPreference<Preference?>(getString(R.string.APP_PREF_ONLINE_MAP_CONSENT))
                 if (onlineMapConsentPreference != null) {
-                    onlineMapConsentPreference.setVisible(false);
+                    onlineMapConsentPreference.isVisible = false
                 }
 
-                var mapDownloadPreference = findPreference(getString(R.string.APP_PREF_MAP_DOWNLOAD));
+                val mapDownloadPreference =
+                    findPreference<Preference?>(getString(R.string.APP_PREF_MAP_DOWNLOAD))
                 if (mapDownloadPreference != null) {
-                    mapDownloadPreference.setVisible(false);
+                    mapDownloadPreference.isVisible = false
                 }
             }
 
-            var dynamicColors = findPreference(getString(R.string.settings_ui_dynamic_colors_key));
+            val dynamicColors =
+                findPreference<Preference?>(getString(R.string.settings_ui_dynamic_colors_key))
             if (dynamicColors != null) {
-                dynamicColors.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU);
+                dynamicColors.isEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
             }
-            setSummaries();
+            setSummaries()
         }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            setSummaries();
-            PreferencesUtils.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        override fun onResume() {
+            super.onResume()
+            setSummaries()
+            PreferencesUtils.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
         }
 
-        @Override
-        public void onPause() {
-            super.onPause();
-            PreferencesUtils.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        override fun onPause() {
+            super.onPause()
+            PreferencesUtils.unregisterOnSharedPreferenceChangeListener(
+                sharedPreferenceChangeListener
+            )
         }
 
-        private void setSummaries() {
-            var mapsPreference = findPreference(getString(R.string.APP_PREF_MAP_SELECTION));
-            if (mapsPreference != null) {
-                mapsPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
-                    var mapUris = PreferencesUtils.getMapUris();
-                    if (mapUris.isEmpty() && !BuildConfig.offline) {
-                        return getString(R.string.online_osm_mapnick);
-                    }
-                    return mapUris.stream()
-                            .map(uri -> FileUtil.getFilenameFromUri(getContext(), uri))
-                            .filter(Objects::nonNull)
-                            .collect(joining(", "));
-                });
-            }
+        private fun setSummaries() {
+            val mapsPreference =
+                findPreference<Preference?>(getString(R.string.APP_PREF_MAP_SELECTION))
+            mapsPreference?.setSummaryProvider(SummaryProvider { preference: Preference? ->
+                val mapUris = PreferencesUtils.getMapUris()
+                if (mapUris.isEmpty() && !BuildConfig.offline) {
+                    return@SummaryProvider getString(R.string.online_osm_mapnick)
+                }
+                mapUris
+                    .mapNotNull { uri -> FileUtil.getFilenameFromUri(requireActivity(), uri) }
+                    .joinToString(", ")
+            })
 
-            var mapDownloadPreference = findPreference(getString(R.string.APP_PREF_MAP_DOWNLOAD));
-            if (mapDownloadPreference != null) {
-                mapDownloadPreference.setSummary(getString(R.string.map_download_summary, DownloadMapSelectionActivity.MAPS_V_5));
-            }
+            val mapDownloadPreference =
+                findPreference<Preference?>(getString(R.string.APP_PREF_MAP_DOWNLOAD))
+            mapDownloadPreference?.setSummary(
+                getString(
+                    R.string.map_download_summary,
+                    DownloadMapSelectionActivity.Companion.MAPS_V_5
+                )
+            )
 
-            var mapDirectoryPreference = findPreference(getString(R.string.APP_PREF_MAP_DIRECTORY));
-            if (mapDirectoryPreference != null) {
-                mapDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
-                    var uri = PreferencesUtils.getMapDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
-                });
-            }
+            val mapDirectoryPreference =
+                findPreference<Preference?>(getString(R.string.APP_PREF_MAP_DIRECTORY))
+            mapDirectoryPreference?.setSummaryProvider(SummaryProvider { preference: Preference? ->
+                val uri = PreferencesUtils.getMapDirectoryUri()
+                if (uri != null) uri.lastPathSegment else getString(R.string.INTERNAL_APP_STORAGE)
+            })
 
-            var themePreference = findPreference(getString(R.string.APP_PREF_MAP_THEME));
-            if (themePreference != null) {
-                themePreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
-                    var themeUri = PreferencesUtils.getMapThemeUri();
-                    if (themeUri == null) {
-                        return getString(R.string.default_theme);
-                    }
-                    var filename = FileUtil.getFilenameFromUri(getContext(), themeUri) + (themeUri.getFragment() != null ? "#" + themeUri.getFragment() : "");
-                    return Objects.requireNonNullElseGet(filename, () -> getString(R.string.default_theme));
-                });
-            }
+            val themePreference =
+                findPreference<Preference?>(getString(R.string.APP_PREF_MAP_THEME))
+            themePreference?.setSummaryProvider(SummaryProvider { preference: Preference? ->
+                val themeUri = PreferencesUtils.getMapThemeUri()
+                if (themeUri == null) {
+                    return@SummaryProvider getString(R.string.default_theme)
+                }
+                FileUtil.getFilenameFromUri(requireActivity(), themeUri)
+                    ?.plus((if (themeUri.fragment != null) "#" + themeUri.fragment else ""))
+                    ?: getString(R.string.default_theme)
+            })
 
-            var themeDirectoryPreference = findPreference(getString(R.string.APP_PREF_MAP_THEME_DIRECTORY));
-            if (themeDirectoryPreference != null) {
-                themeDirectoryPreference.setSummaryProvider((Preference.SummaryProvider<Preference>) preference -> {
-                    var uri = PreferencesUtils.getMapThemeDirectoryUri();
-                    return uri != null ? uri.getLastPathSegment() : getString(R.string.INTERNAL_APP_STORAGE);
-                });
-            }
+            val themeDirectoryPreference =
+                findPreference<Preference?>(getString(R.string.APP_PREF_MAP_THEME_DIRECTORY))
+            themeDirectoryPreference?.setSummaryProvider(SummaryProvider { preference: Preference? ->
+                val uri = PreferencesUtils.getMapThemeDirectoryUri()
+                if (uri != null) uri.lastPathSegment else getString(R.string.INTERNAL_APP_STORAGE)
+            })
         }
-
     }
-
 }

@@ -1,40 +1,30 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.location.Location;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
-import org.oscim.android.canvas.AndroidBitmap;
-import org.oscim.core.GeoPoint;
-import org.oscim.layers.marker.MarkerItem;
-import org.oscim.layers.marker.MarkerSymbol;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
-
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint;
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint;
-import de.storchp.opentracks.osmplugin.maps.MovementDirection;
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.location.Location
+import android.util.Log
+import androidx.core.content.ContextCompat
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint
+import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
+import de.storchp.opentracks.osmplugin.maps.MovementDirection
+import org.oscim.android.canvas.AndroidBitmap
+import org.oscim.core.GeoPoint
+import org.oscim.layers.marker.MarkerItem
+import org.oscim.layers.marker.MarkerSymbol
+import org.oscim.layers.marker.MarkerSymbol.HotspotPlace
+import java.util.Stack
+import kotlin.math.abs
 
 /**
  * Utility class for decimating tracks at a given level of precision.
- * Derived from: <a href="https://github.com/OpenTracksApp/OpenTracks/blob/23f47f10f8cd0f8b30bd6fcdccb1987008eaa07e/src/main/java/de/dennisguse/opentracks/util/LocationUtils.java">...</a>
+ * Derived from: [...](https://github.com/OpenTracksApp/OpenTracks/blob/23f47f10f8cd0f8b30bd6fcdccb1987008eaa07e/src/main/java/de/dennisguse/opentracks/util/LocationUtils.java)
  */
-public class MapUtils {
-
-    private static final String TAG = MapUtils.class.getSimpleName();
-
-    private MapUtils() {
-    }
+object MapUtils {
+    private val TAG: String = MapUtils::class.java.getSimpleName()
 
     /**
      * Computes the distance on the two sphere between the point c0 and the line segment c1 to c2.
@@ -44,39 +34,43 @@ public class MapUtils {
      * @param c2 the end of the lone segment
      * @return the distance in m (assuming spherical earth)
      */
-    private static double distance(GeoPoint c0, GeoPoint c1, GeoPoint c2) {
-        if (c1.equals(c2)) {
-            return c2.sphericalDistance(c0);
+    private fun distance(c0: GeoPoint, c1: GeoPoint, c2: GeoPoint): Double {
+        if (c1 == c2) {
+            return c2.sphericalDistance(c0)
         }
 
-        double u = calcU(c0, c1, c2);
+        val u: Double = calcU(c0, c1, c2)
 
         if (u <= 0) {
-            return c0.sphericalDistance(c1);
+            return c0.sphericalDistance(c1)
         }
 
         if (u >= 1) {
-            return c0.sphericalDistance(c2);
+            return c0.sphericalDistance(c2)
         }
 
-        var sa = new GeoPoint(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude());
-        var sb = new GeoPoint(u * (c2.getLatitude() - c1.getLatitude()), u * (c2.getLongitude() - c1.getLongitude()));
+        val sa =
+            GeoPoint(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude())
+        val sb = GeoPoint(
+            u * (c2.getLatitude() - c1.getLatitude()),
+            u * (c2.getLongitude() - c1.getLongitude())
+        )
 
-        return sa.sphericalDistance(sb);
+        return sa.sphericalDistance(sb)
     }
 
-    private static double calcU(GeoPoint c0, GeoPoint c1, GeoPoint c2) {
-        double s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD;
-        double s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD;
-        double s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD;
-        double s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD;
+    private fun calcU(c0: GeoPoint, c1: GeoPoint, c2: GeoPoint): Double {
+        val s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD
+        val s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD
+        val s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD
+        val s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD
+        val s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD
+        val s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD
 
-        double s2s1lat = s2lat - s1lat;
-        double s2s1lng = s2lng - s1lng;
-        return ((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
-                / (s2s1lat * s2s1lat + s2s1lng * s2s1lng);
+        val s2s1lat = s2lat - s1lat
+        val s2s1lng = s2lng - s1lng
+        return (((s0lat - s1lat) * s2s1lat + (s0lng - s1lng) * s2s1lng)
+                / (s2s1lat * s2s1lat + s2s1lng * s2s1lng))
     }
 
     /**
@@ -86,58 +80,69 @@ public class MapUtils {
      * @param tolerance   in meters
      * @param trackPoints input
      */
-    public static List<TrackPoint> decimate(int tolerance, List<TrackPoint> trackPoints) {
-        int n = trackPoints.size();
+    fun decimate(tolerance: Int, trackPoints: List<TrackPoint>): List<TrackPoint> {
+        val n = trackPoints.size
         if (n < 1) {
-            return Collections.emptyList();
+            return emptyList()
         }
-        int idx;
-        int maxIdx = 0;
-        var stack = new Stack<int[]>();
-        var dists = new double[n];
-        dists[0] = 1;
-        dists[n - 1] = 1;
-        double maxDist;
-        double dist;
-        int[] current;
+        var idx: Int
+        var maxIdx = 0
+        val stack = Stack<IntArray>()
+        val dists = DoubleArray(n)
+        dists[0] = 1.0
+        dists[n - 1] = 1.0
+        var maxDist: Double
+        var dist: Double
+        var current: IntArray
 
         if (n > 2) {
-            stack.push(new int[]{0, (n - 1)});
+            stack.push(intArrayOf(0, (n - 1)))
             while (!stack.isEmpty()) {
-                current = stack.pop();
-                maxDist = 0;
-                for (idx = current[0] + 1; idx < current[1]; ++idx) {
-                    dist = MapUtils.distance(trackPoints.get(idx).getLatLong(), trackPoints.get(current[0]).getLatLong(), trackPoints.get(current[1]).getLatLong());
+                current = stack.pop()
+                maxDist = 0.0
+                idx = current[0] + 1
+                while (idx < current[1]) {
+                    dist = distance(
+                        trackPoints[idx].latLong!!,
+                        trackPoints[current[0]].latLong!!,
+                        trackPoints[current[1]].latLong!!
+                    )
                     if (dist > maxDist) {
-                        maxDist = dist;
-                        maxIdx = idx;
+                        maxDist = dist
+                        maxIdx = idx
                     }
+                    ++idx
                 }
                 if (maxDist > tolerance) {
-                    dists[maxIdx] = maxDist;
-                    stack.push(new int[]{current[0], maxIdx});
-                    stack.push(new int[]{maxIdx, current[1]});
+                    dists[maxIdx] = maxDist
+                    stack.push(intArrayOf(current[0], maxIdx))
+                    stack.push(intArrayOf(maxIdx, current[1]))
                 }
             }
         }
 
-        var decimated = collectTrackPoints(trackPoints, dists);
-        Log.d(TAG, "Decimating " + n + " points to " + decimated.size() + " w/ tolerance = " + tolerance);
+        val decimated: List<TrackPoint> = collectTrackPoints(trackPoints, dists)
+        Log.d(
+            TAG,
+            "Decimating $n points to ${decimated.size} w/ tolerance = $tolerance"
+        )
 
-        return decimated;
+        return decimated
     }
 
-    @NonNull
-    private static ArrayList<TrackPoint> collectTrackPoints(List<TrackPoint> trackPoints, double[] dists) {
-        int idx = 0;
-        var decimated = new ArrayList<TrackPoint>();
-        for (var trackPoint : trackPoints) {
-            if (dists[idx] != 0) {
-                decimated.add(trackPoint);
+    private fun collectTrackPoints(
+        trackPoints: List<TrackPoint>,
+        dists: DoubleArray
+    ): List<TrackPoint> {
+        var idx = 0
+        return buildList {
+            for (trackPoint in trackPoints) {
+                if (dists[idx] != 0.0) {
+                    add(trackPoint)
+                }
+                idx++
             }
-            idx++;
         }
-        return decimated;
     }
 
     /**
@@ -147,27 +152,24 @@ public class MapUtils {
      *
      * @return true if the location is a valid location.
      */
-    public static boolean isValid(double latitude, double longitude) {
-        return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180 && (latitude != 0 || longitude != 0);
-    }
+    fun isValid(latitude: Double, longitude: Double) =
+        abs(latitude) <= 90 && abs(longitude) <= 180 && (latitude != 0.0 || longitude != 0.0)
 
-    public static float bearing(GeoPoint src, GeoPoint dest) {
+    fun bearing(src: GeoPoint?, dest: GeoPoint?) =
         if (src == null || dest == null) {
-            return 0;
+            0f
+        } else {
+            toLocation(src).bearingTo(toLocation(dest))
         }
-        return toLocation(src).bearingTo(toLocation(dest));
-    }
 
-    public static Location toLocation(GeoPoint latLong) {
-        var location = new Location("");
-        location.setLatitude(latLong.getLatitude());
-        location.setLongitude(latLong.getLongitude());
-        return location;
-    }
+    fun toLocation(latLong: GeoPoint) =
+        Location("").apply {
+            latitude = latLong.latitude
+            longitude = latLong.longitude
+        }
 
-    public static float bearingInDegrees(GeoPoint secondToLastPos, GeoPoint endPos) {
-        return normalizeAngle(bearing(secondToLastPos, endPos));
-    }
+    fun bearingInDegrees(secondToLastPos: GeoPoint?, endPos: GeoPoint?) =
+        normalizeAngle(bearing(secondToLastPos, endPos))
 
     /**
      * Converts an angle to between 0 and 360
@@ -175,74 +177,87 @@ public class MapUtils {
      * @param angle the angle in degrees
      * @return the normalized angle
      */
-    public static float normalizeAngle(float angle) {
-        float outputAngle = angle;
+    fun normalizeAngle(angle: Float): Float {
+        var outputAngle = angle
         while (outputAngle < 0) {
-            outputAngle += 360;
+            outputAngle += 360f
         }
-        return outputAngle % 360;
+        return outputAngle % 360
     }
 
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        var drawable = ContextCompat.getDrawable(context, drawableId);
-        var bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        var canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
+    fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context, drawableId)
+        val bitmap = Bitmap.createBitmap(
+            drawable!!.intrinsicWidth,
+            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
 
-        return bitmap;
+        return bitmap
     }
 
 
-    public static int getTrackColorBySpeed(final double average, final double averageToMaxSpeed, final TrackPoint trackPoint) {
-        double speed = trackPoint.getSpeed();
-        int red = 255;
-        int green = 255;
+    fun getTrackColorBySpeed(
+        average: Double,
+        averageToMaxSpeed: Double,
+        trackPoint: TrackPoint
+    ): Int {
+        val speed = trackPoint.speed
+        var red = 255
+        var green = 255
         if (speed == 0.0) {
-            green = 0;
-        } else if (trackPoint.getSpeed() < average) {
-            green = (int) (255 * speed / average);
+            green = 0
+        } else if (trackPoint.speed < average) {
+            green = (255 * speed / average).toInt()
         } else {
-            red = 255 - (int) (255 * (speed - average) / averageToMaxSpeed);
+            red = 255 - (255 * (speed - average) / averageToMaxSpeed).toInt()
         }
-        return Color.argb(255, red, green, 0);
+        return Color.argb(255, red, green, 0)
     }
 
-    public static float rotateWith(MapMode mapMode, MovementDirection movementDirection) {
-        if (mapMode == MapMode.DIRECTION) {
-            return -1 * mapMode.getHeading(movementDirection);
+    fun rotateWith(mapMode: MapMode, movementDirection: MovementDirection) =
+        if (mapMode === MapMode.DIRECTION) {
+            -1 * mapMode.getHeading(movementDirection)
         } else {
-            return movementDirection.getCurrentDegrees() + mapMode.getHeading(movementDirection) % 360;
+            movementDirection.getCurrentDegrees() + mapMode.getHeading(movementDirection) % 360
         }
-    }
 
-    @NonNull
-    public static MarkerSymbol createMarkerSymbol(Context context, int markerResource, boolean billboard, MarkerSymbol.HotspotPlace hotspot) {
-        var bitmap = new AndroidBitmap(getBitmapFromVectorDrawable(context, markerResource));
-        return new MarkerSymbol(bitmap, hotspot, billboard);
-    }
+    fun createMarkerSymbol(
+        context: Context,
+        markerResource: Int,
+        billboard: Boolean,
+        hotspot: HotspotPlace
+    ) = MarkerSymbol(
+        AndroidBitmap(getBitmapFromVectorDrawable(context, markerResource)),
+        hotspot,
+        billboard
+    )
 
-    @NonNull
-    public static MarkerSymbol createPushpinSymbol(Context context) {
-        return createMarkerSymbol(context, R.drawable.ic_marker_orange_pushpin_modern, true, MarkerSymbol.HotspotPlace.BOTTOM_CENTER);
-    }
+    fun createPushpinSymbol(context: Context) =
+        createMarkerSymbol(
+            context = context,
+            markerResource = R.drawable.ic_marker_orange_pushpin_modern,
+            billboard = true,
+            hotspot = HotspotPlace.BOTTOM_CENTER
+        )
 
-    public static MarkerItem createPushpinMarker(Context context, GeoPoint latLong, Long id) {
-        var symbol = createPushpinSymbol(context);
-        var marker = new MarkerItem(id, latLong.toString(), "", latLong);
-        marker.setMarker(symbol);
-        return marker;
-    }
+    fun createPushpinMarker(context: Context, latLong: GeoPoint?, id: Long?) =
+        MarkerItem(id, latLong.toString(), "", latLong).apply {
+            marker = createPushpinSymbol(context)
+        }
 
-    public static MarkerItem createPauseMarker(Context context, GeoPoint latLong) {
-        var symbol = createMarkerSymbol(context, R.drawable.ic_marker_pause_34, true, MarkerSymbol.HotspotPlace.CENTER);
-        var marker = new MarkerItem(latLong.toString(), "", latLong);
-        marker.setMarker(symbol);
-        return marker;
-    }
+    fun createPauseMarker(context: Context, latLong: GeoPoint?) =
+        MarkerItem(latLong.toString(), "", latLong).apply {
+            marker = createMarkerSymbol(
+                context = context,
+                markerResource = R.drawable.ic_marker_pause_34,
+                billboard = true,
+                hotspot = HotspotPlace.CENTER
+            )
+        }
 
-    public static MarkerItem createTappableMarker(final Context context, Waypoint waypoint) {
-        return createPushpinMarker(context, waypoint.getLatLong(), waypoint.getId());
-    }
+    fun createTappableMarker(context: Context, waypoint: Waypoint) =
+        createPushpinMarker(context, waypoint.latLong, waypoint.id)
 }

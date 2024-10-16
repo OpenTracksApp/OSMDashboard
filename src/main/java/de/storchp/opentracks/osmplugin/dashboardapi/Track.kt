@@ -1,38 +1,49 @@
-package de.storchp.opentracks.osmplugin.dashboardapi;
+package de.storchp.opentracks.osmplugin.dashboardapi
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.util.Log;
+import android.content.ContentResolver
+import android.net.Uri
+import android.util.Log
+import java.lang.Exception
 
-import java.util.ArrayList;
-import java.util.List;
+@JvmRecord
+data class Track(
+    val id: Long,
+    val trackname: String?,
+    val description: String?,
+    val category: String?,
+    val startTimeEpochMillis: Int,
+    val stopTimeEpochMillis: Int,
+    val totalDistanceMeter: Float,
+    val totalTimeMillis: Int,
+    val movingTimeMillis: Int,
+    val avgSpeedMeterPerSecond: Float,
+    val avgMovingSpeedMeterPerSecond: Float,
+    val maxSpeedMeterPerSecond: Float,
+    val minElevationMeter: Float,
+    val maxElevationMeter: Float,
+    val elevationGainMeter: Float
+) {
 
-public record Track(long id, String trackname, String description, String category,
-                    int startTimeEpochMillis, int stopTimeEpochMillis, float totalDistanceMeter,
-                    int totalTimeMillis, int movingTimeMillis, float avgSpeedMeterPerSecond,
-                    float avgMovingSpeedMeterPerSecond, float maxSpeedMeterPerSecond,
-                    float minElevationMeter, float maxElevationMeter, float elevationGainMeter) {
+    companion object {
+        private val TAG: String = Track::class.java.getSimpleName()
 
-    private static final String TAG = Track.class.getSimpleName();
+        const val _ID: String = "_id"
+        const val NAME: String = "name" // track name
+        const val DESCRIPTION: String = "description" // track description
+        const val CATEGORY: String = "category" // track activity type
+        const val STARTTIME: String = "starttime" // track start time
+        const val STOPTIME: String = "stoptime" // track stop time
+        const val TOTALDISTANCE: String = "totaldistance" // total distance
+        const val TOTALTIME: String = "totaltime" // total time
+        const val MOVINGTIME: String = "movingtime" // moving time
+        const val AVGSPEED: String = "avgspeed" // average speed
+        const val AVGMOVINGSPEED: String = "avgmovingspeed" // average moving speed
+        const val MAXSPEED: String = "maxspeed" // maximum speed
+        const val MINELEVATION: String = "minelevation" // minimum elevation
+        const val MAXELEVATION: String = "maxelevation" // maximum elevation
+        const val ELEVATIONGAIN: String = "elevationgain" // elevation gain
 
-    public static final String _ID = "_id";
-    public static final String NAME = "name"; // track name
-    public static final String DESCRIPTION = "description"; // track description
-    public static final String CATEGORY = "category"; // track activity type
-    public static final String STARTTIME = "starttime"; // track start time
-    public static final String STOPTIME = "stoptime"; // track stop time
-    public static final String TOTALDISTANCE = "totaldistance"; // total distance
-    public static final String TOTALTIME = "totaltime"; // total time
-    public static final String MOVINGTIME = "movingtime"; // moving time
-    public static final String AVGSPEED = "avgspeed"; // average speed
-    public static final String AVGMOVINGSPEED = "avgmovingspeed"; // average moving speed
-    public static final String MAXSPEED = "maxspeed"; // maximum speed
-    public static final String MINELEVATION = "minelevation"; // minimum elevation
-    public static final String MAXELEVATION = "maxelevation"; // maximum elevation
-    public static final String ELEVATIONGAIN = "elevationgain"; // elevation gain
-
-    public static final String[] PROJECTION = {
+        val PROJECTION = arrayOf(
             _ID,
             NAME,
             DESCRIPTION,
@@ -48,42 +59,73 @@ public record Track(long id, String trackname, String description, String catego
             MINELEVATION,
             MAXELEVATION,
             ELEVATIONGAIN
-    };
+        )
 
-    /**
-     * Reads the Tracks from the Content Uri
-     */
-    public static List<Track> readTracks(ContentResolver resolver, Uri data) {
-        Log.i(TAG, "Loading track(s) from " + data);
+        /**
+         * Reads the Tracks from the Content Uri
+         */
+        fun readTracks(resolver: ContentResolver, data: Uri): List<Track> {
+            Log.i(TAG, "Loading track(s) from $data")
 
-        var tracks = new ArrayList<Track>();
-        try (Cursor cursor = resolver.query(data, Track.PROJECTION, null, null, null)) {
-            while (cursor.moveToNext()) {
-                var id = cursor.getLong(cursor.getColumnIndexOrThrow(Track._ID));
-                var trackname = cursor.getString(cursor.getColumnIndexOrThrow(Track.NAME));
-                var description = cursor.getString(cursor.getColumnIndexOrThrow(Track.DESCRIPTION));
-                var category = cursor.getString(cursor.getColumnIndexOrThrow(Track.CATEGORY));
-                var startTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STARTTIME));
-                var stopTimeEpochMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.STOPTIME));
-                var totalDistanceMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.TOTALDISTANCE));
-                var totalTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.TOTALTIME));
-                var movingTimeMillis = cursor.getInt(cursor.getColumnIndexOrThrow(Track.MOVINGTIME));
-                var avgSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGSPEED));
-                var avgMovingSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.AVGMOVINGSPEED));
-                var maxSpeedMeterPerSecond = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXSPEED));
-                var minElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MINELEVATION));
-                var maxElevationMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.MAXELEVATION));
-                var elevationGainMeter = cursor.getFloat(cursor.getColumnIndexOrThrow(Track.ELEVATIONGAIN));
+            return buildList {
+                try {
+                    resolver.query(data, PROJECTION, null, null, null).use { cursor ->
+                        while (cursor!!.moveToNext()) {
+                            val id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+                            val trackname = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
+                            val description =
+                                cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))
+                            val category = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY))
+                            val startTimeEpochMillis =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(STARTTIME))
+                            val stopTimeEpochMillis =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(STOPTIME))
+                            val totalDistanceMeter =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(TOTALDISTANCE))
+                            val totalTimeMillis =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(TOTALTIME))
+                            val movingTimeMillis =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(MOVINGTIME))
+                            val avgSpeedMeterPerSecond =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(AVGSPEED))
+                            val avgMovingSpeedMeterPerSecond =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(AVGMOVINGSPEED))
+                            val maxSpeedMeterPerSecond =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(MAXSPEED))
+                            val minElevationMeter =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(MINELEVATION))
+                            val maxElevationMeter =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(MAXELEVATION))
+                            val elevationGainMeter =
+                                cursor.getFloat(cursor.getColumnIndexOrThrow(ELEVATIONGAIN))
 
-                tracks.add(new Track(id, trackname, description, category, startTimeEpochMillis, stopTimeEpochMillis,
-                        totalDistanceMeter, totalTimeMillis, movingTimeMillis, avgSpeedMeterPerSecond, avgMovingSpeedMeterPerSecond, maxSpeedMeterPerSecond,
-                        minElevationMeter, maxElevationMeter, elevationGainMeter));
+                            add(
+                                Track(
+                                    id = id,
+                                    trackname = trackname,
+                                    description = description,
+                                    category = category,
+                                    startTimeEpochMillis = startTimeEpochMillis,
+                                    stopTimeEpochMillis = stopTimeEpochMillis,
+                                    totalDistanceMeter = totalDistanceMeter,
+                                    totalTimeMillis = totalTimeMillis,
+                                    movingTimeMillis = movingTimeMillis,
+                                    avgSpeedMeterPerSecond = avgSpeedMeterPerSecond,
+                                    avgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond,
+                                    maxSpeedMeterPerSecond = maxSpeedMeterPerSecond,
+                                    minElevationMeter = minElevationMeter,
+                                    maxElevationMeter = maxElevationMeter,
+                                    elevationGainMeter = elevationGainMeter
+                                )
+                            )
+                        }
+                    }
+                } catch (_: SecurityException) {
+                    Log.w(TAG, "No permission to read track")
+                } catch (e: Exception) {
+                    Log.e(TAG, "Reading track failed", e)
+                }
             }
-        } catch (SecurityException e) {
-            Log.w(TAG, "No permission to read track");
-        } catch (Exception e) {
-            Log.e(TAG, "Reading track failed", e);
         }
-        return tracks;
     }
 }

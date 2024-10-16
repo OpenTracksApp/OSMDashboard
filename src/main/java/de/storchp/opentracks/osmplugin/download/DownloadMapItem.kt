@@ -1,23 +1,21 @@
-package de.storchp.opentracks.osmplugin.download;
+package de.storchp.opentracks.osmplugin.download
 
-import android.net.Uri;
+import android.net.Uri
 
-import androidx.annotation.NonNull;
+data class DownloadMapItem(
+    val downloadItemType: DownloadItemType,
+    val name: String,
+    val date: String?,
+    val size: String,
+    val uri: Uri,
+) : Comparable<DownloadMapItem> {
+    override fun toString() = this.name
 
-public record DownloadMapItem(DownloadItemType downloadItemType, String name, String date,
-                              String size, Uri uri) implements Comparable<DownloadMapItem> {
-
-    @NonNull
-    @Override
-    public String toString() {
-        return name();
-    }
-
-    @Override
-    public int compareTo(DownloadMapItem o) {
+    override fun compareTo(o: DownloadMapItem) =
         if (downloadItemType != o.downloadItemType) {
-            return downloadItemType.compareTo(o.downloadItemType);
+            downloadItemType.compareTo(o.downloadItemType)
+        } else {
+            name.compareTo(o.name)
         }
-        return name.compareTo(o.name);
-    }
+
 }

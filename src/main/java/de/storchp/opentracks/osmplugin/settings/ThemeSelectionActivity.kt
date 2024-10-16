@@ -1,196 +1,226 @@
-package de.storchp.opentracks.osmplugin.settings;
+package de.storchp.opentracks.osmplugin.settings
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.content.DialogInterface
+import android.net.Uri
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView.OnItemLongClickListener
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.documentfile.provider.DocumentFile
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding
+import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding
+import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
+import de.storchp.opentracks.osmplugin.settings.ThemeSelectionActivity.MapThemeDirScanner
+import de.storchp.opentracks.osmplugin.utils.FileItem
+import de.storchp.opentracks.osmplugin.utils.FileUtil
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
+import de.storchp.opentracks.osmplugin.utils.ThemeItemAdapter
+import org.oscim.theme.ZipXmlThemeResourceProvider
+import java.io.BufferedInputStream
+import java.io.File
+import java.lang.Exception
+import java.lang.RuntimeException
+import java.lang.ref.WeakReference
+import java.nio.file.Files
+import java.util.ArrayList
+import java.util.function.Consumer
+import java.util.zip.ZipInputStream
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
+class ThemeSelectionActivity : AppCompatActivity() {
+    private lateinit var adapter: ThemeItemAdapter
+    private lateinit var binding: ActivityThemeSelectionBinding
 
-import org.oscim.theme.ZipXmlThemeResourceProvider;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityThemeSelectionBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.zip.ZipInputStream;
+        binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection)
+        setSupportActionBar(binding.toolbar.mapsToolbar)
 
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding;
-import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding;
-import de.storchp.opentracks.osmplugin.download.DownloadActivity;
-import de.storchp.opentracks.osmplugin.utils.FileItem;
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
-import de.storchp.opentracks.osmplugin.utils.ThemeItemAdapter;
-
-public class ThemeSelectionActivity extends AppCompatActivity {
-
-    private ThemeItemAdapter adapter;
-    private ActivityThemeSelectionBinding binding;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityThemeSelectionBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        binding.toolbar.mapsToolbar.setTitle(R.string.theme_selection);
-        setSupportActionBar(binding.toolbar.mapsToolbar);
-
-        boolean onlineMapSelected = PreferencesUtils.getMapUris().isEmpty();
+        val onlineMapSelected = PreferencesUtils.getMapUris().isEmpty()
         if (onlineMapSelected) {
-            PreferencesUtils.setMapThemeUri(null);
+            PreferencesUtils.setMapThemeUri(null)
         }
 
-        adapter = new ThemeItemAdapter(this, new ArrayList<>(), PreferencesUtils.getMapThemeUri(), onlineMapSelected);
-        adapter.add(new FileItem(getString(R.string.default_theme), null, null, null));
+        adapter = ThemeItemAdapter(
+            this,
+            emptyList(),
+            PreferencesUtils.getMapThemeUri(),
+            onlineMapSelected
+        )
+        adapter.add(FileItem(getString(R.string.default_theme), null, null, null))
 
-        new Thread(new MapThemeDirScanner(this)).start();
+        Thread(MapThemeDirScanner(this)).start()
 
-        binding.themeList.setAdapter(adapter);
-        binding.themeList.setOnItemClickListener((listview, view, position, id) -> {
-            var itemBinding = (ThemeItemBinding) view.getTag();
-            itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked());
-            itemBinding.radiobutton.callOnClick();
-        });
-        binding.themeList.setOnItemLongClickListener((parent, view, position, id) -> {
-            var fileItem = adapter.getItem(position);
-            var uri = fileItem.uri();
-            if (uri == null) {
-                // online theme can't be deleted
-                return false;
+        binding.themeList.setAdapter(adapter)
+        binding.themeList.onItemClickListener =
+            OnItemClickListener { listview: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                val itemBinding = view!!.tag as ThemeItemBinding
+                itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked)
+                itemBinding.radiobutton.callOnClick()
             }
-            new AlertDialog.Builder(ThemeSelectionActivity.this)
+        binding.themeList.onItemLongClickListener =
+            OnItemLongClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                val fileItem = adapter.getItem(position)
+                val uri = fileItem!!.uri
+                if (uri == null) {
+                    // online theme can't be deleted
+                    return@OnItemLongClickListener false
+                }
+                AlertDialog.Builder(this@ThemeSelectionActivity)
                     .setIcon(R.drawable.ic_logo_color_24dp)
                     .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.delete_theme_question, fileItem.name()))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        boolean deleted;
-                        if ("file".equals(fileItem.uri().getScheme())) {
-                            deleted = new File(fileItem.uri().toString()).delete();
-                        } else {
-                            var file = FileUtil.getDocumentFileFromTreeUri(ThemeSelectionActivity.this, fileItem.uri());
-                            deleted = file.delete();
-                        }
-                        if (deleted) {
-                            adapter.remove(fileItem);
-                            adapter.setSelectedUri(null);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(ThemeSelectionActivity.this, R.string.delete_theme_error, Toast.LENGTH_LONG).show();
-                        }
-                    })
+                    .setMessage(getString(R.string.delete_theme_question, fileItem.name))
+                    .setPositiveButton(
+                        android.R.string.ok,
+                        DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                            var deleted: Boolean
+                            if ("file" == fileItem.uri.scheme) {
+                                deleted = File(fileItem.uri.toString()).delete()
+                            } else {
+                                val file = FileUtil.getDocumentFileFromTreeUri(
+                                    this@ThemeSelectionActivity,
+                                    fileItem.uri
+                                )
+                                deleted = file!!.delete()
+                            }
+                            if (deleted) {
+                                adapter.remove(fileItem)
+                                adapter.selectedUri = null
+                                adapter.notifyDataSetChanged()
+                            } else {
+                                Toast.makeText(
+                                    this@ThemeSelectionActivity,
+                                    R.string.delete_theme_error,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        })
                     .setNegativeButton(android.R.string.cancel, null)
-                    .create().show();
-            return false;
-        });
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            public void handleOnBackPressed() {
-                navigateUp();
+                    .create().show()
+                false
             }
-        });
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateUp()
+            }
+        })
     }
 
-    private static class MapThemeDirScanner implements Runnable {
+    private class MapThemeDirScanner(activity: ThemeSelectionActivity) : Runnable {
+        val activityRef: WeakReference<ThemeSelectionActivity> =
+            WeakReference<ThemeSelectionActivity>(activity)
 
-        final WeakReference<ThemeSelectionActivity> activityRef;
-
-        private MapThemeDirScanner(final ThemeSelectionActivity activity) {
-            this.activityRef = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void run() {
-            var directory = PreferencesUtils.getMapThemeDirectoryUri();
-            var items = new ArrayList<FileItem>();
-            var activity = activityRef.get();
+        override fun run() {
+            val directory = PreferencesUtils.getMapThemeDirectoryUri()
+            val items = ArrayList<FileItem?>()
+            val activity = activityRef.get()
             if (activity == null) {
-                return;
+                return
             }
             if (directory == null) {
-                var filesDir = activity.getExternalFilesDir(null).toPath();
-                var themeDir = filesDir.resolve(DownloadActivity.DownloadType.THEME.getSubdir());
+                val filesDir = activity.getExternalFilesDir(null)!!.toPath()
+                val themeDir = filesDir.resolve(DownloadType.THEME.subdir)
                 if (Files.exists(themeDir)) {
-                    for (var file : themeDir.toFile().listFiles()) {
-                        activity.readThemeFile(items, file);
+                    themeDir.toFile().listFiles()!!.forEach {
+                        activity.readThemeFile(items, it)
                     }
                 }
             } else {
-                var documentsTree = FileUtil.getDocumentFileFromTreeUri(activity, directory);
+                val documentsTree = FileUtil.getDocumentFileFromTreeUri(activity, directory)
                 if (documentsTree != null) {
-                    for (var file : documentsTree.listFiles()) {
-                        activity.readThemeFile(items, file);
+                    for (file in documentsTree.listFiles()) {
+                        activity.readThemeFile(items, file)
                     }
                 }
             }
 
-            activity.runOnUiThread(() -> {
-                activity.adapter.addAll(items);
-                activity.adapter.notifyDataSetChanged();
-                activity.binding.progressBar.setVisibility(View.GONE);
-            });
+            activity.runOnUiThread(Runnable {
+                activity.adapter.addAll(items)
+                activity.adapter.notifyDataSetChanged()
+                activity.binding.progressBar.visibility = View.GONE
+            })
         }
     }
 
-    private void readThemeFile(ArrayList<FileItem> items, DocumentFile file) {
-        if (file.isFile() && file.getName() != null) {
-            if (file.getName().endsWith(".xml")) {
-                items.add(new FileItem(file.getName(), file.getUri(), null, file));
-            } else if (file.getName().endsWith(".zip")) {
-                resolveThemesFromZip(items, file.getUri(), file.getName(), file, null);
+    private fun readThemeFile(items: ArrayList<FileItem?>, file: DocumentFile) {
+        if (file.isFile && file.name != null) {
+            if (file.name!!.endsWith(".xml")) {
+                items.add(FileItem(file.name!!, file.uri, null, file))
+            } else if (file.name!!.endsWith(".zip")) {
+                resolveThemesFromZip(items, file.uri, file.name, file, null)
             }
-        } else if (file.isDirectory()) {
-            var childFile = file.findFile(file.getName() + ".xml");
+        } else if (file.isDirectory) {
+            val childFile = file.findFile(file.name + ".xml")
             if (childFile != null) {
-                items.add(new FileItem(childFile.getName(), childFile.getUri(), null, childFile));
+                items.add(FileItem(childFile.name!!, childFile.uri, null, childFile))
             }
         }
     }
 
-    private void readThemeFile(ArrayList<FileItem> items, File file) {
+    private fun readThemeFile(items: ArrayList<FileItem?>, file: File) {
         if (file.isFile() && file.exists()) {
-            var uri = Uri.fromFile(file);
+            val uri = Uri.fromFile(file)
             if (file.getName().endsWith(".xml")) {
-                items.add(new FileItem(file.getName(), uri, file, null));
+                items.add(FileItem(file.getName(), uri, file, null))
             } else if (file.getName().endsWith(".zip")) {
-                resolveThemesFromZip(items, uri, file.getName(), null, file);
+                resolveThemesFromZip(items, uri, file.getName(), null, file)
             }
         } else if (file.isDirectory()) {
-            var childFile = new File(file, file.getName() + ".xml");
+            val childFile = File(file, file.getName() + ".xml")
             if (childFile.exists()) {
-                items.add(new FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null));
+                items.add(FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null))
             }
         }
     }
 
-    private void resolveThemesFromZip(ArrayList<FileItem> items, Uri uri, String filename, DocumentFile documentFile, File file) {
+    private fun resolveThemesFromZip(
+        items: ArrayList<FileItem?>,
+        uri: Uri,
+        filename: String?,
+        documentFile: DocumentFile?,
+        file: File?
+    ) {
         try {
-            var xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(new ZipInputStream(new BufferedInputStream(getContentResolver().openInputStream(uri))));
-            xmlThemes.forEach(xmlTheme -> items.add(new FileItem(filename + "#" + xmlTheme, uri.buildUpon().fragment(xmlTheme).build(), file, documentFile)));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read theme .zip file: " + filename, e);
+            val xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(
+                ZipInputStream(
+                    BufferedInputStream(contentResolver.openInputStream(uri))
+                )
+            )
+            xmlThemes.forEach(Consumer { xmlTheme: String? ->
+                items.add(
+                    FileItem(
+                        "$filename#$xmlTheme",
+                        uri.buildUpon().fragment(xmlTheme).build(),
+                        file,
+                        documentFile
+                    )
+                )
+            })
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to read theme .zip file: $filename", e)
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            navigateUp();
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem) =
+        if (item.itemId == android.R.id.home) {
+            navigateUp()
+            true
+        } else {
+            false
         }
-        return false;
-    }
 
-    public void navigateUp() {
-        PreferencesUtils.setMapThemeUri(adapter.getSelectedUri());
-        finish();
+    fun navigateUp() {
+        PreferencesUtils.setMapThemeUri(adapter.selectedUri)
+        finish()
     }
-
 }

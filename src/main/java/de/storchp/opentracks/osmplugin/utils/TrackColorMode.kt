@@ -1,20 +1,21 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-public enum TrackColorMode {
-
+enum class TrackColorMode(supportsLiveTrack: Boolean) {
     UNI(true),
     BY_TRACK(true),
     BY_SPEED(false);
 
-    private final boolean supportsLiveTrack;
+    private val supportsLiveTrack: Boolean
 
-    public static final TrackColorMode DEFAULT = BY_TRACK;
-
-    TrackColorMode(final boolean supportsLiveTrack) {
-        this.supportsLiveTrack = supportsLiveTrack;
+    init {
+        this.supportsLiveTrack = supportsLiveTrack
     }
 
-    public boolean isSupportsLiveTrack() {
-        return supportsLiveTrack;
+    fun isSupportsLiveTrack(): Boolean {
+        return supportsLiveTrack
+    }
+
+    companion object {
+        val DEFAULT: TrackColorMode = TrackColorMode.BY_TRACK
     }
 }

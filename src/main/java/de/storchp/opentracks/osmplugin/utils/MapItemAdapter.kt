@@ -1,76 +1,62 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import android.app.Activity;
-import android.net.Uri;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+import android.app.Activity
+import android.net.Uri
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import de.storchp.opentracks.osmplugin.BuildConfig
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.MapItemBinding
 
-import androidx.annotation.NonNull;
+class MapItemAdapter(
+    private val context: Activity,
+    private val items: List<FileItem>,
+    private var selected: Set<Uri>
+) : ArrayAdapter<FileItem>(context, R.layout.map_item, items) {
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import de.storchp.opentracks.osmplugin.BuildConfig;
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.MapItemBinding;
-
-public class MapItemAdapter extends ArrayAdapter<FileItem> {
-
-    private final Activity context;
-    private final List<FileItem> items;
-    private final Set<Uri> selected;
-
-    public MapItemAdapter(@NonNull Activity context, List<FileItem> items, Set<Uri> selected) {
-        super(context, R.layout.map_item, items);
-        this.context = context;
-        this.items = items;
-        this.selected = selected;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        var rowView = convertView;
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var rowView = convertView
         // reuse views
         if (rowView == null) {
-            var binding = MapItemBinding.inflate(context.getLayoutInflater(), parent, false);
-            rowView = binding.getRoot();
-            rowView.setTag(binding);
+            val binding = MapItemBinding.inflate(context.layoutInflater, parent, false)
+            rowView = binding.getRoot()
+            rowView.tag = binding
         }
 
         // fill data
-        var binding = (MapItemBinding) rowView.getTag();
-        var item = this.items.get(position);
-        binding.name.setText(item.name());
-        binding.checkbox.setChecked(position == 0 && !BuildConfig.offline ? selected.isEmpty() : selected.contains(item.uri()));
-        binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position));
+        val binding = rowView.tag as MapItemBinding
+        val item = this.items[position]
+        binding.name.text = item.name
+        binding.checkbox.setChecked(
+            if (position == 0 && !BuildConfig.offline) selected.isEmpty() else selected.contains(
+                item.uri
+            )
+        )
+        binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position))
 
-        return rowView;
+        return rowView
     }
 
-    private View.OnClickListener onStateChangedListener(CheckBox checkBox, int position) {
-        return v -> {
-            var fileItem = items.get(position);
-            if (checkBox.isChecked()) {
-                if (fileItem.uri() == null) { // online map
-                    selected.clear();
+    private fun onStateChangedListener(checkBox: CheckBox, position: Int): View.OnClickListener {
+        return View.OnClickListener { v: View? ->
+            val fileItem = items[position]
+            if (checkBox.isChecked) {
+                selected = if (fileItem.uri == null) { // online map
+                    setOf()
                 } else {
-                    selected.add(fileItem.uri());
+                    selected + fileItem.uri
                 }
-            } else {
-                if (fileItem.uri() != null) { // offline map
-                    selected.remove(fileItem.uri());
-                }
+            } else if (fileItem.uri != null) { // offline map
+                selected = selected - fileItem.uri
             }
-            notifyDataSetChanged();
-        };
+            notifyDataSetChanged()
+        }
     }
 
-    public Set<Uri> getSelectedUris() {
-        return selected.stream().filter(uri -> items.stream().anyMatch(item -> uri.equals(item.uri()))).collect(Collectors.toSet());
-    }
-
+    fun getSelectedUris() =
+        selected.filter { uri ->
+            items.any { item: FileItem? -> uri == item!!.uri }
+        }.toSet()
 }

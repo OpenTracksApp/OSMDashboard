@@ -1,59 +1,57 @@
-package de.storchp.opentracks.osmplugin;
+package de.storchp.opentracks.osmplugin
 
-import android.content.Intent;
-import android.os.Build;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.WindowManager;
+import android.content.Intent
+import android.os.Build
+import android.view.Menu
+import android.view.MenuItem
+import android.view.WindowManager
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuCompat
+import de.storchp.opentracks.osmplugin.settings.SettingsActivity
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuCompat;
+abstract class BaseActivity : AppCompatActivity() {
+    fun onCreateOptionsMenu(menu: Menu, showInfo: Boolean) {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.maps, menu)
 
-import de.storchp.opentracks.osmplugin.settings.SettingsActivity;
-
-public abstract class BaseActivity extends AppCompatActivity {
-
-    public void onCreateOptionsMenu(Menu menu, boolean showInfo) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.maps, menu);
-
-        MenuCompat.setGroupDividerEnabled(menu, true);
-        menu.findItem(R.id.map_info).setVisible(showInfo);
+        MenuCompat.setGroupDividerEnabled(menu, true)
+        menu.findItem(R.id.map_info).isVisible = showInfo
     }
 
-    final ActivityResultLauncher<Intent> settingsActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> recreate());
+    val settingsActivityResultLauncher: ActivityResultLauncher<Intent?> =
+        registerForActivityResult<Intent?, ActivityResult?>(
+            StartActivityForResult(),
+            ActivityResultCallback { result: ActivityResult? -> recreate() })
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val itemId = item.itemId
         if (itemId == R.id.action_settings) {
-            settingsActivityResultLauncher.launch(new Intent(this, SettingsActivity.class));
-            return true;
+            settingsActivityResultLauncher.launch(Intent(this, SettingsActivity::class.java))
+            return true
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
-    protected void keepScreenOn(boolean keepScreenOn) {
+    protected fun keepScreenOn(keepScreenOn: Boolean) {
         if (keepScreenOn) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
 
-    protected void showOnLockScreen(boolean showOnLockScreen) {
+    protected fun showOnLockScreen(showOnLockScreen: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(showOnLockScreen);
+            setShowWhenLocked(showOnLockScreen)
         } else if (showOnLockScreen) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }
     }
-
 }

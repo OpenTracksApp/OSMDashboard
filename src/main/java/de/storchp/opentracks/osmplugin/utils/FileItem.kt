@@ -1,18 +1,15 @@
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
-import android.net.Uri;
+import android.net.Uri
+import androidx.documentfile.provider.DocumentFile
+import java.io.File
 
-import androidx.annotation.NonNull;
-import androidx.documentfile.provider.DocumentFile;
-
-import java.io.File;
-
-public record FileItem(String name, Uri uri, File file, DocumentFile documentFile) {
-
-    @NonNull
-    @Override
-    public String toString() {
-        return name();
-    }
+data class FileItem(
+    val name: String,
+    val uri: Uri?,
+    val file: File? = null,
+    val documentFile: DocumentFile? = null
+) {
+    override fun toString() = this.name
 
 }

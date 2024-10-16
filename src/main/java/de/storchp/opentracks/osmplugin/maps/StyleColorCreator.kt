@@ -1,67 +1,71 @@
-package de.storchp.opentracks.osmplugin.maps;
+package de.storchp.opentracks.osmplugin.maps
 
-import org.oscim.backend.canvas.Color;
+import org.oscim.backend.canvas.Color
+import kotlin.math.floor
 
 /**
  * Creates continues distinguished colors via golden ration.
- * Adapted from: <a href="https://github.com/dennisguse/TheKarte/blob/master/src/StyleColorCreator.js">...</a>
- * Code for color generation was taken partly from <a href="https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/">...</a>
+ * Adapted from: [...](https://github.com/dennisguse/TheKarte/blob/master/src/StyleColorCreator.js)
+ * Code for color generation was taken partly from [...](https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/)
  */
-public class StyleColorCreator {
+class StyleColorCreator(start: Double) {
+    private var h: Double
 
-    public static final double GOLDEN_RATIO_CONJUGATE = 0.618033988749895;
-    private double h;
-
-    public StyleColorCreator(double start) {
-        this.h = start;
+    init {
+        this.h = start
     }
 
     /**
      * @noinspection SameParameterValue
      */
-    private int convertHSVtoColorRGB(double hue, double saturation, double value) {
-        double i = Math.floor(hue * 6);
-        double f = hue * 6 - i;
-        double p = value * (1 - saturation);
-        double q = value * (1 - f * saturation);
-        double t = value * (1 - (1 - f) * saturation);
-        double red = 0;
-        double green = 0;
-        double blue = 0;
-        switch ((int) (i % 6)) {
-            case 0 -> {
-                red = value;
-                green = t;
-                blue = p;
+    private fun convertHSVtoColorRGB(hue: Double, saturation: Double, value: Double): Int {
+        val i = floor(hue * 6)
+        val f = hue * 6 - i
+        val p = value * (1 - saturation)
+        val q = value * (1 - f * saturation)
+        val t = value * (1 - (1 - f) * saturation)
+        var red = 0.0
+        var green = 0.0
+        var blue = 0.0
+        when ((i % 6).toInt()) {
+            0 -> {
+                red = value
+                green = t
+                blue = p
             }
-            case 1 -> {
-                red = q;
-                green = value;
-                blue = p;
+
+            1 -> {
+                red = q
+                green = value
+                blue = p
             }
-            case 2 -> {
-                red = p;
-                green = value;
-                blue = t;
+
+            2 -> {
+                red = p
+                green = value
+                blue = t
             }
-            case 3 -> {
-                red = p;
-                green = q;
-                blue = value;
+
+            3 -> {
+                red = p
+                green = q
+                blue = value
             }
-            case 4 -> {
-                red = t;
-                green = p;
-                blue = value;
+
+            4 -> {
+                red = t
+                green = p
+                blue = value
             }
-            case 5 -> {
-                red = value;
-                green = p;
-                blue = q;
+
+            5 -> {
+                red = value
+                green = p
+                blue = q
             }
         }
 
-        return Color.get((int) (red * 255), (int) (green * 255), (int) (blue * 255));
+        return Color.get((red * 255).toInt(), (green * 255).toInt(), (blue * 255).toInt())
     }
 
     /**
@@ -69,11 +73,14 @@ public class StyleColorCreator {
      *
      * @return The color.
      */
-    public int nextColor() {
-        this.h += GOLDEN_RATIO_CONJUGATE;
-        this.h %= 1;
+    fun nextColor(): Int {
+        this.h += GOLDEN_RATIO_CONJUGATE
+        this.h %= 1.0
 
-        return convertHSVtoColorRGB(this.h, 0.99, 0.99);
+        return convertHSVtoColorRGB(this.h, 0.99, 0.99)
     }
 
+    companion object {
+        const val GOLDEN_RATIO_CONJUGATE: Double = 0.618033988749895
+    }
 }

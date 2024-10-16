@@ -1,442 +1,456 @@
-package de.storchp.opentracks.osmplugin.download;
+package de.storchp.opentracks.osmplugin.download
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.annotation.SuppressLint
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AlertDialog
+import de.storchp.opentracks.osmplugin.BaseActivity
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding
+import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadBroadcastReceiver
+import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
+import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity
+import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity.MapDirectoryChooserActivity
+import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity.ThemeDirectoryChooserActivity
+import de.storchp.opentracks.osmplugin.utils.FileUtil
+import de.storchp.opentracks.osmplugin.utils.FileUtil.createBinaryDocumentFile
+import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.lang.Exception
+import java.lang.RuntimeException
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.documentfile.provider.DocumentFile;
+private val TAG: String = DownloadActivity::class.java.getSimpleName()
+private const val UPDATE_DOWNLOAD_PROGRESS = 1
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+private const val OPENANDROMAPS_MAP_HOST = "ftp.gwdg.de"
+private const val OPENANDROMAPS_THEME_HOST = "www.openandromaps.org"
+private const val OPENANDROMAPS_MAP_DOWNLOAD_URL =
+    "https://$OPENANDROMAPS_MAP_HOST/pub/misc/openstreetmap/openandromaps/mapsV4/"
+private const val OPENANDROMAPS_THEME_DOWNLOAD_URL =
+    "https://$OPENANDROMAPS_THEME_HOST/wp-content/users/tobias/"
+private const val FREIZEITKARTE_HOST = "download.freizeitkarte-osm.de"
 
-import de.storchp.opentracks.osmplugin.BaseActivity;
-import de.storchp.opentracks.osmplugin.R;
-import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding;
-import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity;
-import de.storchp.opentracks.osmplugin.utils.FileUtil;
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils;
+private const val MF_V4_MAP_SCHEME = "mf-v4-map"
+private const val MF_THEME_SCHEME = "mf-theme"
 
-public class DownloadActivity extends BaseActivity {
-
-    private static final String TAG = DownloadActivity.class.getSimpleName();
-    private static final int UPDATE_DOWNLOAD_PROGRESS = 1;
-
-    private static final String OPENANDROMAPS_MAP_HOST = "ftp.gwdg.de";
-    private static final String OPENANDROMAPS_THEME_HOST = "www.openandromaps.org";
-    private static final String OPENANDROMAPS_MAP_DOWNLOAD_URL = "https://" + OPENANDROMAPS_MAP_HOST + "/pub/misc/openstreetmap/openandromaps/mapsV4/";
-    private static final String OPENANDROMAPS_THEME_DOWNLOAD_URL = "https://" + OPENANDROMAPS_THEME_HOST + "/wp-content/users/tobias/";
-    private static final String FREIZEITKARTE_HOST = "download.freizeitkarte-osm.de";
-
-    private static final String MF_V4_MAP_SCHEME = "mf-v4-map";
-    private static final String MF_THEME_SCHEME = "mf-theme";
-
-    private Uri downloadUri;
-    private DownloadType downloadType = DownloadType.MAP;
-    private ActivityDownloadBinding binding;
-    private Long downloadId = null;
-    private DownloadManager downloadManager;
-    private DownloadBroadcastReceiver downloadBroadcastReceiver;
-    private final ExecutorService executor = Executors.newFixedThreadPool(1);
+class DownloadActivity : BaseActivity() {
+    private var downloadUri: Uri? = null
+    private var downloadType = DownloadType.MAP
+    private lateinit var binding: ActivityDownloadBinding
+    private var downloadId: Long? = null
+    private var downloadManager: DownloadManager? = null
+    private var downloadBroadcastReceiver: DownloadBroadcastReceiver? = null
+    private val executor: ExecutorService = Executors.newFixedThreadPool(1)
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityDownloadBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityDownloadBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-        binding.toolbar.mapsToolbar.setTitle(R.string.download_map);
-        setSupportActionBar(binding.toolbar.mapsToolbar);
+        binding.toolbar.mapsToolbar.setTitle(R.string.download_map)
+        setSupportActionBar(binding.toolbar.mapsToolbar)
 
-        var uri = getIntent().getData();
+        val uri = intent.data
         if (uri != null) {
-            var scheme = uri.getScheme();
-            var host = uri.getHost();
-            var path = uri.getPath();
-            Log.i(TAG, "scheme=" + scheme + ",host=" + host + ", path=" + path + ", lastPathSegment=" + uri.getLastPathSegment());
-            downloadUri = uri;
+            val scheme = uri.scheme
+            val host = uri.host
+            val path = uri.path
+            Log.i(
+                TAG,
+                "scheme=" + scheme + ",host=" + host + ", path=" + path + ", lastPathSegment=" + uri.lastPathSegment
+            )
+            downloadUri = uri
 
-            if (MF_V4_MAP_SCHEME.equals(scheme)) {
-                if (host.equals("download.openandromaps.org") && path.startsWith("/mapsV4/") && path.endsWith(".zip")) {
+            if (MF_V4_MAP_SCHEME == scheme) {
+                if (host == "download.openandromaps.org" && path!!.startsWith("/mapsV4/") && path.endsWith(
+                        ".zip"
+                    )
+                ) {
                     // OpenAndroMaps URIs need to be remapped - mf-v4-map://download.openandromaps.org/mapsV4/Germany/bayern.zip
-                    downloadUri = Uri.parse(OPENANDROMAPS_MAP_DOWNLOAD_URL + path.substring(8));
-                    downloadType = DownloadType.MAP_ZIP;
+                    downloadUri = Uri.parse(
+                        OPENANDROMAPS_MAP_DOWNLOAD_URL + path.substring(
+                            8
+                        )
+                    )
+                    downloadType = DownloadType.MAP_ZIP
                 } else {
                     // try to replace MF_V4_MAP_SCHEME with https for unknown sources
-                    downloadUri = uri.buildUpon().scheme("https").build();
-                    downloadType = path.endsWith(".zip") ? DownloadType.MAP_ZIP : DownloadType.MAP;
+                    downloadUri = uri.buildUpon().scheme("https").build()
+                    downloadType =
+                        if (path!!.endsWith(".zip")) DownloadType.MAP_ZIP else DownloadType.MAP
                 }
-            } else if (MF_THEME_SCHEME.equals(scheme)) {
-                if (host.equals("download.openandromaps.org") && path.startsWith("/themes/") && path.endsWith(".zip")) {
+            } else if (MF_THEME_SCHEME == scheme) {
+                if (host == "download.openandromaps.org" && path!!.startsWith("/themes/") && path.endsWith(
+                        ".zip"
+                    )
+                ) {
                     // no remapping, as they have themes only on their homepage, not on their ftp site
-                    downloadUri = Uri.parse(OPENANDROMAPS_THEME_DOWNLOAD_URL + path.substring(8));
+                    downloadUri = Uri.parse(
+                        OPENANDROMAPS_THEME_DOWNLOAD_URL + path.substring(
+                            8
+                        )
+                    )
                 } else {
                     // try to replace MF_THEME_SCHEME with https for unknown sources
-                    downloadUri = uri.buildUpon().scheme("https").build();
+                    downloadUri = uri.buildUpon().scheme("https").build()
                 }
-                downloadType = DownloadType.THEME;
-                binding.toolbar.mapsToolbar.setTitle(R.string.download_theme);
-            } else if (FREIZEITKARTE_HOST.equals(host)) {
-                if (path.endsWith(".map.zip")) {
-                    downloadType = DownloadType.MAP_ZIP;
+                downloadType = DownloadType.THEME
+                binding.toolbar.mapsToolbar.setTitle(R.string.download_theme)
+            } else if (FREIZEITKARTE_HOST == host) {
+                if (path!!.endsWith(".map.zip")) {
+                    downloadType = DownloadType.MAP_ZIP
                 } else if (path.endsWith(".zip")) {
-                    downloadType = DownloadType.THEME;
-                    binding.toolbar.mapsToolbar.setTitle(R.string.download_theme);
+                    downloadType = DownloadType.THEME
+                    binding.toolbar.mapsToolbar.setTitle(R.string.download_theme)
                 }
-            } else if (OPENANDROMAPS_MAP_HOST.equals(host) && path.endsWith(".zip")) {
-                downloadType = DownloadType.MAP_ZIP;
-            } else if (OPENANDROMAPS_THEME_HOST.equals(host) && path.endsWith(".zip")) {
-                downloadType = DownloadType.THEME;
+            } else if (OPENANDROMAPS_MAP_HOST == host && path!!.endsWith(".zip")) {
+                downloadType = DownloadType.MAP_ZIP
+            } else if (OPENANDROMAPS_THEME_HOST == host && path!!.endsWith(".zip")) {
+                downloadType = DownloadType.THEME
             }
 
-            Log.i(TAG, "downloadUri=" + downloadUri + ", downloadType=" + downloadType);
+            Log.i(TAG, "downloadUri=$downloadUri, downloadType=$downloadType")
 
-            binding.downloadInfo.setText(downloadUri.toString());
+            binding.downloadInfo.text = downloadUri.toString()
 
-            downloadBroadcastReceiver = new DownloadBroadcastReceiver();
+            downloadBroadcastReceiver = DownloadBroadcastReceiver()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_EXPORTED);
+                registerReceiver(
+                    downloadBroadcastReceiver,
+                    IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+                    RECEIVER_EXPORTED
+                )
             } else {
-                registerReceiver(downloadBroadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                registerReceiver(
+                    downloadBroadcastReceiver,
+                    IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                )
             }
 
-            startDownload();
+            startDownload()
         } else {
-            binding.downloadInfo.setText(R.string.no_download_uri_found);
+            binding.downloadInfo.setText(R.string.no_download_uri_found)
         }
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            public void handleOnBackPressed() {
-                navigateUp();
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateUp()
             }
-        });
+        })
     }
 
-    protected final ActivityResultLauncher<Intent> directoryIntentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    startDownload();
+    val directoryIntentLauncher: ActivityResultLauncher<Intent?> =
+        registerForActivityResult<Intent?, ActivityResult?>(StartActivityForResult(),
+            ActivityResultCallback { result: ActivityResult? ->
+                if (result?.resultCode == RESULT_OK) {
+                    startDownload()
                 }
-            });
+            })
 
-    public void startDownload() {
-        var directoryUri = downloadType.getDirectoryUri();
+    fun startDownload() {
+        val directoryUri = downloadType.getDirectoryUri()
         if (directoryUri != null) {
-            var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri);
+            val directoryFile = FileUtil.getDocumentFileFromTreeUri(this, directoryUri)
             if (directoryFile != null && !directoryFile.canWrite()) {
-                directoryIntentLauncher.launch(new Intent(this, downloadType.getDirectoryChooser()));
-                return;
+                directoryIntentLauncher.launch(Intent(this, downloadType.getDirectoryChooser()))
+                return
             }
         }
 
-        var filesDir = getExternalFilesDir(null).toPath();
-        var downloadDir = filesDir.resolve(downloadType.subdir);
-        downloadDir.toFile().mkdir();
-        var filename = downloadUri.getLastPathSegment();
-        var file = downloadDir.resolve(filename);
+        val filesDir = getExternalFilesDir(null)!!.toPath()
+        val downloadDir = filesDir.resolve(downloadType.subdir)
+        downloadDir.toFile().mkdir()
+        val filename = downloadUri!!.lastPathSegment
+        val file = downloadDir.resolve(filename)
         if (file.toFile().exists()) {
-            new AlertDialog.Builder(DownloadActivity.this)
-                    .setIcon(R.drawable.ic_logo_color_24dp)
-                    .setTitle(R.string.app_name)
-                    .setMessage(getString(downloadType.getOverwriteMessageId(), filename))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        file.toFile().delete();
-                        dialog.dismiss();
-                        startDownload();
+            AlertDialog.Builder(this@DownloadActivity)
+                .setIcon(R.drawable.ic_logo_color_24dp)
+                .setTitle(R.string.app_name)
+                .setMessage(getString(downloadType.overwriteMessageId, filename))
+                .setPositiveButton(
+                    android.R.string.ok,
+                    DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                        file.toFile().delete()
+                        dialog!!.dismiss()
+                        startDownload()
                     })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create().show();
-            return;
+                .setNegativeButton(android.R.string.cancel, null)
+                .create().show()
+            return
         }
 
-        var request = new DownloadManager.Request(downloadUri)
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                .setDestinationInExternalFilesDir(this, null, downloadType.subdir + "/" + filename)
-                .setTitle(filename)
-                .setDescription(getString(downloadType.downloadMessageId))
-                .setRequiresCharging(false)
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true);
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        downloadId = downloadManager.enqueue(request);
-        observeDownload();
+        val request = DownloadManager.Request(downloadUri)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setDestinationInExternalFilesDir(this, null, downloadType.subdir + "/" + filename)
+            .setTitle(filename)
+            .setDescription(getString(downloadType.downloadMessageId))
+            .setRequiresCharging(false)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(true)
+        downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        downloadId = downloadManager!!.enqueue(request)
+        observeDownload()
     }
 
-    private void observeDownload() {
-        binding.progressBar.setVisibility(View.VISIBLE);
-        binding.progressBar.setIndeterminate(false);
-        binding.progressBar.setMax(100);
-        binding.progressBar.setProgress(0);
+    private fun observeDownload() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.isIndeterminate = false
+        binding.progressBar.setMax(100)
+        binding.progressBar.progress = 0
 
-        executor.execute(() -> {
-            int progress = 0;
-            boolean isDownloadFinished = false;
+        executor.execute(Runnable {
+            var progress = 0
+            var isDownloadFinished = false
             while (!isDownloadFinished) {
-                try (Cursor cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadId))) {
-                    if (cursor.moveToFirst()) {
-                        int downloadStatus = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                        switch (downloadStatus) {
-                            case DownloadManager.STATUS_RUNNING:
-                                long totalBytes = cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                                if (totalBytes > 0) {
-                                    long downloadedBytes = cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                                    progress = (int) (downloadedBytes * 100 / totalBytes);
+                downloadManager!!.query(DownloadManager.Query().setFilterById(downloadId!!))
+                    .use { cursor ->
+                        if (cursor.moveToFirst()) {
+                            val downloadStatus =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
+                            when (downloadStatus) {
+                                DownloadManager.STATUS_RUNNING -> {
+                                    val totalBytes =
+                                        cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                                    if (totalBytes > 0) {
+                                        val downloadedBytes = cursor.getLong(
+                                            cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)
+                                        )
+                                        progress = (downloadedBytes * 100 / totalBytes).toInt()
+                                    }
                                 }
 
-                                break;
-                            case DownloadManager.STATUS_SUCCESSFUL:
-                                progress = 100;
-                                isDownloadFinished = true;
-                                break;
-                            case DownloadManager.STATUS_PAUSED:
-                            case DownloadManager.STATUS_PENDING:
-                                break;
-                            case DownloadManager.STATUS_FAILED:
-                                isDownloadFinished = true;
-                                break;
+                                DownloadManager.STATUS_SUCCESSFUL -> {
+                                    progress = 100
+                                    isDownloadFinished = true
+                                }
+
+                                DownloadManager.STATUS_PAUSED, DownloadManager.STATUS_PENDING -> {}
+                                DownloadManager.STATUS_FAILED -> isDownloadFinished = true
+                            }
+                            val message = Message.obtain()
+                            message.what = UPDATE_DOWNLOAD_PROGRESS
+                            message.arg1 = progress
+                            mainHandler.sendMessage(message)
                         }
-                        var message = Message.obtain();
-                        message.what = UPDATE_DOWNLOAD_PROGRESS;
-                        message.arg1 = progress;
-                        mainHandler.sendMessage(message);
                     }
-                }
             }
-        });
+        })
     }
 
-    private final Handler mainHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
+    private val mainHandler = Handler(Looper.getMainLooper(), object : Handler.Callback {
+        override fun handleMessage(msg: Message): Boolean {
             if (msg.what == UPDATE_DOWNLOAD_PROGRESS) {
-                int downloadProgress = msg.arg1;
-                binding.progressBar.setProgress(downloadProgress);
+                val downloadProgress = msg.arg1
+                binding.progressBar.progress = downloadProgress
             }
-            return true;
+            return true
         }
-    });
+    })
 
-    private class DownloadBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            var id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+    private inner class DownloadBroadcastReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             if (downloadId != id) {
-                return;
+                return
             }
-            try (var cursor = downloadManager.query(new DownloadManager.Query().setFilterById(downloadId))) {
-                if (cursor.moveToFirst()) {
-                    int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        var uri = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI));
-                        downloadEnded(Uri.parse(uri));
+            downloadManager!!.query(DownloadManager.Query().setFilterById(downloadId!!))
+                .use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        val status =
+                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
+                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                            val uri =
+                                cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI))
+                            downloadEnded(Uri.parse(uri))
+                        }
                     }
                 }
-            }
         }
     }
 
-    private void downloadEnded(Uri downloadedUri) {
-        executor.shutdown();
-        mainHandler.removeCallbacksAndMessages(null);
-        var destinationDir = downloadType.getDirectoryUri();
+    private fun downloadEnded(downloadedUri: Uri) {
+        executor.shutdown()
+        mainHandler.removeCallbacksAndMessages(null)
+        val destinationDir = downloadType.getDirectoryUri()
         if (destinationDir == null) {
-            if (downloadType.isExtractMapFromZIP()) {
-                try (var inputStream = getContentResolver().openInputStream(downloadedUri)) {
-                    var zis = new ZipInputStream(inputStream);
-                    ZipEntry ze;
-                    boolean foundMapInZip = false;
-                    while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
-                        var filename = ze.getName();
-                        if (filename.endsWith(".map")) {
-                            var downloadedFile = new File(downloadedUri.getPath());
-                            var targetFile = new File(downloadedFile.getParent(), filename);
-                            copy(zis, new FileOutputStream(targetFile));
-                            foundMapInZip = true;
+            if (downloadType.extractMapFromZIP) {
+                try {
+                    contentResolver.openInputStream(downloadedUri).use { inputStream ->
+                        val zis = ZipInputStream(inputStream)
+                        var ze: ZipEntry? = null
+                        var foundMapInZip = false
+                        while (!foundMapInZip && (zis.getNextEntry().also { ze = it }) != null) {
+                            val filename = ze!!.name
+                            if (filename.endsWith(".map")) {
+                                val downloadedFile = File(downloadedUri.path!!)
+                                val targetFile = File(downloadedFile.getParent(), filename)
+                                copy(zis, FileOutputStream(targetFile))
+                                foundMapInZip = true
+                            }
                         }
                     }
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                } catch (e: Exception) {
+                    throw RuntimeException(e)
                 } finally {
-                    new File(downloadedUri.getPath()).delete();
+                    File(downloadedUri.path!!).delete()
                 }
             }
         } else {
-            try (var inputStream = getContentResolver().openInputStream(downloadedUri)) {
-                if (downloadType.isExtractMapFromZIP()) {
-                    var zis = new ZipInputStream(inputStream);
-                    ZipEntry ze;
-                    boolean foundMapInZip = false;
-                    while (!foundMapInZip && (ze = zis.getNextEntry()) != null) {
-                        var filename = ze.getName();
-                        if (filename.endsWith(".map")) {
-                            var targetFile = createBinaryDocumentFile(destinationDir, filename);
-                            copy(zis, getContentResolver().openOutputStream(targetFile.getUri(), "wt"));
-                            foundMapInZip = true;
+            try {
+                contentResolver.openInputStream(downloadedUri).use { inputStream ->
+                    if (downloadType.extractMapFromZIP) {
+                        val zis = ZipInputStream(inputStream)
+                        var ze: ZipEntry? = null
+                        var foundMapInZip = false
+                        while (!foundMapInZip && (zis.getNextEntry().also { ze = it }) != null) {
+                            val filename = ze!!.name
+                            if (filename.endsWith(".map")) {
+                                val targetFile =
+                                    createBinaryDocumentFile(this, destinationDir, filename)
+                                copy(
+                                    zis,
+                                    contentResolver.openOutputStream(
+                                        targetFile.uri,
+                                        "wt"
+                                    )!!
+                                )
+                                foundMapInZip = true
+                            }
                         }
+                    } else {
+                        val filename = downloadedUri.lastPathSegment
+                        val targetFile = createBinaryDocumentFile(this, destinationDir, filename!!)
+                        copy(
+                            inputStream!!,
+                            contentResolver.openOutputStream(targetFile.uri, "wt")!!
+                        )
                     }
-                } else {
-                    var filename = downloadedUri.getLastPathSegment();
-                    var targetFile = createBinaryDocumentFile(destinationDir, filename);
-                    copy(inputStream, getContentResolver().openOutputStream(targetFile.getUri(), "wt"));
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            } catch (e: Exception) {
+                throw RuntimeException(e)
             } finally {
-                new File(downloadedUri.getPath()).delete();
+                File(downloadedUri.path!!).delete()
             }
         }
 
-        binding.progressBar.setVisibility(View.GONE);
-        downloadId = null;
-        Toast.makeText(this, downloadType.getSuccessMessageId(), Toast.LENGTH_LONG).show();
+        binding.progressBar.visibility = View.GONE
+        downloadId = null
+        Toast.makeText(this, downloadType.successMessageId, Toast.LENGTH_LONG).show()
     }
 
-    private @NonNull DocumentFile createBinaryDocumentFile(Uri destinationDir, String filename) {
-        var directoryFile = FileUtil.getDocumentFileFromTreeUri(this, destinationDir);
-        var targetFile = directoryFile.createFile("application/binary", filename);
-        if (targetFile == null) {
-            throw new RuntimeException("Unable to create file: " + filename);
+    @Throws(IOException::class)
+    private fun copy(input: InputStream, output: OutputStream) {
+        val data = ByteArray(4096)
+        var count: Int
+        while ((input.read(data).also { count = it }) != -1) {
+            output.write(data, 0, count)
         }
-        return targetFile;
+        input.close()
+        output.close()
     }
 
-    private void copy(InputStream input, OutputStream output) throws IOException {
-        var data = new byte[4096];
-        int count;
-        while ((count = input.read(data)) != -1) {
-            output.write(data, 0, count);
-        }
-        input.close();
-        output.close();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    override fun onDestroy() {
+        super.onDestroy()
         if (downloadBroadcastReceiver != null) {
-            unregisterReceiver(downloadBroadcastReceiver);
+            unregisterReceiver(downloadBroadcastReceiver)
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            navigateUp();
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            navigateUp()
+            return true
         }
-        return false;
+        return false
     }
 
-    public void navigateUp() {
-        finish();
+    fun navigateUp() {
+        finish()
     }
 
-    public enum DownloadType {
-
-        MAP(R.string.download_map, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, false, "maps") {
-            @Override
-            public Uri getDirectoryUri() {
-                return PreferencesUtils.getMapDirectoryUri();
+    enum class DownloadType(
+        val downloadMessageId: Int,
+        val overwriteMessageId: Int,
+        val successMessageId: Int,
+        val extractMapFromZIP: Boolean,
+        val subdir: String
+    ) {
+        MAP(
+            R.string.download_map,
+            R.string.overwrite_map_question,
+            R.string.download_success,
+            false,
+            "maps"
+        ) {
+            override fun getDirectoryUri(): Uri? {
+                return PreferencesUtils.getMapDirectoryUri()
             }
 
-            @Override
-            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
-                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
+            override fun getDirectoryChooser(): Class<out DirectoryChooserActivity?> {
+                return MapDirectoryChooserActivity::class.java
             }
         },
-        MAP_ZIP(R.string.download_map, R.string.overwrite_map_question, R.string.download_success, R.string.download_failed, true, "maps") {
-            @Override
-            public Uri getDirectoryUri() {
-                return PreferencesUtils.getMapDirectoryUri();
+        MAP_ZIP(
+            R.string.download_map,
+            R.string.overwrite_map_question,
+            R.string.download_success,
+            true,
+            "maps"
+        ) {
+            override fun getDirectoryUri(): Uri? {
+                return PreferencesUtils.getMapDirectoryUri()
             }
 
-            @Override
-            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
-                return DirectoryChooserActivity.MapDirectoryChooserActivity.class;
+            override fun getDirectoryChooser(): Class<out DirectoryChooserActivity?> {
+                return MapDirectoryChooserActivity::class.java
             }
         },
-        THEME(R.string.download_theme, R.string.overwrite_theme_question, R.string.download_theme_success, R.string.download_theme_failed, false, "themes") {
-            @Override
-            public Uri getDirectoryUri() {
-                return PreferencesUtils.getMapThemeDirectoryUri();
+        THEME(
+            R.string.download_theme,
+            R.string.overwrite_theme_question,
+            R.string.download_theme_success,
+            false,
+            "themes"
+        ) {
+            override fun getDirectoryUri(): Uri? {
+                return PreferencesUtils.getMapThemeDirectoryUri()
             }
 
-            @Override
-            public Class<? extends DirectoryChooserActivity> getDirectoryChooser() {
-                return DirectoryChooserActivity.ThemeDirectoryChooserActivity.class;
+            override fun getDirectoryChooser(): Class<out DirectoryChooserActivity?> {
+                return ThemeDirectoryChooserActivity::class.java
             }
         };
 
-        private final int downloadMessageId;
-        private final int overwriteMessageId;
-        private final int successMessageId;
-        private final int failedMessageId;
-        private final boolean extractMapFromZIP;
-        private final String subdir;
-
-        DownloadType(int downloadMessageId, int overwriteMessageId, int successMessageId, int failedMessageId, boolean extractMapFromZIP, String subdir) {
-            this.downloadMessageId = downloadMessageId;
-            this.overwriteMessageId = overwriteMessageId;
-            this.successMessageId = successMessageId;
-            this.failedMessageId = failedMessageId;
-            this.extractMapFromZIP = extractMapFromZIP;
-            this.subdir = subdir;
-        }
-
-        abstract public Uri getDirectoryUri();
-
-        public int getOverwriteMessageId() {
-            return overwriteMessageId;
-        }
-
-        public int getSuccessMessageId() {
-            return successMessageId;
-        }
-
-        public int getFailedMessageId() {
-            return failedMessageId;
-        }
-
-        public boolean isExtractMapFromZIP() {
-            return extractMapFromZIP;
-        }
-
-        public abstract Class<? extends DirectoryChooserActivity> getDirectoryChooser();
-
-        public int getDownloadMessageId() {
-            return downloadMessageId;
-        }
-
-        public String getSubdir() {
-            return subdir;
-        }
+        abstract fun getDirectoryUri(): Uri?
+        abstract fun getDirectoryChooser(): Class<out DirectoryChooserActivity?>?
     }
 
 }

@@ -13,50 +13,56 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.storchp.opentracks.osmplugin.utils;
+package de.storchp.opentracks.osmplugin.utils
 
 /**
  * Unit conversion constants.
  *
  * @author Sandor Dornbush
  */
-public class UnitConversions {
-
+object UnitConversions {
     // multiplication factor to convert seconds to milliseconds
-    public static final long S_TO_MS = 1000;
+    const val S_TO_MS: Long = 1000
 
     // Time
     // multiplication factor to convert milliseconds to seconds
-    public static final double MS_TO_S = 1d / S_TO_MS;
+    val MS_TO_S: Double = 1.0 / S_TO_MS
+
     // multiplication factor to convert minutes to seconds
-    public static final double MIN_TO_S = 60.0;
+    const val MIN_TO_S: Double = 60.0
+
     // multiplication factor to convert seconds to minutes
-    public static final double S_TO_MIN = 1 / MIN_TO_S;
+    val S_TO_MIN: Double = 1 / MIN_TO_S
+
     // multiplication factor to convert hours to minutes
-    public static final double HR_TO_MIN = 60.0;
+    const val HR_TO_MIN: Double = 60.0
+
     // multiplication factor to convert minutes to hours
-    public static final double MIN_TO_HR = 1 / HR_TO_MIN;
+    val MIN_TO_HR: Double = 1 / HR_TO_MIN
+
     // multiplication factor to convert kilometers to miles
-    public static final double KM_TO_MI = 0.621371192;
+    const val KM_TO_MI: Double = 0.621371192
 
     // Distance
     // multiplication factor to convert miles to feet
-    public static final double MI_TO_FT = 5280.0;
+    const val MI_TO_FT: Double = 5280.0
+
     // multiplication factor to covert kilometers to meters
-    public static final double KM_TO_M = 1000.0;
+    const val KM_TO_M: Double = 1000.0
+
     // multiplication factor to convert meters to kilometers
-    public static final double M_TO_KM = 1 / KM_TO_M;
+    val M_TO_KM: Double = 1 / KM_TO_M
+
     // multiplication factor to convert meters to miles
-    public static final double M_TO_MI = M_TO_KM * KM_TO_MI;
+    val M_TO_MI: Double = M_TO_KM * KM_TO_MI
+
     // multiplication factor to convert meters to feet
-    public static final double M_TO_FT = M_TO_MI * MI_TO_FT;
+    val M_TO_FT: Double = M_TO_MI * MI_TO_FT
+
     // multiplication factor to convert meters per second to kilometers per hour
-    public static final double MS_TO_KMH = M_TO_KM / (S_TO_MIN * MIN_TO_HR);
+    val MS_TO_KMH: Double = M_TO_KM / (S_TO_MIN * MIN_TO_HR)
 
     // Others
     // multiplication factor to convert degrees to radians
-    public static final double DEG_TO_RAD = Math.PI / 180.0;
-
-    private UnitConversions() {
-    }
+    val DEG_TO_RAD: Double = Math.PI / 180.0
 }
