@@ -138,7 +138,7 @@ android {
     applicationVariants.all {
         resValue("string", "applicationId", applicationId)
 
-        if (name == "nightly" || name == "debug") {
+        if (buildType.name == "nightly" || buildType.name == "debug") {
             outputs.forEach { output ->
                 output as com.android.build.gradle.internal.api.ApkVariantOutputImpl
                 output.versionCodeOverride = gitVersion
