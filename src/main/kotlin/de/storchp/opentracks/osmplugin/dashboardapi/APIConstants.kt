@@ -13,7 +13,7 @@ object APIConstants {
 
     fun getTracksUri(uris: ArrayList<Uri>) = uris[0]
 
-    fun getTrackPointsUri(uris: ArrayList<Uri>) = uris[1]
+    fun getTrackpointsUri(uris: ArrayList<Uri>) = uris[1]
 
     /**
      * Waypoints are only available in newer versions of OpenTracks.

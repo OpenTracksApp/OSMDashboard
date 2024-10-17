@@ -8,7 +8,7 @@ import android.location.Location
 import android.util.Log
 import androidx.core.content.ContextCompat
 import de.storchp.opentracks.osmplugin.R
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint
+import de.storchp.opentracks.osmplugin.dashboardapi.Trackpoint
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
 import de.storchp.opentracks.osmplugin.maps.MovementDirection
 import org.oscim.android.canvas.AndroidBitmap
@@ -74,14 +74,14 @@ object MapUtils {
     }
 
     /**
-     * Decimates the given trackPoints for a given zoom level.
+     * Decimates the given trackpoints for a given zoom level.
      * This uses a Douglas-Peucker decimation algorithm.
      *
      * @param tolerance   in meters
-     * @param trackPoints input
+     * @param trackpoints input
      */
-    fun decimate(tolerance: Int, trackPoints: List<TrackPoint>): List<TrackPoint> {
-        val n = trackPoints.size
+    fun decimate(tolerance: Int, trackpoints: List<Trackpoint>): List<Trackpoint> {
+        val n = trackpoints.size
         if (n < 1) {
             return emptyList()
         }
@@ -103,9 +103,9 @@ object MapUtils {
                 idx = current[0] + 1
                 while (idx < current[1]) {
                     dist = distance(
-                        trackPoints[idx].latLong!!,
-                        trackPoints[current[0]].latLong!!,
-                        trackPoints[current[1]].latLong!!
+                        trackpoints[idx].latLong!!,
+                        trackpoints[current[0]].latLong!!,
+                        trackpoints[current[1]].latLong!!
                     )
                     if (dist > maxDist) {
                         maxDist = dist
@@ -121,7 +121,7 @@ object MapUtils {
             }
         }
 
-        val decimated: List<TrackPoint> = collectTrackPoints(trackPoints, dists)
+        val decimated: List<Trackpoint> = collectTrackpoints(trackpoints, dists)
         Log.d(
             TAG,
             "Decimating $n points to ${decimated.size} w/ tolerance = $tolerance"
@@ -130,20 +130,14 @@ object MapUtils {
         return decimated
     }
 
-    private fun collectTrackPoints(
-        trackPoints: List<TrackPoint>,
-        dists: DoubleArray
-    ): List<TrackPoint> {
-        var idx = 0
-        return buildList {
-            for (trackPoint in trackPoints) {
-                if (dists[idx] != 0.0) {
-                    add(trackPoint)
-                }
-                idx++
+    private fun collectTrackpoints(trackpoints: List<Trackpoint>, dists: DoubleArray) =
+        trackpoints.mapIndexedNotNull { index, trackpoint ->
+            if (dists[index] != 0.0) {
+                trackpoint
+            } else {
+                null
             }
         }
-    }
 
     /**
      * Checks if a given location is a valid (i.e. physically possible) location on Earth.
@@ -202,17 +196,16 @@ object MapUtils {
     fun getTrackColorBySpeed(
         average: Double,
         averageToMaxSpeed: Double,
-        trackPoint: TrackPoint
+        trackpoint: Trackpoint
     ): Int {
-        val speed = trackPoint.speed
         var red = 255
         var green = 255
-        if (speed == 0.0) {
+        if (trackpoint.speed == 0.0) {
             green = 0
-        } else if (trackPoint.speed < average) {
-            green = (255 * speed / average).toInt()
+        } else if (trackpoint.speed < average) {
+            green = (255 * trackpoint.speed / average).toInt()
         } else {
-            red = 255 - (255 * (speed - average) / averageToMaxSpeed).toInt()
+            red = 255 - (255 * (trackpoint.speed - average) / averageToMaxSpeed).toInt()
         }
         return Color.argb(255, red, green, 0)
     }

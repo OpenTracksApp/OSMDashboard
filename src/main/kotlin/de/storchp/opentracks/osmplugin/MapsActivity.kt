@@ -39,8 +39,8 @@ import de.storchp.opentracks.osmplugin.utils.MapMode
 import de.storchp.opentracks.osmplugin.utils.MapUtils
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import de.storchp.opentracks.osmplugin.utils.TrackColorMode
-import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics
+import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.oscim.android.MapPreferences
@@ -126,11 +126,11 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     private var mapMode: MapMode = MapMode.NORTH
     private var contentObserver: OpenTracksContentObserver? = null
     private var tracksUri: Uri? = null
-    private var trackPointsUri: Uri? = null
+    private var trackpointsUri: Uri? = null
     private var waypointsUri: Uri? = null
     private var strokeWidth = 0
     private var protocolVersion = 1
-    private var trackPointsDebug: TrackPointsDebug? = null
+    private var trackpointsDebug: TrackpointsDebug? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -212,7 +212,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 intent.getParcelableArrayListExtra<Uri>(APIConstants.ACTION_DASHBOARD_PAYLOAD)!!
             protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1)
             tracksUri = APIConstants.getTracksUri(uris)
-            trackPointsUri = APIConstants.getTrackPointsUri(uris)
+            trackpointsUri = APIConstants.getTrackpointsUri(uris)
             waypointsUri = APIConstants.getWaypointsUri(uris)
             keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false))
             showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false))
@@ -220,7 +220,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             isOpenTracksRecordingThisTrack =
                 intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false)
 
-            trackPointsUri?.let { readTrackpoints(it, false, protocolVersion) }
+            trackpointsUri?.let { readTrackpoints(it, false, protocolVersion) }
             readTracks(tracksUri!!)
             waypointsUri?.let { readWaypoints(it) }
         } else if ("geo" == intent.scheme && intent.data != null) {
@@ -563,7 +563,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
             try {
                 val trackpointsBySegments: TrackpointsBySegments =
-                    TrackpointReader.readTrackPointsBySegments(
+                    TrackpointReader.readTrackpointsBySegments(
                         contentResolver,
                         data,
                         lastTrackPointId,
@@ -582,22 +582,23 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                     trackColorMode = DEFAULT_TRACK_COLOR_MORE
                 }
 
-                for (trackPoints in trackpointsBySegments.segments) {
-                    var trackPoints = trackPoints
+                trackpointsBySegments.segments.map { trackpoints ->
                     if (!update) {
                         polyline = null // cut polyline on new segment
                         if (tolerance > 0) { // smooth track
-                            trackPoints = MapUtils.decimate(tolerance, trackPoints)
+                            return@map MapUtils.decimate(tolerance, trackpoints)
                         }
                     }
-                    for (trackPoint in trackPoints) {
-                        lastTrackPointId = trackPoint.trackPointId
+                    return@map trackpoints
+                }.forEach { trackpoints ->
+                    trackpoints.forEach { trackpoint ->
+                        lastTrackPointId = trackpoint.id
 
-                        if (trackPoint.trackId != lastTrackId) {
+                        if (trackpoint.trackId != lastTrackId) {
                             if (trackColorMode == TrackColorMode.BY_TRACK) {
                                 trackColor = colorCreator!!.nextColor()
                             }
-                            lastTrackId = trackPoint.trackId
+                            lastTrackId = trackpoint.trackId
                             polyline = null // reset current polyline when trackId changes
                             startPos = null
                             endPos = null
@@ -607,7 +608,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                             trackColor = MapUtils.getTrackColorBySpeed(
                                 average,
                                 averageToMaxSpeed,
-                                trackPoint
+                                trackpoint
                             )
                             polyline = addNewPolyline(trackColor)
                             if (endPos != null) {
@@ -622,12 +623,12 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                             }
                         }
 
-                        endPos = trackPoint.latLong
+                        endPos = trackpoint.latLong
                         polyline!!.addPoint(endPos)
                         movementDirection.updatePos(endPos)
 
-                        if (trackPoint.isPause && showPauseMarkers) {
-                            val marker = MapUtils.createPauseMarker(this, trackPoint.latLong)
+                        if (trackpoint.isPause && showPauseMarkers) {
+                            val marker = MapUtils.createPauseMarker(this, trackpoint.latLong)
                             waypointsLayer!!.addItem(marker)
                         }
 
@@ -639,9 +640,9 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                             startPos = endPos
                         }
                     }
-                    trackpointsBySegments.debug.trackpointsDrawn += trackPoints.size
+                    trackpointsBySegments.debug.trackpointsDrawn += trackpoints.size
                 }
-                trackPointsDebug!!.add(trackpointsBySegments.debug)
+                trackpointsDebug!!.add(trackpointsBySegments.debug)
             } catch (e: SecurityException) {
                 Toast.makeText(
                     this,
@@ -683,7 +684,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         unregisterContentObserver()
 
         tracksUri = null
-        trackPointsUri = null
+        trackpointsUri = null
         waypointsUri = null
 
         val layers = map.layers()
@@ -706,7 +707,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         endMarker = null
         boundingBox = null
         movementDirection = MovementDirection()
-        trackPointsDebug = TrackPointsDebug()
+        trackpointsDebug = TrackpointsDebug()
 
         // waypoints
         if (waypointsLayer != null) {
@@ -723,11 +724,11 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         if (PreferencesUtils.isDebugTrackPoints()) {
             binding.map.trackpointsDebugInfo.text = getString(
                 R.string.debug_trackpoints_info,
-                trackPointsDebug!!.trackpointsReceived,
-                trackPointsDebug!!.trackpointsInvalid,
-                trackPointsDebug!!.trackpointsDrawn,
-                trackPointsDebug!!.trackpointsPause,
-                trackPointsDebug!!.segments,
+                trackpointsDebug!!.trackpointsReceived,
+                trackpointsDebug!!.trackpointsInvalid,
+                trackpointsDebug!!.trackpointsDrawn,
+                trackpointsDebug!!.trackpointsPause,
+                trackpointsDebug!!.segments,
                 protocolVersion
             )
         } else {
@@ -880,17 +881,17 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     override fun onStart() {
         super.onStart()
 
-        if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
+        if (tracksUri != null && trackpointsUri != null && waypointsUri != null) {
             contentObserver = OpenTracksContentObserver(
                 tracksUri!!,
-                trackPointsUri!!,
+                trackpointsUri!!,
                 waypointsUri!!,
                 protocolVersion
             )
             try {
                 contentResolver.registerContentObserver(tracksUri!!, false, contentObserver!!)
                 contentResolver.registerContentObserver(
-                    trackPointsUri!!,
+                    trackpointsUri!!,
                     false,
                     contentObserver!!
                 )

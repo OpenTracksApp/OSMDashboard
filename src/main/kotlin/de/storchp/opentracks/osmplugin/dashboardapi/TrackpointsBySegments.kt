@@ -1,11 +1,11 @@
 package de.storchp.opentracks.osmplugin.dashboardapi
 
-import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
+import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 
 data class TrackpointsBySegments(
-    val segments: List<List<TrackPoint>>,
-    val debug: TrackPointsDebug,
-) : List<List<TrackPoint>> by segments {
+    val segments: List<List<Trackpoint>>,
+    val debug: TrackpointsDebug,
+) : List<List<Trackpoint>> by segments {
 
     fun calcAverageSpeed() = speeds().average()
 

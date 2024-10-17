@@ -3,12 +3,12 @@ package de.storchp.opentracks.osmplugin.dashboardapi
 import android.content.ContentResolver
 import android.net.Uri
 import de.storchp.opentracks.osmplugin.utils.MapUtils
-import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
+import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.oscim.core.GeoPoint
 
-data class TrackPoint(
+data class Trackpoint(
     val trackId: Long,
-    val trackPointId: Long,
+    val id: Long,
     private val latitude: Double,
     private val longitude: Double,
     val type: Int?,
@@ -55,17 +55,17 @@ object TrackpointReader {
     )
 
     /**
-     * Reads the TrackPoints from the Content Uri and split by segments.
-     * Pause TrackPoints and different Track IDs split the segments.
+     * Reads the Trackpoints from the Content Uri and split by segments.
+     * Pause Trackpoints and different Track IDs split the segments.
      */
-    fun readTrackPointsBySegments(
+    fun readTrackpointsBySegments(
         resolver: ContentResolver,
         data: Uri,
-        lastTrackPointId: Long,
+        lastId: Long,
         protocolVersion: Int
     ): TrackpointsBySegments {
-        val debug = TrackPointsDebug()
-        val segments: MutableList<MutableList<TrackPoint>> = mutableListOf()
+        val debug = TrackpointsDebug()
+        val segments: MutableList<MutableList<Trackpoint>> = mutableListOf()
         var projection = PROJECTION_V2
         var typeQuery = " AND $TYPE IN (-2, -1, 0, 1, 3)"
         if (protocolVersion < 2) { // fallback to old Dashboard API
@@ -76,14 +76,14 @@ object TrackpointReader {
             data,
             projection,
             "$_ID> ?$typeQuery",
-            arrayOf<String>(lastTrackPointId.toString()),
+            arrayOf<String>(lastId.toString()),
             null
         ).use { cursor ->
-            var lastTrackPoint: TrackPoint? = null
-            var segment: MutableList<TrackPoint>? = null
+            var lastTrackpoint: Trackpoint? = null
+            var segment: MutableList<Trackpoint>? = null
             while (cursor!!.moveToNext()) {
                 debug.trackpointsReceived++
-                val trackPointId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+                val id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
                 val trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TRACKID))
                 val latitude =
                     cursor.getInt(cursor.getColumnIndexOrThrow(LATITUDE)) / APIConstants.LAT_LON_FACTOR
@@ -97,28 +97,28 @@ object TrackpointReader {
                     type = cursor.getInt(typeIndex)
                 }
 
-                if (lastTrackPoint == null || lastTrackPoint.trackId != trackId) {
+                if (lastTrackpoint == null || lastTrackpoint.trackId != trackId) {
                     segment = mutableListOf()
                     segments.add(segment)
                 }
 
-                lastTrackPoint =
-                    TrackPoint(trackId, trackPointId, latitude, longitude, type, speed)
-                if (lastTrackPoint.latLong != null) {
-                    segment!!.add(lastTrackPoint)
-                } else if (!lastTrackPoint.isPause) {
+                lastTrackpoint =
+                    Trackpoint(trackId, id, latitude, longitude, type, speed)
+                if (lastTrackpoint.latLong != null) {
+                    segment!!.add(lastTrackpoint)
+                } else if (!lastTrackpoint.isPause) {
                     debug.trackpointsInvalid++
                 }
-                if (lastTrackPoint.isPause) {
+                if (lastTrackpoint.isPause) {
                     debug.trackpointsPause++
-                    if (lastTrackPoint.latLong == null) {
+                    if (lastTrackpoint.latLong == null) {
                         if (segment!!.isNotEmpty()) {
                             val previousTrackpoint = segment[segment.size - 1]
                             previousTrackpoint.latLong?.let {
                                 segment.add(
-                                    TrackPoint(
+                                    Trackpoint(
                                         trackId = trackId,
-                                        trackPointId = trackPointId,
+                                        id = id,
                                         latitude = it.latitude,
                                         longitude = it.longitude,
                                         type = type,
@@ -128,7 +128,7 @@ object TrackpointReader {
                             }
                         }
                     }
-                    lastTrackPoint = null
+                    lastTrackpoint = null
                 }
             }
         }
