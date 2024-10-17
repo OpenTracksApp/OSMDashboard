@@ -34,7 +34,7 @@ class TrackStatistics(tracks: List<Track>) {
         private set
 
     init {
-        if (!tracks.isEmpty()) {
+        if (tracks.isNotEmpty()) {
             val first = tracks[0]
             category = first.category.toString()
             startTimeEpochMillis = first.startTimeEpochMillis

@@ -97,7 +97,7 @@ object MapUtils {
 
         if (n > 2) {
             stack.push(intArrayOf(0, (n - 1)))
-            while (!stack.isEmpty()) {
+            while (stack.isNotEmpty()) {
                 current = stack.pop()
                 maxDist = 0.0
                 idx = current[0] + 1

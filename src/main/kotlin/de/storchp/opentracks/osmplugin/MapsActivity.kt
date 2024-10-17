@@ -23,14 +23,13 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.MapsActivity.OpenTracksContentObserver
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants
-import de.storchp.opentracks.osmplugin.dashboardapi.Track
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackReader
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointReader
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsBySegments
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
 import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
 import de.storchp.opentracks.osmplugin.maps.MovementDirection
@@ -39,7 +38,6 @@ import de.storchp.opentracks.osmplugin.utils.DEFAULT_TRACK_COLOR_MORE
 import de.storchp.opentracks.osmplugin.utils.MapMode
 import de.storchp.opentracks.osmplugin.utils.MapUtils
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
-import de.storchp.opentracks.osmplugin.utils.StatisticElement
 import de.storchp.opentracks.osmplugin.utils.TrackColorMode
 import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
 import de.storchp.opentracks.osmplugin.utils.TrackStatistics
@@ -88,11 +86,8 @@ import java.lang.Exception
 import java.lang.RuntimeException
 import java.util.ArrayList
 import java.util.Collections
-import java.util.Comparator
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Consumer
-import java.util.function.ToIntFunction
 import java.util.zip.ZipInputStream
 
 
@@ -219,35 +214,18 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             tracksUri = APIConstants.getTracksUri(uris)
             trackPointsUri = APIConstants.getTrackPointsUri(uris)
             waypointsUri = APIConstants.getWaypointsUri(uris)
-            keepScreenOn(
-                intent.getBooleanExtra(
-                    EXTRAS_SHOULD_KEEP_SCREEN_ON,
-                    false
-                )
-            )
-            showOnLockScreen(
-                intent.getBooleanExtra(
-                    EXTRAS_SHOW_WHEN_LOCKED,
-                    false
-                )
-            )
-            showFullscreen(
-                intent.getBooleanExtra(
-                    EXTRAS_SHOW_FULLSCREEN,
-                    false
-                )
-            )
-            isOpenTracksRecordingThisTrack = intent.getBooleanExtra(
-                EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK,
-                false
-            )
+            keepScreenOn(intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false))
+            showOnLockScreen(intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false))
+            showFullscreen(intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false))
+            isOpenTracksRecordingThisTrack =
+                intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false)
 
             trackPointsUri?.let { readTrackpoints(it, false, protocolVersion) }
             readTracks(tracksUri!!)
             waypointsUri?.let { readWaypoints(it) }
         } else if ("geo" == intent.scheme && intent.data != null) {
             WaypointReader.fromGeoUri(intent.data.toString())
-                ?.let { waypoint: Waypoint ->
+                ?.let { waypoint ->
                     val marker = MapUtils.createTappableMarker(this, waypoint)
                     waypointsLayer!!.addItem(marker)
                     val pos = map.getMapPosition()
@@ -421,7 +399,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             .filter { file -> file.exists() }
             .forEach { file: File -> readMapFile(tileSource, mapsCount, file) }
 
-        if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
+        if (mapsCount.get() == 0 && mapFiles.isNotEmpty()) {
             Toast.makeText(
                 this,
                 R.string.error_loading_offline_map,
@@ -688,7 +666,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             if (update && endPos != null) {
                 myPos = endPos
                 map.render()
-            } else if (!latLongs.isEmpty()) {
+            } else if (latLongs.isNotEmpty()) {
                 boundingBox = BoundingBox(latLongs).extendMargin(1.2f).also {
                     myPos = it.getCenterPoint()
                 }
@@ -734,6 +712,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         if (waypointsLayer != null) {
             layers.remove(waypointsLayer)
         }
+
         waypointsLayer = createWaypointsLayer()
         map.layers().add(waypointsLayer)
         lastWaypointId = 0
@@ -828,44 +807,32 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     }
 
     private fun readTracks(data: Uri) {
-        val tracks: List<Track> = TrackReader.readTracks(contentResolver, data)
-        if (!tracks.isEmpty()) {
+        val tracks = TrackReader.readTracks(contentResolver, data)
+        if (tracks.isNotEmpty()) {
             val statistics = TrackStatistics(tracks)
             removeStatisticElements()
             PreferencesUtils.getStatisticElements()
-                .stream()
-                .sorted(Comparator.comparingInt<StatisticElement?>(ToIntFunction { obj: StatisticElement? -> obj!!.ordinal }))
-                .forEach { se: StatisticElement? ->
-                    addStatisticElement(
-                        se!!.getText(
-                            this,
-                            statistics
-                        )
-                    )
-                }
+                .sortedBy { it.ordinal }
+                .forEach { addStatisticElement(it.getText(this, statistics)) }
         }
     }
 
     private fun removeStatisticElements() {
-        val childsToRemove = ArrayList<View?>()
-        for (i in 0 until binding.map.statisticsLayout.childCount) {
-            val childView = binding.map.statisticsLayout.getChildAt(i)
-            if (childView is TextView) {
-                childsToRemove.add(childView)
+        binding.map.statisticsLayout.children
+            .filterIsInstance<TextView>()
+            .forEach { view ->
+                binding.map.statisticsLayout.removeView(view)
+                binding.map.statistics.removeView(view)
             }
-        }
-        childsToRemove.forEach((Consumer { view: View? ->
-            binding.map.statisticsLayout.removeView(view)
-            binding.map.statistics.removeView(view)
-        }))
     }
 
     private fun addStatisticElement(text: String?) {
-        val textView = TextView(this)
-        textView.setId(View.generateViewId())
-        textView.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
-        textView.setTextColor(getColor(R.color.track_statistic))
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 10f)
+        val textView = TextView(this).apply {
+            setId(View.generateViewId())
+            this.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+            setTextColor(getColor(R.color.track_statistic))
+            setTextSize(TypedValue.COMPLEX_UNIT_PT, 10f)
+        }
         binding.map.statisticsLayout.addView(textView)
         binding.map.statistics.addView(textView)
     }
@@ -935,11 +902,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                     )
                 }
             } catch (se: SecurityException) {
-                Log.e(
-                    TAG,
-                    "Error on registering OpenTracksContentObserver",
-                    se
-                )
+                Log.e(TAG, "Error on registering OpenTracksContentObserver", se)
                 Toast.makeText(
                     this,
                     R.string.error_reg_content_observer,

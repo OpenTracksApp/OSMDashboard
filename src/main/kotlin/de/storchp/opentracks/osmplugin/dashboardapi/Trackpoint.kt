@@ -112,7 +112,7 @@ object TrackpointReader {
                 if (lastTrackPoint.isPause) {
                     debug.trackpointsPause++
                     if (lastTrackPoint.latLong == null) {
-                        if (!segment!!.isEmpty()) {
+                        if (segment!!.isNotEmpty()) {
                             val previousTrackpoint = segment[segment.size - 1]
                             previousTrackpoint.latLong?.let {
                                 segment.add(
