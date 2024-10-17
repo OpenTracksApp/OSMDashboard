@@ -1,0 +1,4 @@
+- Migration to Kotlin
+- Reproducible builds
+- Updated translations
+- Updated dependencies
