@@ -87,12 +87,11 @@ enum class StatisticElement {
 
     abstract fun getText(context: Context, statistics: TrackStatistics): String?
 
-    companion object {
-        fun of(name: String?) =
-            try {
-                StatisticElement.valueOf(name!!)
-            } catch (_: IllegalArgumentException) {
-                null
-            }
-    }
 }
+
+fun String.toStatisticElement() =
+    try {
+        StatisticElement.valueOf(this)
+    } catch (_: IllegalArgumentException) {
+        null
+    }

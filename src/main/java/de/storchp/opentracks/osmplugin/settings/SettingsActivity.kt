@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 import de.storchp.opentracks.osmplugin.BuildConfig
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding
-import de.storchp.opentracks.osmplugin.download.DownloadMapSelectionActivity
+import de.storchp.opentracks.osmplugin.download.MAPS_V_5_DOWNLOAD_URI
 import de.storchp.opentracks.osmplugin.settings.SettingsActivity.SettingsFragment
 import de.storchp.opentracks.osmplugin.utils.FileUtil
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
@@ -91,10 +91,7 @@ class SettingsActivity : AppCompatActivity() {
             val mapDownloadPreference =
                 findPreference<Preference?>(getString(R.string.APP_PREF_MAP_DOWNLOAD))
             mapDownloadPreference?.setSummary(
-                getString(
-                    R.string.map_download_summary,
-                    DownloadMapSelectionActivity.Companion.MAPS_V_5
-                )
+                getString(R.string.map_download_summary, MAPS_V_5_DOWNLOAD_URI)
             )
 
             val mapDirectoryPreference =

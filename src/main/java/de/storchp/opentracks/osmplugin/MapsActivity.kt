@@ -35,6 +35,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
 import de.storchp.opentracks.osmplugin.maps.MovementDirection
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator
+import de.storchp.opentracks.osmplugin.utils.DEFAULT_TRACK_COLOR_MORE
 import de.storchp.opentracks.osmplugin.utils.MapMode
 import de.storchp.opentracks.osmplugin.utils.MapUtils
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
@@ -95,11 +96,23 @@ import java.util.function.ToIntFunction
 import java.util.zip.ZipInputStream
 
 
+private val TAG: String = MapsActivity::class.java.getSimpleName()
+const val EXTRA_MARKER_ID: String = "marker_id"
+const val EXTRA_TRACK_ID: String = "track_id"
+const val EXTRA_LOCATION: String = "location"
+private const val MAP_DEFAULT_ZOOM_LEVEL = 12
+private const val EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION"
+private const val EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK =
+    "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK"
+private const val EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
+private const val EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
+private const val EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN"
+
 open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?> {
     private var isOpenTracksRecordingThisTrack = false
     private lateinit var binding: ActivityMapsBinding
     private lateinit var map: Map
-    private var mapPreferences: MapPreferences? = null
+    private lateinit var mapPreferences: MapPreferences
     private var renderTheme: IRenderTheme? = null
     private var boundingBox: BoundingBox? = null
     private var polylinesLayer: GroupLayer? = null
@@ -587,8 +600,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 val maxSpeed = trackpointsBySegments.calcMaxSpeed()
                 val averageToMaxSpeed = maxSpeed - average
                 var trackColorMode = PreferencesUtils.getTrackColorMode()
-                if (isOpenTracksRecordingThisTrack && !trackColorMode.isSupportsLiveTrack()) {
-                    trackColorMode = TrackColorMode.Companion.DEFAULT
+                if (isOpenTracksRecordingThisTrack && !trackColorMode.supportsLiveTrack) {
+                    trackColorMode = DEFAULT_TRACK_COLOR_MORE
                 }
 
                 for (trackPoints in trackpointsBySegments.segments) {
@@ -635,7 +648,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                         polyline!!.addPoint(endPos)
                         movementDirection.updatePos(endPos)
 
-                        if (trackPoint.pause && showPauseMarkers) {
+                        if (trackPoint.isPause && showPauseMarkers) {
                             val marker = MapUtils.createPauseMarker(this, trackPoint.latLong)
                             waypointsLayer!!.addItem(marker)
                         }
@@ -676,8 +689,9 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 myPos = endPos
                 map.render()
             } else if (!latLongs.isEmpty()) {
-                boundingBox = BoundingBox(latLongs).extendMargin(1.2f)
-                myPos = boundingBox!!.getCenterPoint()
+                boundingBox = BoundingBox(latLongs).extendMargin(1.2f).also {
+                    myPos = it.getCenterPoint()
+                }
             }
 
             if (myPos != null) {
@@ -706,7 +720,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         // tracks
         lastTrackId = 0
         lastTrackPointId = 0
-        colorCreator = StyleColorCreator(StyleColorCreator.Companion.GOLDEN_RATIO_CONJUGATE / 2)
+        colorCreator = StyleColorCreator()
         trackColor = colorCreator!!.nextColor()
         polyline = null
         startPos = null
@@ -723,7 +737,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         waypointsLayer = createWaypointsLayer()
         map.layers().add(waypointsLayer)
         lastWaypointId = 0
-        mapPreferences!!.clear()
+        mapPreferences.clear()
     }
 
     fun updateDebugTrackPoints() {
@@ -859,7 +873,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     public override fun onResume() {
         super.onResume()
 
-        mapPreferences!!.load(map)
+        mapPreferences.load(map)
         binding.map.mapView.onResume()
     }
 
@@ -890,7 +904,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     override fun onPause() {
         if (!isPiPMode()) {
-            mapPreferences!!.save(map)
+            mapPreferences.save(map)
             binding.map.mapView.onPause()
         }
         super.onPause()
@@ -899,7 +913,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     override fun onStart() {
         super.onStart()
 
-        Log.d(TAG, "register content observer")
         if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
             contentObserver = OpenTracksContentObserver(
                 tracksUri!!,
@@ -956,17 +969,4 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         map.animator().animateTo(newPos)
     }
 
-    companion object {
-        private val TAG: String = MapsActivity::class.java.getSimpleName()
-        const val EXTRA_MARKER_ID: String = "marker_id"
-        const val EXTRA_TRACK_ID: String = "track_id"
-        const val EXTRA_LOCATION: String = "location"
-        private const val MAP_DEFAULT_ZOOM_LEVEL = 12
-        private const val EXTRAS_PROTOCOL_VERSION = "PROTOCOL_VERSION"
-        private const val EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK =
-            "EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK"
-        private const val EXTRAS_SHOULD_KEEP_SCREEN_ON = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
-        private const val EXTRAS_SHOW_WHEN_LOCKED = "EXTRAS_SHOULD_KEEP_SCREEN_ON"
-        private const val EXTRAS_SHOW_FULLSCREEN = "EXTRAS_SHOULD_FULLSCREEN"
-    }
 }

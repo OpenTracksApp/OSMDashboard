@@ -3,22 +3,24 @@ package de.storchp.opentracks.osmplugin.maps
 import org.oscim.backend.canvas.Color
 import kotlin.math.floor
 
+
+private const val GOLDEN_RATIO_CONJUGATE: Double = 0.618033988749895
+
 /**
  * Creates continues distinguished colors via golden ration.
  * Adapted from: [...](https://github.com/dennisguse/TheKarte/blob/master/src/StyleColorCreator.js)
  * Code for color generation was taken partly from [...](https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/)
  */
-class StyleColorCreator(start: Double) {
-    private var h: Double
-
-    init {
-        this.h = start
-    }
+class StyleColorCreator(private var h: Double = GOLDEN_RATIO_CONJUGATE / 2) {
 
     /**
      * @noinspection SameParameterValue
      */
-    private fun convertHSVtoColorRGB(hue: Double, saturation: Double, value: Double): Int {
+    private fun convertHSVtoColorRGB(
+        hue: Double,
+        saturation: Double = 0.99,
+        value: Double = 0.99
+    ): Int {
         val i = floor(hue * 6)
         val f = hue * 6 - i
         val p = value * (1 - saturation)
@@ -74,13 +76,10 @@ class StyleColorCreator(start: Double) {
      * @return The color.
      */
     fun nextColor(): Int {
-        this.h += GOLDEN_RATIO_CONJUGATE
-        this.h %= 1.0
+        h += GOLDEN_RATIO_CONJUGATE
+        h %= 1.0
 
-        return convertHSVtoColorRGB(this.h, 0.99, 0.99)
+        return convertHSVtoColorRGB(h)
     }
 
-    companion object {
-        const val GOLDEN_RATIO_CONJUGATE: Double = 0.618033988749895
-    }
 }

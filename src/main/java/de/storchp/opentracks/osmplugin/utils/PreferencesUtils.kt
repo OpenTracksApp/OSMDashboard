@@ -169,7 +169,7 @@ object PreferencesUtils {
             R.string.APP_PREF_STATISTIC_ELEMENTS,
             setOf(*resources.getStringArray(R.array.statistic_elements_defaults))
         )
-            .mapNotNull { name -> StatisticElement.Companion.of(name) }
+            .mapNotNull(String::toStatisticElement)
             .toSet()
 
     fun isDebugTrackPoints() =
@@ -182,8 +182,8 @@ object PreferencesUtils {
         val trackColorMode = getString(
             R.string.APP_PREF_TRACK_COLOR_MODE,
             resources.getString(R.string.track_color_mode_default)
-        )
-        return TrackColorMode.valueOf(trackColorMode!!)
+        )!!
+        return TrackColorMode.valueOf(trackColorMode)
     }
 
     fun registerOnSharedPreferenceChangeListener(changeListener: OnSharedPreferenceChangeListener) {

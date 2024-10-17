@@ -14,6 +14,9 @@ import org.jsoup.Jsoup
 import java.io.IOException
 import java.lang.RuntimeException
 
+const val MAPS_V_5_DOWNLOAD_URI: String =
+    "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/"
+
 class DownloadMapSelectionActivity : BaseActivity() {
     private lateinit var adapter: DownloadMapItemAdapter
     private var pageUri: Uri? = null
@@ -23,7 +26,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
         val binding = ActivityDownloadMapSelectionBinding.inflate(layoutInflater)
         setContentView(binding.getRoot())
 
-        pageUri = Uri.parse(MAPS_V_5)
+        pageUri = Uri.parse(MAPS_V_5_DOWNLOAD_URI)
         val intent = getIntent()
         if (intent != null) {
             val mapDownloadUri = intent.data
@@ -110,8 +113,4 @@ class DownloadMapSelectionActivity : BaseActivity() {
         return false
     }
 
-    companion object {
-        const val MAPS_V_5: String =
-            "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/"
-    }
 }

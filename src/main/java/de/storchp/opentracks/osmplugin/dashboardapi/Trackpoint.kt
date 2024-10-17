@@ -20,7 +20,7 @@ data class TrackPoint(
         null
     }
 
-    val pause = if (type != null) type == 3 else latitude == PAUSE_LATITUDE
+    val isPause = if (type != null) type == 3 else latitude == PAUSE_LATITUDE
 }
 
 private const val PAUSE_LATITUDE: Double = 100.0
@@ -89,10 +89,10 @@ object TrackpointReader {
                     cursor.getInt(cursor.getColumnIndexOrThrow(LATITUDE)) / APIConstants.LAT_LON_FACTOR
                 val longitude =
                     cursor.getInt(cursor.getColumnIndexOrThrow(LONGITUDE)) / APIConstants.LAT_LON_FACTOR
-                val typeIndex = cursor.getColumnIndex(TYPE)
                 val speed = cursor.getDouble(cursor.getColumnIndexOrThrow(SPEED))
 
                 var type: Int? = null
+                val typeIndex = cursor.getColumnIndex(TYPE)
                 if (typeIndex > -1) {
                     type = cursor.getInt(typeIndex)
                 }
@@ -106,10 +106,10 @@ object TrackpointReader {
                     TrackPoint(trackId, trackPointId, latitude, longitude, type, speed)
                 if (lastTrackPoint.latLong != null) {
                     segment!!.add(lastTrackPoint)
-                } else if (!lastTrackPoint.pause) {
+                } else if (!lastTrackPoint.isPause) {
                     debug.trackpointsInvalid++
                 }
-                if (lastTrackPoint.pause) {
+                if (lastTrackPoint.isPause) {
                     debug.trackpointsPause++
                     if (lastTrackPoint.latLong == null) {
                         if (!segment!!.isEmpty()) {

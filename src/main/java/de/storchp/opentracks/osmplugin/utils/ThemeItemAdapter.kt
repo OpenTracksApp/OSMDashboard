@@ -11,10 +11,9 @@ import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding
 
 class ThemeItemAdapter(
     private val context: Activity,
-    private val items: List<FileItem>,
     var selectedUri: Uri?,
     private val onlineMapSelected: Boolean
-) : ArrayAdapter<FileItem>(context, R.layout.map_item, items) {
+) : ArrayAdapter<FileItem>(context, R.layout.map_item, mutableListOf()) {
 
     override fun areAllItemsEnabled(): Boolean {
         return false
@@ -35,27 +34,27 @@ class ThemeItemAdapter(
 
         // fill data
         val binding = rowView.tag as ThemeItemBinding
-        val item = this.items[position]
-        binding.name.text = item.name
-        binding.name.setEnabled(isEnabled(position))
-        binding.radiobutton.setChecked(if (position == 0) selectedUri == null else item.uri != null && item.uri == selectedUri)
-        binding.radiobutton.setOnClickListener(
-            onStateChangedListener(
-                binding.radiobutton,
-                position
+        getItem(position)?.let { item ->
+            binding.name.text = item.name
+            binding.name.setEnabled(isEnabled(position))
+            binding.radiobutton.setChecked(if (position == 0) selectedUri == null else item.uri != null && item.uri == selectedUri)
+            binding.radiobutton.setOnClickListener(
+                onClickListener(
+                    binding.radiobutton,
+                    position
+                )
             )
-        )
-        binding.radiobutton.setEnabled(isEnabled(position))
+            binding.radiobutton.setEnabled(isEnabled(position))
+        }
 
         return rowView
     }
 
-    private fun onStateChangedListener(
+    private fun onClickListener(
         radioButton: RadioButton,
         position: Int
-    ): View.OnClickListener {
-        return View.OnClickListener { v: View? ->
-            val fileItem = items[position]
+    ) = View.OnClickListener {
+        getItem(position)?.let { fileItem ->
             if (radioButton.isChecked) {
                 selectedUri = fileItem.uri
             } else {

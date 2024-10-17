@@ -26,19 +26,19 @@ object UnitConversions {
 
     // Time
     // multiplication factor to convert milliseconds to seconds
-    val MS_TO_S: Double = 1.0 / S_TO_MS
+    const val MS_TO_S: Double = 1.0 / S_TO_MS
 
     // multiplication factor to convert minutes to seconds
     const val MIN_TO_S: Double = 60.0
 
     // multiplication factor to convert seconds to minutes
-    val S_TO_MIN: Double = 1 / MIN_TO_S
+    const val S_TO_MIN: Double = 1 / MIN_TO_S
 
     // multiplication factor to convert hours to minutes
     const val HR_TO_MIN: Double = 60.0
 
     // multiplication factor to convert minutes to hours
-    val MIN_TO_HR: Double = 1 / HR_TO_MIN
+    const val MIN_TO_HR: Double = 1 / HR_TO_MIN
 
     // multiplication factor to convert kilometers to miles
     const val KM_TO_MI: Double = 0.621371192
@@ -51,18 +51,18 @@ object UnitConversions {
     const val KM_TO_M: Double = 1000.0
 
     // multiplication factor to convert meters to kilometers
-    val M_TO_KM: Double = 1 / KM_TO_M
+    const val M_TO_KM: Double = 1 / KM_TO_M
 
     // multiplication factor to convert meters to miles
-    val M_TO_MI: Double = M_TO_KM * KM_TO_MI
+    const val M_TO_MI: Double = M_TO_KM * KM_TO_MI
 
     // multiplication factor to convert meters to feet
-    val M_TO_FT: Double = M_TO_MI * MI_TO_FT
+    const val M_TO_FT: Double = M_TO_MI * MI_TO_FT
 
     // multiplication factor to convert meters per second to kilometers per hour
-    val MS_TO_KMH: Double = M_TO_KM / (S_TO_MIN * MIN_TO_HR)
+    const val MS_TO_KMH: Double = M_TO_KM / (S_TO_MIN * MIN_TO_HR)
 
     // Others
     // multiplication factor to convert degrees to radians
-    val DEG_TO_RAD: Double = Math.PI / 180.0
+    const val DEG_TO_RAD: Double = Math.PI / 180.0
 }

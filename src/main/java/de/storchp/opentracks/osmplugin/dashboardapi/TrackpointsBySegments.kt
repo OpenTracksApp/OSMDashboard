@@ -5,14 +5,13 @@ import de.storchp.opentracks.osmplugin.utils.TrackPointsDebug
 data class TrackpointsBySegments(
     val segments: List<List<TrackPoint>>,
     val debug: TrackPointsDebug,
-) {
-    fun isEmpty() = segments.isEmpty()
+) : List<List<TrackPoint>> by segments {
 
-    fun calcAverageSpeed() = trackPointsWithSpeed().average()
+    fun calcAverageSpeed() = speeds().average()
 
-    fun calcMaxSpeed() = trackPointsWithSpeed().maxOrNull() ?: 0.0
+    fun calcMaxSpeed() = speeds().maxOrNull() ?: 0.0
 
-    private fun trackPointsWithSpeed() = segments
+    private fun speeds() = segments
         .flatMap { it }
         .map { it.speed }
         .filter { it > 0 }

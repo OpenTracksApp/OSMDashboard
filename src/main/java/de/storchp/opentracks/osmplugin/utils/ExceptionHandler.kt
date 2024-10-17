@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import de.storchp.opentracks.osmplugin.BuildConfig
+import de.storchp.opentracks.osmplugin.EXTRA_ERROR_TEXT
 import de.storchp.opentracks.osmplugin.ShowErrorActivity
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -19,7 +20,7 @@ class ExceptionHandler(
         try {
             val errorReport = generateErrorReport(formatException(thread, exception))
             val intent = Intent(context, ShowErrorActivity::class.java)
-            intent.putExtra(ShowErrorActivity.Companion.EXTRA_ERROR_TEXT, errorReport)
+            intent.putExtra(EXTRA_ERROR_TEXT, errorReport)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
             // Pass exception to OS for graceful handling - OS will report it via ADB

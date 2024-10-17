@@ -11,28 +11,26 @@ import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(getLayoutInflater())
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.getRoot())
 
         setSupportActionBar(binding.toolbar.mapsToolbar)
 
-        binding.usageInfo.setMovementMethod(LinkMovementMethod.getInstance())
-        binding.osmInfo.setMovementMethod(LinkMovementMethod.getInstance())
-        binding.offlineMaps.setMovementMethod(LinkMovementMethod.getInstance())
-        binding.versionInfo.setText(
-            Html.fromHtml(
-                getString(
-                    R.string.version_info,
-                    BuildConfig.BUILD_TYPE,
-                    BuildConfig.VERSION_NAME,
-                    BuildConfig.VERSION_CODE
-                ), Html.FROM_HTML_MODE_COMPACT
-            )
+        binding.usageInfo.movementMethod = LinkMovementMethod.getInstance()
+        binding.osmInfo.movementMethod = LinkMovementMethod.getInstance()
+        binding.offlineMaps.movementMethod = LinkMovementMethod.getInstance()
+        binding.versionInfo.text = Html.fromHtml(
+            getString(
+                R.string.version_info,
+                BuildConfig.BUILD_TYPE,
+                BuildConfig.VERSION_NAME,
+                BuildConfig.VERSION_CODE
+            ), Html.FROM_HTML_MODE_COMPACT
         )
 
         if (BuildConfig.offline) {
-            binding.offlineVersionInfo.setVisibility(View.VISIBLE)
-            binding.offlineMapInfo.setVisibility(View.GONE)
+            binding.offlineVersionInfo.visibility = View.VISIBLE
+            binding.offlineMapInfo.visibility = View.GONE
         }
     }
 

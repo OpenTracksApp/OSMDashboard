@@ -10,6 +10,8 @@ import de.storchp.opentracks.osmplugin.utils.ExceptionHandler
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import java.lang.Exception
 
+private val TAG: String = Startup::class.java.getSimpleName()
+
 /**
  * Code that is executed when the application starts.
  *
@@ -24,7 +26,7 @@ class Startup : Application() {
         //Include version information into stack traces.
         Log.i(
             TAG,
-            BuildConfig.APPLICATION_ID + "; BuildType: " + BuildConfig.BUILD_TYPE + "; VersionName: " + BuildConfig.VERSION_NAME + "/" + " VersionCode: " + BuildConfig.VERSION_CODE
+            "${BuildConfig.APPLICATION_ID}; BuildType: ${BuildConfig.BUILD_TYPE}; VersionName: ${BuildConfig.VERSION_NAME}/ VersionCode: ${BuildConfig.VERSION_CODE}"
         )
 
         PreferencesUtils.initPreferences(this)
@@ -64,7 +66,4 @@ class Startup : Application() {
         return processName != null && processName.endsWith(":crash")
     }
 
-    companion object {
-        private val TAG: String = Startup::class.java.getSimpleName()
-    }
 }

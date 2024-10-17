@@ -11,20 +11,22 @@ import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
+const val EXTRA_ERROR_TEXT: String = "error"
+
 class ShowErrorActivity : AppCompatActivity() {
-    private var binding: ActivityShowErrorBinding? = null
+    private lateinit var binding: ActivityShowErrorBinding
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityShowErrorBinding.inflate(getLayoutInflater())
-        setContentView(binding!!.getRoot())
+        binding = ActivityShowErrorBinding.inflate(layoutInflater)
+        setContentView(binding.getRoot())
 
-        binding!!.textViewError.setText(getIntent().getStringExtra(EXTRA_ERROR_TEXT))
+        binding.textViewError.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
-        setSupportActionBar(binding!!.toolbar.mapsToolbar)
-        if (getSupportActionBar() != null) {
-            getSupportActionBar()!!.setTitle(createErrorTitle())
+        setSupportActionBar(binding.toolbar.mapsToolbar)
+        supportActionBar?.let {
+            it.title = createErrorTitle()
         }
     }
 
@@ -39,12 +41,12 @@ class ShowErrorActivity : AppCompatActivity() {
                 String.format(
                     getString(R.string.report_issue_link),
                     URLEncoder.encode(
-                        binding!!.textViewError.getText().toString(),
+                        binding.textViewError.getText().toString(),
                         StandardCharsets.UTF_8.toString()
                     )
                 )
             )
-        } catch (ignored: UnsupportedEncodingException) {
+        } catch (_: UnsupportedEncodingException) {
             // can't happen as UTF-8 is always available
             return
         }
@@ -53,30 +55,28 @@ class ShowErrorActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        getMenuInflater().inflate(R.menu.show_error, menu)
+        menuInflater.inflate(R.menu.show_error, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.getItemId() == R.id.error_share) {
+    override fun onOptionsItemSelected(item: MenuItem) =
+        if (item.itemId == R.id.error_share) {
             onClickedShare()
-            return true
-        } else if (item.getItemId() == R.id.error_report) {
+            true
+        } else if (item.itemId == R.id.error_report) {
             reportBug()
-            return true
+            true
+        } else {
+            super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun onClickedShare() {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
-        intent.putExtra(Intent.EXTRA_TEXT, binding!!.textViewError.getText())
-        intent.setType("text/plain")
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
+            putExtra(Intent.EXTRA_TEXT, binding.textViewError.getText())
+            setType("text/plain")
+        }
         startActivity(intent)
     }
 
-    companion object {
-        const val EXTRA_ERROR_TEXT: String = "error"
-    }
 }

@@ -14,7 +14,7 @@ class MapItemAdapter(
     private val context: Activity,
     private val items: List<FileItem>,
     private var selected: Set<Uri>
-) : ArrayAdapter<FileItem>(context, R.layout.map_item, items) {
+) : ArrayAdapter<FileItem>(context, R.layout.map_item, items.toMutableList()) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var rowView = convertView
@@ -27,11 +27,11 @@ class MapItemAdapter(
 
         // fill data
         val binding = rowView.tag as MapItemBinding
-        val item = this.items[position]
-        binding.name.text = item.name
+        val item = getItem(position)
+        binding.name.text = item?.name
         binding.checkbox.setChecked(
             if (position == 0 && !BuildConfig.offline) selected.isEmpty() else selected.contains(
-                item.uri
+                item?.uri
             )
         )
         binding.checkbox.setOnClickListener(onStateChangedListener(binding.checkbox, position))
@@ -40,23 +40,24 @@ class MapItemAdapter(
     }
 
     private fun onStateChangedListener(checkBox: CheckBox, position: Int): View.OnClickListener {
-        return View.OnClickListener { v: View? ->
-            val fileItem = items[position]
-            if (checkBox.isChecked) {
-                selected = if (fileItem.uri == null) { // online map
-                    setOf()
-                } else {
-                    selected + fileItem.uri
+        return View.OnClickListener {
+            getItem(position)?.let { fileItem ->
+                if (checkBox.isChecked) {
+                    selected = if (fileItem.uri == null) { // online map
+                        setOf()
+                    } else {
+                        selected + fileItem.uri
+                    }
+                } else if (fileItem.uri != null) { // offline map
+                    selected = selected - fileItem.uri
                 }
-            } else if (fileItem.uri != null) { // offline map
-                selected = selected - fileItem.uri
+                notifyDataSetChanged()
             }
-            notifyDataSetChanged()
         }
     }
 
     fun getSelectedUris() =
         selected.filter { uri ->
-            items.any { item: FileItem? -> uri == item!!.uri }
+            items.any { item -> uri == item.uri }
         }.toSet()
 }

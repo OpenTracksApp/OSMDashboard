@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toFile
 import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding
@@ -29,8 +30,6 @@ import java.lang.Exception
 import java.lang.RuntimeException
 import java.lang.ref.WeakReference
 import java.nio.file.Files
-import java.util.ArrayList
-import java.util.function.Consumer
 import java.util.zip.ZipInputStream
 
 class ThemeSelectionActivity : AppCompatActivity() {
@@ -52,7 +51,6 @@ class ThemeSelectionActivity : AppCompatActivity() {
 
         adapter = ThemeItemAdapter(
             this,
-            emptyList(),
             PreferencesUtils.getMapThemeUri(),
             onlineMapSelected
         )
@@ -62,51 +60,14 @@ class ThemeSelectionActivity : AppCompatActivity() {
 
         binding.themeList.setAdapter(adapter)
         binding.themeList.onItemClickListener =
-            OnItemClickListener { listview: AdapterView<*>?, view: View?, position: Int, id: Long ->
+            OnItemClickListener { _: AdapterView<*>?, view: View?, _: Int, _: Long ->
                 val itemBinding = view!!.tag as ThemeItemBinding
                 itemBinding.radiobutton.setChecked(!itemBinding.radiobutton.isChecked)
                 itemBinding.radiobutton.callOnClick()
             }
         binding.themeList.onItemLongClickListener =
-            OnItemLongClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-                val fileItem = adapter.getItem(position)
-                val uri = fileItem!!.uri
-                if (uri == null) {
-                    // online theme can't be deleted
-                    return@OnItemLongClickListener false
-                }
-                AlertDialog.Builder(this@ThemeSelectionActivity)
-                    .setIcon(R.drawable.ic_logo_color_24dp)
-                    .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.delete_theme_question, fileItem.name))
-                    .setPositiveButton(
-                        android.R.string.ok,
-                        DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
-                            var deleted: Boolean
-                            if ("file" == fileItem.uri.scheme) {
-                                deleted = File(fileItem.uri.toString()).delete()
-                            } else {
-                                val file = FileUtil.getDocumentFileFromTreeUri(
-                                    this@ThemeSelectionActivity,
-                                    fileItem.uri
-                                )
-                                deleted = file!!.delete()
-                            }
-                            if (deleted) {
-                                adapter.remove(fileItem)
-                                adapter.selectedUri = null
-                                adapter.notifyDataSetChanged()
-                            } else {
-                                Toast.makeText(
-                                    this@ThemeSelectionActivity,
-                                    R.string.delete_theme_error,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create().show()
-                false
+            OnItemLongClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
+                onItemLongClick(position)
             }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -116,30 +77,69 @@ class ThemeSelectionActivity : AppCompatActivity() {
         })
     }
 
+    private fun onItemLongClick(
+        position: Int,
+    ): Boolean {
+        val fileItem = adapter.getItem(position)
+        val uri = fileItem?.uri
+        if (fileItem == null || uri == null) {
+            // online theme can't be deleted
+            return false
+        }
+        AlertDialog.Builder(this@ThemeSelectionActivity)
+            .setIcon(R.drawable.ic_logo_color_24dp)
+            .setTitle(R.string.app_name)
+            .setMessage(getString(R.string.delete_theme_question, fileItem.name))
+            .setPositiveButton(
+                android.R.string.ok,
+                DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                    var deleted: Boolean
+                    if ("file" == uri.scheme) {
+                        deleted = uri.toFile().delete()
+                    } else {
+                        val file = FileUtil.getDocumentFileFromTreeUri(this, uri)
+                        deleted = file!!.delete()
+                    }
+                    if (deleted) {
+                        adapter.remove(fileItem)
+                        adapter.selectedUri = null
+                        adapter.notifyDataSetChanged()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            R.string.delete_theme_error,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+            .setNegativeButton(android.R.string.cancel, null)
+            .create().show()
+        return true
+    }
+
     private class MapThemeDirScanner(activity: ThemeSelectionActivity) : Runnable {
         val activityRef: WeakReference<ThemeSelectionActivity> =
             WeakReference<ThemeSelectionActivity>(activity)
 
         override fun run() {
             val directory = PreferencesUtils.getMapThemeDirectoryUri()
-            val items = ArrayList<FileItem?>()
             val activity = activityRef.get()
             if (activity == null) {
                 return
             }
-            if (directory == null) {
-                val filesDir = activity.getExternalFilesDir(null)!!.toPath()
-                val themeDir = filesDir.resolve(DownloadType.THEME.subdir)
-                if (Files.exists(themeDir)) {
-                    themeDir.toFile().listFiles()!!.forEach {
-                        activity.readThemeFile(items, it)
+            val items = buildList {
+                if (directory == null) {
+                    val filesDir = activity.getExternalFilesDir(null)!!.toPath()
+                    val themeDir = filesDir.resolve(DownloadType.THEME.subdir)
+                    if (Files.exists(themeDir)) {
+                        themeDir.toFile().listFiles()!!.forEach {
+                            addAll(activity.readThemeFile(it))
+                        }
                     }
-                }
-            } else {
-                val documentsTree = FileUtil.getDocumentFileFromTreeUri(activity, directory)
-                if (documentsTree != null) {
-                    for (file in documentsTree.listFiles()) {
-                        activity.readThemeFile(items, file)
+                } else {
+                    val documentsTree = FileUtil.getDocumentFileFromTreeUri(activity, directory)
+                    documentsTree?.listFiles()?.forEach {
+                        addAll(activity.readThemeFile(it))
                     }
                 }
             }
@@ -152,52 +152,63 @@ class ThemeSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun readThemeFile(items: ArrayList<FileItem?>, file: DocumentFile) {
+    private fun readThemeFile(file: DocumentFile) = sequence {
         if (file.isFile && file.name != null) {
             if (file.name!!.endsWith(".xml")) {
-                items.add(FileItem(file.name!!, file.uri, null, file))
+                yield(FileItem(file.name!!, file.uri, null, file))
             } else if (file.name!!.endsWith(".zip")) {
-                resolveThemesFromZip(items, file.uri, file.name, file, null)
+                yieldAll(
+                    resolveThemesFromZip(
+                        uri = file.uri,
+                        filename = file.name!!,
+                        documentFile = file,
+                    )
+                )
             }
         } else if (file.isDirectory) {
             val childFile = file.findFile(file.name + ".xml")
             if (childFile != null) {
-                items.add(FileItem(childFile.name!!, childFile.uri, null, childFile))
+                yield(FileItem(childFile.name!!, childFile.uri, null, childFile))
             }
         }
     }
 
-    private fun readThemeFile(items: ArrayList<FileItem?>, file: File) {
+    private fun readThemeFile(file: File) = sequence {
         if (file.isFile() && file.exists()) {
             val uri = Uri.fromFile(file)
             if (file.getName().endsWith(".xml")) {
-                items.add(FileItem(file.getName(), uri, file, null))
+                yield(FileItem(file.getName(), uri, file, null))
             } else if (file.getName().endsWith(".zip")) {
-                resolveThemesFromZip(items, uri, file.getName(), null, file)
+                yieldAll(
+                    resolveThemesFromZip(
+                        uri = uri,
+                        filename = file.getName(),
+                        file = file
+                    )
+                )
             }
         } else if (file.isDirectory()) {
             val childFile = File(file, file.getName() + ".xml")
             if (childFile.exists()) {
-                items.add(FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null))
+                yield(FileItem(childFile.getName(), Uri.fromFile(childFile), childFile, null))
             }
         }
     }
 
     private fun resolveThemesFromZip(
-        items: ArrayList<FileItem?>,
         uri: Uri,
-        filename: String?,
-        documentFile: DocumentFile?,
-        file: File?
-    ) {
+        filename: String,
+        documentFile: DocumentFile? = null,
+        file: File? = null,
+    ) = sequence {
         try {
             val xmlThemes = ZipXmlThemeResourceProvider.scanXmlThemes(
                 ZipInputStream(
                     BufferedInputStream(contentResolver.openInputStream(uri))
                 )
             )
-            xmlThemes.forEach(Consumer { xmlTheme: String? ->
-                items.add(
+            xmlThemes.forEach { xmlTheme ->
+                yield(
                     FileItem(
                         "$filename#$xmlTheme",
                         uri.buildUpon().fragment(xmlTheme).build(),
@@ -205,7 +216,7 @@ class ThemeSelectionActivity : AppCompatActivity() {
                         documentFile
                     )
                 )
-            })
+            }
         } catch (e: Exception) {
             throw RuntimeException("Failed to read theme .zip file: $filename", e)
         }
