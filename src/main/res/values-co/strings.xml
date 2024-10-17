@@ -97,9 +97,9 @@
     <string name="consider_offline_maps">Sappiate ch’ella hè pussibule di scaricà una carta fora di linea per riduce a carica di u servitore è risparmià i dati muvibule di u vostru cuntrattu di telefuninu. Parechje carte fora di linea si trovanu quì :</string>
     <string name="moving_time">Durata in mossa</string>
     <string name="no_map_configured">Ùn avete ancu cunfiguratu nisuna carta fora di linea.</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_icon">Map icon</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
+    <string name="INTERNAL_APP_STORAGE">Cartulare di memoria interna di l’appiecazione</string>
+    <string name="map_icon">Icona di carta</string>
+    <string name="map_download_summary">Scaricà e carte da %s</string>
+    <string name="download_page_info">Fighjate avà u cuntenutu di %s</string>
+    <string name="theme_icon">Icona di tema</string>
 </resources>
