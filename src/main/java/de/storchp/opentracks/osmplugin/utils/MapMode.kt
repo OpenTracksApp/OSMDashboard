@@ -5,23 +5,21 @@ import java.lang.IllegalArgumentException
 
 enum class MapMode {
     NORTH {
-        override fun getHeading(movementDirection: MovementDirection): Float {
-            return 0f
-        }
+        override fun getHeading(movementDirection: MovementDirection) = 0f
     },
     DIRECTION {
-        override fun getHeading(movementDirection: MovementDirection): Float {
-            return -1f * movementDirection.getCurrentDegrees()
-        }
+        override fun getHeading(movementDirection: MovementDirection) =
+            -1f * movementDirection.currentDegrees
     };
 
     abstract fun getHeading(movementDirection: MovementDirection): Float
-
-    companion object {
-        fun valueOf(name: String?, defaultValue: MapMode) = try {
-            MapMode.valueOf(name!!)
-        } catch (_: IllegalArgumentException) {
-            defaultValue
-        }
-    }
+    
 }
+
+fun String.toMapMode(defaultValue: MapMode) =
+    try {
+        MapMode.valueOf(this)
+    } catch (_: IllegalArgumentException) {
+        defaultValue
+    }
+

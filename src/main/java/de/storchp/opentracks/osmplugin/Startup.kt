@@ -23,7 +23,7 @@ class Startup : Application() {
 
         //Include version information into stack traces.
         Log.i(
-            Startup.Companion.TAG,
+            TAG,
             BuildConfig.APPLICATION_ID + "; BuildType: " + BuildConfig.BUILD_TYPE + "; VersionName: " + BuildConfig.VERSION_NAME + "/" + " VersionCode: " + BuildConfig.VERSION_CODE
         )
 
@@ -56,7 +56,7 @@ class Startup : Application() {
                 @SuppressLint("DiscouragedPrivateApi") val getProcessName =
                     activityThread.getDeclaredMethod("currentProcessName")
                 processName = getProcessName.invoke(null) as String?
-            } catch (ignored: Exception) {
+            } catch (_: Exception) {
             }
         } else {
             processName = getProcessName()

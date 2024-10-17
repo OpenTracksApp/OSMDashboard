@@ -10,7 +10,7 @@ import de.storchp.opentracks.osmplugin.databinding.DownloadItemBinding
 
 class DownloadMapItemAdapter(
     private val context: Activity,
-    private val items: List<DownloadMapItem>
+    private val items: MutableList<DownloadMapItem>
 ) : ArrayAdapter<DownloadMapItem?>(context, R.layout.map_item, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -29,7 +29,7 @@ class DownloadMapItemAdapter(
         binding.date.text = item.date
         binding.size.text = item.size
         binding.mapIcon.setImageDrawable(
-            ContextCompat.getDrawable(context, item.downloadItemType.getIconResId())
+            ContextCompat.getDrawable(context, item.downloadItemType.iconResId)
         )
 
         return rowView

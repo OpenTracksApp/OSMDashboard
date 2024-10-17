@@ -5,7 +5,8 @@ import org.oscim.core.GeoPoint
 
 class MovementDirection {
     private var secondToLastPos: GeoPoint? = null
-    private var currentDegrees = 0f
+    var currentDegrees = 0f
+        get() = currentDegrees
 
     fun updatePos(endPos: GeoPoint?) {
         if (endPos != null && endPos != secondToLastPos) {
@@ -14,7 +15,4 @@ class MovementDirection {
         }
     }
 
-    fun getCurrentDegrees(): Float {
-        return currentDegrees
-    }
 }

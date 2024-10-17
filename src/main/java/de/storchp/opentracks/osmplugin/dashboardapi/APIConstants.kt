@@ -18,5 +18,5 @@ object APIConstants {
     /**
      * Waypoints are only available in newer versions of OpenTracks.
      */
-    fun getWaypointsUri(uris: ArrayList<Uri>) = if (uris.size > 2) uris[2] else null
+    fun getWaypointsUri(uris: ArrayList<Uri>) = uris.getOrNull(2)
 }

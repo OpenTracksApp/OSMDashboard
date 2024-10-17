@@ -13,7 +13,6 @@ import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionB
 import org.jsoup.Jsoup
 import java.io.IOException
 import java.lang.RuntimeException
-import java.util.function.Consumer
 
 class DownloadMapSelectionActivity : BaseActivity() {
     private lateinit var adapter: DownloadMapItemAdapter
@@ -37,7 +36,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
         binding.toolbar.mapsToolbar.setTitle(R.string.choose_map_to_download)
         setSupportActionBar(binding.toolbar.mapsToolbar)
 
-        adapter = DownloadMapItemAdapter(this, emptyList())
+        adapter = DownloadMapItemAdapter(this, mutableListOf())
         binding.mapDownloadList.setAdapter(adapter)
         binding.mapDownloadList.onItemClickListener =
             OnItemClickListener { listview: AdapterView<*>?, view: View?, position: Int, id: Long ->
@@ -79,8 +78,8 @@ class DownloadMapSelectionActivity : BaseActivity() {
                             val linkText = link.text()
                             val date = cells[2].text()
                             val size = cells[3].text()
-                            DownloadItemType.Companion.ofAlt(alt)
-                                .ifPresent(Consumer { type ->
+                            alt.toDownloadItemType()
+                                ?.let { type ->
                                     add(
                                         DownloadMapItem(
                                             downloadItemType = type,
@@ -91,7 +90,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
                                                 .build()
                                         )
                                     )
-                                })
+                                }
                         }
                     }
                 }

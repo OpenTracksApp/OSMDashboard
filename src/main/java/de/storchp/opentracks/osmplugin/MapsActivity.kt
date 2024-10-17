@@ -27,9 +27,11 @@ import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.MapsActivity.OpenTracksContentObserver
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants
 import de.storchp.opentracks.osmplugin.dashboardapi.Track
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPoint
-import de.storchp.opentracks.osmplugin.dashboardapi.TrackPointsBySegments
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackReader
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointReader
+import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
+import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
 import de.storchp.opentracks.osmplugin.maps.MovementDirection
 import de.storchp.opentracks.osmplugin.maps.StyleColorCreator
@@ -179,7 +181,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     private fun startOpenTracksToAddNewMarker(event: MotionEvent) {
         try {
-            val geoPoint = map.viewport().fromScreenPoint(event.getX(), event.getY())
+            val geoPoint = map.viewport().fromScreenPoint(event.x, event.y)
             val intent = Intent("de.dennisguse.opentracks.CreateMarker")
             intent.putExtra(EXTRA_TRACK_ID, lastTrackId)
             intent.putExtra(EXTRA_LOCATION, MapUtils.toLocation(geoPoint))
@@ -231,7 +233,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             readTracks(tracksUri!!)
             waypointsUri?.let { readWaypoints(it) }
         } else if ("geo" == intent.scheme && intent.data != null) {
-            Waypoint.Companion.fromGeoUri(intent.data.toString())
+            WaypointReader.fromGeoUri(intent.data.toString())
                 ?.let { waypoint: Waypoint ->
                     val marker = MapUtils.createTappableMarker(this, waypoint)
                     waypointsLayer!!.addItem(marker)
@@ -409,7 +411,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         if (mapsCount.get() == 0 && !mapFiles.isEmpty()) {
             Toast.makeText(
                 this,
-                de.storchp.opentracks.osmplugin.R.string.error_loading_offline_map,
+                R.string.error_loading_offline_map,
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -487,8 +489,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         } else if (BuildConfig.offline) {
             AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_logo_color_24dp)
-                .setTitle(de.storchp.opentracks.osmplugin.R.string.app_name)
-                .setMessage(de.storchp.opentracks.osmplugin.R.string.no_map_configured)
+                .setTitle(R.string.app_name)
+                .setMessage(R.string.no_map_configured)
                 .setPositiveButton(android.R.string.ok, null)
                 .create().show()
         } else if (PreferencesUtils.getOnlineMapConsent()) {
@@ -510,7 +512,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         tileSource.setHttpRequestHeaders(
             Collections.singletonMap<String?, String?>(
                 "User-Agent",
-                getString(de.storchp.opentracks.osmplugin.R.string.app_name) + ":" + BuildConfig.APPLICATION_ID
+                getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID
             )
         )
 
@@ -520,12 +522,12 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     private fun showOnlineMapConsent() {
         val message =
-            SpannableString(getString(de.storchp.opentracks.osmplugin.R.string.online_map_consent))
+            SpannableString(getString(R.string.online_map_consent))
         Linkify.addLinks(message, Linkify.ALL)
 
         val dialog = AlertDialog.Builder(this)
             .setIcon(R.drawable.ic_logo_color_24dp)
-            .setTitle(de.storchp.opentracks.osmplugin.R.string.app_name)
+            .setTitle(R.string.app_name)
             .setMessage(message)
             .setPositiveButton(
                 android.R.string.ok,
@@ -569,8 +571,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             val tolerance = PreferencesUtils.getTrackSmoothingTolerance()
 
             try {
-                val trackpointsBySegments: TrackPointsBySegments =
-                    TrackPoint.Companion.readTrackPointsBySegments(
+                val trackpointsBySegments: TrackpointsBySegments =
+                    TrackpointReader.readTrackPointsBySegments(
                         contentResolver,
                         data,
                         lastTrackPointId,
@@ -651,9 +653,9 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 trackPointsDebug!!.add(trackpointsBySegments.debug)
             } catch (e: SecurityException) {
                 Toast.makeText(
-                    this@MapsActivity,
+                    this,
                     getString(
-                        de.storchp.opentracks.osmplugin.R.string.error_reading_trackpoints,
+                        R.string.error_reading_trackpoints,
                         e.message
                     ),
                     Toast.LENGTH_LONG
@@ -772,13 +774,9 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         Log.i(TAG, "Loading waypoints from $data")
 
         try {
-            for (waypoint in Waypoint.Companion.readWaypoints(
-                contentResolver,
-                data,
-                lastWaypointId
-            )) {
-                lastWaypointId = waypoint.id
-                val marker = MapUtils.createTappableMarker(this, waypoint)
+            WaypointReader.readWaypoints(contentResolver, data, lastWaypointId).forEach {
+                lastWaypointId = it.id
+                val marker = MapUtils.createTappableMarker(this, it)
                 waypointsLayer!!.addItem(marker)
             }
         } catch (_: SecurityException) {
@@ -816,7 +814,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     }
 
     private fun readTracks(data: Uri) {
-        val tracks: List<Track> = Track.Companion.readTracks(contentResolver, data)
+        val tracks: List<Track> = TrackReader.readTracks(contentResolver, data)
         if (!tracks.isEmpty()) {
             val statistics = TrackStatistics(tracks)
             removeStatisticElements()
@@ -836,42 +834,42 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     private fun removeStatisticElements() {
         val childsToRemove = ArrayList<View?>()
-        for (i in 0 until binding!!.map.statisticsLayout.getChildCount()) {
-            val childView = binding!!.map.statisticsLayout.getChildAt(i)
+        for (i in 0 until binding.map.statisticsLayout.childCount) {
+            val childView = binding.map.statisticsLayout.getChildAt(i)
             if (childView is TextView) {
                 childsToRemove.add(childView)
             }
         }
         childsToRemove.forEach((Consumer { view: View? ->
-            binding!!.map.statisticsLayout.removeView(view)
-            binding!!.map.statistics.removeView(view)
+            binding.map.statisticsLayout.removeView(view)
+            binding.map.statistics.removeView(view)
         }))
     }
 
     private fun addStatisticElement(text: String?) {
         val textView = TextView(this)
         textView.setId(View.generateViewId())
-        textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
-        textView.setTextColor(getColor(de.storchp.opentracks.osmplugin.R.color.track_statistic))
+        textView.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+        textView.setTextColor(getColor(R.color.track_statistic))
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 10f)
-        binding!!.map.statisticsLayout.addView(textView)
-        binding!!.map.statistics.addView(textView)
+        binding.map.statisticsLayout.addView(textView)
+        binding.map.statistics.addView(textView)
     }
 
     public override fun onResume() {
         super.onResume()
 
         mapPreferences!!.load(map)
-        binding!!.map.mapView.onResume()
+        binding.map.mapView.onResume()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus && boundingBox != null) {
-            val mapPos = map!!.getMapPosition()
-            mapPos.setByBoundingBox(boundingBox, map!!.getWidth(), map!!.getHeight())
-            mapPos.setBearing(mapMode!!.getHeading(movementDirection))
-            map!!.animator().animateTo(mapPos)
+            val mapPos = map.getMapPosition()
+            mapPos.setByBoundingBox(boundingBox, map.width, map.height)
+            mapPos.setBearing(mapMode.getHeading(movementDirection))
+            map.animator().animateTo(mapPos)
         }
     }
 
@@ -881,19 +879,19 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     ) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
         val visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
-        binding!!.toolbar.mapsToolbar.setVisibility(visibility)
-        binding!!.map.fullscreenButton.setVisibility(visibility)
-        binding!!.map.statistics.setVisibility(visibility)
+        binding.toolbar.mapsToolbar.visibility = visibility
+        binding.map.fullscreenButton.setVisibility(visibility)
+        binding.map.statistics.setVisibility(visibility)
     }
 
     private fun isPiPMode(): Boolean {
-        return isInPictureInPictureMode()
+        return isInPictureInPictureMode
     }
 
     override fun onPause() {
         if (!isPiPMode()) {
             mapPreferences!!.save(map)
-            binding!!.map.mapView.onPause()
+            binding.map.mapView.onPause()
         }
         super.onPause()
     }
@@ -901,7 +899,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
     override fun onStart() {
         super.onStart()
 
-        Log.d(MapsActivity.Companion.TAG, "register content observer")
+        Log.d(TAG, "register content observer")
         if (tracksUri != null && trackPointsUri != null && waypointsUri != null) {
             contentObserver = OpenTracksContentObserver(
                 tracksUri!!,
@@ -910,14 +908,14 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 protocolVersion
             )
             try {
-                getContentResolver().registerContentObserver(tracksUri!!, false, contentObserver!!)
-                getContentResolver().registerContentObserver(
+                contentResolver.registerContentObserver(tracksUri!!, false, contentObserver!!)
+                contentResolver.registerContentObserver(
                     trackPointsUri!!,
                     false,
                     contentObserver!!
                 )
                 if (waypointsUri != null) {
-                    getContentResolver().registerContentObserver(
+                    contentResolver.registerContentObserver(
                         waypointsUri!!,
                         false,
                         contentObserver!!
@@ -925,13 +923,13 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                 }
             } catch (se: SecurityException) {
                 Log.e(
-                    MapsActivity.Companion.TAG,
+                    TAG,
                     "Error on registering OpenTracksContentObserver",
                     se
                 )
                 Toast.makeText(
                     this,
-                    de.storchp.opentracks.osmplugin.R.string.error_reg_content_observer,
+                    R.string.error_reg_content_observer,
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -946,16 +944,16 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     private fun unregisterContentObserver() {
         if (contentObserver != null) {
-            Log.d(MapsActivity.Companion.TAG, "unregister content observer")
-            getContentResolver().unregisterContentObserver(contentObserver!!)
+            Log.d(TAG, "unregister content observer")
+            contentResolver.unregisterContentObserver(contentObserver!!)
             contentObserver = null
         }
     }
 
     private fun updateMapPositionAndRotation(myPos: GeoPoint?) {
-        val newPos = map!!.getMapPosition().setPosition(myPos)
-            .setBearing(mapMode!!.getHeading(movementDirection))
-        map!!.animator().animateTo(newPos)
+        val newPos = map.getMapPosition().setPosition(myPos)
+            .setBearing(mapMode.getHeading(movementDirection))
+        map.animator().animateTo(newPos)
     }
 
     companion object {

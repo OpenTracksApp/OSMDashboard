@@ -151,11 +151,11 @@ object PreferencesUtils {
         )
 
     fun getMapMode() =
-        MapMode.Companion.valueOf(
-            getString(
-                R.string.APP_PREF_MAP_MODE,
-                MapMode.NORTH.name
-            ), MapMode.valueOf(resources.getString(R.string.map_mode_default))
+        getString(
+            R.string.APP_PREF_MAP_MODE,
+            MapMode.NORTH.name
+        )!!.toMapMode(
+            MapMode.valueOf(resources.getString(R.string.map_mode_default))
         )
 
     fun getStrokeWidth() =

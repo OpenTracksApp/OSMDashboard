@@ -10,15 +10,10 @@ import java.io.StringWriter
 import java.lang.Exception
 import java.lang.StringBuilder
 
-class ExceptionHandler(context: Context, defaultExceptionHandler: Thread.UncaughtExceptionHandler) :
-    Thread.UncaughtExceptionHandler {
-    private val context: Context
-    private val defaultExceptionHandler: Thread.UncaughtExceptionHandler
-
-    init {
-        this.context = context
-        this.defaultExceptionHandler = defaultExceptionHandler
-    }
+class ExceptionHandler(
+    private val context: Context,
+    private val defaultExceptionHandler: Thread.UncaughtExceptionHandler?
+) : Thread.UncaughtExceptionHandler {
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
         try {
@@ -29,11 +24,11 @@ class ExceptionHandler(context: Context, defaultExceptionHandler: Thread.Uncaugh
             context.startActivity(intent)
             // Pass exception to OS for graceful handling - OS will report it via ADB
             // and close all activities and services.
-            defaultExceptionHandler.uncaughtException(thread, exception)
+            defaultExceptionHandler?.uncaughtException(thread, exception)
         } catch (fatalException: Exception) {
             // do not recurse into custom handler if exception is thrown during
             // exception handling. Pass this ultimate fatal exception to OS
-            defaultExceptionHandler.uncaughtException(thread, fatalException)
+            defaultExceptionHandler?.uncaughtException(thread, fatalException)
         }
     }
 

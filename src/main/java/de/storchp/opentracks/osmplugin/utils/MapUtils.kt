@@ -221,7 +221,7 @@ object MapUtils {
         if (mapMode === MapMode.DIRECTION) {
             -1 * mapMode.getHeading(movementDirection)
         } else {
-            movementDirection.getCurrentDegrees() + mapMode.getHeading(movementDirection) % 360
+            movementDirection.currentDegrees + mapMode.getHeading(movementDirection) % 360
         }
 
     fun createMarkerSymbol(
