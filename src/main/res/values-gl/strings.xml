@@ -98,8 +98,8 @@
     <string name="add_marker_to_open_tracks">Engadir marcador a OpenTracks?</string>
     <string name="offline_version_info">ATENCIÓN: esta é a versión sen conexión a internet para máxima protección da privacidade. Non precisa acceder a internet e non pode revelar a túa localización. Como consecuencia disto non pode mostrar mapas en liña nin descargar mapas. Os mapas sen conexión hai que descargalos manualmente, mira embaixo.</string>
     <string name="INTERNAL_APP_STORAGE">Directorio de almacenaxe interno da app</string>
-    <string name="map_icon">Map icon</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="download_page_info">You are viewing content of %s</string>
+    <string name="map_icon">Icona do mapa</string>
+    <string name="map_download_summary">Descarga mapas desde %s</string>
+    <string name="theme_icon">Icona do decorado</string>
+    <string name="download_page_info">Estás a ver o contido de %s</string>
 </resources>
