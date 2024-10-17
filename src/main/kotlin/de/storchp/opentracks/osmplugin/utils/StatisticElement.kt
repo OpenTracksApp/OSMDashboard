@@ -7,14 +7,14 @@ import java.lang.IllegalArgumentException
 enum class StatisticElement {
     CATEGORY {
         override fun getText(context: Context, statistics: TrackStatistics): String {
-            return context.getString(R.string.stat_category, statistics.getCategory())
+            return context.getString(R.string.stat_category, statistics.category)
         }
     },
     TOTAL_TIME {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatElapsedTimeHoursMinutes(
                 context,
-                statistics.getTotalTimeMillis()
+                statistics.totalTimeMillis
             )
         }
     },
@@ -22,25 +22,25 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatElapsedTimeHoursMinutes(
                 context,
-                statistics.getMovingTimeMillis()
+                statistics.movingTimeMillis
             )
         }
     },
     DISTANCE_KM {
         override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatDistanceInKm(context, statistics.getTotalDistanceMeter())
+            return StringUtils.formatDistanceInKm(context, statistics.totalDistanceMeter)
         }
     },
     DISTANCE_MI {
         override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatDistanceInMi(context, statistics.getTotalDistanceMeter())
+            return StringUtils.formatDistanceInMi(context, statistics.totalDistanceMeter)
         }
     },
     SPEED_KM_H {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatSpeedInKmPerHour(
                 context,
-                statistics.getAvgMovingSpeedMeterPerSecond()
+                statistics.avgMovingSpeedMeterPerSecond
             )
         }
     },
@@ -48,7 +48,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatPaceMinPerKm(
                 context,
-                statistics.getAvgMovingSpeedMeterPerSecond()
+                statistics.avgMovingSpeedMeterPerSecond
             )
         }
     },
@@ -56,7 +56,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatSpeedInMiPerHour(
                 context,
-                statistics.getAvgMovingSpeedMeterPerSecond()
+                statistics.avgMovingSpeedMeterPerSecond
             )
         }
     },
@@ -64,7 +64,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatPaceMinPerMi(
                 context,
-                statistics.getAvgMovingSpeedMeterPerSecond()
+                statistics.avgMovingSpeedMeterPerSecond
             )
         }
     },
@@ -72,7 +72,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatAltitudeChangeInMeter(
                 context,
-                statistics.getElevationGainMeter()
+                statistics.elevationGainMeter
             )
         }
     },
@@ -80,7 +80,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatAltitudeChangeInFeet(
                 context,
-                statistics.getElevationGainMeter()
+                statistics.elevationGainMeter
             )
         }
     };

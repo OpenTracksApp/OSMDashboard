@@ -23,7 +23,7 @@ object StringUtils {
     fun formatDistanceInKm(context: Context, distanceMeter: Float): String {
         return context.getString(
             R.string.stat_distance_with_unit,
-            StringUtils.formatDecimal(distanceMeter * UnitConversions.M_TO_KM),
+            formatDecimal(distanceMeter * UnitConversions.M_TO_KM),
             context.getString(R.string.unit_kilometer)
         )
     }
@@ -31,7 +31,7 @@ object StringUtils {
     fun formatDistanceInMi(context: Context, distanceMeter: Float): String {
         return context.getString(
             R.string.stat_distance_with_unit,
-            StringUtils.formatDecimal(distanceMeter * UnitConversions.M_TO_MI),
+            formatDecimal(distanceMeter * UnitConversions.M_TO_MI),
             context.getString(R.string.unit_mile)
         )
     }
@@ -39,7 +39,7 @@ object StringUtils {
     fun formatSpeedInKmPerHour(context: Context, meterPerSeconds: Float): String {
         return context.getString(
             R.string.stat_distance_with_unit,
-            StringUtils.formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH),
+            formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH),
             context.getString(R.string.unit_kilometer_per_hour)
         )
     }
@@ -47,7 +47,7 @@ object StringUtils {
     fun formatSpeedInMiPerHour(context: Context, meterPerSeconds: Float): String {
         return context.getString(
             R.string.stat_distance_with_unit,
-            StringUtils.formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH * UnitConversions.KM_TO_MI),
+            formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH * UnitConversions.KM_TO_MI),
             context.getString(R.string.unit_mile_per_hour)
         )
     }
