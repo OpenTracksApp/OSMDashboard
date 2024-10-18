@@ -33,7 +33,7 @@
     <string name="online_map_consent">Ingen offline-kart er stilt inn. Godta å bruke online-kartet fra openstreetmap.org. Dette kan lekke din gjeldende posisjon. Se https://operations.osmfoundation.org/policies/tiles/ for bruk av kartfliser og personvern.</string>
     <string name="map_online_consent_menu">Online-kart-samtykke</string>
     <string name="download_map">Last ned kart</string>
-    <string name="choose_map_to_download">Velg et kart for å laste ned</string>
+    <string name="choose_map_to_download">Velg et kart å laste ned</string>
     <string name="download_success">Kart lastet ned</string>
     <string name="download_failed">Kartnedlasting mislyktes</string>
     <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
@@ -97,9 +97,9 @@
     <string name="settings_night_mode_option_system">System</string>
     <string name="add_marker_to_open_tracks">Legge til markør i OpenTracks?</string>
     <string name="offline_version_info">OBS: Dette er offline-versjonen for maksimal personvernbeskyttelse. Den har ingen internettillatelse og kan ikke avsløre posisjonen din. Som en konsekvens av dette kan den ikke vise nettbaserte kart eller laste ned offline-kart. Offline-kart må lastes ned manuelt, se nedenfor.</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="map_icon">Map icon</string>
+    <string name="INTERNAL_APP_STORAGE">Intern app-lagringsmappe</string>
+    <string name="map_download_summary">Last ned kart fra %s</string>
+    <string name="download_page_info">Du ser innholdet fra %s</string>
+    <string name="theme_icon">Temaikon</string>
+    <string name="map_icon">Kartikon</string>
 </resources>
