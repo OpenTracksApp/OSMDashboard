@@ -1,6 +1,5 @@
-package de.storchp.opentracks.osmplugin.maps
+package de.storchp.opentracks.osmplugin.map
 
-import de.storchp.opentracks.osmplugin.utils.MapUtils
 import org.oscim.core.GeoPoint
 
 class MovementDirection {

@@ -16,7 +16,7 @@ import de.storchp.opentracks.osmplugin.settings.SettingsActivity
 abstract class BaseActivity : AppCompatActivity() {
     fun onCreateOptionsMenu(menu: Menu, showInfo: Boolean) {
         super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.maps, menu)
+        menuInflater.inflate(R.menu.map, menu)
 
         MenuCompat.setGroupDividerEnabled(menu, true)
         menu.findItem(R.id.map_info).isVisible = showInfo

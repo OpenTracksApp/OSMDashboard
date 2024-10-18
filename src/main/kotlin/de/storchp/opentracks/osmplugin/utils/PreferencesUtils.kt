@@ -10,6 +10,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.map.MapMode
+import de.storchp.opentracks.osmplugin.map.TrackColorMode
+import de.storchp.opentracks.osmplugin.map.toMapMode
 import java.lang.Exception
 
 object PreferencesUtils {

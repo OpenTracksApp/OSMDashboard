@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin
+package de.storchp.opentracks.osmplugin.map
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -25,21 +25,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.documentfile.provider.DocumentFile
-import de.storchp.opentracks.osmplugin.MapsActivity.OpenTracksContentObserver
+import de.storchp.opentracks.osmplugin.BaseActivity
+import de.storchp.opentracks.osmplugin.BuildConfig
+import de.storchp.opentracks.osmplugin.MainActivity
+import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.dashboardapi.APIConstants
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackReader
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointReader
 import de.storchp.opentracks.osmplugin.dashboardapi.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
-import de.storchp.opentracks.osmplugin.maps.MovementDirection
-import de.storchp.opentracks.osmplugin.maps.StyleColorCreator
-import de.storchp.opentracks.osmplugin.utils.DEFAULT_TRACK_COLOR_MORE
-import de.storchp.opentracks.osmplugin.utils.MapMode
-import de.storchp.opentracks.osmplugin.utils.MapUtils
+import de.storchp.opentracks.osmplugin.map.MapsActivity.OpenTracksContentObserver
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
-import de.storchp.opentracks.osmplugin.utils.TrackColorMode
-import de.storchp.opentracks.osmplugin.utils.TrackStatistics
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import okhttp3.Cache
 import okhttp3.OkHttpClient

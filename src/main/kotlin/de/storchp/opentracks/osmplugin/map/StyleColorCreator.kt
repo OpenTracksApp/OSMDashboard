@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.maps
+package de.storchp.opentracks.osmplugin.map
 
 import org.oscim.backend.canvas.Color
 import kotlin.math.floor

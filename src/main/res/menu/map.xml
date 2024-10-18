@@ -5,11 +5,14 @@
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/design_default_color_on_primary"
+        android:icon="@drawable/baseline_settings_24" />
 
     <item
         android:id="@+id/map_info"
         android:title="@string/map_info_menu"
+        android:iconTint="@color/design_default_color_on_primary"
         android:icon="@drawable/ic_info_gray_24px" />
 
 </menu>

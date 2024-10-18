@@ -19,10 +19,8 @@ import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding
 import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding
 import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
 import de.storchp.opentracks.osmplugin.settings.ThemeSelectionActivity.MapThemeDirScanner
-import de.storchp.opentracks.osmplugin.utils.FileItem
 import de.storchp.opentracks.osmplugin.utils.FileUtil
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
-import de.storchp.opentracks.osmplugin.utils.ThemeItemAdapter
 import org.oscim.theme.ZipXmlThemeResourceProvider
 import java.io.BufferedInputStream
 import java.io.File

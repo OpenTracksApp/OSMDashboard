@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.utils
+package de.storchp.opentracks.osmplugin.settings
 
 import android.app.Activity
 import android.net.Uri

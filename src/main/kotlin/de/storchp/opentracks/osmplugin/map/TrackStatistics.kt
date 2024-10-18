@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.utils
+package de.storchp.opentracks.osmplugin.map
 
 import de.storchp.opentracks.osmplugin.dashboardapi.Track
 import kotlin.math.max

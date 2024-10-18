@@ -1,6 +1,5 @@
-package de.storchp.opentracks.osmplugin.utils
+package de.storchp.opentracks.osmplugin.map
 
-import de.storchp.opentracks.osmplugin.maps.MovementDirection
 import java.lang.IllegalArgumentException
 
 enum class MapMode {
@@ -13,7 +12,7 @@ enum class MapMode {
     };
 
     abstract fun getHeading(movementDirection: MovementDirection): Float
-    
+
 }
 
 fun String.toMapMode(defaultValue: MapMode) =

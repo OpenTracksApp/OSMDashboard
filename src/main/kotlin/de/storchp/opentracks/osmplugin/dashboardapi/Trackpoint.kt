@@ -2,7 +2,7 @@ package de.storchp.opentracks.osmplugin.dashboardapi
 
 import android.content.ContentResolver
 import android.net.Uri
-import de.storchp.opentracks.osmplugin.utils.MapUtils
+import de.storchp.opentracks.osmplugin.map.MapUtils
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.oscim.core.GeoPoint
 

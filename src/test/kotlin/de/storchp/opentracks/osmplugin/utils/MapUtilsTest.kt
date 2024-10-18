@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin.utils
 
+import de.storchp.opentracks.osmplugin.map.MapUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

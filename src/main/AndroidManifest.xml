@@ -30,7 +30,7 @@
         <activity android:name=".settings.DirectoryChooserActivity$MapDirectoryChooserActivity" />
         <activity android:name=".settings.DirectoryChooserActivity$ThemeDirectoryChooserActivity" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".map.MapsActivity"
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"

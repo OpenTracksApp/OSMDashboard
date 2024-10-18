@@ -17,9 +17,7 @@ import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding
 import de.storchp.opentracks.osmplugin.databinding.MapItemBinding
 import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
-import de.storchp.opentracks.osmplugin.utils.FileItem
 import de.storchp.opentracks.osmplugin.utils.FileUtil
-import de.storchp.opentracks.osmplugin.utils.MapItemAdapter
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import java.nio.file.Files
 

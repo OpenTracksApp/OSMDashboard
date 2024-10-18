@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.utils
+package de.storchp.opentracks.osmplugin.map
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.dashboardapi.Trackpoint
 import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
-import de.storchp.opentracks.osmplugin.maps.MovementDirection
+import de.storchp.opentracks.osmplugin.utils.UnitConversions
 import org.oscim.android.canvas.AndroidBitmap
 import org.oscim.core.GeoPoint
 import org.oscim.layers.marker.MarkerItem
