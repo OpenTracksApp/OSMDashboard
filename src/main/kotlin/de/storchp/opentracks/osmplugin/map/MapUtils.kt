@@ -192,7 +192,6 @@ object MapUtils {
         return bitmap
     }
 
-
     fun getTrackColorBySpeed(
         average: Double,
         averageToMaxSpeed: Double,
@@ -228,28 +227,41 @@ object MapUtils {
         billboard
     )
 
-    fun createPushpinSymbol(context: Context) =
-        createMarkerSymbol(
-            context = context,
-            markerResource = R.drawable.ic_marker_orange_pushpin_modern,
-            billboard = true,
-            hotspot = HotspotPlace.BOTTOM_CENTER
-        )
-
     fun createPushpinMarker(context: Context, latLong: GeoPoint?, id: Long?) =
         MarkerItem(id, latLong.toString(), "", latLong).apply {
             marker = createPushpinSymbol(context)
         }
 
-    fun createPauseMarker(context: Context, latLong: GeoPoint?) =
-        MarkerItem(latLong.toString(), "", latLong).apply {
-            marker = createMarkerSymbol(
-                context = context,
-                markerResource = R.drawable.ic_marker_pause_34,
-                billboard = true,
-                hotspot = HotspotPlace.CENTER
-            )
+    fun createMarker(id: Long, latLong: GeoPoint, markerSymbol: MarkerSymbol) =
+        MarkerItem(id, latLong.toString(), "", latLong).apply {
+            marker = markerSymbol
         }
+
+    fun createMarker(latLong: GeoPoint, markerSymbol: MarkerSymbol) =
+        MarkerItem(latLong.toString(), "", latLong).apply {
+            marker = markerSymbol
+        }
+
+    fun createPauseMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_marker_pause_34,
+        billboard = true,
+        hotspot = HotspotPlace.CENTER
+    )
+
+    fun createCompassMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_compass,
+        billboard = false,
+        hotspot = HotspotPlace.CENTER
+    )
+
+    fun createPushpinSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_marker_orange_pushpin_modern,
+        billboard = true,
+        hotspot = HotspotPlace.BOTTOM_CENTER
+    )
 
     fun createTappableMarker(context: Context, waypoint: Waypoint) =
         createPushpinMarker(context, waypoint.latLong, waypoint.id)
