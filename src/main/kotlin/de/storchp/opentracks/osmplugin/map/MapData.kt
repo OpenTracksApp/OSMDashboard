@@ -6,6 +6,8 @@ import org.oscim.core.GeoPoint
 import org.oscim.layers.GroupLayer
 import org.oscim.layers.PathLayer
 import org.oscim.layers.marker.ItemizedLayer
+import org.oscim.layers.marker.ItemizedLayer.OnItemGestureListener
+import org.oscim.layers.marker.MarkerInterface
 import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.map.Map
@@ -13,8 +15,7 @@ import org.oscim.map.Map
 
 data class MapData(
     private val map: Map,
-    private val polylinesLayer: GroupLayer,
-    private val waypointsLayer: ItemizedLayer,
+    private val onItemGestureListener: OnItemGestureListener<MarkerInterface>,
     private val strokeWidth: Int,
     private val mapMode: MapMode,
     private val pauseMarkerSymbol: MarkerSymbol,
@@ -22,12 +23,22 @@ data class MapData(
     private val compassMarkerSymbol: MarkerSymbol,
 ) {
 
-    var boundingBox: BoundingBox? = null
-    val movementDirection = MovementDirection()
-    var endMarker: MarkerItem? = null
-    var startPos: GeoPoint? = null
-    var endPos: GeoPoint? = null
+    private val polylinesLayer = GroupLayer(map)
+    private val waypointsLayer: ItemizedLayer
+    private val movementDirection = MovementDirection()
+    private var endMarker: MarkerItem? = null
+    private var startPos: GeoPoint? = null
+
     var polyline: PathLayer? = null
+    var endPos: GeoPoint? = null
+    var boundingBox: BoundingBox? = null
+
+    init {
+        map.layers().add(polylinesLayer)
+
+        waypointsLayer = ItemizedLayer(map, listOf(), waypointMarkerSymbol, onItemGestureListener)
+        map.layers().add(waypointsLayer)
+    }
 
     fun addNewPolyline(trackColor: Int, geoPoint: GeoPoint): PathLayer? {
         polyline = PathLayer(map, trackColor, strokeWidth.toFloat())
@@ -114,6 +125,11 @@ data class MapData(
     fun addWaypointMarker(waypoint: Waypoint) {
         val marker = MapUtils.createMarker(waypoint.id, waypoint.latLong, waypointMarkerSymbol)
         waypointsLayer.addItem(marker)
+    }
+
+    fun removeLayers() {
+        map.layers().remove(polylinesLayer)
+        map.layers().remove(waypointsLayer)
     }
 
 }

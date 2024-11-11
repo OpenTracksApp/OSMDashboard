@@ -44,9 +44,7 @@ import org.oscim.event.Gesture
 import org.oscim.event.Gesture.LongPress
 import org.oscim.event.GestureListener
 import org.oscim.event.MotionEvent
-import org.oscim.layers.GroupLayer
 import org.oscim.layers.Layer
-import org.oscim.layers.marker.ItemizedLayer
 import org.oscim.layers.marker.ItemizedLayer.OnItemGestureListener
 import org.oscim.layers.marker.MarkerInterface
 import org.oscim.layers.marker.MarkerItem
@@ -74,7 +72,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.lang.Exception
 import java.lang.RuntimeException
-import java.util.ArrayList
 import java.util.Collections
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicInteger
@@ -88,14 +85,12 @@ const val EXTRA_LOCATION: String = "location"
 private const val MAP_DEFAULT_ZOOM_LEVEL = 12
 
 
-open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?> {
+open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface> {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var map: Map
     private lateinit var mapPreferences: MapPreferences
     private var mapData: MapData? = null
     private var renderTheme: IRenderTheme? = null
-    private var polylinesLayer: GroupLayer? = null
-    private var waypointsLayer: ItemizedLayer? = null
     private var dashboardReader: DashboardReader? = null
     private var fullscreenMode = false
 
@@ -498,28 +493,12 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
 
     private fun resetMapData() {
         dashboardReader?.unregisterContentObserver()
-
-        val layers = map.layers()
-
-        // polylines
-        if (polylinesLayer != null) {
-            layers.remove(polylinesLayer)
-        }
-        polylinesLayer = GroupLayer(map)
-        layers.add(polylinesLayer)
-
-        // waypoints
-        if (waypointsLayer != null) {
-            layers.remove(waypointsLayer)
-        }
-        waypointsLayer = createWaypointsLayer()
-        map.layers().add(waypointsLayer)
+        mapData?.removeLayers()
 
         dashboardReader = null
         mapData = MapData(
             map = map,
-            polylinesLayer = polylinesLayer!!,
-            waypointsLayer = waypointsLayer!!,
+            onItemGestureListener = this,
             strokeWidth = PreferencesUtils.getStrokeWidth(),
             mapMode = PreferencesUtils.getMapMode(),
             pauseMarkerSymbol = MapUtils.createPauseMarkerSymbol(this),
@@ -544,11 +523,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
         } else {
             binding.map.trackpointsDebugInfo.text = ""
         }
-    }
-
-    private fun createWaypointsLayer(): ItemizedLayer {
-        val symbol = MapUtils.createPushpinSymbol(this)
-        return ItemizedLayer(map, ArrayList<MarkerInterface?>(), symbol, this)
     }
 
     override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {

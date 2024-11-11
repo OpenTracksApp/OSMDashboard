@@ -2,6 +2,7 @@ package de.storchp.opentracks.osmplugin.dashboardapi
 
 import android.content.ContentResolver
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
@@ -31,7 +32,7 @@ object WaypointReader {
     const val LATITUDE: String = "latitude" // latitude
     const val PHOTOURL: String = "photoUrl" // url for the photo
 
-    val PROJECTION: Array<String?> = arrayOf<String?>(
+    val PROJECTION = arrayOf<String>(
         _ID,
         NAME,
         DESCRIPTION,
@@ -97,38 +98,43 @@ object WaypointReader {
         return buildList {
             resolver.query(data, PROJECTION, null, null, null).use { cursor ->
                 while (cursor!!.moveToNext()) {
-                    val waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
-                    if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
-                        continue
-                    }
-                    val name = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
-                    val description =
-                        cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))
-                    val category = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY))
-                    val icon = cursor.getString(cursor.getColumnIndexOrThrow(ICON))
-                    val trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TRACKID))
-                    val latitude =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(LATITUDE)) / APIConstants.LAT_LON_FACTOR
-                    val longitude =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(LONGITUDE)) / APIConstants.LAT_LON_FACTOR
-                    if (MapUtils.isValid(latitude, longitude)) {
-                        val latLong = GeoPoint(latitude, longitude)
-                        val photoUrl = cursor.getString(cursor.getColumnIndexOrThrow(PHOTOURL))
-                        add(
-                            Waypoint(
-                                waypointId,
-                                name,
-                                description,
-                                category,
-                                icon,
-                                trackId,
-                                latLong,
-                                photoUrl
-                            )
-                        )
-                    }
+                    readWaypointFromCursor(cursor, lastWaypointId)?.let(::add)
                 }
             }
+        }
+    }
+
+    private fun readWaypointFromCursor(cursor: Cursor, lastWaypointId: Long): Waypoint? {
+        val waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+        if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
+            return null
+        }
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
+        val description =
+            cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))
+        val category = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY))
+        val icon = cursor.getString(cursor.getColumnIndexOrThrow(ICON))
+        val trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TRACKID))
+        val latitude =
+            cursor.getInt(cursor.getColumnIndexOrThrow(LATITUDE)) / APIConstants.LAT_LON_FACTOR
+        val longitude =
+            cursor.getInt(cursor.getColumnIndexOrThrow(LONGITUDE)) / APIConstants.LAT_LON_FACTOR
+        val photoUrl = cursor.getString(cursor.getColumnIndexOrThrow(PHOTOURL))
+
+        return if (MapUtils.isValid(latitude, longitude)) {
+            val latLong = GeoPoint(latitude, longitude)
+            Waypoint(
+                waypointId,
+                name,
+                description,
+                category,
+                icon,
+                trackId,
+                latLong,
+                photoUrl
+            )
+        } else {
+            null
         }
     }
 
