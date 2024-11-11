@@ -1,7 +1,9 @@
 package de.storchp.opentracks.osmplugin.dashboardapi
 
 import android.content.ContentResolver
+import android.content.Intent
 import android.net.Uri
+import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
 import org.oscim.core.GeoPoint
 import java.net.URLDecoder
@@ -14,7 +16,7 @@ data class Waypoint(
     val category: String? = null,
     val icon: String? = null,
     val trackId: Long = 0,
-    val latLong: GeoPoint? = null,
+    val latLong: GeoPoint,
     val photoUrl: String? = null,
 )
 
@@ -47,11 +49,7 @@ object WaypointReader {
     val QUERY_POSITION_PATTERN: Pattern =
         Pattern.compile("q=([+-]?\\d+(?:\\.\\d+)?),\\s?([+-]?\\d+(?:\\.\\d+)?)")
 
-    fun fromGeoUri(uri: String?): Waypoint? {
-        if (uri == null) {
-            return null
-        }
-
+    fun fromGeoUri(uri: String): Waypoint? {
         var schemeSpecific = uri.substring(uri.indexOf(":") + 1)
 
         var name: String? = null
@@ -133,5 +131,16 @@ object WaypointReader {
             }
         }
     }
+
+    fun fromGeoIntent(intent: Intent, mapData: MapData) {
+        require(intent.isGeoIntent())
+
+        fromGeoUri(intent.data.toString())
+            ?.let { waypoint ->
+                mapData.addWaypointMarker(waypoint)
+                mapData.updateMapPositionAndZoomLevel(waypoint.latLong, 15)
+            }
+    }
 }
 
+fun Intent.isGeoIntent() = "geo" == scheme && data != null

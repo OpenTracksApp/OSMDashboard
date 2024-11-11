@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.dashboardapi.Trackpoint
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
 import de.storchp.opentracks.osmplugin.utils.UnitConversions
 import org.oscim.android.canvas.AndroidBitmap
 import org.oscim.core.GeoPoint
@@ -220,18 +219,8 @@ object MapUtils {
         billboard
     )
 
-    fun createPushpinMarker(context: Context, latLong: GeoPoint?, id: Long?) =
+    fun createMarker(id: Long? = null, latLong: GeoPoint, markerSymbol: MarkerSymbol) =
         MarkerItem(id, latLong.toString(), "", latLong).apply {
-            marker = createPushpinSymbol(context)
-        }
-
-    fun createMarker(id: Long, latLong: GeoPoint, markerSymbol: MarkerSymbol) =
-        MarkerItem(id, latLong.toString(), "", latLong).apply {
-            marker = markerSymbol
-        }
-
-    fun createMarker(latLong: GeoPoint, markerSymbol: MarkerSymbol) =
-        MarkerItem(latLong.toString(), "", latLong).apply {
             marker = markerSymbol
         }
 
@@ -256,6 +245,4 @@ object MapUtils {
         hotspot = HotspotPlace.BOTTOM_CENTER
     )
 
-    fun createTappableMarker(context: Context, waypoint: Waypoint) =
-        createPushpinMarker(context, waypoint.latLong, waypoint.id)
 }

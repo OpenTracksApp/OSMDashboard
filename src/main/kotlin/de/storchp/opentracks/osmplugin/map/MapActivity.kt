@@ -32,6 +32,7 @@ import de.storchp.opentracks.osmplugin.dashboardapi.UpdateTrackStatistics
 import de.storchp.opentracks.osmplugin.dashboardapi.UpdateTrackpointsDebug
 import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
 import de.storchp.opentracks.osmplugin.dashboardapi.isDashboardAction
+import de.storchp.opentracks.osmplugin.dashboardapi.isGeoIntent
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import okhttp3.Cache
@@ -183,16 +184,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
                     showOnLockScreen(showOnLockScreen)
                     showFullscreen(showFullscreen)
                 }
-        } else if ("geo" == intent.scheme && intent.data != null) {
-            WaypointReader.fromGeoUri(intent.data.toString())
-                ?.let { waypoint ->
-                    val marker = MapUtils.createTappableMarker(this, waypoint)
-                    waypointsLayer!!.addItem(marker)
-                    val pos = map.getMapPosition()
-                        .setPosition(waypoint.latLong)
-                        .setZoomLevel(15)
-                    map.animator().animateTo(pos)
-                }
+        } else if (intent.isGeoIntent()) {
+            WaypointReader.fromGeoIntent(intent, mapData!!)
         }
     }
 

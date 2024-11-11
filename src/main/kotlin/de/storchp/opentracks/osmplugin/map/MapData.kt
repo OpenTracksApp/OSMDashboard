@@ -68,7 +68,7 @@ data class MapData(
     }
 
     fun addPauseMarker(geoPoint: GeoPoint) {
-        val marker = MapUtils.createMarker(geoPoint, pauseMarkerSymbol)
+        val marker = MapUtils.createMarker(latLong = geoPoint, markerSymbol = pauseMarkerSymbol)
         waypointsLayer.addItem(marker)
     }
 
@@ -94,8 +94,16 @@ data class MapData(
     fun getBearing() = mapMode.getBearing(movementDirection)
 
     fun updateMapPositionAndRotation(myPos: GeoPoint) {
-        val newPos = map.getMapPosition().setPosition(myPos)
+        val newPos = map.getMapPosition()
+            .setPosition(myPos)
             .setBearing(getBearing())
+        map.animator().animateTo(newPos)
+    }
+
+    fun updateMapPositionAndZoomLevel(myPos: GeoPoint, zoom: Int) {
+        val newPos = map.getMapPosition()
+            .setPosition(myPos)
+            .setZoomLevel(zoom)
         map.animator().animateTo(newPos)
     }
 
@@ -104,7 +112,7 @@ data class MapData(
     }
 
     fun addWaypointMarker(waypoint: Waypoint) {
-        val marker = MapUtils.createMarker(waypoint.id, waypoint.latLong!!, waypointMarkerSymbol)
+        val marker = MapUtils.createMarker(waypoint.id, waypoint.latLong, waypointMarkerSymbol)
         waypointsLayer.addItem(marker)
     }
 
