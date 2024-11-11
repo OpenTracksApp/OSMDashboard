@@ -209,13 +209,6 @@ object MapUtils {
         return Color.argb(255, red, green, 0)
     }
 
-    fun rotateWith(mapMode: MapMode, movementDirection: MovementDirection) =
-        if (mapMode === MapMode.DIRECTION) {
-            -1 * mapMode.getHeading(movementDirection)
-        } else {
-            movementDirection.currentDegrees + mapMode.getHeading(movementDirection) % 360
-        }
-
     fun createMarkerSymbol(
         context: Context,
         markerResource: Int,

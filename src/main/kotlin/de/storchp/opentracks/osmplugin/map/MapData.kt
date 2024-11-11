@@ -16,7 +16,7 @@ data class MapData(
     private val polylinesLayer: GroupLayer,
     private val waypointsLayer: ItemizedLayer,
     private val strokeWidth: Int,
-    val mapMode: MapMode,
+    private val mapMode: MapMode,
     private val pauseMarkerSymbol: MarkerSymbol,
     private val waypointMarkerSymbol: MarkerSymbol,
     private val compassMarkerSymbol: MarkerSymbol,
@@ -77,13 +77,13 @@ data class MapData(
             synchronized(map.layers()) {
                 endMarker?.let {
                     it.geoPoint = endPos
-                    it.setRotation(MapUtils.rotateWith(mapMode, movementDirection))
+                    it.setRotation(movementDirection.currentDegrees)
                     waypointsLayer.populate()
                     map.render()
                 } ?: {
                     endMarker = MarkerItem(endPos.toString(), "", endPos).apply {
                         marker = compassMarkerSymbol
-                        setRotation(MapUtils.rotateWith(mapMode, movementDirection))
+                        setRotation(movementDirection.currentDegrees)
                         waypointsLayer.addItem(this)
                     }
                 }
@@ -91,9 +91,11 @@ data class MapData(
         }
     }
 
+    fun getBearing() = mapMode.getBearing(movementDirection)
+
     fun updateMapPositionAndRotation(myPos: GeoPoint) {
         val newPos = map.getMapPosition().setPosition(myPos)
-            .setBearing(mapMode.getHeading(movementDirection))
+            .setBearing(getBearing())
         map.animator().animateTo(newPos)
     }
 

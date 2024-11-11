@@ -615,7 +615,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             data.boundingBox?.let { boundingBox ->
                 val mapPos = map.getMapPosition()
                 mapPos.setByBoundingBox(boundingBox, map.width, map.height)
-                mapPos.setBearing(data.mapMode.getHeading(data.movementDirection))
+                mapPos.setBearing(data.getBearing())
                 map.animator().animateTo(mapPos)
             }
         }
