@@ -1,0 +1,3 @@
+- Fix: crash in Online-Map-Consent dialog
+- Updated translations
+- Updated dependencies

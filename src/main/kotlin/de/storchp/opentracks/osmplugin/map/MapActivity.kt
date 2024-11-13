@@ -526,10 +526,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface?
             .setNegativeButton(android.R.string.cancel, null)
             .create()
         dialog.show()
-        (Objects.requireNonNull<Any?>(
-            dialog.findViewById<View?>(R.id.message),
-            "An AlertDialog must have a TextView with id.message"
-        ) as TextView).movementMethod = LinkMovementMethod.getInstance()
+        dialog.findViewById<TextView?>(android.R.id.message)
+            ?.movementMethod = LinkMovementMethod.getInstance()
     }
 
     /**
