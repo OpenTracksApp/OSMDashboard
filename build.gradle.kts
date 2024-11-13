@@ -40,8 +40,8 @@ android {
         compileSdk = 34
         minSdk = 26
         targetSdk = 34
-        versionCode = 45
-        versionName = "5.0.0"
+        versionCode = 46
+        versionName = "5.0.1"
         applicationId = "de.storchp.opentracks.osmplugin"
 
         testInstrumentationRunnerArguments += mapOf("runnerBuilder" to "de.mannodermaus.junit5.AndroidJUnit5Builder")

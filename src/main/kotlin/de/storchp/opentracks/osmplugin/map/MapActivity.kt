@@ -469,8 +469,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             .setNegativeButton(android.R.string.cancel, null)
             .create()
         dialog.show()
-        dialog.findViewById<TextView?>(R.id.message)?.movementMethod =
-            LinkMovementMethod.getInstance()
+        dialog.findViewById<TextView?>(android.R.id.message)
+            ?.movementMethod = LinkMovementMethod.getInstance()
     }
 
     /**
