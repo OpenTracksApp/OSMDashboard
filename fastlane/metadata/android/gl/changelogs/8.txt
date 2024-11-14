@@ -1,2 +1,0 @@
-- pódense elexir en paralelo varios mapas sen conexión 
-- compás estabilizado

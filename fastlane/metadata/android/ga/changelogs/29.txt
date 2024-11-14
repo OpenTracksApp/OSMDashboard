@@ -1,2 +1,0 @@
-- Cuir gníomhaíocht thuairiscithe tuairte leis
-- Nuashonraigh sprioc leibhéal sdk go 32

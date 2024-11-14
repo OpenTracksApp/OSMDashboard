@@ -1,2 +1,0 @@
-- leabharlann mapsforge uasghrádú go leagan 0.14.0
-- rindreáil léarscáil ilsnáithe
