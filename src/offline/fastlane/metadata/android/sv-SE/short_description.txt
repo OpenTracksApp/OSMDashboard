@@ -1,0 +1,1 @@
+OSM instrumentpanel för OpenTracks utan internettillstånd
