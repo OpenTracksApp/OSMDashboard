@@ -97,9 +97,9 @@
     <string name="settings_night_mode_option_system">System</string>
     <string name="add_marker_to_open_tracks">Lägg till markörer till OpenTracks?</string>
     <string name="offline_version_info">OBSERVERA FÖLJANDE: Det här är den ej uppkopplade versionen för att maximalt skydda privatlivet. Det har ingen behörighet till internet och kan inte läcka din position. Som en konsekvens så kan den inte visa uppkopplade kartor ej heller hämta ej uppkopplade kartor. Ej uppkopplade kartor måste hämtas manuellt, se nedan.</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="map_icon">Map icon</string>
-    <string name="theme_icon">Theme icon</string>
+    <string name="INTERNAL_APP_STORAGE">Intern katalog för applagring</string>
+    <string name="map_download_summary">Ladda ner kartor från %s</string>
+    <string name="download_page_info">Du tittar på innehållet av %s</string>
+    <string name="map_icon">Kartikon</string>
+    <string name="theme_icon">Tema ikon</string>
 </resources>
