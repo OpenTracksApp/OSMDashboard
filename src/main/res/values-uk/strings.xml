@@ -64,7 +64,7 @@
     <string name="total_time">Усього часу</string>
     <string name="unit_mile">миль</string>
     <string name="unit_kilometer_per_hour">км/год</string>
-    <string name="map_mode">Орієнтування карти</string>
+    <string name="map_mode">Орієнтація карти</string>
     <string name="title_activity_settings">Налаштування</string>
     <string name="distance_mi">Відстань у милях</string>
     <string name="unit_minute_per_kilometer">хв/км</string>
