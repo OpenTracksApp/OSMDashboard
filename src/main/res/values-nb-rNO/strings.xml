@@ -7,13 +7,13 @@
     <string name="theme_folder">Karttema-mappe</string>
     <string name="app_logo_description">App-logo</string>
     <string name="map_selection">Kart</string>
-    <string name="delete_map_question">Vil du slette kart \"%s\"\?</string>
+    <string name="delete_map_question">Vil du slette kart %s?</string>
     <string name="delete_map_error">Kartsletting feilet</string>
-    <string name="delete_theme_question">Vil du slette tema \"%s\"\?</string>
+    <string name="delete_theme_question">Vil du slette tema %s?</string>
     <string name="default_theme">Standardtema</string>
     <string name="theme_selection">Karttemaer</string>
     <string name="delete_theme_error">Temasletting feilet</string>
-    <string name="overwrite_map_question">Kartet \"%s\" finnes allerede! Vil du slette og laste ned igjen\?</string>
+    <string name="overwrite_map_question">Kartet %s finnes allerede! Vil du slette og laste ned igjen?</string>
     <string name="error_loading_offline_map">Feil ved lesing av innstilt offline-kart</string>
     <string name="track_smoothing_menu">Sporutjevning</string>
     <string name="pip_mode">Bilde-i-bilde-modus</string>
@@ -40,7 +40,7 @@
     <string name="download_theme">Last ned tema</string>
     <string name="download_theme_success">Tema lastet ned</string>
     <string name="download_theme_failed">Temanedlasting feilet</string>
-    <string name="overwrite_theme_question">Temaet \"%s\" finnes allerede! Slette og laste ned på nytt\?</string>
+    <string name="overwrite_theme_question">Temaet %s finnes allerede! Slette og laste ned på nytt?</string>
     <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
     <string name="offline_map_info">Offline-kart kan lastes ned fra inne i appen. Gå til innstillingene og velg <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>

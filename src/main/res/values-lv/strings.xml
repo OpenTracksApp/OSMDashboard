@@ -20,8 +20,8 @@
 \nIzmaiņas stājas spēkā pēc celiņa ielādēšanas.</string>
     <string name="track_smoothing_menu">Trases izlīdzināšana</string>
     <string name="error_loading_offline_map">Kļūda, lasot konfigurēto bezsaistes karti</string>
-    <string name="overwrite_theme_question">Tēma \"%s\" jau eksistē! Dzēst un lejupielādēt vēlreiz\?</string>
-    <string name="overwrite_map_question">Karte \"%s\" jau pastāv! Dzēst un lejupielādēt vēlreiz\?</string>
+    <string name="overwrite_theme_question">Tēma %s jau eksistē! Dzēst un lejupielādēt vēlreiz?</string>
+    <string name="overwrite_map_question">Karte %s jau pastāv! Dzēst un lejupielādēt vēlreiz?</string>
     <string name="delete_theme_error">Tēma dzēšana neizdevās</string>
     <string name="no_download_uri_found">Nav atrasts URI lejupielādei</string>
     <string name="stroke_width_menu">Sliedes gājiena platums</string>
@@ -31,10 +31,10 @@
     <string name="download_theme_failed">Tēmas lejupielāde neizdevās</string>
     <string name="map_selection">Kartes</string>
     <string name="online_osm_mapnick">Tiešsaistes kartes OSM:Mapnik</string>
-    <string name="delete_map_question">Kartes \"%s\" dzēšana\?</string>
+    <string name="delete_map_question">Kartes %s dzēšana?</string>
     <string name="delete_map_error">Kartes dzēšana nav izdevusies</string>
     <string name="theme_selection">Kartes tēmas</string>
-    <string name="delete_theme_question">Dzēst tēmu \"%s\"\?</string>
+    <string name="delete_theme_question">Dzēst tēmu %s?</string>
     <string name="pip_mode">Attēla attēla režīmā</string>
     <string name="map_mode_north_top">Karte uz ziemeļiem augšā</string>
     <string name="map_mode_direction">Kartes virziena maiņa</string>

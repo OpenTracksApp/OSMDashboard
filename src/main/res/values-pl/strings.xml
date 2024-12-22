@@ -20,9 +20,9 @@
     <string name="delete_theme_error">Usuwanie motywu nie powiodło się</string>
     <string name="theme_selection">Tematy map</string>
     <string name="delete_map_error">Usuwanie map nie powiodło się</string>
-    <string name="overwrite_map_question">Mapa \"%s\" już istnieje! Skasować i pobrać ponownie\?</string>
-    <string name="delete_theme_question">Usunąć motyw \"%s\"\?</string>
-    <string name="delete_map_question">Usunąć mapę \"%s\"\?</string>
+    <string name="overwrite_map_question">Mapa %s już istnieje! Skasować i pobrać ponownie?</string>
+    <string name="delete_theme_question">Usunąć motyw %s?</string>
+    <string name="delete_map_question">Usunąć mapę %s?</string>
     <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
     <string name="map_selection">Mapy</string>
     <string name="download_failed">Pobieranie mapy nie powiodło się</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Temat do pobrania</string>
     <string name="download_theme_success">Temat został pomyślnie pobrany</string>
     <string name="download_theme_failed">Nie udało się pobrać motywu</string>
-    <string name="overwrite_theme_question">Motyw \"%s\" już istnieje! Usunąć i pobrać ponownie\?</string>
+    <string name="overwrite_theme_question">Motyw %s już istnieje! Usunąć i pobrać ponownie?</string>
     <string name="no_download_uri_found">Nie znaleziono URI do pobrania</string>
     <string name="offline_map_info">Mapy offline można pobrać poprzez menu <b>Pobieranie map</b> lub odwiedzając wyżej wymienione strony internetowe i klikając na linki do pobrania. Niektóre przeglądarki (np. Firefox) wymagają długiego kliknięcia na link i polecenia Otwórz link w zewnętrznej aplikacji, a następnie wybrania OSMDashboard.</string>
     <string name="no_file_manager_found">Nie znaleziono menedżera plików</string>

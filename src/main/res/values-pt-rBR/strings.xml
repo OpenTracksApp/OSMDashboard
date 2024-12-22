@@ -16,12 +16,12 @@
     <string name="download_failed">O download do mapa falhou</string>
     <string name="map_selection">Mapas</string>
     <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
-    <string name="delete_map_question">Excluir mapa \"%s\"\?</string>
+    <string name="delete_map_question">Excluir mapa %s?</string>
     <string name="delete_map_error">Falha ao excluir o mapa</string>
     <string name="theme_selection">Temas de mapas</string>
-    <string name="delete_theme_question">Excluir tema \"%s\"\?</string>
+    <string name="delete_theme_question">Excluir tema %s?</string>
     <string name="delete_theme_error">Falha ao excluir o tema</string>
-    <string name="overwrite_map_question">O mapa \"%s\" já existe! Excluir e baixar novamente\?</string>
+    <string name="overwrite_map_question">O mapa %s já existe! Excluir e baixar novamente?</string>
     <string name="error_loading_offline_map">Erro ao ler mapa offline configurado</string>
     <string name="track_smoothing_menu">Suavização de trilha</string>
     <string name="track_smoothing_info">Defina a tolerância em metros para o algoritmo de suavização da trilha. Insira 0 para desativar a suavização da trilha.
@@ -40,7 +40,7 @@
     <string name="manual_offline_map_info">Manual downloaded offline maps or maps shared by other apps can be opened from your Android device. Select the directory in the menu <b>Map directory</b>.</string>
     <string name="download_theme">Download de Tema</string>
     <string name="download_theme_failed">Download do tema falhou</string>
-    <string name="overwrite_theme_question">O tema \"%s\" já existe! Excluir e baixar novamente\?</string>
+    <string name="overwrite_theme_question">O tema %s já existe! Excluir e baixar novamente?</string>
     <string name="no_download_uri_found">Não foi encontrado nenhum URI para download</string>
     <string name="offline_map_info">Os mapas off-line podem ser baixados através do menu <b>Map download</b> ou visitando os sites acima mencionados e clicando nos links de download. Alguns navegadores (por exemplo, Firefox) requerem um clique longo no link e Abrir link em aplicativo externo e depois escolher OSMDashboard.</string>
     <string name="download_theme_success">Tema descarregado com sucesso</string>

@@ -14,9 +14,9 @@
     <string name="map_info_menu">Informazioni</string>
     <string name="map_selection">Mappe</string>
     <string name="online_osm_mapnick">Mappa OSM Online:Mapnik</string>
-    <string name="delete_map_question">Eliminare la mappa \"%s\"\?</string>
+    <string name="delete_map_question">Eliminare la mappa %s?</string>
     <string name="theme_selection">Temi mappe</string>
-    <string name="delete_theme_question">Eliminare il tema \"%s\"\?</string>
+    <string name="delete_theme_question">Eliminare il tema %s?</string>
     <string name="delete_theme_error">Cancellazione del tema non riuscita</string>
     <string name="pip_mode">Modalità PiP</string>
     <string name="map_mode_north_top">Mappa con il Nord in alto</string>
@@ -33,7 +33,7 @@
     <string name="manual_offline_map_info">Le mappe offline scaricate manualmente o mappe condivise con altre app possono essere aperte dal tuo dispositivo Android. Seleziona la cartella nel menu <b>cartella Mappe</b>.</string>
     <string name="download_failed">Scaricamento della mappa non riuscito</string>
     <string name="delete_map_error">Cancellazione della mappa non riuscita</string>
-    <string name="overwrite_map_question">La mappa \"%s\" esiste già! Cancellarla e scaricarla di nuovo\?</string>
+    <string name="overwrite_map_question">La mappa %s esiste già! Cancellarla e scaricarla di nuovo?</string>
     <string name="error_loading_offline_map">Errore nella lettura della mappa offline configurata</string>
     <string name="track_smoothing_info">Definire la tolleranza in metri per l\'algoritmo di perfezionamento delle tracce. Immettere 0 per disattivare il perfezionamento delle tracce.
 \nIl cambiamento entrerà in vigore dopo aver aperto di nuovo la traccia.</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Scarica il tema</string>
     <string name="download_theme_success">Tema scaricato correttamente</string>
     <string name="download_theme_failed">Download del tema non riuscito</string>
-    <string name="overwrite_theme_question">Il tema \"%s\" esiste già! Cancellare e scaricare di nuovo\?</string>
+    <string name="overwrite_theme_question">Il tema %s esiste già! Cancellare e scaricare di nuovo?</string>
     <string name="no_download_uri_found">Nessun URI da scaricare trovato</string>
     <string name="offline_map_info">Le mappe offline possono essere scaricate tramite il menu <b>Scaricamento mappe</b> o visitando i siti web sopra menzionati e cliccando sui link di download. Alcuni browser (ad esempio Firefox) richiedono un clic lungo sul link e Open link in external app e poi scegliere OSMDashboard.</string>
     <string name="no_file_manager_found">Nessun gestore di file trovato</string>

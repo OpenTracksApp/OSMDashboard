@@ -3,7 +3,7 @@
     <string name="default_theme">Tema predefinitu</string>
     <string name="map_info_menu">Apprupositu</string>
     <string name="map_folder">Cartulare di e carte</string>
-    <string name="overwrite_map_question">A carta « %s » esiste dighjà ! Squassalla è scaricalla torna ?</string>
+    <string name="overwrite_map_question">A carta %s esiste dighjà ! Squassalla è scaricalla torna ?</string>
     <string name="error_reg_content_observer">Sbagliu durante l’arregistramentu di OpenTracksContentObserver</string>
     <string name="settings_night_mode_title">Tema di l’interfaccia di l’utilizatore</string>
     <string name="pace_min_km">Andatura in min/km</string>
@@ -24,7 +24,7 @@
     <string name="version_info"><b>Versione :</b> %s - %s (%d)</string>
     <string name="distance_km">Distanza in km</string>
     <string name="unit_mile_per_hour">mph</string>
-    <string name="delete_theme_question">Squassà u tema « %s » ?</string>
+    <string name="delete_theme_question">Squassà u tema %s ?</string>
     <string name="unit_feet">ft</string>
     <string name="elevation_feet">Dislivellu in pedi (ft)</string>
     <string name="no_file_manager_found">Ùn si trova alcunu ghjestiunariu di schedarii</string>
@@ -74,7 +74,7 @@
     <string name="theme_folder">Cartulare di i temi di carta</string>
     <string name="app_logo_description">Logo di l’appiecazione</string>
     <string name="download_theme">Scaricamentu di tema</string>
-    <string name="overwrite_theme_question">U tema « %s » esiste dighjà ! Squassallu è scaricallu torna ?</string>
+    <string name="overwrite_theme_question">U tema %s esiste dighjà ! Squassallu è scaricallu torna ?</string>
     <string name="download_map">Scaricamentu di carta</string>
     <string name="general_settings_category_title">Generale</string>
     <string name="category">Categuria</string>
@@ -84,7 +84,7 @@
     <string name="menu_advanced">Espertu</string>
     <string name="track_color">Culore di u tracciatu</string>
     <string name="add_marker_to_open_tracks">Aghjunghje una stantella à OpenTracks ?</string>
-    <string name="delete_map_question">Squassà a carta « %s » ?</string>
+    <string name="delete_map_question">Squassà a carta %s ?</string>
     <string name="map_online_consent_menu">Accunsentu per a carta in linea</string>
     <string name="unit_meter">m</string>
     <string name="settings_night_mode_option_day">Ghjornu</string>

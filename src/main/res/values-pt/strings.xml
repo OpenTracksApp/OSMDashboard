@@ -13,9 +13,9 @@
     <string name="map_online_consent_menu">Autorização do mapa online</string>
     <string name="track_smoothing_info">Definir a tolerância em metros para o algoritmo de suavização da via. Introduzir 0 para desactivar o alisamento da via.
 \nA alteração entra em vigor após recarregar a via.</string>
-    <string name="overwrite_map_question">O mapa \"%s\" já existe! Apagar e descarregar novamente\?</string>
-    <string name="delete_theme_question">Eliminar o tema \"%s\"\?</string>
-    <string name="delete_map_question">Eliminar mapa \"%s\"\?</string>
+    <string name="overwrite_map_question">O mapa %s já existe! Apagar e descarregar novamente?</string>
+    <string name="delete_theme_question">Eliminar o tema %s?</string>
+    <string name="delete_map_question">Eliminar mapa %s?</string>
     <string name="app_logo_description">Logotipo do aplicativo</string>
     <string name="app_name_info_screen">OSM Dashboard
 \npara OpenTracks</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Download do tema</string>
     <string name="download_theme_success">Tema descarregado com sucesso</string>
     <string name="download_theme_failed">O download de temas falhou</string>
-    <string name="overwrite_theme_question">O tema \"%s\" já existe! Eliminar e descarregar novamente\?</string>
+    <string name="overwrite_theme_question">O tema %s já existe! Eliminar e descarregar novamente?</string>
     <string name="no_download_uri_found">Não foi encontrado nenhum URI para descarregar</string>
     <string name="offline_map_info">Os mapas off-line podem ser descarregados através do menu <b>Descarregar mapa</b> ou visitando os websites acima mencionados e clicando nos links para descarregar. Alguns navegadores (por exemplo, Firefox) requerem um clique longo no link e Abrir link em aplicação externa e depois escolher OSMDashboard.</string>
     <string name="no_file_manager_found">Não foi encontrado nenhum gestor de ficheiros</string>

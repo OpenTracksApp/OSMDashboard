@@ -2,20 +2,20 @@
 <resources>
     <string name="track_smoothing_menu">Spår utjämning</string>
     <string name="error_loading_offline_map">Fel läsning konfigurerad offline karta</string>
-    <string name="overwrite_map_question">Kartan \"%s \" finns redan! Ta bort och ladda ner igen\?</string>
+    <string name="overwrite_map_question">Kartan %s finns redan! Ta bort och ladda ner igen?</string>
     <string name="online_map_consent">Det finns ingen offline karta konfigurerad. Godkänn att använda online-kartan från openstreetmap.org. - det här kan läcka din nuvarande plats. Se https://operations.osmfoundation.org/policies/tiles / för kakel Användning och Sekretesspolicy.</string>
     <string name="map_online_consent_menu">Online karta samtycke</string>
     <string name="download_map">Karta ladda ner</string>
     <string name="choose_map_to_download">Välj en karta att ladda ner</string>
     <string name="delete_theme_error">Tema radering misslyckades</string>
-    <string name="delete_theme_question">Ta bort temat \"%s\" \?</string>
+    <string name="delete_theme_question">Ta bort temat %s ?</string>
     <string name="theme_selection">Karta teman</string>
     <string name="delete_map_error">Kartborttagning misslyckades</string>
     <string name="copyright_osm">Medverkande för © OpenStreetMap kartdata</string>
     <string name="default_theme">Standard-tema</string>
     <string name="map_info_menu">Om</string>
     <string name="map_folder">Karta katalog</string>
-    <string name="delete_map_question">Ta bort kartan \"%s\"\?</string>
+    <string name="delete_map_question">Ta bort kartan %s?</string>
     <string name="online_osm_mapnick">Online-karta OSM:Mapnik</string>
     <string name="map_selection">Kartor</string>
     <string name="download_failed">Karta nedladdning misslyckades</string>
@@ -40,7 +40,7 @@
     <string name="download_theme">Ladda ner tema</string>
     <string name="download_theme_success">Tema har laddats ner framgångsrikt</string>
     <string name="download_theme_failed">Hämtning av tema misslyckades</string>
-    <string name="overwrite_theme_question">Temat \"%s\" finns redan! Kan du radera och ladda ner igen\?</string>
+    <string name="overwrite_theme_question">Temat %s finns redan! Kan du radera och ladda ner igen?</string>
     <string name="no_download_uri_found">Ingen URI att hämta hittades</string>
     <string name="offline_map_info">Ej uppkopplade kartor kan hämtas via menyn <b>Hämtning av kartor</b> eller genom att besöka de ovan nämnda webbplatserna och klicka på hämtningslänkarna. Vissa webbläsare (t.ex. Firefox) kräver ett långt klick på länken och Öppna länk i en extern app och välj sedan OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhanterare hittades</string>

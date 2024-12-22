@@ -15,12 +15,12 @@
     <string name="download_failed">Falló la descarga del mapa</string>
     <string name="map_selection">Mapas</string>
     <string name="online_osm_mapnick">Mapa online OSM:Mapnik</string>
-    <string name="delete_map_question">¿Borrar mapa \"%s\"\?</string>
+    <string name="delete_map_question">¿Borrar mapa %s?</string>
     <string name="delete_map_error">Error al borrar mapa</string>
     <string name="theme_selection">Temas de mapa</string>
-    <string name="delete_theme_question">¿Borrar tema \"%s\"\?</string>
+    <string name="delete_theme_question">¿Borrar tema %s?</string>
     <string name="delete_theme_error">Error al borrar el tema</string>
-    <string name="overwrite_map_question">¡El mapa \"%s\" ya existe! ¿Borrar y descargar de nuevo\?</string>
+    <string name="overwrite_map_question">¡El mapa %s ya existe! ¿Borrar y descargar de nuevo?</string>
     <string name="error_loading_offline_map">Error al leer el mapa offline configurado</string>
     <string name="copyright_osm">Datos del mapa © contribuyentes de OpenStreetMap</string>
     <string name="usage_info">Usa <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selecciona una pista y haz clic en el icono del mapa para mostrar la pista sobre el mapa.</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Descargar el tema</string>
     <string name="download_theme_success">Tema descargado con éxito</string>
     <string name="download_theme_failed">Fallo en la descarga del tema</string>
-    <string name="overwrite_theme_question">El tema \"%s\" ya existe. ¿Borrar y descargar de nuevo\?</string>
+    <string name="overwrite_theme_question">El tema %s ya existe. ¿Borrar y descargar de nuevo?</string>
     <string name="no_download_uri_found">No se ha encontrado ningún URI para descargar</string>
     <string name="no_file_manager_found">No se ha encontrado ningún gestor de archivos</string>
     <string name="error_reg_content_observer">Napaka pri registraciji OpenTracksContentObserver</string>
