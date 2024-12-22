@@ -102,4 +102,6 @@
     <string name="map_download_summary">Scaricà e carte da %s</string>
     <string name="download_page_info">Fighjate avà u cuntenutu di %s</string>
     <string name="theme_icon">Icona di tema</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

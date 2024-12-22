@@ -102,4 +102,6 @@
     <string name="map_download_summary">从 %s 下载地图</string>
     <string name="theme_icon">主题图标</string>
     <string name="map_icon">地图图标</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

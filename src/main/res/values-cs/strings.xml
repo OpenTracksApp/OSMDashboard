@@ -102,4 +102,6 @@
     <string name="map_download_summary">Stáhnout mapy z %s</string>
     <string name="download_page_info">Prohlížíte si obsah stránky %s</string>
     <string name="theme_icon">Ikona motivu</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>
