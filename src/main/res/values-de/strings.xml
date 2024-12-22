@@ -95,8 +95,8 @@
     <string name="settings_ui_dynamic_colors_summary">Benutze benutzerdefinierte dynamische Farben (nur Android 12+; erfordert manuellen Neustart)</string>
     <string name="settings_night_mode_option_night">Nacht</string>
     <string name="settings_night_mode_option_system">System</string>
-    <string name="add_marker_to_open_tracks"></string>
-    <string name="offline_version_info"></string>
+    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
+    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
     <string name="INTERNAL_APP_STORAGE">Internes App-Speicherverzeichnis</string>
     <string name="map_download_summary">Karten von %s herunterladen</string>
     <string name="download_page_info">Du siehst gerade den Inhalt von %s</string>
