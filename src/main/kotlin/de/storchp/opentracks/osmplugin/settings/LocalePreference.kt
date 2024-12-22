@@ -68,8 +68,8 @@ class LocalePreference : ListPreference {
             addAll(localeItemsSorted)
         }
 
-        entries = localeItemList.map<LocaleItem, String> { it.displayName }.toTypedArray()
-        entryValues = localeItemList.map<LocaleItem, String> { it.languageTag }.toTypedArray()
+        entries = localeItemList.map { it.displayName }.toTypedArray()
+        entryValues = localeItemList.map { it.languageTag }.toTypedArray()
 
         if (AppCompatDelegate.getApplicationLocales() == LocaleListCompat.getEmptyLocaleList()) {
             setValue(systemDefaultLocale.languageTag)
@@ -83,7 +83,7 @@ class LocalePreference : ListPreference {
     }
 
     override fun callChangeListener(newValue: Any): Boolean {
-        var newLocale: LocaleListCompat = LocaleListCompat.getEmptyLocaleList()
+        var newLocale = LocaleListCompat.getEmptyLocaleList()
         if (newValue != "") {
             newLocale = LocaleListCompat.forLanguageTags(newValue as String)
         }
@@ -128,7 +128,7 @@ class LocalePreference : ListPreference {
                 Log.e(TAG, "Could not load locales: " + e.message)
             }
         }.joinToString(",")
-        
+
         return LocaleList.forLanguageTags(locales)
     }
 }
