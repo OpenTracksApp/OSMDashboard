@@ -57,7 +57,7 @@
     <string name="pace_min_mi">Темп у хв/милю</string>
     <string name="speed_mi_h">Швидкість у миль/год</string>
     <string name="map_settings">Мапа</string>
-    <string name="version_info"><b>Версія:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Версія:</b> %s - %s (%d)]]></string>
     <string name="distance_km">Відстань у км</string>
     <string name="unit_mile_per_hour">миль/год</string>
     <string name="speed_km_h">Швидкість у км/год</string>
@@ -102,6 +102,6 @@
     <string name="download_page_info">Ви переглядаєте вміст %s</string>
     <string name="theme_icon">Значок теми</string>
     <string name="map_icon">Значок мапи</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
+    <string name="settings_locale_title">Мова</string>
+    <string name="settings_locale_system_default">Як у системі</string>
 </resources>
