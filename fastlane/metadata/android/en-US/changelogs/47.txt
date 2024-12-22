@@ -1,0 +1,3 @@
+- New: add language chooser in preferences
+- Updated translations
+- Updated dependencies

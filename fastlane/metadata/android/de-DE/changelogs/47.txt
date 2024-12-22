@@ -1,0 +1,3 @@
+- Neu: Sprachauswahl in den Einstellungen
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

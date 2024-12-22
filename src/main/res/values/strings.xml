@@ -98,5 +98,7 @@
     <string name="map_icon">Map icon</string>
     <string name="map_download_summary">Download maps from %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 
 </resources>
