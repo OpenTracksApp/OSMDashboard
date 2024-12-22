@@ -61,7 +61,7 @@
     <string name="speed_mi_h">Rychlost v mi/h</string>
     <string name="track_color_mode_uni">Jednobarevná</string>
     <string name="map_settings">Mapa</string>
-    <string name="version_info"><b>Verze:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Verze:</b> %s - %s (%d)]]></string>
     <string name="distance_km">Vzdálenost v km</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="elevation_feet">Převýšení ve stopách</string>
@@ -102,6 +102,6 @@
     <string name="map_download_summary">Stáhnout mapy z %s</string>
     <string name="download_page_info">Prohlížíte si obsah stránky %s</string>
     <string name="theme_icon">Ikona motivu</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
+    <string name="settings_locale_title">Jazyk</string>
+    <string name="settings_locale_system_default">Podle systému</string>
 </resources>
