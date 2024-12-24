@@ -59,7 +59,7 @@
     <string name="pace_min_mi">配速（分钟/英里）</string>
     <string name="elevation_feet">海拔增益（以英尺为单位）</string>
     <string name="distance_mi">距离（英里）</string>
-    <string name="version_info"><b>版本:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>版本：</b> %s- %s (%d)]]></string>
     <string name="debug_trackpoints">调试轨迹点</string>
     <string name="track_color">轨迹颜色</string>
     <string name="track_color_mode_uni">单色</string>
@@ -102,6 +102,6 @@
     <string name="map_download_summary">从 %s 下载地图</string>
     <string name="theme_icon">主题图标</string>
     <string name="map_icon">地图图标</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
+    <string name="settings_locale_title">语言</string>
+    <string name="settings_locale_system_default">系统默认</string>
 </resources>
