@@ -69,7 +69,7 @@
     <string name="distance_mi">Distancia en millas</string>
     <string name="speed_mi_h">Velocidade en mi/h</string>
     <string name="pace_min_mi">Ritmo en min/mi</string>
-    <string name="version_info"><b>Versión:</b>%s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Versión:</b> %s - %s (%d)]]></string>
     <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
     <string name="track_color">Cor da ruta</string>
     <string name="show_pause_markers">Mostrar marcadores de pausa</string>
@@ -102,6 +102,6 @@
     <string name="map_download_summary">Descarga mapas desde %s</string>
     <string name="theme_icon">Icona do decorado</string>
     <string name="download_page_info">Estás a ver o contido de %s</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
+    <string name="settings_locale_title">Idioma</string>
+    <string name="settings_locale_system_default">Predeterminado</string>
 </resources>
