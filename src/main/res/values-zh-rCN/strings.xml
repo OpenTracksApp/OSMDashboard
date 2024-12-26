@@ -24,12 +24,12 @@
     <string name="download_failed">地图下载失败</string>
     <string name="download_theme_failed">主题下载失败</string>
     <string name="online_osm_mapnick">在线地图OSM:Mapnik</string>
-    <string name="delete_map_question">是否删除\"%s\"的地图\?</string>
+    <string name="delete_map_question">是否删除%s的地图?</string>
     <string name="delete_map_error">地图删除失败</string>
     <string name="theme_selection">地图主题</string>
-    <string name="delete_theme_question">是否删除主题 \"%s\"\?</string>
+    <string name="delete_theme_question">是否删除主题 %s?</string>
     <string name="delete_theme_error">主题删除失败</string>
-    <string name="overwrite_theme_question">主题 \"%s\" 已存在!！是否删除并重新下载？</string>
+    <string name="overwrite_theme_question">主题 %s 已存在!！是否删除并重新下载？</string>
     <string name="error_loading_offline_map">读取配置的在线地图失败</string>
     <string name="track_smoothing_menu">轨迹平滑</string>
     <string name="pip_mode">画中画模式</string>
@@ -59,7 +59,7 @@
     <string name="pace_min_mi">配速（分钟/英里）</string>
     <string name="elevation_feet">海拔增益（以英尺为单位）</string>
     <string name="distance_mi">距离（英里）</string>
-    <string name="version_info"><b>版本:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>版本：</b> %s- %s (%d)]]></string>
     <string name="debug_trackpoints">调试轨迹点</string>
     <string name="track_color">轨迹颜色</string>
     <string name="track_color_mode_uni">单色</string>
@@ -70,7 +70,7 @@
     <string name="offline_map_info">离线地图可在App中下载，进入应用设置并通过选择列表下载<b>地图下载</b> 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。</string>
     <string name="online_map_consent">还没有配置离线地图。请允许应用使用OpenStreet提供的在线地图。这可能泄露您当前的地理位置信息。点击链接https://operations.osmfoundation.org/policies/tiles/ 查看相关隐私政策。</string>
     <string name="download_theme_success">主题下载成功</string>
-    <string name="overwrite_map_question">地图 \"%s\" 已存在!！是否删除并重新下载？</string>
+    <string name="overwrite_map_question">地图 %s 已存在!！是否删除并重新下载？</string>
     <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。设置为 0 则禁用轨迹平滑。</string>
     <string name="no_map_configured">您还没有配置离线地图。</string>
     <string name="no_file_manager_found">没有找到文件管理器</string>
@@ -102,4 +102,6 @@
     <string name="map_download_summary">从 %s 下载地图</string>
     <string name="theme_icon">主题图标</string>
     <string name="map_icon">地图图标</string>
+    <string name="settings_locale_title">语言</string>
+    <string name="settings_locale_system_default">系统默认</string>
 </resources>

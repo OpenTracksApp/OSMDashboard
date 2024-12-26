@@ -1,7 +1,0 @@
-- an chéadaoin seo chugainn translations
-- nuashonraigh spleáchríocha
-- - déan neamhaird ar rianphointí POINTE braiteoir cineál mar nach bhfuil comhordanáidí iontu
-- fachtóir rótharraingt a mhéadú chun fáil réidh le tíleanna bán
-- - leibhéal seasta súmála chun an rian iomlán ar an léarscáil a fheiceáil
-- tuairteála seasta ar android 12 mar gheall ar shampláil ró-ard braiteoir
-- nua: comhroinn an tamhrán mar phictiúr

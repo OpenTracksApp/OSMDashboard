@@ -16,6 +16,12 @@
             android:summary="@string/settings_ui_dynamic_colors_summary"
             android:title="@string/settings_ui_dynamic_colors_title" />
 
+        <de.storchp.opentracks.osmplugin.settings.LocalePreference
+            android:key="@string/APP_PREF_LOCALE_KEY"
+            android:persistent="false"
+            android:title="@string/settings_locale_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:key="@string/APP_PREF_SHOW_PAUSE_MARKERS"
             app:defaultValue="@bool/show_pause_markers_default"

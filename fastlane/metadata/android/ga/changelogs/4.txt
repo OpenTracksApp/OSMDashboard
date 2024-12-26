@@ -1,4 +1,0 @@
-- meiteashonraí fastlane breisithe agus ceartaithe
-- - deisigh tuairteála nuair nach bhfuarthas aon phointí riain ón bpríomh-fheidhmchlár
-- deisigh tuairteála ar android 6.gléasanna x
-- cur síos a chur leis maidir le léarscáileanna as líne agus rinne sé níos infheicthe

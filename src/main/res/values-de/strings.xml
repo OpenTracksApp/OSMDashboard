@@ -5,7 +5,7 @@
     <string name="copyright_osm">Kartendaten © OpenStreetMap Mitwirkende</string>
     <string name="default_theme">Standarddesign</string>
     <string name="map_info_menu">Über</string>
-    <string name="map_folder">Karten-Verzeichnis</string>
+    <string name="map_folder">Kartenverzeichnis</string>
     <string name="theme_folder">Kartendesign-Verzeichnis</string>
     <string name="usage_info">Öffne <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, selektiere einen Track und klicke auf das Kartenicon, um den Track auf der Karte anzuzeigen.</string>
     <string name="osm_info">Die Standardkarte wird von <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> zur Verfügung gestellt. Tritt der Gemeinschaft bei und hilf die Karte zu verbessern, siehe <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
@@ -13,7 +13,7 @@
     <string name="map_theme_info"><b>Manche Karten benötigen ein passendes Design damit die Karte korrekt dargestellt wird!</b> Diese müssen extra heruntergeladen und konfiguriert werden muss.</string>
     <string name="offline_map_info">Offlinekarten können direkt in der App über Einstellungen <b>Karten herunterladen</b> oder über die Downloadlinks der o.a. Webseiten herunter geladen werden. Bei einige Browsern (z.B. Firefox) muss man lange auf den Link klicken und Öffne Link in externer App und OSMDashboard wählen.</string>
     <string name="manual_offline_map_info">Manuell heruntergeladene Offlinekarten oder Karten, die mit anderen Apps geteilt werden, können von Deinem Androidgerät über die Einstellungen <b>Karten-Verzeichnis</b> geöffnet werden.</string>
-    <string name="app_logo_description">App Logo</string>
+    <string name="app_logo_description">App-Logo</string>
     <string name="online_map_consent">Es ist keine Offline-Karte konfiguriert. Bitte stimme der Verwendung der Online-Karte von openstreetmap.org zu. Dadurch kann Dein aktueller Standort verloren gehen. Siehe https://operations.osmfoundation.org/policies/tiles/ für die Kachelnutzung und die Datenschutzrichtlinie.</string>
     <string name="map_online_consent_menu">Onlinekarten-Einverständnis</string>
     <string name="download_map">Karten herunterladen</string>
@@ -22,12 +22,12 @@
     <string name="download_failed">Karte konnte nicht heruntergeladen werden</string>
     <string name="map_selection">Karten</string>
     <string name="online_osm_mapnick">Onlinekarte OSM:Mapnik</string>
-    <string name="delete_map_question">Karte \"%s\" löschen\?</string>
+    <string name="delete_map_question">Karte %s löschen?</string>
     <string name="delete_map_error">Karte konnte nicht gelöscht werden</string>
     <string name="theme_selection">Kartendesigns</string>
-    <string name="delete_theme_question">Kartendesign \"%s\" löschen\?</string>
+    <string name="delete_theme_question">Kartendesign %s löschen?</string>
     <string name="delete_theme_error">Kartendesign konnte nicht gelöscht werden</string>
-    <string name="overwrite_map_question">Die Karte \"%s\" existiert bereits! Löschen und erneut herunterladen\?</string>
+    <string name="overwrite_map_question">Die Karte %s existiert bereits! Löschen und erneut herunterladen?</string>
     <string name="error_loading_offline_map">Fehler beim Lesen der konfigurierten Offline-Karte</string>
     <string name="track_smoothing_menu">Tracks glätten</string>
     <string name="track_smoothing_info">Definiere die Toleranz in Meter für die Track-Glättung. Ein Wert von 0 schaltet die Glättung aus.</string>
@@ -38,7 +38,7 @@
     <string name="no_map_configured">Du hast noch keine Offline-Karte konfiguriert.</string>
     <string name="stroke_width_info">Definiere die Strichbreite der Tracks</string>
     <string name="stroke_width_menu">Strichbreite der Tracks</string>
-    <string name="overwrite_theme_question">Das Thema \"%s\" existiert bereits! Löschen und erneut herunterladen\?</string>
+    <string name="overwrite_theme_question">Das Thema %s existiert bereits! Löschen und erneut herunterladen?</string>
     <string name="download_theme_failed">Theme-Download fehlgeschlagen</string>
     <string name="download_theme_success">Thema erfolgreich heruntergeladen</string>
     <string name="download_theme">Thema herunterladen</string>
@@ -69,7 +69,7 @@
     <string name="unit_mile_per_hour">mph</string>
     <string name="elevation_meter">Höhendifferenz in m</string>
     <string name="pace_min_mi">Tempo in min/Meile</string>
-    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Version:</b> %s - %s (%d)]]></string>
     <string name="debug_trackpoints">Debug Wegpunkte</string>
     <string name="debug_trackpoints_info">Wegpunkte empfangen: %1$d
 \nWegpunkte ungültig: %2$d
@@ -95,11 +95,13 @@
     <string name="settings_ui_dynamic_colors_summary">Benutze benutzerdefinierte dynamische Farben (nur Android 12+; erfordert manuellen Neustart)</string>
     <string name="settings_night_mode_option_night">Nacht</string>
     <string name="settings_night_mode_option_system">System</string>
-    <string name="add_marker_to_open_tracks">Add marker to OpenTracks?</string>
-    <string name="offline_version_info">ATTENTION: This is the offline version for maximum privacy protection. It has no internet permission and can\'t leak your location. As a consequence it can\'t show online maps nor download offline maps. Offline maps have to be downloaded manually, see below.</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="map_icon">Map icon</string>
+    <string name="add_marker_to_open_tracks"></string>
+    <string name="offline_version_info"></string>
+    <string name="INTERNAL_APP_STORAGE">Internes App-Speicherverzeichnis</string>
+    <string name="map_download_summary">Karten von %s herunterladen</string>
+    <string name="download_page_info">Du siehst gerade den Inhalt von %s</string>
+    <string name="theme_icon">Themensymbol</string>
+    <string name="map_icon">Kartensymbol</string>
+    <string name="settings_locale_title">Sprache</string>
+    <string name="settings_locale_system_default">Systemvorgabe</string>
 </resources>

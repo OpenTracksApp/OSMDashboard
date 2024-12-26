@@ -13,7 +13,7 @@
     <string name="download_theme_success">Tema descărcată cu succes</string>
     <string name="download_theme_failed">Descărcarea temei nu a reușit</string>
     <string name="map_selection">Hărți</string>
-    <string name="delete_map_question">Șterge harta \"%s\"\?</string>
+    <string name="delete_map_question">Șterge harta %s?</string>
     <string name="online_osm_mapnick">Hartă online OSM:Mapnik</string>
     <string name="map_online_consent_menu">Acordare online a hărții</string>
     <string name="download_map">Descarcă harta</string>
@@ -32,10 +32,10 @@
     <string name="track_smoothing_info">Definește toleranța în metri pentru algoritmul de netezire a pistei. Setați la 0 pentru a dezactiva netezirea pistei.</string>
     <string name="track_smoothing_menu">Netezirea liniei</string>
     <string name="error_loading_offline_map">Eroare la citirea hărții configurate offline</string>
-    <string name="overwrite_theme_question">Tema \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
-    <string name="overwrite_map_question">Harta \"%s\" există deja! Ștergeți și descărcați din nou\?</string>
+    <string name="overwrite_theme_question">Tema %s există deja! Ștergeți și descărcați din nou?</string>
+    <string name="overwrite_map_question">Harta %s există deja! Ștergeți și descărcați din nou?</string>
     <string name="delete_theme_error">Eliminarea temei a eșuat</string>
-    <string name="delete_theme_question">Șterge tema \"%s\"\?</string>
+    <string name="delete_theme_question">Șterge tema %s?</string>
     <string name="theme_selection">Teme de hărți</string>
     <string name="delete_map_error">Ștergerea hărților a eșuat</string>
     <string name="copyright_osm">Date de pe hartă © OpenStreetMap contributori</string>
@@ -102,4 +102,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

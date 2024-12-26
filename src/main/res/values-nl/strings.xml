@@ -21,12 +21,12 @@
     <string name="download_failed">Het downloaden van de kaart is mislukt</string>
     <string name="map_selection">Kaarten</string>
     <string name="online_osm_mapnick">Online kaart OSM:Mapnik</string>
-    <string name="delete_map_question">Map \"%s\" verwijderen\?</string>
+    <string name="delete_map_question">Map %s verwijderen?</string>
     <string name="delete_map_error">Verwijdering van de kaart is mislukt</string>
     <string name="theme_selection">Kaart themas</string>
-    <string name="delete_theme_question">Thema \"%s\" verwijderen\?</string>
+    <string name="delete_theme_question">Thema %s verwijderen?</string>
     <string name="delete_theme_error">Themaverwijdering mislukt</string>
-    <string name="overwrite_map_question">De kaart \"%s\" bestaat al! Opnieuw verwijderen en downloaden\?</string>
+    <string name="overwrite_map_question">De kaart %s bestaat al! Opnieuw verwijderen en downloaden?</string>
     <string name="error_loading_offline_map">Foutieve uitlezing geconfigureerd offline kaart</string>
     <string name="track_smoothing_menu">Spoorafvlakking</string>
     <string name="track_smoothing_info">Definieer de tolerantie in meters voor het spoorverzachtingsalgoritme. Voer 0 in om spoorverzachter uit te schakelen.
@@ -41,7 +41,7 @@
     <string name="download_theme">Thema downloaden</string>
     <string name="download_theme_success">Thema met succes gedownload</string>
     <string name="download_theme_failed">Thema downloaden mislukt</string>
-    <string name="overwrite_theme_question">Het thema \"%s\" bestaat al! Verwijderen en opnieuw downloaden\?</string>
+    <string name="overwrite_theme_question">Het thema %s bestaat al! Verwijderen en opnieuw downloaden?</string>
     <string name="no_download_uri_found">Geen URI om te downloaden gevonden</string>
     <string name="offline_map_info">Offline kaarten kunnen worden gedownload via het menu <b>Kaarten downloaden</b> of door de hierboven genoemde websites te bezoeken en op de downloadlinks te klikken. Sommige browsers (b.v. Firefox) vereisen een lange klik op de link en Open link in externe app en kies dan OSMDashboard.</string>
     <string name="no_file_manager_found">Geen file manager gevonden</string>
@@ -103,4 +103,6 @@
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="map_icon">Map icon</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

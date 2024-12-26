@@ -31,17 +31,17 @@
     <string name="app_logo_description">යෙදුම් ලාංඡනය</string>
     <string name="map_online_consent_menu">මාර්ගගත සිතියම් කැමැත්ත</string>
     <string name="download_map">සිතියම් බාගත කිරීම</string>
-    <string name="delete_map_question">සිතියම \"%s\" මකන්නද\?</string>
+    <string name="delete_map_question">සිතියම %s මකන්නද?</string>
     <string name="theme_selection">සිතියම් තේමාවන්</string>
-    <string name="delete_theme_question">\"%s\" තේමාව මකන්නද\?</string>
+    <string name="delete_theme_question">%s තේමාව මකන්නද?</string>
     <string name="online_map_consent">නොබැඳි සිතියමක් වින්‍යාස කර නොමැත. Openstreetmap.org වෙතින් සබැඳි සිතියම භාවිතා කිරීමට කරුණාකර එකඟ වන්න. මෙය ඔබගේ වර්තමාන ස්ථානය කාන්දු විය හැක. උළු භාවිතය සහ රහස්‍යතා ප්‍රතිපත්තිය සඳහා https://operations.osmfoundation.org/policies/tiles/ බලන්න.</string>
-    <string name="overwrite_map_question">\"%s\" සිතියම දැනටමත් පවතී! මකා දමා නැවත බාගත කරන්න\?</string>
+    <string name="overwrite_map_question">%s සිතියම දැනටමත් පවතී! මකා දමා නැවත බාගත කරන්න?</string>
     <string name="app_name_info_screen">OSM Dashboard
 \nසදහා OpenTracks</string>
     <string name="download_theme">තේමාව බාගැනීම</string>
     <string name="download_theme_success">තේමාව සාර්ථකව බාගැනුණි</string>
     <string name="download_theme_failed">තේමාව බාගැනීම අසාර්ථක විය</string>
-    <string name="overwrite_theme_question">\"%s\" යන මාතෘකාව දැනටමත් පවතී! මකා නැවත බාගන්නද\?</string>
+    <string name="overwrite_theme_question">%s යන මාතෘකාව දැනටමත් පවතී! මකා නැවත බාගන්නද?</string>
     <string name="no_download_uri_found">බාගැනීමට යූආර්අයි නොමැත</string>
     <string name="offline_map_info">නොබැඳි සිතියම් <b> සිතියම් බාගැනීම </b> මෙනු හරහා හෝ ඉහත සඳහන් වෙබ් අඩවි වලට පිවිස බාගැනීම් සම්බන්ධක ක්ලික් කිරීමෙන් බාගත හැකිය. සමහර බ්‍රව්සර් (උදා. ෆයර්ෆොක්ස්) සඳහා සම්බන්ධකය මත දිගු ක්ලික් කිරීමක් අවශ්‍ය වන අතර බාහිර යෙදුමේ සම්බන්ධකය විවෘත කර OSMDashboard තෝරා ගන්න.</string>
     <string name="no_file_manager_found">කිසිදු ගොනුව කළමනාකරු සොයාගෙන ඇත</string>
@@ -103,4 +103,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="theme_icon">Theme icon</string>
     <string name="download_page_info">You are viewing content of %s</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

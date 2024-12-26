@@ -15,10 +15,10 @@
     <string name="map_selection">Žemėlapiai</string>
     <string name="online_osm_mapnick">Online žemėlapis OSM:Mapnik</string>
     <string name="delete_theme_error">Nepavyko ištrinti temos</string>
-    <string name="delete_theme_question">Ištrinti temą \"%s\"\?</string>
+    <string name="delete_theme_question">Ištrinti temą %s?</string>
     <string name="theme_selection">Žemėlapio temos</string>
     <string name="delete_map_error">Žemėlapio šalinimas nepavyko</string>
-    <string name="delete_map_question">Ištrinkite žemėlapį \"%s\"\?</string>
+    <string name="delete_map_question">Ištrinkite žemėlapį %s?</string>
     <string name="pip_mode">Paveikslėlio režimas</string>
     <string name="map_mode_north_top">Žemėlapio šiaurė viršuje</string>
     <string name="menu_advanced">Išplėstinė</string>
@@ -38,8 +38,8 @@
     <string name="download_map">Parsisiųsti žemėlapį</string>
     <string name="track_smoothing_menu">Trasos išlyginimas</string>
     <string name="error_loading_offline_map">Klaida skaitant sukonfigūruotą neprisijungusį žemėlapį</string>
-    <string name="overwrite_theme_question">Tema \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
-    <string name="overwrite_map_question">Žemėlapis \"%s\" jau egzistuoja! Ištrinti ir atsisiųsti iš naujo\?</string>
+    <string name="overwrite_theme_question">Tema %s jau egzistuoja! Ištrinti ir atsisiųsti iš naujo?</string>
+    <string name="overwrite_map_question">Žemėlapis %s jau egzistuoja! Ištrinti ir atsisiųsti iš naujo?</string>
     <string name="download_theme_failed">Temos atsisiųsti nepavyko</string>
     <string name="track_smoothing_info">Nustatykite takelio išlyginimo algoritmo paklaidą metrais. Įveskite 0, kad išjungtumėte takelio išlyginimą.
 \nPakeitimai įsigalioja įkėlus takelį iš naujo.</string>
@@ -103,4 +103,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

@@ -19,13 +19,13 @@
     <string name="download_theme_failed">Þema sækja mistókst</string>
     <string name="map_selection">Kort</string>
     <string name="online_osm_mapnick">Netinu kort OSM:Mapnik</string>
-    <string name="delete_map_question">Eyða kort \"%s\"\?</string>
+    <string name="delete_map_question">Eyða kort %s?</string>
     <string name="delete_map_error">Kort eyðingu mistókst</string>
     <string name="theme_selection">Kort þemum</string>
-    <string name="delete_theme_question">Eyða þema \"%s\"\?</string>
+    <string name="delete_theme_question">Eyða þema %s?</string>
     <string name="delete_theme_error">Þema eyðingu mistókst</string>
-    <string name="overwrite_map_question">Kort \"%s\" þegar til! Hreinn og sækja aftur\?</string>
-    <string name="overwrite_theme_question">Þema \"%s\" þegar til! Hreinn og sækja aftur\?</string>
+    <string name="overwrite_map_question">Kort %s þegar til! Hreinn og sækja aftur?</string>
+    <string name="overwrite_theme_question">Þema %s þegar til! Hreinn og sækja aftur?</string>
     <string name="error_loading_offline_map">Villa að lesa stillt ótengdur kort</string>
     <string name="track_smoothing_menu">Fylgjast refur</string>
     <string name="pip_mode">Mynd í mynd ham</string>
@@ -103,4 +103,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

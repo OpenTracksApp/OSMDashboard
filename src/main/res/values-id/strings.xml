@@ -11,7 +11,7 @@
     <string name="online_map_consent">Tidak ada peta luring yang dikonfigurasi. Harap setujui untuk menggunakan peta online dari openstreetmap.org ini mungkin akan membocorkan lokasimu saat ini. Lihat https://operations.osmfoundation.org/policies/tiles / untuk kebijakan penggunaan ubin dan privasi.</string>
     <string name="track_smoothing_info">Definisikan toleransi dalam meter untuk algoritma pembuka trek. Enter 0 untuk menonaktifkan berciuman trek.
 \nUbah datang ke efek setelah memuat ulang trek.</string>
-    <string name="overwrite_map_question">Peta \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
+    <string name="overwrite_map_question">Peta %s sudah ada! Hapus dan unduh lagi?</string>
     <string name="usage_info">Gunakan <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, Pilih trek dan klik ikon peta untuk menampilkan trek di peta.</string>
     <string name="osm_info">Peta Baku disediakan oleh <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bergabung dengan komunitas dan membantu untuk memperbaiki peta, lihat <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Mohon pertimbangkan mengunduh peta luring untuk menurunkan beban server dan menyimpan rencana data mobile Anda. Beberapa peta luring dapat ditemukan di sini:</string>
@@ -30,10 +30,10 @@
     <string name="map_mode_north_top">Peta Utara Di Atas</string>
     <string name="pip_mode">Gambar pada mode gambar</string>
     <string name="delete_theme_error">Penghapusan tema gagal</string>
-    <string name="delete_theme_question">Hapus tema \"%s\"\?</string>
+    <string name="delete_theme_question">Hapus tema %s?</string>
     <string name="theme_selection">Peta tema</string>
     <string name="delete_map_error">Penghapusan peta gagal</string>
-    <string name="delete_map_question">Hapus peta \"%s\"\?</string>
+    <string name="delete_map_question">Hapus peta %s?</string>
     <string name="online_osm_mapnick">Peta Online OSM:Mapnik</string>
     <string name="map_selection">Peta</string>
     <string name="download_failed">Pengunduhan peta gagal</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Unduh tema</string>
     <string name="download_theme_success">Tema berhasil diunduh</string>
     <string name="download_theme_failed">Pengunduhan tema gagal</string>
-    <string name="overwrite_theme_question">Tema \"%s \" sudah ada! Hapus dan unduh lagi\?</string>
+    <string name="overwrite_theme_question">Tema %s sudah ada! Hapus dan unduh lagi?</string>
     <string name="no_download_uri_found">URI tak ditemukan</string>
     <string name="offline_map_info">Peta luring dapat diunduh melalui menu <b>Unduh</b> atau dengan mengunjungi situs-situs yang disebutkan dan klik link unduh. Beberapa browser (misalnya Firefox) memerlukan klik panjang pada link dan buka link dalam aplikasi eksternal lalu pilih OSMDashboar.</string>
     <string name="no_file_manager_found">Tak ditemukan manajer berkas</string>
@@ -103,4 +103,6 @@
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
     <string name="map_icon">Map icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

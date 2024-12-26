@@ -15,11 +15,11 @@
     <string name="download_theme_success">Tema başarıyla indirildi</string>
     <string name="download_theme_failed">Tema indirilemedi</string>
     <string name="online_osm_mapnick">Çevrimiçi harita OSM:Mapnik</string>
-    <string name="delete_map_question">\"%s\" haritası silinsin mi\?</string>
+    <string name="delete_map_question">%s haritası silinsin mi?</string>
     <string name="delete_map_error">Harita silinemedi</string>
-    <string name="delete_theme_question">\"%s\" teması silinsin mi\?</string>
+    <string name="delete_theme_question">%s teması silinsin mi?</string>
     <string name="delete_theme_error">Tema silinemedi</string>
-    <string name="overwrite_theme_question">\"%s\" teması zaten var! Silinip tekrar indirilsin mi\?</string>
+    <string name="overwrite_theme_question">%s teması zaten var! Silinip tekrar indirilsin mi?</string>
     <string name="error_loading_offline_map">Ayarlanmış çevrimdışı harita okunurken hata oluştu</string>
     <string name="track_smoothing_menu">Parça yumuşat</string>
     <string name="track_smoothing_info">Parça yumuşatma algoritması için toleransı metre cinsinden tanımlayın. Parça yumuşatmayı devre dışı bırakmak için 0 girin.
@@ -47,7 +47,7 @@
     <string name="download_success">Harita başarıyla indirildi</string>
     <string name="map_selection">Haritalar</string>
     <string name="theme_selection">Harita temaları</string>
-    <string name="overwrite_map_question">\"%s\" haritası zaten var! Silinip tekrar indirilsin mi\?</string>
+    <string name="overwrite_map_question">%s haritası zaten var! Silinip tekrar indirilsin mi?</string>
     <string name="map_mode_north_top">Kuzey haritası üstte</string>
     <string name="stroke_width_info">İzlerin kontur genişliğini tanımlayın</string>
     <string name="no_download_uri_found">İndirilecek bağlantı bulunamadı</string>
@@ -103,4 +103,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

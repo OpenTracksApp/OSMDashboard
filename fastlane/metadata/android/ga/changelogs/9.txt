@@ -1,6 +1,0 @@
-- eisiúint taispeána seasta le méid cló mór
-- iarraidh ar thoiliú chun léarscáil ar líne a úsáid
-- - urramaíonn" Coinnigh an scáileán ar "agus" taispeáin Ar Lockscreen " sainroghanna Ó Rianta Oscailte
-- íoslódáil léarscáileanna as líne go díreach tríd an aip
-- Lógó nua de réir An Tsonraíocht Deilbhín Tosaitheora Oiriúnaitheach Android
-- athstruchtúrú roghnú roghchlár agus léarscáil/téama

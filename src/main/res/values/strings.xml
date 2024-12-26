@@ -25,13 +25,13 @@
     <string name="download_theme_failed">Theme download failed</string>
     <string name="map_selection">Maps</string>
     <string name="online_osm_mapnick">Online map OSM:Mapnik</string>
-    <string name="delete_map_question">Delete map \"%s\"?</string>
+    <string name="delete_map_question">Delete map %s?</string>
     <string name="delete_map_error">Map deletion failed</string>
     <string name="theme_selection">Map themes</string>
-    <string name="delete_theme_question">Delete theme \"%s\"?</string>
+    <string name="delete_theme_question">Delete theme %s?</string>
     <string name="delete_theme_error">Theme deletion failed</string>
-    <string name="overwrite_map_question">The map \"%s\" already exists! Delete and download again?</string>
-    <string name="overwrite_theme_question">The theme \"%s\" already exists! Delete and download again?</string>
+    <string name="overwrite_map_question">The map %s already exists! Delete and download again?</string>
+    <string name="overwrite_theme_question">The theme %s already exists! Delete and download again?</string>
     <string name="error_loading_offline_map">Error reading configured offline map</string>
     <string name="track_smoothing_menu">Track smoothing</string>
     <string name="track_smoothing_info">Define the tolerance in meters for the track smoothing algorithm. Set to 0 to disable track smoothing.</string>
@@ -98,5 +98,7 @@
     <string name="map_icon">Map icon</string>
     <string name="map_download_summary">Download maps from %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 
 </resources>

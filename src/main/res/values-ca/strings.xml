@@ -19,11 +19,11 @@
     <string name="download_theme_failed">Tema descarregar fallat</string>
     <string name="map_selection">Mapes</string>
     <string name="online_osm_mapnick">Mapa en línia OSM:Mapnik</string>
-    <string name="delete_map_question">Esborrar del mapa \"%s\"\?</string>
+    <string name="delete_map_question">Esborrar del mapa %s?</string>
     <string name="theme_selection">Mapa temes</string>
-    <string name="delete_theme_question">Esborra tema \"%s\"\?</string>
+    <string name="delete_theme_question">Esborra tema %s?</string>
     <string name="delete_theme_error">El tema de la supressió fallat</string>
-    <string name="overwrite_map_question">El mapa \"%s\" ja existeix! Suprimir i descarregar de nou\?</string>
+    <string name="overwrite_map_question">El mapa %s ja existeix! Suprimir i descarregar de nou?</string>
     <string name="error_loading_offline_map">Error de lectura configurat els mapes fora de línia</string>
     <string name="track_smoothing_menu">Pista suavitzat</string>
     <string name="pip_mode">Imatge en mode d\'imatge</string>
@@ -40,7 +40,7 @@
     <string name="online_map_consent">No hi ha cap mapa en línia configurat. Si us plau, accepta utilitzar el mapa en línia des de openstreetmap.org. Això podria fuita de la teva ubicació actual. Veure https://operations.osmfoundation.org/policies/tiles/ per a rajola d\'ús i política de privadesa.</string>
     <string name="choose_map_to_download">Triar un mapa per a descarregar</string>
     <string name="delete_map_error">Mapa de la supressió fallat</string>
-    <string name="overwrite_theme_question">El tema \"%s\" ja existeix! Suprimir i descarregar de nou\?</string>
+    <string name="overwrite_theme_question">El tema %s ja existeix! Suprimir i descarregar de nou?</string>
     <string name="track_smoothing_info">Definir la tolerància en metres per la pista suavitzat algorisme. Introduïu 0 a desactivar el seguiment regulador.
 \nCanviar entra en vigor després de tornar a carregar la pista.</string>
     <string name="map_mode_direction">Mapa del moviment de direcció</string>
@@ -103,4 +103,6 @@
     <string name="map_icon">Map icon</string>
     <string name="map_download_summary">Download maps from %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

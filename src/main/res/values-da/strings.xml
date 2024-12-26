@@ -21,12 +21,12 @@
     <string name="download_failed">Kort do downloadnload mislykkedes</string>
     <string name="map_selection">Kortlægge</string>
     <string name="online_osm_mapnick">Online kort OSM:Mapnik</string>
-    <string name="delete_map_question">Slet kort \"%s\"\?</string>
+    <string name="delete_map_question">Slet kort %s?</string>
     <string name="delete_map_error">Sletning af kort mislykkedes</string>
     <string name="theme_selection">Kort temaer</string>
-    <string name="delete_theme_question">Slet tema\"%s\"\?</string>
+    <string name="delete_theme_question">Slet tema %s?</string>
     <string name="delete_theme_error">Tema sletning mislykkedes</string>
-    <string name="overwrite_map_question">Kortet\" \"%s\" findes allerede! Slet og Do nload igen\?</string>
+    <string name="overwrite_map_question">Kortet %s findes allerede! Slet og Do nload igen?</string>
     <string name="error_loading_offline_map">Fejl læsning konfigureret offline kort</string>
     <string name="track_smoothing_menu">Spor udjævning</string>
     <string name="pip_mode">Billede i billedtilstand</string>
@@ -41,7 +41,7 @@
     <string name="download_theme">Tema download</string>
     <string name="download_theme_success">Tema downloadet med succes</string>
     <string name="download_theme_failed">Tema download mislykkedes</string>
-    <string name="overwrite_theme_question">Temaet \"%s\" findes allerede! Slet og download igen\?</string>
+    <string name="overwrite_theme_question">Temaet %s findes allerede! Slet og download igen?</string>
     <string name="no_download_uri_found">Ingen URI til download fundet</string>
     <string name="offline_map_info">Offlinekort kan downloades via menuen <b>Kort download</b> eller ved at besøge de ovennævnte websteder og klikke på downloadlinks. Nogle browsere (f.eks. Firefox) kræver et langt klik på linket og Open link in external app og vælg derefter OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhåndtering fundet</string>
@@ -103,4 +103,6 @@
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
     <string name="map_icon">Map icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>

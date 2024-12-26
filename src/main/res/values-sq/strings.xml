@@ -17,10 +17,10 @@
     <string name="download_theme_success">Tema shkarkohet me sukses</string>
     <string name="map_selection">Hartat</string>
     <string name="online_osm_mapnick">HARTA ONLINE OSM:Mapnik</string>
-    <string name="delete_map_question">Fshini hartën \"%s\"\?</string>
+    <string name="delete_map_question">Fshini hartën %s?</string>
     <string name="delete_map_error">Fshirja e hartës dështoi</string>
     <string name="theme_selection">Temat e hartave</string>
-    <string name="delete_theme_question">Fshi temën \"%s\"\?</string>
+    <string name="delete_theme_question">Fshi temën %s?</string>
     <string name="delete_theme_error">Fshirja e temës dështoi</string>
     <string name="bug_report">Raporti bug</string>
     <string name="error_crash_title">%1$s u rrëzua</string>
@@ -28,7 +28,7 @@
     <string name="error_reg_content_observer">Gabim në regjistrimin OpenTracksContentObserver</string>
     <string name="no_file_manager_found">Asnjë menaxher skedarësh nuk u gjet</string>
     <string name="no_download_uri_found">Nuk URI për të shkarkuar gjetur</string>
-    <string name="overwrite_map_question">Harta \"%s \" tashmë ekziston! Fshini dhe shkarkoni përsëri\?</string>
+    <string name="overwrite_map_question">Harta %s tashmë ekziston! Fshini dhe shkarkoni përsëri?</string>
     <string name="error_loading_offline_map">Gabim leximi konfiguruar offline hartë</string>
     <string name="track_smoothing_menu">Zbutja e gjurmëve</string>
     <string name="pip_mode">Foto në modalitetin e figurës</string>
@@ -49,7 +49,7 @@
     <string name="usage_info">Përdorni <b><a href="https://f-droid.org/packages/de.dennis guse.opentracks">OpenTracks</a></b>, zgjidhni një udhë dhe klikoni ikonën hartë për të treguar rrugën në hartë.</string>
     <string name="osm_info">Harta e paracaktuar sigurohet nga <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bashkohuni me komunitetin dhe ndihmoni për të përmirësuar hartën, shihn <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="download_theme_failed">Shkarkimi i temës dështoi</string>
-    <string name="overwrite_theme_question">Tema \"%s \" tashmë ekziston! Fshini dhe shkarkoni përsëri\?</string>
+    <string name="overwrite_theme_question">Tema %s tashmë ekziston! Fshini dhe shkarkoni përsëri?</string>
     <string name="track_smoothing_info">Përcaktoni tolerancën në metra për algoritmin e zbutjes së pistave. Futni 0 për të çaktivizuar zbutjen e gjurmëve.
 \nNdryshimi hyn në fuqi pas ringarkimit të pistës.</string>
     <string name="no_map_configured">Ju ende nuk keni konfiguruar hartën offline.</string>
@@ -103,4 +103,6 @@
     <string name="map_download_summary">Download maps from %s</string>
     <string name="download_page_info">You are viewing content of %s</string>
     <string name="theme_icon">Theme icon</string>
+    <string name="settings_locale_title">Language</string>
+    <string name="settings_locale_system_default">System default</string>
 </resources>
