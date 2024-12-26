@@ -185,7 +185,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     }
 
     private val updateTrackStatistics: UpdateTrackStatistics =
-        { trackStatistics: TrackStatistics? ->
+        { trackStatistics ->
             removeStatisticElements()
             if (trackStatistics != null) {
                 PreferencesUtils.getStatisticElements()
