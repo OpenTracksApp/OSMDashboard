@@ -22,17 +22,17 @@ data class Waypoint(
 )
 
 object WaypointReader {
-    const val _ID: String = "_id"
-    const val NAME: String = "name" // waypoint name
-    const val DESCRIPTION: String = "description" // waypoint description
-    const val CATEGORY: String = "category" // waypoint category
-    const val ICON: String = "icon" // waypoint icon
-    const val TRACKID: String = "trackid" // track id
-    const val LONGITUDE: String = "longitude" // longitude
-    const val LATITUDE: String = "latitude" // latitude
-    const val PHOTOURL: String = "photoUrl" // url for the photo
+    const val _ID = "_id"
+    const val NAME = "name" // waypoint name
+    const val DESCRIPTION = "description" // waypoint description
+    const val CATEGORY = "category" // waypoint category
+    const val ICON = "icon" // waypoint icon
+    const val TRACKID = "trackid" // track id
+    const val LONGITUDE = "longitude" // longitude
+    const val LATITUDE = "latitude" // latitude
+    const val PHOTOURL = "photoUrl" // url for the photo
 
-    val PROJECTION = arrayOf<String>(
+    val PROJECTION = arrayOf(
         _ID,
         NAME,
         DESCRIPTION,

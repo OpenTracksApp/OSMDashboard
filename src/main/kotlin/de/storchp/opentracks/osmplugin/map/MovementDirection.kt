@@ -5,7 +5,7 @@ import org.oscim.core.GeoPoint
 class MovementDirection {
     private var secondToLastPos: GeoPoint? = null
     var currentDegrees = 0f
-        get() = currentDegrees
+        private set
 
     fun updatePos(endPos: GeoPoint?) {
         if (endPos != null && endPos != secondToLastPos) {

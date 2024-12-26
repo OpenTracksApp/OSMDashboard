@@ -14,7 +14,6 @@ import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.TrackStatistics
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
-import org.oscim.core.BoundingBox
 import org.oscim.core.GeoPoint
 import java.lang.Exception
 
@@ -45,6 +44,7 @@ class DashboardReader(
     private var lastTrackPointId = 0L
     private var contentObserver: OpenTracksContentObserver? = null
     var lastTrackId = 0L
+        private set
     val keepScreenOn: Boolean
     val showOnLockScreen: Boolean
     val showFullscreen: Boolean
@@ -104,7 +104,7 @@ class DashboardReader(
 
             trackpointsBySegments.segments.map { trackpoints ->
                 if (!update) {
-                    mapData.polyline = null // cut polyline on new segment
+                    mapData.cutPolyline()
                     if (tolerance > 0) { // smooth track
                         return@map MapUtils.decimate(tolerance, trackpoints)
                     }
@@ -153,18 +153,12 @@ class DashboardReader(
 
         mapData.setEndMarker()
 
-        var myPos: GeoPoint? = null
         if (update && mapData.endPos != null) {
-            myPos = mapData.endPos
+            mapData.updateMapPositionAndRotation(mapData.endPos!!)
             mapData.renderMap()
         } else if (latLongs.isNotEmpty()) {
-            mapData.boundingBox = BoundingBox(latLongs).extendMargin(1.2f).also {
-                myPos = it.getCenterPoint()
-            }
-        }
-
-        if (myPos != null) {
-            mapData.updateMapPositionAndRotation(myPos)
+            mapData.createBoundingBox(latLongs)
+            mapData.boundingBox?.let { mapData.updateMapPositionAndRotation(it.centerPoint) }
         }
 
         updateTrackpointsDebug(trackpointsDebug)

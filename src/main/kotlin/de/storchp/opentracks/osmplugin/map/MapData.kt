@@ -29,9 +29,11 @@ data class MapData(
     private var endMarker: MarkerItem? = null
     private var startPos: GeoPoint? = null
 
-    var polyline: PathLayer? = null
+    private var polyline: PathLayer? = null
     var endPos: GeoPoint? = null
+        private set
     var boundingBox: BoundingBox? = null
+        private set
 
     init {
         map.layers().add(polylinesLayer)
@@ -130,6 +132,14 @@ data class MapData(
     fun removeLayers() {
         map.layers().remove(polylinesLayer)
         map.layers().remove(waypointsLayer)
+    }
+
+    fun createBoundingBox(latLongs: List<GeoPoint>) {
+        boundingBox = BoundingBox(latLongs).extendMargin(1.2f)
+    }
+
+    fun cutPolyline() {
+        polyline = null
     }
 
 }

@@ -26,21 +26,21 @@ data class Track(
 object TrackReader {
     private val TAG: String = Track::class.java.getSimpleName()
 
-    const val _ID: String = "_id"
-    const val NAME: String = "name" // track name
-    const val DESCRIPTION: String = "description" // track description
-    const val CATEGORY: String = "category" // track activity type
-    const val STARTTIME: String = "starttime" // track start time
-    const val STOPTIME: String = "stoptime" // track stop time
-    const val TOTALDISTANCE: String = "totaldistance" // total distance
-    const val TOTALTIME: String = "totaltime" // total time
-    const val MOVINGTIME: String = "movingtime" // moving time
-    const val AVGSPEED: String = "avgspeed" // average speed
-    const val AVGMOVINGSPEED: String = "avgmovingspeed" // average moving speed
-    const val MAXSPEED: String = "maxspeed" // maximum speed
-    const val MINELEVATION: String = "minelevation" // minimum elevation
-    const val MAXELEVATION: String = "maxelevation" // maximum elevation
-    const val ELEVATIONGAIN: String = "elevationgain" // elevation gain
+    const val _ID = "_id"
+    const val NAME = "name" // track name
+    const val DESCRIPTION = "description" // track description
+    const val CATEGORY = "category" // track activity type
+    const val STARTTIME = "starttime" // track start time
+    const val STOPTIME = "stoptime" // track stop time
+    const val TOTALDISTANCE = "totaldistance" // total distance
+    const val TOTALTIME = "totaltime" // total time
+    const val MOVINGTIME = "movingtime" // moving time
+    const val AVGSPEED = "avgspeed" // average speed
+    const val AVGMOVINGSPEED = "avgmovingspeed" // average moving speed
+    const val MAXSPEED = "maxspeed" // maximum speed
+    const val MINELEVATION = "minelevation" // minimum elevation
+    const val MAXELEVATION = "maxelevation" // maximum elevation
+    const val ELEVATIONGAIN = "elevationgain" // elevation gain
 
     val PROJECTION = arrayOf(
         _ID,
