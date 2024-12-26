@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.dashboardapi.Trackpoint
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
 import de.storchp.opentracks.osmplugin.utils.UnitConversions
 import org.oscim.android.canvas.AndroidBitmap
 import org.oscim.core.GeoPoint
@@ -192,7 +191,6 @@ object MapUtils {
         return bitmap
     }
 
-
     fun getTrackColorBySpeed(
         average: Double,
         averageToMaxSpeed: Double,
@@ -210,13 +208,6 @@ object MapUtils {
         return Color.argb(255, red, green, 0)
     }
 
-    fun rotateWith(mapMode: MapMode, movementDirection: MovementDirection) =
-        if (mapMode === MapMode.DIRECTION) {
-            -1 * mapMode.getHeading(movementDirection)
-        } else {
-            movementDirection.currentDegrees + mapMode.getHeading(movementDirection) % 360
-        }
-
     fun createMarkerSymbol(
         context: Context,
         markerResource: Int,
@@ -228,29 +219,30 @@ object MapUtils {
         billboard
     )
 
-    fun createPushpinSymbol(context: Context) =
-        createMarkerSymbol(
-            context = context,
-            markerResource = R.drawable.ic_marker_orange_pushpin_modern,
-            billboard = true,
-            hotspot = HotspotPlace.BOTTOM_CENTER
-        )
-
-    fun createPushpinMarker(context: Context, latLong: GeoPoint?, id: Long?) =
+    fun createMarker(id: Long? = null, latLong: GeoPoint, markerSymbol: MarkerSymbol) =
         MarkerItem(id, latLong.toString(), "", latLong).apply {
-            marker = createPushpinSymbol(context)
+            marker = markerSymbol
         }
 
-    fun createPauseMarker(context: Context, latLong: GeoPoint?) =
-        MarkerItem(latLong.toString(), "", latLong).apply {
-            marker = createMarkerSymbol(
-                context = context,
-                markerResource = R.drawable.ic_marker_pause_34,
-                billboard = true,
-                hotspot = HotspotPlace.CENTER
-            )
-        }
+    fun createPauseMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_marker_pause_34,
+        billboard = true,
+        hotspot = HotspotPlace.CENTER
+    )
 
-    fun createTappableMarker(context: Context, waypoint: Waypoint) =
-        createPushpinMarker(context, waypoint.latLong, waypoint.id)
+    fun createCompassMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_compass,
+        billboard = false,
+        hotspot = HotspotPlace.CENTER
+    )
+
+    fun createPushpinSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.ic_marker_orange_pushpin_modern,
+        billboard = true,
+        hotspot = HotspotPlace.BOTTOM_CENTER
+    )
+
 }

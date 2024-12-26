@@ -11,6 +11,8 @@ class MovementDirection {
         if (endPos != null && endPos != secondToLastPos) {
             currentDegrees = MapUtils.bearingInDegrees(secondToLastPos, endPos)
             secondToLastPos = endPos
+        } else {
+            currentDegrees = 0f
         }
     }
 

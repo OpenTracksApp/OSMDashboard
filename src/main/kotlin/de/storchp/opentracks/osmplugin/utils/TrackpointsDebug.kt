@@ -6,6 +6,7 @@ class TrackpointsDebug {
     var trackpointsDrawn: Int = 0
     var trackpointsPause: Int = 0
     var segments: Int = 0
+    var protocolVersion: Int = 0
 
     fun add(other: TrackpointsDebug) {
         this.trackpointsReceived += other.trackpointsReceived

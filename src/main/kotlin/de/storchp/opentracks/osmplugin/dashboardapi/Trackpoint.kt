@@ -26,14 +26,13 @@ data class Trackpoint(
 private const val PAUSE_LATITUDE: Double = 100.0
 
 object TrackpointReader {
-    const val _ID: String = "_id"
-    const val TRACKID: String = "trackid"
-    const val LONGITUDE: String = "longitude"
-    const val LATITUDE: String = "latitude"
-    const val TIME: String = "time"
-    const val TYPE: String = "type"
-    const val SPEED: String = "speed"
-
+    const val _ID = "_id"
+    const val TRACKID = "trackid"
+    const val LONGITUDE = "longitude"
+    const val LATITUDE = "latitude"
+    const val TIME = "time"
+    const val TYPE = "type"
+    const val SPEED = "speed"
 
     val PROJECTION_V1 = arrayOf(
         _ID,

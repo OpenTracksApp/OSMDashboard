@@ -4,15 +4,14 @@ import java.lang.IllegalArgumentException
 
 enum class MapMode {
     NORTH {
-        override fun getHeading(movementDirection: MovementDirection) = 0f
+        override fun getBearing(movementDirection: MovementDirection) = 0f
     },
     DIRECTION {
-        override fun getHeading(movementDirection: MovementDirection) =
+        override fun getBearing(movementDirection: MovementDirection) =
             -1f * movementDirection.currentDegrees
     };
 
-    abstract fun getHeading(movementDirection: MovementDirection): Float
-
+    abstract fun getBearing(movementDirection: MovementDirection): Float
 }
 
 fun String.toMapMode(defaultValue: MapMode) =
