@@ -38,7 +38,8 @@ data class MapData(
     init {
         map.layers().add(polylinesLayer)
 
-        waypointsLayer = ItemizedLayer(map, listOf(), waypointMarkerSymbol, onItemGestureListener)
+        waypointsLayer =
+            ItemizedLayer(map, mutableListOf(), waypointMarkerSymbol, onItemGestureListener)
         map.layers().add(waypointsLayer)
     }
 
@@ -72,6 +73,7 @@ data class MapData(
         if (startPos == null) {
             startPos = endPos
         }
+        movementDirection.updatePos(endPos)
     }
 
     fun resetCurrentPolyline() {

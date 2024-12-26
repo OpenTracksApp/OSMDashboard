@@ -133,7 +133,6 @@ class DashboardReader(
                         mapData.extendPolyline(trackColor, trackpoint.latLong!!)
                     }
 
-
                     if (trackpoint.isPause && showPauseMarkers) {
                         mapData.addPauseMarker(trackpoint.latLong)
                     }
