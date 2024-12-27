@@ -1,5 +1,6 @@
 package de.storchp.opentracks.osmplugin.map
 
+import android.app.PictureInPictureParams
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,7 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.util.Log
+import android.util.Rational
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -247,7 +249,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             && dashboardReader?.isOpenTracksRecordingThisTrack == true
             && PreferencesUtils.isPipEnabled()
         ) {
-            enterPictureInPictureMode()
+            val pipParams = PictureInPictureParams.Builder()
+                .setAspectRatio(Rational(16, 9))
+                .build()
+            enterPictureInPictureMode(pipParams)
         } else {
             finish()
         }
