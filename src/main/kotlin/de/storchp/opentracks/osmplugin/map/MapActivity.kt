@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.SpannableString
@@ -15,6 +16,8 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
@@ -194,33 +197,49 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             }
         }
 
+    @Suppress("DEPRECATION")
     private fun showFullscreen(showFullscreen: Boolean) {
         this.fullscreenMode = showFullscreen
-        val decorView = window.decorView
-        var uiOptions = decorView.systemUiVisibility
-        if (showFullscreen) {
-            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_FULLSCREEN
-            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE
-            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            binding.map.fullscreenButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    this,
-                    R.drawable.ic_baseline_fullscreen_exit_48
-                )
-            )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowInsetsController = window.insetsController
+            if (windowInsetsController != null) {
+                if (showFullscreen) {
+                    windowInsetsController.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                    windowInsetsController.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                } else {
+                    windowInsetsController.show(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                }
+                setFullscreenButton(showFullscreen)
+            }
         } else {
-            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_FULLSCREEN.inv()
-            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_IMMERSIVE.inv()
-            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
-            binding.map.fullscreenButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    this,
-                    R.drawable.ic_baseline_fullscreen_48
-                )
-            )
+            val decorView = window.decorView
+            var uiOptions = decorView.systemUiVisibility
+            if (showFullscreen) {
+                uiOptions = uiOptions or View.SYSTEM_UI_FLAG_FULLSCREEN
+                uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE
+                uiOptions = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            } else {
+                uiOptions = uiOptions and View.SYSTEM_UI_FLAG_FULLSCREEN.inv()
+                uiOptions = uiOptions and View.SYSTEM_UI_FLAG_IMMERSIVE.inv()
+                uiOptions = uiOptions and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
+            }
+            decorView.systemUiVisibility = uiOptions
+            setFullscreenButton(showFullscreen)
         }
         binding.toolbar.mapsToolbar.visibility = if (showFullscreen) View.GONE else View.VISIBLE
-        decorView.systemUiVisibility = uiOptions
+    }
+
+    private fun setFullscreenButton(showFullscreen: Boolean) {
+        if (showFullscreen) {
+            binding.map.fullscreenButton.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_exit_48)
+            )
+        } else {
+            binding.map.fullscreenButton.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_fullscreen_48)
+            )
+        }
     }
 
     fun navigateUp() {
@@ -391,6 +410,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         val mapFile = getMapFile()
         map.layers().add(MapEventsReceiver(map))
 
+        @Suppress("KotlinConstantConditions")
         if (mapFile != null) {
             val tileLayer = map.setBaseMap(mapFile)
             loadTheme()
@@ -454,7 +474,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     private fun showOnlineMapConsent() {
         val message =
             SpannableString(getString(R.string.online_map_consent))
-        Linkify.addLinks(message, Linkify.ALL)
+        Linkify.addLinks(message, Linkify.WEB_URLS)
 
         val dialog = AlertDialog.Builder(this)
             .setIcon(R.drawable.ic_logo_color_24dp)
