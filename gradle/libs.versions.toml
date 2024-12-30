@@ -17,6 +17,7 @@ preferenceKtx = "1.2.1"
 runner = "1.6.2"
 slf4jApi = "2.0.16"
 jsoup = "1.18.3"
+activity = "1.9.3"
 
 [libraries]
 android-test-runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidTest" }
@@ -41,6 +42,8 @@ vtm = { module = "org.mapsforge:vtm", version.ref = "mapsforge" }
 vtm-android = { module = "org.mapsforge:vtm-android", version.ref = "mapsforge" }
 vtm-http = { module = "org.mapsforge:vtm-http", version.ref = "mapsforge" }
 vtm-themes = { module = "org.mapsforge:vtm-themes", version.ref = "mapsforge" }
+activity = { module = "androidx.activity:activity", version.ref = "activity" }
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

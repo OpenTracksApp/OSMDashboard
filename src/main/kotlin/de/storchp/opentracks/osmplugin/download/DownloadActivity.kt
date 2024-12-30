@@ -167,10 +167,10 @@ class DownloadActivity : BaseActivity() {
         })
     }
 
-    val directoryIntentLauncher: ActivityResultLauncher<Intent?> =
-        registerForActivityResult<Intent?, ActivityResult?>(StartActivityForResult(),
-            ActivityResultCallback { result: ActivityResult? ->
-                if (result?.resultCode == RESULT_OK) {
+    val directoryIntentLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult<Intent, ActivityResult>(StartActivityForResult(),
+            ActivityResultCallback { result ->
+                if (result.resultCode == RESULT_OK) {
                     startDownload()
                 }
             })

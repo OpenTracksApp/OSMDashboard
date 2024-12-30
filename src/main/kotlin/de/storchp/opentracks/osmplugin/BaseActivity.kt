@@ -22,8 +22,8 @@ abstract class BaseActivity : AppCompatActivity() {
         menu.findItem(R.id.map_info).isVisible = showInfo
     }
 
-    val settingsActivityResultLauncher: ActivityResultLauncher<Intent?> =
-        registerForActivityResult<Intent?, ActivityResult?>(
+    val settingsActivityResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult<Intent, ActivityResult>(
             StartActivityForResult(),
             ActivityResultCallback { result: ActivityResult? -> recreate() })
 
@@ -45,6 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
     protected fun showOnLockScreen(showOnLockScreen: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(showOnLockScreen)

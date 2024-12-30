@@ -14,10 +14,10 @@ import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 
 abstract class DirectoryChooserActivity : AppCompatActivity() {
-    protected val directoryIntentLauncher: ActivityResultLauncher<Intent?> =
-        registerForActivityResult<Intent?, ActivityResult?>(StartActivityForResult(),
-            ActivityResultCallback { result: ActivityResult? ->
-                if (result?.resultCode == RESULT_OK && result.data != null) {
+    protected val directoryIntentLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult<Intent, ActivityResult>(StartActivityForResult(),
+            ActivityResultCallback { result ->
+                if (result.resultCode == RESULT_OK && result.data != null) {
                     onActivityResultOk(result.data!!)
                 } else {
                     onActivityResultCancel()

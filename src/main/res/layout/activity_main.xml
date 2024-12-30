@@ -3,18 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20sp"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="20sp"
         android:layout_marginEnd="20sp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_logo_description"
@@ -24,9 +19,8 @@
         android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
         android:layout_marginStart="10sp"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="20sp"
         android:layout_marginEnd="10sp"
         android:layout_toEndOf="@+id/app_logo"
         android:linksClickable="true"

@@ -24,6 +24,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -100,6 +101,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     private var fullscreenMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -109,8 +111,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
         map = binding.map.mapView.map()
         mapPreferences = MapPreferences(MapsActivity::class.java.getName(), this)
-
-        setSupportActionBar(binding.toolbar.mapsToolbar)
 
         createMapViews()
         createLayers()
@@ -229,7 +229,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             decorView.systemUiVisibility = uiOptions
             setFullscreenButton(showFullscreen)
         }
-        binding.toolbar.mapsToolbar.visibility = if (showFullscreen) View.GONE else View.VISIBLE
     }
 
     private fun setFullscreenButton(showFullscreen: Boolean) {
@@ -613,14 +612,14 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         }
     }
 
+
     override fun onPictureInPictureModeChanged(
         isInPictureInPictureMode: Boolean,
         newConfig: Configuration
     ) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
         val visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
-        binding.toolbar.mapsToolbar.visibility = visibility
-        binding.map.fullscreenButton.setVisibility(visibility)
+        binding.map.fullscreenButton.visibility = visibility
         binding.map.statistics.setVisibility(visibility)
     }
 
