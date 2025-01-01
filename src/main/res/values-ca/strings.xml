@@ -14,9 +14,7 @@
     <string name="download_map">Descarregar mapa</string>
     <string name="download_theme">Tema descarregar</string>
     <string name="download_success">Mapa descarregat amb èxit</string>
-    <string name="download_failed">Mapa de descàrrega ha fallat</string>
     <string name="download_theme_success">Tema descarregat amb èxit</string>
-    <string name="download_theme_failed">Tema descarregar fallat</string>
     <string name="map_selection">Mapes</string>
     <string name="online_osm_mapnick">Mapa en línia OSM:Mapnik</string>
     <string name="delete_map_question">Esborrar del mapa %s?</string>
@@ -45,7 +43,6 @@
 \nCanviar entra en vigor després de tornar a carregar la pista.</string>
     <string name="map_mode_direction">Mapa del moviment de direcció</string>
     <string name="no_map_configured">No teniu els mapes fora de línia encara no s\'ha configurat.</string>
-    <string name="error_reg_content_observer">Error en el registre OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Canvia el mode de pantalla completa</string>
     <string name="share">Compartir</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

@@ -25,7 +25,6 @@
     <string name="no_map_configured">Zatím není nakonfigurována žádná offline mapa.</string>
     <string name="copyright_osm">Mapová data © přispěvatelé OpenStreetMap</string>
     <string name="choose_map_to_download">Vybrat mapu ke stažení</string>
-    <string name="download_failed">Stažení mapy selhalo</string>
     <string name="stroke_width_info">Nastavte šířku stopy</string>
     <string name="track_smoothing_menu">Vyhlazení stopy</string>
     <string name="stroke_width_menu">Šířka stopy</string>
@@ -37,14 +36,12 @@
     <string name="consider_offline_maps">Zvažte stažení offline mapy, abyste snížili zatížení serveru a uspořili svá mobilní data. Některé offline mapy najdete zde:</string>
     <string name="map_theme_info"><b>Některé mapy vyžadují ke správnému vykreslení speciální motivy!</b> Je třeba je stáhnout a podle toho nakonfigurovat.</string>
     <string name="manual_offline_map_info">Ručně stažené offline mapy nebo mapy sdílené s ostatními aplikacemi lze otevřít z vašeho zařízení Android. Vyberte adresář v nastavení <b>Adresář map</b>.</string>
-    <string name="download_theme_failed">Stažení tématu se nezdařilo</string>
     <string name="download_theme_success">Téma bylo úspěšně staženo</string>
     <string name="download_theme">Téma ke stažení</string>
     <string name="no_download_uri_found">Nebyl nalezen URI ke stažení</string>
     <string name="offline_map_info">Offline mapy lze stáhnout v aplikaci. Přejděte do nastavení a klikněte na <b>Stáhnout mapy</b> nebo navštivte výše uvedené webové stránky a klepněte na odkazy ke stažení. Některé prohlížeče (např. Firefox) vyžadují klepnutí a podržení na odkazu, klepnutí na Otevřít odkaz v externí aplikaci a výběrem OSM Dashboard.</string>
     <string name="overwrite_theme_question">Téma %s již existuje! Smazat a stáhnout znovu?</string>
     <string name="no_file_manager_found">Nebyl nalezen správce souborů</string>
-    <string name="error_reg_content_observer">Chyba při registraci OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Přepnutí režimu celé obrazovky</string>
     <string name="share">Sdílet</string>
     <string name="unit_feet">ft</string>
@@ -55,7 +52,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Barva stopy</string>
     <string name="pace_min_km">Tempo v min/km</string>
-    <string name="error_reading_trackpoints">Chyba při čtení bodů stopy: %s</string>
     <string name="show_pause_markers">Zobrazit značky zastavení</string>
     <string name="pace_min_mi">Tempo v min/mi</string>
     <string name="speed_mi_h">Rychlost v mi/h</string>

@@ -21,8 +21,6 @@
     <string name="download_theme">主题下载</string>
     <string name="choose_map_to_download">选择一个地图以下载</string>
     <string name="download_success">地图下载成功</string>
-    <string name="download_failed">地图下载失败</string>
-    <string name="download_theme_failed">主题下载失败</string>
     <string name="online_osm_mapnick">在线地图OSM:Mapnik</string>
     <string name="delete_map_question">是否删除%s的地图?</string>
     <string name="delete_map_error">地图删除失败</string>
@@ -74,8 +72,6 @@
     <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。设置为 0 则禁用轨迹平滑。</string>
     <string name="no_map_configured">您还没有配置离线地图。</string>
     <string name="no_file_manager_found">没有找到文件管理器</string>
-    <string name="error_reg_content_observer">注册OpenTracksContentObserver失败</string>
-    <string name="error_reading_trackpoints">加载轨迹点错误: %s</string>
     <string name="debug_trackpoints_info">轨迹点接收: %1$d
 \n轨迹点无效: %2$d
 \n轨迹点绘制: %3$d

@@ -14,7 +14,6 @@
     <string name="choose_map_to_download">Odaberite karticu za preuzimanje</string>
     <string name="download_success">Kartica je uspješno učitana</string>
     <string name="download_theme_success">Tema je uspješno preuzeta</string>
-    <string name="download_theme_failed">Nije moguće učitati temu</string>
     <string name="map_selection">Karte</string>
     <string name="online_osm_mapnick">Online karta OSM: Mapnik</string>
     <string name="delete_map_question">Izbriši karticu %s?</string>
@@ -40,12 +39,10 @@
     <string name="usage_info">Koristite <b> <a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a> </b>, odaberite pjesmu i kliknite ikonu karte da biste prikazali stazu na karti.</string>
     <string name="osm_info">Zadana kartica je <b> <a href="https://openstreetmap.org">OpenStreetMap.org</a> </b>. Pridružite se zajednici i pomažite u poboljšanju karte, pogledajte <b> <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="offline_map_info">Izvanmrežne karte mogu se preuzeti putem izbornika <b> preuzimanje karte</b> ili posjetom gore navedenih web stranica i klikom na veze za preuzimanje. Neki preglednici (poput Firefoxa) zahtijevaju dugo klikanje na vezu i otvaranje veze u vanjskoj aplikaciji, a zatim odabir Osmdashboarda.</string>
-    <string name="download_failed">Nije moguće učitati karticu</string>
     <string name="delete_map_error">Nije moguće izbrisati karticu</string>
     <string name="online_map_consent">Izvanmrežna karta nije konfigurirana. Molimo vas da se slažete da koristite online karticu s openstreetmap.org. to može uzrokovati curenje vaše trenutačne lokacije. Vidiš? https://operations.osmfoundation.org/policies/tiles/ za korištenje pločica i pravila o privatnosti.</string>
     <string name="delete_theme_error">Nije moguće ukloniti temu</string>
     <string name="overwrite_theme_question">Tema %s već postoji! Ponovno izbrisati i preuzeti?</string>
-    <string name="error_reg_content_observer">Greška prilikom registracije OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Prebacivanje cijelog zaslona</string>
     <string name="share">Podijeli</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

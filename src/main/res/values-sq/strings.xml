@@ -13,7 +13,6 @@
     <string name="download_theme">Shkarkimi i temës</string>
     <string name="choose_map_to_download">Zgjidhni një hartë për ta shkarkuar</string>
     <string name="download_success">Harta shkarkohet me sukses</string>
-    <string name="download_failed">Shkarkimi i hartës dështoi</string>
     <string name="download_theme_success">Tema shkarkohet me sukses</string>
     <string name="map_selection">Hartat</string>
     <string name="online_osm_mapnick">HARTA ONLINE OSM:Mapnik</string>
@@ -25,7 +24,6 @@
     <string name="bug_report">Raporti bug</string>
     <string name="error_crash_title">%1$s u rrëzua</string>
     <string name="share">Ndaj</string>
-    <string name="error_reg_content_observer">Gabim në regjistrimin OpenTracksContentObserver</string>
     <string name="no_file_manager_found">Asnjë menaxher skedarësh nuk u gjet</string>
     <string name="no_download_uri_found">Nuk URI për të shkarkuar gjetur</string>
     <string name="overwrite_map_question">Harta %s tashmë ekziston! Fshini dhe shkarkoni përsëri?</string>
@@ -48,7 +46,6 @@
     <string name="map_theme_info"><b>Disa harta kërkojnë tema të veçanta për t\'u dhënë në mënyrë korrekte!</b> Këto Duhet të shkarkohen dhe konfigurohen në përputhje me rrethanat.</string>
     <string name="usage_info">Përdorni <b><a href="https://f-droid.org/packages/de.dennis guse.opentracks">OpenTracks</a></b>, zgjidhni një udhë dhe klikoni ikonën hartë për të treguar rrugën në hartë.</string>
     <string name="osm_info">Harta e paracaktuar sigurohet nga <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Bashkohuni me komunitetin dhe ndihmoni për të përmirësuar hartën, shihn <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
-    <string name="download_theme_failed">Shkarkimi i temës dështoi</string>
     <string name="overwrite_theme_question">Tema %s tashmë ekziston! Fshini dhe shkarkoni përsëri?</string>
     <string name="track_smoothing_info">Përcaktoni tolerancën në metra për algoritmin e zbutjes së pistave. Futni 0 për të çaktivizuar zbutjen e gjurmëve.
 \nNdryshimi hyn në fuqi pas ringarkimit të pistës.</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

@@ -7,7 +7,6 @@
     <string name="copyright_osm">Données cartographiques © contributeurs OpenStreetMap</string>
     <string name="online_osm_mapnick">Carte en ligne OSM:Mapnik</string>
     <string name="map_selection">Cartes</string>
-    <string name="download_failed">Le téléchargement des cartes a échoué</string>
     <string name="download_success">Carte téléchargée avec succès</string>
     <string name="choose_map_to_download">Choisissez une carte à télécharger</string>
     <string name="download_map">Télécharger la carte</string>
@@ -39,12 +38,10 @@
     <string name="manual_offline_map_info">Les cartes hors ligne téléchargées manuellement ou les cartes partagées avec d\'autres applications peuvent être ouvertes à partir de votre appareil Android. Sélectionnez le répertoire dans les réglages <b>Répertoire de la carte</b>.</string>
     <string name="download_theme">Télécharger le thème</string>
     <string name="download_theme_success">Thème téléchargé avec succès</string>
-    <string name="download_theme_failed">Le téléchargement du thème a échoué</string>
     <string name="overwrite_theme_question">Le thème %s existe déjà ! Supprimer et télécharger à nouveau ?</string>
     <string name="no_download_uri_found">Pas d\'URI à télécharger trouvé</string>
     <string name="offline_map_info">Les cartes hors ligne peuvent être téléchargées depuis l\'application en allant dans les préférences et en choisissant <b>Téléchargement de cartes</b>, ou en visitant les sites Web mentionnés ci-dessus et en cliquant sur les liens de téléchargement. Certains navigateurs (par exemple Firefox) nécessitent un clic long sur le lien et Ouvrir le lien dans une application externe, puis choisir OSMDashboard.</string>
     <string name="no_file_manager_found">Aucun gestionnaire de fichiers trouvé</string>
-    <string name="error_reg_content_observer">Erreur lors de l\'enregistrement de OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Basculer le mode plein écran</string>
     <string name="share">Partager</string>
     <string name="unit_feet">ft</string>
@@ -55,7 +52,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Couleur de la trace</string>
     <string name="pace_min_km">Allure en min/km</string>
-    <string name="error_reading_trackpoints">Erreur de lecture de la trace : %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Allure en min/mi</string>
     <string name="speed_mi_h">Vitesse en mi/h</string>

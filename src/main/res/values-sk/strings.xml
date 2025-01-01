@@ -16,7 +16,6 @@
     <string name="download_theme">Stiahnutie témy</string>
     <string name="choose_map_to_download">Vyberte mapu na prevzatie</string>
     <string name="download_success">Úspešné stiahnutie mapy</string>
-    <string name="download_failed">Stiahnutie mapy zlyhalo</string>
     <string name="download_theme_success">Téma úspešne stiahnutá</string>
     <string name="map_selection">Mapy</string>
     <string name="online_osm_mapnick">Online mapy OSM:Mapnik</string>
@@ -41,11 +40,9 @@
     <string name="osm_info">Predvolenú mapu poskytuje <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Pripojte sa ku komunite a pomôžte mapu vylepšiť, pozrite si <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="offline_map_info">Offline mapy si môžete stiahnuť prostredníctvom ponuky <b>Mapa na stiahnutie</b> alebo navštívením vyššie uvedených webových stránok a kliknutím na odkazy na stiahnutie. Niektoré prehliadače (napr. Firefox) vyžadujú dlhé kliknutie na odkaz a Otvoriť odkaz v externej aplikácii a potom vybrať OSMDashboard.</string>
     <string name="online_map_consent">Nie je nakonfigurovaná žiadna offline mapa. Súhlasíte s použitím online mapy zo stránky openstreetmap.org. Môže tak dôjsť k úniku vašej aktuálnej polohy. Informácie o používaní dlaždíc a zásadách ochrany osobných údajov nájdete na stránke https://operations.osmfoundation.org/policies/tiles/.</string>
-    <string name="download_theme_failed">Stiahnutie motívu zlyhalo</string>
     <string name="delete_theme_question">Odstránenie témy %s?</string>
     <string name="overwrite_theme_question">Téma %s už existuje! Vymazať a stiahnuť znova?</string>
     <string name="no_file_manager_found">Nenašiel sa správca súborov</string>
-    <string name="error_reg_content_observer">Chyba pri registrácii OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Prepínanie režimu celej obrazovky</string>
     <string name="share">Zdieľať</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

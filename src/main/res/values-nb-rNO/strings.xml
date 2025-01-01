@@ -35,16 +35,13 @@
     <string name="download_map">Last ned kart</string>
     <string name="choose_map_to_download">Velg et kart å laste ned</string>
     <string name="download_success">Kart lastet ned</string>
-    <string name="download_failed">Kartnedlasting mislyktes</string>
     <string name="online_osm_mapnick">Online-kart OSM:Mapnik</string>
     <string name="download_theme">Last ned tema</string>
     <string name="download_theme_success">Tema lastet ned</string>
-    <string name="download_theme_failed">Temanedlasting feilet</string>
     <string name="overwrite_theme_question">Temaet %s finnes allerede! Slette og laste ned på nytt?</string>
     <string name="no_download_uri_found">Ingen adresse for å laste ned funnet</string>
     <string name="offline_map_info">Offline-kart kan lastes ned fra inne i appen. Gå til innstillingene og velg <b>Last ned kart</b> eller ved å besøke de ovenfor nevnte nettsteder og trykke på nedlastingslenkene. Noen nettlesere (f.eks. Firefox) krever et langt trykk på lenken og åpne lenke i ekstern app og så velge OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filbehandler funnet</string>
-    <string name="error_reg_content_observer">Feil ved registrering av OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Fullskjermmodus av/på</string>
     <string name="share">Del</string>
     <string name="unit_feet">ft</string>
@@ -70,7 +67,6 @@
 \nSporpunkter pause: %4$d
 \nSegmenter %5$d
 \nProtokollversjon: %6$d</string>
-    <string name="error_reading_trackpoints">Feil under lesing av sporpunkter: %s</string>
     <string name="track_color">Sporfarge</string>
     <string name="track_color_mode_uni">Ensfarget</string>
     <string name="track_color_mode_by_track">Farge etter spor</string>

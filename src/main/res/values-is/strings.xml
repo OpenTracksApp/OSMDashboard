@@ -14,9 +14,7 @@
     <string name="download_theme">Þema sækja</string>
     <string name="choose_map_to_download">Velja kort til að sækja</string>
     <string name="download_success">Kort tókst að sækja</string>
-    <string name="download_failed">Kort sækja mistókst</string>
     <string name="download_theme_success">Þema tókst að sækja</string>
-    <string name="download_theme_failed">Þema sækja mistókst</string>
     <string name="map_selection">Kort</string>
     <string name="online_osm_mapnick">Netinu kort OSM:Mapnik</string>
     <string name="delete_map_question">Eyða kort %s?</string>
@@ -45,7 +43,6 @@
     <string name="track_smoothing_info">Skilgreina umburðarlyndi í metra fyrir utan refur reiknirit. Sláðu 0 til að slökkva á brautinni refur.
 \nBreytingar koma inn áhrif eftir að endurhlaða brautinni.</string>
     <string name="no_map_configured">Þú hefur ekki ótengdur kort stillt enn.</string>
-    <string name="error_reg_content_observer">Villa á skrá OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Að skipta á öllum skjánum ham</string>
     <string name="share">Deila</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

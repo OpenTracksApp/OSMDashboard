@@ -18,7 +18,6 @@
     <string name="download_map">Kaart downloaden</string>
     <string name="choose_map_to_download">Kies een kaart om te downloaden</string>
     <string name="download_success">Kaart succesvol gedownload</string>
-    <string name="download_failed">Het downloaden van de kaart is mislukt</string>
     <string name="map_selection">Kaarten</string>
     <string name="online_osm_mapnick">Online kaart OSM:Mapnik</string>
     <string name="delete_map_question">Map %s verwijderen?</string>
@@ -40,12 +39,10 @@
     <string name="stroke_width_menu">Spoorbreedte</string>
     <string name="download_theme">Thema downloaden</string>
     <string name="download_theme_success">Thema met succes gedownload</string>
-    <string name="download_theme_failed">Thema downloaden mislukt</string>
     <string name="overwrite_theme_question">Het thema %s bestaat al! Verwijderen en opnieuw downloaden?</string>
     <string name="no_download_uri_found">Geen URI om te downloaden gevonden</string>
     <string name="offline_map_info">Offline kaarten kunnen worden gedownload via het menu <b>Kaarten downloaden</b> of door de hierboven genoemde websites te bezoeken en op de downloadlinks te klikken. Sommige browsers (b.v. Firefox) vereisen een lange klik op de link en Open link in externe app en kies dan OSMDashboard.</string>
     <string name="no_file_manager_found">Geen file manager gevonden</string>
-    <string name="error_reg_content_observer">Fout bij het registreren van OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Schakel volledig scherm modus</string>
     <string name="share">Deel</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

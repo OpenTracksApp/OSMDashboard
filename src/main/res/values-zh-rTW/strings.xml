@@ -10,9 +10,7 @@
     <string name="default_theme">預設主題</string>
     <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>,，選擇一個蹤跡並點擊地圖圖示以在地圖上顯示蹤跡。</string>
     <string name="overwrite_map_question">「%s」地圖已經存在！是否刪除並再次下載？</string>
-    <string name="error_reg_content_observer">在註冊 OpenTracksContentObserver 時發生錯誤</string>
     <string name="pace_min_km">配速（分鐘/公里）</string>
-    <string name="error_reading_trackpoints">讀取蹤跡點錯誤：%s</string>
     <string name="show_pause_markers">顯示暫停標誌</string>
     <string name="pace_min_mi">配速（分鐘/英里）</string>
     <string name="speed_mi_h">速度（英里/小時）</string>
@@ -57,7 +55,6 @@
     <string name="track_color_mode_by_speed">根據速度上色</string>
     <string name="manual_offline_map_info">手動下載的離線地圖或與其他應用程式共用的地圖可以從您的 Android 設備開啟。在<b>地圖目錄</b>設定中選擇目錄。</string>
     <string name="unit_kilometer">公里</string>
-    <string name="download_theme_failed">主題下載失敗</string>
     <string name="download_theme_success">主題下載成功</string>
     <string name="online_map_consent">沒有離線地圖組態。請同意使用來自 openstreetmap.org 的離線地圖。這可能會洩漏您目前的位置。請見 https://operations.osmfoundation.org/policies/tiles/ 對於圖磚使用與隱私權政策。</string>
     <string name="toggle_full_screen_mode">切換全螢幕模式</string>
@@ -69,7 +66,6 @@
     <string name="distance_mi">距離（英里）</string>
     <string name="unit_minute_per_kilometer">分鐘/公里</string>
     <string name="map_mode_direction">地圖朝向移動方向</string>
-    <string name="download_failed">地圖下載失敗</string>
     <string name="track_smoothing_info">以公尺為單位定義蹤跡平滑演算法的公差。設定為 0 以禁用蹤跡平滑化。</string>
     <string name="stroke_width_menu">蹤跡筆畫寬度</string>
     <string name="action_settings">設定</string>

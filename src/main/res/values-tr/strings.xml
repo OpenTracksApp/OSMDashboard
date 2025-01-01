@@ -11,9 +11,7 @@
     <string name="online_map_consent">Ayarlanmış çevrimdışı harita yok. Lütfen openstreetmap.org adresindeki çevrimiçi haritayı kullanmayı kabul edin. Bu, geçerli konumunuzu sızdırabilir. Kutucuk kullanımı ve gizlilik politikası için https://actions.osmfoundation.org/policies/tiles/ adresine bakın.</string>
     <string name="download_map">Harita indir</string>
     <string name="download_theme">Tema indir</string>
-    <string name="download_failed">Harita indirilemedi</string>
     <string name="download_theme_success">Tema başarıyla indirildi</string>
-    <string name="download_theme_failed">Tema indirilemedi</string>
     <string name="online_osm_mapnick">Çevrimiçi harita OSM:Mapnik</string>
     <string name="delete_map_question">%s haritası silinsin mi?</string>
     <string name="delete_map_error">Harita silinemedi</string>
@@ -30,7 +28,6 @@
     <string name="no_map_configured">Henüz ayarlanmış bir çevrimdışı haritanız yok.</string>
     <string name="stroke_width_menu">Kontur genişliğini takip et</string>
     <string name="no_file_manager_found">Dosya yöneticisi bulunamadı</string>
-    <string name="error_reg_content_observer">OpenTracksContentObserver kaydında hata</string>
     <string name="unit_meter">m</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

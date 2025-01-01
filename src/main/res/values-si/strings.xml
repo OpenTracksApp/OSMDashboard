@@ -2,7 +2,6 @@
 <resources>
     <string name="map_info_menu">පිළිබඳව</string>
     <string name="download_success">සිතියම සාර්ථකව බාගත කර ඇත</string>
-    <string name="download_failed">සිතියම් බාගත කිරීම අසාර්ථක විය</string>
     <string name="map_selection">සිතියම්</string>
     <string name="online_osm_mapnick">මාර්ගගත සිතියම OSM: Mapnik</string>
     <string name="delete_map_error">සිතියම් මකාදැමීම අසාර්ථක විය</string>
@@ -40,12 +39,10 @@
 \nසදහා OpenTracks</string>
     <string name="download_theme">තේමාව බාගැනීම</string>
     <string name="download_theme_success">තේමාව සාර්ථකව බාගැනුණි</string>
-    <string name="download_theme_failed">තේමාව බාගැනීම අසාර්ථක විය</string>
     <string name="overwrite_theme_question">%s යන මාතෘකාව දැනටමත් පවතී! මකා නැවත බාගන්නද?</string>
     <string name="no_download_uri_found">බාගැනීමට යූආර්අයි නොමැත</string>
     <string name="offline_map_info">නොබැඳි සිතියම් <b> සිතියම් බාගැනීම </b> මෙනු හරහා හෝ ඉහත සඳහන් වෙබ් අඩවි වලට පිවිස බාගැනීම් සම්බන්ධක ක්ලික් කිරීමෙන් බාගත හැකිය. සමහර බ්‍රව්සර් (උදා. ෆයර්ෆොක්ස්) සඳහා සම්බන්ධකය මත දිගු ක්ලික් කිරීමක් අවශ්‍ය වන අතර බාහිර යෙදුමේ සම්බන්ධකය විවෘත කර OSMDashboard තෝරා ගන්න.</string>
     <string name="no_file_manager_found">කිසිදු ගොනුව කළමනාකරු සොයාගෙන ඇත</string>
-    <string name="error_reg_content_observer">දෝෂයක් මත ලියාපදිංචි OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">සම්පූර්ණ තිර මාදිලිය ටොගල් කරන්න</string>
     <string name="share">බෙදාගන්න</string>
     <string name="unit_feet">අඩි</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

@@ -18,7 +18,6 @@
     <string name="delete_map_question">Ta bort kartan %s?</string>
     <string name="online_osm_mapnick">Online-karta OSM:Mapnik</string>
     <string name="map_selection">Kartor</string>
-    <string name="download_failed">Karta nedladdning misslyckades</string>
     <string name="download_success">Karta hämtade</string>
     <string name="app_logo_description">App logotyp</string>
     <string name="theme_folder">Karta tema katalog</string>
@@ -39,12 +38,10 @@
     <string name="manual_offline_map_info">Manuellt hämtade ej uppkopplade kartor eller kartor som delas med andra appar kan öppnas från din Android-enhet. Välj katalogen i inställningarna. <b>Kart-katalog</b>.</string>
     <string name="download_theme">Ladda ner tema</string>
     <string name="download_theme_success">Tema har laddats ner framgångsrikt</string>
-    <string name="download_theme_failed">Hämtning av tema misslyckades</string>
     <string name="overwrite_theme_question">Temat %s finns redan! Kan du radera och ladda ner igen?</string>
     <string name="no_download_uri_found">Ingen URI att hämta hittades</string>
     <string name="offline_map_info">Ej uppkopplade kartor kan hämtas via menyn <b>Hämtning av kartor</b> eller genom att besöka de ovan nämnda webbplatserna och klicka på hämtningslänkarna. Vissa webbläsare (t.ex. Firefox) kräver ett långt klick på länken och Öppna länk i en extern app och välj sedan OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhanterare hittades</string>
-    <string name="error_reg_content_observer">Fel vid registrering av OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Växla till helskärmsläge</string>
     <string name="share">Dela</string>
     <string name="unit_feet">ft</string>
@@ -55,7 +52,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Färg på spåret</string>
     <string name="pace_min_km">Tempo i min/km</string>
-    <string name="error_reading_trackpoints">Fel uppstod vid läsningen av spårpunkter: %s</string>
     <string name="show_pause_markers">Visa paus-markörer</string>
     <string name="pace_min_mi">Tempo i min/mi</string>
     <string name="speed_mi_h">Hastighet in mi/h</string>

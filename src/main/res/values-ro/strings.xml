@@ -9,9 +9,7 @@
     <string name="app_logo_description">Logoul aplicației</string>
     <string name="choose_map_to_download">Alegeți o hartă pentru a o descărca</string>
     <string name="download_success">Harta descărcată cu succes</string>
-    <string name="download_failed">Descărcarea hărții nu a reușit</string>
     <string name="download_theme_success">Tema descărcată cu succes</string>
-    <string name="download_theme_failed">Descărcarea temei nu a reușit</string>
     <string name="map_selection">Hărți</string>
     <string name="delete_map_question">Șterge harta %s?</string>
     <string name="online_osm_mapnick">Hartă online OSM:Mapnik</string>
@@ -44,7 +42,6 @@
     <string name="online_map_consent">Nu este configurată nicio hartă offline. Vă rugăm să acceptați să utilizați harta online de pe openstreetmap.org. Este posibil ca aceasta să vă scurgă locația actuală. Consultați https://operations.osmfoundation.org/policies/tiles/ pentru politica de utilizare a plăcilor și de confidențialitate.</string>
     <string name="osm_info">Harta implicită este furnizată de <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>. Alăturați-vă comunității și ajutați la îmbunătățirea hărții, consultați <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="no_file_manager_found">Nu s-a găsit niciun manager de fișiere</string>
-    <string name="error_reg_content_observer">Eroare la înregistrarea OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Comutarea modului fullscreen</string>
     <string name="share">Împărtășiți</string>
     <string name="unit_feet">ft</string>
@@ -53,7 +50,6 @@
     <string name="error_crash_title">%1$s s-a blocat</string>
     <string name="bug_report">Raportați un bug</string>
     <string name="debug_trackpoints">Depanați punctele de pe rută</string>
-    <string name="error_reading_trackpoints">Eroare la citirea punctelor rutei: %s</string>
     <string name="unit_mile">mi</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="unit_minute_per_kilometer">min/km</string>

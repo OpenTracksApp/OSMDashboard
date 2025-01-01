@@ -10,7 +10,6 @@
     <string name="download_theme">Temos atsisiuntimas</string>
     <string name="choose_map_to_download">Pasirinkite žemėlapį, kurį norite atsisiųsti</string>
     <string name="download_success">Žemėlapis sėkmingai atsisiųstas</string>
-    <string name="download_failed">Nepavyko atsisiųsti žemėlapio</string>
     <string name="download_theme_success">Tema sėkmingai atsisiųsta</string>
     <string name="map_selection">Žemėlapiai</string>
     <string name="online_osm_mapnick">Online žemėlapis OSM:Mapnik</string>
@@ -40,12 +39,10 @@
     <string name="error_loading_offline_map">Klaida skaitant sukonfigūruotą neprisijungusį žemėlapį</string>
     <string name="overwrite_theme_question">Tema %s jau egzistuoja! Ištrinti ir atsisiųsti iš naujo?</string>
     <string name="overwrite_map_question">Žemėlapis %s jau egzistuoja! Ištrinti ir atsisiųsti iš naujo?</string>
-    <string name="download_theme_failed">Temos atsisiųsti nepavyko</string>
     <string name="track_smoothing_info">Nustatykite takelio išlyginimo algoritmo paklaidą metrais. Įveskite 0, kad išjungtumėte takelio išlyginimą.
 \nPakeitimai įsigalioja įkėlus takelį iš naujo.</string>
     <string name="map_mode_direction">Žemėlapis juda kryptimi</string>
     <string name="no_map_configured">Dar nesukonfigūruotas neprisijungęs žemėlapis.</string>
-    <string name="error_reg_content_observer">Klaida registruojant OpenTracksContentObserver</string>
     <string name="toggle_full_screen_mode">Perjungti viso ekrano režimą</string>
     <string name="share">Dalintis</string>
     <string name="unit_feet">ft</string>
@@ -56,7 +53,6 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="track_color">Track color</string>
     <string name="pace_min_km">Pace in min/km</string>
-    <string name="error_reading_trackpoints">Error reading trackpoints: %s</string>
     <string name="show_pause_markers">Show pause markers</string>
     <string name="pace_min_mi">Pace in min/mi</string>
     <string name="speed_mi_h">Speed in mi/h</string>

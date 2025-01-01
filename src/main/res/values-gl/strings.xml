@@ -18,7 +18,6 @@
     <string name="download_map">Descargar mapa</string>
     <string name="choose_map_to_download">Escolle o mapa a descargar</string>
     <string name="download_success">Mapa descargado correctamente</string>
-    <string name="download_failed">Fallou a descarga do mapa</string>
     <string name="map_selection">Mapas</string>
     <string name="online_osm_mapnick">Mapa en liña OSM:Mapnik</string>
     <string name="delete_map_question">¿Eliminar mapa %s?</string>
@@ -39,12 +38,10 @@
     <string name="stroke_width_menu">Ancho do trazo da ruta</string>
     <string name="download_theme">Tema descargar</string>
     <string name="download_theme_success">Tema descargada con éxito</string>
-    <string name="download_theme_failed">Tema descargar fallou</string>
     <string name="overwrite_theme_question">O tema %s xa existe! Eliminar e baixar de novo?</string>
     <string name="no_download_uri_found">Non URI para descargar atopado</string>
     <string name="offline_map_info">Os mapas sen conexión poden descargarse desde a app. Vai aos axustes e selecciona <b>Descargar Mapas</b> ou visita as webs arriba mencionadas e preme nas ligazóns. Algún navegadores (ex. Firefox) requiren unha pulsación longa na ligazón para abrir a ligzazón cunha app externa e poder elixir OSMDashboard.</string>
     <string name="no_file_manager_found">Non xestor de arquivos atopados</string>
-    <string name="error_reg_content_observer">Erro ao rexistrar OpenTracksContentObserver</string>
     <string name="unit_meter">m</string>
     <string name="unit_kilometer">km</string>
     <string name="unit_feet">ft</string>
@@ -70,7 +67,6 @@
     <string name="speed_mi_h">Velocidade en mi/h</string>
     <string name="pace_min_mi">Ritmo en min/mi</string>
     <string name="version_info"><![CDATA[<b>Versión:</b> %s - %s (%d)]]></string>
-    <string name="error_reading_trackpoints">Erro ao ler os puntos da ruta: %s</string>
     <string name="track_color">Cor da ruta</string>
     <string name="show_pause_markers">Mostrar marcadores de pausa</string>
     <string name="track_color_mode_uni">Monocor</string>
