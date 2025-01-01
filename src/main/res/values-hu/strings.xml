@@ -61,7 +61,7 @@
     <string name="speed_mi_h">Sebesség mérföld/órában</string>
     <string name="track_color_mode_uni">Egyszínű</string>
     <string name="map_settings">Térkép</string>
-    <string name="version_info"><b>Verzió:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Verzió:</b> %s - %s (%d)]]></string>
     <string name="distance_km">Távolság km-ben</string>
     <string name="unit_mile_per_hour">mérföld/óra</string>
     <string name="elevation_feet">Szintemelkedés lábban</string>
@@ -97,11 +97,11 @@
     <string name="settings_night_mode_option_system">Rendszer</string>
     <string name="add_marker_to_open_tracks">Jelző hozzáadása az OpenTrackshez?</string>
     <string name="offline_version_info">FIGYELEM: Ez az offline verzió a maximális adatvédelem érdekében. Nincs internet-hozzáférése, és nem tudja kiszivárogtatni a tartózkodási helyét. Ennek következtében nem tud online térképeket megjeleníteni vagy offline térképeket letölteni. Az offline térképeket saját kezűleg kell letöltenie, lásd lentebb.</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_icon">Map icon</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
+    <string name="INTERNAL_APP_STORAGE">Belső alkalmazás tárolókönyvtár</string>
+    <string name="map_icon">Térképikon</string>
+    <string name="map_download_summary">Térképek letöltése innen: %s</string>
+    <string name="download_page_info">A(z) %s tartalmát nézi</string>
+    <string name="theme_icon">Téma ikonja</string>
+    <string name="settings_locale_title">Nyelv</string>
+    <string name="settings_locale_system_default">Rendszer alapértelmezett</string>
 </resources>
