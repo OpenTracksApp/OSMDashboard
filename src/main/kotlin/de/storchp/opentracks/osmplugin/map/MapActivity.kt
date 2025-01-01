@@ -258,10 +258,14 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             && dashboardReader?.isOpenTracksRecordingThisTrack == true
             && PreferencesUtils.isPipEnabled()
         ) {
-            val pipParams = PictureInPictureParams.Builder()
+            val pipParamsBuilder = PictureInPictureParams.Builder()
                 .setAspectRatio(Rational(16, 9))
-                .build()
-            enterPictureInPictureMode(pipParams)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                pipParamsBuilder.setAutoEnterEnabled(true)
+            }
+
+            enterPictureInPictureMode(pipParamsBuilder.build())
         } else {
             finish()
         }

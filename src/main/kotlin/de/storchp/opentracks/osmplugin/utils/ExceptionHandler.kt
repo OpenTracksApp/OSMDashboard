@@ -9,7 +9,6 @@ import de.storchp.opentracks.osmplugin.ShowErrorActivity
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.Exception
-import java.lang.StringBuilder
 
 class ExceptionHandler(
     private val context: Context,
@@ -33,39 +32,39 @@ class ExceptionHandler(
         }
     }
 
-    private fun formatException(thread: Thread, exception: Throwable): String {
-        val stringBuilder = StringBuilder()
-        stringBuilder.append(String.format("Exception in thread \"%s\": ", thread.getName()))
+    private fun formatException(thread: Thread, exception: Throwable) =
+        buildString {
+            append("Exception in thread \"${thread.name}\": ")
 
-        // print available stacktrace
-        val writer = StringWriter()
-        exception.printStackTrace(PrintWriter(writer))
-        stringBuilder.append(writer)
+            // print available stacktrace
+            val writer = StringWriter()
+            exception.printStackTrace(PrintWriter(writer))
+            append(writer)
+        }
 
-        return stringBuilder.toString()
-    }
+    private fun generateErrorReport(stackTrace: String) =
+        """
+            ### App information
+            * ID: ${BuildConfig.APPLICATION_ID}
+            * Version: ${BuildConfig.VERSION_CODE} ${BuildConfig.VERSION_NAME}
+            * Build flavor: ${BuildConfig.FLAVOR}
+            
+            ### Device information
+            * Brand: ${Build.BRAND}
+            * Device: ${Build.DEVICE}
+            * Model: ${Build.MODEL}
+            * Id: ${Build.ID}
+            * Product: ${Build.PRODUCT}
+            
+            ### Firmware
+            * SDK: ${Build.VERSION.SDK_INT}
+            * Release: ${Build.VERSION.RELEASE}
+            * Incremental: ${Build.VERSION.INCREMENTAL}
+            
+            ### Cause of error
+            ```java
+            $stackTrace
+            ```
+        """.trimIndent()
 
-    private fun generateErrorReport(stackTrace: String?): String {
-        return "### App information\n" +
-                "* ID: " + BuildConfig.APPLICATION_ID + "\n" +
-                "* Version: " + BuildConfig.VERSION_CODE + " " + BuildConfig.VERSION_NAME + "\n" +
-                "* Build flavor: " + BuildConfig.FLAVOR + "\n" +
-                "\n" +
-                "### Device information\n" +
-                "* Brand: " + Build.BRAND + "\n" +
-                "* Device: " + Build.DEVICE + "\n" +
-                "* Model: " + Build.MODEL + "\n" +
-                "* Id: " + Build.ID + "\n" +
-                "* Product: " + Build.PRODUCT + "\n" +
-                "\n" +
-                "### Firmware\n" +
-                "* SDK: " + Build.VERSION.SDK_INT + "\n" +
-                "* Release: " + Build.VERSION.RELEASE + "\n" +
-                "* Incremental: " + Build.VERSION.INCREMENTAL + "\n" +
-                "\n" +
-                "### Cause of error\n" +
-                "```java\n" +
-                stackTrace + "\n" +
-                "```\n"
-    }
 }
