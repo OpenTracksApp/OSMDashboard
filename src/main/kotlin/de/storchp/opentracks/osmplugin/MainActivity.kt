@@ -39,6 +39,7 @@ class MainActivity : BaseActivity() {
             ), Html.FROM_HTML_MODE_COMPACT
         )
 
+        @Suppress("KotlinConstantConditions")
         if (BuildConfig.offline) {
             binding.offlineVersionInfo.visibility = View.VISIBLE
             binding.offlineMapInfo.visibility = View.GONE

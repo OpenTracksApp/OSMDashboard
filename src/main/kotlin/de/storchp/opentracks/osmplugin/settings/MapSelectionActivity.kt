@@ -46,6 +46,7 @@ class MapSelectionActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar.mapsToolbar)
 
         val items = buildList {
+            @Suppress("KotlinConstantConditions")
             if (!BuildConfig.offline) {
                 add(FileItem(getString(R.string.online_osm_mapnick), null, null, null))
             }

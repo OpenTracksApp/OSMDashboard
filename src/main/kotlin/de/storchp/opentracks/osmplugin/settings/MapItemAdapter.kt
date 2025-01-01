@@ -30,6 +30,7 @@ class MapItemAdapter(
         val item = getItem(position)
         binding.name.text = item?.name
         binding.checkbox.setChecked(
+            @Suppress("KotlinConstantConditions")
             if (position == 0 && !BuildConfig.offline) selected.isEmpty() else selected.contains(
                 item?.uri
             )

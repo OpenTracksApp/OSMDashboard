@@ -30,8 +30,8 @@
 
     <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
 
-    <string name="track_color_mode_default">BY_SPEED</string>
-    <string name="map_mode_default">NORTH</string>
+    <string name="track_color_mode_default" translatable="false">BY_SPEED</string>
+    <string name="map_mode_default" translatable="false">NORTH</string>
 
     <!-- androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode() -->
     <string name="night_mode_key" translatable="false">nightMode</string>

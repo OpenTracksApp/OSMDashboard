@@ -26,7 +26,7 @@ data class Track(
 object TrackReader {
     private val TAG: String = Track::class.java.getSimpleName()
 
-    const val _ID = "_id"
+    const val ID = "_id"
     const val NAME = "name" // track name
     const val DESCRIPTION = "description" // track description
     const val CATEGORY = "category" // track activity type
@@ -43,7 +43,7 @@ object TrackReader {
     const val ELEVATIONGAIN = "elevationgain" // elevation gain
 
     val PROJECTION = arrayOf(
-        _ID,
+        ID,
         NAME,
         DESCRIPTION,
         CATEGORY,
@@ -70,7 +70,7 @@ object TrackReader {
             try {
                 resolver.query(data, PROJECTION, null, null, null).use { cursor ->
                     while (cursor!!.moveToNext()) {
-                        val id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+                        val id = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
                         val trackname = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
                         val description =
                             cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))

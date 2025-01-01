@@ -48,23 +48,22 @@ object MapUtils {
             return c0.sphericalDistance(c2)
         }
 
-        val sa =
-            GeoPoint(c0.getLatitude() - c1.getLatitude(), c0.getLongitude() - c1.getLongitude())
+        val sa = GeoPoint(c0.latitude - c1.latitude, c0.longitude - c1.longitude)
         val sb = GeoPoint(
-            u * (c2.getLatitude() - c1.getLatitude()),
-            u * (c2.getLongitude() - c1.getLongitude())
+            u * (c2.latitude - c1.latitude),
+            u * (c2.longitude - c1.longitude)
         )
 
         return sa.sphericalDistance(sb)
     }
 
     private fun calcU(c0: GeoPoint, c1: GeoPoint, c2: GeoPoint): Double {
-        val s0lat = c0.getLatitude() * UnitConversions.DEG_TO_RAD
-        val s0lng = c0.getLongitude() * UnitConversions.DEG_TO_RAD
-        val s1lat = c1.getLatitude() * UnitConversions.DEG_TO_RAD
-        val s1lng = c1.getLongitude() * UnitConversions.DEG_TO_RAD
-        val s2lat = c2.getLatitude() * UnitConversions.DEG_TO_RAD
-        val s2lng = c2.getLongitude() * UnitConversions.DEG_TO_RAD
+        val s0lat = c0.latitude * UnitConversions.DEG_TO_RAD
+        val s0lng = c0.longitude * UnitConversions.DEG_TO_RAD
+        val s1lat = c1.latitude * UnitConversions.DEG_TO_RAD
+        val s1lng = c1.longitude * UnitConversions.DEG_TO_RAD
+        val s2lat = c2.latitude * UnitConversions.DEG_TO_RAD
+        val s2lng = c2.longitude * UnitConversions.DEG_TO_RAD
 
         val s2s1lat = s2lat - s1lat
         val s2s1lng = s2lng - s1lng

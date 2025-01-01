@@ -22,7 +22,7 @@ data class Waypoint(
 )
 
 object WaypointReader {
-    const val _ID = "_id"
+    const val ID = "_id"
     const val NAME = "name" // waypoint name
     const val DESCRIPTION = "description" // waypoint description
     const val CATEGORY = "category" // waypoint category
@@ -33,7 +33,7 @@ object WaypointReader {
     const val PHOTOURL = "photoUrl" // url for the photo
 
     val PROJECTION = arrayOf(
-        _ID,
+        ID,
         NAME,
         DESCRIPTION,
         CATEGORY,
@@ -105,7 +105,7 @@ object WaypointReader {
     }
 
     private fun readWaypointFromCursor(cursor: Cursor, lastWaypointId: Long): Waypoint? {
-        val waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+        val waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
         if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
             return null
         }

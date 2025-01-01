@@ -54,6 +54,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
+            @Suppress("KotlinConstantConditions")
             if (BuildConfig.offline) {
                 val onlineMapConsentPreference =
                     findPreference<Preference?>(getString(R.string.APP_PREF_ONLINE_MAP_CONSENT))
@@ -94,6 +95,7 @@ class SettingsActivity : AppCompatActivity() {
                 findPreference<Preference?>(getString(R.string.APP_PREF_MAP_SELECTION))
             mapsPreference?.setSummaryProvider(SummaryProvider { preference: Preference? ->
                 val mapUris = PreferencesUtils.getMapUris()
+                @Suppress("KotlinConstantConditions")
                 if (mapUris.isEmpty() && !BuildConfig.offline) {
                     return@SummaryProvider getString(R.string.online_osm_mapnick)
                 }

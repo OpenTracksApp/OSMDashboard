@@ -26,7 +26,7 @@ data class Trackpoint(
 private const val PAUSE_LATITUDE: Double = 100.0
 
 object TrackpointReader {
-    const val _ID = "_id"
+    const val ID = "_id"
     const val TRACKID = "trackid"
     const val LONGITUDE = "longitude"
     const val LATITUDE = "latitude"
@@ -35,7 +35,7 @@ object TrackpointReader {
     const val SPEED = "speed"
 
     val PROJECTION_V1 = arrayOf(
-        _ID,
+        ID,
         TRACKID,
         LATITUDE,
         LONGITUDE,
@@ -44,7 +44,7 @@ object TrackpointReader {
     )
 
     val PROJECTION_V2 = arrayOf(
-        _ID,
+        ID,
         TRACKID,
         LATITUDE,
         LONGITUDE,
@@ -74,7 +74,7 @@ object TrackpointReader {
         resolver.query(
             data,
             projection,
-            "$_ID> ?$typeQuery",
+            "$ID> ?$typeQuery",
             arrayOf<String>(lastId.toString()),
             null
         ).use { cursor ->
@@ -82,7 +82,7 @@ object TrackpointReader {
             var segment: MutableList<Trackpoint>? = null
             while (cursor!!.moveToNext()) {
                 debug.trackpointsReceived++
-                val id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID))
+                val id = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
                 val trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TRACKID))
                 val latitude =
                     cursor.getInt(cursor.getColumnIndexOrThrow(LATITUDE)) / APIConstants.LAT_LON_FACTOR
