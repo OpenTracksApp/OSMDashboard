@@ -1,0 +1,3 @@
+- Neu: Android 15 Unterstützung
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

@@ -1,0 +1,3 @@
+- New: support for Android 15
+- Updated translations
+- Updated dependencies
