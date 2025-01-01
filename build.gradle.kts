@@ -37,9 +37,9 @@ val gitVersion = gitVersionProvider.get()
 
 android {
     defaultConfig {
-        compileSdk = 34
+        compileSdk = 35
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 47
         versionName = "5.1.0"
         applicationId = "de.storchp.opentracks.osmplugin"
@@ -166,6 +166,8 @@ dependencies {
     implementation(libs.preference.ktx)
     implementation(libs.constraintlayout)
     implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.activity.ktx)
 
     // VTM
     implementation(libs.vtm)

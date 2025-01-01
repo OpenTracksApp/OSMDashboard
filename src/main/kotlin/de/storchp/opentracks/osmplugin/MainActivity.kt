@@ -4,17 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.view.Menu
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import de.storchp.opentracks.osmplugin.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         setContentView(binding.getRoot())
-
-        setSupportActionBar(binding.toolbar.mapsToolbar)
 
         binding.usageInfo.movementMethod = LinkMovementMethod.getInstance()
         binding.osmInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -34,12 +45,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu, false)
-        return true
-    }
 }

@@ -1,7 +1,7 @@
 <resources>
     <!-- mapsforge dimensions -->
-    <dimen name="attribution_margin">1dp</dimen>
-    <dimen name="attribution_size">4pt</dimen>
+    <dimen name="attribution_margin">2dp</dimen>
+    <dimen name="attribution_size">6pt</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
 </resources>

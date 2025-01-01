@@ -5,13 +5,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.AdapterView.OnItemLongClickListener
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import de.storchp.opentracks.osmplugin.BuildConfig
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapSelectionBinding
@@ -25,8 +30,16 @@ class MapSelectionActivity : AppCompatActivity() {
     private lateinit var adapter: MapItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivityMapSelectionBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         setContentView(binding.getRoot())
 
         binding.toolbar.mapsToolbar.setTitle(R.string.map_selection)

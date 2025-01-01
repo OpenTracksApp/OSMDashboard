@@ -5,8 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import de.storchp.opentracks.osmplugin.BaseActivity
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionBinding
@@ -22,8 +27,16 @@ class DownloadMapSelectionActivity : BaseActivity() {
     private var pageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivityDownloadMapSelectionBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         setContentView(binding.getRoot())
 
         pageUri = Uri.parse(MAPS_V_5_DOWNLOAD_URI)

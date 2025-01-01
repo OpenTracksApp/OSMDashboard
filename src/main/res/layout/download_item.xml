@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="2dp">
 
     <ImageView
@@ -11,6 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/baseline_map_24"
+        app:tint="@color/material_on_surface_emphasis_high_type"
         android:contentDescription="@string/map_icon"
         android:alpha="0.8" />
 

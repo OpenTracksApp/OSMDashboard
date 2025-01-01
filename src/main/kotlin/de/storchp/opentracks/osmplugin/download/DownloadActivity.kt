@@ -16,13 +16,18 @@ import android.os.Message
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import de.storchp.opentracks.osmplugin.BaseActivity
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding
@@ -71,8 +76,17 @@ class DownloadActivity : BaseActivity() {
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityDownloadBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         setContentView(binding.getRoot())
 
         binding.toolbar.mapsToolbar.setTitle(R.string.download_map)
@@ -167,10 +181,10 @@ class DownloadActivity : BaseActivity() {
         })
     }
 
-    val directoryIntentLauncher: ActivityResultLauncher<Intent?> =
-        registerForActivityResult<Intent?, ActivityResult?>(StartActivityForResult(),
-            ActivityResultCallback { result: ActivityResult? ->
-                if (result?.resultCode == RESULT_OK) {
+    val directoryIntentLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult<Intent, ActivityResult>(StartActivityForResult(),
+            ActivityResultCallback { result ->
+                if (result.resultCode == RESULT_OK) {
                     startDownload()
                 }
             })

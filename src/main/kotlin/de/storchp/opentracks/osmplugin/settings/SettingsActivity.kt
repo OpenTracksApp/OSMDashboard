@@ -3,7 +3,12 @@ package de.storchp.opentracks.osmplugin.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
 import android.os.Bundle
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.preference.Preference
 import androidx.preference.Preference.SummaryProvider
 import androidx.preference.PreferenceFragmentCompat
@@ -17,8 +22,17 @@ import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivitySettingsBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         setContentView(binding.getRoot())
 
         supportFragmentManager
