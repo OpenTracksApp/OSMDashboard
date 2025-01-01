@@ -50,6 +50,14 @@
             app:entryValues="@array/statistic_elements_values"
             app:title="@string/configure_statistic" />
 
+        <Preference
+            app:key="@string/APP_PREF_ABOUT"
+            app:title="@string/map_info_menu">
+            <intent
+                android:targetClass="de.storchp.opentracks.osmplugin.MainActivity"
+                android:targetPackage="@string/applicationId" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/map_settings">

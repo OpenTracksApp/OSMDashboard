@@ -11,6 +11,7 @@
     <string name="APP_PREF_STROKE_WIDTH" translatable="false">APP_PREF_STROKE_WIDTH</string>
     <string name="APP_PREF_PIP_ENABLED" translatable="false">APP_PREF_PIP_ENABLED</string>
     <string name="APP_PREF_DEBUG_TRACKPOPINTS" translatable="false">APP_PREF_DEBUG_TRACKPOPINTS</string>
+    <string name="APP_PREF_ABOUT" translatable="false">APP_PREF_ABOUT</string>
     <string name="APP_PREF_MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
     <string name="APP_PREF_STATISTIC_ELEMENTS" translatable="false">APP_PREF_STATISTIC_ELEMENTS</string>
     <string name="APP_PREF_TRACK_COLOR_MODE" translatable="false">APP_PREF_TRACK_COLOR_MODE</string>

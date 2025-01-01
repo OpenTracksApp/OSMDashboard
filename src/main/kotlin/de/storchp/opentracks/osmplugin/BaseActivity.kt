@@ -2,39 +2,25 @@ package de.storchp.opentracks.osmplugin
 
 import android.content.Intent
 import android.os.Build
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuCompat
 import de.storchp.opentracks.osmplugin.settings.SettingsActivity
 
 abstract class BaseActivity : AppCompatActivity() {
-    fun onCreateOptionsMenu(menu: Menu, showInfo: Boolean) {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.map, menu)
-
-        MenuCompat.setGroupDividerEnabled(menu, true)
-        menu.findItem(R.id.map_info).isVisible = showInfo
-    }
 
     val settingsActivityResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult<Intent, ActivityResult>(
             StartActivityForResult(),
             ActivityResultCallback { result: ActivityResult? -> recreate() })
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        if (itemId == R.id.action_settings) {
-            settingsActivityResultLauncher.launch(Intent(this, SettingsActivity::class.java))
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+    @Suppress("unused")
+    fun openSettings(view: View?) {
+        settingsActivityResultLauncher.launch(Intent(this, SettingsActivity::class.java))
     }
 
     protected fun keepScreenOn(keepScreenOn: Boolean) {

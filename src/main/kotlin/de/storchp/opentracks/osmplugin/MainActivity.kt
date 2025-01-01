@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
@@ -20,19 +19,10 @@ class MainActivity : BaseActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot()) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Apply the insets as a margin to the view. This solution sets
-            // only the bottom, left, and right dimensions, but you can apply whichever
-            // insets are appropriate to your layout. You can also update the view padding
-            // if that's more appropriate.
             v.updateLayoutParams<MarginLayoutParams> {
-                leftMargin = insets.left
                 bottomMargin = insets.bottom
                 topMargin = insets.top
-                rightMargin = insets.right
             }
-
-            // Return CONSUMED if you don't want want the window insets to keep passing
-            // down to descendant views.
             WindowInsetsCompat.CONSUMED
         }
         setContentView(binding.getRoot())
@@ -59,8 +49,4 @@ class MainActivity : BaseActivity() {
         super.onNewIntent(intent)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu, false)
-        return true
-    }
 }

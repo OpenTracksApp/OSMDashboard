@@ -15,9 +15,8 @@ import android.text.util.Linkify
 import android.util.Log
 import android.util.Rational
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -27,11 +26,13 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import androidx.core.view.updateLayoutParams
 import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.BaseActivity
 import de.storchp.opentracks.osmplugin.BuildConfig
-import de.storchp.opentracks.osmplugin.MainActivity
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.dashboardapi.DashboardReader
 import de.storchp.opentracks.osmplugin.dashboardapi.UpdateTrackStatistics
@@ -105,6 +106,14 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.map.attribution) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+
         setContentView(binding.getRoot())
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -116,7 +125,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         createLayers()
         map.getMapPosition().setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL)
 
-        binding.map.fullscreenButton.setOnClickListener(View.OnClickListener { v: View? -> switchFullscreen() })
+        binding.map.fullscreenButton.setOnClickListener(View.OnClickListener { v -> switchFullscreen() })
+        binding.map.settingsButton.setOnClickListener(View.OnClickListener { v -> openSettings(null) })
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -255,11 +265,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         } else {
             finish()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu, true)
-        return true
     }
 
     /**
@@ -503,16 +508,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     override fun onDestroy() {
         binding.map.mapView.onDestroy()
         super.onDestroy()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.map_info) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun resetMapData() {
