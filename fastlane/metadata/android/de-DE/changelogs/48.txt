@@ -1,3 +1,4 @@
 - Neu: Android 15 Unterstützung
+- Neu: GPX Unterstützung
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert

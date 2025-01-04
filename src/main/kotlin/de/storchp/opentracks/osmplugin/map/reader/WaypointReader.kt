@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.reader
 
 import android.content.ContentResolver
 import android.content.Intent
@@ -6,20 +6,10 @@ import android.database.Cursor
 import android.net.Uri
 import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
+import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import org.oscim.core.GeoPoint
 import java.net.URLDecoder
 import java.util.regex.Pattern
-
-data class Waypoint(
-    val id: Long = 0,
-    val name: String?,
-    val description: String? = null,
-    val category: String? = null,
-    val icon: String? = null,
-    val trackId: Long = 0,
-    val latLong: GeoPoint,
-    val photoUrl: String? = null,
-)
 
 object WaypointReader {
     const val ID = "_id"
@@ -93,7 +83,7 @@ object WaypointReader {
     fun readWaypoints(
         resolver: ContentResolver,
         data: Uri,
-        lastWaypointId: Long
+        lastWaypointId: Long?
     ): List<Waypoint> {
         return buildList {
             resolver.query(data, PROJECTION, null, null, null).use { cursor ->
@@ -104,9 +94,9 @@ object WaypointReader {
         }
     }
 
-    private fun readWaypointFromCursor(cursor: Cursor, lastWaypointId: Long): Waypoint? {
+    private fun readWaypointFromCursor(cursor: Cursor, lastWaypointId: Long?): Waypoint? {
         val waypointId = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
-        if (lastWaypointId > 0 && lastWaypointId >= waypointId) { // skip waypoints we already have
+        if (lastWaypointId != null && lastWaypointId >= waypointId) { // skip waypoints we already have
             return null
         }
         val name = cursor.getString(cursor.getColumnIndexOrThrow(NAME))

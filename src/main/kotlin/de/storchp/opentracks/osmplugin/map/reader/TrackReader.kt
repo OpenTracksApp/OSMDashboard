@@ -1,27 +1,10 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.reader
 
 import android.content.ContentResolver
 import android.net.Uri
 import android.util.Log
+import de.storchp.opentracks.osmplugin.map.model.Track
 import java.lang.Exception
-
-data class Track(
-    val id: Long,
-    val trackname: String?,
-    val description: String?,
-    val category: String?,
-    val startTimeEpochMillis: Int,
-    val stopTimeEpochMillis: Int,
-    val totalDistanceMeter: Float,
-    val totalTimeMillis: Int,
-    val movingTimeMillis: Int,
-    val avgSpeedMeterPerSecond: Float,
-    val avgMovingSpeedMeterPerSecond: Float,
-    val maxSpeedMeterPerSecond: Float,
-    val minElevationMeter: Float,
-    val maxElevationMeter: Float,
-    val elevationGainMeter: Float
-)
 
 object TrackReader {
     private val TAG: String = Track::class.java.getSimpleName()
@@ -127,4 +110,3 @@ object TrackReader {
         }
     }
 }
-

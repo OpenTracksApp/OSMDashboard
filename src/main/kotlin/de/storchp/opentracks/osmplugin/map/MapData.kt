@@ -1,6 +1,6 @@
 package de.storchp.opentracks.osmplugin.map
 
-import de.storchp.opentracks.osmplugin.dashboardapi.Waypoint
+import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import org.oscim.core.BoundingBox
 import org.oscim.core.GeoPoint
 import org.oscim.layers.GroupLayer

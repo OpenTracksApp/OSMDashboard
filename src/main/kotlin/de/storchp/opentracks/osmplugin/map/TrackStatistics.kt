@@ -1,6 +1,6 @@
 package de.storchp.opentracks.osmplugin.map
 
-import de.storchp.opentracks.osmplugin.dashboardapi.Track
+import de.storchp.opentracks.osmplugin.map.model.Track
 import kotlin.math.max
 import kotlin.math.min
 

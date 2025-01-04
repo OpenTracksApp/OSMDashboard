@@ -1,3 +1,4 @@
 - New: support for Android 15
+- New: support for GPX
 - Updated translations
 - Updated dependencies

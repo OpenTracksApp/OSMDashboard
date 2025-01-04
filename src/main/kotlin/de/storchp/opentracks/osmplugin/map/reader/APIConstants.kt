@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.reader
 
 import android.net.Uri
 

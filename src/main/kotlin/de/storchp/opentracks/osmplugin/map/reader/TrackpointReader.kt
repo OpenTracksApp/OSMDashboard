@@ -1,29 +1,12 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.reader
 
 import android.content.ContentResolver
 import android.net.Uri
-import de.storchp.opentracks.osmplugin.map.MapUtils
+import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_TRACKPOINT
+import de.storchp.opentracks.osmplugin.map.model.Trackpoint
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
-import org.oscim.core.GeoPoint
-
-data class Trackpoint(
-    val trackId: Long,
-    val id: Long,
-    private val latitude: Double,
-    private val longitude: Double,
-    val type: Int?,
-    val speed: Double,
-) {
-    val latLong = if (MapUtils.isValid(latitude, longitude)) {
-        GeoPoint(latitude, longitude)
-    } else {
-        null
-    }
-
-    val isPause = if (type != null) type == 3 else latitude == PAUSE_LATITUDE
-}
-
-private const val PAUSE_LATITUDE: Double = 100.0
+import java.time.Instant
 
 object TrackpointReader {
     const val ID = "_id"
@@ -60,11 +43,11 @@ object TrackpointReader {
     fun readTrackpointsBySegments(
         resolver: ContentResolver,
         data: Uri,
-        lastId: Long,
+        lastId: Long?,
         protocolVersion: Int
     ): TrackpointsBySegments {
         val debug = TrackpointsDebug()
-        val segments: MutableList<MutableList<Trackpoint>> = mutableListOf()
+        val segments = mutableListOf<MutableList<Trackpoint>>()
         var projection = PROJECTION_V2
         var typeQuery = " AND $TYPE IN (-2, -1, 0, 1, 3)"
         if (protocolVersion < 2) { // fallback to old Dashboard API
@@ -75,7 +58,7 @@ object TrackpointReader {
             data,
             projection,
             "$ID> ?$typeQuery",
-            arrayOf<String>(lastId.toString()),
+            arrayOf<String>((lastId ?: 0L).toString()),
             null
         ).use { cursor ->
             var lastTrackpoint: Trackpoint? = null
@@ -89,8 +72,9 @@ object TrackpointReader {
                 val longitude =
                     cursor.getInt(cursor.getColumnIndexOrThrow(LONGITUDE)) / APIConstants.LAT_LON_FACTOR
                 val speed = cursor.getDouble(cursor.getColumnIndexOrThrow(SPEED))
+                val time = Instant.ofEpochMilli(cursor.getLong(cursor.getColumnIndexOrThrow(TIME)))
 
-                var type: Int? = null
+                var type: Int = TRACKPOINT_TYPE_TRACKPOINT
                 val typeIndex = cursor.getColumnIndex(TYPE)
                 if (typeIndex > -1) {
                     type = cursor.getInt(typeIndex)
@@ -102,7 +86,7 @@ object TrackpointReader {
                 }
 
                 lastTrackpoint =
-                    Trackpoint(trackId, id, latitude, longitude, type, speed)
+                    Trackpoint(trackId, id, latitude, longitude, type, speed, time)
                 if (lastTrackpoint.latLong != null) {
                     segment!!.add(lastTrackpoint)
                 } else if (!lastTrackpoint.isPause) {
@@ -121,7 +105,8 @@ object TrackpointReader {
                                         latitude = it.latitude,
                                         longitude = it.longitude,
                                         type = type,
-                                        speed = speed
+                                        speed = speed,
+                                        time = time,
                                     )
                                 )
                             }

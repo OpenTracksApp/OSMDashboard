@@ -8,7 +8,7 @@ import android.location.Location
 import android.util.Log
 import androidx.core.content.ContextCompat
 import de.storchp.opentracks.osmplugin.R
-import de.storchp.opentracks.osmplugin.dashboardapi.Trackpoint
+import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.utils.UnitConversions
 import org.oscim.android.canvas.AndroidBitmap
 import org.oscim.core.GeoPoint

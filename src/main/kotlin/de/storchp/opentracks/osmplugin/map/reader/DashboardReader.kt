@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.reader
 
 import android.content.ContentResolver
 import android.content.Intent
@@ -12,6 +12,7 @@ import de.storchp.opentracks.osmplugin.map.MapUtils
 import de.storchp.opentracks.osmplugin.map.StyleColorCreator
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.TrackStatistics
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.oscim.core.GeoPoint
@@ -40,10 +41,10 @@ class DashboardReader(
     private val colorCreator = StyleColorCreator()
     private var trackColor = colorCreator.nextColor()
     private var trackpointsDebug = TrackpointsDebug()
-    private var lastWaypointId = 0L
-    private var lastTrackPointId = 0L
+    private var lastWaypointId: Long? = null
+    private var lastTrackPointId: Long? = null
     private var contentObserver: OpenTracksContentObserver? = null
-    var lastTrackId = 0L
+    var lastTrackId: Long? = null
         private set
     val keepScreenOn: Boolean
     val showOnLockScreen: Boolean
@@ -111,38 +112,39 @@ class DashboardReader(
                 }
                 return@map trackpoints
             }.forEach { trackpoints ->
-                trackpoints.filter { it.latLong != null }.forEach { trackpoint ->
-                    lastTrackPointId = trackpoint.id
+                trackpoints.filter { it.latLong != null }
+                    .forEach { trackpoint ->
+                        lastTrackPointId = trackpoint.id
 
-                    if (trackpoint.trackId != lastTrackId) {
-                        if (trackColorMode == TrackColorMode.BY_TRACK) {
-                            trackColor = colorCreator.nextColor()
+                        if (trackpoint.trackId != lastTrackId) {
+                            if (trackColorMode == TrackColorMode.BY_TRACK) {
+                                trackColor = colorCreator.nextColor()
+                            }
+                            lastTrackId = trackpoint.trackId
+                            mapData.resetCurrentPolyline()
                         }
-                        lastTrackId = trackpoint.trackId
-                        mapData.resetCurrentPolyline()
+
+                        if (trackColorMode == TrackColorMode.BY_SPEED) {
+                            trackColor = MapUtils.getTrackColorBySpeed(
+                                average,
+                                averageToMaxSpeed,
+                                trackpoint
+                            )
+                            mapData.addNewPolyline(trackColor, trackpoint.latLong!!)
+                        } else {
+                            mapData.extendPolyline(trackColor, trackpoint.latLong!!)
+                        }
+
+                        if (trackpoint.isPause && showPauseMarkers) {
+                            mapData.addPauseMarker(trackpoint.latLong)
+                        }
+
+                        if (!update) {
+                            mapData.endPos?.let { latLongs.add(it) }
+                        }
+
+
                     }
-
-                    if (trackColorMode == TrackColorMode.BY_SPEED) {
-                        trackColor = MapUtils.getTrackColorBySpeed(
-                            average,
-                            averageToMaxSpeed,
-                            trackpoint
-                        )
-                        mapData.addNewPolyline(trackColor, trackpoint.latLong!!)
-                    } else {
-                        mapData.extendPolyline(trackColor, trackpoint.latLong!!)
-                    }
-
-                    if (trackpoint.isPause && showPauseMarkers) {
-                        mapData.addPauseMarker(trackpoint.latLong)
-                    }
-
-                    if (!update) {
-                        mapData.endPos?.let { latLongs.add(it) }
-                    }
-
-
-                }
                 trackpointsBySegments.debug.trackpointsDrawn += trackpoints.size
             }
             trackpointsDebug.add(trackpointsBySegments.debug)
@@ -179,8 +181,6 @@ class DashboardReader(
         val trackStatistics = if (tracks.isNotEmpty()) TrackStatistics(tracks) else null
         updateTrackStatistics(trackStatistics)
     }
-
-    fun hasTrackId() = lastTrackId > 0
 
     fun startContentObserver() {
         contentObserver = OpenTracksContentObserver(

@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.dashboardapi
+package de.storchp.opentracks.osmplugin.map.model
 
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 

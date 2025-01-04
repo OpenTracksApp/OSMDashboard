@@ -34,13 +34,14 @@ import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.BaseActivity
 import de.storchp.opentracks.osmplugin.BuildConfig
 import de.storchp.opentracks.osmplugin.R
-import de.storchp.opentracks.osmplugin.dashboardapi.DashboardReader
-import de.storchp.opentracks.osmplugin.dashboardapi.UpdateTrackStatistics
-import de.storchp.opentracks.osmplugin.dashboardapi.UpdateTrackpointsDebug
-import de.storchp.opentracks.osmplugin.dashboardapi.WaypointReader
-import de.storchp.opentracks.osmplugin.dashboardapi.isDashboardAction
-import de.storchp.opentracks.osmplugin.dashboardapi.isGeoIntent
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
+import de.storchp.opentracks.osmplugin.map.reader.DashboardReader
+import de.storchp.opentracks.osmplugin.map.reader.GpxReader
+import de.storchp.opentracks.osmplugin.map.reader.UpdateTrackStatistics
+import de.storchp.opentracks.osmplugin.map.reader.UpdateTrackpointsDebug
+import de.storchp.opentracks.osmplugin.map.reader.WaypointReader
+import de.storchp.opentracks.osmplugin.map.reader.isDashboardAction
+import de.storchp.opentracks.osmplugin.map.reader.isGeoIntent
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -143,7 +144,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     private inner class MapEventsReceiver(map: Map?) : Layer(map), GestureListener {
         override fun onGesture(g: Gesture?, e: MotionEvent): Boolean {
-            if (g is LongPress && dashboardReader?.hasTrackId() == true) {
+            val trackId = dashboardReader?.lastTrackId
+            if (g is LongPress && trackId != null) {
                 AlertDialog.Builder(this@MapsActivity)
                     .setIcon(R.drawable.ic_logo_color_24dp)
                     .setTitle(R.string.app_name)
@@ -151,7 +153,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                     .setPositiveButton(
                         android.R.string.ok,
                         DialogInterface.OnClickListener { _: DialogInterface?, _: Int ->
-                            startOpenTracksToAddNewMarker(e, dashboardReader!!.lastTrackId)
+                            startOpenTracksToAddNewMarker(e, trackId)
                         })
                     .setNegativeButton(android.R.string.cancel, null)
                     .create().show()
@@ -196,6 +198,29 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                 }
         } else if (intent.isGeoIntent()) {
             WaypointReader.fromGeoIntent(intent, mapData!!)
+        } else {
+            val documentUris = buildList {
+                if (intent.data != null) {
+                    add(intent.data)
+                } else {
+                    val intentClipData = intent.clipData
+                    if (intentClipData != null && intentClipData.itemCount > 0) {
+                        for (i in 0..intentClipData.itemCount - 1) {
+                            add(intentClipData.getItemAt(i).uri)
+                        }
+                    }
+                }
+            }.mapNotNull { it?.let { DocumentFile.fromSingleUri(application, it) } }
+
+            if (documentUris.isNotEmpty()) {
+                GpxReader(
+                    documentUris,
+                    contentResolver,
+                    mapData!!,
+                    updateTrackStatistics,
+                    updateDebugTrackPoints,
+                )
+            }
         }
     }
 
