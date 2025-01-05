@@ -36,10 +36,11 @@ import de.storchp.opentracks.osmplugin.BuildConfig
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityMapsBinding
 import de.storchp.opentracks.osmplugin.map.reader.DashboardReader
+import de.storchp.opentracks.osmplugin.map.reader.GeoUriReader
 import de.storchp.opentracks.osmplugin.map.reader.GpxReader
+import de.storchp.opentracks.osmplugin.map.reader.MapDataReader
 import de.storchp.opentracks.osmplugin.map.reader.UpdateTrackStatistics
 import de.storchp.opentracks.osmplugin.map.reader.UpdateTrackpointsDebug
-import de.storchp.opentracks.osmplugin.map.reader.WaypointReader
 import de.storchp.opentracks.osmplugin.map.reader.isDashboardAction
 import de.storchp.opentracks.osmplugin.map.reader.isGeoIntent
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
@@ -99,7 +100,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     private lateinit var mapPreferences: MapPreferences
     private var mapData: MapData? = null
     private var renderTheme: IRenderTheme? = null
-    private var dashboardReader: DashboardReader? = null
+    private var mapDataReader: MapDataReader? = null
     private var fullscreenMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,7 +145,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     private inner class MapEventsReceiver(map: Map?) : Layer(map), GestureListener {
         override fun onGesture(g: Gesture?, e: MotionEvent): Boolean {
-            val trackId = dashboardReader?.lastTrackId
+            val trackId = mapDataReader?.lastTrackId
             if (g is LongPress && trackId != null) {
                 AlertDialog.Builder(this@MapsActivity)
                     .setIcon(R.drawable.ic_logo_color_24dp)
@@ -184,7 +185,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         resetMapData()
 
         if (intent.isDashboardAction()) {
-            dashboardReader =
+            mapDataReader =
                 DashboardReader(
                     intent,
                     contentResolver,
@@ -197,7 +198,12 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                     showFullscreen(showFullscreen)
                 }
         } else if (intent.isGeoIntent()) {
-            WaypointReader.fromGeoIntent(intent, mapData!!)
+            mapDataReader = GeoUriReader(
+                intent,
+                mapData!!,
+                updateTrackStatistics,
+                updateDebugTrackPoints,
+            )
         } else {
             val documentUris = buildList {
                 if (intent.data != null) {
@@ -213,7 +219,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             }.mapNotNull { it?.let { DocumentFile.fromSingleUri(application, it) } }
 
             if (documentUris.isNotEmpty()) {
-                GpxReader(
+                mapDataReader = GpxReader(
                     documentUris,
                     contentResolver,
                     mapData!!,
@@ -280,7 +286,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     fun navigateUp() {
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
-            && dashboardReader?.isOpenTracksRecordingThisTrack == true
+            && mapDataReader?.isOpenTracksRecordingThisTrack == true
             && PreferencesUtils.isPipEnabled()
         ) {
             val pipParamsBuilder = PictureInPictureParams.Builder()
@@ -540,10 +546,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     }
 
     private fun resetMapData() {
-        dashboardReader?.unregisterContentObserver()
+        mapDataReader?.unregisterContentObserver()
         mapData?.removeLayers()
 
-        dashboardReader = null
+        mapDataReader = null
         mapData = MapData(
             map = map,
             onItemGestureListener = this,
@@ -661,11 +667,11 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     override fun onStart() {
         super.onStart()
-        dashboardReader?.startContentObserver()
+        mapDataReader?.startContentObserver()
     }
 
     override fun onStop() {
-        dashboardReader?.unregisterContentObserver()
+        mapDataReader?.unregisterContentObserver()
         super.onStop()
     }
 

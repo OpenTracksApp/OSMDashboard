@@ -6,17 +6,10 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
 import android.util.Log
-import de.storchp.opentracks.osmplugin.map.DEFAULT_TRACK_COLOR_MORE
 import de.storchp.opentracks.osmplugin.map.MapData
-import de.storchp.opentracks.osmplugin.map.MapUtils
-import de.storchp.opentracks.osmplugin.map.StyleColorCreator
-import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.TrackStatistics
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
-import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
-import org.oscim.core.GeoPoint
-import java.lang.Exception
 
 private val TAG: String = DashboardReader::class.java.getSimpleName()
 
@@ -33,23 +26,15 @@ typealias UpdateTrackpointsDebug = (TrackpointsDebug) -> Unit
 class DashboardReader(
     intent: Intent,
     private val contentResolver: ContentResolver,
-    private val mapData: MapData,
-    private val updateTrackStatistics: UpdateTrackStatistics,
-    private val updateTrackpointsDebug: UpdateTrackpointsDebug,
-) {
+    mapData: MapData,
+    updateTrackStatistics: UpdateTrackStatistics,
+    updateTrackpointsDebug: UpdateTrackpointsDebug,
+) : MapDataReader(mapData, updateTrackStatistics, updateTrackpointsDebug) {
 
-    private val colorCreator = StyleColorCreator()
-    private var trackColor = colorCreator.nextColor()
     private var trackpointsDebug = TrackpointsDebug()
     private var lastWaypointId: Long? = null
     private var lastTrackPointId: Long? = null
     private var contentObserver: OpenTracksContentObserver? = null
-    var lastTrackId: Long? = null
-        private set
-    val keepScreenOn: Boolean
-    val showOnLockScreen: Boolean
-    val showFullscreen: Boolean
-    val isOpenTracksRecordingThisTrack: Boolean
     val tracksUri: Uri
     val trackpointsUri: Uri
     val waypointsUri: Uri?
@@ -77,112 +62,36 @@ class DashboardReader(
 
     fun readTrackpoints(data: Uri, update: Boolean, protocolVersion: Int) {
         Log.i(TAG, "Loading trackpoints from $data")
-
-        val showPauseMarkers = PreferencesUtils.isShowPauseMarkers()
-        val latLongs = mutableListOf<GeoPoint>()
-        val tolerance = PreferencesUtils.getTrackSmoothingTolerance()
-
-        try {
-            val trackpointsBySegments: TrackpointsBySegments =
-                TrackpointReader.readTrackpointsBySegments(
-                    contentResolver,
-                    data,
-                    lastTrackPointId,
-                    protocolVersion
-                )
-            if (trackpointsBySegments.isEmpty()) {
-                Log.d(TAG, "No new trackpoints received")
-                return
-            }
-
-            val average = trackpointsBySegments.calcAverageSpeed()
-            val maxSpeed = trackpointsBySegments.calcMaxSpeed()
-            val averageToMaxSpeed = maxSpeed - average
-            var trackColorMode = PreferencesUtils.getTrackColorMode()
-            if (isOpenTracksRecordingThisTrack && !trackColorMode.supportsLiveTrack) {
-                trackColorMode = DEFAULT_TRACK_COLOR_MORE
-            }
-
-            trackpointsBySegments.segments.map { trackpoints ->
-                if (!update) {
-                    mapData.cutPolyline()
-                    if (tolerance > 0) { // smooth track
-                        return@map MapUtils.decimate(tolerance, trackpoints)
-                    }
-                }
-                return@map trackpoints
-            }.forEach { trackpoints ->
-                trackpoints.filter { it.latLong != null }
-                    .forEach { trackpoint ->
-                        lastTrackPointId = trackpoint.id
-
-                        if (trackpoint.trackId != lastTrackId) {
-                            if (trackColorMode == TrackColorMode.BY_TRACK) {
-                                trackColor = colorCreator.nextColor()
-                            }
-                            lastTrackId = trackpoint.trackId
-                            mapData.resetCurrentPolyline()
-                        }
-
-                        if (trackColorMode == TrackColorMode.BY_SPEED) {
-                            trackColor = MapUtils.getTrackColorBySpeed(
-                                average,
-                                averageToMaxSpeed,
-                                trackpoint
-                            )
-                            mapData.addNewPolyline(trackColor, trackpoint.latLong!!)
-                        } else {
-                            mapData.extendPolyline(trackColor, trackpoint.latLong!!)
-                        }
-
-                        if (trackpoint.isPause && showPauseMarkers) {
-                            mapData.addPauseMarker(trackpoint.latLong)
-                        }
-
-                        if (!update) {
-                            mapData.endPos?.let { latLongs.add(it) }
-                        }
-
-
-                    }
-                trackpointsBySegments.debug.trackpointsDrawn += trackpoints.size
-            }
-            trackpointsDebug.add(trackpointsBySegments.debug)
-        } catch (e: Exception) {
-            throw RuntimeException("Error reading trackpoints", e)
+        val trackpointsBySegments: TrackpointsBySegments =
+            TrackpointReader.readTrackpointsBySegments(
+                contentResolver,
+                data,
+                lastTrackPointId,
+                protocolVersion
+            )
+        if (trackpointsBySegments.isEmpty()) {
+            Log.d(TAG, "No new trackpoints received")
+            return
         }
-
-        mapData.setEndMarker()
-
-        if (update && mapData.endPos != null) {
-            mapData.updateMapPositionAndRotation(mapData.endPos!!)
-            mapData.renderMap()
-        } else if (latLongs.isNotEmpty()) {
-            mapData.createBoundingBox(latLongs)
-            mapData.boundingBox?.let { mapData.updateMapPositionAndRotation(it.centerPoint) }
+        if (trackpointsBySegments.isNotEmpty() && trackpointsBySegments.last().isNotEmpty()) {
+            lastTrackPointId = trackpointsBySegments.last().last().id
         }
-
-        updateTrackpointsDebug(trackpointsDebug)
+        readTrackpoints(trackpointsBySegments, update)
     }
 
     private fun readWaypoints(data: Uri) {
-        try {
-            WaypointReader.readWaypoints(contentResolver, data, lastWaypointId).forEach {
-                lastWaypointId = it.id
-                mapData.addWaypointMarker(it)
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Reading waypoints failed", e)
+        val waypoints = WaypointReader.readWaypoints(contentResolver, data, lastWaypointId)
+        if (waypoints.isNotEmpty()) {
+            lastWaypointId = waypoints.last().id
         }
+        readWaypoints(waypoints)
     }
 
     private fun readTracks(data: Uri) {
-        val tracks = TrackReader.readTracks(contentResolver, data)
-        val trackStatistics = if (tracks.isNotEmpty()) TrackStatistics(tracks) else null
-        updateTrackStatistics(trackStatistics)
+        readTracks(TrackReader.readTracks(contentResolver, data))
     }
 
-    fun startContentObserver() {
+    override fun startContentObserver() {
         contentObserver = OpenTracksContentObserver(
             tracksUri,
             trackpointsUri,
@@ -206,7 +115,7 @@ class DashboardReader(
 
     }
 
-    fun unregisterContentObserver() {
+    override fun unregisterContentObserver() {
         contentObserver?.let { contentResolver.unregisterContentObserver(it) }
         contentObserver = null
     }
