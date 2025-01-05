@@ -16,6 +16,7 @@ data class Trackpoint(
     val type: Int,
     val speed: Double,
     val time: Instant,
+    val elevation: Double? = null,
 ) {
     val latLong = if (MapUtils.isValid(latitude, longitude)) {
         GeoPoint(latitude, longitude)

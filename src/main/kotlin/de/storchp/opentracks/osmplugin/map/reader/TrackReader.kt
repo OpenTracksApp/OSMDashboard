@@ -59,27 +59,27 @@ object TrackReader {
                             cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))
                         val category = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY))
                         val startTimeEpochMillis =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(STARTTIME))
+                            cursor.getLong(cursor.getColumnIndexOrThrow(STARTTIME))
                         val stopTimeEpochMillis =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(STOPTIME))
+                            cursor.getLong(cursor.getColumnIndexOrThrow(STOPTIME))
                         val totalDistanceMeter =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(TOTALDISTANCE))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(TOTALDISTANCE))
                         val totalTimeMillis =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(TOTALTIME))
+                            cursor.getLong(cursor.getColumnIndexOrThrow(TOTALTIME))
                         val movingTimeMillis =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(MOVINGTIME))
+                            cursor.getLong(cursor.getColumnIndexOrThrow(MOVINGTIME))
                         val avgSpeedMeterPerSecond =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(AVGSPEED))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(AVGSPEED))
                         val avgMovingSpeedMeterPerSecond =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(AVGMOVINGSPEED))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(AVGMOVINGSPEED))
                         val maxSpeedMeterPerSecond =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(MAXSPEED))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(MAXSPEED))
                         val minElevationMeter =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(MINELEVATION))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(MINELEVATION))
                         val maxElevationMeter =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(MAXELEVATION))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(MAXELEVATION))
                         val elevationGainMeter =
-                            cursor.getFloat(cursor.getColumnIndexOrThrow(ELEVATIONGAIN))
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(ELEVATIONGAIN))
 
                         add(
                             Track(

@@ -37,17 +37,17 @@ internal class GpxParserTest {
                 trackname = "2023-12-29T09:37+01",
                 description = "",
                 category = "walking",
-                startTimeEpochMillis = 0,
-                stopTimeEpochMillis = 0,
-                totalDistanceMeter = 0f,
-                totalTimeMillis = 0,
-                movingTimeMillis = 0,
-                avgSpeedMeterPerSecond = 0f,
-                avgMovingSpeedMeterPerSecond = 0f,
-                maxSpeedMeterPerSecond = 0f,
-                minElevationMeter = 0f,
-                maxElevationMeter = 0f,
-                elevationGainMeter = 0f,
+                startTimeEpochMillis = 1703839066375,
+                stopTimeEpochMillis = 1703839661518,
+                totalDistanceMeter = 809.648193359375,
+                totalTimeMillis = 598000,
+                movingTimeMillis = 583000,
+                avgSpeedMeterPerSecond = 1.4905882352941182,
+                avgMovingSpeedMeterPerSecond = 1.5451219512195127,
+                maxSpeedMeterPerSecond = 2.13,
+                minElevationMeter = 43.2,
+                maxElevationMeter = 56.3,
+                elevationGainMeter = 3.0,
             )
         )
         assertThat(sut.tracksBySegments.segments).hasSize(1)
@@ -59,6 +59,7 @@ internal class GpxParserTest {
                 longitude = 9.989175,
                 type = 0,
                 speed = 0.0,
+                elevation = 55.9,
                 time = Instant.parse("2023-12-29T08:37:46.375Z")
             )
         )
@@ -68,6 +69,7 @@ internal class GpxParserTest {
                 longitude = 9.982826,
                 type = 0,
                 speed = 1.34,
+                elevation = 55.3,
                 time = Instant.parse("2023-12-29T08:47:41.518Z")
             )
         )

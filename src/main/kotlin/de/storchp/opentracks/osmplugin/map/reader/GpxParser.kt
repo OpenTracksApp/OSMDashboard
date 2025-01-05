@@ -10,7 +10,8 @@ import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.xml.sax.Attributes
 import org.xml.sax.Locator
 import org.xml.sax.helpers.DefaultHandler
-import java.lang.Double
+import java.lang.Double.parseDouble
+import java.lang.Long.parseLong
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
@@ -20,6 +21,7 @@ private const val TAG_DESCRIPTION = "desc"
 private const val TAG_GPX = "gpx"
 private const val TAG_NAME = "name"
 private const val TAG_TIME = "time"
+private const val TAG_ELEVATION = "ele"
 private const val TAG_TRACK = "trk"
 private const val TAG_TRACKPOINT = "trkpt"
 private const val TAG_TRACKSEGMENT = "trkseg"
@@ -30,6 +32,10 @@ private const val TAG_OT_TRACK_UUID = "opentracks:trackid"
 private const val ATTRIBUTE_LAT = "lat"
 private const val ATTRIBUTE_LON = "lon"
 
+private const val TAG_EXTENSION_DISTANCE = "gpxtrkx:Distance"
+private const val TAG_EXTENSION_TIMER_TIME = "gpxtrkx:TimerTime"
+private const val TAG_EXTENSION_MOVING_TIME = "gpxtrkx:MovingTime"
+private const val TAG_EXTENSION_ASCENT = "gpxtrkx:Ascent"
 private const val TAG_EXTENSION_SPEED = "gpxtpx:speed"
 
 /**
@@ -52,7 +58,19 @@ class GpxParser() : DefaultHandler() {
     private var latitude: String? = null
     private var longitude: String? = null
     private var time: String? = null
+    private var elevation: String? = null
     private var speed: String? = null
+    private var distance: String? = null
+    private var timerTime: String? = null
+    private var movingTime: String? = null
+    private var ascent: String? = null
+    private var startTimeEpochMillis: Long? = null
+    private var stopTimeEpochMillis: Long? = null
+    private var maxSpeedMeterPerSecond: Double? = null
+    private var minElevationMeter: Double? = null
+    private var maxElevationMeter: Double? = null
+    private val speedMeterPerSecondList = mutableListOf<Double>()
+    private val movingSpeedMeterPerSecondList = mutableListOf<Double>()
     private var markerType: String? = null
     private var photoUrl: String? = null
     private var trackUuid: String? = null
@@ -72,6 +90,17 @@ class GpxParser() : DefaultHandler() {
             TAG_WAYPOINT -> onWaypointStart(attributes)
             TAG_TRACK -> {
                 trackId++
+                distance = null
+                timerTime = null
+                movingTime = null
+                ascent = null
+                startTimeEpochMillis = null
+                stopTimeEpochMillis = null
+                maxSpeedMeterPerSecond = null
+                minElevationMeter = null
+                maxElevationMeter = null
+                speedMeterPerSecondList.clear()
+                movingSpeedMeterPerSecondList.clear()
             }
 
             TAG_TRACKSEGMENT -> {
@@ -96,36 +125,23 @@ class GpxParser() : DefaultHandler() {
             TAG_TRACK -> onTrackEnd()
             TAG_TRACKSEGMENT -> onTracksegmentEnd()
             TAG_TRACKPOINT -> onTrackpointEnd()
-
-            TAG_NAME -> {
-                name = content.trim()
-            }
-
-            TAG_DESCRIPTION -> {
-                description = content.trim()
-            }
-
+            TAG_NAME -> name = content.trim()
+            TAG_DESCRIPTION -> description = content.trim()
             TAG_TYPE -> { //Track or Marker/WPT
                 // In older  version this might be localized content.
                 activityType = content.trim()
                 markerType = content.trim()
             }
 
-            TAG_OT_TYPE_TRANSLATED -> {
-                activityTypeLocalized = content.trim()
-            }
-
-            TAG_TIME -> {
-                time = content.trim()
-            }
-
-            TAG_EXTENSION_SPEED, TAG_EXTENSION_SPEED_COMPAT -> {
-                speed = content.trim()
-            }
-
-            TAG_OT_TRACK_UUID -> {
-                trackUuid = content.trim()
-            }
+            TAG_OT_TYPE_TRANSLATED -> activityTypeLocalized = content.trim()
+            TAG_TIME -> time = content.trim()
+            TAG_EXTENSION_SPEED, TAG_EXTENSION_SPEED_COMPAT -> speed = content.trim()
+            TAG_ELEVATION -> elevation = content.trim()
+            TAG_OT_TRACK_UUID -> trackUuid = content.trim()
+            TAG_EXTENSION_DISTANCE -> distance = content.trim()
+            TAG_EXTENSION_TIMER_TIME -> timerTime = content.trim()
+            TAG_EXTENSION_MOVING_TIME -> movingTime = content.trim()
+            TAG_EXTENSION_ASCENT -> ascent = content.trim()
         }
 
         content = ""
@@ -149,6 +165,24 @@ class GpxParser() : DefaultHandler() {
         } else {
             debug.trackpointsInvalid++
         }
+
+        if (startTimeEpochMillis == null) {
+            startTimeEpochMillis = trackpoint.time.toEpochMilli()
+        }
+        if (stopTimeEpochMillis == null || trackpoint.time.toEpochMilli() > stopTimeEpochMillis!!) {
+            stopTimeEpochMillis = trackpoint.time.toEpochMilli()
+        }
+        if (maxSpeedMeterPerSecond == null || trackpoint.speed > maxSpeedMeterPerSecond!!) {
+            maxSpeedMeterPerSecond = trackpoint.speed
+        }
+        if (minElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation < minElevationMeter!!) {
+            minElevationMeter = trackpoint.elevation!!
+        }
+        if (maxElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation > maxElevationMeter!!) {
+            maxElevationMeter = trackpoint.elevation!!
+        }
+        speedMeterPerSecondList.add(trackpoint.speed)
+        if (trackpoint.speed > 0) movingSpeedMeterPerSecondList.add(trackpoint.speed)
     }
 
     private fun createTrackpoint(): Trackpoint {
@@ -158,19 +192,21 @@ class GpxParser() : DefaultHandler() {
                 zoneOffset = parsedTime.offset
             }
 
-            val latitudeDouble = latitude?.let { Double.parseDouble(it) } ?: 0.0
-            val longitudeDouble = longitude?.let { Double.parseDouble(it) } ?: 0.0
-            val speedDouble = speed?.let { Double.parseDouble(it) } ?: 0.0
+            val latitudeDouble = latitude?.let { parseDouble(it) } ?: 0.0
+            val longitudeDouble = longitude?.let { parseDouble(it) } ?: 0.0
+            val speedDouble = speed?.let { parseDouble(it) } ?: 0.0
+            val elevationDouble = elevation?.let { parseDouble(it) }
 
             return Trackpoint(
                 latitude = latitudeDouble,
                 longitude = longitudeDouble,
                 type = TRACKPOINT_TYPE_TRACKPOINT,
                 speed = speedDouble,
-                time = parsedTime.toInstant()
+                time = parsedTime.toInstant(),
+                elevation = elevationDouble,
             )
         } catch (e: Exception) {
-            throw RuntimeException("Unable to parse time: $time", e)
+            throw RuntimeException("Unable to create Trackpoint", e)
         }
     }
 
@@ -178,6 +214,7 @@ class GpxParser() : DefaultHandler() {
         latitude = attributes.getValue(ATTRIBUTE_LAT)
         longitude = attributes.getValue(ATTRIBUTE_LON)
         time = null
+        elevation = null
         speed = null
     }
 
@@ -188,6 +225,7 @@ class GpxParser() : DefaultHandler() {
         latitude = attributes.getValue(ATTRIBUTE_LAT)
         longitude = attributes.getValue(ATTRIBUTE_LON)
         time = null
+        elevation = null
         markerType = null
     }
 
@@ -220,17 +258,17 @@ class GpxParser() : DefaultHandler() {
                 trackname = name,
                 description = description,
                 category = activityTypeLocalized,
-                startTimeEpochMillis = 0,
-                stopTimeEpochMillis = 0,
-                totalDistanceMeter = 0f,
-                totalTimeMillis = 0,
-                movingTimeMillis = 0,
-                avgSpeedMeterPerSecond = 0f,
-                avgMovingSpeedMeterPerSecond = 0f,
-                maxSpeedMeterPerSecond = 0f,
-                minElevationMeter = 0f,
-                maxElevationMeter = 0f,
-                elevationGainMeter = 0f,
+                totalDistanceMeter = distance?.let { parseDouble(it) } ?: 0.0,
+                totalTimeMillis = timerTime?.let { parseLong(it) * 1000 } ?: 0,
+                movingTimeMillis = movingTime?.let { parseLong(it) * 1000 } ?: 0,
+                elevationGainMeter = ascent?.let { parseDouble(it) } ?: 0.0,
+                startTimeEpochMillis = startTimeEpochMillis ?: 0L,
+                stopTimeEpochMillis = stopTimeEpochMillis ?: 0L,
+                maxSpeedMeterPerSecond = maxSpeedMeterPerSecond ?: 0.0,
+                minElevationMeter = minElevationMeter ?: 0.0,
+                maxElevationMeter = maxElevationMeter ?: 0.0,
+                avgSpeedMeterPerSecond = if (speedMeterPerSecondList.isNotEmpty()) speedMeterPerSecondList.average() else 0.0,
+                avgMovingSpeedMeterPerSecond = if (movingSpeedMeterPerSecondList.isNotEmpty()) movingSpeedMeterPerSecondList.average() else 0.0,
             )
         )
         zoneOffset = null

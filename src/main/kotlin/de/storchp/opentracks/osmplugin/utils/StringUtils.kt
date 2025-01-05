@@ -13,14 +13,14 @@ object StringUtils {
     /**
      * Formats the elapsed time in the form "H:MM".
      */
-    fun formatElapsedTimeHoursMinutes(context: Context, millis: Int): String {
+    fun formatElapsedTimeHoursMinutes(context: Context, millis: Long): String {
         return context.getString(
             R.string.stat_time,
             DateUtils.formatElapsedTime((millis * UnitConversions.MS_TO_S).toLong())
         )
     }
 
-    fun formatDistanceInKm(context: Context, distanceMeter: Float): String {
+    fun formatDistanceInKm(context: Context, distanceMeter: Double): String {
         return context.getString(
             R.string.stat_distance_with_unit,
             formatDecimal(distanceMeter * UnitConversions.M_TO_KM),
@@ -28,7 +28,7 @@ object StringUtils {
         )
     }
 
-    fun formatDistanceInMi(context: Context, distanceMeter: Float): String {
+    fun formatDistanceInMi(context: Context, distanceMeter: Double): String {
         return context.getString(
             R.string.stat_distance_with_unit,
             formatDecimal(distanceMeter * UnitConversions.M_TO_MI),
@@ -36,7 +36,7 @@ object StringUtils {
         )
     }
 
-    fun formatSpeedInKmPerHour(context: Context, meterPerSeconds: Float): String {
+    fun formatSpeedInKmPerHour(context: Context, meterPerSeconds: Double): String {
         return context.getString(
             R.string.stat_distance_with_unit,
             formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH),
@@ -44,7 +44,7 @@ object StringUtils {
         )
     }
 
-    fun formatSpeedInMiPerHour(context: Context, meterPerSeconds: Float): String {
+    fun formatSpeedInMiPerHour(context: Context, meterPerSeconds: Double): String {
         return context.getString(
             R.string.stat_distance_with_unit,
             formatDecimal(meterPerSeconds * UnitConversions.MS_TO_KMH * UnitConversions.KM_TO_MI),
@@ -52,8 +52,8 @@ object StringUtils {
         )
     }
 
-    fun formatPaceMinPerKm(context: Context, meterPerSeconds: Float): String {
-        if (meterPerSeconds == 0f) {
+    fun formatPaceMinPerKm(context: Context, meterPerSeconds: Double): String {
+        if (meterPerSeconds == 0.0) {
             return "0:00"
         }
         val kmPerSecond = meterPerSeconds / UnitConversions.KM_TO_M.toFloat()
@@ -68,8 +68,8 @@ object StringUtils {
         )
     }
 
-    fun formatPaceMinPerMi(context: Context, meterPerSeconds: Float): String {
-        if (meterPerSeconds == 0f) {
+    fun formatPaceMinPerMi(context: Context, meterPerSeconds: Double): String {
+        if (meterPerSeconds == 0.0) {
             return "0:00"
         }
         val kmPerSecond = (meterPerSeconds / UnitConversions.KM_TO_M) * UnitConversions.KM_TO_MI
@@ -99,7 +99,7 @@ object StringUtils {
         return df.format(value)
     }
 
-    fun formatAltitudeChangeInMeter(context: Context, altitudeInMeter: Float): String {
+    fun formatAltitudeChangeInMeter(context: Context, altitudeInMeter: Double): String {
         return context.getString(
             R.string.stat_altitude_with_unit,
             altitudeInMeter.toInt().toString(),
@@ -107,7 +107,7 @@ object StringUtils {
         )
     }
 
-    fun formatAltitudeChangeInFeet(context: Context, altitudeInMeter: Float): String {
+    fun formatAltitudeChangeInFeet(context: Context, altitudeInMeter: Double): String {
         return context.getString(
             R.string.stat_altitude_with_unit,
             (altitudeInMeter * UnitConversions.M_TO_FT).toInt().toString(),

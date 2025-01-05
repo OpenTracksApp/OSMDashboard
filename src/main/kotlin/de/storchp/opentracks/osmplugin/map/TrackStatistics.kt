@@ -10,27 +10,27 @@ import kotlin.math.min
 class TrackStatistics(tracks: List<Track>) {
     var category = "unknown"
         private set
-    var startTimeEpochMillis: Int = 0
+    var startTimeEpochMillis: Long = 0
         private set
-    var stopTimeEpochMillis: Int = 0
+    var stopTimeEpochMillis: Long = 0
         private set
-    var totalDistanceMeter: Float = 0f
+    var totalDistanceMeter: Double = 0.0
         private set
-    var totalTimeMillis: Int = 0
+    var totalTimeMillis: Long = 0
         private set
-    var movingTimeMillis: Int = 0
+    var movingTimeMillis: Long = 0
         private set
-    var avgSpeedMeterPerSecond: Float = 0f
+    var avgSpeedMeterPerSecond: Double = 0.0
         private set
-    var avgMovingSpeedMeterPerSecond: Float = 0f
+    var avgMovingSpeedMeterPerSecond: Double = 0.0
         private set
-    var maxSpeedMeterPerSecond: Float = 0f
+    var maxSpeedMeterPerSecond: Double = 0.0
         private set
-    var minElevationMeter: Float = 0f
+    var minElevationMeter: Double = 0.0
         private set
-    var maxElevationMeter: Float = 0f
+    var maxElevationMeter: Double = 0.0
         private set
-    var elevationGainMeter: Float = 0f
+    var elevationGainMeter: Double = 0.0
         private set
 
     init {
