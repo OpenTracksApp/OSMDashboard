@@ -100,4 +100,5 @@
     <string name="theme_icon">Téma ikonja</string>
     <string name="settings_locale_title">Nyelv</string>
     <string name="settings_locale_system_default">Rendszer alapértelmezett</string>
+    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
 </resources>
