@@ -101,4 +101,5 @@
     <string name="theme_icon">Theme icon</string>
     <string name="settings_locale_title">Language</string>
     <string name="settings_locale_system_default">System default</string>
+    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
 </resources>

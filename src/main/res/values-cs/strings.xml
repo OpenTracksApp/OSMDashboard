@@ -100,4 +100,5 @@
     <string name="theme_icon">Ikona motivu</string>
     <string name="settings_locale_title">Jazyk</string>
     <string name="settings_locale_system_default">Podle systému</string>
+    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
 </resources>
