@@ -100,5 +100,5 @@
     <string name="map_icon">Значок мапи</string>
     <string name="settings_locale_title">Мова</string>
     <string name="settings_locale_system_default">Як у системі</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
+    <string name="alternative_usage_info">За допомогою OSMDashboard ви також можете ділитися файлами GPX або простим місцезнаходженням з інших додатків.</string>
 </resources>
