@@ -187,7 +187,7 @@ class GpxParser() : DefaultHandler() {
 
     private fun createTrackpoint(): Trackpoint {
         try {
-            val parsedTime = OffsetDateTime.parse(time)
+            val parsedTime = time?.let { OffsetDateTime.parse(it) } ?: OffsetDateTime.now()
             if (zoneOffset == null) {
                 zoneOffset = parsedTime.offset
             }
