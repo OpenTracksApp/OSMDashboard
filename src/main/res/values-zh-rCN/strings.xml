@@ -100,5 +100,5 @@
     <string name="map_icon">地图图标</string>
     <string name="settings_locale_title">语言</string>
     <string name="settings_locale_system_default">系统默认</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
+    <string name="alternative_usage_info">或者，您也可以与 OSMDashboard 分享其他应用的 GPX 文件或简单位置。</string>
 </resources>
