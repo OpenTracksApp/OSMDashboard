@@ -13,7 +13,7 @@ data class TrackpointsBySegments(
 
     private fun speeds() = segments
         .flatMap { it }
-        .map { it.speed }
+        .map { it.speed ?: 0.0 }
         .filter { it > 0 }
 
 }

@@ -197,12 +197,13 @@ object MapUtils {
     ): Int {
         var red = 255
         var green = 255
-        if (trackpoint.speed == 0.0) {
+        val speed = trackpoint.speed ?: 0.0
+        if (speed == 0.0) {
             green = 0
-        } else if (trackpoint.speed < average) {
-            green = (255 * trackpoint.speed / average).toInt()
+        } else if (speed < average) {
+            green = (255 * speed / average).toInt()
         } else {
-            red = 255 - (255 * (trackpoint.speed - average) / averageToMaxSpeed).toInt()
+            red = 255 - (255 * (speed - average) / averageToMaxSpeed).toInt()
         }
         return Color.argb(255, red, green, 0)
     }

@@ -31,6 +31,8 @@ private const val TAG_WAYPOINT = "wpt"
 private const val TAG_OT_TRACK_UUID = "opentracks:trackid"
 private const val ATTRIBUTE_LAT = "lat"
 private const val ATTRIBUTE_LON = "lon"
+private const val TAG_ROUTE = "rte"
+private const val TAG_ROUTEPOINT = "rtept"
 
 private const val TAG_EXTENSION_DISTANCE = "gpxtrkx:Distance"
 private const val TAG_EXTENSION_TIMER_TIME = "gpxtrkx:TimerTime"
@@ -51,10 +53,13 @@ class GpxParser() : DefaultHandler() {
     // The current element content
     private var content = ""
 
-    private var name: String? = null
-    private var description: String? = null
-    private var activityType: String? = null
-    private var activityTypeLocalized: String? = null
+    private var trackpointContext: Boolean = false
+    private var trackName: String? = null
+    private var trackpointName: String? = null
+    private var trackDescription: String? = null
+    private var trackpointDescription: String? = null
+    private var trackType: String? = null
+    private var typeLocalized: String? = null
     private var latitude: String? = null
     private var longitude: String? = null
     private var time: String? = null
@@ -71,14 +76,14 @@ class GpxParser() : DefaultHandler() {
     private var maxElevationMeter: Double? = null
     private val speedMeterPerSecondList = mutableListOf<Double>()
     private val movingSpeedMeterPerSecondList = mutableListOf<Double>()
-    private var markerType: String? = null
+    private var trackpointType: String? = null
     private var photoUrl: String? = null
     private var trackUuid: String? = null
     private var trackId: Long = 0
 
     private val debug = TrackpointsDebug()
-    private val segments = mutableListOf<MutableList<Trackpoint>>()
-    private var segment: MutableList<Trackpoint>? = null
+    private val segments = mutableListOf<List<Trackpoint>>()
+    private val segment = mutableListOf<Trackpoint>()
 
     val waypoints = mutableListOf<Waypoint>()
     val tracks = mutableListOf<Track>()
@@ -87,8 +92,7 @@ class GpxParser() : DefaultHandler() {
 
     override fun startElement(uri: String, localName: String, tag: String, attributes: Attributes) {
         when (tag) {
-            TAG_WAYPOINT -> onWaypointStart(attributes)
-            TAG_TRACK -> {
+            TAG_TRACK, TAG_ROUTE -> {
                 trackId++
                 distance = null
                 timerTime = null
@@ -101,13 +105,14 @@ class GpxParser() : DefaultHandler() {
                 maxElevationMeter = null
                 speedMeterPerSecondList.clear()
                 movingSpeedMeterPerSecondList.clear()
+                segment.clear()
             }
 
             TAG_TRACKSEGMENT -> {
-                segment = mutableListOf()
+                segment.clear()
             }
 
-            TAG_TRACKPOINT -> onTrackpointStart(attributes)
+            TAG_WAYPOINT, TAG_TRACKPOINT, TAG_ROUTEPOINT -> onTrackpointStart(attributes)
         }
     }
 
@@ -122,18 +127,25 @@ class GpxParser() : DefaultHandler() {
             }
 
             TAG_WAYPOINT -> onWaypointEnd()
-            TAG_TRACK -> onTrackEnd()
+            TAG_TRACK, TAG_ROUTE -> onTrackEnd()
             TAG_TRACKSEGMENT -> onTracksegmentEnd()
-            TAG_TRACKPOINT -> onTrackpointEnd()
-            TAG_NAME -> name = content.trim()
-            TAG_DESCRIPTION -> description = content.trim()
-            TAG_TYPE -> { //Track or Marker/WPT
-                // In older  version this might be localized content.
-                activityType = content.trim()
-                markerType = content.trim()
+            TAG_TRACKPOINT, TAG_ROUTEPOINT -> onTrackpointEnd()
+            TAG_NAME -> {
+                if (trackpointContext) trackpointName = content.trim()
+                else trackName = content.trim()
             }
 
-            TAG_OT_TYPE_TRANSLATED -> activityTypeLocalized = content.trim()
+            TAG_DESCRIPTION -> {
+                if (trackpointContext) trackpointDescription = content.trim()
+                else trackDescription = content.trim()
+            }
+
+            TAG_TYPE -> {
+                if (trackpointContext) trackpointType = content.trim()
+                else trackType = content.trim()
+            }
+
+            TAG_OT_TYPE_TRANSLATED -> typeLocalized = content.trim()
             TAG_TIME -> time = content.trim()
             TAG_EXTENSION_SPEED, TAG_EXTENSION_SPEED_COMPAT -> speed = content.trim()
             TAG_ELEVATION -> elevation = content.trim()
@@ -148,31 +160,31 @@ class GpxParser() : DefaultHandler() {
     }
 
     private fun onTracksegmentEnd() {
-        if (segment == null || segment!!.isEmpty() == true) {
+        if (segment.isEmpty() == true) {
             Log.w(TAG, "No Trackpoints in current segment.")
             return
         }
 
-        segments.add(segment!!)
-        segment = mutableListOf()
+        segments.add(segment.toList())
+        segment.clear()
     }
 
     private fun onTrackpointEnd() {
         val trackpoint = createTrackpoint()
         if (trackpoint.latLong != null) {
-            segment!!.add(trackpoint)
+            segment.add(trackpoint)
             debug.trackpointsReceived++
         } else {
             debug.trackpointsInvalid++
         }
 
         if (startTimeEpochMillis == null) {
-            startTimeEpochMillis = trackpoint.time.toEpochMilli()
+            startTimeEpochMillis = trackpoint.time?.toEpochMilli()
         }
-        if (stopTimeEpochMillis == null || trackpoint.time.toEpochMilli() > stopTimeEpochMillis!!) {
-            stopTimeEpochMillis = trackpoint.time.toEpochMilli()
+        if (stopTimeEpochMillis == null || (trackpoint.time != null && trackpoint.time.toEpochMilli() > stopTimeEpochMillis!!)) {
+            stopTimeEpochMillis = trackpoint.time?.toEpochMilli()
         }
-        if (maxSpeedMeterPerSecond == null || trackpoint.speed > maxSpeedMeterPerSecond!!) {
+        if (maxSpeedMeterPerSecond == null || (trackpoint.speed != null && trackpoint.speed > maxSpeedMeterPerSecond!!)) {
             maxSpeedMeterPerSecond = trackpoint.speed
         }
         if (minElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation < minElevationMeter!!) {
@@ -181,14 +193,17 @@ class GpxParser() : DefaultHandler() {
         if (maxElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation > maxElevationMeter!!) {
             maxElevationMeter = trackpoint.elevation!!
         }
-        speedMeterPerSecondList.add(trackpoint.speed)
-        if (trackpoint.speed > 0) movingSpeedMeterPerSecondList.add(trackpoint.speed)
+        val speed = trackpoint.speed ?: 0.0
+        speedMeterPerSecondList.add(speed)
+        if (speed > 0) movingSpeedMeterPerSecondList.add(speed)
+
+        trackpointContext = false
     }
 
     private fun createTrackpoint(): Trackpoint {
         try {
-            val parsedTime = time?.let { OffsetDateTime.parse(it) } ?: OffsetDateTime.now()
-            if (zoneOffset == null) {
+            val parsedTime = time?.let { OffsetDateTime.parse(it) }
+            if (zoneOffset == null && parsedTime != null) {
                 zoneOffset = parsedTime.offset
             }
 
@@ -202,8 +217,9 @@ class GpxParser() : DefaultHandler() {
                 longitude = longitudeDouble,
                 type = TRACKPOINT_TYPE_TRACKPOINT,
                 speed = speedDouble,
-                time = parsedTime.toInstant(),
+                time = parsedTime?.toInstant(),
                 elevation = elevationDouble,
+                name = trackpointName,
             )
         } catch (e: Exception) {
             throw RuntimeException("Unable to create Trackpoint", e)
@@ -211,22 +227,16 @@ class GpxParser() : DefaultHandler() {
     }
 
     private fun onTrackpointStart(attributes: Attributes) {
+        trackpointContext = true
         latitude = attributes.getValue(ATTRIBUTE_LAT)
         longitude = attributes.getValue(ATTRIBUTE_LON)
         time = null
         elevation = null
         speed = null
-    }
-
-    private fun onWaypointStart(attributes: Attributes) {
-        name = null
-        description = null
+        trackpointName = null
+        trackpointDescription = null
         photoUrl = null
-        latitude = attributes.getValue(ATTRIBUTE_LAT)
-        longitude = attributes.getValue(ATTRIBUTE_LON)
-        time = null
-        elevation = null
-        markerType = null
+        trackpointType = null
     }
 
     private fun onWaypointEnd() {
@@ -238,26 +248,27 @@ class GpxParser() : DefaultHandler() {
 
         waypoints.add(
             Waypoint(
-                name = name,
-                description = description,
-                category = markerType,
+                name = trackpointName,
+                description = trackpointDescription,
+                category = trackpointType,
                 latLong = trackpoint.latLong,
                 photoUrl = photoUrl
             )
         )
+        trackpointContext = false
     }
 
     private fun onTrackEnd() {
-        if (activityTypeLocalized == null) {
+        if (typeLocalized == null) {
             // Backward compatibility
-            activityTypeLocalized = activityType
+            typeLocalized = trackType
         }
         tracks.add(
             Track(
                 id = trackId,
-                trackname = name,
-                description = description,
-                category = activityTypeLocalized,
+                trackname = trackName,
+                description = trackDescription,
+                category = typeLocalized,
                 totalDistanceMeter = distance?.let { parseDouble(it) } ?: 0.0,
                 totalTimeMillis = timerTime?.let { parseLong(it) * 1000 } ?: 0,
                 movingTimeMillis = movingTime?.let { parseLong(it) * 1000 } ?: 0,
@@ -272,6 +283,13 @@ class GpxParser() : DefaultHandler() {
             )
         )
         zoneOffset = null
+
+        // Add the last missing segment
+        if (segments.isEmpty() && segment.isNotEmpty()) {
+            segments.add(segment.toList())
+            segment.clear()
+        }
+
         debug.segments = segments.size
     }
 

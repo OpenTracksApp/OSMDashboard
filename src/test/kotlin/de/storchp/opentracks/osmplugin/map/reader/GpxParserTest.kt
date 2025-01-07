@@ -12,7 +12,7 @@ import javax.xml.parsers.SAXParserFactory
 internal class GpxParserTest {
 
     @Test
-    fun parseGpx() {
+    fun parseGpxTrack() {
         val sut = GpxParser()
         SAXParserFactory.newInstance().newSAXParser()
             .parse(GpxParserTest::class.java.getResourceAsStream("/track.gpx"), sut)
@@ -71,6 +71,58 @@ internal class GpxParserTest {
                 speed = 1.34,
                 elevation = 55.3,
                 time = Instant.parse("2023-12-29T08:47:41.518Z")
+            )
+        )
+    }
+
+    @Test
+    fun parseGpxRoute() {
+        val sut = GpxParser()
+        SAXParserFactory.newInstance().newSAXParser()
+            .parse(GpxParserTest::class.java.getResourceAsStream("/route.gpx"), sut)
+
+        assertThat(sut.tracks).containsExactly(
+            Track(
+                id = 1,
+                trackname = "lenitzsee-zusatz-",
+                description = "Generated from track lenitzsee-zusatz-",
+                category = null,
+                startTimeEpochMillis = 0,
+                stopTimeEpochMillis = 0,
+                totalDistanceMeter = 0.0,
+                totalTimeMillis = 0,
+                movingTimeMillis = 0,
+                avgSpeedMeterPerSecond = 0.0,
+                avgMovingSpeedMeterPerSecond = 0.0,
+                maxSpeedMeterPerSecond = 0.0,
+                minElevationMeter = 0.0,
+                maxElevationMeter = 0.0,
+                elevationGainMeter = 0.0,
+            )
+        )
+        assertThat(sut.tracksBySegments.segments).hasSize(1)
+        val segment = sut.tracksBySegments.segments.first()
+        assertThat(segment).hasSize(77)
+        assertThat(segment.first()).isEqualTo(
+            Trackpoint(
+                latitude = 52.765593,
+                longitude = 13.279984,
+                type = 0,
+                speed = 0.0,
+                elevation = 0.0,
+                time = null,
+                name = "RPT001"
+            )
+        )
+        assertThat(segment.last()).isEqualTo(
+            Trackpoint(
+                latitude = 52.765682,
+                longitude = 13.278576,
+                type = 0,
+                speed = 0.0,
+                elevation = 0.0,
+                time = null,
+                name = "RPT077"
             )
         )
     }

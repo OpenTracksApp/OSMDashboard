@@ -36,7 +36,7 @@ class TrackStatistics(tracks: List<Track>) {
     init {
         if (tracks.isNotEmpty()) {
             val first = tracks[0]
-            category = first.category.toString()
+            first.category?.let { category = it }
             startTimeEpochMillis = first.startTimeEpochMillis
             stopTimeEpochMillis = first.stopTimeEpochMillis
             totalDistanceMeter = first.totalDistanceMeter
