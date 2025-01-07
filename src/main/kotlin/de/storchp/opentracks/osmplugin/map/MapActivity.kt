@@ -579,12 +579,12 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         }
     }
 
-    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+    override fun onItemSingleTapUp(index: Int, item: MarkerInterface): Boolean {
         val markerItem = item as MarkerItem
         if (markerItem.uid != null) {
             try {
                 val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
-                intent.putExtra(EXTRA_MARKER_ID, markerItem.getUid() as Long?)
+                intent.putExtra(EXTRA_MARKER_ID, markerItem.uid as Long)
                 startActivity(intent)
             } catch (ex: Exception) {
                 Log.e(
@@ -597,7 +597,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         return true
     }
 
-    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+    override fun onItemLongPress(index: Int, item: MarkerInterface): Boolean {
         return false
     }
 
