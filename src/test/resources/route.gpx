@@ -1,319 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1" xmlns:tmd="http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1" xmlns:vptm="http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1" xmlns:ctx="http://www.garmin.com/xmlschemas/CreationTimeExtension/v1" xmlns:gpxacc="http://www.garmin.com/xmlschemas/AccelerationExtension/v1" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:vidx1="http://www.garmin.com/xmlschemas/VideoExtension/v1">
-  <metadata>
-    <time>2024-11-20T15:56:12.870Z</time>
-    <bounds minlat="52.765551000" minlon="13.278126000" maxlat="52.778537000" maxlon="13.284775000"/>
-  </metadata>
-  <rte>
-    <name>lenitzsee-zusatz-</name>
-    <desc>Generated from track lenitzsee-zusatz-</desc>
-    <rtept lat="52.765593000" lon="13.279984000">
-      <ele>0.000</ele>
-      <name>RPT001</name>
-    </rtept>
-    <rtept lat="52.765551000" lon="13.280371000">
-      <ele>0.000</ele>
-      <name>RPT002</name>
-    </rtept>
-    <rtept lat="52.765664000" lon="13.280392000">
-      <ele>0.000</ele>
-      <name>RPT003</name>
-    </rtept>
-    <rtept lat="52.765606000" lon="13.280977000">
-      <ele>0.000</ele>
-      <name>RPT004</name>
-    </rtept>
-    <rtept lat="52.765827000" lon="13.281025000">
-      <ele>0.000</ele>
-      <name>RPT005</name>
-    </rtept>
-    <rtept lat="52.766054000" lon="13.281036000">
-      <ele>0.000</ele>
-      <name>RPT006</name>
-    </rtept>
-    <rtept lat="52.766719000" lon="13.281122000">
-      <ele>0.000</ele>
-      <name>RPT007</name>
-    </rtept>
-    <rtept lat="52.767687000" lon="13.281191000">
-      <ele>0.000</ele>
-      <name>RPT008</name>
-    </rtept>
-    <rtept lat="52.768777000" lon="13.281288000">
-      <ele>0.000</ele>
-      <name>RPT009</name>
-    </rtept>
-    <rtept lat="52.769248000" lon="13.281304000">
-      <ele>0.000</ele>
-      <name>RPT010</name>
-    </rtept>
-    <rtept lat="52.769383000" lon="13.281221000">
-      <ele>0.000</ele>
-      <name>RPT011</name>
-    </rtept>
-    <rtept lat="52.769422000" lon="13.281135000">
-      <ele>0.000</ele>
-      <name>RPT012</name>
-    </rtept>
-    <rtept lat="52.769510000" lon="13.280996000">
-      <ele>0.000</ele>
-      <name>RPT013</name>
-    </rtept>
-    <rtept lat="52.769604000" lon="13.280867000">
-      <ele>0.000</ele>
-      <name>RPT014</name>
-    </rtept>
-    <rtept lat="52.769679000" lon="13.280781000">
-      <ele>0.000</ele>
-      <name>RPT015</name>
-    </rtept>
-    <rtept lat="52.769769000" lon="13.280754000">
-      <ele>0.000</ele>
-      <name>RPT016</name>
-    </rtept>
-    <rtept lat="52.770250000" lon="13.280749000">
-      <ele>0.000</ele>
-      <name>RPT017</name>
-    </rtept>
-    <rtept lat="52.770295000" lon="13.280727000">
-      <ele>0.000</ele>
-      <name>RPT018</name>
-    </rtept>
-    <rtept lat="52.771538000" lon="13.280840000">
-      <ele>0.000</ele>
-      <name>RPT019</name>
-    </rtept>
-    <rtept lat="52.772954000" lon="13.280934000">
-      <ele>0.000</ele>
-      <name>RPT020</name>
-    </rtept>
-    <rtept lat="52.773834000" lon="13.280987000">
-      <ele>0.000</ele>
-      <name>RPT021</name>
-    </rtept>
-    <rtept lat="52.773915000" lon="13.281030000">
-      <ele>0.000</ele>
-      <name>RPT022</name>
-    </rtept>
-    <rtept lat="52.773996000" lon="13.281148000">
-      <ele>0.000</ele>
-      <name>RPT023</name>
-    </rtept>
-    <rtept lat="52.774019000" lon="13.281229000">
-      <ele>0.000</ele>
-      <name>RPT024</name>
-    </rtept>
-    <rtept lat="52.774031000" lon="13.281320000">
-      <ele>0.000</ele>
-      <name>RPT025</name>
-    </rtept>
-    <rtept lat="52.773963000" lon="13.284485000">
-      <ele>0.000</ele>
-      <name>RPT026</name>
-    </rtept>
-    <rtept lat="52.773986000" lon="13.284603000">
-      <ele>0.000</ele>
-      <name>RPT027</name>
-    </rtept>
-    <rtept lat="52.774044000" lon="13.284662000">
-      <ele>0.000</ele>
-      <name>RPT028</name>
-    </rtept>
-    <rtept lat="52.774109000" lon="13.284684000">
-      <ele>0.000</ele>
-      <name>RPT029</name>
-    </rtept>
-    <rtept lat="52.774197000" lon="13.284619000">
-      <ele>0.000</ele>
-      <name>RPT030</name>
-    </rtept>
-    <rtept lat="52.774827000" lon="13.284614000">
-      <ele>0.000</ele>
-      <name>RPT031</name>
-    </rtept>
-    <rtept lat="52.775278000" lon="13.284619000">
-      <ele>0.000</ele>
-      <name>RPT032</name>
-    </rtept>
-    <rtept lat="52.775609000" lon="13.284662000">
-      <ele>0.000</ele>
-      <name>RPT033</name>
-    </rtept>
-    <rtept lat="52.775842000" lon="13.284705000">
-      <ele>0.000</ele>
-      <name>RPT034</name>
-    </rtept>
-    <rtept lat="52.775982000" lon="13.284775000">
-      <ele>0.000</ele>
-      <name>RPT035</name>
-    </rtept>
-    <rtept lat="52.776095000" lon="13.284775000">
-      <ele>0.000</ele>
-      <name>RPT036</name>
-    </rtept>
-    <rtept lat="52.776180000" lon="13.284753000">
-      <ele>0.000</ele>
-      <name>RPT037</name>
-    </rtept>
-    <rtept lat="52.776449000" lon="13.284716000">
-      <ele>0.000</ele>
-      <name>RPT038</name>
-    </rtept>
-    <rtept lat="52.776517000" lon="13.284630000">
-      <ele>0.000</ele>
-      <name>RPT039</name>
-    </rtept>
-    <rtept lat="52.776550000" lon="13.283407000">
-      <ele>0.000</ele>
-      <name>RPT040</name>
-    </rtept>
-    <rtept lat="52.776647000" lon="13.281465000">
-      <ele>0.000</ele>
-      <name>RPT041</name>
-    </rtept>
-    <rtept lat="52.776702000" lon="13.281315000">
-      <ele>0.000</ele>
-      <name>RPT042</name>
-    </rtept>
-    <rtept lat="52.776783000" lon="13.281207000">
-      <ele>0.000</ele>
-      <name>RPT043</name>
-    </rtept>
-    <rtept lat="52.777160000" lon="13.281122000">
-      <ele>0.000</ele>
-      <name>RPT044</name>
-    </rtept>
-    <rtept lat="52.777260000" lon="13.281020000">
-      <ele>0.000</ele>
-      <name>RPT045</name>
-    </rtept>
-    <rtept lat="52.777358000" lon="13.280859000">
-      <ele>0.000</ele>
-      <name>RPT046</name>
-    </rtept>
-    <rtept lat="52.777397000" lon="13.280805000">
-      <ele>0.000</ele>
-      <name>RPT047</name>
-    </rtept>
-    <rtept lat="52.777806000" lon="13.280719000">
-      <ele>0.000</ele>
-      <name>RPT048</name>
-    </rtept>
-    <rtept lat="52.778492000" lon="13.280607000">
-      <ele>0.000</ele>
-      <name>RPT049</name>
-    </rtept>
-    <rtept lat="52.778488000" lon="13.280668000">
-      <ele>0.000</ele>
-      <name>RPT050</name>
-    </rtept>
-    <rtept lat="52.778524000" lon="13.280674000">
-      <ele>0.000</ele>
-      <name>RPT051</name>
-    </rtept>
-    <rtept lat="52.778537000" lon="13.279762000">
-      <ele>0.000</ele>
-      <name>RPT052</name>
-    </rtept>
-    <rtept lat="52.778507000" lon="13.279756000">
-      <ele>0.000</ele>
-      <name>RPT053</name>
-    </rtept>
-    <rtept lat="52.778507000" lon="13.279644000">
-      <ele>0.000</ele>
-      <name>RPT054</name>
-    </rtept>
-    <rtept lat="52.778485000" lon="13.279644000">
-      <ele>0.000</ele>
-      <name>RPT055</name>
-    </rtept>
-    <rtept lat="52.778485000" lon="13.279810000">
-      <ele>0.000</ele>
-      <name>RPT056</name>
-    </rtept>
-    <rtept lat="52.778400000" lon="13.279778000">
-      <ele>0.000</ele>
-      <name>RPT057</name>
-    </rtept>
-    <rtept lat="52.778186000" lon="13.279735000">
-      <ele>0.000</ele>
-      <name>RPT058</name>
-    </rtept>
-    <rtept lat="52.777836000" lon="13.279692000">
-      <ele>0.000</ele>
-      <name>RPT059</name>
-    </rtept>
-    <rtept lat="52.777141000" lon="13.279617000">
-      <ele>0.000</ele>
-      <name>RPT060</name>
-    </rtept>
-    <rtept lat="52.776255000" lon="13.279536000">
-      <ele>0.000</ele>
-      <name>RPT061</name>
-    </rtept>
-    <rtept lat="52.774818000" lon="13.279429000">
-      <ele>0.000</ele>
-      <name>RPT062</name>
-    </rtept>
-    <rtept lat="52.774445000" lon="13.279424000">
-      <ele>0.000</ele>
-      <name>RPT063</name>
-    </rtept>
-    <rtept lat="52.773523000" lon="13.279381000">
-      <ele>0.000</ele>
-      <name>RPT064</name>
-    </rtept>
-    <rtept lat="52.773085000" lon="13.279354000">
-      <ele>0.000</ele>
-      <name>RPT065</name>
-    </rtept>
-    <rtept lat="52.771413000" lon="13.279263000">
-      <ele>0.000</ele>
-      <name>RPT066</name>
-    </rtept>
-    <rtept lat="52.771293000" lon="13.279300000">
-      <ele>0.000</ele>
-      <name>RPT067</name>
-    </rtept>
-    <rtept lat="52.771073000" lon="13.279349000">
-      <ele>0.000</ele>
-      <name>RPT068</name>
-    </rtept>
-    <rtept lat="52.770200000" lon="13.279295000">
-      <ele>0.000</ele>
-      <name>RPT069</name>
-    </rtept>
-    <rtept lat="52.769959000" lon="13.279075000">
-      <ele>0.000</ele>
-      <name>RPT070</name>
-    </rtept>
-    <rtept lat="52.767603000" lon="13.278893000">
-      <ele>0.000</ele>
-      <name>RPT071</name>
-    </rtept>
-    <rtept lat="52.766899000" lon="13.278834000">
-      <ele>0.000</ele>
-      <name>RPT072</name>
-    </rtept>
-    <rtept lat="52.765883000" lon="13.278555000">
-      <ele>0.000</ele>
-      <name>RPT073</name>
-    </rtept>
-    <rtept lat="52.765798000" lon="13.278549000">
-      <ele>0.000</ele>
-      <name>RPT074</name>
-    </rtept>
-    <rtept lat="52.765779000" lon="13.278126000">
-      <ele>0.000</ele>
-      <name>RPT075</name>
-    </rtept>
-    <rtept lat="52.765662000" lon="13.278152000">
-      <ele>0.000</ele>
-      <name>RPT076</name>
-    </rtept>
-    <rtept lat="52.765682000" lon="13.278576000">
-      <ele>0.000</ele>
-      <name>RPT077</name>
-    </rtept>
-  </rte>
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org"
+    xmlns="http://www.topografix.com/GPX/1/1">
+    <metadata>
+        <time>2024-11-20T15:56:12.870Z</time>
+        <bounds minlat="52.765551000" minlon="13.278126000" maxlat="52.778537000"
+            maxlon="13.284775000" />
+    </metadata>
+    <rte>
+        <name>lenitzsee-zusatz-</name>
+        <desc>Generated from track lenitzsee-zusatz-</desc>
+        <rtept lat="52.765593000" lon="13.279984000">
+            <ele>0.000</ele>
+            <name>RPT001</name>
+        </rtept>
+        <rtept lat="52.765551000" lon="13.280371000">
+            <ele>0.000</ele>
+            <name>RPT002</name>
+        </rtept>
+        <rtept lat="52.765664000" lon="13.280392000">
+            <ele>0.000</ele>
+            <name>RPT003</name>
+        </rtept>
+        <rtept lat="52.765606000" lon="13.280977000">
+            <ele>0.000</ele>
+            <name>RPT004</name>
+        </rtept>
+        <rtept lat="52.765827000" lon="13.281025000">
+            <ele>0.000</ele>
+            <name>RPT005</name>
+        </rtept>
+        <rtept lat="52.766054000" lon="13.281036000">
+            <ele>0.000</ele>
+            <name>RPT006</name>
+        </rtept>
+        <rtept lat="52.766719000" lon="13.281122000">
+            <ele>0.000</ele>
+            <name>RPT007</name>
+        </rtept>
+    </rte>
 </gpx>

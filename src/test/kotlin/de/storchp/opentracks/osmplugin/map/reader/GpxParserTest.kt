@@ -37,8 +37,8 @@ internal class GpxParserTest {
                 trackname = "2023-12-29T09:37+01",
                 description = "",
                 category = "walking",
-                startTimeEpochMillis = 1703839066375,
-                stopTimeEpochMillis = 1703839661518,
+                startTime = Instant.ofEpochMilli(1703839066375),
+                stopTime = Instant.ofEpochMilli(1703839661518),
                 totalDistanceMeter = 809.648193359375,
                 totalTimeMillis = 598000,
                 movingTimeMillis = 583000,
@@ -87,8 +87,8 @@ internal class GpxParserTest {
                 trackname = "lenitzsee-zusatz-",
                 description = "Generated from track lenitzsee-zusatz-",
                 category = null,
-                startTimeEpochMillis = 0,
-                stopTimeEpochMillis = 0,
+                startTime = null,
+                stopTime = null,
                 totalDistanceMeter = 0.0,
                 totalTimeMillis = 0,
                 movingTimeMillis = 0,
@@ -102,7 +102,7 @@ internal class GpxParserTest {
         )
         assertThat(sut.tracksBySegments.segments).hasSize(1)
         val segment = sut.tracksBySegments.segments.first()
-        assertThat(segment).hasSize(77)
+        assertThat(segment).hasSize(7)
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
                 latitude = 52.765593,
@@ -116,13 +116,65 @@ internal class GpxParserTest {
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
-                latitude = 52.765682,
-                longitude = 13.278576,
+                latitude = 52.766719,
+                longitude = 13.281122,
                 type = 0,
                 speed = 0.0,
                 elevation = 0.0,
                 time = null,
-                name = "RPT077"
+                name = "RPT007"
+            )
+        )
+    }
+
+    @Test
+    fun parseGpxRouteNoElevation() {
+        val sut = GpxParser()
+        SAXParserFactory.newInstance().newSAXParser()
+            .parse(GpxParserTest::class.java.getResourceAsStream("/route-noelevation.gpx"), sut)
+
+        assertThat(sut.tracks).containsExactly(
+            Track(
+                id = 1,
+                trackname = "RPT015",
+                description = "Generated from track biesdorf",
+                category = null,
+                startTime = null,
+                stopTime = null,
+                totalDistanceMeter = 0.0,
+                totalTimeMillis = 0,
+                movingTimeMillis = 0,
+                avgSpeedMeterPerSecond = 0.0,
+                avgMovingSpeedMeterPerSecond = 0.0,
+                maxSpeedMeterPerSecond = 0.0,
+                minElevationMeter = 0.0,
+                maxElevationMeter = 0.0,
+                elevationGainMeter = 0.0,
+            )
+        )
+        assertThat(sut.tracksBySegments.segments).hasSize(1)
+        val segment = sut.tracksBySegments.segments.first()
+        assertThat(segment).hasSize(7)
+        assertThat(segment.first()).isEqualTo(
+            Trackpoint(
+                latitude = 52.505294657,
+                longitude = 13.560877026,
+                type = 0,
+                speed = 0.0,
+                elevation = null,
+                time = null,
+                name = "RPT001"
+            )
+        )
+        assertThat(segment.last()).isEqualTo(
+            Trackpoint(
+                latitude = 52.504075066,
+                longitude = 13.566812754,
+                type = 0,
+                speed = 0.0,
+                elevation = null,
+                time = null,
+                name = "RPT018"
             )
         )
     }

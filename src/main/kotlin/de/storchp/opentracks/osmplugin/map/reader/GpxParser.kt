@@ -12,6 +12,7 @@ import org.xml.sax.Locator
 import org.xml.sax.helpers.DefaultHandler
 import java.lang.Double.parseDouble
 import java.lang.Long.parseLong
+import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
@@ -69,8 +70,8 @@ class GpxParser() : DefaultHandler() {
     private var timerTime: String? = null
     private var movingTime: String? = null
     private var ascent: String? = null
-    private var startTimeEpochMillis: Long? = null
-    private var stopTimeEpochMillis: Long? = null
+    private var startTime: Instant? = null
+    private var stopTime: Instant? = null
     private var maxSpeedMeterPerSecond: Double? = null
     private var minElevationMeter: Double? = null
     private var maxElevationMeter: Double? = null
@@ -98,8 +99,8 @@ class GpxParser() : DefaultHandler() {
                 timerTime = null
                 movingTime = null
                 ascent = null
-                startTimeEpochMillis = null
-                stopTimeEpochMillis = null
+                startTime = null
+                stopTime = null
                 maxSpeedMeterPerSecond = null
                 minElevationMeter = null
                 maxElevationMeter = null
@@ -178,20 +179,26 @@ class GpxParser() : DefaultHandler() {
             debug.trackpointsInvalid++
         }
 
-        if (startTimeEpochMillis == null) {
-            startTimeEpochMillis = trackpoint.time?.toEpochMilli()
+        if (startTime == null) {
+            startTime = trackpoint.time
         }
-        if (stopTimeEpochMillis == null || (trackpoint.time != null && trackpoint.time.toEpochMilli() > stopTimeEpochMillis!!)) {
-            stopTimeEpochMillis = trackpoint.time?.toEpochMilli()
+        trackpoint.time?.let { time ->
+            if (stopTime == null || time > stopTime!!) {
+                stopTime = time
+            }
         }
-        if (maxSpeedMeterPerSecond == null || (trackpoint.speed != null && trackpoint.speed > maxSpeedMeterPerSecond!!)) {
-            maxSpeedMeterPerSecond = trackpoint.speed
+        trackpoint.speed?.let { speed ->
+            if (maxSpeedMeterPerSecond == null || speed > maxSpeedMeterPerSecond!!) {
+                maxSpeedMeterPerSecond = speed
+            }
         }
-        if (minElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation < minElevationMeter!!) {
-            minElevationMeter = trackpoint.elevation!!
-        }
-        if (maxElevationMeter == null || trackpoint.elevation != null && trackpoint.elevation > maxElevationMeter!!) {
-            maxElevationMeter = trackpoint.elevation!!
+        trackpoint.elevation?.let { elevation ->
+            if (minElevationMeter == null || elevation < minElevationMeter!!) {
+                minElevationMeter = elevation
+            }
+            if (maxElevationMeter == null || elevation > maxElevationMeter!!) {
+                maxElevationMeter = elevation
+            }
         }
         val speed = trackpoint.speed ?: 0.0
         speedMeterPerSecondList.add(speed)
@@ -273,8 +280,8 @@ class GpxParser() : DefaultHandler() {
                 totalTimeMillis = timerTime?.let { parseLong(it) * 1000 } ?: 0,
                 movingTimeMillis = movingTime?.let { parseLong(it) * 1000 } ?: 0,
                 elevationGainMeter = ascent?.let { parseDouble(it) } ?: 0.0,
-                startTimeEpochMillis = startTimeEpochMillis ?: 0L,
-                stopTimeEpochMillis = stopTimeEpochMillis ?: 0L,
+                startTime = startTime,
+                stopTime = stopTime,
                 maxSpeedMeterPerSecond = maxSpeedMeterPerSecond ?: 0.0,
                 minElevationMeter = minElevationMeter ?: 0.0,
                 maxElevationMeter = maxElevationMeter ?: 0.0,

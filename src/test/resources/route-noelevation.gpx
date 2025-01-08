@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org"
+    xmlns="http://www.topografix.com/GPX/1/1">
+    <metadata>
+        <time>2024-11-20T15:56:12.292Z</time>
+        <bounds minlat="52.484022073" minlon="13.543059111" maxlat="52.505702812"
+            maxlon="13.575792790" />
+    </metadata>
+    <rte>
+        <name>biesdorf</name>
+        <desc>Generated from track biesdorf</desc>
+        <rtept lat="52.505294657" lon="13.560877026">
+            <name>RPT001</name>
+        </rtept>
+        <rtept lat="52.505392614" lon="13.560949445">
+            <name>RPT002</name>
+        </rtept>
+        <rtept lat="52.505702812" lon="13.561373234">
+            <name>RPT003</name>
+        </rtept>
+        <rtept lat="52.505596692" lon="13.561571718">
+            <name>RPT004</name>
+        </rtept>
+        <name>RPT015</name>
+        <rtept lat="52.504284048" lon="13.566228033">
+            <name>RPT016</name>
+        </rtept>
+        <rtept lat="52.504251395" lon="13.566343368">
+            <name>RPT017</name>
+        </rtept>
+        <rtept lat="52.504075066" lon="13.566812754">
+            <name>RPT018</name>
+        </rtept>
+    </rte>
+</gpx>

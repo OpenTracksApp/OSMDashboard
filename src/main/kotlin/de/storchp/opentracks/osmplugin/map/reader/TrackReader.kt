@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import de.storchp.opentracks.osmplugin.map.model.Track
 import java.lang.Exception
+import java.time.Instant
 
 object TrackReader {
     private val TAG: String = Track::class.java.getSimpleName()
@@ -87,8 +88,8 @@ object TrackReader {
                                 trackname = trackname,
                                 description = description,
                                 category = category,
-                                startTimeEpochMillis = startTimeEpochMillis,
-                                stopTimeEpochMillis = stopTimeEpochMillis,
+                                startTime = Instant.ofEpochMilli(startTimeEpochMillis),
+                                stopTime = Instant.ofEpochMilli(stopTimeEpochMillis),
                                 totalDistanceMeter = totalDistanceMeter,
                                 totalTimeMillis = totalTimeMillis,
                                 movingTimeMillis = movingTimeMillis,

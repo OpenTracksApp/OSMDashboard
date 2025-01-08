@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin.map
 
 import de.storchp.opentracks.osmplugin.map.model.Track
+import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 
@@ -10,9 +11,9 @@ import kotlin.math.min
 class TrackStatistics(tracks: List<Track>) {
     var category = "unknown"
         private set
-    var startTimeEpochMillis: Long = 0
+    var startTime: Instant? = null
         private set
-    var stopTimeEpochMillis: Long = 0
+    var stopTime: Instant? = null
         private set
     var totalDistanceMeter: Double = 0.0
         private set
@@ -37,8 +38,8 @@ class TrackStatistics(tracks: List<Track>) {
         if (tracks.isNotEmpty()) {
             val first = tracks[0]
             first.category?.let { category = it }
-            startTimeEpochMillis = first.startTimeEpochMillis
-            stopTimeEpochMillis = first.stopTimeEpochMillis
+            startTime = first.startTime
+            stopTime = first.stopTime
             totalDistanceMeter = first.totalDistanceMeter
             totalTimeMillis = first.totalTimeMillis
             movingTimeMillis = first.movingTimeMillis
@@ -56,10 +57,12 @@ class TrackStatistics(tracks: List<Track>) {
                     if (category != track.category) {
                         category = "mixed"
                     }
-                    startTimeEpochMillis =
-                        min(startTimeEpochMillis, track.startTimeEpochMillis)
-                    stopTimeEpochMillis =
-                        max(stopTimeEpochMillis, track.stopTimeEpochMillis)
+                    if (startTime == null || (track.startTime != null && track.startTime < startTime)) {
+                        startTime = track.startTime
+                    }
+                    if (startTime == null || (track.stopTime != null && track.stopTime > stopTime)) {
+                        stopTime = track.startTime
+                    }
                     totalDistanceMeter += track.totalDistanceMeter
                     totalTimeMillis += track.totalTimeMillis
                     movingTimeMillis += track.movingTimeMillis
