@@ -1,5 +1,5 @@
 Un pannello OpenStreetMap per <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Mostra un tracciato selezionato con punti d'inizio e arrivo su una mappa di <a href="https://openstreetmap.org">OpenStreetMap</a> basata sulla liberira <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Mostra un tracciato selezionato con punti d'inizio e arrivo su una mappa di <a href="https://openstreetmap.org">OpenStreetMap</a> basata sulla liberira <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Verrà utilizzata una mappa online in maniera predefinita, ma sono supportate anche le mappe offline. Con le mappe offline non c'è necessità di una connessione internet cellulare.
 
 La mappa predefinita è fornita da<a href="https://openstreetmap.org">OpenStreetMap.org</a>

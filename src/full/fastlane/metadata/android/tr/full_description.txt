@@ -1,5 +1,5 @@
 <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a> için OpenStreetMap gösterge paneli.
-<a href="https://openstreetmap.org">OpenStreetMap</a>'ten <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> kütüphanesine dayalı bir harita üzerinde başlangıç ve bitiş noktaları ile seçilen bir yolu gösterir.
+<a href="https://openstreetmap.org">OpenStreetMap</a>'ten <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> kütüphanesine dayalı bir harita üzerinde başlangıç ve bitiş noktaları ile seçilen bir yolu gösterir.
 Varsayılan olarak çevrimiçi harita kullanılır, ancak çevrimdışı haritalar da desteklenir. Çevrimdışı haritalar ile mobil veri planına gerek yoktur.
 
 Varsayılan harita <a href="https://openstreetmap.org">OpenStreetMap.org</a> tarafından sağlanmaktadır.

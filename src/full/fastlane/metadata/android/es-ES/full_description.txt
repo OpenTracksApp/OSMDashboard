@@ -1,5 +1,5 @@
 Panel de OpenStreetMap para <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Muestra la ruta seleccionada con puntos de inicio y final en el mapa <a href="https://openstreetmap.org">OpenStreetMap</a> basado en la librería de <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> .
+Muestra la ruta seleccionada con puntos de inicio y final en el mapa <a href="https://openstreetmap.org">OpenStreetMap</a> basado en la librería de <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> .
 El mapa en línea está configurado como la opción predeterminada, pero también se admiten los mapas sin conexión. Con los mapas sin conexión, no hay necesidad de usar datos móviles.
 
 El mapa predeterminado lo proporciona <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

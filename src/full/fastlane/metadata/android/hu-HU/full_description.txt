@@ -1,5 +1,5 @@
 OpenStreetMap irányítópult az <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a> számára.
-Megjelenít egy kiválasztott nyomvonalat kezdő- és végpontokkal az <a href="https://openstreetmap.org">OpenStreetMap</a> térképén a <a href="https://github.com/mapsforge alapján /mapsforge">Mapsforge</a> könyvtár.
+Megjelenít egy kiválasztott nyomvonalat kezdő- és végpontokkal az <a href="https://openstreetmap.org">OpenStreetMap</a> térképén a <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> könyvtár.
 Az alapértelmezett egy online térkép, de az offline térképek is támogatottak. Az offline térképekkel nincs szükség mobil adatcsomagra.
 
 Az alapértelmezett térképet az <a href="https://openstreetmap.org">OpenStreetMap.org</a> biztosítja.

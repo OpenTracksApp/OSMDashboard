@@ -1,5 +1,7 @@
-Ein OpenStreetMap dashboard für OpenTracks: <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Darstellung des Tracks mit Start- und Endpunkt auf einer Karte von <a href="https://openstreetmap.org">OpenStreetMap</a> basierend auf der <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> Bibliothek.
+Ein OpenStreetMap Dashboard für OpenTracks: <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+Kann auch als eigenständiger GPX- und Standortbetrachter genutzt werden.
+
+Darstellung des Tracks mit Start- und Endpunkt auf einer Karte von <a href="https://openstreetmap.org">OpenStreetMap</a> basierend auf der <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> Bibliothek.
 Als Standard ist eine Onlinekarte eingestellt, aber Offlinekarten im Mapsforge Format können genutzt werden. Damit ist kein Datenvolumen während der Aufzeichnung nötig.
 
 Die Standardkarte wird von <a href="https://openstreetmap.org">OpenStreetMap.org</a> zur Verfügung gestellt.

@@ -1,5 +1,5 @@
 En OpenStreetMap-kontrollpanel för <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Den visar valt spår med start- och slutpunkter på en karta från <a href="https://openstreetmap.org">OpenStreetMap</a> baserad på <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>-biblioteket.
+Den visar valt spår med start- och slutpunkter på en karta från <a href="https://openstreetmap.org">OpenStreetMap</a> baserad på <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>-biblioteket.
 Det förvalda är en online-karta, men stöd finns även för offline-kartor. Med offline-kartor behövs ingen mobildataabbonemang.
 
 Den förvalda kartan kommer från <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

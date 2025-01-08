@@ -1,5 +1,5 @@
 OpenStreetMap prietaisų skydelis <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Jame rodomas pasirinktas kelias su pradžios ir pabaigos taškais žemėlapyje iš <a href="https://openstreetmap.org">OpenStreetMap</a> remiantis <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> biblioteka.
+Jame rodomas pasirinktas kelias su pradžios ir pabaigos taškais žemėlapyje iš <a href="https://openstreetmap.org">OpenStreetMap</a> remiantis <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> biblioteka.
 Pagal numatytuosius nustatymus naudojamas internetinis žemėlapis, tačiau palaikomi ir neprisijungusieji žemėlapiai. Naudojant neprisijungus prie interneto naudojamus žemėlapius, nereikia mobiliojo ryšio duomenų plano.
 
 Numatytąjį žemėlapį pateikia <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

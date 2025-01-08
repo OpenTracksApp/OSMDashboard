@@ -1,5 +1,7 @@
 An OpenStreetMap dashboard for <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-It shows a selected track with start- and endpoints on a map from <a href="https://openstreetmap.org">OpenStreetMap</a> based on the <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> library.
+Can be used as standalone GPX and location viewer as well.
+
+It shows a selected track with start- and endpoints on a map from <a href="https://openstreetmap.org">OpenStreetMap</a> based on the <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> library.
 The default is an online map, but offline maps are supported as well. With offline maps, there is no necessity for a mobile data plan.
 
 The default map is provided by <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

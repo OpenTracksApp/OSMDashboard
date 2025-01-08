@@ -1,5 +1,5 @@
 Nadzorna plošča OpenStreetMap za <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Prikazuje izbrano pot z začetno in končno točko na zemljevidu <a href="https://openstreetmap.org">OpenStreetMap</a>, ki temelji naknjižnici <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Prikazuje izbrano pot z začetno in končno točko na zemljevidu <a href="https://openstreetmap.org">OpenStreetMap</a>, ki temelji naknjižnici <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Spletni zemljevid je nastavljen kot privzeta opcija, so pa podprti tudi zemljevidi brez povezave. Z zemljevidi brez povezave ni potrebe po rabi mobilnih podatkov.
 
 Privzeti zemljevid zagotavlja <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

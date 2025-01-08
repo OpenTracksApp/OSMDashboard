@@ -1,5 +1,5 @@
 Un tablou de bord OpenStreetMap pentru <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Arată un traseu selectat cu puncte de start și capăt pe o hartă de la <a href="https://openstreetmap.org">OpenStreetMap</a> bazată pe librăria <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Arată un traseu selectat cu puncte de start și capăt pe o hartă de la <a href="https://openstreetmap.org">OpenStreetMap</a> bazată pe librăria <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Implicit este o hartă online, dar hărțile offline sunt de asemenea suportate. Cu hărțile offline, nu există necesitatea pentru un plan de date mobile.
 
 Harta implicită este furnizată de <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

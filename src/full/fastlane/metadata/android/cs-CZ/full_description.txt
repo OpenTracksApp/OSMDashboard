@@ -1,5 +1,5 @@
 OpenStreetMap přehled pro <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Zobrazuje vybranou stopu s počátečním a konečným bodem na mapě z <a href="https://openstreetmap.org">OpenStreetMap</a> založené na knihovně <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Zobrazuje vybranou stopu s počátečním a konečným bodem na mapě z <a href="https://openstreetmap.org">OpenStreetMap</a> založené na knihovně <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Výchozí je online mapa, jsou ale podporovány i offline mapy. Pro offline mapy nejsou vyžadována žádná mobilní data.
 
 Výchozí mapa je poskytovaná projektem <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

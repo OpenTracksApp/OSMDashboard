@@ -1,5 +1,5 @@
 Un visor de OpenStreetMap para <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Mostra a ruta seleccionada nun mapa de <a href="https://openstreetmap.org">OpenStreetMap</a> cos puntos de inicio e fin utilizando a biblioteca <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Mostra a ruta seleccionada nun mapa de <a href="https://openstreetmap.org">OpenStreetMap</a> cos puntos de inicio e fin utilizando a biblioteca <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Por defecto usa un mapa con conexión a internet, pero ten soporte para mapas sen conexión. Con mapas sen conexión non precisas un plan de datos móbiles.
 
 O mapa por defecto está proporcionado por <a href="https://openstreetmap.org">OpenStreetMap.org</a>. 

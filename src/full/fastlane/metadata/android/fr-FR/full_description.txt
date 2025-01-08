@@ -1,5 +1,5 @@
 Un tableau de bord OpenStreetMap pour <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Il affiche les traces sélectionnées du départ à l’arrivée sur une carte <a href="https://openstreetmap.org">OpenStreetMap</a> basée sur la librairie <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Il affiche les traces sélectionnées du départ à l’arrivée sur une carte <a href="https://openstreetmap.org">OpenStreetMap</a> basée sur la librairie <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Par défaut, la carte affichée est celle en ligne. Les cartes hors-lignes sont également prises en charge et ne nécessitent pas de donnée mobiles.
 
 La carte par défaut est fournie par <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

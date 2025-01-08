@@ -1,5 +1,5 @@
 Panel OpenStreetMap dla <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Pokazuje wybraną trasę z punktami początkowymi i końcowymi na mapie <a href="https://openstreetmap.org">OpenStreetMap</a> bazując na bibliotece <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a>.
+Pokazuje wybraną trasę z punktami początkowymi i końcowymi na mapie <a href="https://openstreetmap.org">OpenStreetMap</a> bazując na bibliotece <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
 Domyślna jest mapa online, ale mapy offline są również obsługiwane. W przypadku map offline nie ma konieczności korzystania z mobilnego pakietu danych.
 
 Domyślnym dostawcą map jest <a href="https://openstreetmap.org">OpenStreetMap.org</a>.

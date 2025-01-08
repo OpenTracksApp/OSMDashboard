@@ -1,5 +1,5 @@
 Deais OpenStreetMap le haghaidh <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-Taispeánann sé rian roghnaithe le pointí tosaigh agus críochphointí ar léarscáil ó <a href="https://openstreetmap.org">OpenStreetMap</a> bunaithe ar an <a href="https://github.com/mapsforge /mapsforge">Leabharlann Mapsforge</a>.
+Taispeánann sé rian roghnaithe le pointí tosaigh agus críochphointí ar léarscáil ó <a href="https://openstreetmap.org">OpenStreetMap</a> bunaithe ar an <a href="https://github.com/mapsforge/vtm">Leabharlann Mapsforge VTM</a>.
 Is léarscáil ar líne an réamhshocrú, ach tacaítear le léarscáileanna as líne freisin. Le léarscáileanna as líne, níl aon ghá le plean sonraí soghluaiste.
 
 Soláthraíonn <a href="https://openstreetmap.org">OpenStreetMap.org</a> an léarscáil réamhshocraithe.

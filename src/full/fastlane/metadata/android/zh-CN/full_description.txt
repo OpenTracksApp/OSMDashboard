@@ -1,5 +1,5 @@
 一个OpneStreetMap用于 <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
-在地图 <a href="https://openstreetmap.org">OpenStreetMap</a> 上显示轨迹的起点和终点，基于 <a href="https://github.com/mapsforge/mapsforge">Mapsforge</a> 开源库。
+在地图 <a href="https://openstreetmap.org">OpenStreetMap</a> 上显示轨迹的起点和终点，基于 <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a> 开源库。
 默认使用了在线地图，同时也支持离线地图。如果使用离线地图，则不需要使用额外的流量数据。
 
 默认地图由<a href="https://openstreetmap.org">OpenStreetMap.org</a>提供。
