@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.7.3"
+androidGradlePlugin = "8.8.0"
 androidJunit5 = "1.11.3.0"
 androidsvg = "1.4"
 androidTest = "1.6.0"
