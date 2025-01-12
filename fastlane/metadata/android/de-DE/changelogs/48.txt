@@ -1,4 +1,6 @@
 - Neu: Android 15 Unterstützung
 - Neu: GPX Unterstützung
+- Neu: Start/Ziel Marker
+- Neu: Marker Popups mit Zeit und Standort Information
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert

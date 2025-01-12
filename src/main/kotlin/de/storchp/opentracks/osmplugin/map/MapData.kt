@@ -1,5 +1,8 @@
 package de.storchp.opentracks.osmplugin.map
 
+import android.content.Context
+import de.storchp.opentracks.osmplugin.R
+import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import org.oscim.core.BoundingBox
 import org.oscim.core.GeoPoint
@@ -11,9 +14,13 @@ import org.oscim.layers.marker.MarkerInterface
 import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.map.Map
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 
 data class MapData(
+    private val context: Context,
     private val map: Map,
     private val onItemGestureListener: OnItemGestureListener<MarkerInterface>,
     private val strokeWidth: Int,
@@ -21,16 +28,18 @@ data class MapData(
     private val pauseMarkerSymbol: MarkerSymbol,
     private val waypointMarkerSymbol: MarkerSymbol,
     private val compassMarkerSymbol: MarkerSymbol,
+    private val startMarkerSymbol: MarkerSymbol,
+    private val endMarkerSymbol: MarkerSymbol,
 ) {
 
     private val polylinesLayer = GroupLayer(map)
     private val waypointsLayer: ItemizedLayer
     private val movementDirection = MovementDirection()
     private var endMarker: MarkerItem? = null
-    private var startPos: GeoPoint? = null
+    private var startPoint: Trackpoint? = null
 
     private var polyline: PathLayer? = null
-    var endPos: GeoPoint? = null
+    var endPoint: Trackpoint? = null
         private set
     var boundingBox: BoundingBox? = null
         private set
@@ -43,63 +52,103 @@ data class MapData(
         map.layers().add(waypointsLayer)
     }
 
-    fun addNewPolyline(trackColor: Int, geoPoint: GeoPoint): PathLayer? {
+    fun addNewPolyline(trackColor: Int, trackpoint: Trackpoint) {
         polyline = PathLayer(map, trackColor, strokeWidth.toFloat())
         polylinesLayer.layers.add(polyline)
 
-        if (endPos != null) {
-            polyline!!.addPoint(endPos)
-        } else if (startPos != null) {
-            polyline!!.addPoint(startPos)
+        if (endPoint != null) {
+            polyline!!.addPoint(endPoint!!.latLong!!)
+        } else if (startPoint != null) {
+            polyline!!.addPoint(startPoint!!.latLong!!)
         }
 
-        addPoint(geoPoint)
-        return polyline
+        addPoint(trackpoint)
     }
 
-    fun extendPolyline(trackColor: Int, geoPoint: GeoPoint): PathLayer? {
+    fun extendPolyline(trackColor: Int, trackpoint: Trackpoint) {
         if (polyline == null) {
             polyline = PathLayer(map, trackColor, strokeWidth.toFloat())
             polylinesLayer.layers.add(polyline)
         }
 
-        addPoint(geoPoint)
-        return polyline
+        addPoint(trackpoint)
     }
 
-    private fun addPoint(geoPoint: GeoPoint) {
-        endPos = geoPoint
-        polyline!!.addPoint(endPos)
-        if (startPos == null) {
-            startPos = endPos
+    private fun addPoint(trackpoint: Trackpoint) {
+        endPoint = trackpoint
+        polyline!!.addPoint(trackpoint.latLong!!)
+        if (startPoint == null) {
+            startPoint = endPoint
+            MarkerItem(
+                context.getString(R.string.start),
+                createDescription(trackpoint),
+                startPoint!!.latLong
+            ).apply {
+                marker = startMarkerSymbol
+                waypointsLayer.addItem(this)
+            }
         }
-        movementDirection.updatePos(endPos)
+        movementDirection.updatePos(trackpoint.latLong)
+        map.render()
     }
 
     fun resetCurrentPolyline() {
         polyline = null // reset current polyline when trackId changes
-        startPos = null
-        endPos = null
+        startPoint = null
+        endPoint = null
     }
 
-    fun addPauseMarker(geoPoint: GeoPoint) {
-        val marker = MapUtils.createMarker(latLong = geoPoint, markerSymbol = pauseMarkerSymbol)
-        waypointsLayer.addItem(marker)
+    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+        .withLocale(context.resources.configuration.locales[0])
+        .withZone(ZoneId.systemDefault())
+
+    fun addPauseMarker(trackpoint: Trackpoint) {
+        trackpoint.latLong?.let {
+            val marker = MapUtils.createMarker(
+                latLong = it,
+                title = context.getString(R.string.pause_title),
+                description = createDescription(trackpoint),
+                markerSymbol = pauseMarkerSymbol
+            )
+            waypointsLayer.addItem(marker)
+        }
     }
 
-    fun setEndMarker() {
-        endPos?.let {
+    private fun createDescription(trackpoint: Trackpoint): String {
+        val dateTime = trackpoint.time?.let { formatter.format(it) } ?: "?"
+        return context.getString(
+            R.string.marker_where_when_description,
+            dateTime,
+            trackpoint.latLong?.latitude,
+            trackpoint.latLong?.longitude
+        )
+    }
+
+    fun setEndMarker(isRecording: Boolean) {
+        endPoint?.let { endPoint ->
             synchronized(map.layers()) {
-                endMarker?.let {
-                    it.geoPoint = endPos
-                    it.setRotation(movementDirection.currentDegrees)
-                    waypointsLayer.populate()
-                    map.render()
-                } ?: {
-                    endMarker = MarkerItem(endPos.toString(), "", endPos).apply {
-                        marker = compassMarkerSymbol
-                        setRotation(movementDirection.currentDegrees)
+                var rotation = 0f
+                var markerSymbol = endMarkerSymbol
+                var title = context.getString(R.string.finish)
+                val description = createDescription(endPoint)
+                if (isRecording) {
+                    rotation = movementDirection.currentDegrees
+                    markerSymbol = compassMarkerSymbol
+                    title = context.getString(R.string.current_pos)
+                }
+                if (endMarker == null) {
+                    endMarker = MarkerItem(title, description, endPoint.latLong).apply {
+                        marker = markerSymbol
+                        setRotation(rotation)
                         waypointsLayer.addItem(this)
+                    }
+                } else {
+                    endMarker?.let {
+                        it.geoPoint = endPoint.latLong!!
+                        it.setRotation(rotation)
+                        it.description = description
+                        waypointsLayer.populate()
+                        map.render()
                     }
                 }
             }
@@ -127,7 +176,13 @@ data class MapData(
     }
 
     fun addWaypointMarker(waypoint: Waypoint) {
-        val marker = MapUtils.createMarker(waypoint.id, waypoint.latLong, waypointMarkerSymbol)
+        val marker = MapUtils.createMarker(
+            waypoint.id,
+            waypoint.name,
+            waypoint.description,
+            waypoint.latLong,
+            waypointMarkerSymbol
+        )
         waypointsLayer.addItem(marker)
     }
 

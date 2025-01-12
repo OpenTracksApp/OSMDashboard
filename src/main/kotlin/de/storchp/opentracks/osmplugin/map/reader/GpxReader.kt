@@ -21,7 +21,7 @@ class GpxReader(
                     .parse(inputStream, gpxParser)
             }
         }
-        readTrackpoints(gpxParser.tracksBySegments, false)
+        readTrackpoints(gpxParser.tracksBySegments, false, false)
         readWaypoints(gpxParser.waypoints)
         readTracks(gpxParser.tracks)
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.TrackStatistics
@@ -51,8 +52,7 @@ class DashboardReader(
         keepScreenOn = intent.getBooleanExtra(EXTRAS_SHOULD_KEEP_SCREEN_ON, false)
         showOnLockScreen = intent.getBooleanExtra(EXTRAS_SHOW_WHEN_LOCKED, false)
         showFullscreen = intent.getBooleanExtra(EXTRAS_SHOW_FULLSCREEN, false)
-        isOpenTracksRecordingThisTrack =
-            intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false)
+        isRecording = intent.getBooleanExtra(EXTRAS_OPENTRACKS_IS_RECORDING_THIS_TRACK, false)
 
         trackpointsDebug.protocolVersion = protocolVersion
         readTrackpoints(trackpointsUri, false, protocolVersion)
@@ -76,7 +76,7 @@ class DashboardReader(
         if (trackpointsBySegments.isNotEmpty() && trackpointsBySegments.last().isNotEmpty()) {
             lastTrackPointId = trackpointsBySegments.last().last().id
         }
-        readTrackpoints(trackpointsBySegments, update)
+        readTrackpoints(trackpointsBySegments, update, isRecording)
     }
 
     private fun readWaypoints(data: Uri) {
@@ -125,7 +125,7 @@ class DashboardReader(
         private val trackpointsUri: Uri,
         private val waypointsUri: Uri?,
         private val protocolVersion: Int
-    ) : ContentObserver(Handler()) {
+    ) : ContentObserver(Handler(Looper.getMainLooper())) {
 
         override fun onChange(selfChange: Boolean, uri: Uri?) {
             if (uri == null) {

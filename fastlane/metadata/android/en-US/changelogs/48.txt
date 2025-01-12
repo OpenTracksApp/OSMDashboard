@@ -1,4 +1,6 @@
 - New: support for Android 15
-- New: support for GPX
+- New: support for GPX files
+- New: start/finish markers
+- New: marker popups with time and location information
 - Updated translations
 - Updated dependencies

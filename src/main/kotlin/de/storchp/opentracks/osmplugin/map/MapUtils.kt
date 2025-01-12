@@ -219,8 +219,14 @@ object MapUtils {
         billboard
     )
 
-    fun createMarker(id: Long? = null, latLong: GeoPoint, markerSymbol: MarkerSymbol) =
-        MarkerItem(id, latLong.toString(), "", latLong).apply {
+    fun createMarker(
+        id: Long? = null,
+        title: String? = null,
+        description: String? = null,
+        latLong: GeoPoint,
+        markerSymbol: MarkerSymbol
+    ) =
+        MarkerItem(id, title ?: latLong.toString(), description ?: "", latLong).apply {
             marker = markerSymbol
         }
 
@@ -238,11 +244,25 @@ object MapUtils {
         hotspot = HotspotPlace.CENTER
     )
 
-    fun createPushpinSymbol(context: Context) = createMarkerSymbol(
+    fun createWaypointMarkerSymbol(context: Context) = createMarkerSymbol(
         context = context,
         markerResource = R.drawable.ic_marker_orange_pushpin_modern,
         billboard = true,
         hotspot = HotspotPlace.BOTTOM_CENTER
+    )
+
+    fun createStartMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.baseline_marker_start_34,
+        billboard = true,
+        hotspot = HotspotPlace.CENTER
+    )
+
+    fun createEndMarkerSymbol(context: Context) = createMarkerSymbol(
+        context = context,
+        markerResource = R.drawable.baseline_marker_end_34,
+        billboard = true,
+        hotspot = HotspotPlace.CENTER
     )
 
 }

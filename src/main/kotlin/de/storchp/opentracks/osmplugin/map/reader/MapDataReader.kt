@@ -34,10 +34,14 @@ abstract class MapDataReader(
         protected set
     var showFullscreen = false
         protected set
-    var isOpenTracksRecordingThisTrack = false
+    var isRecording = false
         protected set
 
-    protected fun readTrackpoints(trackpointsBySegments: TrackpointsBySegments, update: Boolean) {
+    protected fun readTrackpoints(
+        trackpointsBySegments: TrackpointsBySegments,
+        update: Boolean,
+        isRecording: Boolean
+    ) {
         val showPauseMarkers = PreferencesUtils.isShowPauseMarkers()
         val latLongs = mutableListOf<GeoPoint>()
         val tolerance = PreferencesUtils.getTrackSmoothingTolerance()
@@ -51,7 +55,7 @@ abstract class MapDataReader(
         val maxSpeed = trackpointsBySegments.calcMaxSpeed()
         val averageToMaxSpeed = maxSpeed - average
         var trackColorMode = PreferencesUtils.getTrackColorMode()
-        if (isOpenTracksRecordingThisTrack && !trackColorMode.supportsLiveTrack) {
+        if (isRecording && !trackColorMode.supportsLiveTrack) {
             trackColorMode = DEFAULT_TRACK_COLOR_MORE
         }
 
@@ -80,29 +84,28 @@ abstract class MapDataReader(
                             averageToMaxSpeed,
                             trackpoint
                         )
-                        mapData.addNewPolyline(trackColor, trackpoint.latLong!!)
+                        mapData.addNewPolyline(trackColor, trackpoint)
                     } else {
-                        mapData.extendPolyline(trackColor, trackpoint.latLong!!)
+                        mapData.extendPolyline(trackColor, trackpoint)
                     }
 
                     if (trackpoint.isPause && showPauseMarkers) {
-                        mapData.addPauseMarker(trackpoint.latLong)
+                        mapData.addPauseMarker(trackpoint)
                     }
 
                     if (!update) {
-                        mapData.endPos?.let { latLongs.add(it) }
+                        mapData.endPoint?.latLong?.let { latLongs.add(it) }
                     }
-
 
                 }
             trackpointsBySegments.debug.trackpointsDrawn += trackpoints.size
         }
         trackpointsDebug.add(trackpointsBySegments.debug)
 
-        mapData.setEndMarker()
+        mapData.setEndMarker(isRecording)
 
-        if (update && mapData.endPos != null) {
-            mapData.updateMapPositionAndRotation(mapData.endPos!!)
+        if (update && mapData.endPoint != null) {
+            mapData.updateMapPositionAndRotation(mapData.endPoint!!.latLong!!)
             mapData.renderMap()
         } else if (latLongs.isNotEmpty()) {
             mapData.createBoundingBox(latLongs)

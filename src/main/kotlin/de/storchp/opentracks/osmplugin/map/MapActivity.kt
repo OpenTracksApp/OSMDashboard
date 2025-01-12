@@ -102,6 +102,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     private var renderTheme: IRenderTheme? = null
     private var mapDataReader: MapDataReader? = null
     private var fullscreenMode = false
+    private var keepPositionAfterDialog = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -228,6 +229,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                 )
             }
         }
+
+        if (mapDataReader?.isRecording == true) {
+            mapDataReader?.startContentObserver()
+        }
     }
 
     private val updateTrackStatistics: UpdateTrackStatistics =
@@ -286,7 +291,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     fun navigateUp() {
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
-            && mapDataReader?.isOpenTracksRecordingThisTrack == true
+            && mapDataReader?.isRecording == true
             && PreferencesUtils.isPipEnabled()
         ) {
             val pipParamsBuilder = PictureInPictureParams.Builder()
@@ -541,6 +546,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
      * Android Activity life cycle method.
      */
     override fun onDestroy() {
+        mapDataReader?.unregisterContentObserver()
         binding.map.mapView.onDestroy()
         super.onDestroy()
     }
@@ -551,13 +557,16 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
         mapDataReader = null
         mapData = MapData(
+            context = this,
             map = map,
             onItemGestureListener = this,
             strokeWidth = PreferencesUtils.getStrokeWidth(),
             mapMode = PreferencesUtils.getMapMode(),
             pauseMarkerSymbol = MapUtils.createPauseMarkerSymbol(this),
-            waypointMarkerSymbol = MapUtils.createPushpinSymbol(this),
+            waypointMarkerSymbol = MapUtils.createWaypointMarkerSymbol(this),
             compassMarkerSymbol = MapUtils.createCompassMarkerSymbol(this),
+            startMarkerSymbol = MapUtils.createStartMarkerSymbol(this),
+            endMarkerSymbol = MapUtils.createEndMarkerSymbol(this),
         )
 
         mapPreferences.clear()
@@ -581,19 +590,33 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
     override fun onItemSingleTapUp(index: Int, item: MarkerInterface): Boolean {
         val markerItem = item as MarkerItem
+
+        val dialogBuilder = AlertDialog.Builder(this@MapsActivity)
+            .setIcon(R.drawable.ic_logo_color_24dp)
+            .setTitle(markerItem.title)
+            .setMessage(markerItem.description)
+            .setPositiveButton(android.R.string.ok, null)
+
         if (markerItem.uid != null) {
-            try {
-                val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
-                intent.putExtra(EXTRA_MARKER_ID, markerItem.uid as Long)
-                startActivity(intent)
-            } catch (ex: Exception) {
-                Log.e(
-                    TAG,
-                    "Can't open OpenTracks MarkerDetails for marker " + markerItem.uid,
-                    ex
-                )
-            }
+            dialogBuilder.setNeutralButton(
+                R.string.open_in_open_tracks,
+                DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
+                    try {
+                        val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
+                        intent.putExtra(EXTRA_MARKER_ID, markerItem.uid as Long)
+                        startActivity(intent)
+                    } catch (ex: Exception) {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.error_starting_open_tracks, ex.message),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
         }
+
+        dialogBuilder.create().show()
+        keepPositionAfterDialog = true
         return true
     }
 
@@ -631,6 +654,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (!hasFocus) return
+        if (keepPositionAfterDialog) {
+            keepPositionAfterDialog = false
+            return
+        }
 
         mapData?.let { data ->
             data.boundingBox?.let { boundingBox ->
@@ -658,21 +685,11 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
     }
 
     override fun onPause() {
+        mapPreferences.save(map)
         if (!isPiPMode()) {
-            mapPreferences.save(map)
             binding.map.mapView.onPause()
         }
         super.onPause()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mapDataReader?.startContentObserver()
-    }
-
-    override fun onStop() {
-        mapDataReader?.unregisterContentObserver()
-        super.onStop()
     }
 
 }
