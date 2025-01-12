@@ -37,12 +37,10 @@ object WaypointReader {
         resolver: ContentResolver,
         data: Uri,
         lastWaypointId: Long?
-    ): List<Waypoint> {
-        return buildList {
-            resolver.query(data, PROJECTION, null, null, null).use { cursor ->
-                while (cursor!!.moveToNext()) {
-                    readWaypointFromCursor(cursor, lastWaypointId)?.let(::add)
-                }
+    ) = buildList {
+        resolver.query(data, PROJECTION, null, null, null).use { cursor ->
+            while (cursor!!.moveToNext()) {
+                readWaypointFromCursor(cursor, lastWaypointId)?.let(::add)
             }
         }
     }

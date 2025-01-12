@@ -13,6 +13,7 @@ kotlin = "2.1.0"
 lifecycleViewmodelKtx = "2.8.7"
 mapsforge = "0.21.0"
 material = "1.12.0"
+mockk = "1.13.14"
 preferenceKtx = "1.2.1"
 runner = "1.6.2"
 slf4jApi = "2.0.16"
@@ -35,6 +36,7 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 runner = { module = "androidx.test:runner", version.ref = "runner" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }

@@ -11,8 +11,8 @@ import java.time.Instant
 object TrackpointReader {
     const val ID = "_id"
     const val TRACKID = "trackid"
-    const val LONGITUDE = "longitude"
     const val LATITUDE = "latitude"
+    const val LONGITUDE = "longitude"
     const val TIME = "time"
     const val TYPE = "type"
     const val SPEED = "speed"

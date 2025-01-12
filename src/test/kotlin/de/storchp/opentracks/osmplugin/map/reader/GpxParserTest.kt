@@ -34,7 +34,7 @@ internal class GpxParserTest {
         assertThat(sut.tracks).containsExactly(
             Track(
                 id = 1,
-                trackname = "2023-12-29T09:37+01",
+                name = "2023-12-29T09:37+01",
                 description = "",
                 category = "walking",
                 startTime = Instant.ofEpochMilli(1703839066375),
@@ -84,7 +84,7 @@ internal class GpxParserTest {
         assertThat(sut.tracks).containsExactly(
             Track(
                 id = 1,
-                trackname = "lenitzsee-zusatz-",
+                name = "lenitzsee-zusatz-",
                 description = "Generated from track lenitzsee-zusatz-",
                 category = null,
                 startTime = null,
@@ -136,7 +136,7 @@ internal class GpxParserTest {
         assertThat(sut.tracks).containsExactly(
             Track(
                 id = 1,
-                trackname = "RPT015",
+                name = "RPT015",
                 description = "Generated from track biesdorf",
                 category = null,
                 startTime = null,

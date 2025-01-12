@@ -273,7 +273,7 @@ class GpxParser() : DefaultHandler() {
         tracks.add(
             Track(
                 id = trackId,
-                trackname = trackName,
+                name = trackName,
                 description = trackDescription,
                 category = typeLocalized,
                 totalDistanceMeter = distance?.let { parseDouble(it) } ?: 0.0,

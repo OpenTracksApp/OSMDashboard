@@ -130,6 +130,7 @@ android {
         disable.add("MissingTranslation")
     }
     androidResources {
+        @Suppress("UnstableApiUsage")
         generateLocaleConfig = true
     }
 
@@ -200,6 +201,7 @@ dependencies {
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.assertj.core)
+    testImplementation(libs.mockk)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 

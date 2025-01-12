@@ -47,10 +47,8 @@ object TrackReader {
     /**
      * Reads the Tracks from the Content Uri
      */
-    fun readTracks(resolver: ContentResolver, data: Uri): List<Track> {
-        Log.i(TAG, "Loading track(s) from $data")
-
-        return buildList {
+    fun readTracks(resolver: ContentResolver, data: Uri) =
+        buildList {
             try {
                 resolver.query(data, PROJECTION, null, null, null).use { cursor ->
                     while (cursor!!.moveToNext()) {
@@ -85,7 +83,7 @@ object TrackReader {
                         add(
                             Track(
                                 id = id,
-                                trackname = trackname,
+                                name = trackname,
                                 description = description,
                                 category = category,
                                 startTime = Instant.ofEpochMilli(startTimeEpochMillis),
@@ -109,5 +107,4 @@ object TrackReader {
                 Log.e(TAG, "Reading track failed", e)
             }
         }
-    }
 }

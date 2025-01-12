@@ -4,7 +4,7 @@ import java.time.Instant
 
 data class Track(
     val id: Long,
-    val trackname: String?,
+    val name: String?,
     val description: String?,
     val category: String?,
     val startTime: Instant?,
