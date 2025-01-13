@@ -15,7 +15,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatElapsedTimeHoursMinutes(
                 context,
-                statistics.totalTimeMillis
+                statistics.totalTime
             )
         }
     },
@@ -23,7 +23,7 @@ enum class StatisticElement {
         override fun getText(context: Context, statistics: TrackStatistics): String {
             return StringUtils.formatElapsedTimeHoursMinutes(
                 context,
-                statistics.movingTimeMillis
+                statistics.movingTime
             )
         }
     },

@@ -1,7 +1,7 @@
 package de.storchp.opentracks.osmplugin.map.reader
 
 import android.util.Log
-import de.storchp.opentracks.osmplugin.map.DEFAULT_TRACK_COLOR_MORE
+import de.storchp.opentracks.osmplugin.map.DEFAULT_TRACK_COLOR_MODE
 import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
 import de.storchp.opentracks.osmplugin.map.StyleColorCreator
@@ -56,7 +56,7 @@ abstract class MapDataReader(
         val averageToMaxSpeed = maxSpeed - average
         var trackColorMode = PreferencesUtils.getTrackColorMode()
         if (isRecording && !trackColorMode.supportsLiveTrack) {
-            trackColorMode = DEFAULT_TRACK_COLOR_MORE
+            trackColorMode = DEFAULT_TRACK_COLOR_MODE
         }
 
         trackpointsBySegments.segments.map { trackpoints ->
@@ -68,36 +68,35 @@ abstract class MapDataReader(
             }
             return@map trackpoints
         }.forEach { trackpoints ->
-            trackpoints.filter { it.latLong != null }
-                .forEach { trackpoint ->
-                    if (trackpoint.trackId != lastTrackId) {
-                        if (trackColorMode == TrackColorMode.BY_TRACK) {
-                            trackColor = colorCreator.nextColor()
-                        }
-                        lastTrackId = trackpoint.trackId
-                        mapData.resetCurrentPolyline()
+            trackpoints.forEach { trackpoint ->
+                if (trackpoint.trackId != lastTrackId) {
+                    if (trackColorMode == TrackColorMode.BY_TRACK) {
+                        trackColor = colorCreator.nextColor()
                     }
-
-                    if (trackColorMode == TrackColorMode.BY_SPEED) {
-                        trackColor = MapUtils.getTrackColorBySpeed(
-                            average,
-                            averageToMaxSpeed,
-                            trackpoint
-                        )
-                        mapData.addNewPolyline(trackColor, trackpoint)
-                    } else {
-                        mapData.extendPolyline(trackColor, trackpoint)
-                    }
-
-                    if (trackpoint.isPause && showPauseMarkers) {
-                        mapData.addPauseMarker(trackpoint)
-                    }
-
-                    if (!update) {
-                        mapData.endPoint?.latLong?.let { latLongs.add(it) }
-                    }
-
+                    lastTrackId = trackpoint.trackId
+                    mapData.resetCurrentPolyline()
                 }
+
+                if (trackColorMode == TrackColorMode.BY_SPEED) {
+                    trackColor = MapUtils.getTrackColorBySpeed(
+                        average,
+                        averageToMaxSpeed,
+                        trackpoint
+                    )
+                    mapData.addNewPolyline(trackColor, trackpoint)
+                } else {
+                    mapData.extendPolyline(trackColor, trackpoint)
+                }
+
+                if (trackpoint.isPause && showPauseMarkers) {
+                    mapData.addPauseMarker(trackpoint)
+                }
+
+                if (!update) {
+                    mapData.endPoint?.latLong?.let { latLongs.add(it) }
+                }
+
+            }
             trackpointsBySegments.debug.trackpointsDrawn += trackpoints.size
         }
         trackpointsDebug.add(trackpointsBySegments.debug)
@@ -105,7 +104,7 @@ abstract class MapDataReader(
         mapData.setEndMarker(isRecording)
 
         if (update && mapData.endPoint != null) {
-            mapData.updateMapPositionAndRotation(mapData.endPoint!!.latLong!!)
+            mapData.updateMapPositionAndRotation(mapData.endPoint!!.latLong)
             mapData.renderMap()
         } else if (latLongs.isNotEmpty()) {
             mapData.createBoundingBox(latLongs)

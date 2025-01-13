@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test
 import org.oscim.core.GeoPoint
 import java.time.Instant
 import javax.xml.parsers.SAXParserFactory
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 internal class GpxParserTest {
 
@@ -40,8 +42,8 @@ internal class GpxParserTest {
                 startTime = Instant.ofEpochMilli(1703839066375),
                 stopTime = Instant.ofEpochMilli(1703839661518),
                 totalDistanceMeter = 809.648193359375,
-                totalTimeMillis = 598000,
-                movingTimeMillis = 583000,
+                totalTime = 598.seconds,
+                movingTime = 583.seconds,
                 avgSpeedMeterPerSecond = 1.4905882352941182,
                 avgMovingSpeedMeterPerSecond = 1.5451219512195127,
                 maxSpeedMeterPerSecond = 2.13,
@@ -55,8 +57,7 @@ internal class GpxParserTest {
         assertThat(segment).hasSize(85)
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
-                latitude = 53.559632,
-                longitude = 9.989175,
+                latLong = GeoPoint(53.559632, 9.989175),
                 type = 0,
                 speed = 0.0,
                 elevation = 55.9,
@@ -65,8 +66,7 @@ internal class GpxParserTest {
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
-                latitude = 53.565765,
-                longitude = 9.982826,
+                latLong = GeoPoint(53.565765, 9.982826),
                 type = 0,
                 speed = 1.34,
                 elevation = 55.3,
@@ -90,8 +90,8 @@ internal class GpxParserTest {
                 startTime = null,
                 stopTime = null,
                 totalDistanceMeter = 0.0,
-                totalTimeMillis = 0,
-                movingTimeMillis = 0,
+                totalTime = Duration.ZERO,
+                movingTime = Duration.ZERO,
                 avgSpeedMeterPerSecond = 0.0,
                 avgMovingSpeedMeterPerSecond = 0.0,
                 maxSpeedMeterPerSecond = 0.0,
@@ -105,8 +105,7 @@ internal class GpxParserTest {
         assertThat(segment).hasSize(7)
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
-                latitude = 52.765593,
-                longitude = 13.279984,
+                latLong = GeoPoint(52.765593, 13.279984),
                 type = 0,
                 speed = 0.0,
                 elevation = 0.0,
@@ -116,8 +115,7 @@ internal class GpxParserTest {
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
-                latitude = 52.766719,
-                longitude = 13.281122,
+                latLong = GeoPoint(52.766719, 13.281122),
                 type = 0,
                 speed = 0.0,
                 elevation = 0.0,
@@ -142,8 +140,8 @@ internal class GpxParserTest {
                 startTime = null,
                 stopTime = null,
                 totalDistanceMeter = 0.0,
-                totalTimeMillis = 0,
-                movingTimeMillis = 0,
+                totalTime = Duration.ZERO,
+                movingTime = Duration.ZERO,
                 avgSpeedMeterPerSecond = 0.0,
                 avgMovingSpeedMeterPerSecond = 0.0,
                 maxSpeedMeterPerSecond = 0.0,
@@ -157,8 +155,7 @@ internal class GpxParserTest {
         assertThat(segment).hasSize(7)
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
-                latitude = 52.505294657,
-                longitude = 13.560877026,
+                latLong = GeoPoint(52.505294657, 13.560877026),
                 type = 0,
                 speed = 0.0,
                 elevation = null,
@@ -168,8 +165,7 @@ internal class GpxParserTest {
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
-                latitude = 52.504075066,
-                longitude = 13.566812754,
+                latLong = GeoPoint(52.504075066, 13.566812754),
                 type = 0,
                 speed = 0.0,
                 elevation = null,

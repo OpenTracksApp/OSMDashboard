@@ -2,11 +2,16 @@ package de.storchp.opentracks.osmplugin.map.reader
 
 import android.content.ContentResolver
 import android.net.Uri
+import de.storchp.opentracks.osmplugin.map.MapUtils
+import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_PAUSE
 import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_TRACKPOINT
 import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
+import org.oscim.core.GeoPoint
 import java.time.Instant
+
+private const val PAUSE_LATITUDE: Double = 100.0
 
 object TrackpointReader {
     const val ID = "_id"
@@ -47,6 +52,7 @@ object TrackpointReader {
         protocolVersion: Int
     ): TrackpointsBySegments {
         val debug = TrackpointsDebug()
+        var segment = mutableListOf<Trackpoint>()
         val segments = mutableListOf<MutableList<Trackpoint>>()
         var projection = PROJECTION_V2
         var typeQuery = " AND $TYPE IN (-2, -1, 0, 1, 3)"
@@ -62,7 +68,6 @@ object TrackpointReader {
             null
         ).use { cursor ->
             var lastTrackpoint: Trackpoint? = null
-            var segment: MutableList<Trackpoint>? = null
             while (cursor!!.moveToNext()) {
                 debug.trackpointsReceived++
                 val id = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
@@ -81,40 +86,44 @@ object TrackpointReader {
                 }
 
                 if (lastTrackpoint == null || lastTrackpoint.trackId != trackId) {
+                    if (segment.isNotEmpty()) {
+                        segments.add(segment)
+                    }
                     segment = mutableListOf()
-                    segments.add(segment)
                 }
 
-                lastTrackpoint =
-                    Trackpoint(trackId, id, latitude, longitude, type, speed, time)
-                if (lastTrackpoint.latLong != null) {
-                    segment!!.add(lastTrackpoint)
-                } else if (!lastTrackpoint.isPause) {
-                    debug.trackpointsInvalid++
+                val latLong = if (MapUtils.isValid(latitude, longitude)) {
+                    GeoPoint(latitude, longitude)
+                } else {
+                    null
                 }
-                if (lastTrackpoint.isPause) {
+
+                if (latLong != null) {
+                    lastTrackpoint = Trackpoint(trackId, id, latLong, type, speed, time)
+                    segment.add(lastTrackpoint)
+                } else if (type == TRACKPOINT_TYPE_PAUSE || latitude == PAUSE_LATITUDE) {
                     debug.trackpointsPause++
-                    if (lastTrackpoint.latLong == null) {
-                        if (segment!!.isNotEmpty()) {
-                            val previousTrackpoint = segment[segment.size - 1]
-                            previousTrackpoint.latLong?.let {
-                                segment.add(
-                                    Trackpoint(
-                                        trackId = trackId,
-                                        id = id,
-                                        latitude = it.latitude,
-                                        longitude = it.longitude,
-                                        type = type,
-                                        speed = speed,
-                                        time = time,
-                                    )
-                                )
-                            }
-                        }
+                    if (segment.isNotEmpty()) {
+                        val previousTrackpoint = segment.last()
+                        segment.add(
+                            Trackpoint(
+                                trackId = trackId,
+                                id = id,
+                                latLong = previousTrackpoint.latLong,
+                                type = TRACKPOINT_TYPE_PAUSE,
+                                speed = speed,
+                                time = time,
+                            )
+                        )
                     }
                     lastTrackpoint = null
+                } else {
+                    debug.trackpointsInvalid++
                 }
             }
+        }
+        if (segment.isNotEmpty()) {
+            segments.add(segment)
         }
         debug.segments = segments.size
 

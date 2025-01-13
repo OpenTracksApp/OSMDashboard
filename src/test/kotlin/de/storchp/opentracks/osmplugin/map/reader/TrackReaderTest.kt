@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import kotlin.time.Duration.Companion.seconds
 
 class TrackReaderTest {
 
@@ -60,8 +61,8 @@ class TrackReaderTest {
         every { cursor.getLong(5) } returnsMany listOf(track.startTime!!.toEpochMilli())
         every { cursor.getLong(6) } returnsMany listOf(track.stopTime!!.toEpochMilli())
         every { cursor.getDouble(7) } returnsMany listOf(track.totalDistanceMeter)
-        every { cursor.getLong(8) } returnsMany listOf(track.totalTimeMillis)
-        every { cursor.getLong(9) } returnsMany listOf(track.movingTimeMillis)
+        every { cursor.getLong(8) } returnsMany listOf(track.totalTime.inWholeMilliseconds)
+        every { cursor.getLong(9) } returnsMany listOf(track.movingTime.inWholeMilliseconds)
         every { cursor.getDouble(10) } returnsMany listOf(track.avgSpeedMeterPerSecond)
         every { cursor.getDouble(11) } returnsMany listOf(track.avgMovingSpeedMeterPerSecond)
         every { cursor.getDouble(12) } returnsMany listOf(track.maxSpeedMeterPerSecond)
@@ -83,8 +84,8 @@ class TrackReaderTest {
         startTime = Instant.now().minusSeconds(90).truncatedTo(ChronoUnit.MILLIS),
         stopTime = Instant.now().truncatedTo(ChronoUnit.MILLIS),
         totalDistanceMeter = 1.0,
-        totalTimeMillis = 2000,
-        movingTimeMillis = 1000,
+        totalTime = 2.seconds,
+        movingTime = 1.seconds,
         avgSpeedMeterPerSecond = 1.1,
         avgMovingSpeedMeterPerSecond = 1.2,
         maxSpeedMeterPerSecond = 1.3,

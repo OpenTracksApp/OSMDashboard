@@ -1,6 +1,7 @@
 package de.storchp.opentracks.osmplugin.map.model
 
 import java.time.Instant
+import kotlin.time.Duration
 
 data class Track(
     val id: Long,
@@ -10,8 +11,8 @@ data class Track(
     val startTime: Instant?,
     val stopTime: Instant?,
     val totalDistanceMeter: Double,
-    val totalTimeMillis: Long,
-    val movingTimeMillis: Long,
+    val totalTime: Duration,
+    val movingTime: Duration,
     val avgSpeedMeterPerSecond: Double,
     val avgMovingSpeedMeterPerSecond: Double,
     val maxSpeedMeterPerSecond: Double,

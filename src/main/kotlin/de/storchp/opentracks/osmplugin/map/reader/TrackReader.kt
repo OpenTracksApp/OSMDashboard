@@ -6,25 +6,26 @@ import android.util.Log
 import de.storchp.opentracks.osmplugin.map.model.Track
 import java.lang.Exception
 import java.time.Instant
+import kotlin.time.Duration.Companion.milliseconds
 
 object TrackReader {
     private val TAG: String = Track::class.java.getSimpleName()
 
     const val ID = "_id"
-    const val NAME = "name" // track name
-    const val DESCRIPTION = "description" // track description
+    const val NAME = "name"
+    const val DESCRIPTION = "description"
     const val CATEGORY = "category" // track activity type
-    const val STARTTIME = "starttime" // track start time
-    const val STOPTIME = "stoptime" // track stop time
-    const val TOTALDISTANCE = "totaldistance" // total distance
-    const val TOTALTIME = "totaltime" // total time
-    const val MOVINGTIME = "movingtime" // moving time
-    const val AVGSPEED = "avgspeed" // average speed
-    const val AVGMOVINGSPEED = "avgmovingspeed" // average moving speed
-    const val MAXSPEED = "maxspeed" // maximum speed
-    const val MINELEVATION = "minelevation" // minimum elevation
-    const val MAXELEVATION = "maxelevation" // maximum elevation
-    const val ELEVATIONGAIN = "elevationgain" // elevation gain
+    const val STARTTIME = "starttime"
+    const val STOPTIME = "stoptime"
+    const val TOTALDISTANCE = "totaldistance"
+    const val TOTALTIME = "totaltime"
+    const val MOVINGTIME = "movingtime"
+    const val AVGSPEED = "avgspeed"
+    const val AVGMOVINGSPEED = "avgmovingspeed"
+    const val MAXSPEED = "maxspeed"
+    const val MINELEVATION = "minelevation"
+    const val MAXELEVATION = "maxelevation"
+    const val ELEVATIONGAIN = "elevationgain"
 
     val PROJECTION = arrayOf(
         ID,
@@ -89,8 +90,8 @@ object TrackReader {
                                 startTime = Instant.ofEpochMilli(startTimeEpochMillis),
                                 stopTime = Instant.ofEpochMilli(stopTimeEpochMillis),
                                 totalDistanceMeter = totalDistanceMeter,
-                                totalTimeMillis = totalTimeMillis,
-                                movingTimeMillis = movingTimeMillis,
+                                totalTime = totalTimeMillis.milliseconds,
+                                movingTime = movingTimeMillis.milliseconds,
                                 avgSpeedMeterPerSecond = avgSpeedMeterPerSecond,
                                 avgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond,
                                 maxSpeedMeterPerSecond = maxSpeedMeterPerSecond,

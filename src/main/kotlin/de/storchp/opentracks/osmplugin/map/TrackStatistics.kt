@@ -4,6 +4,7 @@ import de.storchp.opentracks.osmplugin.map.model.Track
 import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.time.Duration
 
 /**
  * @noinspection unused
@@ -17,9 +18,9 @@ class TrackStatistics(tracks: List<Track>) {
         private set
     var totalDistanceMeter: Double = 0.0
         private set
-    var totalTimeMillis: Long = 0
+    var totalTime: Duration = Duration.ZERO
         private set
-    var movingTimeMillis: Long = 0
+    var movingTime: Duration = Duration.ZERO
         private set
     var avgSpeedMeterPerSecond: Double = 0.0
         private set
@@ -41,8 +42,8 @@ class TrackStatistics(tracks: List<Track>) {
             startTime = first.startTime
             stopTime = first.stopTime
             totalDistanceMeter = first.totalDistanceMeter
-            totalTimeMillis = first.totalTimeMillis
-            movingTimeMillis = first.movingTimeMillis
+            totalTime = first.totalTime
+            movingTime = first.movingTime
             avgSpeedMeterPerSecond = first.avgSpeedMeterPerSecond
             avgMovingSpeedMeterPerSecond = first.avgMovingSpeedMeterPerSecond
             maxSpeedMeterPerSecond = first.maxSpeedMeterPerSecond
@@ -64,8 +65,8 @@ class TrackStatistics(tracks: List<Track>) {
                         stopTime = track.startTime
                     }
                     totalDistanceMeter += track.totalDistanceMeter
-                    totalTimeMillis += track.totalTimeMillis
-                    movingTimeMillis += track.movingTimeMillis
+                    totalTime += track.totalTime
+                    movingTime += track.movingTime
                     totalAvgSpeedMeterPerSecond += track.avgSpeedMeterPerSecond
                     totalAvgMovingSpeedMeterPerSecond += track.avgMovingSpeedMeterPerSecond
                     maxSpeedMeterPerSecond =

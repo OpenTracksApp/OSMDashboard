@@ -5,6 +5,7 @@ import android.text.format.DateUtils
 import de.storchp.opentracks.osmplugin.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import kotlin.time.Duration
 
 /**
  * Various string manipulation methods.
@@ -13,10 +14,10 @@ object StringUtils {
     /**
      * Formats the elapsed time in the form "H:MM".
      */
-    fun formatElapsedTimeHoursMinutes(context: Context, millis: Long): String {
+    fun formatElapsedTimeHoursMinutes(context: Context, duration: Duration): String {
         return context.getString(
             R.string.stat_time,
-            DateUtils.formatElapsedTime((millis * UnitConversions.MS_TO_S).toLong())
+            DateUtils.formatElapsedTime(duration.inWholeSeconds)
         )
     }
 

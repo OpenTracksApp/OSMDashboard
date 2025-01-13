@@ -9,14 +9,14 @@ import org.oscim.core.GeoPoint
 
 object WaypointReader {
     const val ID = "_id"
-    const val NAME = "name" // waypoint name
-    const val DESCRIPTION = "description" // waypoint description
-    const val CATEGORY = "category" // waypoint category
-    const val ICON = "icon" // waypoint icon
-    const val TRACKID = "trackid" // track id
-    const val LONGITUDE = "longitude" // longitude
-    const val LATITUDE = "latitude" // latitude
-    const val PHOTOURL = "photoUrl" // url for the photo
+    const val NAME = "name"
+    const val DESCRIPTION = "description"
+    const val CATEGORY = "category"
+    const val ICON = "icon"
+    const val TRACKID = "trackid"
+    const val LONGITUDE = "longitude"
+    const val LATITUDE = "latitude"
+    const val PHOTOURL = "photoUrl"
 
     val PROJECTION = arrayOf(
         ID,

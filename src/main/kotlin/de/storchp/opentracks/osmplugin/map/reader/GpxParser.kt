@@ -7,6 +7,7 @@ import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
+import org.oscim.core.GeoPoint
 import org.xml.sax.Attributes
 import org.xml.sax.Locator
 import org.xml.sax.helpers.DefaultHandler
@@ -15,6 +16,8 @@ import java.lang.Long.parseLong
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 private val TAG: String = GpxParser::class.java.getSimpleName()
 
@@ -172,12 +175,13 @@ class GpxParser() : DefaultHandler() {
 
     private fun onTrackpointEnd() {
         val trackpoint = createTrackpoint()
-        if (trackpoint.latLong != null) {
-            segment.add(trackpoint)
-            debug.trackpointsReceived++
-        } else {
+        if (trackpoint == null) {
             debug.trackpointsInvalid++
+            return
         }
+        
+        segment.add(trackpoint)
+        debug.trackpointsReceived++
 
         if (startTime == null) {
             startTime = trackpoint.time
@@ -207,21 +211,24 @@ class GpxParser() : DefaultHandler() {
         trackpointContext = false
     }
 
-    private fun createTrackpoint(): Trackpoint {
+    private fun createTrackpoint(): Trackpoint? {
         try {
             val parsedTime = time?.let { OffsetDateTime.parse(it) }
             if (zoneOffset == null && parsedTime != null) {
                 zoneOffset = parsedTime.offset
             }
 
-            val latitudeDouble = latitude?.let { parseDouble(it) } ?: 0.0
-            val longitudeDouble = longitude?.let { parseDouble(it) } ?: 0.0
+            val latitudeDouble = latitude?.let { parseDouble(it) }
+            val longitudeDouble = longitude?.let { parseDouble(it) }
+            if (latitudeDouble == null || longitudeDouble == null) {
+                return null
+            }
+
             val speedDouble = speed?.let { parseDouble(it) } ?: 0.0
             val elevationDouble = elevation?.let { parseDouble(it) }
 
             return Trackpoint(
-                latitude = latitudeDouble,
-                longitude = longitudeDouble,
+                latLong = GeoPoint(latitudeDouble, longitudeDouble),
                 type = TRACKPOINT_TYPE_TRACKPOINT,
                 speed = speedDouble,
                 time = parsedTime?.toInstant(),
@@ -248,8 +255,7 @@ class GpxParser() : DefaultHandler() {
 
     private fun onWaypointEnd() {
         val trackpoint = createTrackpoint()
-        if (trackpoint.latLong == null) {
-            Log.w(TAG, "Marker with invalid coordinates ignored: $trackpoint")
+        if (trackpoint == null) {
             return
         }
 
@@ -277,8 +283,8 @@ class GpxParser() : DefaultHandler() {
                 description = trackDescription,
                 category = typeLocalized,
                 totalDistanceMeter = distance?.let { parseDouble(it) } ?: 0.0,
-                totalTimeMillis = timerTime?.let { parseLong(it) * 1000 } ?: 0,
-                movingTimeMillis = movingTime?.let { parseLong(it) * 1000 } ?: 0,
+                totalTime = timerTime?.let { parseLong(it).seconds } ?: Duration.ZERO,
+                movingTime = movingTime?.let { parseLong(it).seconds } ?: Duration.ZERO,
                 elevationGainMeter = ascent?.let { parseDouble(it) } ?: 0.0,
                 startTime = startTime,
                 stopTime = stopTime,
