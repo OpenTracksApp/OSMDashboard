@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_above="@id/statistics_layout"
+        android:layout_above="@id/statisticsLayout"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp">
 
@@ -67,7 +67,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/statistics_layout"
+        android:id="@+id/statisticsLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/statistics"
+            android:id="@+id/statisticsFlow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

@@ -28,7 +28,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
 import androidx.documentfile.provider.DocumentFile
 import de.storchp.opentracks.osmplugin.BaseActivity
@@ -624,24 +623,27 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         return false
     }
 
+    private val statisticRefIds = mutableListOf<Int>()
+
     private fun removeStatisticElements() {
-        binding.map.statisticsLayout.children
-            .filterIsInstance<TextView>()
-            .forEach { view ->
-                binding.map.statisticsLayout.removeView(view)
-                binding.map.statistics.removeView(view)
+        statisticRefIds
+            .forEach { id ->
+                binding.map.statisticsLayout.removeView(binding.map.statisticsLayout.findViewById(id))
             }
+        statisticRefIds.clear()
     }
 
     private fun addStatisticElement(text: String?) {
+        val id = View.generateViewId()
         val textView = TextView(this).apply {
-            setId(View.generateViewId())
+            this.id = id
             this.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
             setTextColor(getColor(R.color.track_statistic))
             setTextSize(TypedValue.COMPLEX_UNIT_PT, 10f)
         }
+        statisticRefIds.add(id)
         binding.map.statisticsLayout.addView(textView)
-        binding.map.statistics.addView(textView)
+        binding.map.statisticsFlow.addView(textView)
     }
 
     public override fun onResume() {
@@ -677,7 +679,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
         val visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
         binding.map.fullscreenButton.visibility = visibility
-        binding.map.statistics.setVisibility(visibility)
+        binding.map.statisticsLayout.visibility = visibility
     }
 
     private fun isPiPMode(): Boolean {
