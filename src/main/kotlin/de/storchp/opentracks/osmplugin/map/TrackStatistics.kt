@@ -10,7 +10,7 @@ import kotlin.time.Duration
  * @noinspection unused
  */
 class TrackStatistics(tracks: List<Track>) {
-    var category = "unknown"
+    var category: String? = null
         private set
     var startTime: Instant? = null
         private set
@@ -18,21 +18,21 @@ class TrackStatistics(tracks: List<Track>) {
         private set
     var totalDistanceMeter: Double = 0.0
         private set
-    var totalTime: Duration = Duration.ZERO
+    var totalTime: Duration? = null
         private set
-    var movingTime: Duration = Duration.ZERO
+    var movingTime: Duration? = null
         private set
-    var avgSpeedMeterPerSecond: Double = 0.0
+    var avgSpeedMeterPerSecond: Double? = null
         private set
-    var avgMovingSpeedMeterPerSecond: Double = 0.0
+    var avgMovingSpeedMeterPerSecond: Double? = null
         private set
-    var maxSpeedMeterPerSecond: Double = 0.0
+    var maxSpeedMeterPerSecond: Double? = null
         private set
-    var minElevationMeter: Double = 0.0
+    var minElevationMeter: Double? = null
         private set
-    var maxElevationMeter: Double = 0.0
+    var maxElevationMeter: Double? = null
         private set
-    var elevationGainMeter: Double = 0.0
+    var elevationGainMeter: Double? = null
         private set
 
     init {
@@ -55,7 +55,9 @@ class TrackStatistics(tracks: List<Track>) {
                 var totalAvgSpeedMeterPerSecond = avgSpeedMeterPerSecond
                 var totalAvgMovingSpeedMeterPerSecond = avgMovingSpeedMeterPerSecond
                 for (track in tracks.subList(1, tracks.size)) {
-                    if (category != track.category) {
+                    if (category == null) {
+                        category = track.category
+                    } else if (category != track.category) {
                         category = "mixed"
                     }
                     if (startTime == null || (track.startTime != null && track.startTime < startTime)) {
@@ -65,21 +67,41 @@ class TrackStatistics(tracks: List<Track>) {
                         stopTime = track.startTime
                     }
                     totalDistanceMeter += track.totalDistanceMeter
-                    totalTime += track.totalTime
-                    movingTime += track.movingTime
-                    totalAvgSpeedMeterPerSecond += track.avgSpeedMeterPerSecond
-                    totalAvgMovingSpeedMeterPerSecond += track.avgMovingSpeedMeterPerSecond
-                    maxSpeedMeterPerSecond =
-                        max(maxSpeedMeterPerSecond, track.maxSpeedMeterPerSecond)
-                    minElevationMeter =
-                        min(minElevationMeter, track.minElevationMeter)
-                    maxElevationMeter =
-                        max(maxElevationMeter, track.maxElevationMeter)
-                    elevationGainMeter += track.elevationGainMeter
+                    totalTime = totalTime?.let { it + (track.totalTime ?: Duration.ZERO) }
+                        ?: track.totalTime
+                    movingTime = movingTime?.let { it + (track.movingTime ?: Duration.ZERO) }
+                        ?: track.movingTime
+                    totalAvgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond?.let {
+                        it + (track.avgSpeedMeterPerSecond ?: 0.0)
+                    } ?: track.avgSpeedMeterPerSecond
+                    totalAvgMovingSpeedMeterPerSecond = totalAvgMovingSpeedMeterPerSecond?.let {
+                        it + (track.avgMovingSpeedMeterPerSecond ?: 0.0)
+                    } ?: track.avgMovingSpeedMeterPerSecond
+                    maxSpeedMeterPerSecond = if (maxSpeedMeterPerSecond == null) {
+                        track.maxSpeedMeterPerSecond
+                    } else {
+                        max(
+                            maxSpeedMeterPerSecond!!,
+                            track.maxSpeedMeterPerSecond ?: maxSpeedMeterPerSecond!!
+                        )
+                    }
+                    minElevationMeter = if (minElevationMeter == null) {
+                        track.minElevationMeter
+                    } else {
+                        min(minElevationMeter!!, track.minElevationMeter ?: minElevationMeter!!)
+                    }
+                    maxElevationMeter = if (maxElevationMeter == null) {
+                        track.maxElevationMeter
+                    } else {
+                        max(maxElevationMeter!!, track.maxElevationMeter ?: maxElevationMeter!!)
+                    }
+                    elevationGainMeter =
+                        elevationGainMeter?.let { it + (track.elevationGainMeter ?: 0.0) }
+                            ?: track.elevationGainMeter
                 }
 
-                avgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond / tracks.size
-                avgMovingSpeedMeterPerSecond = totalAvgMovingSpeedMeterPerSecond / tracks.size
+                avgSpeedMeterPerSecond = totalAvgSpeedMeterPerSecond?.div(tracks.size)
+                avgMovingSpeedMeterPerSecond = totalAvgMovingSpeedMeterPerSecond?.div(tracks.size)
             }
         }
     }

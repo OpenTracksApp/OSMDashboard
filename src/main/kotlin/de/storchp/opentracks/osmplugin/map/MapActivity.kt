@@ -240,7 +240,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             if (trackStatistics != null) {
                 PreferencesUtils.getStatisticElements()
                     .sortedBy { it.ordinal }
-                    .forEach { addStatisticElement(it.getText(this, trackStatistics)) }
+                    .forEach { it.getText(this, trackStatistics)?.let { addStatisticElement(it) } }
             }
         }
 

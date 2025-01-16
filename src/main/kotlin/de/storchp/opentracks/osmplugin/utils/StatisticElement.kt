@@ -7,24 +7,22 @@ import java.lang.IllegalArgumentException
 
 enum class StatisticElement {
     CATEGORY {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return context.getString(R.string.stat_category, statistics.category)
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.category?.let { context.getString(R.string.stat_category, it) }
         }
     },
     TOTAL_TIME {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatElapsedTimeHoursMinutes(
-                context,
-                statistics.totalTime
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.totalTime?.let {
+                StringUtils.formatElapsedTimeHoursMinutes(context, it)
+            }
         }
     },
     MOVING_TIME {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatElapsedTimeHoursMinutes(
-                context,
-                statistics.movingTime
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.movingTime?.let {
+                StringUtils.formatElapsedTimeHoursMinutes(context, it)
+            }
         }
     },
     DISTANCE_KM {
@@ -38,51 +36,45 @@ enum class StatisticElement {
         }
     },
     SPEED_KM_H {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatSpeedInKmPerHour(
-                context,
-                statistics.avgMovingSpeedMeterPerSecond
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.avgMovingSpeedMeterPerSecond?.let {
+                StringUtils.formatSpeedInKmPerHour(context, it)
+            }
         }
     },
     PACE_MIN_KM {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatPaceMinPerKm(
-                context,
-                statistics.avgMovingSpeedMeterPerSecond
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.avgMovingSpeedMeterPerSecond?.let {
+                StringUtils.formatPaceMinPerKm(context, it)
+            }
         }
     },
     SPEED_MI_H {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatSpeedInMiPerHour(
-                context,
-                statistics.avgMovingSpeedMeterPerSecond
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.avgMovingSpeedMeterPerSecond?.let {
+                StringUtils.formatSpeedInMiPerHour(context, it)
+            }
         }
     },
     PACE_MIN_MI {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatPaceMinPerMi(
-                context,
-                statistics.avgMovingSpeedMeterPerSecond
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.avgMovingSpeedMeterPerSecond?.let {
+                StringUtils.formatPaceMinPerMi(context, it)
+            }
         }
     },
     ELEVATION_GAIN_METER {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatAltitudeChangeInMeter(
-                context,
-                statistics.elevationGainMeter
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.elevationGainMeter?.let {
+                StringUtils.formatAltitudeChangeInMeter(context, it)
+            }
         }
     },
     ELEVATION_GAIN_FEET {
-        override fun getText(context: Context, statistics: TrackStatistics): String {
-            return StringUtils.formatAltitudeChangeInFeet(
-                context,
-                statistics.elevationGainMeter
-            )
+        override fun getText(context: Context, statistics: TrackStatistics): String? {
+            return statistics.elevationGainMeter?.let {
+                StringUtils.formatAltitudeChangeInFeet(context, it)
+            }
         }
     };
 

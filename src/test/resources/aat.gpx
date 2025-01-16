@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="AAT AAT Activity Tracker v1.24"
+    version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <time>2024-04-27T12:30:47.303Z</time>
+    </metadata>
+    <trk>
+        <trkseg>
+            <trkpt lat="52.773146" lon="13.337713">
+                <ele>74.5</ele>
+                <time>2024-04-27T12:30:46.000Z</time>
+            </trkpt>
+            <trkpt lat="52.773051" lon="13.337763">
+                <ele>73.2</ele>
+                <time>2024-04-27T12:31:01.000Z</time>
+            </trkpt>
+            <trkpt lat="52.773025" lon="13.337786">
+                <ele>72.7</ele>
+                <time>2024-04-27T12:31:04.000Z</time>
+            </trkpt>
+            <trkpt lat="52.773006" lon="13.337816">
+                <ele>72.1</ele>
+                <time>2024-04-27T12:31:06.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772988" lon="13.337825">
+                <ele>71.9</ele>
+                <time>2024-04-27T12:31:08.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772888" lon="13.337866">
+                <ele>72.0</ele>
+                <time>2024-04-27T12:31:27.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772866" lon="13.337876">
+                <ele>71.8</ele>
+                <time>2024-04-27T12:31:30.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772773" lon="13.337840">
+                <ele>70.5</ele>
+                <time>2024-04-27T12:31:43.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772756" lon="13.337855">
+                <ele>70.5</ele>
+                <time>2024-04-27T12:31:45.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772740" lon="13.337883">
+                <ele>71.1</ele>
+                <time>2024-04-27T12:31:47.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772723" lon="13.337906">
+                <ele>72.0</ele>
+                <time>2024-04-27T12:31:49.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772708" lon="13.337925">
+                <ele>72.9</ele>
+                <time>2024-04-27T12:31:51.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772683" lon="13.337935">
+                <ele>72.9</ele>
+                <time>2024-04-27T12:31:53.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772661" lon="13.337940">
+                <ele>73.4</ele>
+                <time>2024-04-27T12:31:55.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772648" lon="13.337961">
+                <ele>73.6</ele>
+                <time>2024-04-27T12:31:57.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772635" lon="13.337981">
+                <ele>73.1</ele>
+                <time>2024-04-27T12:31:59.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772620" lon="13.338006">
+                <ele>72.8</ele>
+                <time>2024-04-27T12:32:01.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772620" lon="13.338043">
+                <ele>72.4</ele>
+                <time>2024-04-27T12:32:03.000Z</time>
+            </trkpt>
+            <trkpt lat="52.772648" lon="13.338123">
+                <ele>73.4</ele>
+                <time>2024-04-27T12:32:11.000Z</time>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>

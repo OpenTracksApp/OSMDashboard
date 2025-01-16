@@ -10,9 +10,9 @@ data class Trackpoint(
     val trackId: Long? = null,
     val id: Long? = null,
     val latLong: GeoPoint,
-    val type: Int,
-    val speed: Double?,
-    val time: Instant?,
+    val type: Int = TRACKPOINT_TYPE_TRACKPOINT,
+    val speed: Double? = null,
+    val time: Instant? = null,
     val elevation: Double? = null,
     val name: String? = null,
 ) {

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test
 import org.oscim.core.GeoPoint
 import java.time.Instant
 import javax.xml.parsers.SAXParserFactory
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 internal class GpxParserTest {
@@ -86,18 +85,9 @@ internal class GpxParserTest {
                 id = 1,
                 name = "lenitzsee-zusatz-",
                 description = "Generated from track lenitzsee-zusatz-",
-                category = null,
-                startTime = null,
-                stopTime = null,
-                totalDistanceMeter = 0.0,
-                totalTime = Duration.ZERO,
-                movingTime = Duration.ZERO,
-                avgSpeedMeterPerSecond = 0.0,
-                avgMovingSpeedMeterPerSecond = 0.0,
-                maxSpeedMeterPerSecond = 0.0,
+                totalDistanceMeter = 203.4179809008669,
                 minElevationMeter = 0.0,
                 maxElevationMeter = 0.0,
-                elevationGainMeter = 0.0,
             )
         )
         assertThat(sut.tracksBySegments.segments).hasSize(1)
@@ -106,20 +96,14 @@ internal class GpxParserTest {
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
                 latLong = GeoPoint(52.765593, 13.279984),
-                type = 0,
-                speed = 0.0,
                 elevation = 0.0,
-                time = null,
                 name = "RPT001"
             )
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
                 latLong = GeoPoint(52.766719, 13.281122),
-                type = 0,
-                speed = 0.0,
                 elevation = 0.0,
-                time = null,
                 name = "RPT007"
             )
         )
@@ -136,18 +120,7 @@ internal class GpxParserTest {
                 id = 1,
                 name = "RPT015",
                 description = "Generated from track biesdorf",
-                category = null,
-                startTime = null,
-                stopTime = null,
-                totalDistanceMeter = 0.0,
-                totalTime = Duration.ZERO,
-                movingTime = Duration.ZERO,
-                avgSpeedMeterPerSecond = 0.0,
-                avgMovingSpeedMeterPerSecond = 0.0,
-                maxSpeedMeterPerSecond = 0.0,
-                minElevationMeter = 0.0,
-                maxElevationMeter = 0.0,
-                elevationGainMeter = 0.0,
+                totalDistanceMeter = 468.38468683124336,
             )
         )
         assertThat(sut.tracksBySegments.segments).hasSize(1)
@@ -156,21 +129,48 @@ internal class GpxParserTest {
         assertThat(segment.first()).isEqualTo(
             Trackpoint(
                 latLong = GeoPoint(52.505294657, 13.560877026),
-                type = 0,
-                speed = 0.0,
-                elevation = null,
-                time = null,
                 name = "RPT001"
             )
         )
         assertThat(segment.last()).isEqualTo(
             Trackpoint(
                 latLong = GeoPoint(52.504075066, 13.566812754),
-                type = 0,
-                speed = 0.0,
-                elevation = null,
-                time = null,
-                name = "RPT018"
+                name = "RPT018",
+            )
+        )
+    }
+
+    @Test
+    fun parseAATGpxTrack() {
+        val sut = GpxParser()
+        SAXParserFactory.newInstance().newSAXParser()
+            .parse(GpxParserTest::class.java.getResourceAsStream("/aat.gpx"), sut)
+
+        assertThat(sut.tracks).containsExactly(
+            Track(
+                id = 1,
+                startTime = Instant.parse("2024-04-27T12:30:46Z"),
+                stopTime = Instant.parse("2024-04-27T12:32:11Z"),
+                totalDistanceMeter = 73.7530943518343,
+                minElevationMeter = 70.5,
+                maxElevationMeter = 74.5,
+            )
+        )
+        assertThat(sut.tracksBySegments.segments).hasSize(1)
+        val segment = sut.tracksBySegments.segments.first()
+        assertThat(segment).hasSize(19)
+        assertThat(segment.first()).isEqualTo(
+            Trackpoint(
+                latLong = GeoPoint(52.773146, 13.337713),
+                elevation = 74.5,
+                time = Instant.parse("2024-04-27T12:30:46Z"),
+            )
+        )
+        assertThat(segment.last()).isEqualTo(
+            Trackpoint(
+                latLong = GeoPoint(52.772648, 13.338123),
+                elevation = 73.4,
+                time = Instant.parse("2024-04-27T12:32:11Z"),
             )
         )
     }

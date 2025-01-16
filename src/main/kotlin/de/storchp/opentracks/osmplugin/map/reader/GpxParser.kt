@@ -16,7 +16,6 @@ import java.lang.Long.parseLong
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private val TAG: String = GpxParser::class.java.getSimpleName()
@@ -70,6 +69,8 @@ class GpxParser() : DefaultHandler() {
     private var elevation: String? = null
     private var speed: String? = null
     private var distance: String? = null
+    private var distanceTrackpoints: Double = 0.0
+    private var lastTrackpointOfTrack: Trackpoint? = null
     private var timerTime: String? = null
     private var movingTime: String? = null
     private var ascent: String? = null
@@ -99,6 +100,8 @@ class GpxParser() : DefaultHandler() {
             TAG_TRACK, TAG_ROUTE -> {
                 trackId++
                 distance = null
+                distanceTrackpoints = 0.0
+                lastTrackpointOfTrack = null
                 timerTime = null
                 movingTime = null
                 ascent = null
@@ -179,7 +182,12 @@ class GpxParser() : DefaultHandler() {
             debug.trackpointsInvalid++
             return
         }
-        
+
+        if (lastTrackpointOfTrack != null) {
+            distanceTrackpoints += lastTrackpointOfTrack!!.latLong.sphericalDistance(trackpoint.latLong)
+        }
+        lastTrackpointOfTrack = trackpoint
+
         segment.add(trackpoint)
         debug.trackpointsReceived++
 
@@ -204,9 +212,10 @@ class GpxParser() : DefaultHandler() {
                 maxElevationMeter = elevation
             }
         }
-        val speed = trackpoint.speed ?: 0.0
-        speedMeterPerSecondList.add(speed)
-        if (speed > 0) movingSpeedMeterPerSecondList.add(speed)
+        trackpoint.speed?.let {
+            speedMeterPerSecondList.add(it)
+            if (it > 0) movingSpeedMeterPerSecondList.add(it)
+        }
 
         trackpointContext = false
     }
@@ -224,7 +233,7 @@ class GpxParser() : DefaultHandler() {
                 return null
             }
 
-            val speedDouble = speed?.let { parseDouble(it) } ?: 0.0
+            val speedDouble = speed?.let { parseDouble(it) }
             val elevationDouble = elevation?.let { parseDouble(it) }
 
             return Trackpoint(
@@ -282,17 +291,17 @@ class GpxParser() : DefaultHandler() {
                 name = trackName,
                 description = trackDescription,
                 category = typeLocalized,
-                totalDistanceMeter = distance?.let { parseDouble(it) } ?: 0.0,
-                totalTime = timerTime?.let { parseLong(it).seconds } ?: Duration.ZERO,
-                movingTime = movingTime?.let { parseLong(it).seconds } ?: Duration.ZERO,
-                elevationGainMeter = ascent?.let { parseDouble(it) } ?: 0.0,
+                totalDistanceMeter = distance?.let { parseDouble(it) } ?: distanceTrackpoints,
+                totalTime = timerTime?.let { parseLong(it).seconds },
+                movingTime = movingTime?.let { parseLong(it).seconds },
+                elevationGainMeter = ascent?.let { parseDouble(it) },
                 startTime = startTime,
                 stopTime = stopTime,
-                maxSpeedMeterPerSecond = maxSpeedMeterPerSecond ?: 0.0,
-                minElevationMeter = minElevationMeter ?: 0.0,
-                maxElevationMeter = maxElevationMeter ?: 0.0,
-                avgSpeedMeterPerSecond = if (speedMeterPerSecondList.isNotEmpty()) speedMeterPerSecondList.average() else 0.0,
-                avgMovingSpeedMeterPerSecond = if (movingSpeedMeterPerSecondList.isNotEmpty()) movingSpeedMeterPerSecondList.average() else 0.0,
+                maxSpeedMeterPerSecond = maxSpeedMeterPerSecond,
+                minElevationMeter = minElevationMeter,
+                maxElevationMeter = maxElevationMeter,
+                avgSpeedMeterPerSecond = if (speedMeterPerSecondList.isNotEmpty()) speedMeterPerSecondList.average() else null,
+                avgMovingSpeedMeterPerSecond = if (movingSpeedMeterPerSecondList.isNotEmpty()) movingSpeedMeterPerSecondList.average() else null,
             )
         )
         zoneOffset = null
