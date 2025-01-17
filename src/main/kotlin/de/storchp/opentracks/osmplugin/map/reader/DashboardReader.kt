@@ -8,9 +8,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import de.storchp.opentracks.osmplugin.map.MapData
-import de.storchp.opentracks.osmplugin.map.TrackStatistics
+import de.storchp.opentracks.osmplugin.map.model.TrackStatistics
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
-import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
 
 private val TAG: String = DashboardReader::class.java.getSimpleName()
 

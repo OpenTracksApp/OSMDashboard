@@ -2,7 +2,7 @@ package de.storchp.opentracks.osmplugin.utils
 
 import android.content.Context
 import de.storchp.opentracks.osmplugin.R
-import de.storchp.opentracks.osmplugin.map.TrackStatistics
+import de.storchp.opentracks.osmplugin.map.model.TrackStatistics
 import java.lang.IllegalArgumentException
 
 enum class StatisticElement {

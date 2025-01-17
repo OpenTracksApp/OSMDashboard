@@ -6,12 +6,12 @@ import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
 import de.storchp.opentracks.osmplugin.map.StyleColorCreator
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
-import de.storchp.opentracks.osmplugin.map.TrackStatistics
 import de.storchp.opentracks.osmplugin.map.model.Track
+import de.storchp.opentracks.osmplugin.map.model.TrackStatistics
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
-import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.oscim.core.GeoPoint
 import kotlin.collections.forEach
 

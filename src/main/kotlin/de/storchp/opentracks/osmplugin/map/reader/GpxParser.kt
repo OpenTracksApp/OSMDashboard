@@ -5,8 +5,8 @@ import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_TRACKPOINT
 import de.storchp.opentracks.osmplugin.map.model.Track
 import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsBySegments
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
-import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
 import org.oscim.core.GeoPoint
 import org.xml.sax.Attributes
 import org.xml.sax.Locator

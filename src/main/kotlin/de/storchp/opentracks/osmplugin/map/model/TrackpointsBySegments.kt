@@ -1,7 +1,5 @@
 package de.storchp.opentracks.osmplugin.map.model
 
-import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
-
 data class TrackpointsBySegments(
     val segments: List<List<Trackpoint>>,
     val debug: TrackpointsDebug,

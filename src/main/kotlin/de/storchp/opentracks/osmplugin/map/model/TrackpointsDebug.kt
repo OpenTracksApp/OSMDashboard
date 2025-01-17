@@ -1,4 +1,4 @@
-package de.storchp.opentracks.osmplugin.utils
+package de.storchp.opentracks.osmplugin.map.model
 
 data class TrackpointsDebug(
     var trackpointsReceived: Int = 0,

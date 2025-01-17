@@ -6,7 +6,7 @@ import android.net.Uri
 import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_PAUSE
 import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_TRACKPOINT
 import de.storchp.opentracks.osmplugin.map.model.Trackpoint
-import de.storchp.opentracks.osmplugin.utils.TrackpointsDebug
+import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
 import io.mockk.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
