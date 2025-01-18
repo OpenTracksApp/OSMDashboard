@@ -100,12 +100,12 @@
     <string name="theme_icon">Icona di tema</string>
     <string name="settings_locale_title">Lingua</string>
     <string name="settings_locale_system_default">Predefinizione di u sistema</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
-    <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="alternative_usage_info">Osinnò, pudete sparte cù OSMDashboard i schedarii GPX o e pusizione simplice à partesi d’altr’appiecazioni.</string>
+    <string name="open_in_open_tracks">Apre in OpenTracks</string>
+    <string name="current_pos">Pusizione attuale</string>
+    <string name="finish">Compie</string>
+    <string name="start">Principià</string>
+    <string name="error_starting_open_tracks">Fiascu per lancià OpenTracks : %s</string>
+    <string name="marker_where_when_description">Quandu : %1$s\nInduve : %2$f, %3$f</string>
+    <string name="pause_title">Pausa</string>
 </resources>
