@@ -102,8 +102,8 @@
     <string name="settings_locale_system_default">Systemvorgabe</string>
     <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
     <string name="pause_title">Pause</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
+    <string name="open_in_open_tracks">In OpenTracks öffnen</string>
+    <string name="current_pos">Aktuelle Position</string>
     <string name="finish">Finish</string>
     <string name="start">Start</string>
     <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
