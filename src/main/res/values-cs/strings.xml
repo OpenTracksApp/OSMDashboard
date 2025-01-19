@@ -100,12 +100,12 @@
     <string name="theme_icon">Ikona motivu</string>
     <string name="settings_locale_title">Jazyk</string>
     <string name="settings_locale_system_default">Podle systému</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
+    <string name="alternative_usage_info">Do aplikace OSMDashboard můžete také sdílet soubory GPX nebo jednoduchá umístění z jiných aplikací.</string>
+    <string name="open_in_open_tracks">Otevřít v aplikaci OpenTracks</string>
+    <string name="current_pos">Aktuální poloha</string>
+    <string name="finish">Dokončit</string>
     <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="error_starting_open_tracks">Nepodařilo se spustit OpenTracks: %s</string>
+    <string name="marker_where_when_description">Kdy: %1$s\nKde: %2$f, %3$f</string>
+    <string name="pause_title">Zastávka</string>
 </resources>
