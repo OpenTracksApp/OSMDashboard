@@ -101,11 +101,11 @@
     <string name="settings_locale_title">语言</string>
     <string name="settings_locale_system_default">系统默认</string>
     <string name="alternative_usage_info">或者，您也可以与 OSMDashboard 分享其他应用的 GPX 文件或简单位置。</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
-    <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="open_in_open_tracks">在 OpenTracks 中打开</string>
+    <string name="current_pos">当前位置</string>
+    <string name="finish">完成</string>
+    <string name="start">启动</string>
+    <string name="error_starting_open_tracks">无法启动 OpenTracks：%s</string>
+    <string name="marker_where_when_description">时间：%1$s\n地点：%2$f，%3$f</string>
+    <string name="pause_title">暂停</string>
 </resources>
