@@ -100,12 +100,12 @@
     <string name="theme_icon">Téma ikonja</string>
     <string name="settings_locale_title">Nyelv</string>
     <string name="settings_locale_system_default">Rendszer alapértelmezett</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
-    <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="alternative_usage_info">Alternatívaként GPX-fájlokat vagy egyszerű helyeket is megoszthat más alkalmazásokból az OSMDashboard segítségével.</string>
+    <string name="current_pos">Jelenlegi helyzet</string>
+    <string name="finish">Befejezés</string>
+    <string name="start">Indítás</string>
+    <string name="error_starting_open_tracks">Nem sikerült elindítani az OpenTracks-et: %s</string>
+    <string name="open_in_open_tracks">Megnyitás az OpenTracks-ben</string>
+    <string name="marker_where_when_description">Mikor: %1$s\nHol: %2$f, %3$f</string>
+    <string name="pause_title">Szünet</string>
 </resources>
