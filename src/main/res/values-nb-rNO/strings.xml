@@ -55,7 +55,7 @@
     <string name="distance_km">Distanse i km</string>
     <string name="speed_km_h">Hastighet i km/t</string>
     <string name="pace_min_km">Tempo i min/km</string>
-    <string name="version_info"><b>Versjon:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Versjon:</b> %s - %s (%d)]]></string>
     <string name="unit_kilometer_per_hour">km/t</string>
     <string name="configure_statistic">Still inn statistikk</string>
     <string name="elevation_meter">Total stigning i meter</string>
@@ -98,14 +98,14 @@
     <string name="download_page_info">Du ser innholdet fra %s</string>
     <string name="theme_icon">Temaikon</string>
     <string name="map_icon">Kartikon</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="finish">Finish</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
+    <string name="settings_locale_title">Språk</string>
+    <string name="settings_locale_system_default">Systemstandard</string>
+    <string name="alternative_usage_info">Alternativt kan du også dele GPX-filer eller enkle posisjoner fra andre apper med OSMDashboard.</string>
+    <string name="finish">Mål</string>
+    <string name="open_in_open_tracks">Åpne i OpenTracks</string>
+    <string name="current_pos">Gjeldende posisjon</string>
     <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
+    <string name="error_starting_open_tracks">Mislyktes i å starte OpenTracks: %s</string>
     <string name="pause_title">Pause</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
+    <string name="marker_where_when_description">Når: %1$s\nHvor: %2$f, %3$f</string>
 </resources>
