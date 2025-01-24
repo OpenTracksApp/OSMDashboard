@@ -1,0 +1,3 @@
+- Fix: Sprachen im PlayStore App Bundle
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

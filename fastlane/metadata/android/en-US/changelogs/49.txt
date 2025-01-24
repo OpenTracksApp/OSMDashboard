@@ -1,0 +1,3 @@
+- Fix: include all languages in Play Store app bundle
+- Updated translations
+- Updated dependencies
