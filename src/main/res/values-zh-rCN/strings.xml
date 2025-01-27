@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_selection">地图列表。</string>
+    <string name="map_selection">地图</string>
     <string name="moving_time">运动时间</string>
     <string name="unit_minute_per_kilometer">min/km</string>
     <string name="unit_mile_per_hour">英里每小时</string>
     <string name="copyright_osm">地图数据由©OpenStreetMap提供</string>
     <string name="default_theme">默认主题</string>
     <string name="map_info_menu">关于</string>
-    <string name="map_folder">离线地图路径</string>
-    <string name="theme_folder">地图主题路径</string>
+    <string name="map_folder">地图目录</string>
+    <string name="theme_folder">地图主题目录</string>
     <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>, 选择一条路径并点击地图图标以在此地图中显示。</string>
     <string name="osm_info">默认地图由 <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b>提供。如果想加入社区并帮助改进地图，请点击 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">请优先考虑下载一份离线地图以降低服务器负载，同时保存好您的轨迹数据。以下是是一些地区的离线数据：</string>
@@ -21,14 +21,14 @@
     <string name="download_theme">主题下载</string>
     <string name="choose_map_to_download">选择一个地图以下载</string>
     <string name="download_success">地图下载成功</string>
-    <string name="online_osm_mapnick">在线地图OSM:Mapnik</string>
-    <string name="delete_map_question">是否删除%s的地图?</string>
+    <string name="online_osm_mapnick">在线地图 OSM:Mapnik</string>
+    <string name="delete_map_question">是否删除地图 %s？</string>
     <string name="delete_map_error">地图删除失败</string>
     <string name="theme_selection">地图主题</string>
-    <string name="delete_theme_question">是否删除主题 %s?</string>
+    <string name="delete_theme_question">是否删除主题 %s？</string>
     <string name="delete_theme_error">主题删除失败</string>
-    <string name="overwrite_theme_question">主题 %s 已存在!！是否删除并重新下载？</string>
-    <string name="error_loading_offline_map">读取配置的在线地图失败</string>
+    <string name="overwrite_theme_question">主题 %s 已存在！是否删除并重新下载？</string>
+    <string name="error_loading_offline_map">读取配置的离线地图时出错</string>
     <string name="track_smoothing_menu">轨迹平滑</string>
     <string name="pip_mode">画中画模式</string>
     <string name="map_mode_north_top">地图上方为北</string>
@@ -44,7 +44,7 @@
     <string name="unit_minute_per_mile">min/mi</string>
     <string name="share">分享</string>
     <string name="toggle_full_screen_mode">切换全屏模式</string>
-    <string name="error_crash_title">%1$s 崩溃</string>
+    <string name="error_crash_title">%1$s 崩溃了</string>
     <string name="bug_report">报告问题</string>
     <string name="configure_statistic">配置统计信息</string>
     <string name="category">类别</string>
@@ -68,9 +68,9 @@
     <string name="offline_map_info">离线地图可在App中下载，进入应用设置并通过选择列表下载<b>地图下载</b> 通过访问上述网站并单击下载链接。有些浏览器 (例如Firefox) 需要长按连接并通过第三方应用下载后，再用OSM仪表盘打开。</string>
     <string name="online_map_consent">还没有配置离线地图。请允许应用使用OpenStreet提供的在线地图。这可能泄露您当前的地理位置信息。点击链接https://operations.osmfoundation.org/policies/tiles/ 查看相关隐私政策。</string>
     <string name="download_theme_success">主题下载成功</string>
-    <string name="overwrite_map_question">地图 %s 已存在!！是否删除并重新下载？</string>
+    <string name="overwrite_map_question">地图 %s 已存在！是否删除并重新下载？</string>
     <string name="track_smoothing_info">定义轨迹平滑算法的容差（以米为单位）。设置为 0 则禁用轨迹平滑。</string>
-    <string name="no_map_configured">您还没有配置离线地图。</string>
+    <string name="no_map_configured">您尚未配置离线地图。</string>
     <string name="no_file_manager_found">没有找到文件管理器</string>
     <string name="debug_trackpoints_info">轨迹点接收: %1$d
 \n轨迹点无效: %2$d
@@ -82,14 +82,14 @@
     <string name="map_settings">地图</string>
     <string name="online_map_consent_info">使用 openstreetmap.org 的在线地图可能会泄露你的当前位置。使用前需征得你的同意。</string>
     <string name="map_mode">地图方向</string>
-    <string name="title_activity_settings">设置页面</string>
+    <string name="title_activity_settings">设置</string>
     <string name="action_settings">设置</string>
-    <string name="general_settings_category_title">通用设置</string>
+    <string name="general_settings_category_title">常规</string>
     <string name="settings_night_mode_option_day">白天</string>
-    <string name="settings_night_mode_title">UI主题</string>
-    <string name="settings_ui_dynamic_colors_title">动态颜色</string>
-    <string name="settings_ui_dynamic_colors_summary">使用用户定义的动态色彩（仅限 Android 12 以上版本；需要手动重启）</string>
-    <string name="settings_night_mode_option_night">夜晚</string>
+    <string name="settings_night_mode_title">用户界面主题</string>
+    <string name="settings_ui_dynamic_colors_title">动态配色</string>
+    <string name="settings_ui_dynamic_colors_summary">使用用户定义的动态配色（仅 Android 12 及更高版本，需要手动重启）</string>
+    <string name="settings_night_mode_option_night">夜间</string>
     <string name="settings_night_mode_option_system">系统</string>
     <string name="add_marker_to_open_tracks">是否将标记添加到 OpenTracks？</string>
     <string name="offline_version_info">注意：这是离线版本，可最大限度地保护隐私。它没有互联网权限，无法泄露您的位置。因此，它既不能显示在线地图，也不能下载离线地图。离线地图必须手动下载，见下文。</string>
