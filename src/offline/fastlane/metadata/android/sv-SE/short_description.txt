@@ -1,1 +1,1 @@
-OSM instrumentpanel för OpenTracks utan internettillstånd
+OpenStreetMap dashboard för OpenTracks utan internettillstånd
