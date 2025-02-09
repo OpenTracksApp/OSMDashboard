@@ -1,1 +1,1 @@
-OSM-kontrollpanel för OpenTracks
+OSM Dashboard för OpenTracks
