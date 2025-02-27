@@ -18,7 +18,7 @@ preferenceKtx = "1.2.1"
 runner = "1.6.2"
 slf4jApi = "2.0.17"
 jsoup = "1.18.3"
-activity = "1.10.0"
+activity = "1.10.1"
 
 [libraries]
 android-test-runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidTest" }
