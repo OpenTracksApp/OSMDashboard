@@ -1,1 +1,1 @@
-OpenStreetMap-kontrollpanel för OpenTracks
+OpenStreetMap dashboard för OpenTracks
