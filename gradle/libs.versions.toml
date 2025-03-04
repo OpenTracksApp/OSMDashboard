@@ -17,7 +17,7 @@ mockk = "1.13.17"
 preferenceKtx = "1.2.1"
 runner = "1.6.2"
 slf4jApi = "2.0.17"
-jsoup = "1.18.3"
+jsoup = "1.19.1"
 activity = "1.10.1"
 
 [libraries]
