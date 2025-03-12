@@ -2,14 +2,14 @@
 <resources>
     <string name="pip_mode">子母畫面</string>
     <string name="unit_minute_per_mile">分鐘/英里</string>
-    <string name="delete_map_question">是否刪除「%s」地圖？</string>
+    <string name="delete_map_question">是否刪除 %s 地圖？</string>
     <string name="menu_advanced">進階</string>
     <string name="track_color">蹤跡色彩</string>
     <string name="map_online_consent_menu">同意使用線上地圖</string>
     <string name="unit_meter">公尺</string>
     <string name="default_theme">預設主題</string>
-    <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>,，選擇一個蹤跡並點擊地圖圖示以在地圖上顯示蹤跡。</string>
-    <string name="overwrite_map_question">「%s」地圖已經存在！是否刪除並再次下載？</string>
+    <string name="usage_info">使用 <b><a href="https://f-droid.org/packages/de.dennisguse.opentracks">OpenTracks</a></b>，選擇一個蹤跡並點擊地圖圖示以在地圖上顯示蹤跡。</string>
+    <string name="overwrite_map_question">%s 地圖已經存在！是否刪除並再次下載？</string>
     <string name="pace_min_km">配速（分鐘/公里）</string>
     <string name="show_pause_markers">顯示暫停標誌</string>
     <string name="pace_min_mi">配速（分鐘/英里）</string>
@@ -19,13 +19,13 @@
     <string name="map_settings">地圖</string>
     <string name="online_osm_mapnick">線上地圖 OSM:Mapnik</string>
     <string name="stroke_width_info">定義蹤跡的筆畫寬度</string>
-    <string name="osm_info">預設的地圖由 <b><a href="https://openstreetmap.org">OpenStreetMap.org 提供</a></b>。加入社群並幫助改善該地圖，請見 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>。</string>
+    <string name="osm_info">預設的地圖由 <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> 提供。加入社群並幫助改善該地圖，請見 <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>。</string>
     <string name="map_mode_north_top">地圖北方朝上</string>
     <string name="track_smoothing_menu">蹤跡平滑化</string>
-    <string name="version_info"><b>版本：</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>版本：</b> %s - %s (%d)]]></string>
     <string name="distance_km">距離（公里）</string>
     <string name="unit_mile_per_hour">英里每小時</string>
-    <string name="delete_theme_question">是否刪除「%s」主題？</string>
+    <string name="delete_theme_question">是否刪除 %s 主題？</string>
     <string name="unit_feet">英尺</string>
     <string name="elevation_feet">海拔提升（英尺）</string>
     <string name="map_folder">地圖目錄</string>
@@ -72,7 +72,7 @@
     <string name="theme_folder">地圖主題目錄</string>
     <string name="app_logo_description">應用程式圖示</string>
     <string name="download_theme">主題下載</string>
-    <string name="overwrite_theme_question">「%s」主題已經存在！是否刪除並再次下載？</string>
+    <string name="overwrite_theme_question">%s 主題已經存在！是否刪除並再次下載？</string>
     <string name="download_map">地圖下載</string>
     <string name="general_settings_category_title">一般</string>
     <string name="category">類別</string>
@@ -93,19 +93,19 @@
     <string name="settings_night_mode_option_system">系統</string>
     <string name="add_marker_to_open_tracks">新增標記至 OpenTracks？</string>
     <string name="offline_version_info">注意：這是離線版本，可以最大程度地保護隱私。它沒有網路權限，無法洩露你的位置。因此，它無法顯示線上地圖，也無法下載離線地圖。離線地圖必須手動下載，請參見下文。</string>
-    <string name="INTERNAL_APP_STORAGE">Internal app storage directory</string>
-    <string name="map_icon">Map icon</string>
-    <string name="map_download_summary">Download maps from %s</string>
-    <string name="download_page_info">You are viewing content of %s</string>
-    <string name="theme_icon">Theme icon</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
-    <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="INTERNAL_APP_STORAGE">內部應用程式儲存目錄</string>
+    <string name="map_icon">地圖圖示</string>
+    <string name="map_download_summary">從 %s 下載地圖</string>
+    <string name="download_page_info">您正在檢視 %s 的內容</string>
+    <string name="theme_icon">主題圖示</string>
+    <string name="settings_locale_title">語言</string>
+    <string name="settings_locale_system_default">系統預設</string>
+    <string name="alternative_usage_info">或者，您也可以與 OSMDashboard 分享來自其他應用程式的 GPX 檔案或簡單位置。</string>
+    <string name="open_in_open_tracks">在 OpenTracks 中開啟</string>
+    <string name="current_pos">目前位置</string>
+    <string name="finish">完成</string>
+    <string name="start">開始</string>
+    <string name="error_starting_open_tracks">啟動 OpenTracks 失敗：%s</string>
+    <string name="marker_where_when_description">時間：%1$s\n地點：%2$f, %3$f</string>
+    <string name="pause_title">暫停</string>
 </resources>
