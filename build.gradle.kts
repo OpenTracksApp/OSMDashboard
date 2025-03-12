@@ -209,7 +209,8 @@ dependencies {
     implementation(libs.androidsvg)
     implementation(libs.jsoup.jsoup)
 
-    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
     testImplementation(libs.assertj.core)
     testImplementation(libs.mockk)
 
@@ -217,6 +218,7 @@ dependencies {
 
     androidTestImplementation(libs.runner)
     androidTestImplementation(libs.junit.jupiter.api)
+    androidTestImplementation(libs.junit.jupiter.params)
     androidTestImplementation(libs.android.test.core)
 
     androidTestRuntimeOnly(libs.android.test.runner)

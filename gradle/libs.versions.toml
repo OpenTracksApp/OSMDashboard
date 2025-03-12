@@ -31,9 +31,9 @@ desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref 
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 jsoup-jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
