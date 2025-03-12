@@ -40,7 +40,7 @@
     <string name="download_theme_success">Tema har laddats ner framgångsrikt</string>
     <string name="overwrite_theme_question">Temat %s finns redan! Kan du radera och ladda ner igen?</string>
     <string name="no_download_uri_found">Ingen URI att hämta hittades</string>
-    <string name="offline_map_info">Ej uppkopplade kartor kan hämtas via menyn <b>Hämtning av kartor</b> eller genom att besöka de ovan nämnda webbplatserna och klicka på hämtningslänkarna. Vissa webbläsare (t.ex. Firefox) kräver ett långt klick på länken och Öppna länk i en extern app och välj sedan OSMDashboard.</string>
+    <string name="offline_map_info">Ej uppkopplade kartor kan hämtas inuti appen. Gå till inställningar och välj <b>Karthämtning</b> eller genom att besöka de ovan nämnda webbplatserna och klicka på hämtningslänkarna. En del webbläsare (t.ex Firefox) kräver ett långt klick på länken och Öppna länk i extern app och sedan välja OSMDashboard.</string>
     <string name="no_file_manager_found">Ingen filhanterare hittades</string>
     <string name="toggle_full_screen_mode">Växla till helskärmsläge</string>
     <string name="share">Dela</string>
@@ -57,7 +57,7 @@
     <string name="speed_mi_h">Hastighet in mi/h</string>
     <string name="track_color_mode_uni">Unifärger</string>
     <string name="map_settings">Karta</string>
-    <string name="version_info"><b>Version:</b> %s - %s (%d)</string>
+    <string name="version_info"><![CDATA[<b>Version:</b> %s - %s (%d)]]></string>
     <string name="distance_km">Avstånd i kilometer</string>
     <string name="unit_mile_per_hour">mph</string>
     <string name="elevation_feet">Höjdökning i fot</string>
@@ -98,14 +98,14 @@
     <string name="download_page_info">Du tittar på innehållet av %s</string>
     <string name="map_icon">Kartikon</string>
     <string name="theme_icon">Tema ikon</string>
-    <string name="settings_locale_title">Language</string>
-    <string name="settings_locale_system_default">System default</string>
-    <string name="alternative_usage_info">Alternatively you can also share GPX files or simple locations from other apps with OSMDashboard.</string>
-    <string name="open_in_open_tracks">Open in OpenTracks</string>
-    <string name="current_pos">Current position</string>
-    <string name="finish">Finish</string>
-    <string name="start">Start</string>
-    <string name="error_starting_open_tracks">Failed to start OpenTracks: %s</string>
-    <string name="marker_where_when_description">When: %1$s\nWhere: %2$f, %3$f</string>
-    <string name="pause_title">Pause</string>
+    <string name="settings_locale_title">Språk</string>
+    <string name="settings_locale_system_default">Systemstandard</string>
+    <string name="alternative_usage_info">Alternativt så kan du också dela GPX-filer eller enklare platser från andra appar med OSMDashboard.</string>
+    <string name="open_in_open_tracks">Öppna i OpenTracks</string>
+    <string name="current_pos">Nuvarande plats</string>
+    <string name="finish">Avsluta</string>
+    <string name="start">Starta</string>
+    <string name="error_starting_open_tracks">Starten av OpenTracks misslyckades: %s</string>
+    <string name="marker_where_when_description">När: %1$sV\nVar: %2$f, %3$f</string>
+    <string name="pause_title">Pausa</string>
 </resources>
