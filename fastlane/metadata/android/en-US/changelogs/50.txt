@@ -1,0 +1,3 @@
+- New: make track colors configurable
+- Updated translations
+- Updated dependencies

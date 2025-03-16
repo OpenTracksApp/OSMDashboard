@@ -19,4 +19,32 @@
     <style name="MaterialSwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material">
         <item name="widgetLayout">@layout/view_preference_switch</item>
     </style>
+
+    <!-- color picker styles -->
+    <style name="Base.Theme.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <style name="AppTheme.Base" parent="Base.Theme.DayNight">
+        <!--BASE-->
+        <item name="colorPrimary">@color/opentracks</item>
+        <item name="colorPrimaryDark">@color/opentracks</item>
+        <item name="colorAccent">@color/opentracks</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+    </style>
+
+    <!-- Style for a DialogPreference Entry -->
+    <style name="AppTheme.PreferenceDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="positiveButtonText">@android:string/ok</item>
+        <item name="negativeButtonText">@android:string/cancel</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
+    </style>
+
+    <style name="ButtonBarButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/opentracks</item>
+    </style>
+
 </resources>

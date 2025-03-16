@@ -1,0 +1,3 @@
+- Neu: Trackfarben sind nun konfigurierbar
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

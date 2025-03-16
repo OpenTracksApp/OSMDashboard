@@ -3,4 +3,13 @@
     <!-- Brand colors -->
     <color name="opentracks">#FF6D00</color>
     <color name="track_statistic">#FF000000</color> <!-- black -->
+
+    <color name="track_color_1_default">#02B8FC</color>
+    <color name="track_color_2_default">#FCF702</color>
+    <color name="track_color_3_default">#AE02FC</color>
+    <color name="track_color_4_default">#0231FC</color>
+    <color name="track_color_5_default">#02FCEC</color>
+    <color name="track_color_speed_low_default">#FF0000</color>
+    <color name="track_color_speed_average_default">#FFFF00</color>
+    <color name="track_color_speed_high_default">#00FF00</color>
 </resources>

@@ -4,7 +4,6 @@ import android.util.Log
 import de.storchp.opentracks.osmplugin.map.DEFAULT_TRACK_COLOR_MODE
 import de.storchp.opentracks.osmplugin.map.MapData
 import de.storchp.opentracks.osmplugin.map.MapUtils
-import de.storchp.opentracks.osmplugin.map.StyleColorCreator
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.model.Track
 import de.storchp.opentracks.osmplugin.map.model.TrackStatistics
@@ -13,7 +12,6 @@ import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import org.oscim.core.GeoPoint
-import kotlin.collections.forEach
 
 private val TAG: String = MapDataReader::class.java.getSimpleName()
 
@@ -23,8 +21,9 @@ abstract class MapDataReader(
     private val updateTrackpointsDebug: UpdateTrackpointsDebug,
 ) {
 
-    private val colorCreator = StyleColorCreator()
-    private var trackColor = colorCreator.nextColor()
+    private val trackSpeedColors = PreferencesUtils.getTrackSpeedColors()
+    private val trackColors = PreferencesUtils.getTrackColors()
+    private var trackColor = trackColors.first()
     private var trackpointsDebug = TrackpointsDebug()
     var lastTrackId: Long? = null
         protected set
@@ -53,11 +52,11 @@ abstract class MapDataReader(
 
         val average = trackpointsBySegments.calcAverageSpeed()
         val maxSpeed = trackpointsBySegments.calcMaxSpeed()
-        val averageToMaxSpeed = maxSpeed - average
         var trackColorMode = PreferencesUtils.getTrackColorMode()
         if (isRecording && !trackColorMode.supportsLiveTrack) {
             trackColorMode = DEFAULT_TRACK_COLOR_MODE
         }
+        var trackIndex = 0
 
         trackpointsBySegments.segments.map { trackpoints ->
             if (!update) {
@@ -71,7 +70,8 @@ abstract class MapDataReader(
             trackpoints.forEach { trackpoint ->
                 if (trackpoint.trackId != lastTrackId) {
                     if (trackColorMode == TrackColorMode.BY_TRACK) {
-                        trackColor = colorCreator.nextColor()
+                        trackColor = trackColors[trackIndex % trackColors.size]
+                        trackIndex++
                     }
                     lastTrackId = trackpoint.trackId
                     mapData.resetCurrentPolyline()
@@ -80,8 +80,9 @@ abstract class MapDataReader(
                 if (trackColorMode == TrackColorMode.BY_SPEED) {
                     trackColor = MapUtils.getTrackColorBySpeed(
                         average,
-                        averageToMaxSpeed,
-                        trackpoint
+                        maxSpeed,
+                        trackpoint,
+                        trackSpeedColors,
                     )
                     mapData.addNewPolyline(trackColor, trackpoint)
                 } else {

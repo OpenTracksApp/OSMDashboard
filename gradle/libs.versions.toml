@@ -5,6 +5,7 @@ androidsvg = "1.4"
 androidTest = "1.7.0"
 appcompat = "1.7.0"
 assertJ = "3.27.3"
+colorpicker = "1.1.5"
 constraintlayout = "2.2.1"
 desugar_jdk_libs = "2.1.5"
 documentfile = "1.0.1"
@@ -26,6 +27,7 @@ android-test-core = { module = "de.mannodermaus.junit5:android-test-core", versi
 androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvg" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
+colorpicker = { module = "com.github.7Koston:HSVColorPicker", version.ref = "colorpicker" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }

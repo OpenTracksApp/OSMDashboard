@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.map.MapMode
+import de.storchp.opentracks.osmplugin.map.SpeedColors
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.toMapMode
-import java.lang.Exception
 
 object PreferencesUtils {
     private val TAG: String = PreferencesUtils::class.java.getSimpleName()
@@ -26,6 +26,46 @@ object PreferencesUtils {
     }
 
     private fun getKey(@StringRes keyId: Int) = resources.getString(keyId)
+
+    fun getTrackColors() =
+        listOf(
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_1,
+                resources.getColor(R.color.track_color_1_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_2,
+                resources.getColor(R.color.track_color_2_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_3,
+                resources.getColor(R.color.track_color_3_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_4,
+                resources.getColor(R.color.track_color_4_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_5,
+                resources.getColor(R.color.track_color_5_default, null)
+            ),
+        )
+
+    fun getTrackSpeedColors() =
+        SpeedColors(
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_SPEED_LOW,
+                resources.getColor(R.color.track_color_speed_low_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_SPEED_AVERAGE,
+                resources.getColor(R.color.track_color_speed_average_default, null)
+            ),
+            getInt(
+                R.string.APP_PREF_TRACK_COLOR_SPEED_HIGH,
+                resources.getColor(R.color.track_color_speed_high_default, null)
+            )
+        )
 
     fun getMapUris(): Set<Uri> {
         return getUris(getKey(R.string.APP_PREF_MAP_FILES))
@@ -96,7 +136,8 @@ object PreferencesUtils {
     }
 
     private fun setUris(keyId: Int, uris: Set<Uri>) {
-        setStringSet(keyId,
+        setStringSet(
+            keyId,
             uris
                 .map { it.toString() }
                 .toSet())

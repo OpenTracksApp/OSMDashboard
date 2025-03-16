@@ -3,10 +3,11 @@ package de.storchp.opentracks.osmplugin.map
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.location.Location
 import android.util.Log
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.createBitmap
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.utils.UnitConversions
@@ -101,9 +102,9 @@ object MapUtils {
                 idx = current[0] + 1
                 while (idx < current[1]) {
                     dist = distance(
-                        trackpoints[idx].latLong!!,
-                        trackpoints[current[0]].latLong!!,
-                        trackpoints[current[1]].latLong!!
+                        trackpoints[idx].latLong,
+                        trackpoints[current[0]].latLong,
+                        trackpoints[current[1]].latLong
                     )
                     if (dist > maxDist) {
                         maxDist = dist
@@ -179,10 +180,7 @@ object MapUtils {
 
     fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
         val drawable = ContextCompat.getDrawable(context, drawableId)
-        val bitmap = Bitmap.createBitmap(
-            drawable!!.intrinsicWidth,
-            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
+        val bitmap = createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight)
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)
@@ -191,21 +189,25 @@ object MapUtils {
     }
 
     fun getTrackColorBySpeed(
-        average: Double,
-        averageToMaxSpeed: Double,
-        trackpoint: Trackpoint
+        averageSpeed: Double,
+        maxSpeed: Double,
+        trackpoint: Trackpoint,
+        trackSpeedColors: SpeedColors
     ): Int {
-        var red = 255
-        var green = 255
+        val averageToMaxSpeed = maxSpeed - averageSpeed
         val speed = trackpoint.speed ?: 0.0
-        if (speed == 0.0) {
-            green = 0
-        } else if (speed < average) {
-            green = (255 * speed / average).toInt()
+        return if (speed < averageSpeed) {
+            ColorUtils.blendARGB(
+                trackSpeedColors.low, trackSpeedColors.average,
+                (speed / averageSpeed).toFloat()
+            )
         } else {
-            red = 255 - (255 * (speed - average) / averageToMaxSpeed).toInt()
+            ColorUtils.blendARGB(
+                trackSpeedColors.average, trackSpeedColors.high,
+                ((speed - averageSpeed) / averageToMaxSpeed).toFloat()
+            )
+
         }
-        return Color.argb(255, red, green, 0)
     }
 
     fun createMarkerSymbol(

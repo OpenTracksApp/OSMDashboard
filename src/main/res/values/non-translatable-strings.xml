@@ -15,6 +15,14 @@
     <string name="APP_PREF_MAP_MODE" translatable="false">APP_PREF_MAP_MODE</string>
     <string name="APP_PREF_STATISTIC_ELEMENTS" translatable="false">APP_PREF_STATISTIC_ELEMENTS</string>
     <string name="APP_PREF_TRACK_COLOR_MODE" translatable="false">APP_PREF_TRACK_COLOR_MODE</string>
+    <string name="APP_PREF_TRACK_COLOR_1" translatable="false">APP_PREF_TRACK_COLOR_1</string>
+    <string name="APP_PREF_TRACK_COLOR_2" translatable="false">APP_PREF_TRACK_COLOR_2</string>
+    <string name="APP_PREF_TRACK_COLOR_3" translatable="false">APP_PREF_TRACK_COLOR_3</string>
+    <string name="APP_PREF_TRACK_COLOR_4" translatable="false">APP_PREF_TRACK_COLOR_4</string>
+    <string name="APP_PREF_TRACK_COLOR_5" translatable="false">APP_PREF_TRACK_COLOR_5</string>
+    <string name="APP_PREF_TRACK_COLOR_SPEED_LOW" translatable="false">APP_PREF_TRACK_COLOR_SPEED_LOW</string>
+    <string name="APP_PREF_TRACK_COLOR_SPEED_AVERAGE" translatable="false">APP_PREF_TRACK_COLOR_SPEED_AVERAGE</string>
+    <string name="APP_PREF_TRACK_COLOR_SPEED_HIGH" translatable="false">APP_PREF_TRACK_COLOR_SPEED_HIGH</string>
     <string name="APP_PREF_MAP_SELECTION" translatable="false">APP_PREF_MAP_SELECTION</string>
     <string name="APP_PREF_MAP_DOWNLOAD" translatable="false">APP_PREF_MAP_DOWNLOAD</string>
     <string name="APP_PREF_LOCALE_KEY" translatable="false">APP_PREF_LOCALE_KEY</string>

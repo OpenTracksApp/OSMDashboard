@@ -11,12 +11,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.preference.Preference
 import androidx.preference.Preference.SummaryProvider
-import androidx.preference.PreferenceFragmentCompat
+import com.github.koston.preference.ColorPreferenceFragmentCompat
 import de.storchp.opentracks.osmplugin.BuildConfig
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivitySettingsBinding
 import de.storchp.opentracks.osmplugin.download.MAPS_V_5_DOWNLOAD_URI
-import de.storchp.opentracks.osmplugin.settings.SettingsActivity.SettingsFragment
 import de.storchp.opentracks.osmplugin.utils.FileUtil
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 
@@ -43,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar.mapsToolbar)
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : ColorPreferenceFragmentCompat() {
         private val sharedPreferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences, key ->
                 if (PreferencesUtils.isKey(R.string.night_mode_key, key)) {
