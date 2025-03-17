@@ -110,9 +110,9 @@
     <string name="pause_title">Zastávka</string>
     <string name="track_color_speed_low_summary">Set track color for low speed</string>
     <string name="track_color_4_title">Track color 4</string>
-    <string name="color_settings">Colors</string>
+    <string name="color_settings">Barvy</string>
     <string name="track_color_1_title">Track color 1</string>
-    <string name="track_color_2_summary">Set color for second track</string>
+    <string name="track_color_2_summary">Nastavit barvu pro druhou stopu</string>
     <string name="track_color_2_title">Track color 2</string>
     <string name="track_color_speed_high_title">Track color high speed</string>
     <string name="track_color_speed_average_title">Track color average speed</string>
@@ -121,8 +121,8 @@
     <string name="track_color_3_title">Track color 3</string>
     <string name="track_color_speed_average_summary">Set track color for average speed</string>
     <string name="track_color_speed_low_title">Track color low speed</string>
-    <string name="track_color_3_summary">Set color for third track</string>
-    <string name="track_color_1_summary">Set color for first track</string>
+    <string name="track_color_3_summary">Nastavit barvu pro třetí stopu</string>
+    <string name="track_color_1_summary">Nastavit barvu pro první stopu</string>
     <string name="track_color_speed_high_summary">Set track color for high speed</string>
     <string name="track_color_5_summary">Set color for fifth track</string>
 </resources>
