@@ -51,7 +51,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey)
+            addPreferencesFromResource(R.xml.root_preferences)
 
             @Suppress("KotlinConstantConditions")
             if (BuildConfig.offline) {
