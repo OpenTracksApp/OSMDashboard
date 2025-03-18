@@ -35,7 +35,7 @@
     <string name="osm_info">Az alapértelmezett térképet a <b><a href="https://openstreetmap.org">OpenStreetMap.org</a></b> szolgáltatja. Csatlakozzon a közösséghez, és segítsen a térkép javításában. Lásd: <b><a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a></b>.</string>
     <string name="consider_offline_maps">Fontolja meg egy offline térkép letöltését, hogy csökkentse a kiszolgálóterhelést és kímélje a mobil adatforgalmi keretét. Néhány offline térkép megtalálható itt:</string>
     <string name="map_theme_info"><b>Egyes térképek speciális témákat igényelnek a megfelelő megjelenítéshez.</b> Ezeket le kell tölteni, és ennek megfelelően kell beállítani.</string>
-    <string name="manual_offline_map_info">A kézileg letöltött offline térképek vagy a más alkalmazásokkal megosztott térképek megnyithatók az androidos eszközéről. Válassza ki a könyvtárat a <b>Térképkönyvtár</b> beállításban.</string>
+    <string name="manual_offline_map_info">A saját kezűleg letöltött offline térképek vagy a más alkalmazásokkal megosztott térképek megnyithatók az androidos eszközéről. Válassza ki a könyvtárat a <b>Térképkönyvtár</b> beállításban.</string>
     <string name="no_download_uri_found">Nincs letölthető URI</string>
     <string name="overwrite_theme_question">A(z) %s téma már létezik. Törli és újból letölti?</string>
     <string name="download_theme_success">A téma sikeresen letöltve</string>
@@ -108,21 +108,21 @@
     <string name="open_in_open_tracks">Megnyitás az OpenTracks-ben</string>
     <string name="marker_where_when_description">Mikor: %1$s\nHol: %2$f, %3$f</string>
     <string name="pause_title">Szünet</string>
-    <string name="track_color_speed_low_summary">Set track color for low speed</string>
-    <string name="track_color_4_title">Track color 4</string>
-    <string name="color_settings">Colors</string>
-    <string name="track_color_1_title">Track color 1</string>
-    <string name="track_color_2_summary">Set color for second track</string>
-    <string name="track_color_2_title">Track color 2</string>
-    <string name="track_color_speed_high_title">Track color high speed</string>
-    <string name="track_color_speed_average_title">Track color average speed</string>
-    <string name="track_color_4_summary">Set color for fourth track</string>
-    <string name="track_color_5_title">Track color 5</string>
-    <string name="track_color_3_title">Track color 3</string>
-    <string name="track_color_speed_average_summary">Set track color for average speed</string>
-    <string name="track_color_speed_low_title">Track color low speed</string>
-    <string name="track_color_3_summary">Set color for third track</string>
-    <string name="track_color_1_summary">Set color for first track</string>
-    <string name="track_color_speed_high_summary">Set track color for high speed</string>
-    <string name="track_color_5_summary">Set color for fifth track</string>
+    <string name="track_color_speed_low_summary">Szín beállítása az alacsony sebességhez</string>
+    <string name="track_color_4_title">4. nyomvonal színe</string>
+    <string name="color_settings">Színek</string>
+    <string name="track_color_1_title">1. nyomvonal színe</string>
+    <string name="track_color_2_summary">Szín beállítása a második nyomvonalhoz</string>
+    <string name="track_color_2_title">2. nyomvonal színe</string>
+    <string name="track_color_speed_high_title">Nagy sebesség nyomvonal színe</string>
+    <string name="track_color_speed_average_title">Átlagsebesség nyomvonal színe</string>
+    <string name="track_color_4_summary">Szín beállítása a negyedik nyomvonalhoz</string>
+    <string name="track_color_5_title">5. nyomvonal színe</string>
+    <string name="track_color_3_title">3. nyomvonal színe</string>
+    <string name="track_color_speed_average_summary">Szín beállítása az átlagsebességhez</string>
+    <string name="track_color_speed_low_title">Alacsony sebesség nyomvonal színe</string>
+    <string name="track_color_3_summary">Szín beállítása a harmadik nyomvonalhoz</string>
+    <string name="track_color_1_summary">Szín beállítása az első nyomvonalhoz</string>
+    <string name="track_color_speed_high_summary">Szín beállítása a nagy sebességhez</string>
+    <string name="track_color_5_summary">Szín beállítása az ötödik nyomvonalhoz</string>
 </resources>
