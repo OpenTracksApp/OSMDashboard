@@ -113,56 +113,151 @@
             android:key="@string/APP_PREF_TRACK_COLOR_1"
             android:summary="@string/track_color_1_summary"
             android:title="@string/track_color_1_title"
-            app:indicatorColorPreview="true" />
+            app:indicatorColorPreview="true"
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_2_default"
             android:key="@string/APP_PREF_TRACK_COLOR_2"
             android:summary="@string/track_color_2_summary"
             android:title="@string/track_color_2_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_3_default"
             android:key="@string/APP_PREF_TRACK_COLOR_3"
             android:summary="@string/track_color_3_summary"
             android:title="@string/track_color_3_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_4_default"
             android:key="@string/APP_PREF_TRACK_COLOR_4"
             android:summary="@string/track_color_4_summary"
             android:title="@string/track_color_4_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_5_default"
             android:key="@string/APP_PREF_TRACK_COLOR_5"
             android:summary="@string/track_color_5_summary"
             android:title="@string/track_color_5_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_speed_low_default"
             android:key="@string/APP_PREF_TRACK_COLOR_SPEED_LOW"
             android:summary="@string/track_color_speed_low_summary"
             android:title="@string/track_color_speed_low_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_speed_average_default"
             android:key="@string/APP_PREF_TRACK_COLOR_SPEED_AVERAGE"
             android:summary="@string/track_color_speed_average_summary"
             android:title="@string/track_color_speed_average_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
+
         <com.github.koston.preference.ColorPreference
             style="@style/AppTheme.PreferenceDialog"
             android:defaultValue="@color/track_color_speed_high_default"
             android:key="@string/APP_PREF_TRACK_COLOR_SPEED_HIGH"
             android:summary="@string/track_color_speed_high_summary"
             android:title="@string/track_color_speed_high_title"
-            app:indicatorColorPreview="true" />
+            app:barsLength="@dimen/defaultBarLength"
+            app:barsPointerHaloRadius="@dimen/defaultBarPointerHaloRadius"
+            app:barsPointerRadius="@dimen/defaultBarPointerRadius"
+            app:barsThickness="@dimen/defaultBarThickness"
+            app:hueCenterCircleHaloRadius="@dimen/defaultCenterHaloRadius"
+            app:hueCenterCircleRadius="@dimen/defaultCenterRadius"
+            app:huePointerHaloRadius="@dimen/defaultPointerHaloRadius"
+            app:huePointerRadius="@dimen/defaultPointerRadius"
+            app:hueWheelRadius="@dimen/defaultWheelRadius"
+            app:hueWheelThickness="@dimen/defaultWheelThickness"
+            app:indicatorColorPreview="true"
+            app:pointersHaloColor="@color/defaultPointerHaloColor" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/menu_advanced">
