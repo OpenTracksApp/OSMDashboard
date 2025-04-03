@@ -17,6 +17,7 @@ import org.oscim.map.Map
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Locale
 
 
 data class MapData(
@@ -57,9 +58,9 @@ data class MapData(
         polylinesLayer.layers.add(polyline)
 
         if (endPoint != null) {
-            polyline!!.addPoint(endPoint!!.latLong!!)
+            polyline!!.addPoint(endPoint!!.latLong)
         } else if (startPoint != null) {
-            polyline!!.addPoint(startPoint!!.latLong!!)
+            polyline!!.addPoint(startPoint!!.latLong)
         }
 
         addPoint(trackpoint)
@@ -76,7 +77,7 @@ data class MapData(
 
     private fun addPoint(trackpoint: Trackpoint) {
         endPoint = trackpoint
-        polyline!!.addPoint(trackpoint.latLong!!)
+        polyline!!.addPoint(trackpoint.latLong)
         if (startPoint == null) {
             startPoint = endPoint
             MarkerItem(
@@ -98,20 +99,18 @@ data class MapData(
         endPoint = null
     }
 
-    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-        .withLocale(context.resources.configuration.locales[0])
+    private val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+        .withLocale(context.resources.configuration.locales[0] ?: Locale.getDefault())
         .withZone(ZoneId.systemDefault())
 
     fun addPauseMarker(trackpoint: Trackpoint) {
-        trackpoint.latLong?.let {
-            val marker = MapUtils.createMarker(
-                latLong = it,
-                title = context.getString(R.string.pause_title),
-                description = createDescription(trackpoint),
-                markerSymbol = pauseMarkerSymbol
-            )
-            waypointsLayer.addItem(marker)
-        }
+        val marker = MapUtils.createMarker(
+            latLong = trackpoint.latLong,
+            title = context.getString(R.string.pause_title),
+            description = createDescription(trackpoint),
+            markerSymbol = pauseMarkerSymbol
+        )
+        waypointsLayer.addItem(marker)
     }
 
     private fun createDescription(trackpoint: Trackpoint): String {
@@ -119,8 +118,8 @@ data class MapData(
         return context.getString(
             R.string.marker_where_when_description,
             dateTime,
-            trackpoint.latLong?.latitude,
-            trackpoint.latLong?.longitude
+            trackpoint.latLong.latitude,
+            trackpoint.latLong.longitude
         )
     }
 
@@ -144,7 +143,7 @@ data class MapData(
                     }
                 } else {
                     endMarker?.let {
-                        it.geoPoint = endPoint.latLong!!
+                        it.geoPoint = endPoint.latLong
                         it.setRotation(rotation)
                         it.description = description
                         waypointsLayer.populate()
