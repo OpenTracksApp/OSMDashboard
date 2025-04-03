@@ -1,3 +1,4 @@
 - New: make track colors configurable
+- Fix: NullPointer-Exception in MapData
 - Updated translations
 - Updated dependencies

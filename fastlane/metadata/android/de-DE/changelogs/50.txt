@@ -1,3 +1,4 @@
 - Neu: Trackfarben sind nun konfigurierbar
+- Fix: NullPointer-Exception in MapData
 - Übersetzungen aktualisiert
 - Abhängigkeiten aktualisiert
