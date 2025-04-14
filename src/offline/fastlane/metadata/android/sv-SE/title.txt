@@ -1,1 +1,1 @@
-Ej uppkopplad OSM Dashboard för OpenTracks
+Ej uppkopplad OSM-instrumentpanel för OpenTracks
