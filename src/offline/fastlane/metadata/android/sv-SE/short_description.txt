@@ -1,1 +1,1 @@
-OpenStreetMap dashboard för OpenTracks utan internettillstånd
+OpenStreetMap-instrumentpanel för OpenTracks utan interneträttighet
