@@ -1,0 +1,23 @@
+لوحة معلومات OpenStreetMap لـ <a href="https://github.com/OpenTracksApp/OpenTracks">OpenTracks</a>.
+يمكن أيضًا استخدامها كعارض مستقل لملفات GPX والمواقع.
+
+تعرض مسارًا محددًا مع نقاط البداية والنهاية على خريطة من <a href="https://openstreetmap.org">OpenStreetMap</a> بناءً على مكتبة <a href="https://github.com/mapsforge/vtm">Mapsforge VTM</a>.
+الافتراضي هو خريطة عبر الإنترنت، ولكن الخرائط دون اتصال مدعومة أيضًا. مع الخرائط دون اتصال، ليست هناك حاجة لباقة بيانات الهاتف المحمول.
+
+الخريطة الافتراضية مقدمة من <a href="https://openstreetmap.org">OpenStreetMap.org</a>.
+انضم إلى المجتمع وساعد في تحسين الخريطة، انظر <a href="https://www.openstreetmap.org/fixthemap">www.openstreetmap.org/fixthemap</a>
+
+يرجى التفكير في تنزيل خريطة دون اتصال لتقليل الحمل على الخادم وحفظ باقة بيانات هاتفك المحمول.
+يمكن العثور على بعض الخرائط دون اتصال هنا:
+
+<a href="http://download.mapsforge.org/">Mapsforge</a>
+
+<a href="https://www.freizeitkarte-osm.de/android/en/">Freizeitkarte Android</a>
+
+<a href="https://www.openandromaps.org/en">OpenAndroMaps</a>
+
+بعض الخرائط تتطلب سمات خاصة للعرض بشكل صحيح! يجب تنزيلها وتكوينها وفقًا لذلك.
+
+يمكن تنزيل الخرائط دون اتصال عبر قائمة "تنزيل الخريطة" أو عن طريق زيارة المواقع المذكورة أعلاه والنقر على روابط التنزيل. بعض المتصفحات (مثل Firefox) تتطلب نقرة طويلة على الرابط و "فتح الرابط في تطبيق خارجي" ثم اختيار OSMDashboard.
+
+الخرائط التي تم تنزيلها يدويًا دون اتصال أو الخرائط المشتركة مع تطبيقات أخرى يمكن فتحها من جهاز Android الخاص بك. حدد المجلد في قائمة "مجلد الخريطة".
