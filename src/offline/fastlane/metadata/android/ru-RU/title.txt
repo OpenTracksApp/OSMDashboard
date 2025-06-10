@@ -1,0 +1,1 @@
+Панель OSM для OpenTracks: офлайн
