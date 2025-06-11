@@ -1,0 +1,1 @@
+Панель OpenStreetMap — дополнение к OpenTracks чтобы показывать пути
