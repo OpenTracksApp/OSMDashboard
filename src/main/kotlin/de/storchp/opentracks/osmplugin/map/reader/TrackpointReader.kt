@@ -42,7 +42,7 @@ object TrackpointReader {
     )
 
     /**
-     * Reads the Trackpoints from the Content Uri and split by segments.
+     * Reads the Trackpoints from the Content Uri and splits by segments.
      * Pause Trackpoints and different Track IDs split the segments.
      */
     fun readTrackpointsBySegments(
@@ -68,7 +68,7 @@ object TrackpointReader {
             null
         ).use { cursor ->
             var lastTrackpoint: Trackpoint? = null
-            while (cursor!!.moveToNext()) {
+            while (cursor?.moveToNext() == true) {
                 debug.trackpointsReceived++
                 val id = cursor.getLong(cursor.getColumnIndexOrThrow(ID))
                 val trackId = cursor.getLong(cursor.getColumnIndexOrThrow(TRACKID))
