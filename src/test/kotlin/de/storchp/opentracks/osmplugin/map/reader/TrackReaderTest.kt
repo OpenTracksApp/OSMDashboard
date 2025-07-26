@@ -4,7 +4,10 @@ import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
 import de.storchp.opentracks.osmplugin.map.model.Track
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -43,7 +46,7 @@ class TrackReaderTest {
 
     @Test
     fun readTracks() {
-        var track = createTrack()
+        val track = createTrack()
         every {
             contentResolver.query(
                 testUri,

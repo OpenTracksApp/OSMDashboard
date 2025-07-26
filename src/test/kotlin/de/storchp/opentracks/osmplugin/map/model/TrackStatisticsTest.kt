@@ -15,7 +15,7 @@ class TrackStatisticsTest {
         assertThat(stats.startTime).isEqualTo(track1.startTime)
         assertThat(stats.stopTime).isEqualTo(track1.stopTime)
         assertThat(stats.totalDistanceMeter).isEqualTo(track1.totalDistanceMeter)
-        assertThat(stats.movingTime).isEqualTo(track1.movingTime)
+        assertThat(stats.movingTime!!).isEqualTo(track1.movingTime!!)
         assertThat(stats.avgSpeedMeterPerSecond).isEqualTo(track1.avgSpeedMeterPerSecond)
         assertThat(stats.avgMovingSpeedMeterPerSecond).isEqualTo(track1.avgMovingSpeedMeterPerSecond)
         assertThat(stats.maxSpeedMeterPerSecond).isEqualTo(track1.maxSpeedMeterPerSecond)

@@ -4,7 +4,10 @@ import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
 import de.storchp.opentracks.osmplugin.map.model.Waypoint
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -35,8 +38,8 @@ class WaypointReaderTest {
 
     @Test
     fun testReadWaypoints() {
-        var waypoint2 = createWaypoint().copy(id = 2, latLong = GeoPoint(0, 0))
-        var waypoint3 = createWaypoint().copy(id = 3)
+        val waypoint2 = createWaypoint().copy(id = 2, latLong = GeoPoint(0, 0))
+        val waypoint3 = createWaypoint().copy(id = 3)
         every {
             contentResolver.query(
                 testUri,

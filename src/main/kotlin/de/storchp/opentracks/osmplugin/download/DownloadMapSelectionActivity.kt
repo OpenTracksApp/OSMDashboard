@@ -111,7 +111,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
                     }
                 }
                 items.sorted()
-                runOnUiThread({ adapter.addAll(items) })
+                runOnUiThread { adapter.addAll(items) }
             } catch (e: IOException) {
                 throw RuntimeException(e)
             }

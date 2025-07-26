@@ -8,15 +8,16 @@ import android.net.Uri
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.map.MapMode
 import de.storchp.opentracks.osmplugin.map.SpeedColors
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.toMapMode
-import androidx.core.net.toUri
-import androidx.core.content.edit
 
+@Suppress("SameParameterValue")
 object PreferencesUtils {
     private val TAG: String = PreferencesUtils::class.java.getSimpleName()
     private lateinit var sharedPrefs: SharedPreferences

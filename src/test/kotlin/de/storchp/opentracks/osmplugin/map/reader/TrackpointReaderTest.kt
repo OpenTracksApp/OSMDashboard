@@ -7,7 +7,10 @@ import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_PAUSE
 import de.storchp.opentracks.osmplugin.map.model.TRACKPOINT_TYPE_TRACKPOINT
 import de.storchp.opentracks.osmplugin.map.model.Trackpoint
 import de.storchp.opentracks.osmplugin.map.model.TrackpointsDebug
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -39,8 +42,8 @@ class TrackpointReaderTest {
 
     @Test
     fun readTracksV1() {
-        var trackpoint1 = createTrackpoint()
-        var trackpoint2 =
+        val trackpoint1 = createTrackpoint()
+        val trackpoint2 =
             createTrackpoint().copy(id = 3L, type = TRACKPOINT_TYPE_PAUSE, speed = 0.0)
 
         every {
@@ -99,8 +102,8 @@ class TrackpointReaderTest {
 
     @Test
     fun readTracksV2() {
-        var trackpoint1 = createTrackpoint()
-        var trackpoint2 =
+        val trackpoint1 = createTrackpoint()
+        val trackpoint2 =
             createTrackpoint().copy(id = 3L, type = TRACKPOINT_TYPE_PAUSE, speed = 0.0)
         every {
             contentResolver.query(

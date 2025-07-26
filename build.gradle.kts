@@ -40,7 +40,7 @@ android {
     defaultConfig {
         compileSdk = 35
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 51
         versionName = "6.3.0"
         applicationId = "de.storchp.opentracks.osmplugin"
