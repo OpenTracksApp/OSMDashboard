@@ -87,22 +87,6 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
             </intent-filter>
-            <!-- intent filter for all gpx links, independent of mime types -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-                <data android:host="*" />
-                <data android:pathPattern=".*\\.gpx" />
-                <data android:pathPattern=".*\\..*\\.gpx" />
-                <data android:pathPattern=".*\\..*\\..*\\.gpx" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.gpx" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gpx" />
-            </intent-filter>
             <!-- intent filter for local GPX files -->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
