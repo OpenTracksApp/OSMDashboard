@@ -1,0 +1,3 @@
+- Fix: NullPointer-Exception in TrackPointReader
+- Updated translations
+- Updated dependencies

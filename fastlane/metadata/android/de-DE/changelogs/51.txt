@@ -1,0 +1,3 @@
+- Fix: NullPointer-Exception in TrackPointReader
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert

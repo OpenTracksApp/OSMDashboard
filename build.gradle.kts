@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.ByteArrayOutputStream
 import java.nio.charset.Charset
 
@@ -40,8 +41,8 @@ android {
         compileSdk = 35
         minSdk = 26
         targetSdk = 35
-        versionCode = 50
-        versionName = "6.2.0"
+        versionCode = 51
+        versionName = "6.3.0"
         applicationId = "de.storchp.opentracks.osmplugin"
 
         testInstrumentationRunnerArguments += mapOf("runnerBuilder" to "de.mannodermaus.junit5.AndroidJUnit5Builder")
@@ -89,8 +90,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     flavorDimensions += "default"
