@@ -5,8 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
@@ -15,15 +13,14 @@ import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 
 abstract class DirectoryChooserActivity : AppCompatActivity() {
     protected val directoryIntentLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult<Intent, ActivityResult>(StartActivityForResult(),
-            ActivityResultCallback { result ->
-                if (result.resultCode == RESULT_OK && result.data != null) {
-                    onActivityResultOk(result.data!!)
-                } else {
-                    onActivityResultCancel()
-                }
-                finish()
-            })
+        registerForActivityResult(StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK && result.data != null) {
+                onActivityResultOk(result.data!!)
+            } else {
+                onActivityResultCancel()
+            }
+            finish()
+        }
 
     abstract fun onActivityResultOk(resultData: Intent)
 

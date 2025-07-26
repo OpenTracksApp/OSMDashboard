@@ -167,7 +167,7 @@ class GpxParser() : DefaultHandler() {
     }
 
     private fun onTracksegmentEnd() {
-        if (segment.isEmpty() == true) {
+        if (segment.isEmpty()) {
             Log.w(TAG, "No Trackpoints in current segment.")
             return
         }

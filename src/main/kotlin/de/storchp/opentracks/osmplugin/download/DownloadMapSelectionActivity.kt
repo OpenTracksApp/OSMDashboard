@@ -9,6 +9,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.activity.enableEdgeToEdge
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -17,7 +18,6 @@ import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadMapSelectionBinding
 import org.jsoup.Jsoup
 import java.io.IOException
-import java.lang.RuntimeException
 
 const val MAPS_V_5_DOWNLOAD_URI: String =
     "https://ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/"
@@ -39,7 +39,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
         }
         setContentView(binding.getRoot())
 
-        pageUri = Uri.parse(MAPS_V_5_DOWNLOAD_URI)
+        pageUri = MAPS_V_5_DOWNLOAD_URI.toUri()
         val intent = getIntent()
         if (intent != null) {
             val mapDownloadUri = intent.data
@@ -80,7 +80,7 @@ class DownloadMapSelectionActivity : BaseActivity() {
                 }
             }
 
-        Thread(Runnable {
+        Thread {
             try {
                 val doc = Jsoup.connect(pageUri.toString()).get()
                 val rows = doc.select("tr")
@@ -111,11 +111,11 @@ class DownloadMapSelectionActivity : BaseActivity() {
                     }
                 }
                 items.sorted()
-                runOnUiThread(Runnable { adapter.addAll(items) })
+                runOnUiThread({ adapter.addAll(items) })
             } catch (e: IOException) {
                 throw RuntimeException(e)
             }
-        }).start()
+        }.start()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

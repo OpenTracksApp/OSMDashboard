@@ -20,19 +20,16 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import de.storchp.opentracks.osmplugin.BaseActivity
 import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityDownloadBinding
-import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadBroadcastReceiver
-import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
 import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity
 import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity.MapDirectoryChooserActivity
 import de.storchp.opentracks.osmplugin.settings.DirectoryChooserActivity.ThemeDirectoryChooserActivity
@@ -44,8 +41,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.lang.Exception
-import java.lang.RuntimeException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.zip.ZipEntry
@@ -109,11 +104,7 @@ class DownloadActivity : BaseActivity() {
                     )
                 ) {
                     // OpenAndroMaps URIs need to be remapped - mf-v4-map://download.openandromaps.org/mapsV4/Germany/bayern.zip
-                    downloadUri = Uri.parse(
-                        OPENANDROMAPS_MAP_DOWNLOAD_URL + path.substring(
-                            8
-                        )
-                    )
+                    downloadUri = (OPENANDROMAPS_MAP_DOWNLOAD_URL + path.substring(8)).toUri()
                     downloadType = DownloadType.MAP_ZIP
                 } else {
                     // try to replace MF_V4_MAP_SCHEME with https for unknown sources
@@ -127,11 +118,7 @@ class DownloadActivity : BaseActivity() {
                         && path.endsWith(".zip")
                     ) {
                         // no remapping, as they have themes only on their homepage, not on their ftp site
-                        Uri.parse(
-                            OPENANDROMAPS_THEME_DOWNLOAD_URL + path.substring(
-                                8
-                            )
-                        )
+                        (OPENANDROMAPS_THEME_DOWNLOAD_URL + path.substring(8)).toUri()
                     } else {
                         // try to replace MF_THEME_SCHEME with https for unknown sources
                         uri.buildUpon().scheme("https").build()
@@ -182,12 +169,13 @@ class DownloadActivity : BaseActivity() {
     }
 
     val directoryIntentLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult<Intent, ActivityResult>(StartActivityForResult(),
-            ActivityResultCallback { result ->
-                if (result.resultCode == RESULT_OK) {
-                    startDownload()
-                }
-            })
+        registerForActivityResult(
+            StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                startDownload()
+            }
+        }
 
     fun startDownload() {
         val directoryUri = downloadType.getDirectoryUri()
@@ -210,12 +198,12 @@ class DownloadActivity : BaseActivity() {
                 .setTitle(R.string.app_name)
                 .setMessage(getString(downloadType.overwriteMessageId, filename))
                 .setPositiveButton(
-                    android.R.string.ok,
-                    DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
-                        file.toFile().delete()
-                        dialog!!.dismiss()
-                        startDownload()
-                    })
+                    android.R.string.ok
+                ) { dialog: DialogInterface?, which: Int ->
+                    file.toFile().delete()
+                    dialog!!.dismiss()
+                    startDownload()
+                }
                 .setNegativeButton(android.R.string.cancel, null)
                 .create().show()
             return
@@ -240,7 +228,7 @@ class DownloadActivity : BaseActivity() {
         binding.progressBar.setMax(100)
         binding.progressBar.progress = 0
 
-        executor.execute(Runnable {
+        executor.execute {
             var progress = 0
             var isDownloadFinished = false
             while (!isDownloadFinished) {
@@ -276,18 +264,16 @@ class DownloadActivity : BaseActivity() {
                         }
                     }
             }
-        })
+        }
     }
 
-    private val mainHandler = Handler(Looper.getMainLooper(), object : Handler.Callback {
-        override fun handleMessage(msg: Message): Boolean {
-            if (msg.what == UPDATE_DOWNLOAD_PROGRESS) {
-                val downloadProgress = msg.arg1
-                binding.progressBar.progress = downloadProgress
-            }
-            return true
+    private val mainHandler = Handler(Looper.getMainLooper()) { msg ->
+        if (msg.what == UPDATE_DOWNLOAD_PROGRESS) {
+            val downloadProgress = msg.arg1
+            binding.progressBar.progress = downloadProgress
         }
-    })
+        true
+    }
 
     private inner class DownloadBroadcastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
@@ -303,7 +289,7 @@ class DownloadActivity : BaseActivity() {
                         if (status == DownloadManager.STATUS_SUCCESSFUL) {
                             val uri =
                                 cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI))
-                            downloadEnded(Uri.parse(uri))
+                            downloadEnded(uri.toUri())
                         }
                     }
                 }

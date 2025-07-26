@@ -1,6 +1,5 @@
 package de.storchp.opentracks.osmplugin.settings
 
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -23,14 +22,11 @@ import de.storchp.opentracks.osmplugin.R
 import de.storchp.opentracks.osmplugin.databinding.ActivityThemeSelectionBinding
 import de.storchp.opentracks.osmplugin.databinding.ThemeItemBinding
 import de.storchp.opentracks.osmplugin.download.DownloadActivity.DownloadType
-import de.storchp.opentracks.osmplugin.settings.ThemeSelectionActivity.MapThemeDirScanner
 import de.storchp.opentracks.osmplugin.utils.FileUtil
 import de.storchp.opentracks.osmplugin.utils.PreferencesUtils
 import org.oscim.theme.ZipXmlThemeResourceProvider
 import java.io.BufferedInputStream
 import java.io.File
-import java.lang.Exception
-import java.lang.RuntimeException
 import java.lang.ref.WeakReference
 import java.nio.file.Files
 import java.util.zip.ZipInputStream
@@ -101,28 +97,26 @@ class ThemeSelectionActivity : AppCompatActivity() {
             .setIcon(R.drawable.ic_logo_color_24dp)
             .setTitle(R.string.app_name)
             .setMessage(getString(R.string.delete_theme_question, fileItem.name))
-            .setPositiveButton(
-                android.R.string.ok,
-                DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
-                    var deleted: Boolean
-                    if ("file" == uri.scheme) {
-                        deleted = uri.toFile().delete()
-                    } else {
-                        val file = FileUtil.getDocumentFileFromTreeUri(this, uri)
-                        deleted = file!!.delete()
-                    }
-                    if (deleted) {
-                        adapter.remove(fileItem)
-                        adapter.selectedUri = null
-                        adapter.notifyDataSetChanged()
-                    } else {
-                        Toast.makeText(
-                            this,
-                            R.string.delete_theme_error,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                var deleted: Boolean
+                if ("file" == uri.scheme) {
+                    deleted = uri.toFile().delete()
+                } else {
+                    val file = FileUtil.getDocumentFileFromTreeUri(this, uri)
+                    deleted = file!!.delete()
+                }
+                if (deleted) {
+                    adapter.remove(fileItem)
+                    adapter.selectedUri = null
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(
+                        this,
+                        R.string.delete_theme_error,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
             .setNegativeButton(android.R.string.cancel, null)
             .create().show()
         return true
@@ -155,11 +149,11 @@ class ThemeSelectionActivity : AppCompatActivity() {
                 }
             }
 
-            activity.runOnUiThread(Runnable {
+            activity.runOnUiThread {
                 activity.adapter.addAll(items)
                 activity.adapter.notifyDataSetChanged()
                 activity.binding.progressBar.visibility = View.GONE
-            })
+            }
         }
     }
 

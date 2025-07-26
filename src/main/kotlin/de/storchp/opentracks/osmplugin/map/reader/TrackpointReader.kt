@@ -64,7 +64,7 @@ object TrackpointReader {
             data,
             projection,
             "$ID> ?$typeQuery",
-            arrayOf<String>((lastId ?: 0L).toString()),
+            arrayOf((lastId ?: 0L).toString()),
             null
         ).use { cursor ->
             var lastTrackpoint: Trackpoint? = null

@@ -5,7 +5,6 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +13,11 @@ import de.storchp.opentracks.osmplugin.settings.SettingsActivity
 abstract class BaseActivity : AppCompatActivity() {
 
     val settingsActivityResultLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult<Intent, ActivityResult>(
-            StartActivityForResult(),
-            ActivityResultCallback { result: ActivityResult? -> recreate() })
+        registerForActivityResult(
+            StartActivityForResult()
+        ) { result: ActivityResult? -> recreate() }
 
-    @Suppress("unused")
-    fun openSettings(view: View?) {
+    fun openSettings(@Suppress("unused") view: View?) {
         settingsActivityResultLauncher.launch(Intent(this, SettingsActivity::class.java))
     }
 

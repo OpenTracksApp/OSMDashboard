@@ -14,6 +14,8 @@ import de.storchp.opentracks.osmplugin.map.MapMode
 import de.storchp.opentracks.osmplugin.map.SpeedColors
 import de.storchp.opentracks.osmplugin.map.TrackColorMode
 import de.storchp.opentracks.osmplugin.map.toMapMode
+import androidx.core.net.toUri
+import androidx.core.content.edit
 
 object PreferencesUtils {
     private val TAG: String = PreferencesUtils::class.java.getSimpleName()
@@ -125,7 +127,7 @@ object PreferencesUtils {
 
     private fun parseUri(value: String?) =
         try {
-            Uri.parse(value)
+            value?.toUri()
         } catch (_: Exception) {
             Log.e(TAG, "can't read Uri string $value")
             null
@@ -150,15 +152,15 @@ object PreferencesUtils {
         )
 
     private fun setString(keyId: Int, value: String?) {
-        sharedPrefs.edit()
-            .putString(getKey(keyId), value)
-            .apply()
+        sharedPrefs.edit {
+            putString(getKey(keyId), value)
+        }
     }
 
     private fun setStringSet(keyId: Int, values: Set<String>) {
-        sharedPrefs.edit()
-            .putStringSet(getKey(keyId), values)
-            .apply()
+        sharedPrefs.edit {
+            putStringSet(getKey(keyId), values)
+        }
     }
 
     private fun getStringSet(keyId: Int, defaultValue: Set<String>) =
@@ -174,9 +176,9 @@ object PreferencesUtils {
         )
 
     private fun setBoolean(keyId: Int, value: Boolean) {
-        sharedPrefs.edit()
-            .putBoolean(getKey(keyId), value)
-            .apply()
+        sharedPrefs.edit {
+            putBoolean(getKey(keyId), value)
+        }
     }
 
     private fun getInt(keyId: Int, defaultValue: Int) =

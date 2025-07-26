@@ -11,11 +11,11 @@ data class DownloadMapItem(
 ) : Comparable<DownloadMapItem> {
     override fun toString() = this.name
 
-    override fun compareTo(o: DownloadMapItem) =
-        if (downloadItemType != o.downloadItemType) {
-            downloadItemType.compareTo(o.downloadItemType)
+    override fun compareTo(other: DownloadMapItem) =
+        if (downloadItemType != other.downloadItemType) {
+            downloadItemType.compareTo(other.downloadItemType)
         } else {
-            name.compareTo(o.name)
+            name.compareTo(other.name)
         }
 
 }

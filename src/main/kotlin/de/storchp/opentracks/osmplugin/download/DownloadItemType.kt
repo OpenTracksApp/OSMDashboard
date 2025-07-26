@@ -8,6 +8,4 @@ enum class DownloadItemType(val iconResId: Int, val alt: String) {
 }
 
 fun String.toDownloadItemType() =
-    DownloadItemType.entries
-        .filter { downloadItemType: DownloadItemType? -> downloadItemType!!.alt == this }
-        .firstOrNull()
+    DownloadItemType.entries.firstOrNull { it.alt == this }

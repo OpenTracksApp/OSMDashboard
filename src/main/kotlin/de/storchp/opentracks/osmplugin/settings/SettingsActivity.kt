@@ -46,7 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         private val sharedPreferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences, key ->
                 if (PreferencesUtils.isKey(R.string.night_mode_key, key)) {
-                    requireActivity().runOnUiThread(Runnable { PreferencesUtils.applyNightMode() })
+                    requireActivity().runOnUiThread { PreferencesUtils.applyNightMode() }
                 }
             }
 

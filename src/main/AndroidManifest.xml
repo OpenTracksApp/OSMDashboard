@@ -88,7 +88,7 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
             </intent-filter>
             <!-- intent filter for all gpx links, independent of mime types -->
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -139,7 +139,7 @@
 
                 <data android:scheme="mf-theme" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 
@@ -150,7 +150,7 @@
                 <data android:host="download.mapsforge.org" />
                 <data android:pathPattern=".*\\.map" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 
@@ -162,7 +162,7 @@
                 <data android:pathPattern="/android/latest/.*\\.map\\.zip" />
                 <data android:pathPattern="/android/latest/.*\\.zip" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 
@@ -173,7 +173,7 @@
                 <data android:host="ftp.gwdg.de" />
                 <data android:pathPattern="/pub/misc/openstreetmap/openandromaps/mapsV4/.*\\.zip" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 

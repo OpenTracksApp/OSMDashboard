@@ -78,10 +78,7 @@ import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
-import java.lang.Exception
-import java.lang.RuntimeException
 import java.util.Collections
-import java.util.Objects
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.ZipInputStream
 
@@ -127,8 +124,8 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         createLayers()
         map.getMapPosition().setZoomLevel(MAP_DEFAULT_ZOOM_LEVEL)
 
-        binding.map.fullscreenButton.setOnClickListener(View.OnClickListener { v -> switchFullscreen() })
-        binding.map.settingsButton.setOnClickListener(View.OnClickListener { v -> openSettings(null) })
+        binding.map.fullscreenButton.setOnClickListener { v -> switchFullscreen() }
+        binding.map.settingsButton.setOnClickListener { v -> openSettings(null) }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -152,10 +149,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                     .setTitle(R.string.app_name)
                     .setMessage(R.string.add_marker_to_open_tracks)
                     .setPositiveButton(
-                        android.R.string.ok,
-                        DialogInterface.OnClickListener { _: DialogInterface?, _: Int ->
-                            startOpenTracksToAddNewMarker(e, trackId)
-                        })
+                        android.R.string.ok
+                    ) { _: DialogInterface?, _: Int ->
+                        startOpenTracksToAddNewMarker(e, trackId)
+                    }
                     .setNegativeButton(android.R.string.cancel, null)
                     .create().show()
             }
@@ -240,7 +237,9 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             if (trackStatistics != null) {
                 PreferencesUtils.getStatisticElements()
                     .sortedBy { it.ordinal }
-                    .forEach { it.getText(this, trackStatistics)?.let { addStatisticElement(it) } }
+                    .forEach {
+                        it.getText(this, trackStatistics)?.let { text -> addStatisticElement(text) }
+                    }
             }
         }
 
@@ -342,14 +341,10 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
                 }
                 return StreamRenderTheme("/assets/", FileInputStream(themeFile))
             } else {
-                val renderThemeFile: DocumentFile? =
+                val renderThemeFile =
                     checkNotNull(DocumentFile.fromSingleUri(application, mapTheme))
-                var themeFileUri = renderThemeFile!!.uri
-                if (Objects.requireNonNull<String?>(
-                        renderThemeFile.name,
-                        "Theme files must have a name"
-                    ).endsWith(".zip")
-                ) {
+                var themeFileUri = renderThemeFile.uri
+                if (renderThemeFile.name?.endsWith(".zip") == true) {
                     val fragment = themeFileUri.fragment
                     if (fragment != null) {
                         themeFileUri = themeFileUri.buildUpon().fragment(null).build()
@@ -458,7 +453,6 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
         val mapFile = getMapFile()
         map.layers().add(MapEventsReceiver(map))
 
-        @Suppress("KotlinConstantConditions")
         if (mapFile != null) {
             val tileLayer = map.setBaseMap(mapFile)
             loadTheme()
@@ -509,7 +503,7 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
         tileSource.setHttpEngine(OkHttpFactory(builder))
         tileSource.setHttpRequestHeaders(
-            Collections.singletonMap<String?, String?>(
+            Collections.singletonMap(
                 "User-Agent",
                 getString(R.string.app_name) + ":" + BuildConfig.APPLICATION_ID
             )
@@ -529,11 +523,11 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
             .setTitle(R.string.app_name)
             .setMessage(message)
             .setPositiveButton(
-                android.R.string.ok,
-                DialogInterface.OnClickListener { _: DialogInterface?, _: Int ->
-                    PreferencesUtils.setOnlineMapConsent(true)
-                    recreate()
-                })
+                android.R.string.ok
+            ) { _: DialogInterface?, _: Int ->
+                PreferencesUtils.setOnlineMapConsent(true)
+                recreate()
+            }
             .setNegativeButton(android.R.string.cancel, null)
             .create()
         dialog.show()
@@ -598,20 +592,20 @@ open class MapsActivity : BaseActivity(), OnItemGestureListener<MarkerInterface>
 
         if (markerItem.uid != null) {
             dialogBuilder.setNeutralButton(
-                R.string.open_in_open_tracks,
-                DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
-                    try {
-                        val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
-                        intent.putExtra(EXTRA_MARKER_ID, markerItem.uid as Long)
-                        startActivity(intent)
-                    } catch (ex: Exception) {
-                        Toast.makeText(
-                            this,
-                            getString(R.string.error_starting_open_tracks, ex.message),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+                R.string.open_in_open_tracks
+            ) { dialog: DialogInterface?, which: Int ->
+                try {
+                    val intent = Intent("de.dennisguse.opentracks.MarkerDetails")
+                    intent.putExtra(EXTRA_MARKER_ID, markerItem.uid as Long)
+                    startActivity(intent)
+                } catch (ex: Exception) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.error_starting_open_tracks, ex.message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
 
         dialogBuilder.create().show()

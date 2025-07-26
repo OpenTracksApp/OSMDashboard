@@ -1,6 +1,5 @@
 package de.storchp.opentracks.osmplugin.settings
 
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -118,24 +117,22 @@ class MapSelectionActivity : AppCompatActivity() {
             .setIcon(R.drawable.ic_logo_color_24dp)
             .setTitle(R.string.app_name)
             .setMessage(getString(R.string.delete_map_question, fileItem.name))
-            .setPositiveButton(
-                android.R.string.ok,
-                DialogInterface.OnClickListener { dialog: DialogInterface?, which: Int ->
-                    var deleted: Boolean = if (fileItem.file != null) {
-                        fileItem.file.delete()
-                    } else {
-                        fileItem.documentFile!!.delete()
-                    }
-                    if (deleted) {
-                        adapter.remove(fileItem)
-                    } else {
-                        Toast.makeText(
-                            this,
-                            R.string.delete_map_error,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                val deleted = if (fileItem.file != null) {
+                    fileItem.file.delete()
+                } else {
+                    fileItem.documentFile!!.delete()
+                }
+                if (deleted) {
+                    adapter.remove(fileItem)
+                } else {
+                    Toast.makeText(
+                        this,
+                        R.string.delete_map_error,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
             .setNegativeButton(android.R.string.cancel, null)
             .create().show()
         return true
