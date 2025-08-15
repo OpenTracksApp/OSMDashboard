@@ -1,0 +1,8 @@
+steps:
+  build:
+    image: androidsdk/android-31
+    commands:
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk-headless
+      - update-java-alternatives -a
+      - ./gradlew lint
