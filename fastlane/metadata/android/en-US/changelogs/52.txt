@@ -1,0 +1,3 @@
+- Aktivate largeHeap setting to fix memory issues #516
+- Updated translations
+- Updated dependencies

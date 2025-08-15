@@ -1,0 +1,3 @@
+- Aktivierung der largeHeap Einstellung, um Speicherprobleme zu beheben #516
+- Übersetzungen aktualisiert
+- Abhängigkeiten aktualisiert
