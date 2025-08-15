@@ -36,7 +36,7 @@
     <string name="stat_category" translatable="false"><![CDATA[<b>%1$s</b>]]></string>
     <string name="stat_time" translatable="false"><![CDATA[<b>%1$s</b>]]></string>
 
-    <string name="report_issue_link" translatable="false">https://github.com/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
+    <string name="report_issue_link" translatable="false">https://codeberg.org/OpenTracksApp/OSMDashboard/issues/new?labels=bug&amp;body=%1$s</string>
 
     <string name="track_color_mode_default" translatable="false">BY_SPEED</string>
     <string name="map_mode_default" translatable="false">NORTH</string>
