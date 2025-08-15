@@ -1,5 +1,7 @@
 steps:
   build:
+    when:
+      event: [ push, pull_request ]
     image: androidsdk/android-31
     commands:
       - apt-get update
